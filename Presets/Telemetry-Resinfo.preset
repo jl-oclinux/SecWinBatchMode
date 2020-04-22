@@ -1,0 +1,6 @@
+##########
+# Preset telemetrie
+
+### Privacy Tweaks ###
+DisableTelemetry                # EnableTelemetry
+DisableWiFiSense                # EnableWiFiSense

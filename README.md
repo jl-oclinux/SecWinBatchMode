@@ -20,6 +20,14 @@ Pour mettre à jour :
     git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
 
 
+## preset
+Un preset  par paragraphe de l'ANSSI
+ preset Télémétrie
+ preset Cortana et search
+ preset Paramètres de personnalisation del'expérience utilisateur
+ preset Applications universelles
+ preset Cloud
+
 ## Usage
 
 ### Usage direct depuis PowerShell

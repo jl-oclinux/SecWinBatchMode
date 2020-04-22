@@ -1,5 +1,12 @@
 # swmb
 
+Confidentilité et vie privée sur Windows 10 à l'aide de scripts Powershell
+
+Document de référence :
+[https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
+
+
+
 ## Scripts Powershell Disassembler0
 Ce projet s'appuie sur le projet :
 [https://github.com/Disassembler0/Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script)
@@ -11,3 +18,14 @@ Ce project est ajouté en tant que subtree
 Pour mettre à jour :
 
     git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
+
+
+## Usage
+
+### Usage direct depuis PowerShell
+
+.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-swmb.ps1"  nom-fonction
+.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-swmb.ps1 -preset preset-resinfo.txt
+
+
+### Intégration dans un autre projet git

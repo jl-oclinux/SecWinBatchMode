@@ -32,8 +32,8 @@ Un preset  par paragraphe de l'ANSSI
 
 ### Usage direct depuis PowerShell
 
-.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-swmb.ps1"  nom-fonction
-.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-swmb.ps1 -preset Presets/preset-resinfo.txt
+> .\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-swmb.ps1"  nom-fonction
+> .\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-swmb.ps1 -preset Presets/preset-resinfo.txt
 
 
 ### Intégration dans un autre projet git

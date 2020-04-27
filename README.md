@@ -22,11 +22,11 @@ Pour mettre à jour :
 
 ## preset
 Un preset  par paragraphe de l'ANSSI
- preset Télémétrie
- preset Cortana et search
- preset Paramètres de personnalisation del'expérience utilisateur
- preset Applications universelles
- preset Cloud
+    preset Télémétrie
+    preset Cortana et search
+    preset Paramètres de personnalisation del'expérience utilisateur
+    preset Applications universelles
+    preset Cloud
 
 ## Usage
 

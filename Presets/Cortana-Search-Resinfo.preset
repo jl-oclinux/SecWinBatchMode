@@ -5,11 +5,12 @@
 # https://docs.microsoft.com/fr-fr/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services#2-cortana-et-recherche2-cortana-and-search
 
 DisableCortana
-DisableWebSearch
+DisableWebSearch # 3 clés => HKCU BingSearchEnabled/CortanaConsent et HKLM DisableWebSearch
 
 
 # Voir aussi ces clés :
 # "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowCortanaAboveLock" 0
 # "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowIndexingEncryptedStoresOrItems" 0
-# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchUseWeb" 0
+# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchUseWeb" 0 / remplacé par BingSearchEnabled ?
 # "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowSearchToUseLocation" 0
+# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchUseWebOverMeteredConnections" 0

@@ -1,0 +1,10 @@
+##########################
+###### Preset User Experience
+##########################
+
+
+DisableStepRecorder
+DisableAdvertisingID
+DisableAppSuggestions
+DisableLocation
+DisableSensors

@@ -16,7 +16,14 @@ DisableErrorReporting
 # Configuration ordinateur / Composants Windows / Rapport d'erreurs Windows / Envoyer automatiquement des images mémoires pour les rapports
 # key AutoApproveOSDumps
 # https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_1
+# GPO Desactivé par défaut
 # Add this function !
+
+# Configuration ordinateur / Composants Windows / Rapport d'erreurs Windows / Ne pas envoyer des données complémentaires
+# key DontSendAdditionalData
+# https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerNoSecondLevelData_1# GPO Desactivé par défaut
+# Add this function !
+
 
 
 # Configuration ordinateur / Composants Windows / Emplacement et capteurs / Desactiver l'emplacement

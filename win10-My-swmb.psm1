@@ -1,6 +1,6 @@
 $localAdminNameToSet = "sas-swmb"
 $localAdminNameOriginal = "administrateur"
-$InactivityTimeoutSecs = 20
+$InactivityTimeoutSecs = 1200
 
 Export-ModuleMember -Variable 'localAdminNameToSet'
 Export-ModuleMember -Variable 'localAdminNameOriginal'

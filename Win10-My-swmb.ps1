@@ -1,5 +1,5 @@
 $ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
-$ScriptDir += "\swmb-var-local.psm1"
+$ScriptDir += "\win10-My-swmb.psm1"
 Import-Module -name $ScriptDir -verbose
 
 #Renommage du compte administrateur

@@ -15,3 +15,4 @@ DisableRenameAdminAccount {
    $localAdminName = get-localuser |  where-object {($_.SID -like "S-1-5-21*-500")}
    Rename-LocalUser -Name $localAdminName.name -NewName $administrateur -ErrorAction SilentlyContinue
 }
+

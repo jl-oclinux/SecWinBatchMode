@@ -16,3 +16,15 @@ DisableRenameAdminAccount {
    Rename-LocalUser -Name $localAdminName.name -NewName $administrateur -ErrorAction SilentlyContinue
 }
 
+#ne pas afficher le nom du dernier utilisateur
+# Enable
+Function EnableDontDisplayLastUsername {
+	Write-Output "Ne pas afficher le dernier utilisateur..."
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "dontdisplaylastusername" -Type DWord -Value 1
+}
+
+# Disable
+Function DisableDontDisplayLastUsername {
+	Write-Output "Afficher le dernier utilisateur..."
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "dontdisplaylastusername" -Type DWord -Value 0
+}

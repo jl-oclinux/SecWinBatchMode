@@ -71,8 +71,26 @@ Function EnableHandwritingDataSharing {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
-# https://gpsearch.azurewebsites.net/#4740 (already in DisableTelemetry)
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4743
+Function DisableHandwritingRecognitionErrorReporting {
+	Write-Output "Turn off handwriting recognition error reportingr..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports"
+}
+
+# Enable
+Function EnableHandwritingRecognitionErrorReporting {
+	Write-Output "Turn on handwriting recognition error reportingr..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -ErrorAction SilentlyContinue
+}
+
+
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4727
 
 

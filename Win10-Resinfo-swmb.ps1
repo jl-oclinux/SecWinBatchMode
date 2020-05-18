@@ -37,6 +37,30 @@ Function EnableStepsRecorder {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat" -Name "DisableUAR" -ErrorAction SilentlyContinue
 }
 
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
+# https://gpsearch.azurewebsites.net/#4723
+Function DisableDidYouKnow {
+	Write-Output "Turn off Help and Support Center Did you know? content..."
+	If (!(Test-Path "HKLM\Software\Policies\Microsoft\PCHealth\HelpSvc")) {
+		New-Item -Path "HKLM\Software\Policies\Microsoft\PCHealth\HelpSvc" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 1
+}
+
+# Enable
+Function EnableDidYouKnow {
+	Write-Output "Enable Windows steps recorder..."
+	Set-ItemProperty -Path "HKLM\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 0 -ErrorAction SilentlyContinue
+}
+
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
+# https://gpsearch.azurewebsites.net/#4754
+# https://gpsearch.azurewebsites.net/#4740 (already in DisableTelemetry)
+# https://gpsearch.azurewebsites.net/#4743
+# https://gpsearch.azurewebsites.net/#4727
+
 
 # Export functions
 Export-ModuleMember -Function *

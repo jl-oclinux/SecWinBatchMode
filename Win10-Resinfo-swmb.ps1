@@ -50,13 +50,27 @@ Function DisableDidYouKnow {
 
 # Enable
 Function EnableDidYouKnow {
-	Write-Output "Enable Windows steps recorder..."
+	Write-Output "Turn on Help and Support Center Did you know? content..."
 	Set-ItemProperty -Path "HKLM\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
 # Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4754
+Function DisableHandwritingDataSharing {
+	Write-Output "Turn off handwriting personalization data sharing..."
+	If (!(Test-Path "HKLM\Software\Policies\Microsoft\Windows\TabletPC")) {
+		New-Item -Path "HKLM\Software\Policies\Microsoft\Windows\TabletPC" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 1
+}
+
+# Enable
+Function EnableHandwritingDataSharing {
+	Write-Output "Turn on handwriting personalization data sharing..."
+	Set-ItemProperty -Path "HKLM\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 0 -ErrorAction SilentlyContinue
+}
+
 # https://gpsearch.azurewebsites.net/#4740 (already in DisableTelemetry)
 # https://gpsearch.azurewebsites.net/#4743
 # https://gpsearch.azurewebsites.net/#4727

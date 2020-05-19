@@ -40,9 +40,9 @@ Un preset  par paragraphe de l'ANSSI
 
 
 ### Défintion de vos propres valeurs de variables
-Si vous souhaitez définir vos propres valeurs de variables dans le script Win10-My-swmb.psm1, procédez de la façon suivante :
-   - Créer un fichier nommé "Win10-MyVar-Post-swmb.psm1" dans le même répertoire que le script "Win10-MyVar-Pre-swmb.psm1"
-   - Définissez les valeurs de vos variables et exportez les de la même façon que dans le fichier Win10-MyVar-pre-swmb.psm1 
+Si vous souhaitez définir vos propres valeurs de variables utilisées le script Win10-My-swmb.psm1, procédez de la façon suivante :
+   - Créez un fichier nommé "Win10-MyVar-Post-swmb.psm1" dans le même répertoire que le script "Win10-MyVar-Pre-swmb.psm1"
+   - Définissez les valeurs de vos variables et exportez les de la même façon que dans le fichier "Win10-MyVar-pre-swmb.psm1"
  - Ex :
     $myLocalAdminNameToSet = "Ma valeur à moi"
     Export-ModuleMember -Variable 'myLocalAdminNameToSet'

@@ -2,9 +2,13 @@ $ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
 $ScriptDirPre = $ScriptDir+"\Win10-MyVar-Pre-swmb.psm1"
 Import-Module -name $ScriptDirPre
 
-### A décommencter si vous souhaitez utiliser vos propres variables
-# $ScriptDirPost = ScriptDir+"\Win10-MyVar-Post-swmb.psm1"
-# Import-Module -name $ScriptDirPost
+
+
+#Si le fichier personnelle de définition de variable existe, on ajoute le module*
+$ScriptDirPost = ScriptDir+"\Win10-MyVar-Post-swmb.psm1"
+if (Test-Path ScriptDirPost) {
+   Import-Module -name $ScriptDirPost
+}
 
 
 

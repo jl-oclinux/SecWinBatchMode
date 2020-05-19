@@ -3,7 +3,7 @@
 ##########################
 
 
-DisableStepRecorder
+DisableStepsRecorder
 DisableAdvertisingID
 DisableAppSuggestions
 
@@ -41,11 +41,14 @@ DisableErrorReporting
 # Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4723
+DisableDidYouKnow
 # https://gpsearch.azurewebsites.net/#4754
+DisableHandwritingDataSharing
 # https://gpsearch.azurewebsites.net/#4740 (already in DisableTelemetry)
 # https://gpsearch.azurewebsites.net/#4743
+DisableHandwritingRecognitionErrorReporting
 # https://gpsearch.azurewebsites.net/#4727
-# Add this function !
+DisableWindowsErrorReporting
 
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Emplacement et capteurs / Desactiver l'emplacement

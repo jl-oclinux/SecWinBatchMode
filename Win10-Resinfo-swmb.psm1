@@ -71,9 +71,44 @@ Function EnableHandwritingDataSharing {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
-# https://gpsearch.azurewebsites.net/#4740 (already in DisableTelemetry)
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4743
+Function DisableHandwritingRecognitionErrorReporting {
+	Write-Output "Turn off handwriting recognition error reporting..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports"  -Type DWord -Value 1
+}
+
+# Enable
+Function EnableHandwritingRecognitionErrorReporting {
+	Write-Output "Turn on handwriting recognition error reporting..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -ErrorAction SilentlyContinue
+}
+
+
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4727
+Function DisableWindowsErrorReporting {
+	Write-Output "Turn off Windows error reporting..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "DoReport"  -Type DWord -Value 0
+}
+
+# Enable
+Function EnableWindowsErrorReporting {
+	Write-Output "Turn on Windows error reporting..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting" -Name "DoReport" -ErrorAction SilentlyContinue
+}
+
+
+
+
 
 
 # Export functions

@@ -111,6 +111,19 @@ Function EnableWindowsErrorReporting {
 # key AutoApproveOSDumps
 # https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_2
 # GPO Desactivé par défaut
+Function DisableOsGeneratedReport {
+	Write-Output "Error reporting turn off OS-generated error reports"
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps"  -Type DWord -Value 0
+}
+
+# Enable
+Function EnableOsGeneratedReport {
+	Write-Output "Error reporting turn off OS-generated error reports"
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -ErrorAction SilentlyContinue
+}
 
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Ne pas envoyer des données complémentaires

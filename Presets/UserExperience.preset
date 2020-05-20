@@ -19,7 +19,7 @@ DisableErrorReporting
 # key AutoApproveOSDumps
 # https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_1
 # GPO Desactivé par défaut
-# Add this function !
+DisableOsGeneratedReport
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Ne pas envoyer des données complémentaires
 # key DontSendAdditionalData

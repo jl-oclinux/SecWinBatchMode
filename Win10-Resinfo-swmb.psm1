@@ -107,7 +107,29 @@ Function EnableWindowsErrorReporting {
 }
 
 
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Envoyer automatiquement des images mémoires pour les rapports
+# key AutoApproveOSDumps
+# https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_2
+# GPO Desactivé par défaut
 
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Ne pas envoyer des données complémentaires
+# key DontSendAdditionalData
+# https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerNoSecondLevelData_2
+# GPO activé par défaut
+Function DisableSendAdditionalData {
+	Write-Output "Error reporting don't Send Additional Data"
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData"  -Type DWord -Value 1
+}
+
+# Enable
+Function EnableSendAdditionalData {
+	Write-Output "Error reporting Send Additional Data"
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -ErrorAction SilentlyContinue
+}
 
 
 

@@ -25,7 +25,7 @@ DisableErrorReporting
 # key DontSendAdditionalData
 # https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerNoSecondLevelData_1# GPO Desactivé par défaut
 # GPO activé par défaut
-# Add this function !
+DisableSendAdditionalData
 
 # Configuration ordinateur / Modèles d'administration / Panneau de Configuration / Options Regionales et Linguistiques / Autoriser la personnalisation de la saisie
 # Add this function !
@@ -36,7 +36,6 @@ DisableErrorReporting
 
 
 # Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
-# ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4723
 DisableDidYouKnow
 # https://gpsearch.azurewebsites.net/#4754

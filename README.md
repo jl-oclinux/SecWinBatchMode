@@ -12,16 +12,16 @@ Ce projet s'appuie sur le projet :
 [https://github.com/Disassembler0/Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script)
 Ce project est ajouté en tant que subtree
 
-    ```bash
-    git remote add -f Win10-Initial https://github.com/Disassembler0/Win10-Initial-Setup-Script.git
-    git subtree add --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
-    ```
+```bash
+git remote add -f Win10-Initial https://github.com/Disassembler0/Win10-Initial-Setup-Script.git
+git subtree add --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
+```
 
 Pour mettre à jour :
 
-    ```bash
-    git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
-    ```
+```bash
+git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
+```
 
 
 ## Preset
@@ -49,9 +49,9 @@ Un preset  par paragraphe de l'ANSSI
 ### Défintion de vos propres valeurs de variables
 
 Si vous souhaitez définir vos propres valeurs de variables utilisées le script Win10-My-swmb.psm1, procédez de la façon suivante :
-   - Créez un fichier nommé "Win10-MyVar-Post-swmb.psm1" dans le même répertoire que le script "Win10-MyVar-Pre-swmb.psm1"
-   - Définissez les valeurs de vos variables et exportez les de la même façon que dans le fichier "Win10-MyVar-pre-swmb.psm1"
- - Exemple :
+ * Créez un fichier nommé "Win10-MyVar-Post-swmb.psm1" dans le même répertoire que le script "Win10-MyVar-Pre-swmb.psm1"
+ * Définissez les valeurs de vos variables et exportez les de la même façon que dans le fichier "Win10-MyVar-pre-swmb.psm1"
+ * Exemple :
     ```ps
     $myLocalAdminNameToSet = "Ma valeur à moi"
     Export-ModuleMember -Variable 'myLocalAdminNameToSet'

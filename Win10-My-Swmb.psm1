@@ -9,12 +9,12 @@
 #}
 
 $myScriptName = (Get-PSCallStack)[0].ScriptName
-$myScriptDir  = (Get-Item $myScriptName).DirectoryName
-$myScriptVarDefault  = $myScriptDir + (Get-Item $MyScriptName).Basename + '-VarDefault.psm1'
+$myScriptDir = (Get-Item $myScriptName).DirectoryName
+$myScriptVarDefault = $myScriptDir + (Get-Item $MyScriptName).Basename + '-VarDefault.psm1'
 Import-Module -name $myScriptVarDefault
 
 #Si le fichier personnel de définition de variable existe, on ajoute le module*
-$myScriptVarOverload  = $myScriptDir + (Get-Item $MyScriptName).Basename + '-VarOverload.psm1'
+$myScriptVarOverload = $myScriptDir + (Get-Item $MyScriptName).Basename + '-VarOverload.psm1'
 if (Test-Path myScriptVarYour) {
 	Import-Module -name $myScriptVarOverload
 }
@@ -28,14 +28,14 @@ if (Test-Path myScriptVarYour) {
 #Configuration ordinateur/Paramètres Windows/Paramètres de sécurité/stratégies locales/Options de sécurité
 #Enable
 Function EnableRenameAdminAccount {
-	$localAdminName = get-localuser |  where-object {($_.SID -like "S-1-5-21*-500")}
+	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameToSet -ErrorAction SilentlyContinue
 }
 
 #Disable
 Function DisableRenameAdminAccount {
-   $localAdminName = get-localuser |  where-object {($_.SID -like "S-1-5-21*-500")}
-   Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameOriginal -ErrorAction SilentlyContinue
+	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
+	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameOriginal -ErrorAction SilentlyContinue
 }
 
 #Ne pas afficher le nom du dernier utilisateur

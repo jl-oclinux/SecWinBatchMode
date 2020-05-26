@@ -1,13 +1,22 @@
-$ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
-$ScriptDirPre = $ScriptDir+"\Win10-MyVar-Pre-swmb.psm1"
-Import-Module -name $ScriptDirPre
+#$ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
+#$ScriptDirPre = $ScriptDir+"\Win10-MyVar-Pre-swmb.psm1"
+#Import-Module -name $ScriptDirPre
+#
+##Si le fichier personnel de définition de variable existe, on ajoute le module*
+#$ScriptDirPost = ScriptDir+"\Win10-MyVar-Post-swmb.psm1"
+#if (Test-Path ScriptDirPost) {
+#   Import-Module -name $ScriptDirPost
+#}
 
-
+$myScriptName = (Get-PSCallStack)[0].ScriptName
+$myScriptDir  = (Get-Item $myScriptName).DirectoryName
+$myScriptVarDefault  = $myScriptDir + (Get-Item $MyScriptName).Basename + '-VarDefault.psm1'
+Import-Module -name $myScriptVarDefault
 
 #Si le fichier personnel de définition de variable existe, on ajoute le module*
-$ScriptDirPost = ScriptDir+"\Win10-MyVar-Post-swmb.psm1"
-if (Test-Path ScriptDirPost) {
-   Import-Module -name $ScriptDirPost
+$myScriptVarOverload  = $myScriptDir + (Get-Item $MyScriptName).Basename + '-VarOverload.psm1'
+if (Test-Path myScriptVarYour) {
+	Import-Module -name $myScriptVarOverload
 }
 
 
@@ -19,8 +28,8 @@ if (Test-Path ScriptDirPost) {
 #Configuration ordinateur/Paramètres Windows/Paramètres de sécurité/stratégies locales/Options de sécurité
 #Enable
 Function EnableRenameAdminAccount {
-   $localAdminName = get-localuser |  where-object {($_.SID -like "S-1-5-21*-500")}
-   Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameToSet -ErrorAction SilentlyContinue
+	$localAdminName = get-localuser |  where-object {($_.SID -like "S-1-5-21*-500")}
+	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameToSet -ErrorAction SilentlyContinue
 }
 
 #Disable
@@ -42,7 +51,7 @@ Function EnableDontDisplayLastUsername {
 # Disable
 Function DisableDontDisplayLastUsername {
 	Write-Output "Afficher le dernier utilisateur..."
-    If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "dontdisplaylastusername" -Type DWord -Value 0 -ErrorAction SilentlyContinue
@@ -61,7 +70,7 @@ Function EnableSessionLockTimeout {
 # Disable
 Function DisableSessionLockTimeout {
 	Write-Output "Suppression du timeout de session..."
-    If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name $myInactivityTimeoutSecs -Type DWord -Value 0 -ErrorAction SilentlyContinue

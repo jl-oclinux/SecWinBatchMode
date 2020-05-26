@@ -22,15 +22,15 @@ En ce qui concerne les stratégies de sécurité applicables,
 SWMB s'appuie principalement sur les règles édictées par l'Agence Nationale de la Sécurité des Systèmes d'Information (ANSSI).
 Il y a ainsi dans SWMB trois niveaux de règles possibles :
  * `Win10-Initial-Setup` - règles du projet amont non modifiées
- * `Win10-Resinfo-swmb` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS, applicable dans tout l'ESR (Enseignement Supérieur et Recherche)
- * `Win10-My-swmb` - règles intéréssantes que vous pouvez étentdre pour votre site
+ * `Win10-Resinfo-Swmb` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS, applicable dans tout l'ESR (Enseignement Supérieur et Recherche)
+ * `Win10-My-Swmb` - règles intéréssantes que vous pouvez étentdre pour votre site
 Chaque règle peut-être activé (`enable`) ou déactivé (`disable`) très facilement dans un fichier de configuration (`preset`).
 Des fichiers types sont proposés.
 À chaque règle est associée un commentaire en français faisant référence à son origine.
 Le français a été choisis afin de suivre le vocable de l'ANSSI
 et de part la version française de Windows 10 équipant la majorité de notre parc informatique.
 
-Pour les règles `Win10-My-swmb`, il est possible de les paramétrer avec un fichier de variable afin de les adapter à votre parc.
+Pour les règles `Win10-My-Swmb`, il est possible de les paramétrer avec un fichier de variable afin de les adapter à votre parc.
 Un jeu de paramètres par défaut est proposé.
 Les autres règles ne sont pas paramétrable car elles sont, dans un premier temps, à prendre ou à laisser !
 Le projet amont sur lequel nous nous appuyons n'avait d'ailleurs pas prévu de pouvoir paramétrer des règles.
@@ -72,8 +72,8 @@ Un preset par paragraphe de l'ANSSI
 ### Usage direct depuis PowerShell
 
 ```dos
-.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-swmb.psm1" nom-fonction
-.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-swmb.psm1 -preset Presets\UserExperience.preset
+.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-Swmb.psm1" nom-fonction
+.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-Swmb.psm1 -preset Presets\UserExperience.preset
 ```
 
 ### Intégration dans un autre projet Git
@@ -81,9 +81,9 @@ Un preset par paragraphe de l'ANSSI
 
 ### Définition de vos propres valeurs de variables
 
-Si vous souhaitez définir vos propres valeurs de variables utilisées le script `Win10-My-swmb.psm1`, procédez de la façon suivante :
- * Créez un fichier nommé `Win10-MyVar-Post-swmb.psm1` dans le même répertoire que le script `Win10-MyVar-Pre-swmb.psm1`
- * Définissez les valeurs de vos variables et exportez les de la même façon que dans le fichier `Win10-MyVar-pre-swmb.psm1`
+Si vous souhaitez définir vos propres valeurs de variables utilisées le script `Win10-My-Swmb.psm1`, procédez de la façon suivante :
+ * Créez un fichier nommé `Win10-My-Swmb-VarOverload.psm1` dans le même répertoire que le script `Win10-My-Swmb-VarDefault.psm1`
+ * Définissez les valeurs de vos variables et exportez les de la même façon que dans le fichier `Win10-My-Swmb-VarDefault.psm1`
  * Exemple :
     ```ps
     $myLocalAdminNameToSet = "Ma valeur à moi"

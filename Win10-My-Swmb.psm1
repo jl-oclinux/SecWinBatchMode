@@ -9,14 +9,14 @@
 #}
 
 $myScriptName = (Get-PSCallStack)[0].ScriptName
-$myScriptDir = (Get-Item $myScriptName).DirectoryName
-$myScriptVarDefault = $myScriptDir + (Get-Item $MyScriptName).Basename + '-VarDefault.psm1'
-Import-Module -name $myScriptVarDefault
+$myScriptFullPathBasename = (Get-Item $myScriptName).DirectoryName + (Get-Item $MyScriptName).Basename
+$myScriptVarDefault = $myScriptFullPathBasename + '-VarDefault.psm1'
+Import-Module -Name $myScriptVarDefault
 
 #Si le fichier personnel de définition de variable existe, on ajoute le module*
-$myScriptVarOverload = $myScriptDir + (Get-Item $MyScriptName).Basename + '-VarOverload.psm1'
-if (Test-Path myScriptVarYour) {
-	Import-Module -name $myScriptVarOverload
+$myScriptVarOverload = $myScriptFullPathBasename + '-VarOverload.psm1'
+if (Test-Path $myScriptVarOverload) {
+	Import-Module -Name $myScriptVarOverload
 }
 
 

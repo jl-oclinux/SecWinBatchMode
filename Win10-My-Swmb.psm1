@@ -1,3 +1,15 @@
+################################################################
+# Project CNRS RESINFO SWMB
+# Copyright (C) 2020, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2020 - Olivier de Marchi (LEGI)
+#  2020 - David Gras (DR11)
+#  2020 - Clément Deiber (DR11)
+#  2020 - Gabriel Moreau (LEGI)
+################################################################
+
 #$ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
 #$ScriptDirPre = $ScriptDir+"\Win10-MyVar-Pre-swmb.psm1"
 #Import-Module -name $ScriptDirPre
@@ -13,7 +25,7 @@ $myScriptFullPathBasename = (Get-Item $myScriptName).DirectoryName + (Get-Item $
 $myScriptVarDefault = $myScriptFullPathBasename + '-VarDefault.psm1'
 Import-Module -Name $myScriptVarDefault
 
-#Si le fichier personnel de définition de variable existe, on ajoute le module*
+# Si le fichier personnel de définition de variable existe, on ajoute le module*
 $myScriptVarOverload = $myScriptFullPathBasename + '-VarOverload.psm1'
 if (Test-Path $myScriptVarOverload) {
 	Import-Module -Name $myScriptVarOverload
@@ -24,21 +36,21 @@ if (Test-Path $myScriptVarOverload) {
 ###############################################
 # Les actions
 ################################################
-#Renommage du compte administrateur
-#Configuration ordinateur/Paramètres Windows/Paramètres de sécurité/stratégies locales/Options de sécurité
-#Enable
+# Renommage du compte administrateur
+# Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégies locales / Options de sécurité
+# Enable
 Function EnableRenameAdminAccount {
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameToSet -ErrorAction SilentlyContinue
 }
 
-#Disable
+# Disable
 Function DisableRenameAdminAccount {
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameOriginal -ErrorAction SilentlyContinue
 }
 
-#Ne pas afficher le nom du dernier utilisateur
+# Ne pas afficher le nom du dernier utilisateur
 # Enable
 Function EnableDontDisplayLastUsername {
 	Write-Output "Ne pas afficher le dernier utilisateur..."
@@ -57,7 +69,7 @@ Function DisableDontDisplayLastUsername {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "dontdisplaylastusername" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
-#verrouillage de la session : timeout de session
+# Verrouillage de la session : timeout de session
 # Enable
 Function EnableSessionLockTimeout {
 	Write-Output "Définition du timeout de session..."

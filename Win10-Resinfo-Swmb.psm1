@@ -1,8 +1,20 @@
+################################################################
+# Project CNRS RESINFO SWMB
+# Copyright (C) 2020, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2020 - Olivier de Marchi (LEGI)
+#  2020 - David Gras (DR11)
+#  2020 - Clément Deiber (DR11)
+#  2020 - Gabriel Moreau (LEGI)
+################################################################
+
 ###############
 ######### https://github.com/Disassembler0/Win10-Initial-Setup-Script#examples
 ###############
 
-### Desactiver les questions pour chaque nouvel utilisateur
+### Désactiver les questions pour chaque nouvel utilisateur
 # Computer Configuration\Administrative Templates\Windows Components\OOBE
 # https://docs.microsoft.com/fr-fr/windows/client-management/mdm/policy-csp-privacy#privacy-disableprivacyexperience
 # Disable
@@ -155,7 +167,7 @@ Function DisableAutomaticLearning {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitInkCollection" -Type DWord -Value 1
 }
 
-#Enable
+# Enable
 Function EnableAutomaticLearning {
 	Write-Output "Turn on automatic learning..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {

@@ -1,4 +1,19 @@
-#Variables utilisees dans le script Win10-My-Swmb.psm1
+################################################################
+# Project CNRS RESINFO SWMB
+# Copyright (C) 2020, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2020 - Olivier de Marchi (LEGI)
+#  2020 - David Gras (DR11)
+#  2020 - Clément Deiber (DR11)
+#  2020 - Gabriel Moreau (LEGI)
+################################################################
+
+# Variables utilisées dans le script Win10-My-Swmb.psm1
+# Ne modifier pas directement ce fichier !
+# Vous pouvez surcharger ces variables en les redéfinissant dans un fichier Win10-My-Swmb-VarOverload.psm1
+
 $myLocalAdminNameToSet = "sas-swmb"
 $myLocalAdminNameOriginal = "administrateur"
 $myInactivityTimeoutSecs = 1200

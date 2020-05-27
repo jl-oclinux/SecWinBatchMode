@@ -2,11 +2,11 @@
 
 ## Préambule
 
-SWMB est un projet issu du groupe de travail SWMB du réseaux métier RESINFO du CNRS.
-Il s'agit de gérer la sécurité, la confidentilité et la vie privée sous l'OS Windows 10 à l'aide de scripts.
+SWMB est un projet issu du groupe de travail SWMB du réseau métier RESINFO du CNRS.
+Il s'agit de gérer la sécurité, la confidentialité et la vie privée sous l'OS Windows 10 à l'aide de scripts.
 L'objectif est de pouvoir déployer facilement sur un parc informatique des règles de sécurité (stratégie)
 que les postes soient ou ne soient pas dans un Active Directory.
-Dans un soucis de traçage (qualité) et de partage des connaissances, toutes les actions possibles sont lisibles dans un format texte.
+Dans un souci de traçage (qualité) et de partage des connaissances, toutes les actions possibles sont lisibles dans un format texte.
 Le langage de programmation choisit est le Powershell de Microsoft.
 L'ensemble du code et de la documentation est accessible sur une forge Git.
 
@@ -21,22 +21,25 @@ car celui-ci répondait à tous nos critères ci-dessus.
 En ce qui concerne les stratégies de sécurité applicables,
 SWMB s'appuie principalement sur les règles édictées par l'Agence Nationale de la Sécurité des Systèmes d'Information (ANSSI).
 Il y a ainsi dans SWMB trois niveaux de règles possibles :
- * `Win10-Initial-Setup` - règles du projet amont non modifiées
- * `Win10-Resinfo-Swmb` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS, applicable dans tout l'ESR (Enseignement Supérieur et Recherche)
- * `Win10-My-Swmb` - règles intéréssantes que vous pouvez étentdre pour votre site
-Chaque règle peut-être activé (`enable`) ou déactivé (`disable`) très facilement dans un fichier de configuration (`preset`).
+ * `Win10-Initial-Setup` - règles du projet amont non modifiées ;
+ * `Win10-Resinfo-Swmb` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS, applicable dans tout l'ESR (Enseignement Supérieur et Recherche) ;
+ * `Win10-My-Swmb` - règles intéressantes que vous pouvez étentdre pour votre site.
+Chaque règle peut-être activée (`enable`) ou déactivé (`disable`) très facilement dans un fichier de configuration (`preset`).
 Des fichiers types sont proposés.
 À chaque règle est associée un commentaire en français faisant référence à son origine.
-Le français a été choisis afin de suivre le vocable de l'ANSSI
+Le français a été choisi afin de suivre le vocable de l'ANSSI
 et de part la version française de Windows 10 équipant la majorité de notre parc informatique.
 
 Pour les règles `Win10-My-Swmb`, il est possible de les paramétrer avec un fichier de variable afin de les adapter à votre parc.
 Un jeu de paramètres par défaut est proposé.
-Les autres règles ne sont pas paramétrable car elles sont, dans un premier temps, à prendre ou à laisser !
+Les autres règles ne sont pas paramétrables, car elles sont, dans un premier temps, à prendre ou à laisser !
 Le projet amont sur lequel nous nous appuyons n'avait d'ailleurs pas prévu de pouvoir paramétrer des règles.
 
 Document de référence de l'ANSSI :
 [https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
+
+Projet amont `Win10-Initial-Setup-Script` :
+https://github.com/Disassembler0/Win10-Initial-Setup-Script
 
 
 ## Scripts Powershell Disassembler0

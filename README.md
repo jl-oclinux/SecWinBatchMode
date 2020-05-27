@@ -53,6 +53,6 @@ Si vous souhaitez définir vos propres valeurs de variables utilisées le script
  * Définissez les valeurs de vos variables et exportez les de la même façon que dans le fichier "Win10-MyVar-pre-swmb.psm1"
  * Exemple :
     ```ps
-    $myLocalAdminNameToSet = "Ma valeur à moi"
+    $myLocalAdminNameToSet = "Ma valeur à moi que j'ai"
     Export-ModuleMember -Variable 'myLocalAdminNameToSet'
     ```

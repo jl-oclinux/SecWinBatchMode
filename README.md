@@ -10,7 +10,7 @@ Dans un souci de traçage (qualité) et de partage des connaissances, toutes les
 Le langage de programmation choisit est le Powershell de Microsoft.
 L'ensemble du code et de la documentation est accessible sur une forge Git.
 
-Le choix de réaliser un système de scripts est donc un choix complémentaire d'une solution avec GPO associée au clickdrome Active Directory.
+Le choix de réaliser un système de scripts est donc un choix complémentaire d'une solution avec GPO associée au clickodrome Active Directory.
 
 Le projet se veut modulaire.
 Il doit être facile à maintenir, facile à comprendre, facile à maintenir et facile à utiliser.
@@ -23,7 +23,7 @@ SWMB s'appuie principalement sur les règles édictées par l'Agence Nationale d
 Il y a ainsi dans SWMB trois niveaux de règles possibles :
  * `Win10-Initial-Setup` - règles du projet amont non modifiées ;
  * `Win10-Resinfo-Swmb` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS, applicable dans tout l'ESR (Enseignement Supérieur et Recherche) ;
- * `Win10-My-Swmb` - règles intéressantes que vous pouvez étentdre pour votre site.
+ * `Win10-My-Swmb` - règles intéressantes que vous pouvez étendre pour votre site.
 Chaque règle peut-être activée (`enable`) ou déactivé (`disable`) très facilement dans un fichier de configuration (`preset`).
 Des fichiers types sont proposés.
 À chaque règle est associée un commentaire en français faisant référence à son origine.
@@ -46,7 +46,7 @@ https://github.com/Disassembler0/Win10-Initial-Setup-Script
 
 Ce projet s'appuie sur le projet :
 [https://github.com/Disassembler0/Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script)
-Ce project est ajouté en tant que `subtree`.
+Ce projet est ajouté en tant que `subtree`.
 
 ```bash
 git remote add -f Win10-Initial https://github.com/Disassembler0/Win10-Initial-Setup-Script.git
@@ -65,7 +65,7 @@ git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squ
 Un preset par paragraphe de l'ANSSI
  * preset Télémétrie
  * preset Cortana et search
- * preset Paramètres de personnalisation del'expérience utilisateur
+ * preset Paramètres de personnalisation de l'expérience utilisateur
  * preset Applications universelles
  * preset Cloud
 
@@ -75,8 +75,16 @@ Un preset par paragraphe de l'ANSSI
 ### Usage direct depuis PowerShell
 
 ```dos
-.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-Swmb.psm1" nom-fonction
-.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-Swmb.psm1 -preset Presets\UserExperience.preset
+# Exécution d'une fonction seule
+.\Win10-Initial-Setup-Script\Win10.ps1 \
+   -include "Win10-Initial-Setup-Script\Win10.psm1" \
+   -include "Win10-Resinfo-Swmb.psm1" nom-fonction
+
+# Exécution d'un jeu de preset
+.\Win10-Initial-Setup-Script\Win10.ps1 \
+   -include "Win10-Initial-Setup-Script\Win10.psm1" \
+   -include "Win10-Resinfo-Swmb.psm1 \
+   -preset Presets\UserExperience.preset
 ```
 
 ### Intégration dans un autre projet Git
@@ -86,9 +94,9 @@ Un preset par paragraphe de l'ANSSI
 
 Si vous souhaitez définir vos propres valeurs de variables utilisées le script `Win10-My-Swmb.psm1`, procédez de la façon suivante :
  * Créez un fichier nommé `Win10-My-Swmb-VarOverload.psm1` dans le même répertoire que le script `Win10-My-Swmb-VarDefault.psm1`
- * Définissez les valeurs de vos variables et exportez les de la même façon que dans le fichier `Win10-My-Swmb-VarDefault.psm1`
+ * Définissez les valeurs de vos variables et exportez-les de la même façon que dans le fichier `Win10-My-Swmb-VarDefault.psm1`
  * Exemple :
     ```ps
-    $myLocalAdminNameToSet = "Ma valeur à moi"
+    $myLocalAdminNameToSet = "MaValeurÀMoi"
     Export-ModuleMember -Variable 'myLocalAdminNameToSet'
     ```

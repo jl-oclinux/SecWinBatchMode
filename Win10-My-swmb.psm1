@@ -4,7 +4,6 @@ Import-Module -name $ScriptDirPre
 
 
 
-#Si le fichier personnel de définition de variable existe, on ajoute le module*
 $ScriptDirPost = ScriptDir+"\Win10-MyVar-Post-swmb.psm1"
 if (Test-Path ScriptDirPost) {
    Import-Module -name $ScriptDirPost

@@ -1,8 +1,20 @@
+################################################################
+# Project CNRS RESINFO SWMB
+# Copyright (C) 2020, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2020 - Olivier de Marchi (Grenoble INP / LEGI)
+#  2020 - David Gras (CNRS / DR11)
+#  2020 - Clément Deiber (CNRS / DR11)
+#  2020 - Gabriel Moreau (CNRS / LEGI)
+################################################################
+
 ###############
 ######### https://github.com/Disassembler0/Win10-Initial-Setup-Script#examples
 ###############
 
-### Desactiver les questions pour chaque nouvel utilisateur
+### Désactiver les questions pour chaque nouvel utilisateur
 # Computer Configuration\Administrative Templates\Windows Components\OOBE
 # https://docs.microsoft.com/fr-fr/windows/client-management/mdm/policy-csp-privacy#privacy-disableprivacyexperience
 # Disable
@@ -79,7 +91,7 @@ Function DisableHandwritingRecognitionErrorReporting {
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports"  -Type DWord -Value 1
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -Type DWord -Value 1
 }
 
 # Enable
@@ -97,7 +109,7 @@ Function DisableWindowsErrorReporting {
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "DoReport"  -Type DWord -Value 0
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "DoReport" -Type DWord -Value 0
 }
 
 # Enable
@@ -116,7 +128,7 @@ Function DisableOsGeneratedReport {
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps"  -Type DWord -Value 0
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -Type DWord -Value 0
 }
 
 # Enable
@@ -135,7 +147,7 @@ Function DisableSendAdditionalData {
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData"  -Type DWord -Value 1
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -Type DWord -Value 1
 }
 
 # Enable
@@ -144,6 +156,26 @@ Function EnableSendAdditionalData {
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -ErrorAction SilentlyContinue
 }
 
+# Configuration ordinateur / Modèles d'administration / Panneau de Configuration / Options Regionales et Linguistiques / Personnalisation de l'écriture manuscrite / Désactiver l’apprentissage automatique / Activé
+# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.Globalization::ImplicitDataCollectionOff_2
+Function DisableAutomaticLearning {
+	Write-Output "Turn off automatic learning..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitInkCollection" -Type DWord -Value 1
+}
+
+# Enable
+Function EnableAutomaticLearning {
+	Write-Output "Turn on automatic learning..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitInkCollection" -Type DWord -Value 0
+}
 
 
 # Export functions

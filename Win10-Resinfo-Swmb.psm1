@@ -178,5 +178,26 @@ Function EnableAutomaticLearning {
 }
 
 
+Function DisableWindowsStore {
+	Write-Output "Disable Windows Store..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RemoveWindowsStore" -Type DWord -Value 1
+}
+
+# Enable
+Function EnableWindowsStore {
+	Write-Output "Enable Windows Store..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RemoveWindowsStore" -Type DWord -Value 0
+}
+
+
+
+
+
 # Export functions
 Export-ModuleMember -Function *

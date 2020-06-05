@@ -10,16 +10,6 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
-#$ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
-#$ScriptDirPre = $ScriptDir+"\Win10-MyVar-Pre-swmb.psm1"
-#Import-Module -name $ScriptDirPre
-#
-##Si le fichier personnel de définition de variable existe, on ajoute le module*
-#$ScriptDirPost = ScriptDir+"\Win10-MyVar-Post-swmb.psm1"
-#if (Test-Path ScriptDirPost) {
-#   Import-Module -name $ScriptDirPost
-#}
-
 $myScriptName = (Get-PSCallStack)[0].ScriptName
 $myScriptFullPathBasename = (Get-Item $myScriptName).DirectoryName + (Get-Item $MyScriptName).Basename
 $myScriptVarDefault = $myScriptFullPathBasename + '-VarDefault.psm1'
@@ -32,11 +22,11 @@ if (Test-Path $myScriptVarOverload) {
 }
 
 
+################################################################
+###### Les actions
+################################################################
 
-###############################################
-# Les actions
-################################################
-# Renommage du compte administrateur
+### Renommage du compte administrateur
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégies locales / Options de sécurité
 # Enable
 Function EnableRenameAdminAccount {
@@ -50,7 +40,9 @@ Function DisableRenameAdminAccount {
 	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameOriginal -ErrorAction SilentlyContinue
 }
 
-# Ne pas afficher le nom du dernier utilisateur
+################################################################
+
+### Ne pas afficher le nom du dernier utilisateur
 # Enable
 Function EnableDontDisplayLastUsername {
 	Write-Output "Ne pas afficher le dernier utilisateur..."
@@ -69,7 +61,9 @@ Function DisableDontDisplayLastUsername {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "dontdisplaylastusername" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
-# Verrouillage de la session : timeout de session
+################################################################
+
+### Verrouillage de la session : timeout de session
 # Enable
 Function EnableSessionLockTimeout {
 	Write-Output "Définition du timeout de session..."
@@ -87,3 +81,5 @@ Function DisableSessionLockTimeout {
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name $myInactivityTimeoutSecs -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
+
+################################################################

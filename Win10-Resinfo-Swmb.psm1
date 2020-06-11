@@ -10,9 +10,14 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
-###############
-######### https://github.com/Disassembler0/Win10-Initial-Setup-Script#examples
-###############
+################################################################
+###### Exemples https://github.com/Disassembler0/Win10-Initial-Setup-Script#examples
+################################################################
+
+
+################################################################
+###### User Experience
+################################################################
 
 ### Désactiver les questions pour chaque nouvel utilisateur
 # Computer Configuration\Administrative Templates\Windows Components\OOBE
@@ -32,9 +37,11 @@ Function EnablePrivacyExperience {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" -Name "DisablePrivacyExperience" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
+################################################################
 
 ### Enregistreur d'actions utilisateur
 # https://support.microsoft.com/en-us/help/22878/windows-10-record-steps
+# Disable
 Function DisableStepsRecorder {
 	Write-Output "Disabling Windows steps recorder..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat")) {
@@ -49,9 +56,12 @@ Function EnableStepsRecorder {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat" -Name "DisableUAR" -ErrorAction SilentlyContinue
 }
 
+################################################################
+
 # Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4723
+# Disable
 Function DisableDidYouKnow {
 	Write-Output "Turn off Help and Support Center Did you know? content..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc")) {
@@ -66,9 +76,12 @@ Function EnableDidYouKnow {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
+################################################################
+
 # Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4754
+# Disable
 Function DisableHandwritingDataSharing {
 	Write-Output "Turn off handwriting personalization data sharing..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC")) {
@@ -83,9 +96,12 @@ Function EnableHandwritingDataSharing {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
+################################################################
+
 # Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4743
+# Disable
 Function DisableHandwritingRecognitionErrorReporting {
 	Write-Output "Turn off handwriting recognition error reporting..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\")) {
@@ -100,10 +116,12 @@ Function EnableHandwritingRecognitionErrorReporting {
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -ErrorAction SilentlyContinue
 }
 
+################################################################
 
 # Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4727
+# Disable
 Function DisableWindowsErrorReporting {
 	Write-Output "Turn off Windows error reporting..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\")) {
@@ -118,11 +136,13 @@ Function EnableWindowsErrorReporting {
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting" -Name "DoReport" -ErrorAction SilentlyContinue
 }
 
+################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Envoyer automatiquement des images mémoires pour les rapports
 # key AutoApproveOSDumps
 # https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_2
 # GPO Desactivé par défaut
+# Disable
 Function DisableOsGeneratedReport {
 	Write-Output "Turn off OS-generated error reports"
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
@@ -137,11 +157,13 @@ Function EnableOsGeneratedReport {
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -ErrorAction SilentlyContinue
 }
 
+################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Ne pas envoyer des données complémentaires
 # key DontSendAdditionalData
 # https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerNoSecondLevelData_2
 # GPO activé par défaut
+# Disable
 Function DisableSendAdditionalData {
 	Write-Output "Disable Error reporting Send Additional Data"
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
@@ -156,8 +178,11 @@ Function EnableSendAdditionalData {
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -ErrorAction SilentlyContinue
 }
 
+################################################################
+
 # Configuration ordinateur / Modèles d'administration / Panneau de Configuration / Options Regionales et Linguistiques / Personnalisation de l'écriture manuscrite / Désactiver l’apprentissage automatique / Activé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.Globalization::ImplicitDataCollectionOff_2
+# Disable
 Function DisableAutomaticLearning {
 	Write-Output "Turn off automatic learning..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
@@ -176,6 +201,35 @@ Function EnableAutomaticLearning {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitInkCollection" -Type DWord -Value 0
 }
+
+
+################################################################
+###### Universal Apps
+################################################################
+
+### Déactiver le Windows Store
+# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
+# Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Desactiver l'application / active
+# Disable
+Function DisableWindowsStore {
+	Write-Output "Disable Windows Store..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RemoveWindowsStore" -Type DWord -Value 1
+}
+
+# Enable
+Function EnableWindowsStore {
+	Write-Output "Enable Windows Store..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RemoveWindowsStore" -Type DWord -Value 0
+}
+
+
+
 
 
 # Export functions

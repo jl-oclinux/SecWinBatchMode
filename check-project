@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# 2020/06/11 Gabriel Moreau
+
+
+NB_SWMB=$(ack -i --ignore-dir Win10-Initial-Setup-Script '^Function[[:space:]](Enable|Disable)' | awk '{print $2}' | wc -l)
+NB_TOTAL=$(ack -i '^Function[[:space:]](Enable|Disable)' | awk '{print $2}' | wc -l)
+
+echo "Info: number of SWMB  rules: ${NB_SWMB} / $((${NB_SWMB}/2))"
+echo "Info: number of total rules: ${NB_TOTAL} / $((${NB_TOTAL}/2))"
+
+for rule in $(ack -i --ignore-dir  Win10-Initial-Setup-Script '^Function[[:space:]](Enable)'| awk '{print $2}' | sed -e 's/^Enable//i;')
+do
+   if ! egrep -q "(Enable|Disable)${rule}" Presets/*
+   then
+      echo "Warning, no preset proposed for rule: ${rule}"
+   fi
+done

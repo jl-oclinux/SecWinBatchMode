@@ -17,7 +17,7 @@ fi
 
 for rule in $(ack -i --ignore-dir  Win10-Initial-Setup-Script '^Function[[:space:]](Enable)'| awk '{print $2}' | sed -e 's/^Enable//i;')
 do
-   if ! egrep -q "(Enable|Disable)${rule}" Presets/*
+   if ! egrep -q "^(#[[:space:]])?(Enable|Disable)${rule}" Presets/*
    then
       echo "Warning, no preset proposed for rule: ${rule}"
    fi

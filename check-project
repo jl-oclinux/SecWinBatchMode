@@ -6,8 +6,14 @@
 NB_SWMB=$(ack -i --ignore-dir Win10-Initial-Setup-Script '^Function[[:space:]](Enable|Disable)' | awk '{print $2}' | wc -l)
 NB_TOTAL=$(ack -i '^Function[[:space:]](Enable|Disable)' | awk '{print $2}' | wc -l)
 
-echo "Info: number of SWMB  rules: ${NB_SWMB} / $((${NB_SWMB}/2))"
-echo "Info: number of total rules: ${NB_TOTAL} / $((${NB_TOTAL}/2))"
+echo "Info: number of SWMB  rules: ${NB_SWMB} / $((${NB_SWMB}/2)) (enable and disable)"
+echo "Info: number of total rules: ${NB_TOTAL} / $((${NB_TOTAL}/2)) (enable and disable)"
+
+NB_DOUBLEDEF=$(ack -i '^Function[[:space:]](Enable|Disable)' | awk '{print $2}' | perl -pe 's/^(Enable|Disable)//i;'| sort | uniq -c | grep -v '^      2 ' | tr '\n' '&')
+if [ $(echo ${NB_DOUBLEDEF} | tr  '&' '\n' | head -n -1 | wc -l) -gt 0 ]
+then
+   echo ${NB_DOUBLEDEF} | tr  '&' '\n' | head -n -1 | awk '{print "Error: multiple (" $1/2 ") definition of function: " $2}'
+fi
 
 for rule in $(ack -i --ignore-dir  Win10-Initial-Setup-Script '^Function[[:space:]](Enable)'| awk '{print $2}' | sed -e 's/^Enable//i;')
 do

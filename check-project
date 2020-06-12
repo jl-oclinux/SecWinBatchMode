@@ -6,21 +6,33 @@
 NB_SWMB=$(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -path ./Win10-Initial-Setup-Script -prune -o -name '*.psm1' -print) | awk '{print $2}' | wc -l)
 NB_TOTAL=$(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
 
+
+# global numbers
 echo "Info: number of SWMB  rules: ${NB_SWMB} / $((${NB_SWMB}/2)) (enable and disable)"
 echo "Info: number of total rules: ${NB_TOTAL} / $((${NB_TOTAL}/2)) (enable and disable)"
 
-NB_DOUBLEDEF=$(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -name '*.psm1' -print) \
+
+# detect a forgotten rule and multiple identical rule definitions
+while read rule
+do
+   for status in 'Enable' 'Disable'
+   do
+      nb_rule=$(grep -E "^Function[[:space:]]${status}${rule}[[:space:]]{" $(find . -name '*.psm1' -print) | wc -l)
+      if [ ${nb_rule} -eq 0 ]
+      then
+         echo "Error: undefined function: " ${status}${rule}
+      elif [ ${nb_rule} -gt 1 ]
+      then
+         echo "Error: ${nb_rule} copies of the function: " ${status}${rule}
+      fi
+   done
+done < <(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -name '*.psm1' -print) \
    | awk '{print $2}' \
    | sed -Ee 's/^(Enable|Disable)//i;' \
-   | sort \
-   | uniq -c \
-   | grep -v '^      2 ' \
-   | tr '\n' '&')
-if [ $(echo ${NB_DOUBLEDEF} | tr '&' '\n' | head -n -1 | wc -l) -gt 0 ]
-then
-   echo ${NB_DOUBLEDEF} | tr '&' '\n' | head -n -1 | awk '{print "Error: multiple (" $1/2 ") definition of function: " $2}'
-fi
+   | sort -u)
 
+
+# detect the definition of a missing preset
 for rule in $(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -path ./Win10-Initial-Setup-Script -prune -o -name '*.psm1' -print) \
    | awk '{print $2}' \
    | sed -Ee 's/^(Enable|Disable)//i;' \

@@ -51,7 +51,7 @@ msg2 "number of set and unset rules" \
 
 msg2 "number of pin and unpin rules" \
    $(grep -hEi '^Function[[:space:]](Pin)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]](unpin)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]](Unpin)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
    
 msg1 "number of total rules"  \
    $(grep -hEi '^Function (Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' $(find . -name '*.psm1' -print) | wc -l)
@@ -59,7 +59,7 @@ msg1 "number of total rules"  \
 msg1 "number of total functions" \
    $(grep -hEi '^Function[[:space:]]' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
 
-# function that are not in case Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset
+# function that are not in case Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin
 grep -hEi '^Function[[:space:]]' $(find . -name '*.psm1' -print) \
    | grep -Eiv '^Function (Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' \
    | awk '{print $2}' \

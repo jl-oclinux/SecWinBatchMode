@@ -207,6 +207,28 @@ Function EnableAutomaticLearning {
 ###### Universal Apps
 ################################################################
 
+# Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore /Afficher uniquement le magasin privé dans l'application du windows store / activé
+# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RequirePrivateStoreOnly_2&Language=fr-fr
+Function DisablePrivateStoreOnly {
+	Write-Output "Disable PrivateStoreOnly..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RequirePrivateStoreOnly" -Type DWord -Value 0
+}
+
+# Enable
+Function EnablePrivateStoreOnly {
+	Write-Output "Enable PrivateStoreOnly..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RequirePrivateStoreOnly" -Type DWord -Value 1
+}
+
+
+
+
 ### Déactiver le Windows Store
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Desactiver l'application / active

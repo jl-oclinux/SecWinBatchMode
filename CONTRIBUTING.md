@@ -53,3 +53,11 @@ il est possible de le modifier en faisant
 ```bash
 git reabase -i
 ```
+
+Si vous aviez un commit qui n'avait pas été poussé,
+ou si vous faites un commit  après coup (et un coup de rebase pour les réordonner),
+il est possible de pousser tous les commits sauf le dernier.
+
+```bash
+git push origin HEAD~1:master
+```

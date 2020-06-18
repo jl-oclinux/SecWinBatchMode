@@ -15,11 +15,13 @@ L'option `--squash` permet de récupérer tous les patchs du projet amont
 sous la forme d'un seul commit.
 Ainsi on n'importe pas l'ensemble de l'historique dans notre projet.
 
-Avant de faire cela, bien pousser (`push`) dans ses patchs dans l'arbre principal.
+La commande `subtree pull` permet de faire en une seule étape un `fetch` et un `merge`.
+
+Avant de faire cela, il est préférable de bien penser à pousser (`push`)
+tous ses patchs dans l'arbre principal.
 
 ```bash
 git remote add -f Win10-Initial https://github.com/Disassembler0/Win10-Initial-Setup-Script.git
-
 git subtree add --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
 
 git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
@@ -48,7 +50,7 @@ git checkout -- Win10-Initial-Setup-Script/
 Il n'est possible de pousser (`push`) ou d'annuler des commits que dans l'ordre
 dans lequel ils ont été réalisés.
 Si cet ordre ne convient pas,
-il est possible de le modifier en faisant
+il est possible de le modifier.
 
 ```bash
 git reabase -i

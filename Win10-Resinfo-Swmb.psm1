@@ -227,8 +227,6 @@ Function EnablePrivateStoreOnly {
 }
 
 
-
-
 ### Déactiver le Windows Store
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Desactiver l'application / active
@@ -250,7 +248,25 @@ Function EnableWindowsStore {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RemoveWindowsStore" -Type DWord -Value 0
 }
 
+# Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Désactiver toutes les applications du Windows Store / activé
+# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::DisableStoreApps&Language=fr-fr
+# Disable
+Function DisableStoreApps {
+	Write-Output "Disable StoreApps..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "DisableStoreApps" -Type DWord -Value 1
+}
 
+# Enable
+Function EnableStoreApps {
+	Write-Output "Enable StoreApps..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "DisableStoreApps" -Type DWord -Value 0
+}
 
 
 

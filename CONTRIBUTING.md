@@ -53,7 +53,7 @@ Si cet ordre ne convient pas,
 il est possible de le modifier.
 
 ```bash
-git reabase -i
+git rebase -i
 ```
 
 Si vous aviez un commit qui n'avait pas été poussé,

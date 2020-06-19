@@ -38,14 +38,28 @@ git diff origin/master...HEAD
 git difftool origin/master...HEAD
 git status
 ```
+Deux cas se présentent alors :
+valider ou annuler le développement amont pour cette fois-ci,
+car un jour il faudra bien le faire...
 
-Annuler le developpement amont si celui-ci n'est pas top pour le moment.
+### Valider le developpement amont
+
+```bash
+git push
+```
+
+### Annuler le developpement amont si celui-ci n'est pas au point pour le moment.
+
 Il faudra cependant se mettre à jour pour conserver au maximum la synchronisation opérationnelle.
 
 ```bash
 git reset HEAD~1
 git checkout -- Win10-Initial-Setup-Script/
 ```
+
+## Fonctionalités avancées
+
+### Inverser l'ordre d'un commit
 
 Il n'est possible de pousser (`push`) ou d'annuler des commits que dans l'ordre
 dans lequel ils ont été réalisés.
@@ -56,10 +70,15 @@ il est possible de le modifier.
 git rebase -i
 ```
 
+### Pousser tous les commits sauf le dernier
+
 Si vous aviez un commit qui n'avait pas été poussé,
-ou si vous faites un commit  après coup (et un coup de rebase pour les réordonner),
+ou si vous faites un commit après coup (et un coup de rebase pour les réordonner),
 il est possible de pousser tous les commits sauf le dernier.
 
 ```bash
 git push origin HEAD~1:master
 ```
+
+Évidement, en mettant 2 à la place de 1,
+on pousse tous les commits sauf les deux derniers !

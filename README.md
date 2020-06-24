@@ -61,6 +61,7 @@ Pour mettre à jour :
 git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
 ```
 
+Voir [CONTRIBUTING](./CONTRIBUTING.md).
 
 ## Preset
 

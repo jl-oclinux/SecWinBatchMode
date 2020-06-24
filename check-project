@@ -3,22 +3,97 @@
 # 2020/06/11 Gabriel Moreau
 
 
-NB_SWMB=$(ack -i --ignore-dir Win10-Initial-Setup-Script '^Function[[:space:]](Enable|Disable)' | awk '{print $2}' | wc -l)
-NB_TOTAL=$(ack -i '^Function[[:space:]](Enable|Disable)' | awk '{print $2}' | wc -l)
+function msg1 {
+   local msg=$1
+   local total=$2
+ 
+   printf "%-4s: %-49s = %3i\n" 'Info' "${msg}" "${total}"
+   }
 
-echo "Info: number of SWMB  rules: ${NB_SWMB} / $((${NB_SWMB}/2)) (enable and disable)"
-echo "Info: number of total rules: ${NB_TOTAL} / $((${NB_TOTAL}/2)) (enable and disable)"
+function msg2 {
+   local msg=$1
+   local on=$2
+   local off=$3
 
-NB_DOUBLEDEF=$(ack -i '^Function[[:space:]](Enable|Disable)' | awk '{print $2}' | perl -pe 's/^(Enable|Disable)//i;'| sort | uniq -c | grep -v '^      2 ' | tr '\n' '&')
-if [ $(echo ${NB_DOUBLEDEF} | tr  '&' '\n' | head -n -1 | wc -l) -gt 0 ]
-then
-   echo ${NB_DOUBLEDEF} | tr  '&' '\n' | head -n -1 | awk '{print "Error: multiple (" $1/2 ") definition of function: " $2}'
-fi
-
-for rule in $(ack -i --ignore-dir  Win10-Initial-Setup-Script '^Function[[:space:]](Enable)'| awk '{print $2}' | sed -e 's/^Enable//i;')
-do
-   if ! egrep -q "^(#[[:space:]])?(Enable|Disable)${rule}" Presets/*
+   local status='Info'
+   if [ "${on}" != "${off}" ]
    then
-      echo "Warning, no preset proposed for rule: ${rule}"
+      status='Warn'
+   fi
+
+   printf "%-4s: %-38s: %3i / %3i = %3i\n" "${status}" "${msg}" "${on}" "${off}" $((${on} + ${off}))
+   }
+
+
+# global numbers
+msg1 "number of SWMB rules" \
+   $(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -path ./Win10-Initial-Setup-Script -prune -o -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+
+msg2 "number of enable and disable rules" \
+   $(grep -hEi '^Function[[:space:]](Enable)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]](Disable)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+
+msg2 "number of install and uninstall rules" \
+   $(grep -hEi '^Function[[:space:]](Install)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]](Uninstall)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+
+msg2 "number of show and hide rules" \
+   $(grep -hEi '^Function[[:space:]](Show)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]](Hide)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+
+msg2 "number of add and remove rules" \
+   $(grep -hEi '^Function[[:space:]](Add)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]](Remove)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+
+msg2 "number of set and unset rules" \
+   $(grep -hEi '^Function[[:space:]](Set)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]](Unset)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+
+msg2 "number of pin and unpin rules" \
+   $(grep -hEi '^Function[[:space:]](Pin)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]](Unpin)' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+   
+msg1 "number of total rules"  \
+   $(grep -hEi '^Function (Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' $(find . -name '*.psm1' -print) | wc -l)
+
+msg1 "number of total functions" \
+   $(grep -hEi '^Function[[:space:]]' $(find . -name '*.psm1' -print) | awk '{print $2}' | wc -l)
+
+# function that are not in case Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin
+grep -hEi '^Function[[:space:]]' $(find . -name '*.psm1' -print) \
+   | grep -Eiv '^Function (Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' \
+   | awk '{print $2}' \
+   | xargs -r -n 1 printf "Warning: special function: %s\n"
+
+
+# detect a forgotten rule and multiple identical rule definitions in our rules
+while read rule
+do
+   for status in 'Enable' 'Disable'
+   do
+      nb_rule=$(grep -E "^Function[[:space:]]${status}${rule}[[:space:]]{" $(find . -name '*.psm1' -print) | wc -l)
+      if [ ${nb_rule} -eq 0 ]
+      then
+         echo "Error: undefined function: " ${status}${rule}
+      elif [ ${nb_rule} -gt 1 ]
+      then
+         echo "Error: ${nb_rule} copies of the function: " ${status}${rule}
+      fi
+   done
+done < <(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -name '*.psm1' -print) \
+   | awk '{print $2}' \
+   | sed -Ee 's/^(Enable|Disable)//i;' \
+   | sort -u)
+
+
+# detect the definition of a missing preset
+for rule in $(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -path ./Win10-Initial-Setup-Script -prune -o -name '*.psm1' -print) \
+   | awk '{print $2}' \
+   | sed -Ee 's/^(Enable|Disable)//i;' \
+   | sort -u)
+do
+   if ! grep -Eq "^(#[[:space:]])?(Enable|Disable)${rule}" Presets/*.preset
+   then
+      echo "Warning: no preset proposed for rule: ${rule}"
    fi
 done

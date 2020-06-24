@@ -29,13 +29,13 @@ if (Test-Path $myScriptVarOverload) {
 ### Renommage du compte administrateur
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégies locales / Options de sécurité
 # Enable
-Function EnableRenameAdminAccount {
+Function SetAdminAccountLogin {
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameToSet -ErrorAction SilentlyContinue
 }
 
 # Disable
-Function DisableRenameAdminAccount {
+Function UnsetAdminAccountLogin {
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameOriginal -ErrorAction SilentlyContinue
 }
@@ -82,4 +82,46 @@ Function DisableSessionLockTimeout {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name $myInactivityTimeoutSecs -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
+################################################################
+
+
+
+################################################################
+
+### Application de paramètres de sécurité
+# cf : https://www.itninja.com/blog/view/using-secedit-to-apply-security-templates
+# Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégie de comptes / Stratégie de mots de passe
+Function SetSecurityParamAccountPolicy {
+	$tempFile = New-TemporaryFile
+	$tempInfFile = "$tempFile.inf"
+
+
+	Rename-Item -Path $tempFile.FullName -NewName $tempInfFile
+	
+	$securityString = "[Unicode]
+	Unicode=yes
+	[Version]
+	signature=`"`$CHICAGO`$`"
+	Revision=10
+	[System Access]
+	MinimumPasswordAge = $MinimumPasswordAge
+	MaximumPasswordAge = $MaximumPasswordAge
+	MinimumPasswordLength = $MinimumPasswordLength
+	PasswordComplexity = $PasswordComplexity
+	PasswordHistorySize = $PasswordHistorySize
+	LockoutBadCount = $LockoutBadCount
+	ResetLockoutCount = $ResetLockoutCount
+	LockoutDuration = $LockoutDuration
+	EnableGuestAccount = $EnableGuestAccount
+	"
+	$securityString | Out-File -FilePath $tempInfFile
+	secedit /configure  /db hisecws.sdb /cfg $tempInfFile /areas SECURITYPOLICY
+	Remove-Item -Path $tempInfFile
+}
+
+
+Function UnSetSecurityParamAccountPolicy {
+	# Nécessite un reboot
+	secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb
+}
 ################################################################

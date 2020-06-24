@@ -85,14 +85,20 @@ done < <(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -name '*.psm1
    | sed -Ee 's/^(Enable|Disable)//i;' \
    | sort -u)
 
-
-# detect the definition of a missing preset
-for rule in $(grep -hEi '^Function[[:space:]](Enable|Disable)' $(find . -path ./Win10-Initial-Setup-Script -prune -o -name '*.psm1' -print) \
+# Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin...
+kind_rule=$(grep -i '^Function[[:space:]]' $(find . -path ./Win10-Initial-Setup-Script -prune -o -name '*.psm1' -print) \
    | awk '{print $2}' \
-   | sed -Ee 's/^(Enable|Disable)//i;' \
+   | grep -Eo '^[A-Z][a-z]+' \
+   | sort -u \
+   | tr '\n' '|' \
+   | sed -e 's/|$//;')
+# detect the definition of a missing preset
+for rule in $(grep -hEi "^Function[[:space:]](${kind_rule})" $(find . -path ./Win10-Initial-Setup-Script -prune -o -name '*.psm1' -print) \
+   | awk '{print $2}' \
+   | sed -Ee "s/^(${kind_rule})//i;" \
    | sort -u)
 do
-   if ! grep -Eq "^(#[[:space:]])?(Enable|Disable)${rule}" Presets/*.preset
+   if ! grep -Eq "^(#[[:space:]])?(${kind_rule})${rule}" Presets/*.preset
    then
       echo "Warning: no preset proposed for rule: ${rule}"
    fi

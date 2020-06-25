@@ -14,3 +14,9 @@
 ###### Preset Cloud
 ################################################################
 
+
+### ANSSI Annexe E ####
+
+# Configuration Ordinateur / Paramètres Windows / Paramètres de Sécurité / Stratégies Locales / Options de sécurité / Comptes : Bloquer les comptes Microsoft /  Les utilisateurs ne peuvent pas ajouter de comptes Microsoft ni se connecter avec ces derniers
+# Block Microsoft Accounts
+DisableMicrosoftAccount

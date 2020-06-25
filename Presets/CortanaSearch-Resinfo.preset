@@ -19,19 +19,28 @@
 ### ANSSI Annexe B ###
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona / desactivé
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona au-dessus de l'écran de verouillage / desactivé
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser l'indexation des fichiers chiffrés / desactivé
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona / Définir quelles informations sont partagées dans search / activé type => informations anonymes
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas autoriser la recherche Web / activé
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
-
 DisableCortana
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona au-dessus de l'écran de verouillage / desactivé
+# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowCortanaAboveLock" 0
+# add this function
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser l'indexation des fichiers chiffrés / desactivé
+# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowIndexingEncryptedStoresOrItems" 0
+# add this function
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Définir quelles informations sont partagées dans search / activé type => informations anonymes
+# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchPrivacy" 3
+# add this function
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas autoriser la recherche Web / activé
 DisableWebSearch # 3 clés => HKCU BingSearchEnabled/CortanaConsent et HKLM DisableWebSearch
 
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
+# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchUseWeb" 0
+# add this function
 
 # Voir aussi ces clés :
-# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowCortanaAboveLock" 0
-# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowIndexingEncryptedStoresOrItems" 0
-# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchUseWeb" 0 / remplacé par BingSearchEnabled ?
+# BingSearchEnabled
 # "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowSearchToUseLocation" 0
 # "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchUseWebOverMeteredConnections" 0

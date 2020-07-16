@@ -318,7 +318,7 @@ Function EnableMicrosoftAccount {
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona au-dessus de l'écran de verouillage / desactivé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCortanaAboveLock&Language=fr-fr
-# ANSSI Annex B1
+# ANSSI Annexe B1
 Function DisableCortanaAboveLock {
 	Write-Output "Disable Cortana AboveLock..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {

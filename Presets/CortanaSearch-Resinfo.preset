@@ -28,8 +28,7 @@ DisableCortanaAboveLock
 DisableIndexingEncryptedStores
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Définir quelles informations sont partagées dans search / activé type => informations anonymes
-# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchPrivacy" 3
-# add this function
+DisableSharedInformationSearch
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas autoriser la recherche Web / activé
 DisableWebSearch # 3 clés => HKCU BingSearchEnabled/CortanaConsent et HKLM DisableWebSearch

@@ -34,8 +34,7 @@ DisableSharedInformationSearch
 DisableWebSearch # 3 clés => HKCU BingSearchEnabled/CortanaConsent et HKLM DisableWebSearch
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
-# "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchUseWeb" 0
-# add this function
+DisableDisplayWebResults
 
 # Voir aussi ces clés :
 # BingSearchEnabled

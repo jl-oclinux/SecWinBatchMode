@@ -37,6 +37,5 @@ DisableWebSearch # 3 clés => HKCU BingSearchEnabled/CortanaConsent et HKLM Disa
 DisableDisplayWebResults
 
 # Voir aussi ces clés :
-# BingSearchEnabled
 # "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "AllowSearchToUseLocation" 0
 # "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" "ConnectedSearchUseWebOverMeteredConnections" 0

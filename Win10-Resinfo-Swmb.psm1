@@ -14,6 +14,28 @@
 ###### Exemples https://github.com/Disassembler0/Win10-Initial-Setup-Script#examples
 ################################################################
 
+################################################################
+###### Telemetry
+################################################################
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows /Antivirus Windows Defender / MAPS / Configurer une valeur de remplacement de paramètre locale pour l'envoi de rapports à Microsoft MAPS / Desactivé
+# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::Spynet_LocalSettingOverrideSpynetReporting&Language=fr-fr
+Function DisableOverrideReportingMAPS {
+	Write-Output "Disabling override for reporting to Microsoft MAPS..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "LocalSettingOverrideSpynetReporting" -Type DWord -Value 0
+}
+
+# Enable
+Function EnableOverrideReportingMAPS {
+	Write-Output "Enabling override for reporting to Microsoft MAPS..."
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "LocalSettingOverrideSpynetReporting" -Type DWord -Value 1 -ErrorAction SilentlyContinue
+}
+
+
+
 
 ################################################################
 ###### User Experience

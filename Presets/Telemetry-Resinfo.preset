@@ -34,5 +34,9 @@ DisableFeedback
 # Service Expérience des utilisateurs connectés et télémetrie / Connected User Experiences and Telemetry - Diagtrack
 DisableDiagTrack
 
+### ANSSI Annexe A3 ####
+### ANSSI Annexe A4 ####
+
+
 # Disable since 1803 : https://docs.microsoft.com/en-us/windows/configuration/manage-wifi-sense-in-enterprise
 # DisableWiFiSense

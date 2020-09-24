@@ -36,6 +36,9 @@ DisableDiagTrack
 
 ### ANSSI Annexe A3 ####
 
+# https://getadmx.com/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
+DisableMRTReportInfectionInformation
+
 ### ANSSI Annexe A4 ####
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows /Antivirus Windows Defender / MAPS / Configurer une valeur de remplacement de paramètre locale pour l'envoi de rapports à Microsoft MAPS / Desactivé

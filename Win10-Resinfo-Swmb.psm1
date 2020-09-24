@@ -34,6 +34,23 @@ Function EnableOverrideReportingMAPS {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "LocalSettingOverrideSpynetReporting" -Type DWord -Value 1 -ErrorAction SilentlyContinue
 }
 
+# ANSSI Annexe A3
+# https://getadmx.com/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
+
+Function DisableMRTReportInfectionInformation {
+	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontReportInfectionInformation" -Type DWord -Value 1
+}
+
+# Enable
+Function EnableMRTReportInfectionInformation {
+	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontReportInfectionInformation" -ErrorAction SilentlyContinue
+}
+
 
 
 

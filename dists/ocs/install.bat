@@ -35,7 +35,7 @@ REM droits execution sur Win10.ps1
 
 REM execeution de Win10.ps1
 ECHO SWMBPowershell>>%logfile% 2>&1
-CD C:
+C:
 CD "C:\Program Files\SWMB"
 %pwrsh% -File "C:\Program Files\SWMB\Win10-Initial-Setup-Script\Win10.ps1" -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-My-Swmb.psm1" -include "Win10-Resinfo-Swmb.psm1" -preset "Preset/Cloud-Resinfo.preset" -preset "Preset/CortanaSearch-Resinfo.preset" -preset "Preset/My.preset" -preset "Preset/Telemetry-Resinfo.preset" -preset "Preset/UniversalApps-Resinfo.preset" -preset "Preset/UserExperience-Resinfo.preset" ">>%logfile% 2>&1
 

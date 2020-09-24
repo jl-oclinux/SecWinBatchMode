@@ -25,6 +25,10 @@ DisableTelemetry
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Collecte des données et versions d'évaluation Previwew / Désactiver les fonctionnalités ou paramèetres de preversion
 # Don't exist on 1909
 
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Collecte des données et versions d'évaluation Previwew / Ne plus afficher les notifications de commentaires
+# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.FeedbackNotifications::DoNotShowFeedbackNotifications&Language=fr-fr
+DisableFeedback
+
 # Service Expérience des utilisateurs connectés et télémetrie / Connected User Experiences and Telemetry - Diagtrack
 DisableDiagTrack
 

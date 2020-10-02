@@ -107,6 +107,6 @@ Si vous souhaitez définir vos propres valeurs de variables utilisées le script
 
 ## Exemples de déploiement
 
-Vous trouverez, dans le répertoire [dists](dists), des exemples de déploiement du script (manuel, depuis un partage, avec ocs...).
+Vous trouverez, dans le répertoire [dists](dists), des exemples de déploiement du script (manuel, depuis un partage windows, avec ocs...).
 
 Le fichier [README.md](dists/manuel/README.md) du répertoire "manuel" rappelle quelques principes sur les politiques d'exécution de Powershell.

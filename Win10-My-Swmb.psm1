@@ -11,7 +11,7 @@
 ################################################################
 
 $myScriptName = (Get-PSCallStack)[0].ScriptName
-$myScriptFullPathBasename = (Get-Item $myScriptName).DirectoryName + (Get-Item $MyScriptName).Basename
+$myScriptFullPathBasename = (Get-Item $myScriptName).DirectoryName + + '\' + (Get-Item $MyScriptName).Basename
 $myScriptVarDefault = $myScriptFullPathBasename + '-VarDefault.psm1'
 Import-Module -Name $myScriptVarDefault
 
@@ -70,7 +70,7 @@ Function EnableSessionLockTimeout {
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name $myInactivityTimeoutSecs -Type DWord -Value $InactivityTimeoutSecs -ErrorAction SilentlyContinue
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name InactivityTimeoutSecs  -Type DWord -Value $InactivityTimeoutSecs -ErrorAction SilentlyContinue
 }
 
 # Disable
@@ -79,7 +79,7 @@ Function DisableSessionLockTimeout {
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name $myInactivityTimeoutSecs -Type DWord -Value 0 -ErrorAction SilentlyContinue
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name InactivityTimeoutSecs  -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
 ################################################################

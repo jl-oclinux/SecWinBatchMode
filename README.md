@@ -86,8 +86,8 @@ Un preset par paragraphe de l'ANSSI
 # Exécution d'un jeu de preset
 .\Win10-Initial-Setup-Script\Win10.ps1 \
    -include "Win10-Initial-Setup-Script\Win10.psm1" \
-   -include "Win10-Resinfo-Swmb.psm1 \
-   -preset Presets\UserExperience.preset
+   -include "Win10-Resinfo-Swmb.psm1" \
+   -preset "Presets\UserExperience-Resinfo.preset"
 ```
 
 ### Intégration dans un autre projet Git

@@ -4,9 +4,21 @@ PATCH:=1
 
 
 
-.PHONY: all clean ocs
+.PHONY: all help update clean ocs
 
 all: $(SOFT)-$(VERSION)-$(PATCH).zip ocs
+
+
+help:
+	@echo "all      Création de l'archive zip"
+	@echo "ocs      Aide pour le téléversement de l'archive dans OCS"
+	@echo "clean    Nettoyage du dossier"
+	@echo "update   Réalise un git pull (mise à jour) du projet SWMB à sa racine"
+
+
+update:
+	(cd ../..; git pull)
+
 
 clean:
 	rm -f $(SOFT)-$(VERSION)-$(PATCH).zip

@@ -15,7 +15,7 @@ Il est possible de faire un `make update` afin de se mettre à jour avec la dern
 Cette commande est strictement équivalente à un `git pull` à la racine de votre clone SWMB.
 
 Une fois fixées les versions, faites
-```
+```bash
 make
 ```
 puis téléverser le zip fournit dans votre serveur OCS Inventory en suivant les réponses que vous indique le `Makefile`.

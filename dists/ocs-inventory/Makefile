@@ -1,0 +1,42 @@
+SOFT:=SWMB
+VERSION:=1.0
+PATCH:=1
+
+
+
+.PHONY: all clean ocs
+
+all: $(SOFT)-$(VERSION)-$(PATCH).zip ocs
+
+clean:
+	rm -f $(SOFT)-$(VERSION)-$(PATCH).zip
+
+
+%.zip: Makefile
+	perl -pi.bak -e ' \
+		s/^(SET\ssoftversion=)\d[\.\d]+/$${1}$(VERSION)/; \
+		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/;' install.bat
+	rm -f $@
+	zip -r $@ install.bat
+	(cd ../..; zip -r dists/ocs/$@ \
+		Presets/*.preset \
+		Win10-Initial-Setup-Script\Win10.* \
+		Win10-My-Swmb.psm1 \
+		Win10-My-Swmb-VarDefault.psm1 \
+		Win10-Resinfo-Swmb.psm1 \
+		-x \*.git/* \
+		)
+	chmod ugo+rw $@
+
+
+ocs:
+	@echo ""
+	@echo "Name:     $(SOFT)-$(VERSION)-$(PATCH)"
+	@echo "priority: 2"
+	@echo "Launch:   install.bat"
+	@echo "Message:  no"
+	@echo ""
+	@echo "RESINFO GT SWMB"
+	@echo " --- "
+	@echo "Installation et/ou mise à jour de $(SOFT)"
+	@echo ""

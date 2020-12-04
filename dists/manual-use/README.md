@@ -27,10 +27,9 @@ Voici un lien sur le [sujet](https://social.technet.microsoft.com/Forums/en-US/0
 * Exécuter la commande powershell de lancement du script avec les fichiers de preset que vous avez sélectionné
   (cf. [README](https://gitlab.in2p3.fr/resinfo-gt/swmb/-/blob/master/README.md)).
   *Exemple avec le fichier de preset `UserExperience`* :
-```ps
-&'C:\SWMB\Win10-Initial-Setup-Script\Win10.ps1' -include 'C:\SWMB\Win10-Initial-Setup-Script\Win10.psm1' -include 'C:\SWMB\Win10-Resinfo-Swmb.psm1' -preset 'C:\SWMB\Presets\UserExperience-Resinfo.preset'
-```
-  
+  ```ps
+  &'C:\SWMB\Win10-Initial-Setup-Script\Win10.ps1' -include 'C:\SWMB\Win10-Initial-Setup-Script\Win10.psm1' -include 'C:\SWMB\Win10-Resinfo-Swmb.psm1' -preset 'C:\SWMB\Presets\UserExperience-Resinfo.preset'
+  ```
 
 ### Création manuelle d’une tâche planifiée qui exécute le script au démarrage du PC
 

@@ -2,19 +2,21 @@
 
 ## Les bases
 
-[le dépôt git du projet](https://gitlab.in2p3.fr/resinfo-gt/swmb) SWMB
+Le [dépôt git du projet](https://gitlab.in2p3.fr/resinfo-gt/swmb) SWMB
 (Secure Windows Mode Batch).
 
-### Je récupère l'ensemble des scripts et documentation d'une des façons suivantes :
+### Je récupère l'ensemble des scripts et la documentation d'une des façons suivantes :
 
-* git
-   * ssh : git@gitlab.in2p3.fr:resinfo-gt/swmb.git
-   * https : https://gitlab.in2p3.fr/resinfo-gt/swmb.git 
-* En téléchargeant le zip : https://gitlab.in2p3.fr/resinfo-gt/swmb/-/archive/master/swmb-master.zip
+* git clone
+   * ssh : `git@gitlab.in2p3.fr:resinfo-gt/swmb.git`
+   * https : `https://gitlab.in2p3.fr/resinfo-gt/swmb.git`
+* En téléchargeant l'archive au format zip : https://gitlab.in2p3.fr/resinfo-gt/swmb/-/archive/master/swmb-master.zip
 
-### Sur ma machine de test, je lance le script «de base» qui fixe les paramètres de configuration conforme ANSSI (cf. https://www.ssi.gouv.fr/uploads/2017/01/np_securisation_windows10_collecte_de_donnees_v1.2.pdf) 
+### Sur ma machine de test, je lance le script «de base» qui fixe les paramètres de configuration
 
-Supposons que les scripts aient été téléchargés dans `C:\SWMB`
+Par défaut, SWMB essaye d'être conforme avec les [recommandations de l'ANSSI](https://www.ssi.gouv.fr/uploads/2017/01/np_securisation_windows10_collecte_de_donnees_v1.2.pdf).
+
+Supposons que les différents scripts aient été téléchargés dans le dossier `C:\SWMB`
 
 Je lance powershell avec un compte administrateur et privilèges élevés et je diminue temporairement la sécurité
 
@@ -36,7 +38,7 @@ Je me positionne sur le bon répertoire et je lance les commandes
 >.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-Swmb.psm1" -preset "Presets\Cloud-Resinfo.preset" -preset "Presets\CortanaSearch-Resinfo.preset" -preset "Presets\Telemetry-Resinfo.preset" -preset "Presets\UniversalApps-Resinfo.preset" -preset "Presets\UserExperience-Resinfo.preset"
 ```
 
-Évidement, si je ne veux pas appliquer tous les presets, il suffit que je ne sélectionner que ceux qui me plaisent...
+Évidement, si je ne veux pas appliquer tous les presets, il suffit que je ne sélectionne que ceux qui me plaisent...
 
 **... et voilà !**
 
@@ -60,5 +62,5 @@ Je me positionne sur le bon répertoire et je lance les commandes
 
 ### En savoir encore plus
 
-* Je lis le [README](../../README.md) du projet 
-* Je lis les documentations sur les exemples de déploiement dans le répertoire «[dists](../)» du projet
+* Je lis le [README](https://gitlab.in2p3.fr/resinfo-gt/swmb/-/blob/master/README.md) du projet 
+* Je lis les documentations sur les exemples de déploiement dans le répertoire «[dists](https://gitlab.in2p3.fr/resinfo-gt/swmb/-/tree/master/dists)» du projet

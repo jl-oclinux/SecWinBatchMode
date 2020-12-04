@@ -109,4 +109,4 @@ Si vous souhaitez définir vos propres valeurs de variables utilisées le script
 
 Vous trouverez, dans le répertoire [dists](dists), des exemples de déploiement du script (manuel, au démarrage de la machine, avec OCS Inventory...).
 
-Le fichier [README.md](dists/manual-use/README.md) du répertoire «manual-use» rappelle quelques principes sur les politiques d'exécution de Powershell.
+Le fichier [README](dists/manual-use/README.md) du répertoire «manual-use» rappelle quelques principes sur les politiques d'exécution de Powershell.

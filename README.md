@@ -79,14 +79,14 @@ Un preset par paragraphe de l'ANSSI
 
 ```dos
 # Exécution d'une fonction seule
-.\Win10-Initial-Setup-Script\Win10.ps1 \
-   -include "Win10-Initial-Setup-Script\Win10.psm1" \
+.\Win10-Initial-Setup-Script\Win10.ps1 ^
+   -include "Win10-Initial-Setup-Script\Win10.psm1" ^
    -include "Win10-Resinfo-Swmb.psm1" nom-fonction
 
 # Exécution d'un jeu de preset
-.\Win10-Initial-Setup-Script\Win10.ps1 \
-   -include "Win10-Initial-Setup-Script\Win10.psm1" \
-   -include "Win10-Resinfo-Swmb.psm1" \
+.\Win10-Initial-Setup-Script\Win10.ps1 ^
+   -include "Win10-Initial-Setup-Script\Win10.psm1" ^
+   -include "Win10-Resinfo-Swmb.psm1" ^
    -preset "Presets\UserExperience-Resinfo.preset"
 ```
 

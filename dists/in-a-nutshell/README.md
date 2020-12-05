@@ -21,21 +21,26 @@ Supposons que les différents scripts aient été téléchargés dans le dossier
 Je lance powershell avec un compte administrateur et privilèges élevés et je diminue temporairement la sécurité
 
 ```ps
->powershell.exe
->
->Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
+powershell.exe
+
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process
 ```
 
 Je me positionne sur le bon répertoire et je lance les commandes
 
 ```ps
->C:
->
->cd \
->
->cd SWMB
->
->.\Win10-Initial-Setup-Script\Win10.ps1 -include "Win10-Initial-Setup-Script\Win10.psm1" -include "Win10-Resinfo-Swmb.psm1" -preset "Presets\Cloud-Resinfo.preset" -preset "Presets\CortanaSearch-Resinfo.preset" -preset "Presets\Telemetry-Resinfo.preset" -preset "Presets\UniversalApps-Resinfo.preset" -preset "Presets\UserExperience-Resinfo.preset"
+C:
+cd \
+cd SWMB
+
+.\Win10-Initial-Setup-Script\Win10.ps1  `
+  -include "Win10-Initial-Setup-Script\Win10.psm1" `
+  -include "Win10-Resinfo-Swmb.psm1" `
+  -preset "Presets\Cloud-Resinfo.preset" `
+  -preset "Presets\CortanaSearch-Resinfo.preset" `
+  -preset "Presets\Telemetry-Resinfo.preset" `
+  -preset "Presets\UniversalApps-Resinfo.preset" `
+  -preset "Presets\UserExperience-Resinfo.preset"
 ```
 
 Évidement, si je ne veux pas appliquer tous les presets, il suffit que je ne sélectionne que ceux qui me plaisent...

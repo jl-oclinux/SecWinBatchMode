@@ -2,6 +2,22 @@
 
 ## Récupérer le dépot du projet SWMB
 
+Il est préférable de fonctionner avec des clefs SSH plutôt qu'en HTTPS.
+Cependant, il ne faut pas oublier de mettre une phrase de passe pour protéger sa clef privé.
+Puis, on utlise l'agent SSH pour ne pas avoir à remettre la phrase de passe à chaque fois
+(attention à ne pas transmettre vos clefs privés à un agent SSH distant
+si vous n'êtes pas sur de ce serveur distant !).
+
+```bash
+# Création de la clef
+ssh-keygen  -t rsa -b 409 # phrase de passe
+
+# Ajout de la clef dans l'agent
+ssh-add ~/.ssh/id_rsa
+```
+
+On récupère alors le dépôt SWMB
+
 ```bash
 git clone git@gitlab.in2p3.fr:resinfo-gt/swmb.git
 cd swmb

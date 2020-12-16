@@ -1,12 +1,19 @@
 ## Commandes PowerShell bitlocker
 # https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
 
-### Informations
-Write-Host "Get-Disk informations"
-Get-Disk
 
-Write-Host "Get-TPM informations"
-Get-TPM
+if (!(Confirm-SecureBootUEFI)) {
+   Write-Error "UEFI is OFF !" -ErrorAction Stop
+ }
+
+if ((Get-BitLockerVolume $env:systemdrive).ProtectionStatus -eq "on") {Write-Error "Bitlocker on $env:systemdrive is already ON !" -ErrorAction stop}
+
+if (!(get-tpm).tpmready) {
+  Write-Host "Get-TPM informations"
+  Get-TPM
+  Write-Error "TPM not ready !" -ErrorAction stop
+}
+
 
 ### Activation
 Write-Host "Code PIN :"

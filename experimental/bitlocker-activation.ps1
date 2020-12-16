@@ -1,6 +1,6 @@
 ## Commandes PowerShell bitlocker
 # https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
-
+$systemDrive = $env:systemdrive
 
 if (!(Confirm-SecureBootUEFI)) {
    Write-Error "UEFI is OFF !" -ErrorAction Stop
@@ -21,16 +21,16 @@ if (!(get-tpm).tpmready) {
 Write-Host "Code PIN :"
 $Secure = Read-Host -AsSecureString
 
-Write-Host "Enable bitlocker on C:"
-Enable-BitLocker -MountPoint "C:" -TpmAndPinProtector -Pin $Secure -EncryptionMethod "XtsAes256"
+Write-Host "Enable bitlocker on $systemDrive"
+Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $Secure -EncryptionMethod "XtsAes256"
 
 Write-Host "Add key"
-Add-BitLockerKeyProtector -MountPoint "c:" -RecoveryPasswordProtector
+Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 
-Write-Host "Resume disk c"
-Resume-BitLocker -MountPoint "C:"
+Write-Host "Resume disk $systemDrive"
+Resume-BitLocker -MountPoint "$systemDrive"
 
-Write-Host "Copy key on c:"
+Write-Host "Copy key on $systemDrive"
 (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey.txt
 
 

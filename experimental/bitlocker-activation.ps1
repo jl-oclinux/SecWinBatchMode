@@ -4,9 +4,11 @@
 
 if (!(Confirm-SecureBootUEFI)) {
    Write-Error "UEFI is OFF !" -ErrorAction Stop
- }
+}
 
-if ((Get-BitLockerVolume $env:systemdrive).ProtectionStatus -eq "on") {Write-Error "Bitlocker on $env:systemdrive is already ON !" -ErrorAction stop}
+if ((Get-BitLockerVolume $env:systemdrive).ProtectionStatus -eq "on") {
+  Write-Error "Bitlocker on $env:systemdrive is already ON !" -ErrorAction stop
+}
 
 if (!(get-tpm).tpmready) {
   Write-Host "Get-TPM informations"

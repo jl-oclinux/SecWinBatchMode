@@ -36,16 +36,17 @@ Write-Host "Copy key on $systemDrive"
 
 If ((Test-Path D:))
 {
-  Write-Host "Enable bitlocker on D:"
-  Enable-BitLocker -MountPoint "D:" -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
-
-  Write-Host "Resume disk d"
-  Resume-BitLocker -MountPoint "D:"
-
-  Write-Host "Copy key on c:"
-  (Get-BitLockerVolume -MountPoint D).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey-D.txt
-  ## Auto unlock D mais ne fonctionne pas avant reboot
-  # après reboot
-  # Unlock-BitLocker -MountPoint "D:" -recoverypassword xxxxx
-  # Enable-BitLockerAutoUnlock -MountPoint "D:"
+  $bitOnDriveD = Read-Host -Prompt 'Drive D: exist, do you like to activate bitlocker on drive D: ? [yes/no] (default is no)'
+  if ($bitOnDriveD -eq "yes") {
+    Write-Host "Enable bitlocker on D:"
+    Enable-BitLocker -MountPoint "D:" -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
+    Write-Host "Resume disk d"
+    Resume-BitLocker -MountPoint "D:"
+    Write-Host "Copy key"
+    (Get-BitLockerVolume -MountPoint D).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey-D.txt
+    ## Auto unlock D mais ne fonctionne pas avant reboot
+    # après reboot
+    # Unlock-BitLocker -MountPoint "D:" -recoverypassword xxxxx
+    # Enable-BitLockerAutoUnlock -MountPoint "D:"
+  }
 }

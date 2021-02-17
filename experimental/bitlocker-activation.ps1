@@ -42,7 +42,7 @@ if ($decision -eq 0) {
   Resume-BitLocker -MountPoint "$systemDrive"
 
   Write-Host "Copy key on $systemDrive"
-  (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey.txt
+  (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey-c.txt
 #TODO change les droits chmod go-rwx
 
 }
@@ -57,7 +57,7 @@ else {
     Resume-BitLocker -MountPoint "$systemDrive"
 
     Write-Host "Copy key on $systemDrive"
-    (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey.txt
+    (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey-c.txt
 }
 
 

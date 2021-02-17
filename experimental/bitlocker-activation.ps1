@@ -17,21 +17,35 @@ if (!(get-tpm).tpmready) {
 }
 
 
-### Activation
-Write-Host "Code PIN :"
-$Secure = Read-Host -AsSecureString
+$title    = 'Activation bitlocker'
+$question = 'Do you want to use PIN?'
 
-Write-Host "Enable bitlocker on $systemDrive"
-Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $Secure -EncryptionMethod "XtsAes256"
+$choices = New-Object Collections.ObjectModel.Collection[Management.Automation.Host.ChoiceDescription]
+$choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&Yes'))
+$choices.Add((New-Object Management.Automation.Host.ChoiceDescription -ArgumentList '&No'))
 
-Write-Host "Add key"
-Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
+$decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
+if ($decision -eq 0) {
+    ### Activation
+  Write-Host "Code PIN :"
+  $Secure = Read-Host -AsSecureString
 
-Write-Host "Resume disk $systemDrive"
-Resume-BitLocker -MountPoint "$systemDrive"
+  Write-Host "Enable bitlocker on $systemDrive"
+  Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $Secure -EncryptionMethod "XtsAes256"
 
-Write-Host "Copy key on $systemDrive"
-(Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey.txt
+  Write-Host "Add key"
+  Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
+
+  Write-Host "Resume disk $systemDrive"
+  Resume-BitLocker -MountPoint "$systemDrive"
+
+  Write-Host "Copy key on $systemDrive"
+  (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey.txt
+
+} else {
+    Write-Host 'without PIN'
+}
+
 
 
 If ((Test-Path D:))

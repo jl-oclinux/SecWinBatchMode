@@ -1,3 +1,34 @@
+Function Network-Key-Backup(){
+    Param (
+          [Parameter(Mandatory=$true)] [string]$wantToSave
+      )
+
+   if ($wantToSave -eq $false) {
+      Do { $isNetWorkBackup = Read-Host "Do you want to save recovery key on a network drive [Y/N]?"
+      } Until ("Y","N" -ccontains $isNetWorkBackup)
+      if ($isNetWorkBackup -eq "N") {
+         return $null
+      }
+   }
+
+   Do {$networkKeyBackup = Read-Host "Provide a CIFS/SMB writable network path with syntax \\serverName\SharedFolder"
+   } Until (($networkKeyBackup.Length -gt 2) -and ("\\" -ccontains $networkKeyBackup.Substring(0,2)))
+   
+   if ($networkKeyBackup.Substring($networkKeyBackup.length -1) -ne "\") {
+      $networkKeyBackup += "\"
+   }
+   try {
+      New-Item -Name isWriteAllowed.txt -ItemType File -Path $networkKeyBackup -Force -ErrorAction stop | Out-Null
+      return $networkKeyBackup
+      #todo question : est-ce que je supprime le fichier ensuite? bof...
+   }
+   catch {
+      Write-Host ("$networkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
+      Network-Key-Backup -wantToSave $true 
+   }
+}
+
+
 Function EnableBitlocker {
 
 ## Commandes PowerShell bitlocker
@@ -20,6 +51,9 @@ if (!(get-tpm).tpmready) {
   Write-Error "TPM not ready !"
   return
 }
+
+#sauvegarde des clés sur un chemin réseau
+$networkKeyBackupFolder = Network-Key-Backup -wantToSave $false
 
 # Test des droits sur le chemin
 

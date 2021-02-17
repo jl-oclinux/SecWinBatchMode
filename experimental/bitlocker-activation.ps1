@@ -1,3 +1,5 @@
+Function EnableBitlocker {
+
 ## Commandes PowerShell bitlocker
 # https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
 $systemDrive = $env:systemdrive
@@ -16,6 +18,7 @@ if (!(get-tpm).tpmready) {
   Write-Error "TPM not ready !" -ErrorAction stop
 }
 
+# Test des droits sur le chemin
 
 $title    = 'Activation bitlocker'
 $question = 'Do you want to use PIN?'
@@ -23,7 +26,6 @@ $choices  = '&Yes', '&No'
 $decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
 
 if ($decision -eq 0) {
-    ### Activation
   Write-Host "Code PIN :"
   $Secure = Read-Host -AsSecureString
 
@@ -38,13 +40,15 @@ if ($decision -eq 0) {
 
   Write-Host "Copy key on $systemDrive"
   (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey.txt
+#TODO change les droits chmod go-rwx
 
 } else {
     Write-Host 'without PIN'
+#TODO procdure sans code PIN
 }
 
 
-
+#TODO boucle sur les lecteurs
 If ((Test-Path D:))
 {
   $bitOnDriveD = Read-Host -Prompt 'Drive D: exist, do you like to activate bitlocker on drive D: ? [yes/no] (default is no)'
@@ -60,4 +64,6 @@ If ((Test-Path D:))
     # Unlock-BitLocker -MountPoint "D:" -recoverypassword xxxxx
     # Enable-BitLockerAutoUnlock -MountPoint "D:"
   }
+}
+
 }

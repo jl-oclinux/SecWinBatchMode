@@ -5,17 +5,20 @@ Function EnableBitlocker {
 $systemDrive = $env:systemdrive
 
 if (!(Confirm-SecureBootUEFI)) {
-   Write-Error "UEFI is OFF !" -ErrorAction Stop
+   Write-Error "UEFI is OFF !"
+   return
 }
 
 if ((Get-BitLockerVolume $env:systemdrive).ProtectionStatus -eq "on") {
-  Write-Error "Bitlocker on $env:systemdrive is already ON !" -ErrorAction stop
+  Write-Error "Bitlocker on $env:systemdrive is already ON !"
+  return
 }
 
 if (!(get-tpm).tpmready) {
   Write-Host "Get-TPM informations"
   Get-TPM
-  Write-Error "TPM not ready !" -ErrorAction stop
+  Write-Error "TPM not ready !"
+  return
 }
 
 # Test des droits sur le chemin

@@ -45,9 +45,19 @@ if ($decision -eq 0) {
   (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey.txt
 #TODO change les droits chmod go-rwx
 
-} else {
-    Write-Host 'without PIN'
-#TODO procdure sans code PIN
+}
+else {
+    Write-Host "Enable bitlocker on $systemDrive without PIN"
+    Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -Pin $Secure -EncryptionMethod "XtsAes256"
+
+    Write-Host "Add key"
+    Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
+
+    Write-Host "Resume disk $systemDrive"
+    Resume-BitLocker -MountPoint "$systemDrive"
+
+    Write-Host "Copy key on $systemDrive"
+    (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey.txt
 }
 
 

@@ -88,7 +88,7 @@ if ($decision -eq 0) {
 }
 else {
     Write-Host "Enable bitlocker on $systemDrive without PIN"
-    Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -Pin $Secure -EncryptionMethod "XtsAes256"
+    Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
 
     Write-Host "Add key"
     Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector

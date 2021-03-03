@@ -13,7 +13,7 @@ Function Network-Key-Backup(){
 
    Do {$networkKeyBackup = Read-Host "Provide a CIFS/SMB writable network path with syntax \\serverName\SharedFolder"
    } Until (($networkKeyBackup.Length -gt 2) -and ("\\" -ccontains $networkKeyBackup.Substring(0,2)))
-   
+
    if ($networkKeyBackup.Substring($networkKeyBackup.length -1) -ne "\") {
       $networkKeyBackup += "\"
    }
@@ -24,7 +24,7 @@ Function Network-Key-Backup(){
    }
    catch {
       Write-Host ("$networkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
-      Network-Key-Backup -wantToSave $true 
+      Network-Key-Backup -wantToSave $true
    }
 }
 
@@ -54,7 +54,7 @@ if (!(get-tpm).tpmready) {
   return
 }
 
-#sauvegarde des clés sur un chemin réseau
+#sauvegarde des clï¿½s sur un chemin rï¿½seau
 $networkKeyBackupFolder = Network-Key-Backup -wantToSave $false
 
 # Test des droits sur le chemin
@@ -78,8 +78,12 @@ if ($decision -eq 0) {
   Resume-BitLocker -MountPoint "$systemDrive"
 
   Write-Host "Copy key on $systemDrive"
-  (Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey-c.txt
-#TODO change les droits chmod go-rwx
+  $pathkey = "c:\$env:computername-bitlockerRecoveryKey-c.txt"
+  (Get-BitLockerVolume -MountPoint C).KeyProtector > $pathkey
+ # acl on key see https://stackoverflow.com/a/43317244
+ icacls.exe $path /reset
+ icacls.exe $path /GRANT:R "$((Get-Acl -Path $path).Owner):(R)"
+ icacls.exe $path /inheritance:r
 
 }
 else {
@@ -115,8 +119,8 @@ else {
 ###  }
 ### }
 
-# On traite toutes les partitions qui ont une lettre associée et qui sont de type fixed
-# ie on ne prend pas en compte les clés usb
+# On traite toutes les partitions qui ont une lettre associï¿½e et qui sont de type fixed
+# ie on ne prend pas en compte les clï¿½s usb
 
 $List_volume = Get-volume | Where-Object {$_.DriveType -eq "Fixed"  -and $_.DriveLetter -ne $systemDriveLetter }
 $Nb_volume = $List_volume.count
@@ -131,28 +135,28 @@ do {
         $ChiffDrv = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive ? [Y/N]"
         if ($ChiffDrv -eq "Y") {
             Write-Host "Bitlocker activation on drive $letter is going to start"
-			
-			##TODO 
-			#A voir pourquoi on reteste pas si partition déjà chiffrée (comme pour C:)
-			#A rajouter copie de la clé sur réseau si $networkKeyBackupFolder = true
+
+			##TODO
+			#A voir pourquoi on reteste pas si partition dï¿½jï¿½ chiffrï¿½e (comme pour C:)
+			#A rajouter copie de la clï¿½ sur rï¿½seau si $networkKeyBackupFolder = true
 			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 			Resume-BitLocker -MountPoint $letter
 			Write-Host "Copy key"
 			$backupFile = $systemDrive + "\" + $env:computername +"-bitlockerRecoveryKey-"+ $Letter + ".txt"
 			write-host $backupFile
 			(Get-BitLockerVolume -MountPoint $LetterColon).KeyProtector > $backupFile
-                    
+
             #$NextVolume = Read-Host -Prompt "Voulez vous chiffre un autre lecteur ? [O/N]"
             #if ($NextVolume -ne 'O'){
-            #Write-Host "Chiffrement BitLocker terminé pour tous les lecteurs"
+            #Write-Host "Chiffrement BitLocker terminï¿½ pour tous les lecteurs"
             #exit
             #}
 			Write-Host "Bitlocker activation on drive $letter ended with success"
         }
     }
-    #} 
+    #}
     $numVolume++
-} until ($numVolume -eq $Nb_volume) 
+} until ($numVolume -eq $Nb_volume)
 
 write-host "Bitlocker script ended with success!"
 

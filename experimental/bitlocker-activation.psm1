@@ -38,7 +38,7 @@ $systemDriveLetter = $systemDrive.substring(0,1)
 $numVolume = 0
 
 if (!(Confirm-SecureBootUEFI)) {
-   Write-Error "UEFI is OFF !"
+   Write-Error "SecureBoot is OFF !"
    return
 }
 

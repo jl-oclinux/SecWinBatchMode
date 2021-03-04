@@ -123,7 +123,7 @@ Function EnableBitlocker {
 
 	$List_volume = Get-volume | Where-Object {$_.DriveType -eq "Fixed"  -and $_.DriveLetter -ne $systemDriveLetter }
 	foreach ($volume in $List_volume) {
-		if (!($volume.DriveLetter)) { continue }
+		if ( -Not ($volume.DriveLetter)) { continue }
 
 		$Letter = $volume.DriveLetter
 		$LetterColon = $letter + ":"

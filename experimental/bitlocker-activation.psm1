@@ -123,32 +123,31 @@ Function EnableBitlocker {
 
 	$List_volume = Get-volume | Where-Object {$_.DriveType -eq "Fixed"  -and $_.DriveLetter -ne $systemDriveLetter }
 	foreach ($volume in $List_volume) {
-		if ($volume.DriveLetter) {
-			$Letter = $volume.DriveLetter
-			$LetterColon = $letter + ":"
-			#if (Test-Path $letter){
-			$ChiffDrv = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive ? [Y/N]"
-			if ($ChiffDrv -eq "Y") {
-				Write-Host "Bitlocker activation on drive $letter is going to start"
+		if (!($volume.DriveLetter)) { continue }
 
-				##TODO
-				#A voir pourquoi on reteste pas si partition déja chiffree (comme pour C:)
-				#A rajouter copie de la clef sur reseau si $networkKeyBackupFolder = true
-				Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
-				Resume-BitLocker -MountPoint $letter
-				Write-Host "Copy key"
-				$backupFile = $systemDrive + "\" + $env:computername +"-bitlockerRecoveryKey-"+ $Letter + ".txt"
-				write-host $backupFile
-				(Get-BitLockerVolume -MountPoint $LetterColon).KeyProtector > $backupFile
+		$Letter = $volume.DriveLetter
+		$LetterColon = $letter + ":"
+		#if (Test-Path $letter){
+		$ChiffDrv = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive ? [Y/N]"
+		if ($ChiffDrv -ne "Y") { continue }
 
-				#$NextVolume = Read-Host -Prompt "Voulez vous chiffre un autre lecteur ? [O/N]"
-				#if ($NextVolume -ne 'O'){
-				#Write-Host "Chiffrement BitLocker termine pour tous les lecteurs"
-				#exit
-				#}
-				Write-Host "Bitlocker activation on drive $letter ended with success"
-			}
-		}
+		Write-Host "Bitlocker activation on drive $letter is going to start"
+		##TODO
+		#A voir pourquoi on reteste pas si partition déja chiffree (comme pour C:)
+		#A rajouter copie de la clef sur reseau si $networkKeyBackupFolder = true
+		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
+		Resume-BitLocker -MountPoint $letter
+		Write-Host "Copy key"
+		$backupFile = $systemDrive + "\" + $env:computername +"-bitlockerRecoveryKey-"+ $Letter + ".txt"
+		write-host $backupFile
+		(Get-BitLockerVolume -MountPoint $LetterColon).KeyProtector > $backupFile
+
+		#$NextVolume = Read-Host -Prompt "Voulez vous chiffre un autre lecteur ? [O/N]"
+		#if ($NextVolume -ne 'O'){
+		#Write-Host "Chiffrement BitLocker termine pour tous les lecteurs"
+		#exit
+		#}
+		Write-Host "Bitlocker activation on drive $letter ended with success"
 	}
 	write-host "Bitlocker script ended with success!"
 }

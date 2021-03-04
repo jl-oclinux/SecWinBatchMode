@@ -96,9 +96,8 @@ Function EnableBitlocker {
 		Resume-BitLocker -MountPoint "$systemDrive"
 
 		Write-Host "Copy key on $systemDrive"
-		(Get-BitLockerVolume -MountPoint C).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey-c.txt
+		(Get-BitLockerVolume -MountPoint C).KeyProtector > C:\"$env:computername"-bitlockerRecoveryKey-C.txt
 	}
-
 
 	###TODO boucle sur les lecteurs
 	###If ((Test-Path D:))
@@ -121,9 +120,9 @@ Function EnableBitlocker {
 	# On traite toutes les partitions qui ont une lettre associee et qui sont de type fixed
 	# ie on ne prend pas en compte les clefs usb
 
-	$List_volume = Get-volume | Where-Object {$_.DriveType -eq "Fixed"  -and $_.DriveLetter -ne $systemDriveLetter }
+	$List_volume = Get-volume | Where-Object {$_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $systemDriveLetter }
 	foreach ($volume in $List_volume) {
-		if ( -Not ($volume.DriveLetter)) { continue }
+		if (-not ($volume.DriveLetter)) { continue }
 
 		$Letter = $volume.DriveLetter
 		$LetterColon = $letter + ":"
@@ -138,8 +137,8 @@ Function EnableBitlocker {
 		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 		Resume-BitLocker -MountPoint $letter
 		Write-Host "Copy key"
-		$backupFile = $systemDrive + "\" + $env:computername +"-bitlockerRecoveryKey-"+ $Letter + ".txt"
-		write-host $backupFile
+		$backupFile = $systemDrive + "\" + $env:computername + "-bitlockerRecoveryKey-" + $Letter + ".txt"
+		Write-Host $backupFile
 		(Get-BitLockerVolume -MountPoint $LetterColon).KeyProtector > $backupFile
 
 		#$NextVolume = Read-Host -Prompt "Voulez vous chiffre un autre lecteur ? [O/N]"

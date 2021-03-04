@@ -149,5 +149,10 @@ Function EnableBitlocker {
 		#}
 		Write-Host "Bitlocker activation on drive $letter ended with success"
 	}
-	write-host "Bitlocker script ended with success!"
+	Write-Host "Bitlocker script ended with success!"
+
+	$reboot = Read-Host -Prompt "Computer must be restarted. Restart now ? [Y/n]"
+	if ($reboot -ne "n") {
+		Restart-Computer -Force
+	}
 }

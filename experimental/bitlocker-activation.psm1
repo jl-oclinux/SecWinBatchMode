@@ -125,7 +125,7 @@ Function EnableBitlocker {
 	$List_volume = Get-volume | Where-Object {$_.DriveType -eq "Fixed"  -and $_.DriveLetter -ne $systemDriveLetter }
 	$Nb_volume = $List_volume.count
 
-    if ( $Nb_volume -ge 1) {
+	if ($Nb_volume -ge 1) {
 		do {
 			$volume = $List_volume[$numVolume]
 			if ($volume.DriveLetter) {
@@ -157,6 +157,6 @@ Function EnableBitlocker {
 			#}
 		$numVolume++
 		} until ($numVolume -eq $Nb_volume)
-	}	
+	}
 	write-host "Bitlocker script ended with success!"
 }

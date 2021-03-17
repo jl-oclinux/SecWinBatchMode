@@ -1,5 +1,8 @@
 ### Bitlocker ###
 
+# All registry keys :
+# https://getadmx.com/HKLM/Software/Policies/Microsoft/FVE
+
 ### Configuration
 
 if (-not (Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE")) {
@@ -29,6 +32,7 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "UseTPMKeyP
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "DisallowStandardUserPINReset" -Value 1
 
 # méthode de recouvrement autorisée
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.VolumeEncryption::OSRecoveryUsage_Name
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "OSRecovery" -Value 1
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "OSManageDRA" -Value 1
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "OSRecoveryPassword" -Value 2

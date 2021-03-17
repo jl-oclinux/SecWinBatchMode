@@ -6,9 +6,14 @@ if (-not (Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE")) {
 New-Item -path "HKLM:\SOFTWARE\Policies\Microsoft\" -name "FVE"
 }
 
-# 256 bits
+# 256 bits# XTS-AES 256-bit
+# https://admx.help/?Category=MDOP&Policy=Microsoft.Policies.BitLockerManagement::BLEncryptionMethodWithXts_Name
+
+# encryption method for operating system drives
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "EncryptionMethodWithXtsOs" -Value 7
+# encryption method for fixed data drives
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "EncryptionMethodWithXtsFdv" -Value 7
+# encryption method for removable data drives
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "EncryptionMethodWithXtsRdv" -Value 7
 
 # TPM and PIN

@@ -80,9 +80,9 @@ Function EnableBitlocker {
 		$pathkey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
 		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathkey
 		# acl on key see https://stackoverflow.com/a/43317244
-		icacls.exe $path /reset
-		icacls.exe $path /GRANT:R "$((Get-Acl -Path $path).Owner):(R)"
-		icacls.exe $path /inheritance:r
+		icacls.exe $pathkey /reset
+		icacls.exe $pathkey /GRANT:R "$((Get-Acl -Path $path).Owner):(R)"
+		icacls.exe $pathkey /inheritance:r
 
 	}
 	else {

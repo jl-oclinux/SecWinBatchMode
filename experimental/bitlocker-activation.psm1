@@ -92,8 +92,8 @@ Function EnableBitlocker {
 		Write-Host "Add key"
 		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 
-		Write-Host "Resume disk $systemDrive"
-		Resume-BitLocker -MountPoint "$systemDrive"
+		#Write-Host "Resume disk $systemDrive"
+		#Resume-BitLocker -MountPoint "$systemDrive"
 
 		Write-Host "Copy key on $systemDrive"
 		(Get-BitLockerVolume -MountPoint C).KeyProtector > C:\"$env:computername"-bitlockerRecoveryKey-C.txt

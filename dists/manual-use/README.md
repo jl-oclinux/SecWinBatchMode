@@ -21,7 +21,10 @@ Voici un lien sur le [sujet](https://social.technet.microsoft.com/Forums/en-US/0
   
 * Aller dans les propriétés de tous les fichiers `.ps1` et `.psm1` et débloquer les fichiers de la façon suivante
 * ![débloquer un fichier](img/unblock.png)
-  
+* En ligne de commande Powershell
+```ps
+dir -Path C:\SWMB -Recurse | Unblock-File
+```  
 * Ouvrir une session powershell en tant qu’administrateur et exécuter
   ```ps
   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process

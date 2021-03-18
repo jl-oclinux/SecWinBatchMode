@@ -1,38 +1,42 @@
-Function Network-Key-Backup() {
-	Param (
-		[Parameter(Mandatory=$true)] [string]$wantToSave
-	)
-
-	if ($wantToSave -eq $false) {
-		do {
-			$isNetWorkBackup = Read-Host "Do you want to save recovery key on a network drive [Y/N]?"
-		} Until ("Y","N" -ccontains $isNetWorkBackup)
-		if ($isNetWorkBackup -eq "N") {
-			$null
-		}
-	}
-
-	do {
-		$networkKeyBackup = Read-Host "Provide a CIFS/SMB writable network path with syntax \\serverName\SharedFolder"
-	} Until (($networkKeyBackup.Length -gt 2) -and ("\\" -ccontains $networkKeyBackup.Substring(0,2)))
-
-	if ($networkKeyBackup.Substring($networkKeyBackup.length -1) -ne "\") {
-		$networkKeyBackup += "\"
-	}
-	try {
-		New-Item -Name isWriteAllowed.txt -ItemType File -Path $networkKeyBackup -Force -ErrorAction stop | Out-Null
-		return $networkKeyBackup
-		# todo question : est-ce que je supprime le fichier ensuite? bof...
-	}
-	catch {
-		Write-Host ("$networkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
-		Network-Key-Backup -wantToSave $true
-	}
-}
 
 Function EnableBitlocker {
 	## Commandes PowerShell bitlocker
 	# https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
+	
+	Function _NetworkKeyBackup() {
+		Param (
+			[Parameter(Mandatory=$true)] [string]$wantToSave
+		)
+
+		if ($wantToSave -eq $false) {
+			do {
+				$isNetWorkBackup = Read-Host "Do you want to save recovery key on a network drive [Y/N]?"
+			} until ("Y","N" -ccontains $isNetWorkBackup)
+			if ($isNetWorkBackup -eq "N") {
+				$null
+			}
+		}
+
+		do {
+			$networkKeyBackup = Read-Host "Provide a CIFS/SMB writable network path with syntax \\serverName\SharedFolder"
+		} until (($networkKeyBackup.Length -gt 2) -and ("\\" -ccontains $networkKeyBackup.Substring(0,2)))
+
+		if ($networkKeyBackup.Substring($networkKeyBackup.length -1) -ne "\") {
+			$networkKeyBackup += "\"
+		}
+		try {
+			New-Item -Name isWriteAllowed.txt -ItemType File -Path $networkKeyBackup -Force -ErrorAction stop | Out-Null
+			return $networkKeyBackup
+			# todo question : est-ce que je supprime le fichier ensuite? bof...
+		}
+		catch {
+			Write-Host ("$networkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
+			_NetworkKeyBackup -wantToSave $true
+		}
+	}
+
+
+	# Begin function
 	$systemDrive = $env:systemdrive
 	$systemDriveLetter = $systemDrive.substring(0,1)
 
@@ -54,7 +58,7 @@ Function EnableBitlocker {
 	}
 
 	# sauvegarde des clefs sur un chemin reseau
-	$networkKeyBackupFolder = Network-Key-Backup -wantToSave $false
+	$networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
 
 	# Test des droits sur le chemin
 
@@ -134,8 +138,8 @@ Function EnableBitlocker {
 		##TODO
 		#A voir pourquoi on reteste pas si partition déja chiffree (comme pour C:)
 		#A rajouter copie de la clef sur reseau si $networkKeyBackupFolder = true
-		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
-		Resume-BitLocker -MountPoint $letter
+		Enable-BitLocker -MountPoint $Letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
+		Resume-BitLocker -MountPoint $Letter
 		Write-Host "Copy key"
 		$backupFile = $systemDrive + "\" + $env:computername + "-bitlockerRecoveryKey-" + $Letter + ".txt"
 		Write-Host $backupFile

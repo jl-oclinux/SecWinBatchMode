@@ -20,8 +20,9 @@ Voici un lien sur le [sujet](https://social.technet.microsoft.com/Forums/en-US/0
 * Récupérer les scripts SWMB (par un git clone par exemple) dans `C:\SWMB` par exemple
   
 * Aller dans les propriétés de tous les fichiers `.ps1` et `.psm1` et débloquer les fichiers de la façon suivante
-* ![débloquer un fichier](img/unblock.png)
-* En ligne de commande Powershell
+![débloquer un fichier](img/unblock.png)
+
+Ou directement en ligne de commande Powershell
 ```ps
 dir -Path C:\SWMB -Recurse | Unblock-File
 ```  

@@ -2,7 +2,7 @@
 Function EnableBitlocker {
 	## Commandes PowerShell bitlocker
 	# https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
-	
+
 	Function _NetworkKeyBackup() {
 		Param (
 			[Parameter(Mandatory=$true)] [string]$wantToSave
@@ -13,7 +13,7 @@ Function EnableBitlocker {
 				$isNetWorkBackup = Read-Host "Do you want to save recovery key on a network drive [Y/N]?"
 			} until ("Y","N" -ccontains $isNetWorkBackup)
 			if ($isNetWorkBackup -eq "N") {
-				$null
+				return $null
 			}
 		}
 

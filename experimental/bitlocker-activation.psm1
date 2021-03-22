@@ -55,6 +55,11 @@ Function EnableBitlocker {
 		return
 	}
 
+	if ((Get-BitLockerVolume $env:systemdrive).VolumeStatus -eq "DecryptionInProgress") {
+		Write-Error "Bitlocker decryption on $env:systemdrive is in progress !"
+		return
+	}
+
 	if (!(Get-Tpm).TpmReady) {
 		Write-Host "Get-TPM informations"
 		Get-Tpm

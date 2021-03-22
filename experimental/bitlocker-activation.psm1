@@ -100,7 +100,18 @@ Function EnableBitlocker {
 		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 
 		Write-Host "Copy key on $systemDrive"
-		(Get-BitLockerVolume -MountPoint C).KeyProtector > C:\"$env:computername"-bitlockerRecoveryKey-C.txt
+		$pathkey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
+		if (Test-Path $fileToCheck -PathType leaf)
+		{
+			$rename = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
+			Write-Host "$pathkey already exist => rename"
+			Rename-Item -Path $pathkey -NewName $rename
+		}
+		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathkey
+		# acl on key see https://stackoverflow.com/a/43317244
+		icacls.exe $pathkey /reset
+		icacls.exe $pathkey /GRANT:R "$((Get-Acl -Path $pathkey).Owner):(R)"
+		icacls.exe $pathkey /inheritance:r
 	}
 
 	###TODO boucle sur les lecteurs

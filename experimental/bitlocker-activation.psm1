@@ -79,7 +79,7 @@ Function EnableBitlocker {
 
 		Write-Host "Copy key on $systemDrive"
 		$pathkey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
-		if (Test-Path $fileToCheck -PathType leaf)
+		if (Test-Path -Path $pathkey -PathType leaf)
 		{
 			$rename = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
 			Write-Host "$pathkey already exist => rename"
@@ -101,7 +101,7 @@ Function EnableBitlocker {
 
 		Write-Host "Copy key on $systemDrive"
 		$pathkey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
-		if (Test-Path $fileToCheck -PathType leaf)
+		if (Test-Path -Path $pathkey -PathType leaf)
 		{
 			$rename = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
 			Write-Host "$pathkey already exist => rename"

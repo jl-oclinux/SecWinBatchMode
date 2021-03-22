@@ -82,6 +82,12 @@ Function EnableBitlocker {
 
 		Write-Host "Copy key on $systemDrive"
 		$pathkey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
+		if (Test-Path $fileToCheck -PathType leaf)
+		{
+			$rename = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
+			Write-Host "$pathkey already exist => rename"
+			Rename-Item -Path $pathkey -NewName $rename
+		}
 		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathkey
 		# acl on key see https://stackoverflow.com/a/43317244
 		icacls.exe $pathkey /reset

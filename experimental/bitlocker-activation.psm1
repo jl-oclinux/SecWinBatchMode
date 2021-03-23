@@ -1,6 +1,6 @@
 
 Function EnableBitlocker {
-	## Commandes PowerShell bitlocker
+	## PowerShell bitlocker commands
 	# https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
 
 	Function _NetworkKeyBackup() {
@@ -27,7 +27,7 @@ Function EnableBitlocker {
 		try {
 			New-Item -Name isWriteAllowed.txt -ItemType File -Path $networkKeyBackup -Force -ErrorAction stop | Out-Null
 			return $networkKeyBackup
-			# todo question : est-ce que je supprime le fichier ensuite? bof...
+			# Todo question : do I delete the file afterwards?
 		}
 		catch {
 			Write-Host ("$networkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
@@ -41,36 +41,36 @@ Function EnableBitlocker {
 	$systemDriveLetter = $systemDrive.substring(0,1)
 
 	if (!(Confirm-SecureBootUEFI)) {
-		Write-Error "SecureBoot is OFF !"
+		Write-Error "SecureBoot is OFF!"
 		return
 	}
 
 	if ((Get-BitLockerVolume $env:systemdrive).ProtectionStatus -eq "on") {
-		Write-Error "Bitlocker on $env:systemdrive is already ON !"
+		Write-Error "Bitlocker on $env:systemdrive is already ON!"
 		return
 	}
 
 	if ((Get-BitLockerVolume $env:systemdrive).VolumeStatus -eq "EncryptionInProgress") {
-		Write-Error "Bitlocker encryption on $env:systemdrive is in progress !"
+		Write-Error "Bitlocker encryption on $env:systemdrive is in progress!"
 		return
 	}
 
 	if ((Get-BitLockerVolume $env:systemdrive).VolumeStatus -eq "DecryptionInProgress") {
-		Write-Error "Bitlocker decryption on $env:systemdrive is in progress !"
+		Write-Error "Bitlocker decryption on $env:systemdrive is in progress!"
 		return
 	}
 
 	if (!(Get-Tpm).TpmReady) {
 		Write-Host "Get-TPM informations"
 		Get-Tpm
-		Write-Error "TPM not ready !"
+		Write-Error "TPM not ready!"
 		return
 	}
 
-	# sauvegarde des clefs sur un chemin reseau
+	# Save keys on a network path
 	$networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
 
-	# Test des droits sur le chemin
+	# Test of the rights on the path
 
 	$title    = 'Activation bitlocker'
 	$query    = 'Do you want to use PIN?'
@@ -92,7 +92,7 @@ Function EnableBitlocker {
 		if (Test-Path -Path $pathKey -PathType leaf)
 		{
 			$oldKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
-			Write-Host "$pathKey already exist => rename"
+			Write-Host "$pathKey already exist => rename with .old extension"
 			Rename-Item -Path $pathKey -NewName $oldKey
 		}
 		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
@@ -114,7 +114,7 @@ Function EnableBitlocker {
 		if (Test-Path -Path $pathKey -PathType leaf)
 		{
 			$oldKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
-			Write-Host "$pathKey already exist => rename"
+			Write-Host "$pathKey already exist => rename with .old extension"
 			Rename-Item -Path $pathKey -NewName $oldKey
 		}
 		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
@@ -142,8 +142,8 @@ Function EnableBitlocker {
 	###  }
 	### }
 
-	# On traite toutes les partitions qui ont une lettre associee et qui sont de type fixed
-	# ie on ne prend pas en compte les clefs usb
+	# We treat all partitions that have an associated letter and that are of type fixed
+	# ie we don't take into account the usb keys
 
 	$listVolume = Get-volume | Where-Object {$_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $systemDriveLetter }
 	foreach ($volume in $listVolume) {
@@ -152,13 +152,13 @@ Function EnableBitlocker {
 		$letter = $volume.DriveLetter
 		$letterColon = $letter + ":"
 		#if (Test-Path $letter){
-		$CryptDrive = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive ? [Y/N]"
+		$CryptDrive = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive? [Y/N]"
 		if ($CryptDrive -ne "Y") { continue }
 
 		Write-Host "Bitlocker activation on drive $letter is going to start"
 		##TODO
-		#A voir pourquoi on reteste pas si partition déja chiffree (comme pour C:)
-		#A rajouter copie de la clef sur reseau si $networkKeyBackupFolder = true
+		# See why we don't test if partition is already encrypted (like for C:)
+		# To add copy of the key on network if $networkKeyBackupFolder = true
 		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 		Resume-BitLocker -MountPoint $letter
 		Write-Host "Copy key"
@@ -175,7 +175,7 @@ Function EnableBitlocker {
 	}
 	Write-Host "Bitlocker script ended with success!"
 
-	$reboot = Read-Host -Prompt "Computer must be restarted. Restart now ? [Y/n]"
+	$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now ? [Y/n]"
 	if ($reboot -ne "n") {
 		Restart-Computer -Force
 	}

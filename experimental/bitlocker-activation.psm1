@@ -73,33 +73,33 @@ Function EnableBitlocker {
 	# Test des droits sur le chemin
 
 	$title    = 'Activation bitlocker'
-	$question = 'Do you want to use PIN?'
+	$query    = 'Do you want to use PIN?'
 	$choices  = '&Yes', '&No'
-	$decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
+	$decision = $Host.UI.PromptForChoice($title, $query, $choices, 1)
 
 	if ($decision -eq 0) {
 		Write-Host "Code PIN :"
-		$Secure = Read-Host -AsSecureString
+		$secure = Read-Host -AsSecureString
 
 		Write-Host "Enable bitlocker on $systemDrive"
-		Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $Secure -EncryptionMethod "XtsAes256"
+		Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256"
 
 		Write-Host "Add key"
 		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 
 		Write-Host "Copy key on $systemDrive"
-		$pathkey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
-		if (Test-Path -Path $pathkey -PathType leaf)
+		$pathKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
+		if (Test-Path -Path $pathKey -PathType leaf)
 		{
-			$rename = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
-			Write-Host "$pathkey already exist => rename"
-			Rename-Item -Path $pathkey -NewName $rename
+			$oldKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
+			Write-Host "$pathKey already exist => rename"
+			Rename-Item -Path $pathKey -NewName $oldKey
 		}
-		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathkey
+		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
 		# acl on key see https://stackoverflow.com/a/43317244
-		icacls.exe $pathkey /reset
-		icacls.exe $pathkey /GRANT:R "$((Get-Acl -Path $pathkey).Owner):(R)"
-		icacls.exe $pathkey /inheritance:r
+		icacls.exe $pathKey /reset
+		icacls.exe $pathKey /GRANT:R "$((Get-Acl -Path $pathKey).Owner):(R)"
+		icacls.exe $pathKey /inheritance:r
 
 	}
 	else {
@@ -110,18 +110,18 @@ Function EnableBitlocker {
 		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 
 		Write-Host "Copy key on $systemDrive"
-		$pathkey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
-		if (Test-Path -Path $pathkey -PathType leaf)
+		$pathKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
+		if (Test-Path -Path $pathKey -PathType leaf)
 		{
-			$rename = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
-			Write-Host "$pathkey already exist => rename"
-			Rename-Item -Path $pathkey -NewName $rename
+			$oldKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
+			Write-Host "$pathKey already exist => rename"
+			Rename-Item -Path $pathKey -NewName $oldKey
 		}
-		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathkey
+		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
 		# acl on key see https://stackoverflow.com/a/43317244
-		icacls.exe $pathkey /reset
-		icacls.exe $pathkey /GRANT:R "$((Get-Acl -Path $pathkey).Owner):(R)"
-		icacls.exe $pathkey /inheritance:r
+		icacls.exe $pathKey /reset
+		icacls.exe $pathKey /GRANT:R "$((Get-Acl -Path $pathKey).Owner):(R)"
+		icacls.exe $pathKey /inheritance:r
 	}
 
 	###TODO boucle sur les lecteurs
@@ -145,26 +145,26 @@ Function EnableBitlocker {
 	# On traite toutes les partitions qui ont une lettre associee et qui sont de type fixed
 	# ie on ne prend pas en compte les clefs usb
 
-	$List_volume = Get-volume | Where-Object {$_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $systemDriveLetter }
-	foreach ($volume in $List_volume) {
+	$listVolume = Get-volume | Where-Object {$_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $systemDriveLetter }
+	foreach ($volume in $listVolume) {
 		if (-not ($volume.DriveLetter)) { continue }
 
-		$Letter = $volume.DriveLetter
-		$LetterColon = $letter + ":"
+		$letter = $volume.DriveLetter
+		$letterColon = $letter + ":"
 		#if (Test-Path $letter){
-		$ChiffDrv = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive ? [Y/N]"
-		if ($ChiffDrv -ne "Y") { continue }
+		$CryptDrive = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive ? [Y/N]"
+		if ($CryptDrive -ne "Y") { continue }
 
 		Write-Host "Bitlocker activation on drive $letter is going to start"
 		##TODO
 		#A voir pourquoi on reteste pas si partition déja chiffree (comme pour C:)
 		#A rajouter copie de la clef sur reseau si $networkKeyBackupFolder = true
-		Enable-BitLocker -MountPoint $Letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
-		Resume-BitLocker -MountPoint $Letter
+		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
+		Resume-BitLocker -MountPoint $letter
 		Write-Host "Copy key"
-		$backupFile = $systemDrive + "\" + $env:computername + "-bitlockerRecoveryKey-" + $Letter + ".txt"
+		$backupFile = $systemDrive + "\" + $env:computername + "-bitlockerRecoveryKey-" + $letter + ".txt"
 		Write-Host $backupFile
-		(Get-BitLockerVolume -MountPoint $LetterColon).KeyProtector > $backupFile
+		(Get-BitLockerVolume -MountPoint $letterColon).KeyProtector > $backupFile
 
 		#$NextVolume = Read-Host -Prompt "Voulez vous chiffre un autre lecteur ? [O/N]"
 		#if ($NextVolume -ne 'O'){

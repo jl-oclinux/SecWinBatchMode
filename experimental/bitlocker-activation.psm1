@@ -132,53 +132,34 @@ Function EnableBitlocker {
 	$query    = 'Do you want to use PIN?'
 	$choices  = '&Yes', '&No'
 	$decision = $Host.UI.PromptForChoice($title, $query, $choices, 1)
-
 	if ($decision -eq 0) {
 		Write-Host "Code PIN :"
 		$secure = Read-Host -AsSecureString
 
 		Write-Host "Enable bitlocker on $systemDrive"
 		Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256"
-
-		Write-Host "Add key"
-		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
-
-		Write-Host "Copy key on $systemDrive"
-		$pathKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
-		if (Test-Path -Path $pathKey -PathType leaf)
-		{
-			$oldKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
-			Write-Host "$pathKey already exist => rename with .old extension"
-			Rename-Item -Path $pathKey -NewName $oldKey
-		}
-		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
-		# acl on key see https://stackoverflow.com/a/43317244
-		icacls.exe $pathKey /reset
-		icacls.exe $pathKey /GRANT:R "$((Get-Acl -Path $pathKey).Owner):(R)"
-		icacls.exe $pathKey /inheritance:r
-
 	}
 	else {
 		Write-Host "Enable bitlocker on $systemDrive without PIN"
 		Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
-
-		Write-Host "Add key"
-		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
-
-		Write-Host "Copy key on $systemDrive"
-		$pathKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
-		if (Test-Path -Path $pathKey -PathType leaf)
-		{
-			$oldKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
-			Write-Host "$pathKey already exist => rename with .old extension"
-			Rename-Item -Path $pathKey -NewName $oldKey
-		}
-		(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
-		# acl on key see https://stackoverflow.com/a/43317244
-		icacls.exe $pathKey /reset
-		icacls.exe $pathKey /GRANT:R "$((Get-Acl -Path $pathKey).Owner):(R)"
-		icacls.exe $pathKey /inheritance:r
 	}
+
+	Write-Host "Add key"
+	Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
+
+	Write-Host "Copy key on $systemDrive"
+	$pathKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
+	if (Test-Path -Path $pathKey -PathType leaf)
+	{
+		$oldKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
+		Write-Host "$pathKey already exist => rename with .old extension"
+		Rename-Item -Path $pathKey -NewName $oldKey
+	}
+	(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
+	# acl on key see https://stackoverflow.com/a/43317244
+	icacls.exe $pathKey /reset
+	icacls.exe $pathKey /GRANT:R "$((Get-Acl -Path $pathKey).Owner):(R)"
+	icacls.exe $pathKey /inheritance:r
 
 	###TODO boucle sur les lecteurs
 	###If ((Test-Path D:))

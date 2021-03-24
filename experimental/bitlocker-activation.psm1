@@ -37,7 +37,7 @@ Function EnableBitlocker {
 
 
 	# Begin function
-	$systemDrive = $env:systemdrive
+	$systemDrive = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.substring(0,1)
 
 	if (!(Confirm-SecureBootUEFI)) {
@@ -45,18 +45,18 @@ Function EnableBitlocker {
 		return
 	}
 
-	if ((Get-BitLockerVolume $env:systemdrive).ProtectionStatus -eq "on") {
-		Write-Error "Bitlocker on $env:systemdrive is already ON!"
+	if ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on") {
+		Write-Error "Bitlocker on $Env:SystemDrive is already ON!"
 		return
 	}
 
-	if ((Get-BitLockerVolume $env:systemdrive).VolumeStatus -eq "EncryptionInProgress") {
-		Write-Error "Bitlocker encryption on $env:systemdrive is in progress!"
+	if ((Get-BitLockerVolume $Env:SystemDrive).VolumeStatus -eq "EncryptionInProgress") {
+		Write-Error "Bitlocker encryption on $Env:SystemDrive is in progress!"
 		return
 	}
 
-	if ((Get-BitLockerVolume $env:systemdrive).VolumeStatus -eq "DecryptionInProgress") {
-		Write-Error "Bitlocker decryption on $env:systemdrive is in progress!"
+	if ((Get-BitLockerVolume $Env:SystemDrive).VolumeStatus -eq "DecryptionInProgress") {
+		Write-Error "Bitlocker decryption on $Env:SystemDrive is in progress!"
 		return
 	}
 
@@ -148,10 +148,10 @@ Function EnableBitlocker {
 	Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 
 	Write-Host "Copy key on $systemDrive"
-	$pathKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt"
+	$pathKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-C.txt"
 	if (Test-Path -Path $pathKey -PathType leaf)
 	{
-		$oldKey = "C:\$env:computername-bitlockerRecoveryKey-C.txt.old"
+		$oldKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-C.txt.old"
 		Write-Host "$pathKey already exist => rename with .old extension"
 		Rename-Item -Path $pathKey -NewName $oldKey
 	}
@@ -171,7 +171,7 @@ Function EnableBitlocker {
 	###    Write-Host "Resume disk d"
 	###    Resume-BitLocker -MountPoint "D:"
 	###    Write-Host "Copy key"
-	###    (Get-BitLockerVolume -MountPoint D).KeyProtector > c:\"$env:computername"-bitlockerRecoveryKey-D.txt
+	###    (Get-BitLockerVolume -MountPoint D).KeyProtector > c:\"$Env:ComputerName"-bitlockerRecoveryKey-D.txt
 	###    ## Auto unlock D mais ne fonctionne pas avant reboot
 	###    # après reboot
 	###    # Unlock-BitLocker -MountPoint "D:" -recoverypassword xxxxx
@@ -193,7 +193,7 @@ Function EnableBitlocker {
 		if ($CryptDrive -ne "Y") { continue }
 
 		# Test if partition is already encrypted (like for C:)
-		if ((Get-BitLockerVolume $volume.ProtectionStatus -eq "on") {
+		if ((Get-BitLockerVolume $letter).ProtectionStatus -eq "on") {
 			Write-Host "Bitlocker on $letter is already ON!"
 			continue
 		}
@@ -204,7 +204,7 @@ Function EnableBitlocker {
 		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 		Resume-BitLocker -MountPoint $letter
 		Write-Host "Copy key"
-		$backupFile = $systemDrive + "\" + $env:computername + "-bitlockerRecoveryKey-" + $letter + ".txt"
+		$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $letter + ".txt"
 		Write-Host $backupFile
 		(Get-BitLockerVolume -MountPoint $letterColon).KeyProtector > $backupFile
 

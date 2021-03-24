@@ -192,9 +192,14 @@ Function EnableBitlocker {
 		$CryptDrive = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive? [Y/N]"
 		if ($CryptDrive -ne "Y") { continue }
 
+		# Test if partition is already encrypted (like for C:)
+		if ((Get-BitLockerVolume $volume.ProtectionStatus -eq "on") {
+			Write-Host "Bitlocker on $letter is already ON!"
+			continue
+		}
+
 		Write-Host "Bitlocker activation on drive $letter is going to start"
 		##TODO
-		# See why we don't test if partition is already encrypted (like for C:)
 		# To add copy of the key on network if $networkKeyBackupFolder = true
 		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 		Resume-BitLocker -MountPoint $letter

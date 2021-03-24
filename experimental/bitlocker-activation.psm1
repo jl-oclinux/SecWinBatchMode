@@ -21,7 +21,7 @@ Function EnableBitlocker {
 			$networkKeyBackup = Read-Host "Provide a CIFS/SMB writable network path with syntax \\serverName\SharedFolder"
 		} until (($networkKeyBackup.Length -gt 2) -and ("\\" -ccontains $networkKeyBackup.Substring(0,2)))
 
-		if ($networkKeyBackup.Substring($networkKeyBackup.length -1) -ne "\") {
+		if ($networkKeyBackup.Substring($networkKeyBackup.Length -1) -ne "\") {
 			$networkKeyBackup += "\"
 		}
 		try {
@@ -38,7 +38,7 @@ Function EnableBitlocker {
 
 	# Begin function
 	$systemDrive = $Env:SystemDrive
-	$systemDriveLetter = $systemDrive.substring(0,1)
+	$systemDriveLetter = $systemDrive.Substring(0,1)
 
 	if (!(Confirm-SecureBootUEFI)) {
 		Write-Error "SecureBoot is OFF!"

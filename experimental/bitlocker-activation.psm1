@@ -157,9 +157,9 @@ Function EnableBitlocker {
 	}
 	(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
 	# acl on key see https://stackoverflow.com/a/43317244
-	icacls.exe $pathKey /reset
-	icacls.exe $pathKey /GRANT:R "$((Get-Acl -Path $pathKey).Owner):(R)"
-	icacls.exe $pathKey /inheritance:r
+	icacls.exe $pathKey /Reset
+	icacls.exe $pathKey /Grant:r "$((Get-Acl -Path $pathKey).Owner):(R)"
+	icacls.exe $pathKey /InheritanceLevel:r
 
 	###TODO boucle sur les lecteurs
 	###If ((Test-Path D:))

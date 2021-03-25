@@ -125,6 +125,8 @@ Function EnableBitlocker {
 	# Do not enable BitLocker until recovery information is stored to AD DS for operating system drives
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "OSRequireActiveDirectoryBackup" -Value 0
 	# END GPO
+	# Update GPO
+	gpupdate
 
 	# Test of the rights on the path
 

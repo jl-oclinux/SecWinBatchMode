@@ -205,6 +205,7 @@ Function EnableBitlocker {
 		# To add copy of the key on network if $networkKeyBackupFolder = true
 		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 		Resume-BitLocker -MountPoint $letter
+	  Enable-BitLockerAutoUnlock -MountPoint $letter
 		Write-Host "Copy key"
 		$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $letter + ".txt"
 		Write-Host $backupFile

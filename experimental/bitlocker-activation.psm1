@@ -205,7 +205,17 @@ Function EnableBitlocker {
 		# To add copy of the key on network if $networkKeyBackupFolder = true
 		Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 		Resume-BitLocker -MountPoint $letter
-	  Enable-BitLockerAutoUnlock -MountPoint $letter
+
+		# Enable-BitLockerAutoUnlock -MountPoint $letter
+		# impossible tant que le volume system n'est pas chiffré
+		# Possible de faire une tache programmée
+		# $Trigger= New-ScheduledTaskTrigger -AtStartup
+		# $User= "NT AUTHORITY\SYSTEM"
+		# $key_obj = (Get-BitLockerVolume -MountPoint $letter).keyprotector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | select-object -Property RecoveryPassword
+		# $key = $key_obj.RecoveryPassword
+		# $Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter}"
+		# Register-ScheduledTask -Force -TaskName "AutoUnlock Bitlocker for drive $letter" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest
+
 		Write-Host "Copy key"
 		$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $letter + ".txt"
 		Write-Host $backupFile

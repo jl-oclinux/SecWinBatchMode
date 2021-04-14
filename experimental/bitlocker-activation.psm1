@@ -38,29 +38,28 @@ Function EnableBitlocker {
 	# We treat all partitions that have an associated letter and that are of type fixed
 	# ie we don't take into account the usb keys
 	Function _EncryptNonSytemDrives() {
-    
-        # Other drives encryption
+		# Other drives encryption
 		$listVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $systemDriveLetter }
 		foreach ($volume in $listVolume) {
 			if (-not ($volume.DriveLetter)) { continue }
-	
+
 			$letter = $volume.DriveLetter
 			$letterColon = $letter + ":"
 			#if (Test-Path $letter){
 			$CryptDrive = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive? [Y/N]"
 			if ($CryptDrive -ne "Y") { continue }
-	
+
 			# Test if partition is already encrypted (like for C:)
 			if ((Get-BitLockerVolume $letter).ProtectionStatus -eq "on") {
 				Write-Host "Bitlocker on $letter is already ON!"
 				continue
 			}
-	
+
 			Write-Host "Bitlocker activation on drive $letter is going to start"
 
 			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 			Resume-BitLocker -MountPoint $letter
-	
+
 			# Enable-BitLockerAutoUnlock -MountPoint $letter
 			# impossible tant que le volume system n'est pas chiffré
 			# Possible de faire une tache programmée
@@ -70,28 +69,25 @@ Function EnableBitlocker {
 			# $key = $key_obj.RecoveryPassword
 			# $Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter}"
 			# Register-ScheduledTask -Force -TaskName "AutoUnlock Bitlocker for drive $letter" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest
-	
+
 			Write-Host "Copy key"
 			$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $letter + ".txt"
 			Write-Host $backupFile
 			(Get-BitLockerVolume -MountPoint $letterColon).KeyProtector > $backupFile
-	
+
 			icacls.exe $pathKey /Reset
 			icacls.exe $pathKey /Grant:r "$((Get-Acl -Path $pathKey).Owner):(R)"
 			icacls.exe $pathKey /InheritanceLevel:r
 			Write-Host "Bitlocker activation on drive $letter ended with success"
 
-
-            # copy key if $networkKeyBackup 
-		    if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
-			    Copy-Item $pathKey -Destination $networkKeyBackup
-		    }
+			# copy key if $networkKeyBackup 
+			if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
+				Copy-Item $pathKey -Destination $networkKeyBackup
+			}
 		}
     }
 
-
-
-    # Begin function
+	# Begin function
 	$systemDrive = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
 
@@ -103,7 +99,7 @@ Function EnableBitlocker {
 	if ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on") {
 		Write-Error "Bitlocker on $Env:SystemDrive is already ON!"
 		#un function that encrypt drives and partitions
-	    _EncryptNonSytemDrives
+		_EncryptNonSytemDrives
 	}
 
 	if ((Get-BitLockerVolume $Env:SystemDrive).VolumeStatus -eq "EncryptionInProgress") {
@@ -184,51 +180,45 @@ Function EnableBitlocker {
 	gpupdate
 
 
+	#Encrypt system Drive
 
+	$title = 'Activation bitlocker'
+	$query = 'Do you want to use PIN?'
+	$choices = '&Yes', '&No'
+	$decision = $Host.UI.PromptForChoice($title, $query, $choices, 1)
+	if ($decision -eq 0) {
+		Write-Host "Code PIN :"
+		$secure = Read-Host -AsSecureString
+		Write-Host "Enable bitlocker on $systemDrive"
+		Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256"
+	}
+	else {
+		Write-Host "Enable bitlocker on $systemDrive without PIN"
+		Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
+	}
 
-    #Encrypt system Drive
-
-        $title = 'Activation bitlocker'
-	    $query = 'Do you want to use PIN?'
-	    $choices = '&Yes', '&No'
-	    $decision = $Host.UI.PromptForChoice($title, $query, $choices, 1)
-	    if ($decision -eq 0) {
-		    Write-Host "Code PIN :"
-		    $secure = Read-Host -AsSecureString
-		    Write-Host "Enable bitlocker on $systemDrive"
-		    Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256"
-        }
-	    else {
-		    Write-Host "Enable bitlocker on $systemDrive without PIN"
-		    Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
-	    }
-
-	    Write-Host "Add key"
-	    Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
-	    Write-Host "Copy key on $systemDrive"
-	    $pathKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-C.txt"
-	    if (Test-Path -Path $pathKey -PathType leaf) {
-		    $oldKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-C.txt.old"
-		    Write-Host "$pathKey already exist => rename with .old extension"
-		    Rename-Item -Path $pathKey -NewName $oldKey
-	    }
-	    (Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
-	    # acl on key see https://stackoverflow.com/a/43317244
-        icacls.exe $pathKey /Reset
-        icacls.exe $pathKey /Grant:r "$((Get-Acl -Path $pathKey).Owner):(R)"
-        icacls.exe $pathKey /InheritanceLevel:r
-       
-        # copy key if $networkKeyBackup 
-	    if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
-		    Copy-Item $pathKey -Destination $networkKeyBackup
-	    }
-
-
-
+	Write-Host "Add key"
+	Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
+	Write-Host "Copy key on $systemDrive"
+	$pathKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-C.txt"
+	if (Test-Path -Path $pathKey -PathType leaf) {
+		$oldKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-C.txt.old"
+		Write-Host "$pathKey already exist => rename with .old extension"
+		Rename-Item -Path $pathKey -NewName $oldKey
+	}
+	(Get-BitLockerVolume -MountPoint C).KeyProtector > $pathKey
+	# acl on key see https://stackoverflow.com/a/43317244
+	icacls.exe $pathKey /Reset
+	icacls.exe $pathKey /Grant:r "$((Get-Acl -Path $pathKey).Owner):(R)"
+	icacls.exe $pathKey /InheritanceLevel:r
+   
+	# copy key if $networkKeyBackup 
+	if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
+		Copy-Item $pathKey -Destination $networkKeyBackup
+	}
 
 	#Write-Host "Bitlocker script ended with success!"
 
-	
 	$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now ? [Y/n]"
 	if ($reboot -ne "n") {
 		Restart-Computer -Force

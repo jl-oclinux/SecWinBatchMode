@@ -1,10 +1,11 @@
-# Crypt system drive and other drive in a nutshell with bitlocker
+# Chiffrer le disque système et les autres volumes avec Microsoft Bitlocker
 
 Contrairement à la majorité des Presets proposés par SWMB,
-celui-ci ne doit être réalisés qu'une seule fois.
-Génréralement, nous allons faire cette étape de chiffrement lors de l'installation de l'ordinateur.
+celui-ci ne doit être réalisé qu'une seule fois.
+Génréralement, nous allons faire cette étape de chiffrement lors de l'installation de l'ordinateur,
+à la fin de celle-ci.
 
-Ouvrir dans une fenêtre PowerShell avec privilèges élevés (exécuter en tant qu'administrateur)
+Ouvrir dans une fenêtre PowerShell ayant des privilèges élevés (exécuter en tant qu'administrateur)
 
 ```ps
 mkdir C:\SWMB

@@ -44,7 +44,7 @@ Function EnableBitlocker {
 			Write-Host "Code PIN :"
 			$secure = Read-Host -AsSecureString
 			Write-Host "Enable bitlocker on system drive $systemDrive"
-			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256"
+			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256" 3>$null
 		}
 		else {
 			Write-Host "Enable bitlocker on system drive $systemDrive without PIN"
@@ -94,7 +94,7 @@ Function EnableBitlocker {
 
 			Write-Host "Bitlocker activation on drive $letter is going to start"
 
-			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
+			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256" 3>$null
 			Resume-BitLocker -MountPoint $letter
 
 

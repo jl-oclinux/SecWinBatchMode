@@ -180,21 +180,22 @@ Function EnableBitlocker {
 		Write-Error "SecureBoot is OFF!"
 		return
 	}
-
-	if ((Get-BitLockerVolume $systemDrive).ProtectionStatus -eq "on") {
-		Write-Error "Bitlocker on $systemDrive is already ON!"
-		#un function that encrypt drives and partitions
-		_EncryptNonSytemDrives
-	}
-
-	if ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "EncryptionInProgress") {
-		Write-Error "Bitlocker encryption on $systemDrive is in progress!"
-		return
-	}
+	# BEGIN GPO
+	_EnforceCryptGPO
 
 	if ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "DecryptionInProgress") {
 		Write-Error "Bitlocker decryption on $systemDrive is in progress!"
 		return
+	}
+
+	if ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "FullyDecrypted") {
+		_EncryptSytemDrive
+		_EncryptNonSytemDrives
+	}
+
+	if (((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "EncryptionInProgress") -or ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "FullyEncrypted")) {
+		Write-Host "Bitlocker encryption on $systemDrive is $((Get-BitLockerVolume $systemDrive).VolumeStatus)"
+		_EncryptNonSytemDrives
 	}
 
 	if (!(Get-Tpm).TpmReady) {
@@ -207,11 +208,8 @@ Function EnableBitlocker {
 	# Save keys on a network path
 	$networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
 
-	# BEGIN GPO
-	_EnforceCryptGPO
 
-	#Encrypt system Drive
-	_EncryptSytemDrive
+
 
 	$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now ? [Y/n]"
 	if ($reboot -ne "n") {

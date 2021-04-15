@@ -9,7 +9,8 @@ Ouvrir dans une fenêtre PowerShell avec privilèges élevés (exécuter en tant
 ```ps
 mkdir C:\SWMB
 cd C:\SWMB
-wget 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/-/archive/master/resinfo-swmb-master.zip' -OutFile 'resinfo-swmb-master.zip'
+wget 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/-/archive/master/resinfo-swmb-master.zip' `
+	-OutFile 'resinfo-swmb-master.zip'
 
 Expand-Archive -LiteralPath 'resinfo-swmb-master.zip' -DestinationPath C:\SWMB
 
@@ -22,7 +23,7 @@ cd C:\SWMB\resinfo-swmb-master
 .\Win10-Initial-Setup-Script\Win10.ps1 `
 	-include "Win10-Initial-Setup-Script\Win10.psm1" `
 	-include "Win10-Resinfo-Swmb.psm1" `
-	-include "experimental/bitlocker-activation.psm1" `
+	-include "experimental\bitlocker-activation.psm1" `
 	EnableBitlocker
 ```
 

@@ -172,44 +172,44 @@ Function EnableBitlocker {
 		gpupdate
 	}
 
-	# Begin function
+# Begin main program
 	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
 
-	if (!(Confirm-SecureBootUEFI)) {
+if (!(Confirm-SecureBootUEFI)) {
 		Write-Error "SecureBoot is OFF!"
 		return
-	}
-	if (!(Get-Tpm).TpmReady) {
+}
+if (!(Get-Tpm).TpmReady) {
 		Write-Host "Get-TPM informations"
 		Get-Tpm
 		Write-Error "TPM not ready!"
 		return
-	}
+}
 
-	# BEGIN GPO
-	_EnforceCryptGPO
+# BEGIN GPO
+_EnforceCryptGPO
 
 $sytemDriveStatus = (Get-BitLockerVolume $systemDrive).VolumeStatus
 
-	if ($sytemDriveStatus -eq "DecryptionInProgress") {
+if ($sytemDriveStatus -eq "DecryptionInProgress") {
 		Write-Error "Bitlocker decryption on $systemDrive is in progress!"
 		return
-	}
+}
 
-	if ($sytemDriveStatus -eq "FullyDecrypted") {
+if ($sytemDriveStatus -eq "FullyDecrypted") {
 		_EncryptSytemDrive
 		_EncryptNonSytemDrives
-	}
+}
 
-	if (($sytemDriveStatus-eq "EncryptionInProgress") -or ($sytemDriveStatus -eq "FullyEncrypted")) {
+if (($sytemDriveStatus-eq "EncryptionInProgress") -or ($sytemDriveStatus -eq "FullyEncrypted")) {
 		Write-Host "Bitlocker encryption on $systemDrive is $sytemDriveStatus"
 		_EncryptNonSytemDrives
-	}
+}
 
 
-	# Save keys on a network path
-	$networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
+# Save keys on a network path
+$networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
 
 
 

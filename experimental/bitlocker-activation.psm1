@@ -119,7 +119,7 @@ Function EnableBitlocker {
 					$User= "NT AUTHORITY\SYSTEM"
 					$key_obj = (Get-BitLockerVolume -MountPoint $letter).keyprotector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | select-object -Property RecoveryPassword
 			 		$key = $key_obj.RecoveryPassword
-					$Action= New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Unregister-ScheduledTask task0  -confirm:$false}"
+					$Action= New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter ; Unregister-ScheduledTask task0  -confirm:$false}"
 					Register-ScheduledTask -Force -TaskName task0 -Trigger $Trigger -User $User -Action $Action -RunLevel Highest
 				}
 

@@ -1,4 +1,4 @@
-# Méthodes pour déployer et installer SWMB
+# Méthodes pour déployer, installer et utiliser SWMB
 
  * [in-a-nutshell](./in-a-nutshell) / SWMB in a nutshell
 

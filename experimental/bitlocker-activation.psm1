@@ -54,9 +54,9 @@ Function EnableBitlocker {
 		Write-Host "Add system drive key"
 		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 		Write-Host "Copy system drive key on $systemDrive"
-		$pathKey = "$systemDrive\$Env:ComputerName-bitlockerRecoveryKey-$systemDriveLetter.txt"
+		$pathKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $systemDriveLetter + ".txt"
 		if (Test-Path -Path $pathKey -PathType leaf) {
-			$oldKey = "$systemDrive\$Env:ComputerName-bitlockerRecoveryKey-$systemDriveLetter.txt.old"
+			$oldKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $systemDriveLetter + ".txt.old"
 			Write-Host "Warning: $pathKey already exist => rename with .old extension"
 			Rename-Item -Path $pathKey -NewName $oldKey
 		}

@@ -104,7 +104,7 @@ Function EnableBitlocker {
 			(Get-BitLockerVolume -MountPoint $letterColon).KeyProtector > $backupFile
 
 			icacls.exe $backupFile /Reset
-			icacls.exe $backupFile /Grant:r "$((Get-Acl -Path $pathKey).Owner):(R)"
+			icacls.exe $backupFile /Grant:r "$((Get-Acl -Path $backupFile).Owner):(R)"
 			icacls.exe $backupFile /InheritanceLevel:r
 			Write-Host "Bitlocker activation on drive $letter ended with success"
 

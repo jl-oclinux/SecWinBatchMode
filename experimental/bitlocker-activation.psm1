@@ -180,6 +180,13 @@ Function EnableBitlocker {
 		Write-Error "SecureBoot is OFF!"
 		return
 	}
+	if (!(Get-Tpm).TpmReady) {
+		Write-Host "Get-TPM informations"
+		Get-Tpm
+		Write-Error "TPM not ready!"
+		return
+	}
+
 	# BEGIN GPO
 	_EnforceCryptGPO
 
@@ -198,12 +205,6 @@ Function EnableBitlocker {
 		_EncryptNonSytemDrives
 	}
 
-	if (!(Get-Tpm).TpmReady) {
-		Write-Host "Get-TPM informations"
-		Get-Tpm
-		Write-Error "TPM not ready!"
-		return
-	}
 
 	# Save keys on a network path
 	$networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false

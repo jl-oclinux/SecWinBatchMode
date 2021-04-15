@@ -145,7 +145,7 @@ Function EnableBitlocker {
 	}
 
 	# Begin function
-	$systemDrive = $Env:SystemDrive
+	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
 
 	if (!(Confirm-SecureBootUEFI)) {
@@ -153,18 +153,18 @@ Function EnableBitlocker {
 		return
 	}
 
-	if ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on") {
+	if ((Get-BitLockerVolume $systemDrive).ProtectionStatus -eq "on") {
 		Write-Error "Bitlocker on $Env:SystemDrive is already ON!"
 		#un function that encrypt drives and partitions
 		_EncryptNonSytemDrives
 	}
 
-	if ((Get-BitLockerVolume $Env:SystemDrive).VolumeStatus -eq "EncryptionInProgress") {
+	if ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "EncryptionInProgress") {
 		Write-Error "Bitlocker encryption on $Env:SystemDrive is in progress!"
 		return
 	}
 
-	if ((Get-BitLockerVolume $Env:SystemDrive).VolumeStatus -eq "DecryptionInProgress") {
+	if ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "DecryptionInProgress") {
 		Write-Error "Bitlocker decryption on $Env:SystemDrive is in progress!"
 		return
 	}
@@ -202,9 +202,9 @@ Function EnableBitlocker {
 	Write-Host "Add key"
 	Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 	Write-Host "Copy key on $systemDrive"
-	$pathKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-C.txt"
+	$pathKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-$systemDriveLetter.txt"
 	if (Test-Path -Path $pathKey -PathType leaf) {
-		$oldKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-C.txt.old"
+		$oldKey = "C:\$Env:ComputerName-bitlockerRecoveryKey-$systemDriveLetter.txt.old"
 		Write-Host "$pathKey already exist => rename with .old extension"
 		Rename-Item -Path $pathKey -NewName $oldKey
 	}

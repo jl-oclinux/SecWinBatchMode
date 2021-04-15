@@ -66,7 +66,7 @@ Function EnableBitlocker {
 		icacls.exe $pathKey /Grant:r "$((Get-Acl -Path $pathKey).Owner):(R)"
 		icacls.exe $pathKey /InheritanceLevel:r
 
-		# copy key if $networkKeyBackup 
+		# copy key if $networkKeyBackup
 		if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
 			Copy-Item $pathKey -Destination $networkKeyBackup
 		}
@@ -97,15 +97,6 @@ Function EnableBitlocker {
 			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256"
 			Resume-BitLocker -MountPoint $letter
 
-			# Enable-BitLockerAutoUnlock -MountPoint $letter
-			# impossible tant que le volume system n'est pas chiffré
-			# Possible de faire une tache programmée
-			# $Trigger= New-ScheduledTaskTrigger -AtStartup
-			# $User= "NT AUTHORITY\SYSTEM"
-			# $key_obj = (Get-BitLockerVolume -MountPoint $letter).keyprotector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | select-object -Property RecoveryPassword
-			# $key = $key_obj.RecoveryPassword
-			# $Action= New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter}"
-			# Register-ScheduledTask -Force -TaskName "AutoUnlock Bitlocker for drive $letter" -Trigger $Trigger -User $User -Action $Action -RunLevel Highest
 
 			Write-Host "Copy drive $letter key"
 			$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $letter + ".txt"
@@ -117,7 +108,7 @@ Function EnableBitlocker {
 			icacls.exe $pathKey /InheritanceLevel:r
 			Write-Host "Bitlocker activation on drive $letter ended with success"
 
-			# copy key if $networkKeyBackup 
+			# copy key if $networkKeyBackup
 			if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
 				Copy-Item $pathKey -Destination $networkKeyBackup
 			}

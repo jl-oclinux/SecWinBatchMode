@@ -190,18 +190,20 @@ Function EnableBitlocker {
 	# BEGIN GPO
 	_EnforceCryptGPO
 
-	if ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "DecryptionInProgress") {
+$sytemDriveStatus = (Get-BitLockerVolume $systemDrive).VolumeStatus
+
+	if ($sytemDriveStatus -eq "DecryptionInProgress") {
 		Write-Error "Bitlocker decryption on $systemDrive is in progress!"
 		return
 	}
 
-	if ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "FullyDecrypted") {
+	if ($sytemDriveStatus -eq "FullyDecrypted") {
 		_EncryptSytemDrive
 		_EncryptNonSytemDrives
 	}
 
-	if (((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "EncryptionInProgress") -or ((Get-BitLockerVolume $systemDrive).VolumeStatus -eq "FullyEncrypted")) {
-		Write-Host "Bitlocker encryption on $systemDrive is $((Get-BitLockerVolume $systemDrive).VolumeStatus)"
+	if (($sytemDriveStatus-eq "EncryptionInProgress") -or ($sytemDriveStatus -eq "FullyEncrypted")) {
+		Write-Host "Bitlocker encryption on $systemDrive is $sytemDriveStatus"
 		_EncryptNonSytemDrives
 	}
 

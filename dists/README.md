@@ -6,4 +6,6 @@
 
  * [manual-use](./manual-use) / Exemple de déploiement manuel du script
 
+ * [crypt-with-bitlocker](./crypt-with-bitlocker) / Chiffrement des disques (système et autres) avec Microsoft bitlocker
+
  * [ocs-inventory](./ocs-inventory) / Création d'un paquet SWMB pour OCS Inventory

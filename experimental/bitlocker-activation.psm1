@@ -209,7 +209,7 @@ if (($sytemDriveStatus-eq "EncryptionInProgress") -or ($sytemDriveStatus -eq "Fu
 
 
 # Save keys on a network path
-$networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
+# $networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
 
 
 

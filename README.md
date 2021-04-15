@@ -77,16 +77,16 @@ Un preset par paragraphe de l'ANSSI
 
 ### Usage direct depuis PowerShell
 
-```dos
+```ps1
 # Exécution d'une fonction seule
-.\Win10-Initial-Setup-Script\Win10.ps1 ^
-   -include "Win10-Initial-Setup-Script\Win10.psm1" ^
+.\Win10-Initial-Setup-Script\Win10.ps1 `
+   -include "Win10-Initial-Setup-Script\Win10.psm1" `
    -include "Win10-Resinfo-Swmb.psm1" nom-fonction
 
 # Exécution d'un jeu de preset
-.\Win10-Initial-Setup-Script\Win10.ps1 ^
-   -include "Win10-Initial-Setup-Script\Win10.psm1" ^
-   -include "Win10-Resinfo-Swmb.psm1" ^
+.\Win10-Initial-Setup-Script\Win10.ps1 `
+   -include "Win10-Initial-Setup-Script\Win10.psm1" `
+   -include "Win10-Resinfo-Swmb.psm1" `
    -preset "Presets\UserExperience-Resinfo.preset"
 ```
 
@@ -105,8 +105,9 @@ Si vous souhaitez définir vos propres valeurs de variables utilisées le script
    ```
 
 
-## Exemples de déploiement
+## Exemples de déploiement et d'utilisation
 
-Vous trouverez, dans le répertoire [dists](dists), des exemples de déploiement du script (manuel, au démarrage de la machine, avec OCS Inventory...).
+Vous trouverez, dans le répertoire [dists](dists), des exemples de déploiement du script
+(manuel, au démarrage de la machine, avec OCS Inventory, chiffrement des volumes...).
 
 Le fichier [README](dists/manual-use/README.md) du répertoire «manual-use» rappelle quelques principes sur les politiques d'exécution de Powershell.

@@ -3,26 +3,30 @@
 
 
 $gitUrl = "https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/-/archive/master/resinfo-swmb-master.zip"
-$swmbBitlockerDirectory = "C:\SWMB-BITLOCKER"
+$swmbBitlockerDirectory = "C:\SWMB"
 
 Write-Host @"
 This script aims to configure Bitlocker on your computer (cf. README)
-This script creates a $swmbBitlockerDirectory directory if not exsists or delete it and recreate if exists
+This script creates a $swmbBitlockerDirectory\resinfo-swmb-master subdirectory if not exsists
+or delete it and recreate if exists
 This script download the main script from gitlab.in2p3.fr
 To work correctly, this script needs:
    - To be run with an administrator account and elevated privileges
-   - Bios in uefi
+   - BIOS in UEFI
    - SecureBoot enabled
    - TPM activated
 
-
 "@ -ForegroundColor Green
 
-$confirmation = Read-Host "Do you want to proceed? [y/n]"
-while($confirmation -ne "y")
-{
-    if ($confirmation -eq 'n') {exit}
-    $confirmation = Read-Host "Do you want to proceed? [y/n]"
+$confirmation = Read-Host "Do you want to proceed? [y/N]"
+if ($confirmation -ne "y") {
+    Write-Host @"
+------------------
+Stop processing!
+------------------
+"@ -ForegroundColor Red
+    Start-Sleep -Seconds 3
+    exit
 }
 
 $outZipFile = Join-Path  -Path (Get-Location) -ChildPath swmb-bitlocker.zip
@@ -33,16 +37,16 @@ Processing directory $swmbBitlockerDirectory...
 ------------------
 "@ -ForegroundColor Green
 
-if (Test-Path $swmbBitlockerDirectory) {
-    Remove-Item $swmbBitlockerDirectory -Force
-}
-else {
+if (-not (Test-Path $swmbBitlockerDirectory)) {
     New-Item -Path $swmbBitlockerDirectory -ItemType Directory 
+}
+if (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master") {
+    Remove-Item "$swmbBitlockerDirectory\resinfo-swmb-master" -Force
 }
 
 Write-Host @"
 ------------------
-downloading file...
+Downloading file...
 ------------------
 "@ -ForegroundColor Green
 Invoke-WebRequest $gitUrl -OutFile $outZipFile -ErrorAction Stop
@@ -50,29 +54,39 @@ Invoke-WebRequest $gitUrl -OutFile $outZipFile -ErrorAction Stop
 
 Write-Host @"
 ------------------
-decompressing file...
+Decompressing file...
 ------------------
 "@ -ForegroundColor Green
 Expand-Archive -Path $outZipFile -DestinationPath $swmbBitlockerDirectory
-
+if (-not (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master")) {
+    Write-Host @"
+------------------
+Error decompressing. Stop script!
+------------------
+"@ -ForegroundColor Red
+    Start-Sleep -Seconds 3
+    exit
+}
 
 Write-Host @"
 ------------------
-unblocking files...
+Unblocking files...
 ------------------
 "@ -ForegroundColor Green
-dir -Path $swmbBitlockerDirectory -Recurse | Unblock-File
+dir -Path "$swmbBitlockerDirectory\resinfo-swmb-master" -Recurse | Unblock-File
 
 Write-Host @"
 ------------------
-launching ...
+Launching...
 ------------------
 "@ -ForegroundColor Green
 
-cd $swmbBitlockerDirectory
-& .\resinfo-swmb-master\Win10-Initial-Setup-Script\Win10.ps1 -Include ".\resinfo-swmb-master\Win10-Initial-Setup-Script\Win10.psm1" -Include "resinfo-swmb-master\Win10-Resinfo-Swmb.psm1" -Include "resinfo-swmb-master\experimental\bitlocker-activation.psm1"
-Import-Module "$swmbBitlockerDirectory\resinfo-swmb-master\experimental\bitlocker-activation.psm1"
-EnableBitlocker
+cd "$swmbBitlockerDirectory\resinfo-swmb-master"
+& .\Win10-Initial-Setup-Script\Win10.ps1 `
+   -Include ".\Win10-Initial-Setup-Script\Win10.psm1" `
+   -Include ".\Win10-Resinfo-Swmb.psm1" `
+   -Include ".\experimental\bitlocker-activation.psm1" `
+   EnableBitlocker
 # SIG # Begin signature block
 # MIImvQYJKoZIhvcNAQcCoIImrjCCJqoCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR

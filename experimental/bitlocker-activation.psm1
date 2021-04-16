@@ -212,15 +212,16 @@ if ($sytemDriveStatus -eq "DecryptionInProgress") {
 		return
 }
 
-if ($sytemDriveStatus -eq "FullyDecrypted") {
-		_EncryptSytemDrive
-		_EncryptNonSytemDrives
-}
+Write-Host "Bitlocker Volume Status encryption on $systemDrive is $sytemDriveStatus"
 
-if (($sytemDriveStatus-eq "EncryptionInProgress") -or ($sytemDriveStatus -eq "FullyEncrypted")) {
-		Write-Host "Bitlocker encryption on $systemDrive is $sytemDriveStatus"
+if (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus-eq "EncryptionInProgress")) {
+		Write-Host "Bitlocker on system drive is already on (or in progress)"
 		_EncryptNonSytemDrives
-}
+	}
+else {
+			_EncryptSytemDrive
+			_EncryptNonSytemDrives
+	}
 
 
 # Save keys on a network path

@@ -5,6 +5,11 @@ celui-ci ne doit être réalisé qu'une seule fois.
 Génréralement, nous allons faire cette étape de chiffrement lors de l'installation de l'ordinateur,
 à la fin de celle-ci.
 
+Vous pouvez récupérer les deux scripts `swmb-bitlocker-launcher.ps1` et `swmb-bitlokcer-launcher.bat`
+dans le dossier courant et exécuter le fichier `swmb-bitlokcer-launcher.bat` avec les droits d'administrateur.
+Ces scripts font quasiment la même chose sous forme de question / réponse
+que la version minimale ci-dessous.
+
 Ouvrir dans une fenêtre PowerShell ayant des privilèges élevés (exécuter en tant qu'administrateur)
 
 ```ps
@@ -30,5 +35,5 @@ cd C:\SWMB\resinfo-swmb-master
 
 Il est possible de vérifier le statut du lecteur système
 ```ps
-manage-bde –status C:
+manage-bde -status C:
 ```

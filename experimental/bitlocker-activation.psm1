@@ -54,10 +54,14 @@ Function EnableBitlocker {
 		Write-Host "Add system drive key"
 		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 		Write-Host "Copy system drive key on $systemDrive"
-		$pathKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $systemDriveLetter + ".txt"
+		$pathKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $systemDriveLetter + ".txt"
 		if (Test-Path -Path $pathKey -PathType leaf) {
-			$oldKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $systemDriveLetter + ".txt.old"
+			$oldKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $systemDriveLetter + ".txt.old"
 			Write-Host "Warning: $pathKey already exist => rename with .old extension"
+			if (Test-Path -Path $oldKey -PathType leaf) {
+				Write-Host "Warning: delete before old key $oldKey"
+				Remove-Item -Path $oldKey
+			}
 			Rename-Item -Path $pathKey -NewName $oldKey
 		}
 		(Get-BitLockerVolume -MountPoint $systemDriveLetter).KeyProtector > $pathKey
@@ -99,7 +103,7 @@ Function EnableBitlocker {
 
 
 			Write-Host "Copy drive $letter key"
-			$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $letter + ".txt"
+			$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $letter + ".txt"
 			Write-Host $backupFile
 			(Get-BitLockerVolume -MountPoint $letterColon).KeyProtector > $backupFile
 
@@ -188,6 +192,7 @@ Function EnableBitlocker {
 	}
 
 # Begin main program
+	$dateNow           = (Get-Date).tostring(“yyyyMMddhhmm”)
 	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
 

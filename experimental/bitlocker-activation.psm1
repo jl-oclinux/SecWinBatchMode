@@ -60,7 +60,7 @@ Function EnableBitlocker {
 			Write-Host "Warning: $pathKey already exist => rename with .old extension"
 			if (Test-Path -Path $oldKey -PathType leaf) {
 				Write-Host "Warning: delete before old key $oldKey"
-				Remove-Item -Path $oldKey
+				Remove-Item -Path $oldKey -Force
 			}
 			Rename-Item -Path $pathKey -NewName $oldKey
 		}

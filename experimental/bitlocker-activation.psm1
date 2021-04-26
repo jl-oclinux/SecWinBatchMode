@@ -1,4 +1,3 @@
-
 Function EnableBitlocker {
 	## PowerShell bitlocker commands
 	# https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
@@ -189,7 +188,7 @@ Function EnableBitlocker {
 	}
 
 	# Begin main program
-	$dateNow           = (Get-Date).tostring(“yyyyMMddhhmm”)
+	$dateNow           = (Get-Date).tostring("yyyyMMddhhmm")
 	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
 

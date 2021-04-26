@@ -101,7 +101,6 @@ Function EnableBitlocker {
 			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256" 3>$null
 			Resume-BitLocker -MountPoint $letter
 
-
 			Write-Host "Copy drive $letter key"
 			$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $letter + ".txt"
 			Write-Host $backupFile
@@ -113,19 +112,17 @@ Function EnableBitlocker {
 			Write-Host "Bitlocker activation on drive $letter ended with success"
 
 			# AutoUnlock
-			if ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on")
-				{
-					 Enable-BitLockerAutoUnlock -MountPoint $letter
-				}
-			else
-			  {
-					$Trigger= New-ScheduledTaskTrigger -AtStartup
-					$User= "NT AUTHORITY\SYSTEM"
-					$key_obj = (Get-BitLockerVolume -MountPoint $letter).keyprotector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | select-object -Property RecoveryPassword
-			 		$key = $key_obj.RecoveryPassword
-					$Action= New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter ; Unregister-ScheduledTask task0  -confirm:`$false}"
-					Register-ScheduledTask -Force -TaskName task0 -Trigger $Trigger -User $User -Action $Action -RunLevel Highest
-				}
+			if ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on") {
+				Enable-BitLockerAutoUnlock -MountPoint $letter
+			}
+			else {
+				$trigger = New-ScheduledTaskTrigger -AtStartup
+				$user    = "NT AUTHORITY\SYSTEM"
+				$key_obj = (Get-BitLockerVolume -MountPoint $letter).keyprotector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | select-object -Property RecoveryPassword
+			 	$key     = $key_obj.RecoveryPassword
+				$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter ; Unregister-ScheduledTask task0  -confirm:`$false}"
+				Register-ScheduledTask -Force -TaskName task0 -Trigger $trigger -User $user -Action $action -RunLevel Highest
+			}
 
 			# copy key if $networkKeyBackup
 			if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
@@ -191,49 +188,45 @@ Function EnableBitlocker {
 		gpupdate
 	}
 
-# Begin main program
+	# Begin main program
 	$dateNow           = (Get-Date).tostring(“yyyyMMddhhmm”)
 	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
 
-if (!(Confirm-SecureBootUEFI)) {
+	if (!(Confirm-SecureBootUEFI)) {
 		Write-Error "SecureBoot is OFF!"
 		return
-}
-if (!(Get-Tpm).TpmReady) {
+	}
+	if (!(Get-Tpm).TpmReady) {
 		Write-Host "Get-TPM informations"
 		Get-Tpm
 		Write-Error "TPM not ready!"
 		return
-}
+	}
 
-# BEGIN GPO
-_EnforceCryptGPO
+	# BEGIN GPO
+	_EnforceCryptGPO
 
-$sytemDriveStatus = (Get-BitLockerVolume $systemDrive).VolumeStatus
+	$sytemDriveStatus = (Get-BitLockerVolume $systemDrive).VolumeStatus
 
-if ($sytemDriveStatus -eq "DecryptionInProgress") {
+	if ($sytemDriveStatus -eq "DecryptionInProgress") {
 		Write-Error "Bitlocker decryption on $systemDrive is in progress!"
 		return
-}
+	}
 
-Write-Host "Bitlocker Volume Status encryption on $systemDrive is $sytemDriveStatus"
+	Write-Host "Bitlocker Volume Status encryption on $systemDrive is $sytemDriveStatus"
 
-if (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus-eq "EncryptionInProgress")) {
+	if (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus-eq "EncryptionInProgress")) {
 		Write-Host "Bitlocker on system drive is already on (or in progress)"
 		_EncryptNonSytemDrives
 	}
-else {
-			_EncryptSytemDrive
-			_EncryptNonSytemDrives
+	else {
+		_EncryptSytemDrive
+		_EncryptNonSytemDrives
 	}
 
-
-# Save keys on a network path
-# $networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
-
-
-
+	# Save keys on a network path
+	# $networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
 
 	$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now ? [Y/n]"
 	if ($reboot -ne "n") {

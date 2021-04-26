@@ -40,7 +40,7 @@ Il est possible de vérifier le statut du lecteur système
 manage-bde -status C:
 ```
 ## Méthode 2
-* Télécharger les fichiers swmb-bitlokcer-launcher.bat et swmb-bitlokcer-launcher.ps1 de ce répertoire
+* Télécharger les fichiers swmb-bitlocker-launcher.bat et swmb-bitlocker-launcher.ps1 de ce répertoire
 * Editer ces 2 fichiers et les lire! Il convient de le faire pour tout script téléchargé depuis internet!
-* Clic-droit sur swmb-bitlokcer-launcher.bat et "Exécuter en tant qu'administrateur"
+* Clic-droit sur swmb-bitlocker-launcher.bat et "Exécuter en tant qu'administrateur"
 * And voilà!

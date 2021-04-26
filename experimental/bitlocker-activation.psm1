@@ -43,7 +43,7 @@ Function EnableBitlocker {
 			Write-Host "Code PIN :"
 			$secure = Read-Host -AsSecureString
 			Write-Host "Enable bitlocker on system drive $systemDrive"
-			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256" 3>$null
+			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256" 3> $null
 		}
 		else {
 			Write-Host "Enable bitlocker on system drive $systemDrive without PIN"
@@ -97,7 +97,7 @@ Function EnableBitlocker {
 
 			Write-Host "Bitlocker activation on drive $letter is going to start"
 
-			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256" 3>$null
+			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256" 3> $null
 			Resume-BitLocker -MountPoint $letter
 
 			Write-Host "Copy drive $letter key"
@@ -117,7 +117,7 @@ Function EnableBitlocker {
 			else {
 				$trigger = New-ScheduledTaskTrigger -AtStartup
 				$user    = "NT AUTHORITY\SYSTEM"
-				$key_obj = (Get-BitLockerVolume -MountPoint $letter).keyprotector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | select-object -Property RecoveryPassword
+				$key_obj = (Get-BitLockerVolume -MountPoint $letter).KeyProtector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | select-object -Property RecoveryPassword
 			 	$key     = $key_obj.RecoveryPassword
 				$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter ; Unregister-ScheduledTask task0  -confirm:`$false}"
 				Register-ScheduledTask -Force -TaskName task0 -Trigger $trigger -User $user -Action $action -RunLevel Highest
@@ -134,7 +134,7 @@ Function EnableBitlocker {
 		# All registry keys :
 		# https://getadmx.com/HKLM/Software/Policies/Microsoft/FVE
 		if (-not (Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE")) {
-			New-Item -path "HKLM:\SOFTWARE\Policies\Microsoft\" -name "FVE"
+			New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "FVE"
 		}
 
 		# 256 bits# XTS-AES 256-bit
@@ -188,7 +188,7 @@ Function EnableBitlocker {
 	}
 
 	# Begin main program
-	$dateNow           = (Get-Date).tostring("yyyyMMddhhmm")
+	$dateNow           = (Get-Date).ToString("yyyyMMddhhmm")
 	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
 
@@ -215,7 +215,7 @@ Function EnableBitlocker {
 
 	Write-Host "Bitlocker Volume Status encryption on $systemDrive is $sytemDriveStatus"
 
-	if (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus-eq "EncryptionInProgress")) {
+	if (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus -eq "EncryptionInProgress")) {
 		Write-Host "Bitlocker on system drive is already on (or in progress)"
 		_EncryptNonSytemDrives
 	}

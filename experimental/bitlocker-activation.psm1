@@ -119,8 +119,9 @@ Function EnableBitlocker {
 				$user    = "NT AUTHORITY\SYSTEM"
 				$key_obj = (Get-BitLockerVolume -MountPoint $letter).KeyProtector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | Select-Object -Property RecoveryPassword
 			 	$key     = $key_obj.RecoveryPassword
-				$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter ; Unregister-ScheduledTask task0  -confirm:`$false}"
-				Register-ScheduledTask -Force -TaskName task0 -Trigger $trigger -User $user -Action $action -RunLevel Highest
+			 	$task    = 'swmb-bitlocker-' + (Get-Random -Minimum 1000 -Maximum 9999)
+				$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter ; Unregister-ScheduledTask $task -confirm:`$false}"
+				Register-ScheduledTask -Force -TaskName $task -Trigger $trigger -User $user -Action $action -RunLevel Highest
 				#$cmd     = "&{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter}"
 				#Set-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name "Enable-BitLockerAutoUnlock-$letter" -Value "powershell.exe -noexit -command '$cmd'"
 			}

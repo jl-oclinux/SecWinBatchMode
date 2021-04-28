@@ -86,4 +86,5 @@ cd "$swmbBitlockerDirectory\resinfo-swmb-master"
    -Include ".\Win10-Initial-Setup-Script\Win10.psm1" `
    -Include ".\Win10-Resinfo-Swmb.psm1" `
    -Include ".\experimental\bitlocker-activation.psm1" `
+   RequireAdmin `
    EnableBitlocker

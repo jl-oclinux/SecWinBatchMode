@@ -8,14 +8,14 @@ Function EnableBitlocker {
 		)
 
 		if ($wantToSave -eq $false) {
-			$isNetWorkBackup = Read-Host -Prompt "Do you want to save recovery keys on a network drive ? [y/N]"
+			$isNetWorkBackup = Read-Host -Prompt "Do you want to save recovery keys on a network drive? [y/N]"
 			if ($isNetWorkBackup -ne "y") {
 				return $null
 			}
 		}
 
 		do {
-			$networkKeyBackup = Read-Host "Provide a CIFS/SMB writable network path with UNC syntax \\serverName\SharedFolder"
+			$networkKeyBackup = Read-Host -Prompt "Provide a CIFS/SMB writable network path with UNC syntax \\serverName\SharedFolder"
 		} until (($networkKeyBackup.Length -gt 2) -and ("\\" -ccontains $networkKeyBackup.Substring(0, 2)))
 
 		if ($networkKeyBackup.Substring($networkKeyBackup.Length - 1) -ne "\") {
@@ -33,18 +33,18 @@ Function EnableBitlocker {
 	}
 
 	Function _EncryptSytemDrive() {
-		$title = 'Activation bitlocker'
-		$query = 'Do you want to use PIN?'
-		$choices = '&Yes', '&No'
-		$decision = $Host.UI.PromptForChoice($title, $query, $choices, 1)
-		if ($decision -eq 0) {
-			Write-Host "Code PIN :"
-			$secure = Read-Host -AsSecureString
-			Write-Host "Enable bitlocker on system drive $systemDrive"
+		#$title = 'Activation bitlocker'
+		#$query = 'Do you want to use PIN?'
+		#$choices = '&Yes', '&No'
+		#$decision = $Host.UI.PromptForChoice($title, $query, $choices, 1)
+		$useCodePin = Read-Host -Prompt "Activation bitlocker - Do you want to use PIN code? [Y/n]"
+		if ($useCodePin -ne "n") {
+			$secure = Read-Host -AsSecureString -Prompt "Code PIN (6 digits)"
+			Write-Host "Enable bitlocker on system drive $systemDrive with PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256" 3> $null
 		}
 		else {
-			Write-Host "Enable bitlocker on system drive $systemDrive without PIN"
+			Write-Host "Enable bitlocker on system drive $systemDrive without PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
 		}
 
@@ -84,8 +84,8 @@ Function EnableBitlocker {
 			$letter = $volume.DriveLetter
 			$letterColon = $letter + ":"
 			#if (Test-Path $letter){
-			$CryptDrive = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active Bitlocker on this drive? [Y/N]"
-			if ($CryptDrive -ne "Y") { continue }
+			$cryptDrive = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active encryption on this drive? [Y/n]"
+			if ($cryptDrive -eq "n") { continue }
 
 			# Test if partition is already encrypted (like for C:)
 			if ((Get-BitLockerVolume $letter).ProtectionStatus -eq "on") {
@@ -224,7 +224,7 @@ Function EnableBitlocker {
 		_EncryptSytemDrive
 		_EncryptNonSytemDrives
 
-		$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now ? [Y/n]"
+		$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now? [Y/n]"
 		if ($reboot -ne "n") {
 			Restart-Computer -Force
 		}

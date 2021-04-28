@@ -84,7 +84,7 @@ Function EnableBitlocker {
 			$letter = $volume.DriveLetter
 			$letterColon = $letter + ":"
 			#if (Test-Path $letter){
-			$cryptDrive = Read-Host -Prompt "The drive $letter is not removable and hosts a file system. Do you want to active encryption on this drive? [Y/n]"
+			$cryptDrive = Read-Host -Prompt "The $letter drive is not removable and hosts a file system. Do you want to enable encryption on this drive? [Y/n]"
 			if ($cryptDrive -eq "n") { continue }
 
 			# Test if partition is already encrypted (like for C:)
@@ -224,7 +224,7 @@ Function EnableBitlocker {
 		_EncryptSytemDrive
 		_EncryptNonSytemDrives
 
-		$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now? [Y/n]"
+		$reboot = Read-Host -Prompt "The computer must be restarted to finish the system disk encryption. Reboot now? [Y/n]"
 		if ($reboot -ne "n") {
 			Restart-Computer -Force
 		}

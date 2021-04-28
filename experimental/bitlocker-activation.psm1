@@ -8,16 +8,14 @@ Function EnableBitlocker {
 		)
 
 		if ($wantToSave -eq $false) {
-			do {
-				$isNetWorkBackup = Read-Host "Do you want to save recovery key on a network drive [Y/N]?"
-			} until ("Y", "N" -ccontains $isNetWorkBackup)
-			if ($isNetWorkBackup -eq "N") {
+			$isNetWorkBackup = Read-Host -Prompt "Do you want to save recovery keys on a network drive ? [y/N]"
+			if ($isNetWorkBackup -ne "y") {
 				return $null
 			}
 		}
 
 		do {
-			$networkKeyBackup = Read-Host "Provide a CIFS/SMB writable network path with syntax \\serverName\SharedFolder"
+			$networkKeyBackup = Read-Host "Provide a CIFS/SMB writable network path with UNC syntax \\serverName\SharedFolder"
 		} until (($networkKeyBackup.Length -gt 2) -and ("\\" -ccontains $networkKeyBackup.Substring(0, 2)))
 
 		if ($networkKeyBackup.Substring($networkKeyBackup.Length - 1) -ne "\") {

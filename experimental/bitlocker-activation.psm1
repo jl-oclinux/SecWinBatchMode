@@ -42,10 +42,14 @@ Function EnableBitlocker {
 			$secure = Read-Host -AsSecureString -Prompt "Code PIN (6 digits)"
 			Write-Host "Enable bitlocker on system drive $systemDrive with PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256" 3> $null
+			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 2 `
+				-Message "SWMB: Enable bitlocker on system drive $systemDrive with PIN code"
 		}
 		else {
 			Write-Host "Enable bitlocker on system drive $systemDrive without PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
+			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 3 `
+				-Message "SWMB: Enable bitlocker on system drive $systemDrive without PIN code"
 		}
 
 		Write-Host "Add system drive key"
@@ -97,6 +101,7 @@ Function EnableBitlocker {
 
 			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -UsedSpaceOnly -EncryptionMethod "XtsAes256" 3> $null
 			Resume-BitLocker -MountPoint $letter
+			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 1 -Message "SWMB: Bitlocker enable drive $letter"
 
 			Write-Host "Copy drive $letter key"
 			$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $letter + ".txt"
@@ -118,8 +123,9 @@ Function EnableBitlocker {
 				$key_obj = (Get-BitLockerVolume -MountPoint $letter).KeyProtector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | Select-Object -Property RecoveryPassword
 			 	$key     = $key_obj.RecoveryPassword
 			 	$task    = 'swmb-bitlocker-' + $letter + '-' + (Get-Random -Minimum 1000 -Maximum 9999)
-				$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter ; Unregister-ScheduledTask $task -confirm:`$false}"
+				$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter ; Write-EventLog -LogName Application -Source 'SWMB' -EntryType Information -EventID 5 -Message 'SWMB: Bitlocker finish ScheduledTask $task' ; Unregister-ScheduledTask $task -confirm:`$false}"
 				Register-ScheduledTask -Force -TaskName $task -Trigger $trigger -User $user -Action $action -RunLevel Highest
+				Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 4 -Message "SWMB: Bitlocker add ScheduledTask $task"
 				#$cmd     = "&{Unlock-BitLocker -MountPoint $letter -RecoveryPassword $key ; Enable-BitLockerAutoUnlock -MountPoint $letter}"
 				#Set-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name "Enable-BitLockerAutoUnlock-$letter" -Value "powershell.exe -noexit -command '$cmd'"
 			}

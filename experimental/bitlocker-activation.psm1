@@ -95,7 +95,7 @@ Function EnableBitlocker {
 
 			Write-Host "Bitlocker activation on drive $letter is going to start"
 
-			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -EncryptionMethod "XtsAes256" 3> $null
+			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -UsedSpaceOnly -EncryptionMethod "XtsAes256" 3> $null
 			Resume-BitLocker -MountPoint $letter
 
 			Write-Host "Copy drive $letter key"

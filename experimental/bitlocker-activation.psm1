@@ -225,13 +225,10 @@ Function EnableBitlocker {
 	else {
 		_EncryptSytemDrive
 		_EncryptNonSytemDrives
-	}
 
-	# Save keys on a network path
-	# $networkKeyBackupFolder = _NetworkKeyBackup -wantToSave $false
-
-	$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now ? [Y/n]"
-	if ($reboot -ne "n") {
-		Restart-Computer -Force
+		$reboot = Read-Host -Prompt "Computer must be rebooted. Restart now ? [Y/n]"
+		if ($reboot -ne "n") {
+			Restart-Computer -Force
+		}
 	}
 }

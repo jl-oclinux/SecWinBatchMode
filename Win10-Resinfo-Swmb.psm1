@@ -350,6 +350,28 @@ Function EnableMicrosoftAccount {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "NoConnectedUser" -Type DWord -Value 0
 }
 
+# Windows Hello Authentification
+# https://answers.microsoft.com/en-us/windows/forum/windows_10-hello/how-to-disable-windows-hello/05ab5492-19c7-4d44-b762-d93b44a9cf65
+# Computer Configuration -> Administrative Templates -> System -> Logon : Turn on PIN sign-in and select Disabled.
+# Disable
+Function DisableWindowsHello {
+	Write-Output "Block Windows Hello Authentification..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "\SOFTWARE\Microsoft\PolicyManager\default\Settings" -Name "AllowSignInOptions	" -Type DWord -Value 0
+}
+
+# Enable
+Function EnableWindowsHello {
+	Write-Output "Enable Windows Hello Authentification..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings" -Name "AllowSignInOptions" -Type DWord -Value 1
+}
+
+
 ################################################################
 ###### Cortana and search
 ################################################################

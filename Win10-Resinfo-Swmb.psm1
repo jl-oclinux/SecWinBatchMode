@@ -352,23 +352,24 @@ Function EnableMicrosoftAccount {
 
 # Windows Hello Authentification
 # https://answers.microsoft.com/en-us/windows/forum/windows_10-hello/how-to-disable-windows-hello/05ab5492-19c7-4d44-b762-d93b44a9cf65
+# https://www.minitool.com/news/disable-windows-hello.html
 # Computer Configuration -> Administrative Templates -> System -> Logon : Turn on PIN sign-in and select Disabled.
 # Disable
 Function DisableWindowsHello {
 	Write-Output "Block Windows Hello Authentification..."
-	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\")) {
-		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings" -Force | Out-Null
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "\SOFTWARE\Microsoft\PolicyManager\default\Settings" -Name "AllowSignInOptions	" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Name "value" -Type DWord -Value 0
 }
 
 # Enable
 Function EnableWindowsHello {
 	Write-Output "Enable Windows Hello Authentification..."
-	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings")) {
-		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings" -Force | Out-Null
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings" -Name "AllowSignInOptions" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Name "value" -Type DWord -Value 1
 }
 
 

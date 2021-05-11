@@ -527,7 +527,7 @@ Function EnablePublicProfile {
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.PowerManagement::DCStandbyWithHiberfileEnable_2
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.PowerManagement::ACStandbyWithHiberfileEnable_2
 # Disable
-Function DisableStandByState {
+Function DisableHybridSleep {
 	Write-Output "Turn off hybrid sleep (plugged in and battery)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e" -Force | Out-Null
@@ -537,7 +537,7 @@ Function DisableStandByState {
 }
 
 # Enable
-Function EnableStandByState {
+Function EnableHybridSleep {
 	Write-Output "Turn on hybrid sleep (plugged in and battery)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e" -Force | Out-Null

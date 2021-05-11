@@ -32,6 +32,15 @@ Function EnableBitlocker {
 		}
 	}
 
+	Function _DecryptAndWait ([string]$letter) {
+    Disable-BitLocker -MountPoint $letter
+		Write-Host "decryption in progress for $letter"
+		While ((Get-BitLockerVolume -MountPoint $letter).EncryptionPercentage -gt 0 ) {
+    Start-Sleep -Seconds 20
+  	}
+		Write-Host "$letter is fully decrypted"
+	}
+	
 	Function _EncryptSytemDrive() {
 		#$title = 'Activation bitlocker'
 		#$query = 'Do you want to use PIN?'

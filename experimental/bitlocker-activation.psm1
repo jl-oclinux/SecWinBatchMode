@@ -85,7 +85,14 @@ Function EnableBitlocker {
 
 		# copy key if $networkKeyBackup
 		if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
-			Copy-Item $pathKey -Destination $networkKeyBackupFolder
+            try {
+			    Copy-Item $pathKey -Destination $networkKeyBackupFolder -ErrorAction Continue
+            }
+            catch {
+                $message = "Error backuping $pathKey on network folder $networkKeyBackupFolder"
+                Write-Host $message
+                Write-EventLog -LogName Application -Source "SWMB" -EntryType Warning -EventID 4 -Message $message
+            }
 		}
 	}
 
@@ -128,9 +135,16 @@ Function EnableBitlocker {
 			icacls.exe $backupFile /InheritanceLevel:r
 			Write-Host "Bitlocker activation on drive $letter ended with success"
             
-            # copy key if $networkKeyBackup
+		    # copy key if $networkKeyBackup
 		    if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
-			    Copy-Item $pathKey -Destination $networkKeyBackupFolder
+                try {
+			        Copy-Item $backupFile -Destination $networkKeyBackupFolder -ErrorAction Continue
+                }
+                catch {
+                    $message = "Error backuping $backupFile on network folder $networkKeyBackupFolder"
+                    Write-Host $message
+                    Write-EventLog -LogName Application -Source "SWMB" -EntryType Warning -EventID 4 -Message $message
+                }
 		    }
 
 			# AutoUnlock

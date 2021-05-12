@@ -232,7 +232,7 @@ Function EnableBitlocker {
 	}
 
 	# BEGIN GPO
-	#_EnforceCryptGPO
+	_EnforceCryptGPO
 
     $networkBackup = _NetworkKeyBackup -wantToSave $false
 

@@ -42,6 +42,9 @@ Function EnableBitlocker {
 	}
 	
 	Function _EncryptSytemDrive() {
+        param (
+            [string]$networkKeyBackupFolder
+        )
 		#$title = 'Activation bitlocker'
 		#$query = 'Do you want to use PIN?'
 		#$choices = '&Yes', '&No'
@@ -82,13 +85,16 @@ Function EnableBitlocker {
 
 		# copy key if $networkKeyBackup
 		if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
-			Copy-Item $pathKey -Destination $networkKeyBackup
+			Copy-Item $pathKey -Destination $networkKeyBackupFolder
 		}
 	}
 
 	# We treat all partitions that have an associated letter and that are of type fixed
 	# ie we don't take into account the usb keys
 	Function _EncryptNonSytemDrives() {
+        param (
+            [string]$networkKeyBackupFolder
+        )
 		# Other drives encryption
 		$listVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $systemDriveLetter }
 		foreach ($volume in $listVolume) {
@@ -121,6 +127,11 @@ Function EnableBitlocker {
 			icacls.exe $backupFile /Grant:r "$((Get-Acl -Path $backupFile).Owner):(R)"
 			icacls.exe $backupFile /InheritanceLevel:r
 			Write-Host "Bitlocker activation on drive $letter ended with success"
+            
+            # copy key if $networkKeyBackup
+		    if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
+			    Copy-Item $pathKey -Destination $networkKeyBackupFolder
+		    }
 
 			# AutoUnlock
 			if ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on") {
@@ -139,10 +150,7 @@ Function EnableBitlocker {
 				#Set-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name "Enable-BitLockerAutoUnlock-$letter" -Value "powershell.exe -noexit -command '$cmd'"
 			}
 
-			# copy key if $networkKeyBackup
-			if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
-				Copy-Item $pathKey -Destination $networkKeyBackup
-			}
+
 		}
 	}
 
@@ -207,7 +215,8 @@ Function EnableBitlocker {
 	$dateNow           = (Get-Date).ToString("yyyyMMddhhmm")
 	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
-	New-EventLog –LogName Application –Source "SWMB"
+##TODO Check if Source exists or not
+	New-EventLog -LogName Application -Source "SWMB"
 
 	if (!(Confirm-SecureBootUEFI)) {
 		Write-Error "SecureBoot is OFF!"
@@ -221,7 +230,9 @@ Function EnableBitlocker {
 	}
 
 	# BEGIN GPO
-	_EnforceCryptGPO
+	#_EnforceCryptGPO
+
+    $networkBackup = _NetworkKeyBackup -wantToSave $false
 
 	$sytemDriveStatus = (Get-BitLockerVolume $systemDrive).VolumeStatus
 
@@ -234,11 +245,11 @@ Function EnableBitlocker {
 
 	if (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus -eq "EncryptionInProgress")) {
 		Write-Host "Bitlocker on system drive is already on (or in progress)"
-		_EncryptNonSytemDrives
+		_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
 	}
 	else {
-		_EncryptSytemDrive
-		_EncryptNonSytemDrives
+		_EncryptSytemDrive -networkKeyBackupFolder $networkBackup
+		_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
 
 		$reboot = Read-Host -Prompt "The computer must be restarted to finish the system disk encryption. Reboot now? [Y/n]"
 		if ($reboot -ne "n") {

@@ -215,8 +215,10 @@ Function EnableBitlocker {
 	$dateNow           = (Get-Date).ToString("yyyyMMddhhmm")
 	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
-##TODO Check if Source exists or not
-	New-EventLog -LogName Application -Source "SWMB"
+
+    if (!(Get-Eventlog -LogName Application -Source "SWMB")){
+      New-EventLog -LogName Application -Source "SWMB"
+    }
 
 	if (!(Confirm-SecureBootUEFI)) {
 		Write-Error "SecureBoot is OFF!"

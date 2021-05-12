@@ -10,6 +10,27 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
+<#
+.NOTES
+Project    : CNRS RESINFO SWMB
+Copyright  : (C) 2020, CNRS, France
+License    : MIT License (Same as project Win10-Initial-Setup-Script)
+Version    : 0.8.0
+Author     : 2020 - Olivier de Marchi (Grenoble INP / LEGI)
+Author     : 2020 - David Gras (CNRS / DR11)
+Author     : 2020 - Clément Deiber (CNRS / DR11)
+Author     : 2020 - Gabriel Moreau (CNRS / LEGI)
+Created on : 2020-04-21
+GUID       : 862ac9b1-a77b-408f-ae49-0dd500561860
+#>
+
+
+@{
+	ModuleName = 'RESINFO-SWMB';
+	ModuleVersion = "0.8.0";
+	GUID = "862ac9b1-a77b-408f-ae49-0dd500561860";
+}
+
 ################################################################
 ###### Exemples https://github.com/Disassembler0/Win10-Initial-Setup-Script#examples
 ################################################################

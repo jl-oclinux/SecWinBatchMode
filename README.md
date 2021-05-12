@@ -38,11 +38,13 @@ Les autres règles ne sont pas paramétrables, car elles sont, dans un premier t
 Le projet amont sur lequel nous nous appuyons n'avait d'ailleurs pas prévu de pouvoir paramétrer des règles.
 
 **Quelques références**
- * Document de l'ANSSI :
+ * Document de l'[ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information) :
    [https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
  * Projet amont `Win10-Initial-Setup-Script` :
    https://github.com/Disassembler0/Win10-Initial-Setup-Script
-
+ * Document de la [BSI]https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
+   (Office fédéral de la sécurité des technologies de l’information en Allemagne)
+   [https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
 
 ## Scripts Powershell Disassembler0
 

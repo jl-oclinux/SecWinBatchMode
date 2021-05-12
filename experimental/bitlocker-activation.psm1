@@ -1,3 +1,9 @@
+
+################################################################
+###### Crypt Bitlocker
+################################################################
+
+# Enable
 Function EnableBitlocker {
 	## PowerShell bitlocker commands
 	# https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
@@ -274,6 +280,7 @@ Function EnableBitlocker {
 	}
 }
 
+# Disable
 Function DisableBitlocker {
 	$listVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" }
 	foreach ($volume in $listVolume) {

@@ -24,8 +24,10 @@ En ce qui concerne les stratégies de sécurité applicables,
 SWMB s'appuie principalement sur les règles édictées par l'Agence Nationale de la Sécurité des Systèmes d'Information ([ANSSI](https://www.ssi.gouv.fr/)).
 Il y a ainsi dans SWMB trois niveaux de règles possibles :
  * `Win10-Initial-Setup` - règles du projet amont non modifiées ;
- * `Win10-Resinfo-Swmb` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS, applicable dans tout l'ESR (Enseignement Supérieur et Recherche) ;
+ * `Win10-Resinfo-Swmb` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS,
+    applicable dans tout l'ESR (Enseignement Supérieur et Recherche) ;
  * `Win10-My-Swmb` - règles intéressantes que vous pouvez étendre pour votre site.
+
 Chaque règle peut-être activée (`enable`) ou déactivé (`disable`) très facilement dans un fichier de configuration (`preset`).
 Des fichiers types sont proposés.
 À chaque règle est associée un commentaire en français faisant référence à son origine.
@@ -38,11 +40,11 @@ Les autres règles ne sont pas paramétrables, car elles sont, dans un premier t
 Le projet amont sur lequel nous nous appuyons n'avait d'ailleurs pas prévu de pouvoir paramétrer des règles.
 
 **Quelques références**
+ * Projet amont `Win10-Initial-Setup-Script` :
+   https://github.com/Disassembler0/Win10-Initial-Setup-Script
  * Document de l'[ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
    (Agence Nationale de la Sécurité des Systèmes d'Information - France) :
    [https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
- * Projet amont `Win10-Initial-Setup-Script` :
-   https://github.com/Disassembler0/Win10-Initial-Setup-Script
  * Document de la [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
    (Office fédéral de la sécurité des technologies de l’information - Allemagne) :
    [https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)

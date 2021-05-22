@@ -1,6 +1,6 @@
-MIT License
+# Released under MIT License
 
-Copyright (C) 2020, CNRS, France
+Copyright (C) 2020-2021, CNRS, France
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

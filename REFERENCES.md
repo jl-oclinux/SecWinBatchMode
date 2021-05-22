@@ -1,4 +1,4 @@
-# [SWMB](README.md] / References
+# [SWMB](README.md) / References
 
 ## Generals
 

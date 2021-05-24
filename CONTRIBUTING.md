@@ -40,7 +40,8 @@ tous ses patchs dans l'arbre principal.
 git remote add -f Win10-Initial https://github.com/Disassembler0/Win10-Initial-Setup-Script.git
 git subtree add --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
 
-git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
+#git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
+git subtree pull --prefix Win10-Initial-Setup-Script/ https://github.com/Disassembler0/Win10-Initial-Setup-Script.git master --squash
 ```
 
 Faire une différence dans un terminal ou en graphique

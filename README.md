@@ -66,7 +66,7 @@ git subtree add --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squa
 Pour mettre à jour :
 
 ```bash
-git subtree pull --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
+git subtree pull --prefix Win10-Initial-Setup-Script/ https://github.com/Disassembler0/Win10-Initial-Setup-Script.git master --squash
 ```
 
 Voir [CONTRIBUTING](./CONTRIBUTING.md).

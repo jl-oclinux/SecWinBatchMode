@@ -73,6 +73,8 @@ The script supports command line options and parameters which can help you custo
 
 ## Windows builds overview
 
+See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_version_history)
+
 | Version |        Code name        |     Marketing name     | Build |
 | :-----: | ----------------------- | ---------------------- | :---: |
 |  1507   | Threshold 1 (TH1 / RTM) | N/A                    | 10240 |
@@ -85,6 +87,8 @@ The script supports command line options and parameters which can help you custo
 |  1903   | 19H1                    | May 2019 Update        | 18362 |
 |  1909   | 19H2                    | November 2019 Update   | 18363 |
 |  2004   | 20H1                    | May 2020 Update        | 19041 |
+|  20H2   | 20H2                    | October 2020 Update    | 19042 |
+|  21H1   | 21H1                    | May 2021 Update        | 19043 |
 
 &nbsp;
 

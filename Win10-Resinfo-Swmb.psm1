@@ -616,9 +616,9 @@ Function EnableBitlocker {
 	}
 
 	Function _EncryptSytemDrive() {
-        param (
-            [string]$networkKeyBackupFolder
-        )
+		param (
+			[string]$networkKeyBackupFolder
+		)
 		#$title = 'Activation bitlocker'
 		#$query = 'Do you want to use PIN?'
 		#$choices = '&Yes', '&No'
@@ -673,9 +673,9 @@ Function EnableBitlocker {
 	# We treat all partitions that have an associated letter and that are of type fixed
 	# ie we don't take into account the usb keys
 	Function _EncryptNonSytemDrives() {
-        param (
-            [string]$networkKeyBackupFolder
-        )
+		param (
+			[string]$networkKeyBackupFolder
+		)
 		# Other drives encryption
 		$listVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $systemDriveLetter }
 		Foreach ($volume in $listVolume) {
@@ -708,7 +708,7 @@ Function EnableBitlocker {
 			icacls.exe $backupFile /Grant:r "$((Get-Acl -Path $backupFile).Owner):(R)"
 			icacls.exe $backupFile /InheritanceLevel:r
 			Write-Host "Bitlocker activation on drive $letter ended with success"
-            
+
 			# copy key if $networkKeyBackup
 			If (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
 				Try {

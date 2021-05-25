@@ -581,26 +581,26 @@ Function EnableBitlocker {
 			[Parameter(Mandatory = $true)] [string]$wantToSave
 		)
 
-		if ($wantToSave -eq $false) {
+		If ($wantToSave -eq $false) {
 			$isNetWorkBackup = Read-Host -Prompt "Do you want to save recovery keys on a network drive? [y/N]"
-			if ($isNetWorkBackup -ne "y") {
+			If ($isNetWorkBackup -ne "y") {
 				return $null
 			}
 		}
 
-		do {
+		Do {
 			$networkKeyBackup = Read-Host -Prompt "Provide a CIFS/SMB writable network path with UNC syntax \\serverName\SharedFolder"
 		} until (($networkKeyBackup.Length -gt 2) -and ("\\" -ccontains $networkKeyBackup.Substring(0, 2)))
 
-		if ($networkKeyBackup.Substring($networkKeyBackup.Length - 1) -ne "\") {
+		If ($networkKeyBackup.Substring($networkKeyBackup.Length - 1) -ne "\") {
 			$networkKeyBackup += "\"
 		}
-		try {
+		Try {
 			New-Item -Name isWriteAllowed.txt -ItemType File -Path $networkKeyBackup -Force -ErrorAction stop | Out-Null
 			return $networkKeyBackup
 			# Todo question : do I delete the file afterwards?
 		}
-		catch {
+		Catch {
 			Write-Host ("$networkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
 			_NetworkKeyBackup -wantToSave $true
 		}
@@ -624,14 +624,14 @@ Function EnableBitlocker {
 		#$choices = '&Yes', '&No'
 		#$decision = $Host.UI.PromptForChoice($title, $query, $choices, 1)
 		$useCodePin = Read-Host -Prompt "Activation bitlocker - Do you want to use PIN code? [Y/n]"
-		if ($useCodePin -ne "n") {
+		If ($useCodePin -ne "n") {
 			$secure = Read-Host -AsSecureString -Prompt "Code PIN (6 digits)"
 			Write-Host "Enable bitlocker on system drive $systemDrive with PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256" 3> $null
 			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 2 `
 				-Message "SWMB: Enable bitlocker on system drive $systemDrive with PIN code"
 		}
-		else {
+		Else {
 			Write-Host "Enable bitlocker on system drive $systemDrive without PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
 			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 3 `
@@ -642,10 +642,10 @@ Function EnableBitlocker {
 		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
 		Write-Host "Copy system drive key on $systemDrive"
 		$pathKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $systemDriveLetter + ".txt"
-		if (Test-Path -Path $pathKey -PathType leaf) {
+		If (Test-Path -Path $pathKey -PathType leaf) {
 			$oldKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $systemDriveLetter + ".txt.old"
 			Write-Host "Warning: $pathKey already exist => rename with .old extension"
-			if (Test-Path -Path $oldKey -PathType leaf) {
+			If (Test-Path -Path $oldKey -PathType leaf) {
 				Write-Host "Warning: delete before old key $oldKey"
 				Remove-Item -Path $oldKey -Force
 			}
@@ -658,11 +658,11 @@ Function EnableBitlocker {
 		icacls.exe $pathKey /InheritanceLevel:r
 
 		# copy key if $networkKeyBackup
-		if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
-			try {
+		If (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
+			Try {
 				Copy-Item $pathKey -Destination $networkKeyBackupFolder -ErrorAction Continue
 			}
-			catch {
+			Catch {
 				$message = "Error backuping $pathKey on network folder $networkKeyBackupFolder"
 				Write-Host $message
 				Write-EventLog -LogName Application -Source "SWMB" -EntryType Warning -EventID 4 -Message $message
@@ -678,17 +678,17 @@ Function EnableBitlocker {
         )
 		# Other drives encryption
 		$listVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $systemDriveLetter }
-		foreach ($volume in $listVolume) {
-			if (-not ($volume.DriveLetter)) { continue }
+		Foreach ($volume in $listVolume) {
+			If (-not ($volume.DriveLetter)) { continue }
 
 			$letter = $volume.DriveLetter
 			$letterColon = $letter + ":"
 			#if (Test-Path $letter){
 			$cryptDrive = Read-Host -Prompt "The $letter drive is not removable and hosts a file system. Do you want to enable encryption on this drive? [Y/n]"
-			if ($cryptDrive -eq "n") { continue }
+			If ($cryptDrive -eq "n") { continue }
 
 			# Test if partition is already encrypted (like for C:)
-			if ((Get-BitLockerVolume $letter).ProtectionStatus -eq "on") {
+			If ((Get-BitLockerVolume $letter).ProtectionStatus -eq "on") {
 				Write-Host "Bitlocker on drive $letter is already ON!"
 				continue
 			}
@@ -710,11 +710,11 @@ Function EnableBitlocker {
 			Write-Host "Bitlocker activation on drive $letter ended with success"
             
 			# copy key if $networkKeyBackup
-			if (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
-				try {
+			If (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
+				Try {
 					Copy-Item $backupFile -Destination $networkKeyBackupFolder -ErrorAction Continue
 				}
-				catch {
+				Catch {
 					$message = "Error backuping $backupFile on network folder $networkKeyBackupFolder"
 					Write-Host $message
 					Write-EventLog -LogName Application -Source "SWMB" -EntryType Warning -EventID 4 -Message $message
@@ -722,10 +722,10 @@ Function EnableBitlocker {
 			}
 
 			# AutoUnlock
-			if ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on") {
+			If ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on") {
 				Enable-BitLockerAutoUnlock -MountPoint $letter
 			}
-			else {
+			Else {
 				$trigger = New-ScheduledTaskTrigger -AtStartup
 				$user    = "NT AUTHORITY\SYSTEM"
 				$key_obj = (Get-BitLockerVolume -MountPoint $letter).KeyProtector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | Select-Object -Property RecoveryPassword
@@ -743,7 +743,7 @@ Function EnableBitlocker {
 	Function _EnforceCryptGPO() {
 		# All registry keys :
 		# https://getadmx.com/HKLM/Software/Policies/Microsoft/FVE
-		if (-not (Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE")) {
+		If (-not (Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE")) {
 			New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "FVE"
 		}
 
@@ -802,15 +802,15 @@ Function EnableBitlocker {
 	$systemDrive       = $Env:SystemDrive
 	$systemDriveLetter = $systemDrive.Substring(0, 1)
 
-	if (!(Get-Eventlog -LogName Application -Source "SWMB")){
+	If (!(Get-Eventlog -LogName Application -Source "SWMB")){
 		New-EventLog -LogName Application -Source "SWMB"
 	}
 
-	if (!(Confirm-SecureBootUEFI)) {
+	If (!(Confirm-SecureBootUEFI)) {
 		Write-Error "SecureBoot is OFF!"
 		return
 	}
-	if (!(Get-Tpm).TpmReady) {
+	If (!(Get-Tpm).TpmReady) {
 		Write-Host "Get-TPM informations"
 		Get-Tpm
 		Write-Error "TPM not ready!"
@@ -824,23 +824,23 @@ Function EnableBitlocker {
 
 	$sytemDriveStatus = (Get-BitLockerVolume $systemDrive).VolumeStatus
 
-	if ($sytemDriveStatus -eq "DecryptionInProgress") {
+	If ($sytemDriveStatus -eq "DecryptionInProgress") {
 		Write-Error "Bitlocker decryption on $systemDrive is in progress!"
 		return
 	}
 
 	Write-Host "Bitlocker Volume Status encryption on $systemDrive is $sytemDriveStatus"
 
-	if (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus -eq "EncryptionInProgress")) {
+	If (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus -eq "EncryptionInProgress")) {
 		Write-Host "Bitlocker on system drive is already on (or in progress)"
 		_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
 	}
-	else {
+	Else {
 		_EncryptSytemDrive -networkKeyBackupFolder $networkBackup
 		_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
 
 		$reboot = Read-Host -Prompt "The computer must be restarted to finish the system disk encryption. Reboot now? [Y/n]"
-		if ($reboot -ne "n") {
+		If ($reboot -ne "n") {
 			Restart-Computer -Force
 		}
 	}
@@ -849,8 +849,8 @@ Function EnableBitlocker {
 # Disable
 Function DisableBitlocker {
 	$listVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" }
-	foreach ($volume in $listVolume) {
-		if (-not ($volume.DriveLetter)) { continue }
+	Foreach ($volume in $listVolume) {
+		If (-not ($volume.DriveLetter)) { continue }
 		$letter = $volume.DriveLetter
 		Disable-BitLocker $letter
 	}

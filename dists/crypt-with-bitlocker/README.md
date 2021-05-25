@@ -32,7 +32,6 @@ cd C:\SWMB\resinfo-swmb-master
 .\Win10-Initial-Setup-Script\Win10.ps1 `
 	-include "Win10-Initial-Setup-Script\Win10.psm1" `
 	-include "Win10-Resinfo-Swmb.psm1" `
-	-include "experimental\bitlocker-activation.psm1" `
 	EnableBitlocker
 ```
 Il est possible de vérifier le statut du lecteur système

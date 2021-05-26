@@ -40,10 +40,12 @@ While ($i -lt $args.Length) {
 		}
 	} ElseIf ($args[$i].ToLower() -eq "-preset") {
 		# Resolve full path to the preset file
-		$preset = Resolve-Path $args[++$i] -ErrorAction Stop
-		$PSCommandArgs += "-preset `"$preset`""
-		# Load tweak names from the preset file
-		Get-Content $preset -ErrorAction Stop | ForEach-Object { AddOrRemoveTweak($_.Split("#")[0].Trim()) }
+		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
+			$preset = $_.Path
+			$PSCommandArgs += "-preset `"$preset`""
+			# Load tweak names from the preset file
+			Get-Content $preset -ErrorAction Stop | ForEach-Object { AddOrRemoveTweak($_.Split("#")[0].Trim()) }
+		}
 	} ElseIf ($args[$i].ToLower() -eq "-log") {
 		# Resolve full path to the output file
 		$log = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($args[++$i])

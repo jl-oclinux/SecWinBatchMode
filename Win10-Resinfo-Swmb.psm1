@@ -583,7 +583,7 @@ Function EnableBitlocker {
 
 		If ($wantToSave -eq $false) {
 			$isNetWorkBackup = Read-Host -Prompt "Do you want to save recovery keys on a network drive? [y/N]"
-			If ($isNetWorkBackup -ne "y") {
+			If ($isNetWorkBackup.ToLower() -ne "y") {
 				return $null
 			}
 		}
@@ -624,7 +624,7 @@ Function EnableBitlocker {
 		#$choices = '&Yes', '&No'
 		#$decision = $Host.UI.PromptForChoice($title, $query, $choices, 1)
 		$useCodePin = Read-Host -Prompt "Activation bitlocker - Do you want to use PIN code? [Y/n]"
-		If ($useCodePin -ne "n") {
+		If ($useCodePin.ToLower() -ne "n") {
 			$secure = Read-Host -AsSecureString -Prompt "Code PIN (6 digits)"
 			Write-Host "Enable bitlocker on system drive $systemDrive with PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256" 3> $null
@@ -685,10 +685,10 @@ Function EnableBitlocker {
 			$letterColon = $letter + ":"
 			#if (Test-Path $letter){
 			$cryptDrive = Read-Host -Prompt "The $letter drive is not removable and hosts a file system. Do you want to enable encryption on this drive? [Y/n]"
-			If ($cryptDrive -eq "n") { continue }
+			If ($cryptDrive.ToLower() -eq "n") { continue }
 
 			# Test if partition is already encrypted (like for C:)
-			If ((Get-BitLockerVolume $letter).ProtectionStatus -eq "on") {
+			If ((Get-BitLockerVolume $letter).ProtectionStatus -eq "On") {
 				Write-Host "Bitlocker on drive $letter is already ON!"
 				continue
 			}
@@ -722,7 +722,7 @@ Function EnableBitlocker {
 			}
 
 			# AutoUnlock
-			If ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "on") {
+			If ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") {
 				Enable-BitLockerAutoUnlock -MountPoint $letter
 			}
 			Else {
@@ -840,7 +840,7 @@ Function EnableBitlocker {
 		_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
 
 		$reboot = Read-Host -Prompt "The computer must be restarted to finish the system disk encryption. Reboot now? [Y/n]"
-		If ($reboot -ne "n") {
+		If ($reboot.ToLower() -ne "n") {
 			Restart-Computer -Force
 		}
 	}

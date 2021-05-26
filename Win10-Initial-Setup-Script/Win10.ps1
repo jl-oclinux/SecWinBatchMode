@@ -31,10 +31,13 @@ $i = 0
 While ($i -lt $args.Length) {
 	If ($args[$i].ToLower() -eq "-include") {
 		# Resolve full path to the included file
-		$include = Resolve-Path $args[++$i] -ErrorAction Stop
-		$PSCommandArgs += "-include `"$include`""
-		# Import the included file as a module
-		Import-Module -Name $include -ErrorAction Stop
+		# Wilcard support
+		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
+			$include = $_.Path
+			$PSCommandArgs += "-include `"$include`""
+			# Import the included file as a module
+			Import-Module -Name $include -ErrorAction Stop
+		}
 	} ElseIf ($args[$i].ToLower() -eq "-preset") {
 		# Resolve full path to the preset file
 		$preset = Resolve-Path $args[++$i] -ErrorAction Stop

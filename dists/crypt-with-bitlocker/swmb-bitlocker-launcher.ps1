@@ -82,7 +82,7 @@ Launching...
 "@ -ForegroundColor Green
 
 cd "$swmbBitlockerDirectory\resinfo-swmb-master"
-& .\Win10-Initial-Setup-Script\Win10.ps1 `
+& .\Win10.ps1 `
    -Include ".\Modules\SWMB.psm1" `
    RequireAdmin `
    EnableBitlocker

@@ -29,7 +29,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 
 cd C:\SWMB\resinfo-swmb-master
 
-.\Win10-Initial-Setup-Script\Win10.ps1 `
+.\Win10.ps1 `
 	-include ".\Modules\SWMB.psm1" `
 	EnableBitlocker
 ```

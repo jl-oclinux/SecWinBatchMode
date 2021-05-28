@@ -10,9 +10,9 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
-# Variables utilisées dans le script Win10-My-Swmb.psm1
+# Variables utilisées dans le module Custom.psm1
 # Ne modifier pas directement ce fichier !
-# Vous pouvez surcharger ces variables en les redéfinissant dans un fichier Win10-My-Swmb-VarOverload.psm1
+# Vous pouvez surcharger ces variables en les redéfinissant dans un fichier Custom-VarOverload.psm1
 
 $myLocalAdminNameToSet = "sas-swmb"
 $myLocalAdminNameOriginal = "administrateur"

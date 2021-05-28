@@ -30,8 +30,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 cd C:\SWMB\resinfo-swmb-master
 
 .\Win10-Initial-Setup-Script\Win10.ps1 `
-	-include "Win10-Initial-Setup-Script\Win10.psm1" `
-	-include "Win10-Resinfo-Swmb.psm1" `
+	-include ".\Modules\SWMB.psm1" `
 	EnableBitlocker
 ```
 Il est possible de vérifier le statut du lecteur système

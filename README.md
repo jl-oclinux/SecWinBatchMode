@@ -24,7 +24,7 @@ En ce qui concerne les stratégies de sécurité applicables,
 SWMB s'appuie principalement sur les règles édictées par l'Agence Nationale de la Sécurité des Systèmes d'Information ([ANSSI](https://www.ssi.gouv.fr/)).
 Il y a ainsi dans SWMB trois niveaux de règles possibles :
  * `Win10-Initial-Setup` - règles du projet amont non modifiées ;
- * `Win10-Resinfo-Swmb` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS,
+ * `Modules\SWMB\Resinfo` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS,
     applicable dans tout l'ESR (Enseignement Supérieur et Recherche) ;
  * `Win10-My-Swmb` - règles intéressantes que vous pouvez étendre pour votre site.
 
@@ -88,13 +88,12 @@ Un preset par paragraphe de l'ANSSI
 ```ps1
 # Exécution d'une fonction seule
 .\Win10-Initial-Setup-Script\Win10.ps1 `
-   -include "Win10-Initial-Setup-Script\Win10.psm1" `
-   -include "Win10-Resinfo-Swmb.psm1" nom-fonction
+   -include "Modules\SWMB.psm1" `
+   nom-fonction
 
 # Exécution d'un jeu de preset
 .\Win10-Initial-Setup-Script\Win10.ps1 `
-   -include "Win10-Initial-Setup-Script\Win10.psm1" `
-   -include "Win10-Resinfo-Swmb.psm1" `
+   -include "Modules\SWMB.psm1" `
    -preset "Presets\UserExperience-Resinfo.preset"
 ```
 

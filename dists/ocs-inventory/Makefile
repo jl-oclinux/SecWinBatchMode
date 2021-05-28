@@ -32,10 +32,11 @@ clean:
 	zip -r $@ install.bat
 	(cd ../..; zip -r dists/ocs/$@ \
 		Presets/*.preset \
+		Modules/*.psm1 \
+		Modules/SWMB/*.psm1 \
 		Win10-Initial-Setup-Script\Win10.* \
 		Win10-My-Swmb.psm1 \
 		Win10-My-Swmb-VarDefault.psm1 \
-		Win10-Resinfo-Swmb.psm1 \
 		-x \*.git/* \
 		)
 	chmod ugo+rw $@

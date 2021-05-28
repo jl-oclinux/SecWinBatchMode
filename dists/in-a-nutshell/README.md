@@ -34,8 +34,7 @@ cd \
 cd SWMB
 
 .\Win10-Initial-Setup-Script\Win10.ps1  `
-  -include "Win10-Initial-Setup-Script\Win10.psm1" `
-  -include "Win10-Resinfo-Swmb.psm1" `
+  -include "Modules\SWMB.psm1" `
   -preset "Presets\Cloud-Resinfo.preset" `
   -preset "Presets\CortanaSearch-Resinfo.preset" `
   -preset "Presets\Telemetry-Resinfo.preset" `
@@ -57,7 +56,7 @@ cd SWMB
    * action : démarrer un programme
    * programme et arguments du programme :
       * programme : `powershell.exe` (ou `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`)
-      * argument : `-ExecutionPolicy RemoteSigned -file "C:\SWMB\Win10-Initial-Setup-Script\Win10.ps1" include "Win10-Resinfo-Swmb.psm1" -preset "Presets\Cloud-Resinfo.preset" -preset "Presets\CortanaSearch-Resinfo.preset" -preset "Presets\Telemetry-Resinfo.preset" -preset "Presets\UniversalApps-Resinfo.preset" -preset "Presets\UserExperience-Resinfo.preset"`
+      * argument : `-ExecutionPolicy RemoteSigned -file "C:\SWMB\Win10-Initial-Setup-Script\Win10.ps1" -include "Modules\SWMB.psm1" -preset "Presets\Cloud-Resinfo.preset" -preset "Presets\CortanaSearch-Resinfo.preset" -preset "Presets\Telemetry-Resinfo.preset" -preset "Presets\UniversalApps-Resinfo.preset" -preset "Presets\UserExperience-Resinfo.preset"`
 * Une fois la tâche créee, vérifier que :
    * La tâche s'exécute avec le compte `Autorite NT\Système`
    * Exécuter avec les autorisations maximales

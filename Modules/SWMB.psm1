@@ -11,4 +11,4 @@
 ################################################################
 
 using module ..\Win10-Initial-Setup-Script\Win10.psm1
-using module ..\Win10-Resinfo-Swmb.psm1
+using module .\SWMB\Resinfo.psm1

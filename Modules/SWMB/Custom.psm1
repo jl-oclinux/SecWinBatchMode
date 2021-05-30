@@ -10,15 +10,22 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
-$myScriptName = (Get-PSCallStack)[0].ScriptName
-$myScriptFullPathBasename = Join-Path -Path (Get-Item $myScriptName).DirectoryName -ChildPath (Get-Item $MyScriptName).Basename
-$myScriptVarDefault = $myScriptFullPathBasename + '-VarDefault.psm1'
-Import-Module -Name $myScriptVarDefault
+$moduleScriptName = (Get-PSCallStack)[0].ScriptName
+$moduleScriptPath = (Get-Item $moduleScriptName).DirectoryName
+$moduleScriptBasename = (Get-Item $MyScriptName).Basename
+$moduleScriptFullPathBasename = Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename
+$moduleScriptVarDefault = $moduleScriptFullPathBasename + '-VarDefault.psm1'
+Import-Module -Name $moduleScriptVarDefault
 
-# Si le fichier personnel de définition de variable existe, on ajoute le module*
-$myScriptVarOverload = $myScriptFullPathBasename + '-VarOverload.psm1'
-if (Test-Path $myScriptVarOverload) {
-	Import-Module -Name $myScriptVarOverload
+# Si le fichier personnel de définition de variable existe, on ajoute le module ayant l'extension -VarOverload
+$moduleScriptVarOverload1 = $moduleScriptFullPathBasename + '-VarOverload.psm1'
+if (Test-Path $moduleScriptVarOverload1) {
+	Import-Module -Name $moduleScriptVarOverload1
+}
+# Idem si le module est dans le dossier parent
+$moduleScriptVarOverload2 = (Join-Path $moduleScriptPath ".." ".."  ".." "Modules" $moduleScriptBasename) + '-VarOverload.psm1'
+if (Test-Path $moduleScriptVarOverload2) {
+	Import-Module -Name $moduleScriptVarOverload2
 }
 
 

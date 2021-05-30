@@ -26,10 +26,19 @@ Function AddOrRemoveTweak($tweak) {
 	}
 }
 
+# Load default SWMB modules
+$SwmbModule = Join-Path "." "Modules" "SWMB.psd1"
+if (Test-Path $SwmbModule) {
+	Import-Module -Name $SwmbModule -ErrorAction Stop
+}
+
 # Parse and resolve paths in passed arguments
 $i = 0
 While ($i -lt $args.Length) {
-	If ($args[$i].ToLower() -eq "-include") {
+	If ($args[$i].ToLower() -eq "-unload") {
+		# Unload module SWMB
+		Remove-Module "SWMB"
+	} ElseIf ($args[$i].ToLower() -eq "-include") {
 		# Resolve full path to the included file
 		# Wilcard support
 		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {

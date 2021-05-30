@@ -87,14 +87,10 @@ Un preset par paragraphe de l'ANSSI
 
 ```ps1
 # Exécution d'une fonction seule
-.\Win10.ps1 `
-   -include "Modules\SWMB.psm1" `
-   nom-fonction
+.\Win10.ps1 nom-fonction
 
 # Exécution d'un jeu de preset
-.\Win10.ps1 `
-   -include "Modules\SWMB.psm1" `
-   -preset "Presets\UserExperience-Resinfo.preset"
+.\Win10.ps1 -preset "Presets\UserExperience-Resinfo.preset"
 ```
 
 ### Intégration dans un autre projet Git

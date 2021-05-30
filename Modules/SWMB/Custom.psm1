@@ -12,7 +12,7 @@
 
 $moduleScriptName = (Get-PSCallStack)[0].ScriptName
 $moduleScriptPath = (Get-Item $moduleScriptName).DirectoryName
-$moduleScriptBasename = (Get-Item $MyScriptName).Basename
+$moduleScriptBasename = (Get-Item $moduleScriptName).Basename
 $moduleScriptFullPathBasename = Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename
 $moduleScriptVarDefault = $moduleScriptFullPathBasename + '-VarDefault.psm1'
 Import-Module -Name $moduleScriptVarDefault

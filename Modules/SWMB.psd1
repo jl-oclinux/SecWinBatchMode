@@ -10,5 +10,18 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
-#using module .\SWMB\Win10.psm1
-#using module .\SWMB\Resinfo.psm1
+@{
+RootModule = 'SWMB.psm1'
+NestedModules = @('.\SWMB\Win10.psm1', '.\SWMB\Resinfo.psm1')
+ModuleVersion = '3.11.1'
+GUID = 'ba50acca-ccda-456b-8349-6ff2569dc229'
+Author = 'RESINFO / GT SWMB'
+CompanyName = 'CNRS'
+Copyright = '(C) 2020-2021 CNRS, France. All rights reserved.'
+Description = "
+Secure Windows Mode Batch
+
+Source for this module is at IN2P3 GitLab.  Please submit any issues there.
+https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
+"
+}

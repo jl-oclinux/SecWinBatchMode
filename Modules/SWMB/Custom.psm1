@@ -10,23 +10,7 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
-$moduleScriptName = (Get-PSCallStack)[0].ScriptName
-$moduleScriptPath = (Get-Item $moduleScriptName).DirectoryName
-$moduleScriptBasename = (Get-Item $moduleScriptName).Basename
-$moduleScriptFullPathBasename = Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename
-$moduleScriptVarDefault = $moduleScriptFullPathBasename + '-VarDefault.psm1'
-Import-Module -Name $moduleScriptVarDefault
-
-# Si le fichier personnel de définition de variable existe, on ajoute le module ayant l'extension -VarOverload
-$moduleScriptVarOverload1 = $moduleScriptFullPathBasename + '-VarOverload.psm1'
-if (Test-Path $moduleScriptVarOverload1) {
-	Import-Module -Name $moduleScriptVarOverload1
-}
-# Idem si le module est dans le dossier parent
-$moduleScriptVarOverload2 = (Join-Path $moduleScriptPath ".." ".."  ".." "Modules" $moduleScriptBasename) + '-VarOverload.psm1'
-if (Test-Path $moduleScriptVarOverload2) {
-	Import-Module -Name $moduleScriptVarOverload2
-}
+ImportModuleParameter (Get-PSCallStack)[0].ScriptName
 
 
 ################################################################
@@ -38,13 +22,13 @@ if (Test-Path $moduleScriptVarOverload2) {
 # Enable
 Function SetAdminAccountLogin {
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
-	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameToSet -ErrorAction SilentlyContinue
+	Rename-LocalUser -Name $localAdminName.name -NewName $Global:SWMB_Custom.LocalAdminNameToSet -ErrorAction SilentlyContinue
 }
 
 # Disable
 Function UnsetAdminAccountLogin {
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
-	Rename-LocalUser -Name $localAdminName.name -NewName $myLocalAdminNameOriginal -ErrorAction SilentlyContinue
+	Rename-LocalUser -Name $localAdminName.name -NewName $Global:SWMB_Custom.LocalAdminNameOriginal -ErrorAction SilentlyContinue
 }
 
 ################################################################
@@ -77,7 +61,7 @@ Function EnableSessionLockTimeout {
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name InactivityTimeoutSecs  -Type DWord -Value $myInactivityTimeoutSecs -ErrorAction SilentlyContinue
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name InactivityTimeoutSecs  -Type DWord -Value $Global:SWMB_Custom.InactivityTimeoutSecs -ErrorAction SilentlyContinue
 }
 
 # Disable
@@ -105,23 +89,24 @@ Function SetSecurityParamAccountPolicy {
 
 
 	Rename-Item -Path $tempFile.FullName -NewName $tempInfFile
-	
+
 	$securityString = "[Unicode]
-	Unicode=yes
-	[Version]
-	signature=`"`$CHICAGO`$`"
-	Revision=10
-	[System Access]
-	MinimumPasswordAge = $MinimumPasswordAge
-	MaximumPasswordAge = $MaximumPasswordAge
-	MinimumPasswordLength = $MinimumPasswordLength
-	PasswordComplexity = $PasswordComplexity
-	PasswordHistorySize = $PasswordHistorySize
-	LockoutBadCount = $LockoutBadCount
-	ResetLockoutCount = $ResetLockoutCount
-	LockoutDuration = $LockoutDuration
-	EnableGuestAccount = $EnableGuestAccount
-	"
+Unicode=yes
+[Version]
+signature=`"`$CHICAGO`$`"
+Revision=10
+[System Access]
+MinimumPasswordAge = $($Global:SWMB_Custom.MinimumPasswordAge)
+MaximumPasswordAge = $($Global:SWMB_Custom.MaximumPasswordAge)
+MinimumPasswordLength = $($Global:SWMB_Custom.MinimumPasswordLength)
+PasswordComplexity = $($Global:SWMB_Custom.PasswordComplexity)
+PasswordHistorySize = $($Global:SWMB_Custom.PasswordHistorySize)
+LockoutBadCount = $($Global:SWMB_Custom.LockoutBadCount)
+ResetLockoutCount = $($Global:SWMB_Custom.ResetLockoutCount)
+LockoutDuration = $($Global:SWMB_Custom.LockoutDuration)
+EnableGuestAccount = $($Global:SWMB_Custom.EnableGuestAccount)
+"
+
 	$securityString | Out-File -FilePath $tempInfFile
 	secedit /configure  /db hisecws.sdb /cfg $tempInfFile /areas SECURITYPOLICY
 	Remove-Item -Path $tempInfFile

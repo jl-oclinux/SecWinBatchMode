@@ -91,6 +91,7 @@ Function DisableSessionLockTimeout {
 ### Application de paramètres de sécurité
 # cf : https://www.itninja.com/blog/view/using-secedit-to-apply-security-templates
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégie de comptes / Stratégie de mots de passe
+# Set
 Function SetSecurityParamAccountPolicy {
 	$tempFile = New-TemporaryFile
 	$tempInfFile = "$tempFile.inf"
@@ -119,9 +120,10 @@ Function SetSecurityParamAccountPolicy {
 	Remove-Item -Path $tempInfFile
 }
 
-
+# UnSet
 Function UnSetSecurityParamAccountPolicy {
 	# Nécessite un reboot
 	secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb
 }
+
 ################################################################

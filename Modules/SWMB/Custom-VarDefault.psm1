@@ -17,9 +17,14 @@
 # $Global:SWMB_Custom.LocalAdminNameToSet = 'mysysadmin'
 
 $Global:SWMB_Custom = @{
+	# AdminAccountLogin
 	LocalAdminNameToSet    = "sas-swmb"
 	LocalAdminNameOriginal = "administrateur"
+
+	# SessionLockTimeout
 	InactivityTimeoutSecs  = 1200
+
+	# SecurityParamAccountPolicy
 	MinimumPasswordAge     = 1
 	MaximumPasswordAge     = -1
 	MinimumPasswordLength  = 12

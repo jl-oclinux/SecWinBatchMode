@@ -265,10 +265,12 @@ Function EnableAutomaticLearning {
 ################################################################
 
 # Hors ANSSI / RSSI
+# Computer Configuration / Administrative Templates / Windows Components / News and interests
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Feeds::EnableFeeds&Language=fr-fr
+# https://www.tenforums.com/tutorials/178178-how-enable-disable-news-interests-taskbar-windows-10-a.html
 # Disable
 Function DisableWindowsFeeds {
-	Write-Output "Turn off automatic learning..."
+	Write-Output "Turn off windows feeds (news and interests)..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Force | Out-Null
 	}
@@ -277,11 +279,8 @@ Function DisableWindowsFeeds {
 
 # Enable
 Function EnableWindowsFeeds {
-	Write-Output "Turn on automatic learning..."
-	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds")) {
-		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -Type DWord -Value 1
+	Write-Output "Turn on windows feeds (news and interests)..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -ErrorAction SilentlyContinue
 }
 
 

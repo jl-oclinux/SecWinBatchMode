@@ -37,7 +37,6 @@ Function ImportModuleParameter() {
 	# Try to load default parameter module with extension -VarDefault
 	$moduleScriptVarDefault = (Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename) + '-VarDefault.psm1'
 	If (Test-Path -LiteralPath $moduleScriptVarDefault) {
-		Write-Host "Debug02 " $moduleScriptVarDefault
 		Import-Module -Name $moduleScriptVarDefault -ErrorAction Stop
 	}
 

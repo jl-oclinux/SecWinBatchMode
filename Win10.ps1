@@ -13,32 +13,25 @@ Function RequireAdmin {
 	}
 }
 
-$tweaks = @()
+$Global:tweaks = @()
 $PSCommandArgs = @()
 
-Function AddOrRemoveTweak($tweak) {
-	If ($tweak[0] -eq "!") {
-		# If the name starts with exclamation mark (!), exclude the tweak from selection
-		$script:tweaks = $script:tweaks | Where-Object { $_ -ne $tweak.Substring(1) }
-	} ElseIf ($tweak -ne "") {
-		# Otherwise add the tweak
-		$script:tweaks += $tweak
-	}
-}
+# First argument
+$i = 0
 
-# Load default SWMB modules
+# Load default SWMB modules or just core functions
 $SwmbModule = (Join-Path -Path "." -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
-if (Test-Path $SwmbModule) {
+If (($args.Length -gt 0) -And ($args[$i].ToLower() -eq "-core")) {
+	$SwmbModule = (Join-Path -Path "." -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psm1"))
+	$i++
+}
+If (Test-Path $SwmbModule) {
 	Import-Module -Name $SwmbModule -ErrorAction Stop
 }
 
 # Parse and resolve paths in passed arguments
-$i = 0
 While ($i -lt $args.Length) {
-	If ($args[$i].ToLower() -eq "-unload") {
-		# Unload module SWMB
-		Remove-Module "SWMB"
-	} ElseIf ($args[$i].ToLower() -eq "-include") {
+	If ($args[$i].ToLower() -eq "-include") {
 		# Resolve full path to the included file
 		# Wilcard support
 		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
@@ -70,4 +63,4 @@ While ($i -lt $args.Length) {
 }
 
 # Call the desired tweak functions
-$tweaks | ForEach-Object { Invoke-Expression $_ }
+$Global:tweaks | ForEach-Object { Invoke-Expression $_ }

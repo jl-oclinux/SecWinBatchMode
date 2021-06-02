@@ -10,6 +10,22 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
+Function AddOrRemoveTweak() {
+	Param (
+		[Parameter(Mandatory = $true)] [string]$tweak
+	)
+
+	If ($tweak[0] -eq "!") {
+		# If the name starts with exclamation mark (!), exclude the tweak from selection
+		$Global:tweaks = $Global:tweaks | Where-Object { $_ -ne $tweak.Substring(1) }
+	} ElseIf ($tweak -ne "") {
+		# Otherwise add the tweak
+		$Global:tweaks += $tweak
+	}
+}
+
+################################################################
+
 Function ImportModuleParameter() {
 	Param (
 		[Parameter(Mandatory = $true)] [string]$moduleScriptName

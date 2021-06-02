@@ -27,7 +27,7 @@ Function AddOrRemoveTweak($tweak) {
 }
 
 # Load default SWMB modules
-$SwmbModule = Join-Path "." "Modules" "SWMB.psd1"
+$SwmbModule = (Join-Path -Path "." -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
 if (Test-Path $SwmbModule) {
 	Import-Module -Name $SwmbModule -ErrorAction Stop
 }

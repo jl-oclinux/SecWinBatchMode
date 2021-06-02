@@ -34,14 +34,14 @@ Function ImportModuleParameter() {
 			Break
 		}
 		# Or module VarOverload directly in the subfolder Modules
-		$moduleScriptVarOverload2 = (Join-Path $moduleScriptPath "Modules" $moduleScriptBasename) + '-VarOverload.psm1'
+		$moduleScriptVarOverload2 = (Join-Path -Path $moduleScriptPath -ChildPath (Join-Path -Path "Modules" -ChildPath $moduleScriptBasename)) + '-VarOverload.psm1'
 		If (Test-Path -LiteralPath $moduleScriptVarOverload2) {
 			Import-Module -Name $moduleScriptVarOverload2 -ErrorAction Stop
 			Break
 		}
 
 		# Search module in the parent folder .. and so on
-		$newPath = (Resolve-Path (Join-Path $moduleScriptPath "..") -ErrorAction SilentlyContinue) 
+		$newPath = (Resolve-Path (Join-Path -Path $moduleScriptPath -ChildPath "..") -ErrorAction SilentlyContinue) 
 		If ("$newPath" -eq "$moduleScriptPath") {
 			Break
 		}

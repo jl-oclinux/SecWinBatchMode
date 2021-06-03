@@ -12,7 +12,7 @@
 
 @{
 RootModule = 'SWMB.psm1'
-NestedModules = @('.\SWMB\Win10.psm1', '.\SWMB\Resinfo.psm1')
+NestedModules = @('.\SWMB\Win10.psm1', '.\SWMB\Resinfo.psm1', '.\SWMB\Contrib.psm1')
 ModuleVersion = '3.11.1'
 GUID = 'ba50acca-ccda-456b-8349-6ff2569dc229'
 Author = 'RESINFO / GT SWMB'

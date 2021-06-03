@@ -12,7 +12,7 @@
 
 Function AddOrRemoveTweak() {
 	Param (
-		[Parameter(Mandatory = $true)] [string]$tweak
+		[string]$tweak
 	)
 
 	If ($tweak[0] -eq "!") {

@@ -831,7 +831,14 @@ Function EnableBitlocker {
 
 	If (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus -eq "EncryptionInProgress")) {
 		Write-Host "Bitlocker on system drive is already on (or in progress)"
-		_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
+		If ((Get-BitLockerVolume $Env:SystemDrive).EncryptionMethod -ne "XtsAes256") {
+			Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256"
+			Write-Host "Decrypt with command : Win10.ps1 DisableBitlocker"
+			return
+		}
+		Else {
+			_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
+		}
 	}
 	Else {
 		_EncryptSytemDrive -networkKeyBackupFolder $networkBackup

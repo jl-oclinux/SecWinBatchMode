@@ -35,6 +35,27 @@ Function EnableWindowsFeeds {
 
 
 ################################################################
+###### Universal Apps
+################################################################
+
+## https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.AppPrivacy::LetAppsAccessLocation&Language=fr-fr
+# Disable access to location from UWP apps
+Function DisableUWPAccessLocation {
+	Write-Output "Disabling access to location from UWP apps..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessLocation" -Type DWord -Value 2
+}
+
+# Enable access to location from UWP apps
+Function EnableUWPAccessLocation {
+	Write-Output "Enabling access to location from UWP apps..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessLocation" -ErrorAction SilentlyContinue
+}
+
+
+################################################################
 ###### Export Functions
 ################################################################
 

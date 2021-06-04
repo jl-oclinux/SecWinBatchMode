@@ -94,3 +94,7 @@ DisableAdvertisingID
 
 # Disable Application suggestions and automatic installation
 DisableAppSuggestions
+
+# Disable access to location from UWP apps
+# À Faire - choisir si on active ou pas cette GPO là
+# DisableUWPAccessLocation

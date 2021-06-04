@@ -25,8 +25,8 @@ function msg2 {
    }
 
 # list of files
-all_module=$(find . -name '*.psm1' -print)
-swmb_module=$(find . -path ./Modules/SWMB/Win10.psm1 -prune -o -name '*.psm1' -print)
+all_module=$(find . -path './Modules/SWMB/*.psm1' -print)
+swmb_module=$(find . -path ./Modules/SWMB/Win10.psm1 -prune -o -path './Modules/SWMB/*.psm1' -print)
 
 # global numbers
 msg1 "number of SWMB rules" \

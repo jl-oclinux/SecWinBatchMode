@@ -26,6 +26,15 @@ Function AddOrRemoveTweak() {
 
 ################################################################
 
+$Global:SWMB_MsgCount = 0
+
+Function WriteMessage {
+	$Global:SWMB_MsgCount++
+	Write-Host "# SWMB Message: " $Global:SWMB_MsgCount
+}
+
+################################################################
+
 Function ImportModuleParameter() {
 	Param (
 		[Parameter(Mandatory = $true)] [string]$moduleScriptName

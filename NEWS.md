@@ -16,8 +16,11 @@ New dists:
 
 New preset selection:
 * Post-Install.preset - Enable Bitlocker after installation
+* Current-User.preset - Preset for Current User and not Local Machine
 
 New presets/rules:
+* 2021/06/05 - EnableGodMod_CU/EnableGodMod_CU - God Mod for Current user
+* 2021/06/05 - ShutdownNow - Halt computer and not Reboot
 * 2021/06/04 - WriteMessage - Just write a message on terminal for debugging purpose (like WaitForKey)
 * 2021/06/04 - DisableUWPAccessLocation/EnableUWPAccessLocation - Let UWP Apps Access Location
 * 2021/06/01 - DisableWindowsFeeds/EnableWindowsFeeds - News and Interests on Taskbar

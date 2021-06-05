@@ -33,6 +33,23 @@ Function EnableWindowsFeeds {
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -ErrorAction SilentlyContinue
 }
 
+################################################################
+
+# https://www.commentcamarche.net/informatique/windows/29-activer-le-god-mode-mode-dieu-de-windows-10/
+# Enable
+Function EnableGodMod_CU {
+	Write-Output "Enable GodMod on current user desktop..."
+	$DesktopPath = [Environment]::GetFolderPath("Desktop");
+	New-Item -Path  "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" -Type Directory
+}
+
+# Disable
+Function DisableGodMod_CU {
+	Write-Output "Disable GodMod from current user desktop..."
+	$DesktopPath = [Environment]::GetFolderPath("Desktop");
+	Remove-Item -Path  "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" -Recurse -ErrorAction SilentlyContinue
+}
+
 
 ################################################################
 ###### Universal Apps

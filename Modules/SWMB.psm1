@@ -15,18 +15,36 @@
 ### Region Auxiliary Functions
 ################################################################
 
+# Write message separator
 $Script:SWMB_MsgCount = 0
 
-Function WriteMessage {
+Function SysMsg {
 	$Script:SWMB_MsgCount++
-	Write-Host "Message: " $Script:SWMB_MsgCount
+	Write-Host "Message separator " $Script:SWMB_MsgCount
 }
 
 ################################################################
 
-Function ShutdownNow {
+# Wait for key press
+Function SysPause {
+	Write-Output "`nPress any key to continue..."
+	[Console]::ReadKey($true) | Out-Null
+}
+
+################################################################
+
+# Halt computer
+Function SysHalt {
 	Write-Output "Shutdown now..."
 	Stop-Computer -ComputerName localhost -Force
+}
+
+################################################################
+
+# Restart computer
+Function SysRestart {
+	Write-Output "Restarting..."
+	Restart-Computer
 }
 
 

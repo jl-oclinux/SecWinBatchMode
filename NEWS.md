@@ -20,8 +20,9 @@ New preset selection:
 
 New presets/rules:
 * 2021/06/05 - EnableGodMod_CU/EnableGodMod_CU - God Mod for Current user
-* 2021/06/05 - ShutdownNow - Halt computer and not Reboot
-* 2021/06/04 - WriteMessage - Just write a message on terminal for debugging purpose (like WaitForKey)
+* 2021/06/05 - Rename Restart -> SysRestart and WaitForKey -> SysPause
+* 2021/06/05 - SysHalt - Halt computer and not Reboot
+* 2021/06/04 - SysMsg - Just write a message on terminal for debugging purpose (like WaitForKey)
 * 2021/06/04 - DisableUWPAccessLocation/EnableUWPAccessLocation - Let UWP Apps Access Location
 * 2021/06/01 - DisableWindowsFeeds/EnableWindowsFeeds - News and Interests on Taskbar
 * 2021/05/12 - EnableBitlocker/DisableBitlocker - Crypt hard drive with bitlocker

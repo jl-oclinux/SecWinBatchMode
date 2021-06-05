@@ -10,6 +10,30 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
+
+################################################################
+### Region Auxiliary Functions
+################################################################
+
+$Global:SWMB_MsgCount = 0
+
+Function WriteMessage {
+	$Global:SWMB_MsgCount++
+	Write-Host "# SWMB Message: " $Global:SWMB_MsgCount
+}
+
+################################################################
+
+Function ShutdownNow {
+	Write-Output "`nShutdown now..."
+	Stop-Computer -ComputerName localhost -Force
+}
+
+
+################################################################
+### Region Internal Functions
+################################################################
+
 Function AddOrRemoveTweak() {
 	Param (
 		[string]$tweak
@@ -22,15 +46,6 @@ Function AddOrRemoveTweak() {
 		# Otherwise add the tweak
 		$Global:tweaks += $tweak
 	}
-}
-
-################################################################
-
-$Global:SWMB_MsgCount = 0
-
-Function WriteMessage {
-	$Global:SWMB_MsgCount++
-	Write-Host "# SWMB Message: " $Global:SWMB_MsgCount
 }
 
 ################################################################

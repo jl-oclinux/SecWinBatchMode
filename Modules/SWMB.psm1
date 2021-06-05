@@ -15,17 +15,17 @@
 ### Region Auxiliary Functions
 ################################################################
 
-$Global:SWMB_MsgCount = 0
+$Script:SWMB_MsgCount = 0
 
 Function WriteMessage {
-	$Global:SWMB_MsgCount++
-	Write-Host "# SWMB Message: " $Global:SWMB_MsgCount
+	$Script:SWMB_MsgCount++
+	Write-Host "Message: " $Script:SWMB_MsgCount
 }
 
 ################################################################
 
 Function ShutdownNow {
-	Write-Output "`nShutdown now..."
+	Write-Output "Shutdown now..."
 	Stop-Computer -ComputerName localhost -Force
 }
 

@@ -19,6 +19,7 @@ New preset selection:
 * Current-User.preset - Preset for Current User and not Local Machine
 
 New presets/rules:
+* 2021/06/05 - SetNTPConfig/UnsetNTPConfig - NTP service configuration
 * 2021/06/05 - EnableGodMod_CU/EnableGodMod_CU - God Mod for Current user
 * 2021/06/05 - Rename Restart -> SysRestart and WaitForKey -> SysPause
 * 2021/06/05 - SysHalt - Halt computer and not Reboot

@@ -19,13 +19,13 @@ ImportModuleParameter (Get-PSCallStack)[0].ScriptName
 
 ### Renommage du compte administrateur
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégies locales / Options de sécurité
-# Enable
+# Set
 Function SetAdminAccountLogin {
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $Global:SWMB_Custom.LocalAdminNameToSet -ErrorAction SilentlyContinue
 }
 
-# Disable
+# Unset
 Function UnsetAdminAccountLogin {
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $Global:SWMB_Custom.LocalAdminNameOriginal -ErrorAction SilentlyContinue
@@ -87,7 +87,6 @@ Function SetSecurityParamAccountPolicy {
 	$tempFile = New-TemporaryFile
 	$tempInfFile = "$tempFile.inf"
 
-
 	Rename-Item -Path $tempFile.FullName -NewName $tempInfFile
 
 	$securityString = "[Unicode]
@@ -112,10 +111,35 @@ EnableGuestAccount = $($Global:SWMB_Custom.EnableGuestAccount)
 	Remove-Item -Path $tempInfFile
 }
 
-# UnSet
-Function UnSetSecurityParamAccountPolicy {
+# Unset
+Function UnsetSecurityParamAccountPolicy {
 	# Nécessite un reboot
 	secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb
 }
 
 ################################################################
+
+# NTP time service
+# https://docs.microsoft.com/fr-fr/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings
+# Set
+Function SetNTPConfig {
+	w32tm /register
+	net start w32time
+	w32tm /config /manualpeerlist: "$($Global:SWMB_Custom.NTP_ManualPeerList)"
+	w32tm /config /update
+	w32tm /resync
+}
+
+# Unset
+Function UnsetNTPConfig {
+	w32tm /unregister
+	net stop w32time
+}
+
+
+################################################################
+###### Export Functions
+################################################################
+
+# Export functions
+Export-ModuleMember -Function *

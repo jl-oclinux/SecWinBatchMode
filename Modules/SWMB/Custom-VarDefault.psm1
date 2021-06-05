@@ -34,4 +34,7 @@ $Global:SWMB_Custom = @{
 	ResetLockoutCount      = 30
 	LockoutDuration        = 30
 	EnableGuestAccount     = 0
+
+	# NTP
+	NTP_ManualPeerList     = "0.pool.ntp.org, 1.pool.ntp.org, 2.pool.ntp.org, 3.pool.ntp.org"
 }

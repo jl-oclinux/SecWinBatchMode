@@ -99,12 +99,14 @@ Un preset par paragraphe de l'ANSSI
 ### Définition de vos propres valeurs de variables
 
 Si vous souhaitez définir vos propres valeurs de variables utilisées le module `Custom.psm1`, procédez de la façon suivante :
- * Créez un fichier nommé `Custom-VarOverload.psm1` dans le même répertoire que le module `Custom-VarDefault.psm1`
- * Définissez les valeurs de vos variables et exportez-les de la même façon que dans le fichier `Custom-VarDefault.psm1`
+ * Créez un fichier nommé `Custom-VarOverload.psm1` dans le même répertoire que le module `Custom-VarDefault.psm1`,
+   ou dans n'importe quel dossier parent `..` ou sous dossier `Modules` d'un dossier parent !
+   Cela laisse pas mal de choix...
+ * Définissez les valeurs du hash de vos variables globales
+   (Ne modifiez pas toute la table de hashage comme dans le fichier `Custom-VarDefault.psm1`)
  * Exemple :
    ```ps
-   $myLocalAdminNameToSet = "MaValeurÀMoi"
-   Export-ModuleMember -Variable 'myLocalAdminNameToSet'
+   $Global:SWMB_Custom.NTP_ManualPeerList = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org"
    ```
 
 

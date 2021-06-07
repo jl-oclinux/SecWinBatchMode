@@ -20,9 +20,10 @@ $PSCommandArgs = @()
 $i = 0
 
 # Load default SWMB modules or just core functions
-$SwmbModule = (Join-Path -Path "." -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
+$SwmbPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
+$SwmbModule = (Join-Path -Path "$SwmbPath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
 If (($args.Length -gt 0) -And ($args[$i].ToLower() -eq "-core")) {
-	$SwmbModule = (Join-Path -Path "." -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psm1"))
+	$SwmbModule = (Join-Path -Path "$SwmbPath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psm1"))
 	$i++
 }
 If (Test-Path $SwmbModule) {

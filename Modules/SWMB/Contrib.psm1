@@ -73,6 +73,22 @@ Function EnableUWPAccessLocation {
 
 
 ################################################################
+###### Network Tweaks
+################################################################
+
+# Disable obsolete SMB 1.0 protocol - Disabled by default since 1709
+Function DisableSMB1Protocol {
+	Write-Output "Disabling SMB 1.0 protocol..."
+	Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
+}
+
+# Enable obsolete SMB 1.0 protocol - Disabled by default since 1709
+Function EnableSMB1Protocol {
+	Write-Output "Enabling SMB 1.0 protocol..."
+	Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
+}
+
+################################################################
 ###### Export Functions
 ################################################################
 

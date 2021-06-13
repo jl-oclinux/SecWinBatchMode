@@ -1206,15 +1206,16 @@ Function EnableHomeGroups {
 	Start-Service "HomeGroupProvider" -WarningAction SilentlyContinue
 }
 
-# Disable obsolete SMB 1.0 protocol - Disabled by default since 1709
-Function DisableSMB1 {
-	Write-Output "Disabling SMB 1.0 protocol..."
+# Change name by Resinfo
+# Disable obsolete SMB 1.0 protocol on server - Disabled by default since 1709
+Function DisableSMB1Server {
+	Write-Output "Disabling SMB 1.0 protocol on server..."
 	Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
 }
 
-# Enable obsolete SMB 1.0 protocol - Disabled by default since 1709
-Function EnableSMB1 {
-	Write-Output "Enabling SMB 1.0 protocol..."
+# Enable obsolete SMB 1.0 protocol on server - Disabled by default since 1709
+Function EnableSMB1Server {
+	Write-Output "Enabling SMB 1.0 protocol on server..."
 	Set-SmbServerConfiguration -EnableSMB1Protocol $true -Force
 }
 

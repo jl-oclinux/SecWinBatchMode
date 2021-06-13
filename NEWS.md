@@ -17,8 +17,11 @@ New dists:
 New preset selection:
 * Post-Install.preset - Enable Bitlocker after installation
 * Current-User.preset - Preset for Current User and not Local Machine
+* System-Resinfo.preset - Preset on system and network
 
 New presets/rules:
+* 2021/06/13 - DisableSMB1Protocol/EnableSMB1Protocol -> SMBv1 protocol
+* 2021/06/13 - DisableSMB1/EnableSMB1 rename -> DisableSMB1Server/EnableSMB1Server
 * 2021/06/05 - SetNTPConfig/UnsetNTPConfig - NTP service configuration
 * 2021/06/05 - EnableGodMod_CU/EnableGodMod_CU - God Mod for Current user
 * 2021/06/05 - Rename Restart -> SysRestart and WaitForKey -> SysPause

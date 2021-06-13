@@ -24,3 +24,7 @@ RequireAdmin
 
 # Disable SMB1 protocol
 # DisableSMB1Protocol
+
+# NTP configuation
+# Need variable $Global:SWMB_Custom.NTP_ManualPeerList
+# SetNTPConfig

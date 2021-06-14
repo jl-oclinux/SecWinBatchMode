@@ -106,6 +106,25 @@ Function ImportModuleParameter() {
 	}
 }
 
+################################################################
+
+Function CheckTweaks {
+	$uniqueTweak = @{}
+
+	ForEach ($tweak in $Global:tweaks) {
+		$key = $tweak -Replace '^(Enable|Disable|Install|Uninstall|Show|Hide|Add|Remove|Set|Unset|Pin|Unpin)',''
+		$uniqueTweak[$key]++
+	}
+
+	ForEach ($tweak in $uniqueTweak.keys) {
+		If ($uniqueTweak[$tweak] -eq 1) {
+			Continue
+		}
+		$message = "Tweak {0} is define {1} times!" -f $tweak, $uniqueTweak[$tweak]
+		Write-Host $message
+	}
+}
+
 
 ################################################################
 ###### Export Functions

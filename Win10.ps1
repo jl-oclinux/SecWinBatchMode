@@ -15,6 +15,7 @@ Function RequireAdmin {
 
 $Global:tweaks = @()
 $PSCommandArgs = @()
+$checkTweak = $False
 
 # First argument
 $i = 0
@@ -55,6 +56,8 @@ While ($i -lt $args.Length) {
 		$PSCommandArgs += "-log `"$log`""
 		# Record session to the output file
 		Start-Transcript $log
+	} ElseIf ($args[$i].ToLower() -eq "-check") {
+		$checkTweak = $True
 	} Else {
 		$PSCommandArgs += $args[$i]
 		# Load tweak names from command line
@@ -63,5 +66,10 @@ While ($i -lt $args.Length) {
 	$i++
 }
 
-# Call the desired tweak functions
-$Global:tweaks | ForEach-Object { Invoke-Expression $_ }
+If ($checkTweak) {
+	# Only check for multiple same tweak
+	CheckTweaks
+} Else {
+	# Call the desired tweak functions
+	$Global:tweaks | ForEach-Object { Invoke-Expression $_ }
+}

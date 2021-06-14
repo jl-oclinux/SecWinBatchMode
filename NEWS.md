@@ -14,6 +14,10 @@ Automatically search Overload variable module in parent folder.
 New dists:
 * [crypt-with-bitlocker](./dists/crypt-with-bitlocker/)
 
+New CLI parameter:
+* `-core`  - Load minimal SWMB code module. Must be the first parameter
+* `-check` - Check for duplicated tweak preset, not execute preset
+
 New preset selection:
 * Post-Install.preset - Enable Bitlocker after installation
 * Current-User.preset - Preset for Current User and not Local Machine

@@ -112,6 +112,12 @@ Function CheckTweaks {
 	$uniqueTweak = @{}
 
 	ForEach ($tweak in $Global:tweaks) {
+		# Test if tweak function really exists
+		If (-not(Get-Command -Name $tweak -ErrorAction SilentlyContinue)) {
+			Write-Host "Tweak $tweak is not defined!"
+		}
+
+		# Push tweak in a hash table
 		$key = $tweak -Replace '^(Enable|Disable|Install|Uninstall|Show|Hide|Add|Remove|Set|Unset|Pin|Unpin)',''
 		$uniqueTweak[$key]++
 	}
@@ -120,7 +126,7 @@ Function CheckTweaks {
 		If ($uniqueTweak[$tweak] -eq 1) {
 			Continue
 		}
-		$message = "Tweak {0} is define {1} times!" -f $tweak, $uniqueTweak[$tweak]
+		$message = "Tweak {0} is defined {1} times!" -f $tweak, $uniqueTweak[$tweak]
 		Write-Host $message
 	}
 }

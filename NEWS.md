@@ -16,7 +16,7 @@ New dists:
 
 New CLI parameter:
 * `-core`  - Load minimal SWMB code module. Must be the first parameter
-* `-check` - Check for duplicated tweak preset, not execute preset
+* `-check` - Check for duplicated tweak preset and tweak implementations. Do not execute any preset
 
 New preset selection:
 * Post-Install.preset - Enable Bitlocker after installation

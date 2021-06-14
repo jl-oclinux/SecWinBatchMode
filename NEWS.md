@@ -20,6 +20,7 @@ New preset selection:
 * System-Resinfo.preset - Preset on system and network
 
 New presets/rules:
+* 2021/06/14 - EnableInsecureGuestLogons/DisableInsecureGuestLogons -> Disable by default
 * 2021/06/13 - DisableSMB1Protocol/EnableSMB1Protocol -> SMBv1 protocol
 * 2021/06/13 - DisableSMB1/EnableSMB1 rename -> DisableSMB1Server/EnableSMB1Server
 * 2021/06/05 - SetNTPConfig/UnsetNTPConfig - NTP service configuration

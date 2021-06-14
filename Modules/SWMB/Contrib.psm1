@@ -88,6 +88,27 @@ Function EnableSMB1Protocol {
 	Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
 }
 
+
+#################################################################
+##### Server Specific
+################################################################
+
+# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.LanmanWorkstation::Pol_EnableInsecureGuestLogons
+# https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-workstationservice-allowinsecureguestauth
+# Enable
+Function EnableInsecureGuestLogons {
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -Value 1
+}
+
+# Disable (default)
+Function DisableInsecureGuestLogons {
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -ErrorAction SilentlyContinue
+}
+
+
 ################################################################
 ###### Export Functions
 ################################################################

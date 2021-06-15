@@ -63,6 +63,13 @@ Function RequireAdmin {
 ### Region Internal Functions
 ################################################################
 
+Function SWMB_Init() {
+	$Global:SWMB_Tweaks = @()
+	$Global:SWMB_PSCommandArgs = @()
+}
+
+################################################################
+
 Function SWMB_AddOrRemoveTweak() {
 	Param (
 		[string]$tweak
@@ -74,6 +81,32 @@ Function SWMB_AddOrRemoveTweak() {
 	} ElseIf ($tweak -ne "") {
 		# Otherwise add the tweak
 		$Global:SWMB_Tweaks += $tweak
+	}
+}
+
+################################################################
+
+Function SWMB_LoadTweakFile() {
+	Param (
+		[string]$tweakFile
+	)
+
+	# Resolve full path to the preset file
+	Resolve-Path $tweakFile -ErrorAction Stop | ForEach-Object {
+		$preset = $_.Path
+		$Global:SWMB_PSCommandArgs += "-preset `"$preset`""
+		# Load tweak names from the preset file
+		Get-Content $preset -ErrorAction Stop | ForEach-Object {
+			SWMB_AddOrRemoveTweak($_.Split("#")[0].Trim())
+		}
+	}
+}
+
+################################################################
+
+Function SWMB_RunTweaks() {
+	$Global:SWMB_Tweaks | ForEach-Object {
+		Invoke-Expression $_
 	}
 }
 

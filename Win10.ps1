@@ -8,14 +8,12 @@
 # Relaunch the script with administrator privileges
 Function RequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs
+		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $Global:SWMB_PSCommandArgs" -Verb RunAs
 		Exit
 	}
 }
 
-$Global:SWMB_Tweaks = @()
 $Script:SWMB_CheckTweak = $False
-$PSCommandArgs = @()
 
 # First argument
 $i = 0
@@ -31,6 +29,8 @@ If (Test-Path $SwmbCoreModule) {
 	Import-Module -Name $SwmbCoreModule -ErrorAction Stop
 }
 
+SWMB_Init()
+
 # Parse and resolve paths in passed arguments
 While ($i -lt $args.Length) {
 	If ($args[$i].ToLower() -eq "-include") {
@@ -38,28 +38,23 @@ While ($i -lt $args.Length) {
 		# Wilcard support
 		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
 			$include = $_.Path
-			$PSCommandArgs += "-include `"$include`""
+			$Global:SWMB_PSCommandArgs += "-include `"$include`""
 			# Import the included file as a module
 			Import-Module -Name $include -ErrorAction Stop
 		}
 	} ElseIf ($args[$i].ToLower() -eq "-preset") {
-		# Resolve full path to the preset file
-		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
-			$preset = $_.Path
-			$PSCommandArgs += "-preset `"$preset`""
-			# Load tweak names from the preset file
-			Get-Content $preset -ErrorAction Stop | ForEach-Object { SWMB_AddOrRemoveTweak($_.Split("#")[0].Trim()) }
-		}
+		# Load tweak preset file
+		SWMB_LoadTweakFile($args[++$i])
 	} ElseIf ($args[$i].ToLower() -eq "-log") {
 		# Resolve full path to the output file
 		$log = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($args[++$i])
-		$PSCommandArgs += "-log `"$log`""
+		$Global:SWMB_PSCommandArgs += "-log `"$log`""
 		# Record session to the output file
 		Start-Transcript $log
 	} ElseIf ($args[$i].ToLower() -eq "-check") {
 		$Script:SWMB_CheckTweak = $True
 	} Else {
-		$PSCommandArgs += $args[$i]
+		$Global:SWMB_PSCommandArgs += $args[$i]
 		# Load tweak names from command line
 		SWMB_AddOrRemoveTweak($args[$i])
 	}
@@ -68,8 +63,8 @@ While ($i -lt $args.Length) {
 
 If ($Script:SWMB_CheckTweak) {
 	# Only check for multiple same tweak
-	SWMB_CheckTweaks
+	SWMB_CheckTweaks()
 } Else {
 	# Call the desired tweak functions
-	$Global:SWMB_Tweaks | ForEach-Object { Invoke-Expression $_ }
+	SWMB_RunTweaks()
 }

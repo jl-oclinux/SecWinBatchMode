@@ -10,7 +10,7 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
-SWMB-ImportModuleParameter (Get-PSCallStack)[0].ScriptName
+SWMB_ImportModuleParameter (Get-PSCallStack)[0].ScriptName
 
 
 ################################################################

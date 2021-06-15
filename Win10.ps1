@@ -22,9 +22,9 @@ $i = 0
 
 # Load default SWMB modules or just core functions
 $SwmbCorePath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
-$SwmbCoreModule = (Join-Path -Path "$SwmbPath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
+$SwmbCoreModule = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
 If (($args.Length -gt 0) -And ($args[$i].ToLower() -eq "-core")) {
-	$SwmbCoreModule = (Join-Path -Path "$SwmbPath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psm1"))
+	$SwmbCoreModule = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psm1"))
 	$i++
 }
 If (Test-Path $SwmbCoreModule) {
@@ -48,7 +48,7 @@ While ($i -lt $args.Length) {
 			$preset = $_.Path
 			$PSCommandArgs += "-preset `"$preset`""
 			# Load tweak names from the preset file
-			Get-Content $preset -ErrorAction Stop | ForEach-Object { SWMB-AddOrRemoveTweak($_.Split("#")[0].Trim()) }
+			Get-Content $preset -ErrorAction Stop | ForEach-Object { SWMB_AddOrRemoveTweak($_.Split("#")[0].Trim()) }
 		}
 	} ElseIf ($args[$i].ToLower() -eq "-log") {
 		# Resolve full path to the output file
@@ -61,14 +61,14 @@ While ($i -lt $args.Length) {
 	} Else {
 		$PSCommandArgs += $args[$i]
 		# Load tweak names from command line
-		SWMB-AddOrRemoveTweak($args[$i])
+		SWMB_AddOrRemoveTweak($args[$i])
 	}
 	$i++
 }
 
 If ($Script:SWMB_CheckTweak) {
 	# Only check for multiple same tweak
-	SWMB-CheckTweaks
+	SWMB_CheckTweaks
 } Else {
 	# Call the desired tweak functions
 	$Global:SWMB_Tweaks | ForEach-Object { Invoke-Expression $_ }

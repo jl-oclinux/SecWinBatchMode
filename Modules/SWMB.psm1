@@ -52,7 +52,7 @@ Function SysRestart {
 ### Region Internal Functions
 ################################################################
 
-Function SWMB-AddOrRemoveTweak() {
+Function SWMB_AddOrRemoveTweak() {
 	Param (
 		[string]$tweak
 	)
@@ -68,7 +68,7 @@ Function SWMB-AddOrRemoveTweak() {
 
 ################################################################
 
-Function SWMB-ImportModuleParameter() {
+Function SWMB_ImportModuleParameter() {
 	Param (
 		[Parameter(Mandatory = $true)] [string]$moduleScriptName
 	)
@@ -108,7 +108,7 @@ Function SWMB-ImportModuleParameter() {
 
 ################################################################
 
-Function SWMB-CheckTweaks {
+Function SWMB_CheckTweaks {
 	$uniqueTweak = @{}
 
 	ForEach ($tweak in $Global:SWMB_Tweaks) {

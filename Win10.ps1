@@ -13,22 +13,22 @@ Function RequireAdmin {
 	}
 }
 
-$Global:tweaks = @()
+$Global:SWMB_Tweaks = @()
+$Script:SWMB_CheckTweak = $False
 $PSCommandArgs = @()
-$checkTweak = $False
 
 # First argument
 $i = 0
 
 # Load default SWMB modules or just core functions
-$SwmbPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
-$SwmbModule = (Join-Path -Path "$SwmbPath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
+$SwmbCorePath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
+$SwmbCoreModule = (Join-Path -Path "$SwmbPath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
 If (($args.Length -gt 0) -And ($args[$i].ToLower() -eq "-core")) {
-	$SwmbModule = (Join-Path -Path "$SwmbPath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psm1"))
+	$SwmbCoreModule = (Join-Path -Path "$SwmbPath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psm1"))
 	$i++
 }
-If (Test-Path $SwmbModule) {
-	Import-Module -Name $SwmbModule -ErrorAction Stop
+If (Test-Path $SwmbCoreModule) {
+	Import-Module -Name $SwmbCoreModule -ErrorAction Stop
 }
 
 # Parse and resolve paths in passed arguments
@@ -48,7 +48,7 @@ While ($i -lt $args.Length) {
 			$preset = $_.Path
 			$PSCommandArgs += "-preset `"$preset`""
 			# Load tweak names from the preset file
-			Get-Content $preset -ErrorAction Stop | ForEach-Object { AddOrRemoveTweak($_.Split("#")[0].Trim()) }
+			Get-Content $preset -ErrorAction Stop | ForEach-Object { SWMB-AddOrRemoveTweak($_.Split("#")[0].Trim()) }
 		}
 	} ElseIf ($args[$i].ToLower() -eq "-log") {
 		# Resolve full path to the output file
@@ -57,19 +57,19 @@ While ($i -lt $args.Length) {
 		# Record session to the output file
 		Start-Transcript $log
 	} ElseIf ($args[$i].ToLower() -eq "-check") {
-		$checkTweak = $True
+		$Script:SWMB_CheckTweak = $True
 	} Else {
 		$PSCommandArgs += $args[$i]
 		# Load tweak names from command line
-		AddOrRemoveTweak($args[$i])
+		SWMB-AddOrRemoveTweak($args[$i])
 	}
 	$i++
 }
 
-If ($checkTweak) {
+If ($Script:SWMB_CheckTweak) {
 	# Only check for multiple same tweak
-	CheckTweaks
+	SWMB-CheckTweaks
 } Else {
 	# Call the desired tweak functions
-	$Global:tweaks | ForEach-Object { Invoke-Expression $_ }
+	$Global:SWMB_Tweaks | ForEach-Object { Invoke-Expression $_ }
 }

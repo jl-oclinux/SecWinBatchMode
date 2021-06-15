@@ -52,23 +52,23 @@ Function SysRestart {
 ### Region Internal Functions
 ################################################################
 
-Function AddOrRemoveTweak() {
+Function SWMB-AddOrRemoveTweak() {
 	Param (
 		[string]$tweak
 	)
 
 	If ($tweak[0] -eq "!") {
 		# If the name starts with exclamation mark (!), exclude the tweak from selection
-		$Global:tweaks = $Global:tweaks | Where-Object { $_ -ne $tweak.Substring(1) }
+		$Global:SWMB_Tweaks = $Global:SWMB_Tweaks | Where-Object { $_ -ne $tweak.Substring(1) }
 	} ElseIf ($tweak -ne "") {
 		# Otherwise add the tweak
-		$Global:tweaks += $tweak
+		$Global:SWMB_Tweaks += $tweak
 	}
 }
 
 ################################################################
 
-Function ImportModuleParameter() {
+Function SWMB-ImportModuleParameter() {
 	Param (
 		[Parameter(Mandatory = $true)] [string]$moduleScriptName
 	)
@@ -108,10 +108,10 @@ Function ImportModuleParameter() {
 
 ################################################################
 
-Function CheckTweaks {
+Function SWMB-CheckTweaks {
 	$uniqueTweak = @{}
 
-	ForEach ($tweak in $Global:tweaks) {
+	ForEach ($tweak in $Global:SWMB_Tweaks) {
 		# Test if tweak function really exists
 		If (-not(Get-Command -Name $tweak -ErrorAction SilentlyContinue)) {
 			Write-Host "Tweak $tweak is not defined!"

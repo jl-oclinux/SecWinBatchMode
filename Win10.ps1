@@ -29,7 +29,7 @@ If (Test-Path $SwmbCoreModule) {
 	Import-Module -Name $SwmbCoreModule -ErrorAction Stop
 }
 
-SWMB_Init()
+SWMB_Init
 
 # Parse and resolve paths in passed arguments
 While ($i -lt $args.Length) {
@@ -63,8 +63,8 @@ While ($i -lt $args.Length) {
 
 If ($Script:SWMB_CheckTweak) {
 	# Only check for multiple same tweak
-	SWMB_CheckTweaks()
+	SWMB_CheckTweaks
 } Else {
 	# Call the desired tweak functions
-	SWMB_RunTweaks()
+	SWMB_RunTweaks
 }

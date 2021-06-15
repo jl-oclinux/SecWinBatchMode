@@ -63,7 +63,7 @@ Function RequireAdmin {
 ### Region Internal Functions
 ################################################################
 
-Function SWMB_Init() {
+Function SWMB_Init {
 	$Global:SWMB_Tweaks = @()
 	$Global:SWMB_PSCommandArgs = @()
 }
@@ -104,7 +104,7 @@ Function SWMB_LoadTweakFile() {
 
 ################################################################
 
-Function SWMB_RunTweaks() {
+Function SWMB_RunTweaks {
 	$Global:SWMB_Tweaks | ForEach-Object {
 		Invoke-Expression $_
 	}

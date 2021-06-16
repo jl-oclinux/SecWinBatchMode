@@ -87,10 +87,32 @@ Un preset par paragraphe de l'ANSSI
 
 ```ps1
 # Exécution d'une fonction seule
-.\Win10.ps1 nom-fonction
+.\Win10.ps1 NomFonction
 
 # Exécution d'un jeu de preset
 .\Win10.ps1 -preset "Presets\UserExperience-Resinfo.preset"
+```
+
+### Usage intégré dans un script PowerShell
+
+```ps1
+# Load core SWMB engine
+Import-Module Modules\SWMB.psd1
+
+# Initialize
+SWMB_Init
+
+# Load a preset file (could be call multiple times)
+SWMB_LoadTweakFile "Presets\UserExperience-Resinfo.preset"
+
+# Load one preset (could be call multiple times)
+SWMB_AddOrRemoveTweak "NomFonction"
+
+# If you want to check consistency
+SWMB_CheckTweaks
+
+# Execute all presets
+SWMB_RunTweaks
 ```
 
 ### Intégration dans un autre projet Git

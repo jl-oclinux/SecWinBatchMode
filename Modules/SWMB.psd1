@@ -12,14 +12,25 @@
 
 @{
 RootModule = 'SWMB.psm1'
-NestedModules = @('.\SWMB\Win10.psm1', '.\SWMB\Resinfo.psm1', '.\SWMB\Contrib.psm1',
+NestedModules = @(
+	'.\SWMB\Win10-Application.psm1',
+	'.\SWMB\Win10-ExplorerUI.psm1',
+	'.\SWMB\Win10-Network.psm1',
+	'.\SWMB\Win10-Privacy.psm1',
+	'.\SWMB\Win10-Security.psm1',
+	'.\SWMB\Win10-Server.psm1',
+	'.\SWMB\Win10-Service.psm1',
+	'.\SWMB\Win10-UI.psm1',
+	'.\SWMB\Win10-UWPPrivacy.psm1
 	'.\SWMB\CurrentUser-Application.psm1',
-	'.\SWMB\CurrentUser-Privacy.psm1',
-	'.\SWMB\CurrentUser-UI.psm1',
-	'.\SWMB\CurrentUser-UWPPrivacy.psm1',
 	'.\SWMB\CurrentUser-ExplorerUI.psm1',
+	'.\SWMB\CurrentUser-Privacy.psm1',
 	'.\SWMB\CurrentUser-Service.psm1',
-	'.\SWMB\CurrentUser-Unpinning.psm1'
+	'.\SWMB\CurrentUser-UI.psm1',
+	'.\SWMB\CurrentUser-Unpinning.psm1',
+	'.\SWMB\CurrentUser-UWPPrivacy.psm1',
+	'.\SWMB\Resinfo.psm1',
+	'.\SWMB\Contrib.psm1'
 	)
 ModuleVersion = '3.11.1'
 GUID = 'ba50acca-ccda-456b-8349-6ff2569dc229'

@@ -58,6 +58,25 @@ Function RequireAdmin {
 	}
 }
 
+################################################################
+### Obsolete function
+################################################################
+
+# Wait for key press
+Function WaitForKey {
+	Write-Output "Warning: obsolete tweak, now use SysPause"
+	Write-Output "`nPress any key to continue..."
+	[Console]::ReadKey($true) | Out-Null
+}
+
+################################################################
+
+# Restart computer
+Function Restart {
+	Write-Output "Warning: obsolete tweak, now use SysRestart"
+	Write-Output "Restarting..."
+	Restart-Computer
+}
 
 ################################################################
 ### Region Internal Functions

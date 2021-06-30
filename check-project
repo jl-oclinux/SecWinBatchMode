@@ -26,7 +26,7 @@ function msg2 {
 
 # list of files
 all_module=$(find . -path './Modules/SWMB/*.psm1' -print)
-swmb_module=$(find . -path ./Modules/SWMB/Win10.psm1 -prune -o -path './Modules/SWMB/*.psm1' -print)
+swmb_module=$(find . -path './Modules/SWMB/Win10-*.psm1' -prune -o -path './Modules/SWMB/CurrentUser-*.psm1' -prune -o -path './Modules/SWMB/*.psm1' -print)
 
 # global numbers
 msg1 "number of SWMB rules" \
@@ -103,6 +103,9 @@ for rule in $(grep -hEi "^Function[[:space:]](${kind_rule})" ${swmb_module} \
 do
    if ! grep -Eq "^(#[[:space:]])?(${kind_rule})${rule}" Presets/*.preset
    then
+      # Do not propose preset for current user
+      #echo ${rule}| grep -q '_CU$' && continue
+
       echo "Warning: no preset proposed for rule: ${rule}"
    fi
 done

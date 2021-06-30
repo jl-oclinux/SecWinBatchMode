@@ -12,7 +12,15 @@
 
 @{
 RootModule = 'SWMB.psm1'
-NestedModules = @('.\SWMB\Win10.psm1', '.\SWMB\Resinfo.psm1', '.\SWMB\Contrib.psm1')
+NestedModules = @('.\SWMB\Win10.psm1', '.\SWMB\Resinfo.psm1', '.\SWMB\Contrib.psm1',
+	'.\SWMB\CurrentUser-Application.psm1',
+	'.\SWMB\CurrentUser-Privacy.psm1',
+	'.\SWMB\CurrentUser-UI.psm1',
+	'.\SWMB\CurrentUser-UWPPrivacy.psm1',
+	'.\SWMB\CurrentUser-ExplorerUI.psm1',
+	'.\SWMB\CurrentUser-Service.psm1',
+	'.\SWMB\CurrentUser-Unpinning.psm1'
+	)
 ModuleVersion = '3.11.1'
 GUID = 'ba50acca-ccda-456b-8349-6ff2569dc229'
 Author = 'RESINFO / GT SWMB'

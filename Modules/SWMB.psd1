@@ -21,7 +21,7 @@ NestedModules = @(
 	'.\SWMB\Win10-Server.psm1',
 	'.\SWMB\Win10-Service.psm1',
 	'.\SWMB\Win10-UI.psm1',
-	'.\SWMB\Win10-UWPPrivacy.psm1
+	'.\SWMB\Win10-UWPPrivacy.psm1',
 	'.\SWMB\CurrentUser-Application.psm1',
 	'.\SWMB\CurrentUser-ExplorerUI.psm1',
 	'.\SWMB\CurrentUser-Privacy.psm1',

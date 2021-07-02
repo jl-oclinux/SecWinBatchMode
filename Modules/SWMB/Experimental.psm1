@@ -1,0 +1,47 @@
+################################################################
+# Project CNRS RESINFO SWMB
+# Copyright (C) 2020-2021, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2020 - Olivier de Marchi (Grenoble INP / LEGI)
+#  2020 - David Gras (CNRS / DR11)
+#  2020 - Clément Deiber (CNRS / DR11)
+#  2020 - Gabriel Moreau (CNRS / LEGI)
+################################################################
+
+################################################################
+
+Function DisablePrintForSystem {
+	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
+	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
+	$ruleOrg2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'InheritOnly', 'Allow')
+	$ruleNew  = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Modify',      'ContainerInherit,ObjectInherit', 'None',        'Deny')
+	$acl.RemoveAccessRule($ruleOrg1)
+	$acl.RemoveAccessRule($ruleOrg2)
+	$acl.AddAccessRule($ruleNew)
+	$acl | Set-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
+}
+
+Function EnablePrintForSystem {
+	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
+	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
+	$ruleOrg2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'InheritOnly', 'Allow')
+	$ruleNew  = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Modify',      'ContainerInherit,ObjectInherit', 'None',        'Deny')
+	$acl.RemoveAccessRule($ruleNew)
+	$acl.AddAccessRule($ruleOrg1)
+	$acl.AddAccessRule($ruleOrg2)
+	$acl | Set-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
+}
+
+Function ViewPrintForSystem {
+	Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers" | Select -Expand Access | Out-GridView
+}
+
+
+################################################################
+###### Export Functions
+################################################################
+
+# Export functions
+Export-ModuleMember -Function *

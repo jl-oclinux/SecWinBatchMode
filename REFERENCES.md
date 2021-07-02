@@ -25,7 +25,7 @@
 
  * [Windows 10 : son modèle et ses fonctionnalités de sécurité](https://wonderfall.space/windows-hardening/) (french)
  * [Windows Sandbox : un environnement léger et sûr pour lancer des apps](https://wonderfall.space/windows-sandbox/) (french)
-
+ * [Modèle de sécurité Windows](https://ilearned.eu.org/secu_windows.html) (french)
 
 ## 2019
 

@@ -12,6 +12,8 @@
 
 ################################################################
 
+# https://www.cert.ssi.gouv.fr/alerte/CERTFR-2021-ALE-013/
+# CVE-2021-34527 exploit to keep your Print Servers running while a patch is not available
 Function DisablePrintForSystem {
 	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')

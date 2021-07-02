@@ -62,9 +62,12 @@ msg1 "number of total rules"  \
 msg1 "number of total functions" \
    $(grep -hEi '^Function[[:space:]]' ${all_module} | awk '{print $2}' | wc -l)
 
+msg1 "number of view functions (debug)" \
+   $(grep -hEi '^Function[[:space:]](View)' ${all_module} | awk '{print $2}' | wc -l)
+
 # function that are not in case Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin
 grep -hEi '^Function[[:space:]]' ${all_module} \
-   | grep -Eiv '^Function (Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' \
+   | grep -Eiv '^Function (Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin|View)' \
    | awk '{print $2}' \
    | xargs -r -n 1 printf "Warning: special function: %s\n"
 

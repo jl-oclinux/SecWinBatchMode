@@ -6,10 +6,14 @@ New modules architecture:
 * `Modules/SWMB.psd1` - Generic preload module (`Modules/SWMB.psm1`)
 * `Modules/SWMB/Custom.psm1` - Additionnal rules with parameter
 * `Modules/SWMB/Resinfo.psm1` - ANSSI rules
-* `Modules/SWMB/Win10.psm1` - Initial module from Disassembler0
+* `Modules/SWMB/Experimental.psm1` - Experimentals rules
+* `Modules/SWMB/Win10-*.psm1` - Initial module from Disassembler0
+* `Modules/SWMB/CurrentUser-*.psm1` - Initial module from Disassembler0 base on HKCU
 
 Parameter module now use global hash table.
 Automatically search Overload variable module in parent folder.
+
+Add View* function to help debugging
 
 New dists:
 * [crypt-with-bitlocker](./dists/crypt-with-bitlocker/)
@@ -24,6 +28,7 @@ New preset selection:
 * System-Resinfo.preset - Preset on system and network
 
 New presets/rules:
+* 2021/07/02 - DisablePrintForSystem/EnablePrintForSystem/ViewPrintForSystem -> Pseudo patch for CVE-2021-34527
 * 2021/06/14 - EnableInsecureGuestLogons/DisableInsecureGuestLogons -> Disable by default
 * 2021/06/13 - DisableSMB1Protocol/EnableSMB1Protocol -> SMBv1 protocol
 * 2021/06/13 - DisableSMB1/EnableSMB1 rename -> DisableSMB1Server/EnableSMB1Server

@@ -1,5 +1,12 @@
 # SWMB - Secure Windows Mode Batch
 
+ * [CONTRIBUTING](./CONTRIBUTING.md)
+ * [FAQ](./FAQ.md)
+ * [LICENSE](./LICENSE.md)
+ * [NEWS](./NEWS.md)
+ * [REFERENCES](./REFERENCES.md).
+ * [USE CASE (distribution)](./dists/README.md)
+
 ## Préambule
 
 SWMB est un projet issu du groupe de travail SWMB du réseau métier RESINFO du CNRS.

@@ -4,7 +4,7 @@
  * [FAQ](./FAQ.md)
  * [LICENSE](./LICENSE.md)
  * [NEWS](./NEWS.md)
- * [REFERENCES](./REFERENCES.md).
+ * [REFERENCES](./REFERENCES.md)
  * [USE CASE (distribution)](./dists/README.md)
 
 ## Préambule

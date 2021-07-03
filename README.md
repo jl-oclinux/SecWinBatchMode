@@ -126,26 +126,31 @@ SWMB_CheckTweaks
 SWMB_RunTweaks
 ```
 
-### Intégration dans un autre projet Git
+### Integration into another Git project
 
 
-### Définition de vos propres valeurs de variables
+### Definition of your own variable values
 
-Si vous souhaitez définir vos propres valeurs de variables utilisées le module `Custom.psm1`, procédez de la façon suivante :
- * Créez un fichier nommé `Custom-VarOverload.psm1` dans le même répertoire que le module `Custom-VarDefault.psm1`,
-   ou dans n'importe quel dossier parent `..` ou sous dossier `Modules` d'un dossier parent !
-   Cela laisse pas mal de choix...
- * Définissez les valeurs du hash de vos variables globales
-   (Ne modifiez pas toute la table de hashage comme dans le fichier `Custom-VarDefault.psm1`)
- * Exemple :
+If you want to define your own variable values used in the `Custom.psm1` module, do the following:
+ * Create a file named `Custom-VarOverload.psm1` in the same directory as the `Custom-VarDefault.psm1` module,
+   or in any parent `..` or sub-folder `Modules` of a parent folder!
+   This leaves a lot of choices...
+ * Set the hash values of your global variables
+   (Don't change the whole hash table like in the `Custom-VarDefault.psm1` file)
+ * Example:
    ```ps
    $Global:SWMB_Custom.NTP_ManualPeerList = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org"
    ```
+For sensitive keys, it is possible to define a `Custom-VarAutodel.psm1` module.
+This one works exactly the same way as the `Custom-VarOverload.psm1` module
+except that SWMB deletes this module file for security reasons right after loading it into memory.
+So it is only valid once unless you recreate it between two SWMB launches.
 
 
-## Exemples de déploiement et d'utilisation
+## Examples of deployment and use
 
-Vous trouverez, dans le répertoire [dists](dists), des exemples de déploiement du script
-(manuel, au démarrage de la machine, avec OCS Inventory, chiffrement des volumes...).
+You will find, in the [dists](dists) directory, examples of deployment of the script
+(manual, at machine startup, with OCS Inventory, volume encryption...).
 
-Le fichier [README](dists/manual-use/README.md) du répertoire «manual-use» rappelle quelques principes sur les politiques d'exécution de Powershell.
+The [README](dists/manual-use/README.md) file in the "manual-use" directory
+reminds some principles about Powershell execution policies.

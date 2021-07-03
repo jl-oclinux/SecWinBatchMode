@@ -51,7 +51,7 @@ The upstream project on which we based ourselves had not planned to be able to p
 It is an extension that we added.
 
 **Some references**:
- * Upstream project `Win10-Initial-Setup-Script` :
+ * Upstream project `Win10-Initial-Setup-Script` by Disassembler0 user :
    https://github.com/Disassembler0/Win10-Initial-Setup-Script
  * Document from the [ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
    (Agence Nationale de la Sécurité des Systèmes d'Information - France) :
@@ -62,25 +62,6 @@ It is an extension that we added.
 
 More references on the page [REFERENCES](./REFERENCES.md).
 
-
-## Scripts Powershell Disassembler0
-
-Ce projet s'appuie sur le projet :
-[https://github.com/Disassembler0/Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script)
-Ce projet est ajouté en tant que `subtree`.
-
-```bash
-git remote add -f Win10-Initial https://github.com/Disassembler0/Win10-Initial-Setup-Script.git
-git subtree add --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
-```
-
-Pour mettre à jour :
-
-```bash
-git subtree pull --prefix Win10-Initial-Setup-Script/ https://github.com/Disassembler0/Win10-Initial-Setup-Script.git master --squash
-```
-
-Voir [CONTRIBUTING](./CONTRIBUTING.md).
 
 ## Preset
 
@@ -94,17 +75,17 @@ Un preset par paragraphe de l'ANSSI
 
 ## Usage
 
-### Usage direct depuis PowerShell
+### Direct use from PowerShell
 
 ```ps1
-# Exécution d'une fonction seule
+# Execution of a single function
 .\Win10.ps1 NomFonction
 
-# Exécution d'un jeu de preset
+# Execution of a preset
 .\Win10.ps1 -preset "Presets\UserExperience-Resinfo.preset"
 ```
 
-### Usage intégré dans un script PowerShell
+### Integrated use in a PowerShell script
 
 ```ps1
 # Load core SWMB engine
@@ -127,6 +108,19 @@ SWMB_RunTweaks
 ```
 
 ### Integration into another Git project
+
+One way to use SWMB is to integrate it in one of your projects as a Git subtree.
+```bash
+git remote add -f SWMB https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb.git
+git subtree add --prefix SWMB/ SWMB master --squash
+```
+
+To update (synchronize) your repository with the SWMB project repository:
+```bash
+git subtree pull --prefix SWMB/ https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb.git master --squash
+```
+
+See [CONTRIBUTING](./CONTRIBUTING.md).
 
 
 ### Definition of your own variable values

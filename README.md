@@ -150,11 +150,11 @@ Order in which the `Custom-VarOverload.psm1` module will be loaded into memory:
 
 For sensitive keys, it is possible to define a `Custom-VarAutodel.psm1` module.
 This one works exactly the same way as the `Custom-VarOverload.psm1` module
-except that SWMB deletes this module file for security reasons right after loading it into memory.
+except that SWMB **deletes this module file** for security reasons right **after loading** it into memory.
 So it is only valid once unless you recreate it between two SWMB launches.
 
 The module `Custom-VarAutodel.psm1` is searched in the same folder as the module `Custom-VarOverload.psm1`.
-The `VarOverload` module is loaded first if it exists, however both modules are loaded.
+The `VarOverload` module **is loaded first** if it exists, however **both modules are loaded if they are in the same folder**.
 The recursive search in subfolders stops as soon as one or both modules are found in a folder.
 
 

@@ -141,10 +141,21 @@ If you want to define your own variable values used in the `Custom.psm1` module,
    ```ps
    $Global:SWMB_Custom.NTP_ManualPeerList = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org"
    ```
+Order in which the `Custom-VarOverload.psm1` module will be loaded into memory:
+ 1. `..\Custom-VarOverload.psm1`
+ 1. `..\Modules\Custom-VarOverload.psm1`
+ 1. `..\..\Custom-VarOverload.psm1`
+ 1. `..\..\Modules\Custom-VarOverload.psm1`
+ 1. and so on...
+
 For sensitive keys, it is possible to define a `Custom-VarAutodel.psm1` module.
 This one works exactly the same way as the `Custom-VarOverload.psm1` module
 except that SWMB deletes this module file for security reasons right after loading it into memory.
 So it is only valid once unless you recreate it between two SWMB launches.
+
+The module `Custom-VarAutodel.psm1` is searched in the same folder as the module `Custom-VarOverload.psm1`.
+The `VarOverload` module is loaded first if it exists, however both modules are loaded.
+The recursive search in subfolders stops as soon as one or both modules are found in a folder.
 
 
 ## Examples of deployment and use

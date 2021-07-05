@@ -31,6 +31,7 @@ NestedModules = @(
 	'.\SWMB\CurrentUser-UWPPrivacy.psm1',
 	'.\SWMB\Resinfo.psm1',
 	'.\SWMB\Contrib.psm1'
+	'.\SWMB\TemporaryBypass.psm1'
 	)
 ModuleVersion = '3.11.1'
 GUID = 'ba50acca-ccda-456b-8349-6ff2569dc229'

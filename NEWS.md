@@ -9,6 +9,7 @@ New modules architecture:
 * `Modules/SWMB/Experimental.psm1` - Experimentals rules
 * `Modules/SWMB/Win10-*.psm1` - Initial module from Disassembler0
 * `Modules/SWMB/CurrentUser-*.psm1` - Initial module from Disassembler0 base on HKCU
+* `Modules/SWMB/TemporaryBypass.psm1` - Temporary Bypass Strategy Module
 
 Parameter module now use global hash table (via the `*-VarOverload.psm1` plugin).
 Automatically search `Overload` variable module in parent folder.
@@ -23,6 +24,7 @@ New dists:
 New CLI parameter:
 * `-core`  - Load minimal SWMB code module. Must be the first parameter
 * `-check` - Check for duplicated tweak preset and tweak implementations. Do not execute any preset
+* `-exp`  - Load Experimental module (add Experimental feature)
 
 New preset selection:
 * Post-Install.preset - Enable Bitlocker after installation

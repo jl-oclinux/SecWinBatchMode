@@ -18,10 +18,12 @@ Function DisablePrintForSystem {
 	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
 	$ruleOrg2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'InheritOnly', 'Allow')
-	$ruleNew  = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Modify',      'ContainerInherit,ObjectInherit', 'None',        'Deny')
+	$ruleNew1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Modify',      'ContainerInherit,ObjectInherit', 'None',        'Deny')
+	$ruleNew2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Read',        'ContainerInherit,ObjectInherit', 'None',        'Allow')
 	$acl.RemoveAccessRule($ruleOrg1)
 	$acl.RemoveAccessRule($ruleOrg2)
-	$acl.AddAccessRule($ruleNew)
+	$acl.AddAccessRule($ruleNew1)
+	$acl.AddAccessRule($ruleNew2)
 	$acl | Set-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
 }
 
@@ -29,8 +31,10 @@ Function EnablePrintForSystem {
 	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
 	$ruleOrg2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'InheritOnly', 'Allow')
-	$ruleNew  = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Modify',      'ContainerInherit,ObjectInherit', 'None',        'Deny')
-	$acl.RemoveAccessRule($ruleNew)
+	$ruleNew1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Modify',      'ContainerInherit,ObjectInherit', 'None',        'Deny')
+	$ruleNew2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Read',        'ContainerInherit,ObjectInherit', 'None',        'Allow')
+	$acl.RemoveAccessRule($ruleNew1)
+	$acl.RemoveAccessRule($ruleNew2
 	$acl.AddAccessRule($ruleOrg1)
 	$acl.AddAccessRule($ruleOrg2)
 	$acl | Set-Acl -Path "$Env:SystemRoot\System32\spool\drivers"

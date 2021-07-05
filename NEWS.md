@@ -10,8 +10,10 @@ New modules architecture:
 * `Modules/SWMB/Win10-*.psm1` - Initial module from Disassembler0
 * `Modules/SWMB/CurrentUser-*.psm1` - Initial module from Disassembler0 base on HKCU
 
-Parameter module now use global hash table.
-Automatically search Overload variable module in parent folder.
+Parameter module now use global hash table (via the `*-VarOverload.psm1` plugin).
+Automatically search `Overload` variable module in parent folder.
+Added support for the `Autodel` plugin in addition to the `Overload` plugin.
+As the name suggests, the plug-in file `*-VarAutodel.psm1` will be deleted right after loading.
 
 Add View* function to help debugging
 

@@ -42,6 +42,11 @@ While ($i -lt $args.Length) {
 			# Import the included file as a module
 			Import-Module -Name $include -ErrorAction Stop
 		}
+	} ElseIf ($args[$i].ToLower() -eq "-exp") {
+		$experimental = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" (Join-Path -Path "SWMB" -ChildPath "Experimental.psm1")))
+		If (Test-Path $experimental) {
+			Import-Module -Name $experimental -ErrorAction Stop
+		}
 	} ElseIf ($args[$i].ToLower() -eq "-preset") {
 		# Load tweak preset file
 		SWMB_LoadTweakFile($args[++$i])

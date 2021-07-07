@@ -59,6 +59,31 @@ Function RequireAdmin {
 }
 
 ################################################################
+
+Function SysAutoUpgrade {
+	$moduleScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
+	$swmbCorePath = (Resolve-Path (Join-Path -Path $moduleScriptPath -ChildPath '..') -ErrorAction SilentlyContinue)
+
+	$gitUrl = 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/-/archive/master/resinfo-swmb-master.zip'
+	$tmpFolder = (Join-Path -Path $Env:Temp -ChildPath (New-Guid))
+	New-Item -Path $tmpFolder -ItemType Directory | Out-Null
+
+	$outZipFile = (Join-Path -Path $tmpFolder -ChildPath swmb-bitlocker.zip)
+
+	Invoke-WebRequest -Uri $gitUrl -OutFile $outZipFile -ErrorAction SilentlyContinue
+	Expand-Archive -Path $outZipFile -DestinationPath $tmpFolder
+	if (Test-Path "$tmpFolder\resinfo-swmb-master") {
+		Write-Host "Upgrade your SMWB installation..."
+		Get-Childitem -Path "$tmpFolder\resinfo-swmb-master" -Recurse | Move-Item -Destination "$swmbCorePath" -Force
+		Get-ChildItem -Path "$swmbCorePath" -Recurse  | Unblock-File
+	}
+
+	if (Test-Path "$tmpFolder") {
+		Remove-Item -Path "$tmpFolder" -Force -Recurse -ErrorAction SilentlyContinue
+	}
+}
+
+################################################################
 ### Obsolete function
 ################################################################
 

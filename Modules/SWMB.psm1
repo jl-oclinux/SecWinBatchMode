@@ -74,7 +74,7 @@ Function SysAutoUpgrade {
 	Expand-Archive -Path $outZipFile -DestinationPath $tmpFolder
 	if (Test-Path "$tmpFolder\resinfo-swmb-master") {
 		Write-Host "Upgrade your SMWB installation..."
-		Get-Childitem -Path "$tmpFolder\resinfo-swmb-master" -Recurse | Move-Item -Destination "$swmbCorePath" -Force
+		Copy-Item -Path "$tmpFolder\resinfo-swmb-master\*" -Destination "$swmbCorePath" -Recurse -Force
 		Get-ChildItem -Path "$swmbCorePath" -Recurse  | Unblock-File
 	}
 

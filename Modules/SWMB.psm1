@@ -65,17 +65,22 @@ Function SysAutoUpgrade {
 	$swmbCorePath = (Resolve-Path (Join-Path -Path $moduleScriptPath -ChildPath '..') -ErrorAction SilentlyContinue)
 
 	$gitUrl = 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/-/archive/master/resinfo-swmb-master.zip'
-	$tmpFolder = (Join-Path -Path $Env:Temp -ChildPath (New-Guid))
+	$tmpFolder = (Join-Path -Path $Env:SystemDrive -ChildPath "SWMB-$(New-Guid)")
+	If ($Env:Temp -ne '') {
+		$tmpFolder = (Join-Path -Path $Env:Temp -ChildPath "SWMB-$(New-Guid)")
+	}
 	New-Item -Path $tmpFolder -ItemType Directory | Out-Null
 
 	$outZipFile = (Join-Path -Path $tmpFolder -ChildPath swmb-bitlocker.zip)
 
 	Invoke-WebRequest -Uri $gitUrl -OutFile $outZipFile -ErrorAction SilentlyContinue
 	Expand-Archive -Path $outZipFile -DestinationPath $tmpFolder
-	if (Test-Path "$tmpFolder\resinfo-swmb-master") {
-		Write-Host "Upgrade your SMWB installation..."
+	If (Test-Path "$tmpFolder\resinfo-swmb-master") {
+		Write-Host "Upgrade of SMWB installation..."
 		Copy-Item -Path "$tmpFolder\resinfo-swmb-master\*" -Destination "$swmbCorePath" -Recurse -Force
 		Get-ChildItem -Path "$swmbCorePath" -Recurse  | Unblock-File
+	} Else {
+		Write-Host "Error: Upgrade of SMWB impossible..."
 	}
 
 	if (Test-Path "$tmpFolder") {

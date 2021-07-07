@@ -32,6 +32,7 @@ New preset selection:
 * System-Resinfo.preset - Preset on system and network
 
 New presets/rules:
+* 2021/07/07 - SysAutoUpgrade - Auto Upgrade your SWMB folder! Need an internet access to the Git repository
 * 2021/07/02 - DisablePrintForSystem/EnablePrintForSystem/ViewPrintForSystem -> Pseudo patch for CVE-2021-34527
 * 2021/06/14 - EnableInsecureGuestLogons/DisableInsecureGuestLogons -> Disable by default
 * 2021/06/13 - DisableSMB1Protocol/EnableSMB1Protocol -> SMBv1 protocol

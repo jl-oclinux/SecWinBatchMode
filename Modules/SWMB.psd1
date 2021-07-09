@@ -30,7 +30,7 @@ NestedModules = @(
 	'.\SWMB\CurrentUser-Unpinning.psm1',
 	'.\SWMB\CurrentUser-UWPPrivacy.psm1',
 	'.\SWMB\Resinfo.psm1',
-	'.\SWMB\Contrib.psm1'
+	'.\SWMB\Contrib.psm1',
 	'.\SWMB\TemporaryBypass.psm1'
 	)
 ModuleVersion = '3.11.1'

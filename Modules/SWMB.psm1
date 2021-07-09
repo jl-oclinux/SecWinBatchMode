@@ -58,6 +58,55 @@ Function RequireAdmin {
 	}
 }
 
+################################################################
+
+Function SysAutoUpgrade {
+	$moduleScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
+	$swmbCorePath = (Resolve-Path (Join-Path -Path $moduleScriptPath -ChildPath '..') -ErrorAction SilentlyContinue)
+
+	$gitUrl = 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/-/archive/master/resinfo-swmb-master.zip'
+	$tmpFolder = (Join-Path -Path $Env:SystemDrive -ChildPath "SWMB-$(New-Guid)")
+	If ($Env:Temp -ne '') {
+		$tmpFolder = (Join-Path -Path $Env:Temp -ChildPath "SWMB-$(New-Guid)")
+	}
+	New-Item -Path $tmpFolder -ItemType Directory | Out-Null
+
+	$outZipFile = (Join-Path -Path $tmpFolder -ChildPath swmb-bitlocker.zip)
+
+	Invoke-WebRequest -Uri $gitUrl -OutFile $outZipFile -ErrorAction SilentlyContinue
+	Expand-Archive -Path $outZipFile -DestinationPath $tmpFolder
+	If (Test-Path "$tmpFolder\resinfo-swmb-master") {
+		Write-Host "Upgrade of SMWB installation..."
+		Copy-Item -Path "$tmpFolder\resinfo-swmb-master\*" -Destination "$swmbCorePath" -Recurse -Force
+		Get-ChildItem -Path "$swmbCorePath" -Recurse  | Unblock-File
+	} Else {
+		Write-Host "Error: Upgrade of SMWB impossible..."
+	}
+
+	if (Test-Path "$tmpFolder") {
+		Remove-Item -Path "$tmpFolder" -Force -Recurse -ErrorAction SilentlyContinue
+	}
+}
+
+################################################################
+### Obsolete function
+################################################################
+
+# Wait for key press
+Function WaitForKey {
+	Write-Output "Warning: obsolete tweak, now use SysPause"
+	Write-Output "`nPress any key to continue..."
+	[Console]::ReadKey($true) | Out-Null
+}
+
+################################################################
+
+# Restart computer
+Function Restart {
+	Write-Output "Warning: obsolete tweak, now use SysRestart"
+	Write-Output "Restarting..."
+	Restart-Computer
+}
 
 ################################################################
 ### Region Internal Functions
@@ -117,6 +166,27 @@ Function SWMB_ImportModuleParameter() {
 		[Parameter(Mandatory = $true)] [string]$moduleScriptName
 	)
 
+	Function _ModuleAutoLoad() {
+		Param (
+			[Parameter(Mandatory = $true)] [string]$PathBase
+		)
+
+		$VarOverload = $PathBase + '-VarOverload.psm1'
+		$VarAutodel  = $PathBase + '-VarAutodel.psm1'
+
+		If ((Test-Path -LiteralPath $VarOverload) -Or (Test-Path -LiteralPath $VarAutodel)) {
+			If (Test-Path -LiteralPath $VarOverload) {
+				Import-Module -Name $VarOverload -ErrorAction Stop
+			}
+			If (Test-Path -LiteralPath $VarAutodel) {
+				Import-Module -Name $VarAutodel -ErrorAction Stop
+				Remove-Item $VarAutodel -ErrorAction Stop
+			}
+			return $true
+		}
+		return $false
+	}
+
 	$moduleScriptPath = (Get-Item $moduleScriptName).DirectoryName
 	$moduleScriptBasename = (Get-Item $moduleScriptName).Basename
 
@@ -125,19 +195,15 @@ Function SWMB_ImportModuleParameter() {
 	If (Test-Path -LiteralPath $moduleScriptVarDefault) {
 		Import-Module -Name $moduleScriptVarDefault -ErrorAction Stop
 	}
-
 	# Try to load local overload parameter module with extension -VarOverload
 	While (Test-Path -LiteralPath $moduleScriptPath) {
 		# Module VarOverload directly in the current folder
-		$moduleScriptVarOverload1 = (Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename) + '-VarOverload.psm1'
-		If (Test-Path -LiteralPath $moduleScriptVarOverload1) {
-			Import-Module -Name $moduleScriptVarOverload1 -ErrorAction Stop
+		If (_ModuleAutoLoad -PathBase (Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename)) {
 			Break
 		}
+
 		# Or module VarOverload directly in the subfolder Modules
-		$moduleScriptVarOverload2 = (Join-Path -Path $moduleScriptPath -ChildPath (Join-Path -Path "Modules" -ChildPath $moduleScriptBasename)) + '-VarOverload.psm1'
-		If (Test-Path -LiteralPath $moduleScriptVarOverload2) {
-			Import-Module -Name $moduleScriptVarOverload2 -ErrorAction Stop
+		If (_ModuleAutoLoad -PathBase (Join-Path -Path $moduleScriptPath -ChildPath (Join-Path -Path "Modules" -ChildPath $moduleScriptBasename))) {
 			Break
 		}
 

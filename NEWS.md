@@ -6,10 +6,17 @@ New modules architecture:
 * `Modules/SWMB.psd1` - Generic preload module (`Modules/SWMB.psm1`)
 * `Modules/SWMB/Custom.psm1` - Additionnal rules with parameter
 * `Modules/SWMB/Resinfo.psm1` - ANSSI rules
-* `Modules/SWMB/Win10.psm1` - Initial module from Disassembler0
+* `Modules/SWMB/Experimental.psm1` - Experimentals rules
+* `Modules/SWMB/Win10-*.psm1` - Initial module from Disassembler0
+* `Modules/SWMB/CurrentUser-*.psm1` - Initial module from Disassembler0 base on HKCU
+* `Modules/SWMB/TemporaryBypass.psm1` - Temporary Bypass Strategy Module
 
-Parameter module now use global hash table.
-Automatically search Overload variable module in parent folder.
+Parameter module now use global hash table (via the `*-VarOverload.psm1` plugin).
+Automatically search `Overload` variable module in parent folder.
+Added support for the `Autodel` plugin in addition to the `Overload` plugin.
+As the name suggests, the plug-in file `*-VarAutodel.psm1` will be deleted right after loading.
+
+Add View* function to help debugging
 
 New dists:
 * [crypt-with-bitlocker](./dists/crypt-with-bitlocker/)
@@ -17,6 +24,7 @@ New dists:
 New CLI parameter:
 * `-core`  - Load minimal SWMB code module. Must be the first parameter
 * `-check` - Check for duplicated tweak preset and tweak implementations. Do not execute any preset
+* `-exp`  - Load Experimental module (add Experimental feature)
 
 New preset selection:
 * Post-Install.preset - Enable Bitlocker after installation
@@ -24,6 +32,8 @@ New preset selection:
 * System-Resinfo.preset - Preset on system and network
 
 New presets/rules:
+* 2021/07/07 - SysAutoUpgrade - Auto Upgrade your SWMB folder! Need an internet access to the Git repository
+* 2021/07/02 - DisablePrintForSystem/EnablePrintForSystem/ViewPrintForSystem -> Pseudo patch for CVE-2021-34527
 * 2021/06/14 - EnableInsecureGuestLogons/DisableInsecureGuestLogons -> Disable by default
 * 2021/06/13 - DisableSMB1Protocol/EnableSMB1Protocol -> SMBv1 protocol
 * 2021/06/13 - DisableSMB1/EnableSMB1 rename -> DisableSMB1Server/EnableSMB1Server

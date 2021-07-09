@@ -1,75 +1,67 @@
 # SWMB - Secure Windows Mode Batch
 
-## Préambule
+ * [CONTRIBUTING](./CONTRIBUTING.md)
+ * [FAQ](./FAQ.md)
+ * [LICENSE](./LICENSE.md)
+ * [NEWS](./NEWS.md)
+ * [REFERENCES](./REFERENCES.md)
+ * [USE CASE (distribution)](./dists/README.md)
 
-SWMB est un projet issu du groupe de travail SWMB du réseau métier RESINFO du CNRS.
-Il s'agit de gérer la sécurité, la confidentialité et la vie privée sous l'OS Windows 10 à l'aide de scripts.
-L'objectif est de pouvoir déployer facilement sur un parc informatique des règles de sécurité (stratégie)
-que les postes soient ou ne soient pas dans un Active Directory.
-Dans un souci de traçage (qualité) et de partage des connaissances, toutes les actions possibles sont lisibles dans un format texte.
-Le langage de programmation choisit est le Powershell de Microsoft.
-L'ensemble du code et de la documentation est accessible sur une forge Git.
+## Preamble
 
-Le choix de réaliser un système de scripts est donc un choix complémentaire d'une solution avec GPO associée au clickodrome Active Directory.
-La question de savoir comment SWMB est déployé sur les postes de travail n'est pas directement lié au projet SWMB lui-même.
-C'est un logiciel comme les autres et peut donc être intégré dans tout système de gestion de configuration.
+SWMB is a project from the SWMB working group of the RESINFO business network of CNRS and the French higher education.
+It is about managing security, confidentiality and privacy under the Windows 10 operating system with the help of scripts,
+thus without using a graphical interface.
+The objective is to be able to easily deploy security rules (strategy) on a computer park,
+whether or not the computers are in an Active Directory domain.
+In a concern of tracing (quality) and knowledge sharing, all possible actions are readable in a text format.
+The chosen programming language is Microsoft Powershell.
+All the code and documentation is available on a Git forge.
 
-Le projet se veut modulaire.
-Il doit être facile à maintenir, facile à comprendre, facile à étendre et facile à utiliser.
-Le site https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/ référence de nombreuses solutions possibles.
-SWMB a fait le choix de prendre pour base le code de Disassembler0 :  `Win10-Initial-Setup-Script`,
-car celui-ci répondait à tous nos critères ci-dessus.
+The choice to implement a scripting system is therefore a complementary choice to a solution with GPO associated with Active Directory servers.
+The question of how SWMB is deployed on the workstations is not directly linked to the SWMB project itself.
+It is software like any other and can therefore be integrated into any configuration management system.
 
-En ce qui concerne les stratégies de sécurité applicables,
-SWMB s'appuie principalement sur les règles édictées par l'Agence Nationale de la Sécurité des Systèmes d'Information ([ANSSI](https://www.ssi.gouv.fr/)).
-Il y a ainsi dans SWMB trois niveaux de règles possibles :
- * `Modules\SWMB\Win10` - règles du projet amont non modifiées ;
- * `Modules\SWMB\Resinfo` - règles extraites de la documentation de l'ANSSI, ou de certaines consignes du RSSI du CNRS,
-    applicable dans tout l'ESR (Enseignement Supérieur et Recherche) ;
- * `Modules\SWMB\Custom` - règles intéressantes que vous pouvez étendre pour votre site.
+The project is intended to be modular.
+It must be easy to maintain, easy to understand, easy to extend and easy to use.
+The website https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/ references many possible solutions.
+SWMB chose to take as a starting point the code of Disassembler0 which is now archived: `Win10-Initial-Setup-Script`,
+because it met all our criteria above.
 
-Chaque règle peut-être activée (`enable`) ou déactivé (`disable`) très facilement dans un fichier de configuration (`preset`).
-Des fichiers types sont proposés.
-À chaque règle est associée un commentaire en français faisant référence à son origine.
-Le français a été choisi afin de suivre le vocable de l'ANSSI
-et de part la version française de Windows 10 équipant la majorité de nos parcs informatiques.
+Regarding the applicable security strategies,
+SWMB is mainly based on the rules enacted by the French National Agency for Information Systems Security ([ANSSI](https://www.ssi.gouv.fr/)).
+There are thus three levels of possible rules in SWMB:
+ * `Modules\SWMB\Win10` - rules extracted from the ANSSI documentation, or from certain instructions of the RSSI of the CNRS,
+    applicable in the whole ESR (Higher Education and Research in France);
+ * `Modules\SWMB\Custom` - interesting rules that you can extend for your site.
+ * `Modules\SWMB\Experimental` - future rules under active development and not fully tested.
+    Feedback from users may be interesting.
+ 
+ 
+Each rule can be enabled (`enable`) or disabled (`disable`) very easily in a configuration file (`preset`).
+Sample files are available.
+Each rule is associated with a comment in French or English referring to its origin.
+The French language has sometimes been chosen in order to follow the ANSSI's terminology
+and because of the French version of Windows 10 which is used in most of our computers in the ESR.
 
-Pour les règles `Custom`, il est possible de les paramétrer avec un fichier de variable afin de les adapter à votre parc.
-Un jeu de paramètres par défaut est proposé.
-Les autres règles ne sont pas paramétrables, car elles sont, dans un premier temps, à prendre ou à laisser !
-Le projet amont sur lequel nous nous appuyons n'avait d'ailleurs pas prévu de pouvoir paramétrer des règles.
+For `Custom` rules, it is possible to set them with a variable file in order to adapt them to your park.
+A set of default parameters is proposed.
+The other rules are not configurable, because they are, at first, to take or to leave!
+The upstream project on which we based ourselves had not planned to be able to parameterize rules.
+It is an extension that we added.
 
-**Quelques références** :
- * Projet amont `Win10-Initial-Setup-Script` :
+**Some references**:
+ * Upstream project `Win10-Initial-Setup-Script` by Disassembler0 user :
    https://github.com/Disassembler0/Win10-Initial-Setup-Script
- * Document de l'[ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
+ * Document from the [ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
    (Agence Nationale de la Sécurité des Systèmes d'Information - France) :
    [https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
- * Document de la [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
-   (Office fédéral de la sécurité des technologies de l’information - Allemagne) :
+ * Document of the [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
+   (Federal Office for Information Technology Security - Germany) :
    [https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
 
-Plus de références sur la page [REFERENCES](./REFERENCES.md).
+More references on the page [REFERENCES](./REFERENCES.md).
 
-
-## Scripts Powershell Disassembler0
-
-Ce projet s'appuie sur le projet :
-[https://github.com/Disassembler0/Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script)
-Ce projet est ajouté en tant que `subtree`.
-
-```bash
-git remote add -f Win10-Initial https://github.com/Disassembler0/Win10-Initial-Setup-Script.git
-git subtree add --prefix Win10-Initial-Setup-Script/ Win10-Initial master --squash
-```
-
-Pour mettre à jour :
-
-```bash
-git subtree pull --prefix Win10-Initial-Setup-Script/ https://github.com/Disassembler0/Win10-Initial-Setup-Script.git master --squash
-```
-
-Voir [CONTRIBUTING](./CONTRIBUTING.md).
 
 ## Preset
 
@@ -83,17 +75,17 @@ Un preset par paragraphe de l'ANSSI
 
 ## Usage
 
-### Usage direct depuis PowerShell
+### Direct use from PowerShell
 
 ```ps1
-# Exécution d'une fonction seule
+# Execution of a single function
 .\Win10.ps1 NomFonction
 
-# Exécution d'un jeu de preset
+# Execution of a preset
 .\Win10.ps1 -preset "Presets\UserExperience-Resinfo.preset"
 ```
 
-### Usage intégré dans un script PowerShell
+### Integrated use in a PowerShell script
 
 ```ps1
 # Load core SWMB engine
@@ -115,26 +107,55 @@ SWMB_CheckTweaks
 SWMB_RunTweaks
 ```
 
-### Intégration dans un autre projet Git
+### Integration into another Git project
+
+One way to use SWMB is to integrate it in one of your projects as a Git subtree.
+```bash
+git remote add -f SWMB https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb.git
+git subtree add --prefix SWMB/ SWMB master --squash
+```
+
+To update (synchronize) your repository with the SWMB project repository:
+```bash
+git subtree pull --prefix SWMB/ https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb.git master --squash
+```
+
+See [CONTRIBUTING](./CONTRIBUTING.md).
 
 
-### Définition de vos propres valeurs de variables
+### Definition of your own variable values
 
-Si vous souhaitez définir vos propres valeurs de variables utilisées le module `Custom.psm1`, procédez de la façon suivante :
- * Créez un fichier nommé `Custom-VarOverload.psm1` dans le même répertoire que le module `Custom-VarDefault.psm1`,
-   ou dans n'importe quel dossier parent `..` ou sous dossier `Modules` d'un dossier parent !
-   Cela laisse pas mal de choix...
- * Définissez les valeurs du hash de vos variables globales
-   (Ne modifiez pas toute la table de hashage comme dans le fichier `Custom-VarDefault.psm1`)
- * Exemple :
+If you want to define your own variable values used in the `Custom.psm1` module, do the following:
+ * Create a file named `Custom-VarOverload.psm1` in the same directory as the `Custom-VarDefault.psm1` module,
+   or in any parent `..` or sub-folder `Modules` of a parent folder!
+   This leaves a lot of choices...
+ * Set the hash values of your global variables
+   (Don't change the whole hash table like in the `Custom-VarDefault.psm1` file)
+ * Example:
    ```ps
    $Global:SWMB_Custom.NTP_ManualPeerList = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org"
    ```
+Order in which the `Custom-VarOverload.psm1` module will be loaded into memory:
+ 1. `..\Custom-VarOverload.psm1`
+ 1. `..\Modules\Custom-VarOverload.psm1`
+ 1. `..\..\Custom-VarOverload.psm1`
+ 1. `..\..\Modules\Custom-VarOverload.psm1`
+ 1. and so on...
+
+For sensitive keys, it is possible to define a `Custom-VarAutodel.psm1` module.
+This one works exactly the same way as the `Custom-VarOverload.psm1` module
+except that SWMB **deletes this module file** for security reasons right **after loading** it into memory.
+So it is only valid once unless you recreate it between two SWMB launches.
+
+The module `Custom-VarAutodel.psm1` is searched in the same folder as the module `Custom-VarOverload.psm1`.
+The `VarOverload` module **is loaded first** if it exists, however **both modules are loaded if they are in the same folder**.
+The recursive search in subfolders stops as soon as one or both modules are found in a folder.
 
 
-## Exemples de déploiement et d'utilisation
+## Examples of deployment and use
 
-Vous trouverez, dans le répertoire [dists](dists), des exemples de déploiement du script
-(manuel, au démarrage de la machine, avec OCS Inventory, chiffrement des volumes...).
+You will find, in the [dists](dists) directory, examples of deployment of the script
+(manual, at machine startup, with OCS Inventory, volume encryption...).
 
-Le fichier [README](dists/manual-use/README.md) du répertoire «manual-use» rappelle quelques principes sur les politiques d'exécution de Powershell.
+The [README](dists/manual-use/README.md) file in the "manual-use" directory
+reminds some principles about Powershell execution policies.

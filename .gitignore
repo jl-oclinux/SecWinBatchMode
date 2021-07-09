@@ -1,2 +1,4 @@
 *.bak
 *.zip
+*-VarOverload.psm1
+*-VarAutodel.psm1

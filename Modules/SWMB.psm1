@@ -121,15 +121,20 @@ Function SWMB_Init {
 
 Function SWMB_AddOrRemoveTweak() {
 	Param (
-		[string]$tweak
+		[string]$Tweak,
+		[string]$Path = '.'
 	)
 
-	If ($tweak[0] -eq "!") {
+	If ($Tweak[0] -eq "!") {
 		# If the name starts with exclamation mark (!), exclude the tweak from selection
-		$Global:SWMB_Tweaks = $Global:SWMB_Tweaks | Where-Object { $_ -ne $tweak.Substring(1) }
-	} ElseIf ($tweak -ne "") {
+		$Global:SWMB_Tweaks = $Global:SWMB_Tweaks | Where-Object { $_ -ne $Tweak.Substring(1) }
+	} ElseIf ($Tweak -cmatch '^\$INCLUDE\s+[^\s]') {
+		# Include preset file
+		$file = (Join-Path -Path $Path -ChildPath ($Tweak -creplace '^\$INCLUDE\s+([^\s])', '$1'))
+		SWMB_LoadTweakFile -TweakFile "$file" -CLI $False
+	} ElseIf ($Tweak -ne "") {
 		# Otherwise add the tweak
-		$Global:SWMB_Tweaks += $tweak
+		$Global:SWMB_Tweaks += $Tweak
 	}
 }
 
@@ -137,16 +142,21 @@ Function SWMB_AddOrRemoveTweak() {
 
 Function SWMB_LoadTweakFile() {
 	Param (
-		[string]$tweakFile
+		[string]$TweakFile,
+		[bool]$CLI = $True
 	)
 
 	# Resolve full path to the preset file
-	Resolve-Path $tweakFile -ErrorAction Stop | ForEach-Object {
+	Resolve-Path $TweakFile -ErrorAction Stop | ForEach-Object {
 		$preset = $_.Path
-		$Global:SWMB_PSCommandArgs += "-preset `"$preset`""
+		$path = (Split-Path -Path $_)
+		# Bluid CLI for RequireAdmin
+		If ($CLI -eq $True) {
+			$Global:SWMB_PSCommandArgs += "-preset `"$preset`""
+		}
 		# Load tweak names from the preset file
 		Get-Content $preset -ErrorAction Stop | ForEach-Object {
-			SWMB_AddOrRemoveTweak($_.Split("#")[0].Trim())
+			SWMB_AddOrRemoveTweak -Tweak $_.Split("#")[0].Trim() -Path $path
 		}
 	}
 }

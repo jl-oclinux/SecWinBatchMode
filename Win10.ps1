@@ -14,6 +14,6 @@
 Write-Output "Warning: obsolete command, now use swmb.ps1"
 
 $cmd = (Get-PSCallStack)[0].ScriptName
-$cmd = ($cmd -replace 'Win10.ps1$', 'swmb.ps1') + ' ' + $args
+$cmd = (($cmd -replace 'Win10.ps1$', 'swmb.ps1') -replace ' ', '` ') + ' ' + $args
 
 Invoke-Expression -Command $cmd

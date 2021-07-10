@@ -25,26 +25,27 @@
 
 ### Les Connected User Experiences et Telemetry sont ils activés ? (oui si 2, non si 4)
 
-# Enable
-Function EnableNoConnectedUserExperiencesAndNoTelemetry {
-	Write-Output "Désactivation des Connected User Experiences et de la Télémétrie"
+# Disable
+Function DisableConnectedUserExperiencesAndTelemetry {
+	Write-Output "Désactivation des Connected User Experiences et de la Télémétrie..."
 	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack")) {
 		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" -Type DWord -Value 4 -ErrorAction SilentlyContinue
+	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" -Type DWord -Value 4
 }
 
-# Disable
-Function DisableNoConnectedUserExperiencesAndNoTelemetry {
-	Write-Output "Activation des Connected User Experiences et de la Télémétrie"
+# Enable
+Function EnableConnectedUserExperiencesAndTelemetry {
+	Write-Output "Activation des Connected User Experiences et de la Télémétrie..."
 	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack")) {
 		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Force | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" -Type DWord -Value 2 -ErrorAction SilentlyContinue
+	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" -Type DWord -Value 2
 }
 
 # View
-Function ViewNoConnectedUserExperiencesAndNoTelemetry {
+Function ViewNoConnectedUserExperiencesAndTelemetry {
+	Write-Output 'Connected User Experiences and Telemetry (2 activated, 4 no)'
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start"
 }
 
@@ -54,23 +55,23 @@ Function ViewNoConnectedUserExperiencesAndNoTelemetry {
 # Par défaut cette clé ne semble pas exister, on l'efface donc en fonction Disable, comme avant
 
 # Disable
-Function DisableNoAutologgerDiagTrackListener {
-	Write-Output "Désactivation du Autologger-DiagTrack-Listener"
-	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener")) {
-		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start" -Type DWord -Value 0 -ErrorAction SilentlyContinue
+Function DisableAutologgerDiagTrack {
+	Write-Output "Désactivation du Autologger-DiagTrack-Listener..."
+	Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
 }
 
 # Enable
-Function EnableNoAutologgerDiagTrackListener {
-	Write-Output "Activation du Autologger-DiagTrack-Listener"
-    Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
-	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start" -Type DWord -Value 2 -ErrorAction SilentlyContinue
+Function EnableAutologgerDiagTrack {
+	Write-Output "Activation du Autologger-DiagTrack-Listener..."
+	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener")) {
+		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start" -Type DWord -Value 2
 }
 
 # View
-Function ViewNoEnableNoAutologgerDiagTrackListener {
+Function ViewEnableAutologgerDiagTrack {
+	Write-Output 'Autologger-DiagTrack-Listener (0 no or not exist, 2 activated)'
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start"
 }
 
@@ -80,13 +81,13 @@ Function ViewNoEnableNoAutologgerDiagTrackListener {
 
 # Disable
 Function DisablePowershell2 {
-	Write-Output "Désactivation des anciennes versions de Powershell(2)"
+	Write-Output "Désactivation des anciennes versions de Powershell(2)..."
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
 # Enable
 Function EnablePowershell2 {
-	Write-Output "Activation des anciennes versions de Powershell(2)"
+	Write-Output "Activation des anciennes versions de Powershell(2)..."
 	Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 

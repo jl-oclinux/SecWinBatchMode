@@ -76,11 +76,11 @@ Function SysAutoUpgrade {
 	Invoke-WebRequest -Uri $gitUrl -OutFile $outZipFile -ErrorAction SilentlyContinue
 	Expand-Archive -Path $outZipFile -DestinationPath $tmpFolder
 	If (Test-Path "$tmpFolder\resinfo-swmb-master") {
-		Write-Host "Upgrade of SMWB installation..."
+		Write-Host "Upgrade of SWMB installation..."
 		Copy-Item -Path "$tmpFolder\resinfo-swmb-master\*" -Destination "$swmbCorePath" -Recurse -Force
 		Get-ChildItem -Path "$swmbCorePath" -Recurse | Unblock-File
 	} Else {
-		Write-Host "Error: Upgrade of SMWB impossible..."
+		Write-Host "Error: Upgrade of SWMB impossible..."
 	}
 
 	if (Test-Path "$tmpFolder") {

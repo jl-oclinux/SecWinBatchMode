@@ -6,7 +6,7 @@
 ##########
 
 ### Require administrator privileges ###
-RequireAdmin
+SysRequireAdmin
 
 ### Privacy Tweaks ###
 DisableTelemetry                # EnableTelemetry

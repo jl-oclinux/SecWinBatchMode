@@ -83,5 +83,5 @@ Launching...
 
 cd "$swmbBitlockerDirectory\resinfo-swmb-master"
 & .\Win10.ps1 `
-   RequireAdmin `
+   SysRequireAdmin `
    EnableBitlocker

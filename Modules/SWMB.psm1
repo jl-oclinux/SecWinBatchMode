@@ -51,7 +51,7 @@ Function SysRestart {
 
 # Implementation used in powershell script
 # The main implementation in Win10.ps1 is used otherwise in the CLI
-Function RequireAdmin {
+Function SysRequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 		Write-Host "You must run this script with administrator privileges"
 		Exit
@@ -92,20 +92,29 @@ Function SysAutoUpgrade {
 ### Obsolete function
 ################################################################
 
+# Since 2021/06
 # Wait for key press
 Function WaitForKey {
 	Write-Output "Warning: obsolete tweak, now use SysPause"
-	Write-Output "`nPress any key to continue..."
-	[Console]::ReadKey($true) | Out-Null
+	SysPause
 }
 
 ################################################################
 
+# Since 2021/06
 # Restart computer
 Function Restart {
 	Write-Output "Warning: obsolete tweak, now use SysRestart"
-	Write-Output "Restarting..."
-	Restart-Computer
+	SysRestart
+}
+
+################################################################
+
+# Since 2021/07
+# Require administrator privileges
+Function RequireAdmin {
+	Write-Output "Warning: obsolete tweak, now use SysRequireAdmin"
+	SysRequireAdmin
 }
 
 ################################################################

@@ -15,7 +15,7 @@
 ################################################################
 
 # Require running script in admin mode
-RequireAdmin
+SysRequireAdmin
 
 # Crypt System and all drive (interactive function)
 EnableBitlocker

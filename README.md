@@ -65,12 +65,15 @@ More references on the page [REFERENCES](./REFERENCES.md).
 
 ## Preset
 
-Un preset par paragraphe de l'ANSSI
- * preset Télémétrie
- * preset Cortana et search
- * preset Paramètres de personnalisation de l'expérience utilisateur
- * preset Applications universelles
- * preset Cloud
+Currently, there is one preset per paragraph of the ANSSI concerning the settings for the computer configuration.
+ * Telemetry preset
+ * Cortana and search preset
+ * User experience preset
+ * Universal Applications preset
+ * Cloud preset
+ 
+It is possible to include a set of presets in another file with the keyword `$INCLUDE` (same keyword as in the freeradius server software configuration).
+The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.
 
 
 ## Usage
@@ -78,11 +81,11 @@ Un preset par paragraphe de l'ANSSI
 ### Direct use from PowerShell
 
 ```ps1
-# Execution of a single function
-.\swmb.ps1 NomFonction
+# Execution of a single function / tweak
+.\swmb.ps1 NameOfTheTweak
 
-# Execution of a preset
-.\swmb.ps1 -preset "Presets\UserExperience-Resinfo.preset"
+# Execution of a preset of tweaks
+.\swmb.ps1 -preset "Presets\LocalMachine-Default.preset"
 ```
 
 ### Integrated use in a PowerShell script
@@ -95,15 +98,15 @@ Import-Module Modules\SWMB.psd1
 SWMB_Init
 
 # Load a preset file (could be call multiple times)
-SWMB_LoadTweakFile "Presets\UserExperience-Resinfo.preset"
+SWMB_LoadTweakFile "Presets\LocalMachine-Default.preset"
 
 # Load one preset (could be call multiple times)
 SWMB_AddOrRemoveTweak "NomFonction"
 
-# If you want to check consistency
+# If you want to check tweak consistency
 SWMB_CheckTweaks
 
-# Execute all presets
+# Execute all presets (tweaks) loaded
 SWMB_RunTweaks
 ```
 

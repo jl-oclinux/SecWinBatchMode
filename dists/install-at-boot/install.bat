@@ -37,4 +37,4 @@ REM deblocage des fichiers
 
 
 REM creation de la tache planifiee
-schtasks /create /tn swmbAtBoot /sc onstart /RU SYSTEM  /F /tr "powershell.exe -ExecutionPolicy RemoteSigned -file '%destFolder%\Win10.ps1' -preset '%destFolder%\Presets\UserExperience-Resinfo.preset'"  2>&1 >> %~dp0\%logfile%
+schtasks /create /tn swmbAtBoot /sc onstart /RU SYSTEM  /F /tr "powershell.exe -ExecutionPolicy RemoteSigned -file '%destFolder%\swmb.ps1' -preset '%destFolder%\Presets\UserExperience-Resinfo.preset'"  2>&1 >> %~dp0\%logfile%

@@ -35,7 +35,7 @@ dir -Path C:\SWMB -Recurse | Unblock-File
   (cf. [README](https://gitlab.in2p3.fr/resinfo-gt/swmb/-/blob/master/README.md)).
   *Exemple avec le fichier de preset `UserExperience`* :
   ```ps
-  &'C:\SWMB\Win10.ps1' `
+  &'C:\SWMB\swmb.ps1' `
     -preset 'C:\SWMB\Presets\UserExperience-Resinfo.preset'
   ```
 
@@ -53,7 +53,7 @@ dir -Path C:\SWMB -Recurse | Unblock-File
 
 * Dans *Argument*, la commande est :
   ```ps
-  -ExecutionPolicy RemoteSigned -file "C:\SWMB\Win10.ps1" -preset "C:\SWMB\Presets\UserExperience-Resinfo.preset"
+  -ExecutionPolicy RemoteSigned -file "C:\SWMB\swmb.ps1" -preset "C:\SWMB\Presets\UserExperience-Resinfo.preset"
   ```
 
 * ![tache5](img/task5.png)

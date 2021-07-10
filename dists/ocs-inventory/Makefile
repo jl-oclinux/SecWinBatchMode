@@ -34,7 +34,7 @@ clean:
 		Presets/*.preset \
 		Modules/*.psm1 \
 		Modules/SWMB/*.psm1 \
-		Win10.ps1 \
+		swmb.ps1 \
 		-x \*.git/* \
 		)
 	chmod ugo+rw $@

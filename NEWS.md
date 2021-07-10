@@ -2,6 +2,8 @@
 
 ## Version 3.12
 
+Rename main program Win10.ps1 to swmb.ps1
+
 New modules architecture:
 * `Modules/SWMB.psd1` - Generic preload module (`Modules/SWMB.psm1`)
 * `Modules/SWMB/Custom.psm1` - Additionnal rules with parameter

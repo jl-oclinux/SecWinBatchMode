@@ -833,7 +833,7 @@ Function EnableBitlocker {
 		Write-Host "Bitlocker on system drive is already on (or in progress)"
 		If ((Get-BitLockerVolume $Env:SystemDrive).EncryptionMethod -ne "XtsAes256") {
 			Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256"
-			Write-Host "Decrypt with command : Win10.ps1 DisableBitlocker"
+			Write-Host "Decrypt with command : swmb.ps1 DisableBitlocker"
 			return
 		}
 		Else {

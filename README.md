@@ -79,10 +79,10 @@ Un preset par paragraphe de l'ANSSI
 
 ```ps1
 # Execution of a single function
-.\Win10.ps1 NomFonction
+.\swmb.ps1 NomFonction
 
 # Execution of a preset
-.\Win10.ps1 -preset "Presets\UserExperience-Resinfo.preset"
+.\swmb.ps1 -preset "Presets\UserExperience-Resinfo.preset"
 ```
 
 ### Integrated use in a PowerShell script

@@ -50,7 +50,7 @@ Function SysRestart {
 ################################################################
 
 # Implementation used in powershell script
-# The main implementation in Win10.ps1 is used otherwise in the CLI
+# The main implementation in swmb.ps1 is used otherwise in the CLI
 Function SysRequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 		Write-Host "You must run this script with administrator privileges"

@@ -28,15 +28,15 @@ REM copie des scripts
 COPY /Y Presets\*.preset "C:\Program Files\SWMB\Presets"
 COPY /Y Modules\*.psm1 "C:\Program Files\SWMB\Modules"
 COPY /Y Modules\SWMB\*.psm1 "C:\Program Files\SWMB\Modules\SWMB"
-COPY /Y Win10.ps1 "C:\Program Files\SWMB"
+COPY /Y swmb.ps1 "C:\Program Files\SWMB"
 
-REM droits execution sur Win10.ps1
-%pwrsh% "Unblock-File -Path ${env:ProgramFiles}\SWMB\Win10.ps1"
+REM droits execution sur swmb.ps1
+%pwrsh% "Unblock-File -Path ${env:ProgramFiles}\SWMB\swmb.ps1"
 
-REM execeution de Win10.ps1
+REM execeution de swmb.ps1
 ECHO SWMBPowershell>>%logfile% 2>&1
 C:
 CD "C:\Program Files\SWMB"
-%pwrsh% -File "C:\Program Files\SWMB\Win10.ps1" -include "Modules\SWMB\Custom.psm1" -preset "Presets\LocalMachine-Default.preset" >>%logfile% 2>&1
+%pwrsh% -File "C:\Program Files\SWMB\swmb.ps1" -include "Modules\SWMB\Custom.psm1" -preset "Presets\LocalMachine-Default.preset" >>%logfile% 2>&1
 
 EXIT

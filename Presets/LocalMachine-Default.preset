@@ -1,0 +1,6 @@
+
+$INCLUDE LocalMachine-Cloud.preset
+$INCLUDE LocalMachine-CortanaSearch.preset
+$INCLUDE LocalMachine-Telemetry.preset
+$INCLUDE LocalMachine-UniversalApps.preset
+$INCLUDE LocalMachine-UserExperience.preset

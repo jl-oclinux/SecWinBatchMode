@@ -3,6 +3,7 @@
 ## Version 3.12
 
 Rename main program Win10.ps1 to swmb.ps1
+Add a compatibility program for upgrade Win10.ps1
 
 New modules architecture:
 * `Modules/SWMB.psd1` - Generic preload module (`Modules/SWMB.psm1`)

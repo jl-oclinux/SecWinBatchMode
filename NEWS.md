@@ -30,6 +30,10 @@ New preset selection:
 * Post-Install.preset - Enable Bitlocker after installation
 * Current-User.preset - Preset for Current User and not Local Machine
 * System-Resinfo.preset - Preset on system and network
+* LocalMachine-*.preset - Rename *-Resinfo.preset file for local machine tweak
+* LocalMachine-Default.preset - New global preset file with $INCLUDE directive
+
+Preset file could now include other files with the $INCLUDE directive
 
 New presets/rules:
 * 2021/07/07 - SysAutoUpgrade - Auto Upgrade your SWMB folder! Need an internet access to the Git repository

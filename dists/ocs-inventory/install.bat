@@ -37,6 +37,6 @@ REM execeution de Win10.ps1
 ECHO SWMBPowershell>>%logfile% 2>&1
 C:
 CD "C:\Program Files\SWMB"
-%pwrsh% -File "C:\Program Files\SWMB\Win10.ps1" -include "Modules\SWMB\Custom.psm1" -preset "Preset\Cloud-Resinfo.preset" -preset "Preset\CortanaSearch-Resinfo.preset" -preset "Preset\My.preset" -preset "Preset\Telemetry-Resinfo.preset" -preset "Preset\UniversalApps-Resinfo.preset" -preset "Preset\UserExperience-Resinfo.preset" ">>%logfile% 2>&1
+%pwrsh% -File "C:\Program Files\SWMB\Win10.ps1" -include "Modules\SWMB\Custom.psm1" -preset "Presets\LocalMachine-Default.preset" >>%logfile% 2>&1
 
 EXIT

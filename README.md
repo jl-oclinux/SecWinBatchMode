@@ -74,6 +74,11 @@ Currently, there is one preset per paragraph of the ANSSI concerning the setting
  
 It is possible to include a set of presets in another file with the keyword `$INCLUDE` (same keyword as in the freeradius server software configuration).
 The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.
+```ps1
+$INCLUDE LocalMachine-Cloud.preset
+$INCLUDE LocalMachine-CortanaSearch.preset
+...
+```
 
 
 ## Usage

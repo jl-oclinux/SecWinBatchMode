@@ -78,7 +78,7 @@ Function SysAutoUpgrade {
 	If (Test-Path "$tmpFolder\resinfo-swmb-master") {
 		Write-Host "Upgrade of SMWB installation..."
 		Copy-Item -Path "$tmpFolder\resinfo-swmb-master\*" -Destination "$swmbCorePath" -Recurse -Force
-		Get-ChildItem -Path "$swmbCorePath" -Recurse  | Unblock-File
+		Get-ChildItem -Path "$swmbCorePath" -Recurse | Unblock-File
 	} Else {
 		Write-Host "Error: Upgrade of SMWB impossible..."
 	}

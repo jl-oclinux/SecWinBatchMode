@@ -1,7 +1,15 @@
-﻿#Requires -Version 4.0
-#Requires -RunAsAdministrator
-
-
+﻿################################################################
+# Project CNRS RESINFO SWMB
+# Copyright (C) 2020-2021, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2021 - Sébastien Morin (CNRS / DCM)
+#  2021 - Olivier de Marchi (Grenoble INP / LEGI)
+#  2021 - David Gras (CNRS / DR11)
+#  2021 - Clément Deiber (CNRS / DR11)
+#  2021 - Gabriel Moreau (CNRS / LEGI)
+################################################################
 
 #Write-host @"
 #
@@ -12,8 +20,6 @@
 #Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 
 #"@ -ForegroundColor Green
-
-
 
 ################################################################
 
@@ -26,8 +32,6 @@ Function EnableNoConnectedUserExperiencesAndNoTelemetry {
 		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" -Type DWord -Value 4 -ErrorAction SilentlyContinue
-    Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack -Name Start | Outfile Z:test.txt
-
 }
 
 # Disable
@@ -39,99 +43,74 @@ Function DisableNoConnectedUserExperiencesAndNoTelemetry {
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" -Type DWord -Value 2 -ErrorAction SilentlyContinue
 }
 
-
+# View
+Function ViewNoConnectedUserExperiencesAndNoTelemetry {
+	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start"
+}
 
 ################################################################
 
-### La session "Autologger-DiagTrack-Listener" doit être désactivée en mettant sa clé de registre à zéro
+# La session "Autologger-DiagTrack-Listener" doit être désactivée en mettant sa clé de registre à zéro
 # Par défaut cette clé ne semble pas exister, on l'efface donc en fonction Disable, comme avant
 
-# Enable
-Function EnableNoEnableNoAutologgerDiagTrackListener {
+# Disable
+Function DisableNoAutologgerDiagTrackListener {
 	Write-Output "Désactivation du Autologger-DiagTrack-Listener"
 	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener")) {
 		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start" -Type DWord -Value 0 -ErrorAction SilentlyContinue
-
 }
 
-# Disable
-Function DisableNoEnableNoAutologgerDiagTrackListener {
+# Enable
+Function EnableNoAutologgerDiagTrackListener {
 	Write-Output "Activation du Autologger-DiagTrack-Listener"
     Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start" -Type DWord -Value 2 -ErrorAction SilentlyContinue
 }
 
-
-
+# View
+Function ViewNoEnableNoAutologgerDiagTrackListener {
+	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start"
+}
 
 ################################################################
 
-### Désactivation des anciennes versions de PowerShell (2.0) qui ne proposent pas les fonctionnalités de sécurité avancées
+# Désactivation des anciennes versions de PowerShell (2.0) qui ne proposent pas les fonctionnalités de sécurité avancées
 
-# Enable
-Function EnableDeactivationOlderPowershell2 {
+# Disable
+Function DisablePowershell2 {
 	Write-Output "Désactivation des anciennes versions de Powershell(2)"
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
-# Disable
-Function DisableDeactivationOlderPowershell2 {
+# Enable
+Function EnablePowershell2 {
 	Write-Output "Activation des anciennes versions de Powershell(2)"
 	Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
-
-
-
-
 ################################################################
 
-### Désactivation de l'utilisation de PowerShell à distance
+# Désactivation de l'utilisation de PowerShell à distance
 #PAS ENCORE FAIT
 
-# Enable
-
-Function EnableDeactivationRemotePowershell {
+# Disable
+Function DisableRemotePowershell {
 	Write-Output "Désactivation de l'utilisation de PowerShell à distance"
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
-
-# Disable
-
-Function DisableDeactivationRemotePowershell {
+# Enable
+Function EnableRemotePowershell {
 	Write-Output "Activation de l'utilisation de PowerShell à distance"
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+################################################################
+###### Export Functions
+################################################################
 
 # Export functions
 Export-ModuleMember -Function *

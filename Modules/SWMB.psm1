@@ -18,7 +18,7 @@
 # Write message separator
 $Script:SWMB_MsgCount = 0
 
-Function SysMsg {
+Function SysMessage {
 	$Script:SWMB_MsgCount++
 	Write-Host "Message separator " $Script:SWMB_MsgCount
 }

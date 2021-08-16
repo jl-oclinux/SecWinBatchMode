@@ -456,6 +456,12 @@ Function EnableDiagTrack {
 	Start-Service "DiagTrack" -WarningAction SilentlyContinue
 }
 
+# View
+Function ViewDiagTrack {
+	Write-Output 'Connected User Experiences and Telemetry (2 activated, 4 no)'
+	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start"
+}
+
 ################################################################
 
 # Stop and disable Device Management Wireless Application Protocol (WAP) Push Service

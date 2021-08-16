@@ -24,30 +24,7 @@
 ################################################################
 
 ### Les Connected User Experiences et Telemetry sont ils activés ? (oui si 2, non si 4)
-
-# Disable
-Function DisableConnectedUserExperiencesAndTelemetry {
-	Write-Output "Désactivation des Connected User Experiences et de la Télémétrie..."
-	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack")) {
-		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" -Type DWord -Value 4
-}
-
-# Enable
-Function EnableConnectedUserExperiencesAndTelemetry {
-	Write-Output "Activation des Connected User Experiences et de la Télémétrie..."
-	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack")) {
-		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Force | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" -Type DWord -Value 2
-}
-
-# View
-Function ViewNoConnectedUserExperiencesAndTelemetry {
-	Write-Output 'Connected User Experiences and Telemetry (2 activated, 4 no)'
-	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start"
-}
+### See function DisableDiagTrack
 
 ################################################################
 

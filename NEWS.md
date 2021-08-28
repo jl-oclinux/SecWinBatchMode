@@ -39,6 +39,7 @@ New preset selection:
 Preset file could now include other files with the $INCLUDE directive
 
 New presets/rules:
+* 2021/08/28 - DisableAutoloadDriver/EnableAutoloadDriver -> Zero day on autoload driver on network
 * 2021/07/10 - SysRequireAdmin replace RequireAdmin
 * 2021/07/07 - SysAutoUpgrade - Auto Upgrade your SWMB folder! Need an internet access to the Git repository
 * 2021/07/02 - DisablePrintForSystem/EnablePrintForSystem/ViewPrintForSystem -> Pseudo patch for CVE-2021-34527

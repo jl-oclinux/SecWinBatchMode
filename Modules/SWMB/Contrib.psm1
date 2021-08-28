@@ -89,7 +89,7 @@ Function EnableSMB1Protocol {
 }
 
 
-#################################################################
+################################################################
 ##### Server Specific
 ################################################################
 
@@ -106,6 +106,34 @@ Function EnableInsecureGuestLogons {
 # Disable (default)
 Function DisableInsecureGuestLogons {
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -ErrorAction SilentlyContinue
+}
+
+
+################################################################
+##### Service Tweaks
+################################################################
+
+
+# Disable offering of drivers through network
+# Is part of DisableUpdateDriver
+Function DisableAutoloadDriver {
+	Write-Output "Disabling autoload driver from network..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork" -Type DWord -Value 1
+}
+
+# Enable offering of drivers through network
+Function EnableAutoloadDriver {
+	Write-Output "Enabling autoload driver from network..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork" -ErrorAction SilentlyContinue
+}
+
+# View
+Function ViewAutoloadDriver {
+	Write-Output 'Autoload driver from network (0 no or not exist - enable, 1 disable)'
+	Get-ItemProperty -Path "HHKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork"
 }
 
 

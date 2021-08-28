@@ -1,0 +1,19 @@
+################################################################
+# Project CNRS RESINFO SWMB
+# Copyright (C) 2020-2021, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2020 - Olivier de Marchi (Grenoble INP / LEGI)
+#  2020 - David Gras (CNRS / DR11)
+#  2020 - Clément Deiber (CNRS / DR11)
+#  2020 - Gabriel Moreau (CNRS / LEGI)
+################################################################
+
+################################################################
+###### Preset Service
+################################################################
+
+# 2021/08/28 Windows 10 - Zeroday - LPE - périphérique USB et WINDOWSUPDATE
+# Oblige l'utilisateur sans "pouvoir" à passer par son administrateur pour procéder à l'installation du pilote via le site du fabriquant.
+# DisableAutoloadDriver

@@ -19,13 +19,15 @@
 ## Other interesting tools
 
  * [Debloat Windows 10](https://github.com/W4RH4WK/Debloat-Windows-10) (script in PowerShell)
-
+ * [Optimizer](https://github.com/hellzerg/optimizer) (Windows faster and more secure)
+ * [O&O ShutUp10](https://www.oo-software.com/en/shutup10) (Free antispy tool for Windows 10) - non libre
 
 ## 2021
 
  * [Windows 10 : son modèle et ses fonctionnalités de sécurité](https://wonderfall.space/windows-hardening/) (french)
  * [Windows Sandbox : un environnement léger et sûr pour lancer des apps](https://wonderfall.space/windows-sandbox/) (french)
  * [Modèle de sécurité Windows](https://ilearned.eu.org/secu_windows.html) (french)
+ * [Windows 10 as a workstation ?](https://linuxfr.org/forums/general-cherche-logiciel/posts/windows-10-as-a-workstation#) (french)
 
 ## 2019
 

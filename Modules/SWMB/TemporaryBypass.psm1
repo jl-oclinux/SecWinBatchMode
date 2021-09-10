@@ -80,8 +80,17 @@ Function EnableMSHTMLActiveX {
 Function ViewMSHTMLActiveX {
 	Write-Output 'ActiveX in MSHTML (not exist - enable, 3 disable)'
 	For ($zone = 0 ; $zone -le 3 ; $zone++){
-		Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1001"
-		Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1004"
+		$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone"
+		If ((Get-ItemProperty $path -Name "1001" -ea 0)."1001" -ne $null) {
+			Get-ItemProperty -Path $path -Name "1001"
+		} Else {
+			Write-Output "$path name 1001 not exist"
+		}
+		If ((Get-ItemProperty $path -Name "1004" -ea 0)."1004" -ne $null) {
+			Get-ItemProperty -Path $path -Name "1004"
+		} Else {
+			Write-Output "$path name 1004 not exist"
+		}
 	}
 }
 

@@ -1,6 +1,10 @@
 # NEWS
 
-## Version 3.12
+## Version 3.13 (in progress)
+
+
+
+## Version 3.12 (2021/09/14)
 
 Rename main program Win10.ps1 to swmb.ps1
 Add a compatibility program for upgrade Win10.ps1

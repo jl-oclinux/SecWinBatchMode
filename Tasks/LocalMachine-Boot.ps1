@@ -17,10 +17,14 @@ Set-Location --Path (Join-Path -Path $ScriptPath -ChildPath "..")
 
 # Define Boot preset on ProgramData
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
-$DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
-$BootPreset  = (Join-Path -Path $DataPresets     -ChildPath "LocalMachine-Boot.preset")
+$BootPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "LocalMachine-Boot.preset"))
+$BootModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "LocalMachine-Boot.psm1"))
 
 # Launch SWMB with this preset
 If (Test-Path -LiteralPath $BootPreset) {
-	.\swmb.ps1 $BootPreset
+	If (Test-Path -LiteralPath $BootModule) {
+		.\swmb.ps1 -include $BootModule -preset $BootPreset
+	} Else {
+		.\swmb.ps1 -preset $BootPreset
+	}
 }

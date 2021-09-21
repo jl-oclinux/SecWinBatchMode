@@ -11,11 +11,16 @@
 # Version: v3.12, 2021-07-10
 ################################################################
 
+# Change Path to the root
+$ScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
+Set-Location --Path (Join-Path -Path $ScriptPath -ChildPath "..")
 
+# Define Boot preset on ProgramData
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
 $BootPreset  = (Join-Path -Path $DataPresets     -ChildPath "LocalMachine-Boot.preset")
 
+# Launch SWMB with this preset
 If (Test-Path -LiteralPath $BootPreset) {
-	..\swmb.ps1 $BootPreset
+	.\swmb.ps1 $BootPreset
 }

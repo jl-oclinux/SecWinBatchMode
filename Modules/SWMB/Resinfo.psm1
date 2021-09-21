@@ -582,7 +582,7 @@ Function EnableBitlocker {
 		If ($wantToSave -eq $false) {
 			$isNetWorkBackup = Read-Host -Prompt "Do you want to save recovery keys on a network drive? [y/N]"
 			If ($isNetWorkBackup.ToLower() -ne "y") {
-				return $null
+				Return $null
 			}
 		}
 
@@ -595,7 +595,7 @@ Function EnableBitlocker {
 		}
 		Try {
 			New-Item -Name isWriteAllowed.txt -ItemType File -Path $networkKeyBackup -Force -ErrorAction stop | Out-Null
-			return $networkKeyBackup
+			Return $networkKeyBackup
 			# Todo question : do I delete the file afterwards?
 		}
 		Catch {
@@ -806,13 +806,13 @@ Function EnableBitlocker {
 
 	If (!(Confirm-SecureBootUEFI)) {
 		Write-Error "SecureBoot is OFF!"
-		return
+		Return
 	}
 	If (!(Get-Tpm).TpmReady) {
 		Write-Host "Get-TPM informations"
 		Get-Tpm
 		Write-Error "TPM not ready!"
-		return
+		Return
 	}
 
 	# BEGIN GPO
@@ -824,7 +824,7 @@ Function EnableBitlocker {
 
 	If ($sytemDriveStatus -eq "DecryptionInProgress") {
 		Write-Error "Bitlocker decryption on $systemDrive is in progress!"
-		return
+		Return
 	}
 
 	Write-Host "Bitlocker Volume Status encryption on $systemDrive is $sytemDriveStatus"
@@ -834,7 +834,7 @@ Function EnableBitlocker {
 		If ((Get-BitLockerVolume $Env:SystemDrive).EncryptionMethod -ne "XtsAes256") {
 			Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256"
 			Write-Host "Decrypt with command : swmb.ps1 DisableBitlocker"
-			return
+			Return
 		}
 		Else {
 			_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup

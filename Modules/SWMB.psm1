@@ -218,12 +218,12 @@ Function SWMB_ImportModuleParameter() {
 	While (Test-Path -LiteralPath $moduleScriptPath) {
 		# Module VarOverload directly in the current folder
 		If (_ModuleAutoLoad -PathBase (Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename)) {
-			Break
+			return $true
 		}
 
 		# Or module VarOverload directly in the subfolder Modules
 		If (_ModuleAutoLoad -PathBase (Join-Path -Path $moduleScriptPath -ChildPath (Join-Path -Path "Modules" -ChildPath $moduleScriptBasename))) {
-			Break
+			return $true
 		}
 
 		# Search module in the parent folder .. and so on
@@ -232,6 +232,16 @@ Function SWMB_ImportModuleParameter() {
 			Break
 		}
 		$moduleScriptPath = $newPath
+	}
+
+	# Search module in ProgramData folder
+	$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+	$DataModule = (Join-Path -Path $DataFolder      -ChildPath "Modules")
+	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataFolder -ChildPath $moduleScriptBasename)) {
+		return $true
+	}
+	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataModule -ChildPath $moduleScriptBasename)) {
+		return $true
 	}
 }
 

@@ -2,7 +2,8 @@
 
 ## Version 3.13 (in progress)
 
-
+Automatically search `Overload` and `Autodel` module in `C:\ProgramData\SWMB` folder
+(and `Modules` subfolder).
 
 ## Version 3.12 (2021/09/14)
 

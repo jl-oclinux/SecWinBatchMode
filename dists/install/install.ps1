@@ -42,11 +42,9 @@ If (Test-Path -LiteralPath $Env:ProgramData) {
 }
 
 # Create Boot Task
-$trigger = New-ScheduledTaskTrigger -AtStartup
-$user    = "NT AUTHORITY\SYSTEM"
-$key_obj = (Get-BitLockerVolume -MountPoint $letter).KeyProtector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | Select-Object -Property RecoveryPassword
-$key     = $key_obj.RecoveryPassword
-$task    = 'swmb-localmachine-boot'
-$action  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Scripts\LocalMachine-Boot.ps1}"
-Unregister-ScheduledTask $task -Confirm:$false -ErrorAction SilentlyContinue
-Register-ScheduledTask -Force -TaskName $task -Trigger $trigger -User $user -Action $action -RunLevel Highest
+$Trigger = New-ScheduledTaskTrigger -AtStartup
+$User    = "NT AUTHORITY\SYSTEM"
+$BootTask   = 'swmb-localmachine-boot'
+$BootAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Scripts\LocalMachine-Boot.ps1}"
+Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
+Register-ScheduledTask -Force -TaskName $BootTask -Trigger $Trigger -User $User -Action $BootAction -RunLevel Highest

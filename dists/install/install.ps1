@@ -11,6 +11,11 @@
 # Version: v3.12, 2021-07-10
 ################################################################
 
+# This script must be run as an administrator with privileges.
+# It copies all SWMB files to the local computer's application installation
+# folder and creates a scheduled task that runs the script when the
+# computer starts.
+
 
 # Installation Folder
 $InstallFolder  = (Join-Path -Path $Env:ProgramFile -ChildPath "SWMB")

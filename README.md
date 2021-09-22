@@ -115,6 +115,24 @@ SWMB_CheckTweaks
 SWMB_RunTweaks
 ```
 
+### Command line option
+
+`swmb.ps1` currently supports the following parameters:
+ * `-core` : if used, it must be the first option.
+   Import only the core (minimal) module `SWMB.psm1`,
+   not all the neested module declared in `SWMB.psd1`.
+ * `-include module_file` : imports the module into SWMB.
+   You can extend SWMB, as is, with your own tweaks.
+   This option can be declare as many times as necessary.
+ * `-preset preset_file` : loads all the tweak groups defined in a preset file.
+   This option can be declared as many times as necessary.
+ * `-log log_file` : messages will be written to the log file file
+   and not in the terminal.
+ * `-check` : does not execute the tweaks but only checks if they exist
+   (in accordance with the preset file).
+ * `-exp` : this is just a shortcut to import the `Experimental.psm1` module.
+   This option is mainly used by developers to help test new tweaks.
+
 ### Integration into another Git project
 
 One way to use SWMB is to integrate it in one of your projects as a Git subtree.

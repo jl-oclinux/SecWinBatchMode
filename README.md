@@ -137,6 +137,8 @@ If you want to define your own variable values used in the `Custom.psm1` module,
  * Create a file named `Custom-VarOverload.psm1` in the same directory as the `Custom-VarDefault.psm1` module,
    or in any parent `..` or sub-folder `Modules` of a parent folder!
    This leaves a lot of choices...
+   It's also possible to create it inside the program data folder dedicated to SWMB
+   (`C:\ProgramData\SWMB`).
  * Set the hash values of your global variables
    (Don't change the whole hash table like in the `Custom-VarDefault.psm1` file)
  * Example:
@@ -149,6 +151,8 @@ Order in which the `Custom-VarOverload.psm1` module will be loaded into memory:
  1. `..\..\Custom-VarOverload.psm1`
  1. `..\..\Modules\Custom-VarOverload.psm1`
  1. and so on...
+ 1. `C:\ProgramData\SWMB\Custom-VarOverload.psm1`
+ 1. `C:\ProgramData\SWMB\Modules\Custom-VarOverload.psm1`
 
 For sensitive keys, it is possible to define a `Custom-VarAutodel.psm1` module.
 This one works exactly the same way as the `Custom-VarOverload.psm1` module

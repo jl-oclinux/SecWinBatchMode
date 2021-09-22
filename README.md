@@ -96,22 +96,25 @@ $INCLUDE LocalMachine-CortanaSearch.preset
 ### Integrated use in a PowerShell script
 
 ```ps1
-# Load core SWMB engine
+# Loading the SWMB base engine with all the main modules (neested)
+# Put only SWMB.psm1 if you want only the core
 Import-Module Modules\SWMB.psd1
 
 # Initialize
 SWMB_Init
 
-# Load a preset file (could be call multiple times)
+# Load a preset file (can be called several times)
+# Each preset file is a suite of tweaks
 SWMB_LoadTweakFile "Presets\LocalMachine-Default.preset"
 
-# Load one preset (could be call multiple times)
+# Load one tweak (can be called multiple times)
+# Unloads the tweak if it ends with the - sign
 SWMB_AddOrRemoveTweak "NomFonction"
 
-# If you want to check tweak consistency
+# If you want to check the consistency of tweaks
 SWMB_CheckTweaks
 
-# Execute all presets (tweaks) loaded
+# Execute all loaded tweaks (presets)
 SWMB_RunTweaks
 ```
 

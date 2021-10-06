@@ -92,14 +92,14 @@ done < <(grep -hEi '^Function[[:space:]](Enable|Disable)' ${all_module} \
    | sort -u)
 
 # Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin...
-kind_rule=$(grep -i '^Function[[:space:]]' ${swmb_module} \
+kind_rule=$(grep -i '^Function[[:space:]]' ${all_module} \
    | awk '{print $2}' \
    | grep -Eo '^[A-Z][a-z]+' \
    | sort -u \
    | tr '\n' '|' \
    | sed -e 's/|$//;')
 # detect the definition of a missing preset
-for rule in $(grep -hEi "^Function[[:space:]](${kind_rule})" ${swmb_module} \
+for rule in $(grep -hEi "^Function[[:space:]](${kind_rule})" ${all_module} \
    | awk '{print $2}' \
    | sed -Ee "s/^(${kind_rule})//i;" \
    | sort -u)
@@ -108,7 +108,9 @@ do
    then
       # Do not propose preset for current user
       #echo ${rule}| grep -q '_CU$' && continue
-
-      echo "Warning: no preset proposed for rule: ${rule}"
+      if ! grep -Eq "#[[:space:]](${kind_rule})${rule}" Presets/*.preset
+      then
+         echo "Warning: no preset proposed for rule: ${rule}"
+      fi
    fi
 done

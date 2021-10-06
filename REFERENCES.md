@@ -28,6 +28,7 @@
  * [Windows Sandbox : un environnement léger et sûr pour lancer des apps](https://wonderfall.space/windows-sandbox/) (french)
  * [Modèle de sécurité Windows](https://ilearned.eu.org/secu_windows.html) (french)
  * [Windows 10 as a workstation ?](https://linuxfr.org/forums/general-cherche-logiciel/posts/windows-10-as-a-workstation#) (french)
+ * [Windows 11 Security Book: Powerful security from chip to cloud](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RWMyFE) (english, pdf)
 
 ## 2019
 

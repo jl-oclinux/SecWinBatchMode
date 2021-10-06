@@ -12,7 +12,7 @@
 SWMB is a project from the SWMB working group of the RESINFO business network of CNRS and the French higher education.
 It is about managing security, confidentiality and privacy under the Windows 10 operating system with the help of scripts,
 thus without using a graphical interface.
-The objective is to be able to easily deploy security rules (strategy) on a computer park,
+The objective is to be able to easily deploy security tweaks (strategy) on a computer park,
 whether or not the computers are in an Active Directory domain.
 In a concern of tracing (quality) and knowledge sharing, all possible actions are readable in a text format.
 The chosen programming language is Microsoft Powershell.
@@ -29,25 +29,24 @@ SWMB chose to take as a starting point the code of Disassembler0 which is now ar
 because it met all our criteria above.
 
 Regarding the applicable security strategies,
-SWMB is mainly based on the rules enacted by the French National Agency for Information Systems Security ([ANSSI](https://www.ssi.gouv.fr/)).
-There are thus three levels of possible rules in SWMB:
- * `Modules\SWMB\Win10` - rules extracted from the ANSSI documentation, or from certain instructions of the RSSI of the CNRS,
+SWMB is mainly based on the tweaks enacted by the French National Agency for Information Systems Security ([ANSSI](https://www.ssi.gouv.fr/)).
+There are thus three levels of possible tweaks in SWMB:
+ * `Modules\SWMB\Win10` - tweaks extracted from the ANSSI documentation, or from certain instructions of the RSSI of the CNRS,
     applicable in the whole ESR (Higher Education and Research in France);
- * `Modules\SWMB\Custom` - interesting rules that you can extend for your site.
- * `Modules\SWMB\Experimental` - future rules under active development and not fully tested.
+ * `Modules\SWMB\Custom` - interesting tweaks that you can extend for your site.
+ * `Modules\SWMB\Experimental` - future tweaks under active development and not fully tested.
     Feedback from users may be interesting.
- 
- 
-Each rule can be enabled (`enable`) or disabled (`disable`) very easily in a configuration file (`preset`).
+
+Each tweak can be enabled (`enable`) or disabled (`disable`) very easily in a configuration file (`preset`).
 Sample files are available.
-Each rule is associated with a comment in French or English referring to its origin.
+Each tweak is associated with a comment in French or English referring to its origin.
 The French language has sometimes been chosen in order to follow the ANSSI's terminology
 and because of the French version of Windows 10 which is used in most of our computers in the ESR.
 
-For `Custom` rules, it is possible to set them with a variable file in order to adapt them to your park.
+For `Custom` tweaks, it is possible to set them with a variable file in order to adapt them to your park.
 A set of default parameters is proposed.
-The other rules are not configurable, because they are, at first, to take or to leave!
-The upstream project on which we based ourselves had not planned to be able to parameterize rules.
+The other tweaks are not configurable, because they are, at first, to take or to leave!
+The upstream project on which we based ourselves had not planned to be able to parameterize tweaks.
 It is an extension that we added.
 
 **Some references**:
@@ -71,7 +70,7 @@ Currently, there is one preset per paragraph of the ANSSI concerning the setting
  * User experience preset
  * Universal Applications preset
  * Cloud preset
- 
+
 It is possible to include a set of presets in another file with the keyword `$INCLUDE` (same keyword as in the freeradius server software configuration).
 The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.
 ```ps1

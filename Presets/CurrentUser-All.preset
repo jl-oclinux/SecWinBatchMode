@@ -1,0 +1,45 @@
+##########
+# Win 10 / Server 2016 / Server 2019 Initial Setup Script - Default preset
+# Author: Disassembler <disassembler@dasm.cz>
+# Version: v3.10, 2020-07-15
+# Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
+##########
+# Tweak for CurrentUser
+##########
+
+### Privacy Tweaks ###
+DisableTailoredExperiences_CU   # EnableTailoredExperiences_CU
+DisableWebLangList_CU           # EnableWebLangList_CU
+
+### Security Tweaks ###
+HideAccountProtectionWarn_CU    # ShowAccountProtectionWarn_CU
+
+### Service Tweaks ###
+DisableSharedExperiences_CU     # EnableSharedExperiences_CU
+DisableAutoplay_CU              # EnableAutoplay_CU
+
+### UI Tweaks ###
+DisableActionCenter_CU          # EnableActionCenter_CU
+DisableAccessibilityKeys_CU     # EnableAccessibilityKeys_CU
+ShowTaskManagerDetails_CU       # HideTaskManagerDetails_CU
+ShowFileOperationsDetails_CU    # HideFileOperationsDetails_CU
+HideTaskbarSearch_CU            # ShowTaskbarSearchIcon_CU      # ShowTaskbarSearchBox_CU
+HideTaskView_CU                 # ShowTaskView_CU
+ShowSmallTaskbarIcons_CU        # ShowLargeTaskbarIcons_CU
+SetTaskbarCombineWhenFull_CU    # SetTaskbarCombineNever_CU     # SetTaskbarCombineAlways_CU
+HideTaskbarPeopleIcon_CU        # ShowTaskbarPeopleIcon_CU
+ShowTrayIcons_CU                # HideTrayIcons_CU
+DisableShortcutInName_CU        # EnableShortcutInName_CU
+SetVisualFXPerformance_CU       # SetVisualFXAppearance_CU
+DisableF1HelpKey_CU             # EnableF1HelpKey_CU
+
+### Explorer UI Tweaks ###
+ShowKnownExtensions_CU          # HideKnownExtensions_CU
+ShowHiddenFiles_CU              # HideHiddenFiles_CU
+EnableNavPaneExpand_CU          # DisableNavPaneExpand_CU
+HideSyncNotifications_CU        # ShowSyncNotifications_CU
+HideRecentShortcuts_CU          # ShowRecentShortcuts_CU
+SetExplorerThisPC_CU            # SetExplorerQuickAccess_CU
+ShowThisPCOnDesktop_CU          # HideThisPCFromDesktop_CU
+DisableThumbnailCache_CU        # EnableThumbnailCache_CU
+DisableThumbsDBOnNetwork_CU     # EnableThumbsDBOnNetwork_CU

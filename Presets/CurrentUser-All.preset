@@ -8,38 +8,73 @@
 ##########
 
 ### Privacy Tweaks ###
+DisableCortana_CU               # EnableCortana_CU
 DisableTailoredExperiences_CU   # EnableTailoredExperiences_CU
 DisableWebLangList_CU           # EnableWebLangList_CU
+# DisableWebSearch_CU           # EnableWebSearch_CU
+DisableAppSuggestions_CU        # EnableAppSuggestions_CU
+
+### UWP Privacy Tweaks ###
+DisableUWPBackgroundApps_CU     # EnableUWPBackgroundApps_CU
 
 ### Security Tweaks ###
 HideAccountProtectionWarn_CU    # ShowAccountProtectionWarn_CU
+# DisableDownloadBlocking_CU    # EnableDownloadBlocking_CU
 
 ### Service Tweaks ###
 DisableSharedExperiences_CU     # EnableSharedExperiences_CU
 DisableAutoplay_CU              # EnableAutoplay_CU
+# EnableClipboardHistory_CU     # DisableClipboardHistory_CU
+# DisableRecycleBin_CU          # EnableRecycleBin_CU
 
 ### UI Tweaks ###
 DisableActionCenter_CU          # EnableActionCenter_CU
 DisableAccessibilityKeys_CU     # EnableAccessibilityKeys_CU
+# DisableAeroShake_CU           # EnableAeroShake_CU
+# DisableEnhPointerPrecision_CU # EnableEnhPointerPrecision_CU
+# EnableFileDeleteConfirm_CU    # DisableFileDeleteConfirm_CU
+# ShowSecondsInTaskbar_CU       # HideSecondsFromTaskbar_CU
 ShowTaskManagerDetails_CU       # HideTaskManagerDetails_CU
 ShowFileOperationsDetails_CU    # HideFileOperationsDetails_CU
 HideTaskbarSearch_CU            # ShowTaskbarSearchIcon_CU      # ShowTaskbarSearchBox_CU
 HideTaskView_CU                 # ShowTaskView_CU
 ShowSmallTaskbarIcons_CU        # ShowLargeTaskbarIcons_CU
 SetTaskbarCombineWhenFull_CU    # SetTaskbarCombineNever_CU     # SetTaskbarCombineAlways_CU
+# EnableTitleBarColor_CU        # DisableTitleBarColor_CU
 HideTaskbarPeopleIcon_CU        # ShowTaskbarPeopleIcon_CU
 ShowTrayIcons_CU                # HideTrayIcons_CU
 DisableShortcutInName_CU        # EnableShortcutInName_CU
+# SetSoundSchemeNone_CU         # SetSoundSchemeDefault_CU
+# SetWinXMenuPowerShell_CU      # SetWinXMenuCmd_CU
+# SetControlPanelSmallIcons_CU  # SetControlPanelLargeIcons_CU  # SetControlPanelCategories_CU
+# SetAppsDarkMode_CU            # SetAppsLightMode_CU
+# SetSystemLightMode_CU         # SetSystemDarkMode_CU
 SetVisualFXPerformance_CU       # SetVisualFXAppearance_CU
 DisableF1HelpKey_CU             # EnableF1HelpKey_CU
 
 ### Explorer UI Tweaks ###
+# ShowExplorerTitleFullPath_CU  # HideExplorerTitleFullPath_CU
+# ShowSuperHiddenFiles_CU       # HideSuperHiddenFiles_CU
+# ShowEmptyDrives_CU            # HideEmptyDrives_CU
+# HideSelectCheckboxes_CU       # ShowSelectCheckboxes_CU
+# ShowEncCompFilesColor_CU      # HideEncCompFilesColor_CU
+# EnableFldrSeparateProcess_CU  # DisableFldrSeparateProcess_CU
 ShowKnownExtensions_CU          # HideKnownExtensions_CU
 ShowHiddenFiles_CU              # HideHiddenFiles_CU
+# ShowBuildNumberOnDesktop_CU   # HideBuildNumberFromDesktop_CU
+# ShowControlPanelOnDesktop_CU  # HideControlPanelFromDesktop_CU
+# ShowNetworkOnDesktop_CU       # HideNetworkFromDesktop_CU
 EnableNavPaneExpand_CU          # DisableNavPaneExpand_CU
+# DisableSharingWizard_CU       # EnableSharingWizard_CU
+# ShowUserFolderOnDesktop_CU    # HideUserFolderFromDesktop_CU
+# HideDesktopIcons_CU           # ShowDesktopIcons_CU 
 HideSyncNotifications_CU        # ShowSyncNotifications_CU
 HideRecentShortcuts_CU          # ShowRecentShortcuts_CU
 SetExplorerThisPC_CU            # SetExplorerQuickAccess_CU
+# HideRecycleBinFromDesktop_CU  # ShowRecycleBinOnDesktop_CU
 ShowThisPCOnDesktop_CU          # HideThisPCFromDesktop_CU
 DisableThumbnailCache_CU        # EnableThumbnailCache_CU
 DisableThumbsDBOnNetwork_CU     # EnableThumbsDBOnNetwork_CU
+
+### Application Tweaks ###
+DisableXboxFeatures_CU          # EnableXboxFeatures_CU

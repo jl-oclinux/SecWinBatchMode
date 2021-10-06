@@ -84,11 +84,23 @@ Preset files are therefore prefixed with the extensions `LocalMachine-` and `Cur
 
 It is possible to include a set of presets in another file with the keyword `$INCLUDE` (same keyword as in the freeradius server software configuration).
 The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.
+It is currently not possible to have a space in the path name (it is always possible to put a wildcard like a `*` or a `?` to get around it).
 ```ps1
 $INCLUDE LocalMachine-Cloud.preset
 $INCLUDE LocalMachine-CortanaSearch.preset
 ...
 ```
+In order to facilitate the deployment,
+the modularity and the management of programmed tasks,
+it is also possible to import a module within a preset file, with the keyword `$IMPORT`.
+This is the same way as the `$INCLUDE` keyword.
+Note the support of wildcards in the name of the module to import, allowing to import several of them.
+The module path must be relative to the preset file.
+It is currently not possible to have a space in the path name (it is always possible to put a wildcard like a `*` or a `?` to get around it).
+```ps1
+$IMPORT ..\Modules\MyModule.psm1
+```
+You can import as many modules as you want.
 
 
 ## Usage

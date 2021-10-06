@@ -64,12 +64,23 @@ More references on the page [REFERENCES](./REFERENCES.md).
 
 ## Preset
 
+The preset file is in practice a list of tweaks to apply.
+There is one tweak per line.
+It is possible to have empty lines, comments.
+These are identified with the # character, as in many scripting languages.
+
+The presets are classified in the folder `Presets`.
 Currently, there is one preset per paragraph of the ANSSI concerning the settings for the computer configuration.
  * Telemetry preset
  * Cortana and search preset
  * User experience preset
  * Universal Applications preset
  * Cloud preset
+
+Moreover, some presets concern the computer while others concern the current user.
+In one case, the tweaks affect the overall operation of the operating system and must be run as an administrator (or under the SYSTEM user),
+in the other case, the actions are to be launched, for example at login, with the identity of the person.
+Preset files are therefore prefixed with the extensions `LocalMachine-` and `CurrentUser-`.
 
 It is possible to include a set of presets in another file with the keyword `$INCLUDE` (same keyword as in the freeradius server software configuration).
 The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.

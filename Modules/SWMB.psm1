@@ -141,6 +141,12 @@ Function SWMB_AddOrRemoveTweak() {
 		# Include preset file
 		$file = (Join-Path -Path $Path -ChildPath ($Tweak -creplace '^\$INCLUDE\s+([^\s])', '$1'))
 		SWMB_LoadTweakFile -TweakFile "$file" -CLI $False
+	} ElseIf ($Tweak -cmatch '^\$IMPORT\s+[^\s]') {
+		# Import the file as a module, joker possible
+		$ModuleFile = (Join-Path -Path $Path -ChildPath ($Tweak -creplace '^\$IMPORT\s+([^\s])', '$1'))
+		Resolve-Path $ModuleFile -ErrorAction Stop | ForEach-Object {
+			Import-Module -Name $_.Path -ErrorAction Stop
+		}
 	} ElseIf ($Tweak -ne "") {
 		# Otherwise add the tweak
 		$Global:SWMB_Tweaks += $Tweak

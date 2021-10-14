@@ -18,7 +18,7 @@
 
 
 # Installation Folder
-$InstallFolder  = (Join-Path -Path $Env:ProgramFile -ChildPath "SWMB")
+$InstallFolder  = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
 If (!(Test-Path -LiteralPath $SWMBFolder)) {
 	New-Item -Path $SWMBFolder -ItemType Directory
 }

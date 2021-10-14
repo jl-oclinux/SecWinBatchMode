@@ -1,6 +1,11 @@
 /*
 
-SWMB NSIS Installer
+# SWMB NSIS Installer
+# Copyright (C) 2020-2021, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2021 - Gabriel Moreau (CNRS / LEGI)
 
 */
 
@@ -10,10 +15,10 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define SWMBVersion "3.12"
+!define SWMBVersion "3.13"
 !define REGPATH_UNINSTSUBKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
 Name "${NAME}"
-OutFile "${NAME} Setup ${SWMBVersion}.exe"
+OutFile "${NAME}-Setup-${SWMBVersion}.exe"
 RequestExecutionLevel Admin ; Request admin rights on WinVista+ (when UAC is turned on)
 InstallDir "$ProgramFiles64\$(^Name)"
 InstallDirRegKey HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString"
@@ -124,6 +129,11 @@ Section "Program files (Required)"
   SetOutPath $INSTDIR\Tasks
   File "Tasks\LocalMachine-Boot.ps1"
 
+  SetOutPath $INSTDIR\Setup
+  File "Setup\post-install.ps1"
+  File "Setup\pre-remove.ps1"
+
+  nsExec::ExecToStack 'powershell -inputformat none -ExecutionPolicy Bypass -File "$InstDir\post-install.ps1"  '
 SectionEnd
 
 Section "Start Menu shortcut"
@@ -132,6 +142,8 @@ SectionEnd
 
 
 Section -Uninstall
+  nsExec::ExecToStack 'powershell -inputformat none -ExecutionPolicy Bypass -File "$InstDir\pre-remove.ps1"  '
+
   ${UnpinShortcut} "$SMPrograms\${NAME}.lnk"
   Delete "$SMPrograms\${NAME}.lnk"
 
@@ -147,6 +159,7 @@ Section -Uninstall
   RMDir /r $INSTDIR\Modules
   RMDir /r $INSTDIR\Presets
   RMDir /r $INSTDIR\Tasks
+  RMDir /r $INSTDIR\Setup
   RMDir "$InstDir"
   DeleteRegKey HKLM "${REGPATH_UNINSTSUBKEY}"
 SectionEnd

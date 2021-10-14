@@ -1,0 +1,50 @@
+################################################################
+# Win 10 / Server 2016 / Server 2019 SWMB Script - Main execution loop
+# Project CNRS RESINFO SWMB
+# Copyright (c) 2017-2020, Disassembler <disassembler@dasm.cz>
+# Copyright (C) 2020-2021, CNRS, France
+# License: MIT License (Same as project Win10-Initial-Setup-Script)
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Authors:
+#  2017 - Disassembler <disassembler@dasm.cz>
+#  2021 - Gabriel Moreau (CNRS / LEGI)
+# Version: v3.12, 2021-07-10
+################################################################
+
+# This script must be run as an administrator with privileges.
+# It copies all SWMB files to the local computer's application installation
+# folder and creates a scheduled task that runs the script when the
+# computer starts.
+
+
+# Installation Folder
+$InstallFolder  = (Join-Path -Path $Env:ProgramFile -ChildPath "SWMB")
+If (!(Test-Path -LiteralPath $SWMBFolder)) {
+	New-Item -Path $SWMBFolder -ItemType Directory
+}
+
+If (Test-Path $MainPath) {
+	Get-ChildItem -Path "$InstallFolder" -Recurse | Unblock-File
+}
+
+# Create ProgramData Folders
+$DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+$DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
+
+If (Test-Path -LiteralPath $Env:ProgramData) {
+	If (!(Test-Path -LiteralPath $DataFolder)) {
+		New-Item -Path $DataFolder -ItemType Directory
+	}
+
+	If (!(Test-Path -LiteralPath $DataPresets)) {
+		New-Item -Path $DataPresets -ItemType Directory
+	}
+}
+
+# Create Boot Task
+$Trigger    = New-ScheduledTaskTrigger -AtStartup
+$User       = "NT AUTHORITY\SYSTEM"
+$BootTask   = 'SWMB-LocalMachine-Boot'
+$BootAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\LocalMachine-Boot.ps1}"
+Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
+Register-ScheduledTask -Force -TaskName $BootTask -Trigger $Trigger -User $User -Action $BootAction -RunLevel Highest

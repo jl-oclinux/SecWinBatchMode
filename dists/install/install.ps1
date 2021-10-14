@@ -49,7 +49,7 @@ If (Test-Path -LiteralPath $Env:ProgramData) {
 # Create Boot Task
 $Trigger = New-ScheduledTaskTrigger -AtStartup
 $User    = "NT AUTHORITY\SYSTEM"
-$BootTask   = 'swmb-localmachine-boot'
+$BootTask   = 'SWMB-LocalMachine-Boot'
 $BootAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\LocalMachine-Boot.ps1}"
 Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
 Register-ScheduledTask -Force -TaskName $BootTask -Trigger $Trigger -User $User -Action $BootAction -RunLevel Highest

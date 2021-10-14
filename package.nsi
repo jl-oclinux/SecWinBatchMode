@@ -133,7 +133,7 @@ Section "Program files (Required)"
   File "Setup\post-install.ps1"
   File "Setup\pre-remove.ps1"
 
-  nsExec::ExecToStack 'powershell -inputformat none -ExecutionPolicy Bypass -File "$InstDir\post-install.ps1"  '
+  nsExec::ExecToStack 'powershell -inputformat none -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
 SectionEnd
 
 Section "Start Menu shortcut"
@@ -142,7 +142,7 @@ SectionEnd
 
 
 Section -Uninstall
-  nsExec::ExecToStack 'powershell -inputformat none -ExecutionPolicy Bypass -File "$InstDir\pre-remove.ps1"  '
+  nsExec::ExecToStack 'powershell -inputformat none -ExecutionPolicy Bypass -File "$InstDir\Setup\pre-remove.ps1"  '
 
   ${UnpinShortcut} "$SMPrograms\${NAME}.lnk"
   Delete "$SMPrograms\${NAME}.lnk"

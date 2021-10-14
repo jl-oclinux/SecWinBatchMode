@@ -97,6 +97,7 @@ Function EnableSMB1Protocol {
 # https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-workstationservice-allowinsecureguestauth
 # Enable
 Function EnableInsecureGuestLogons {
+	Write-Output "SMB client will allow insecure guest logons to an SMB server"
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Force | Out-Null
 	}
@@ -105,6 +106,7 @@ Function EnableInsecureGuestLogons {
 
 # Disable (default)
 Function DisableInsecureGuestLogons {
+	Write-Output "SMB client rejects insecure guest logons to an SMB server (default)"
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -ErrorAction SilentlyContinue
 }
 

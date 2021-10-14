@@ -16,3 +16,19 @@
 # Destroy Boot Task
 $BootTask   = 'SWMB-LocalMachine-Boot'
 Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
+
+# Destroy ProgramData Folders if Empty
+$DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+$DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
+
+If (Test-Path -LiteralPath $DataPresets) {
+	if((Get-ChildItem $DataPresets).Count -eq 0) {
+		Remove-Item $DataPresets -Force -ErrorAction SilentlyContinue
+	}
+}
+
+If (Test-Path -LiteralPath $DataFolder) {
+	if((Get-ChildItem $DataFolder).Count -eq 0) {
+		Remove-Item $DataFolder -Force -ErrorAction SilentlyContinue
+	}
+}

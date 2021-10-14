@@ -13,6 +13,9 @@ pages:
     - '[ -s download.tar.gz ] && tar -xzf download.tar.gz public/download/'
     - make pkg
     - mv SWMB-Setup-*.exe public/download/
+    - echo '<html><body><h1>SWMB Setup Package</h1><ul>' > public/download/index.html
+    - (cd public/download; while read file; do printf '<li><a href="%s">%s</a> (%s)</li>\n' $file $file $(stat -c %y $file | cut -f 1 -d ' '); done < <(ls -1t *.exe) >> index.html)
+    - echo '</ul></body></html>' >> public/download/index.html
     - tar -czf public/download.tar.gz public/download/
   artifacts:
     paths:

@@ -14,8 +14,14 @@
 # This script must be run as an administrator with privileges.
 
 # Destroy Boot Task
-$BootTask   = 'SWMB-LocalMachine-Boot'
+$BootTask = 'SWMB-LocalMachine-Boot'
 Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
+
+# Destroy Logon script for All Users
+$LogonTask = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk"
+If (Test-Path -LiteralPath $LogonTask) {
+	Remove-Item $LogonTask -Force -ErrorAction SilentlyContinue
+}
 
 # Destroy ProgramData Folders if Empty
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")

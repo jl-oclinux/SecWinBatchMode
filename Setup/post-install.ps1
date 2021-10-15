@@ -57,7 +57,7 @@ Register-ScheduledTask -Force -TaskName $BootTask -Trigger $Trigger -User $User 
 
 # Create Logon script for All Users
 $WshShell = New-Object -ComObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$Env:ProgramFiles\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk")
+$Shortcut = $WshShell.CreateShortcut("$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk")
 $Shortcut.TargetPath = "$InstallFolder\Tasks\CurrentUser-Logon.ps1"
 $Shortcut.Save()
 

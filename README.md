@@ -209,6 +209,8 @@ The recursive search in subfolders stops as soon as one or both modules are foun
 
 ## Examples of deployment and use
 
+You find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ last packages made with NSIS.
+
 You will find, in the [dists](dists) directory, examples of deployment of the script
 (manual, at machine startup, with OCS Inventory, volume encryption...).
 

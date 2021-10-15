@@ -60,3 +60,8 @@ $WshShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$Env:ProgramFiles\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk")
 $Shortcut.TargetPath = "$InstallFolder\Tasks\CurrentUser-Logon.ps1"
 $Shortcut.Save()
+
+# Create EventLog for our source
+If ([System.Diagnostics.EventLog]::SourceExists("SWMB") -eq $False) {
+	New-EventLog -LogName "Application" -Source "SWMB"
+}

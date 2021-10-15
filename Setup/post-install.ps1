@@ -56,6 +56,9 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 	Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $BootTrigger -User $User -Action $BootAction `
 		-RunLevel Highest -Description "SWMB tweaks action at boot"
+	$BootObject = Get-ScheduledTask $BootTask
+	$BootObject.Author = "CNRS RESINFO / GT SWMB"
+	$BootObject | Set-ScheduledTask
 }
 
 # Create Logon script for All Users
@@ -66,6 +69,9 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $LogonTask -Trigger $LogonTrigger -Action $LogonAction `
 		-RunLevel Highest -Description "SWMB tweaks action at user logon"
+	$LogonObject = Get-ScheduledTask $LogonTask
+	$LogonObject.Author = "CNRS RESINFO / GT SWMB"
+	$LogonObject | Set-ScheduledTask
 }
 
 #$StartUp = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"

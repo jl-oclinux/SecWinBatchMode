@@ -10,7 +10,7 @@ pages:
   script:
     - mkdir -p public
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
-    - '[ -s download.tar.gz ] && tar -xzf download.tar.gz public/'
+    - '[ -s download.tar.gz ] && ( cd public ; tar -xzf ../download.tar.gz )'
     - make pkg
     - mv SWMB-Setup-*.exe public/
     - echo '<html><body><h1>SWMB Setup Package (last update ' $(date '+%Y/%m/%d %H:%M') ')</h1><ul>' > public/index.html

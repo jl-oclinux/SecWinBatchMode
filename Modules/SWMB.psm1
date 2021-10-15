@@ -25,10 +25,13 @@ Function SysMessage {
 
 ################################################################
 
-Function SysLogMessage {
-	$Script:SWMB_MsgCount++
-	Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 1 `
-		-Message "Message separator $Script:SWMB_MsgCount"
+# Write event message
+$Script:SWMB_EventCount = 0
+
+Function SysEvent {
+	$Script:SWMB_EventCount++
+	Write-EventLog -LogName "Application" -Source "SWMB" -EntryType "Information" -EventID $Script:SWMB_EventCount `
+		-Message "SWMB Event Message $Script:SWMB_EventCount"
 }
 
 ################################################################

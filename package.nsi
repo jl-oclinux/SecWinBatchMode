@@ -134,7 +134,8 @@ Section "Program files (Required)"
   File "Setup\post-install.ps1"
   File "Setup\pre-remove.ps1"
 
-  nsExec::ExecToStack '$WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
+  ;nsExec::ExecToStack '$WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
+  nsExec::ExecToStack 'powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
   Pop $0 # return value/error/timeout
   Pop $1 # printed text, up to ${NSIS_MAX_STRLEN}
   DetailPrint '"$InstDir\Setup\post-install.ps1" printed: $1'

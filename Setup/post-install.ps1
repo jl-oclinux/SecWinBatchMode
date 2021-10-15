@@ -28,11 +28,6 @@ $InstallFolder  = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
 #	New-Item -Path $InstallFolder -ItemType Directory
 #}
 
-# Unblock Powershell Script
-If (Test-Path $InstallFolder) {
-	Get-ChildItem -Path "$InstallFolder" -Recurse | Unblock-File
-}
-
 # Create ProgramData Folders
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
@@ -89,3 +84,8 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 If ([System.Diagnostics.EventLog]::SourceExists("SWMB") -eq $False) {
 	New-EventLog -LogName "Application" -Source "SWMB"
 }
+
+# Unblock Powershell Script
+#If (Test-Path $InstallFolder) {
+#	Get-ChildItem -Path "$InstallFolder" -Recurse | Unblock-File
+#}

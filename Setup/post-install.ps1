@@ -16,14 +16,20 @@
 # folder and creates a scheduled task that runs the script when the
 # computer starts.
 
+#Param (
+#	# Installation Folder
+#	# $InstallFolder  = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
+#	[Parameter(Mandatory = $true)] [string]$InstallFolder
+#)
 
 # Installation Folder
 $InstallFolder  = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
-If (!(Test-Path -LiteralPath $InstallFolder)) {
-	New-Item -Path $InstallFolder -ItemType Directory
-}
+#If (!(Test-Path -LiteralPath $InstallFolder)) {
+#	New-Item -Path $InstallFolder -ItemType Directory
+#}
 
-If (Test-Path $MainPath) {
+# Unblock Powershell Script
+If (Test-Path $InstallFolder) {
 	Get-ChildItem -Path "$InstallFolder" -Recurse | Unblock-File
 }
 

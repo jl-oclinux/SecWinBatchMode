@@ -8,15 +8,16 @@ before_script:
 pages:
   stage: build
   script:
-    - mkdir -p public/download
+    - mkdir -p public
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
-    - '[ -s download.tar.gz ] && tar -xzf download.tar.gz public/download/'
+    - '[ -s download.tar.gz ] && tar -xzf download.tar.gz public/'
     - make pkg
-    - mv SWMB-Setup-*.exe public/download/
-    - echo '<html><body><h1>SWMB Setup Package</h1><ul>' > public/download/index.html
-    - (cd public/download; while read file; do printf '<li><a href="%s">%s</a> (%s)</li>\n' $file $file $(stat -c %y $file | cut -f 1 -d ' '); done < <(ls -1t *.exe) >> index.html)
-    - echo '</ul></body></html>' >> public/download/index.html
-    - tar -czf public/download.tar.gz public/download/
+    - mv SWMB-Setup-*.exe public/
+    - echo '<html><body><h1>SWMB Setup Package (last update ' $(date '+%Y/%m/%d %H:%M') ')</h1><ul>' > public/index.html
+    - (cd public; while read file; do printf '<li><a href="%s">%s</a> (%s)</li>\n' $file $file $(stat -c %y $file | cut -f 1 -d ' '); done < <(ls -1t *.exe) >> index.html)
+    - echo '</ul></body></html>' >> public/index.html
+    - ( cd public ; tar -czf ../download.tar.gz SWMB-Setup-*.exe )
+    - mv download.tar.gz public/
   artifacts:
     paths:
       - public

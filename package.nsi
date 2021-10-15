@@ -15,7 +15,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define SWMBVersion "3.13"
+!define SWMBVersion "3.12.99.1"
 !define REGPATH_UNINSTSUBKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
 Name "${NAME}"
 OutFile "${NAME}-Setup-${SWMBVersion}.exe"

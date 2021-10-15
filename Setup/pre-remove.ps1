@@ -18,10 +18,12 @@ $BootTask = 'SWMB-LocalMachine-Boot'
 Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
 
 # Destroy Logon script for All Users
-$LogonTask = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk"
-If (Test-Path -LiteralPath $LogonTask) {
-	Remove-Item $LogonTask -Force -ErrorAction SilentlyContinue
-}
+$LogonTask = 'SWMB-CurrentUser-Logon'
+Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
+#$LogonTask = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk"
+#If (Test-Path -LiteralPath $LogonTask) {
+#	Remove-Item $LogonTask -Force -ErrorAction SilentlyContinue
+#}
 
 # Destroy ProgramData Folders if Empty
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")

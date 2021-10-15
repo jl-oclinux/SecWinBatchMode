@@ -49,22 +49,35 @@ If (Test-Path -LiteralPath $Env:ProgramData) {
 
 # Create Boot Task
 If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
-	$Trigger    = New-ScheduledTaskTrigger -AtStartup
-	$User       = "NT AUTHORITY\SYSTEM"
-	$BootTask   = 'SWMB-LocalMachine-Boot'
-	$BootAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\LocalMachine-Boot.ps1}"
+	$BootTrigger = New-ScheduledTaskTrigger -AtStartup
+	$User        = "NT AUTHORITY\SYSTEM"
+	$BootTask    = 'SWMB-LocalMachine-Boot'
+	$BootAction  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\LocalMachine-Boot.ps1}"
 	Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
-	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $Trigger -User $User -Action $BootAction -RunLevel Highest
+	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $BootTrigger -User $User -Action $BootAction `
+		-RunLevel Highest -Description "SWMB tweaks action at boot"
 }
 
 # Create Logon script for All Users
-$StartUp = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
-If ((Test-Path -LiteralPath $StartUp) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1")) {
-	$WshShell = New-Object -ComObject WScript.Shell
-	$Shortcut = $WshShell.CreateShortcut("$StartUp\SWMB-CurrentUser-Logon.lnk")
-	$Shortcut.TargetPath = "$InstallFolder\Tasks\CurrentUser-Logon.ps1"
-	$Shortcut.Save()
+If (Test-Path -LiteralPath "$InstallFolder\Tasks\urrentUser-Logon.ps1") {
+	$LogonTrigger = New-ScheduledTaskTrigger -AtLogon
+	$LogonTask    = 'SWMB-CurrentUser-Logon'
+	$LogonAction  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\CurrentUser-Logon.ps1}"
+	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
+	Register-ScheduledTask -Force -TaskName $LogonTask -Trigger $LogonTrigger -User $User -Action $LogonAction `
+		-RunLevel Highest -Description "SWMB tweaks action at user logon"
 }
+
+#$StartUp = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
+#If ((Test-Path -LiteralPath $StartUp) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1")) {
+#	If (Test-Path -LiteralPath "$StartUp\SWMB-CurrentUser-Logon.lnk") {
+#		Remove-Item "$StartUp\SWMB-CurrentUser-Logon.lnk" -Force -ErrorAction SilentlyContinue
+#	}
+#	$WshShell = New-Object -ComObject WScript.Shell
+#	$Shortcut = $WshShell.CreateShortcut("$StartUp\SWMB-CurrentUser-Logon.lnk")
+#	$Shortcut.TargetPath = "$InstallFolder\Tasks\CurrentUser-Logon.ps1"
+#	$Shortcut.Save()
+#}
 
 # Create EventLog for our source
 If ([System.Diagnostics.EventLog]::SourceExists("SWMB") -eq $False) {

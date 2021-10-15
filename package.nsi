@@ -134,7 +134,6 @@ Section "Program files (Required)"
   File "Setup\post-install.ps1"
   File "Setup\pre-remove.ps1"
 
-  ;nsExec::ExecToStack 'powershell -InputFormat none -ExecutionPolicy Bypass -Command "`"$InstDir\Setup\post-install.ps1`" -InstallFolder `"$InstDir`""  '
   nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
 SectionEnd
 

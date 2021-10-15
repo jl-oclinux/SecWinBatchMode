@@ -48,18 +48,23 @@ If (Test-Path -LiteralPath $Env:ProgramData) {
 }
 
 # Create Boot Task
-$Trigger    = New-ScheduledTaskTrigger -AtStartup
-$User       = "NT AUTHORITY\SYSTEM"
-$BootTask   = 'SWMB-LocalMachine-Boot'
-$BootAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\LocalMachine-Boot.ps1}"
-Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
-Register-ScheduledTask -Force -TaskName $BootTask -Trigger $Trigger -User $User -Action $BootAction -RunLevel Highest
+If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
+	$Trigger    = New-ScheduledTaskTrigger -AtStartup
+	$User       = "NT AUTHORITY\SYSTEM"
+	$BootTask   = 'SWMB-LocalMachine-Boot'
+	$BootAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\LocalMachine-Boot.ps1}"
+	Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
+	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $Trigger -User $User -Action $BootAction -RunLevel Highest
+}
 
 # Create Logon script for All Users
-$WshShell = New-Object -ComObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk")
-$Shortcut.TargetPath = "$InstallFolder\Tasks\CurrentUser-Logon.ps1"
-$Shortcut.Save()
+$StartUp = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
+If ((Test-Path -LiteralPath $StartUp) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1")) {
+	$WshShell = New-Object -ComObject WScript.Shell
+	$Shortcut = $WshShell.CreateShortcut("$StartUp\SWMB-CurrentUser-Logon.lnk")
+	$Shortcut.TargetPath = "$InstallFolder\Tasks\CurrentUser-Logon.ps1"
+	$Shortcut.Save()
+}
 
 # Create EventLog for our source
 If ([System.Diagnostics.EventLog]::SourceExists("SWMB") -eq $False) {

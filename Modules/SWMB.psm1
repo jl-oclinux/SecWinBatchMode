@@ -25,6 +25,14 @@ Function SysMessage {
 
 ################################################################
 
+Function SysLogMessage {
+	$Script:SWMB_MsgCount++
+	Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 1 `
+		-Message "Message separator $Script:SWMB_MsgCount"
+}
+
+################################################################
+
 # Wait for key press
 Function SysPause {
 	Write-Output "`nPress any key to continue..."

@@ -54,3 +54,9 @@ $BootTask   = 'SWMB-LocalMachine-Boot'
 $BootAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\LocalMachine-Boot.ps1}"
 Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
 Register-ScheduledTask -Force -TaskName $BootTask -Trigger $Trigger -User $User -Action $BootAction -RunLevel Highest
+
+# Create Logon script for All Users
+$WshShell = New-Object -ComObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut("$Env:ProgramFiles\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk")
+$Shortcut.TargetPath = "$InstallFolder\Tasks\CurrentUser-Logon.ps1"
+$Shortcut.Save()

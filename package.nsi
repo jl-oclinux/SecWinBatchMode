@@ -15,7 +15,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define SWMBVersion "3.12.99.1"
+!define SWMBVersion "3.12.99.2"
 !define REGPATH_UNINSTSUBKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
 Name "${NAME}"
 OutFile "${NAME}-Setup-${SWMBVersion}.exe"
@@ -67,7 +67,7 @@ Section "Program files (Required)"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayName" "${NAME} release ${SWMBVersion}"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayVersion" "${SWMBVersion}"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Comments" "${NAME} (${SWMBVersion})"
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Publisher" "CNRS RESINFO"
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Publisher" "CNRS RESINFO / GT SWMB"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "URLInfoAbout" "https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayIcon" "$InstDir\logo-swmb.ico"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString" '"$InstDir\Uninst.exe"'
@@ -127,6 +127,7 @@ Section "Program files (Required)"
   File "Presets\Post-Install.preset"
 
   SetOutPath $INSTDIR\Tasks
+  File "Tasks\CurrentUser-Logon.ps1"
   File "Tasks\LocalMachine-Boot.ps1"
 
   SetOutPath $INSTDIR\Setup

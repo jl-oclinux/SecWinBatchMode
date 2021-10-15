@@ -36,6 +36,13 @@ Function SysEvent {
 
 ################################################################
 
+# Wait for box ok
+Function SysBox {
+	[System.Windows.MessageBox]::Show('SWMB: Press OK to continue')
+}
+
+################################################################
+
 # Wait for key press
 Function SysPause {
 	Write-Output "`nPress any key to continue..."

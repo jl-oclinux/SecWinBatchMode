@@ -59,12 +59,12 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 }
 
 # Create Logon script for All Users
-If (Test-Path -LiteralPath "$InstallFolder\Tasks\urrentUser-Logon.ps1") {
+If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 	$LogonTrigger = New-ScheduledTaskTrigger -AtLogon
 	$LogonTask    = 'SWMB-CurrentUser-Logon'
 	$LogonAction  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{$InstallFolder\Tasks\CurrentUser-Logon.ps1}"
 	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
-	Register-ScheduledTask -Force -TaskName $LogonTask -Trigger $LogonTrigger -User $User -Action $LogonAction `
+	Register-ScheduledTask -Force -TaskName $LogonTask -Trigger $LogonTrigger -Action $LogonAction `
 		-RunLevel Highest -Description "SWMB tweaks action at user logon"
 }
 

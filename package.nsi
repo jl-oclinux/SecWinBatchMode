@@ -64,7 +64,7 @@ Section "Program files (Required)"
 
   SetOutPath $InstDir
   WriteUninstaller "$InstDir\Uninst.exe"
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayName" "${NAME}"
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayName" "${NAME} release ${SWMBVersion}"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayVersion" "${SWMBVersion}"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Comments" "${NAME} (${SWMBVersion})"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Publisher" "CNRS RESINFO"
@@ -133,7 +133,8 @@ Section "Program files (Required)"
   File "Setup\post-install.ps1"
   File "Setup\pre-remove.ps1"
 
-  nsExec::ExecToStack 'powershell -inputformat none -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
+  ;nsExec::ExecToStack 'powershell -InputFormat none -ExecutionPolicy Bypass -Command "`"$InstDir\Setup\post-install.ps1`" -InstallFolder `"$InstDir`""  '
+  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
 SectionEnd
 
 Section "Start Menu shortcut"
@@ -142,7 +143,7 @@ SectionEnd
 
 
 Section -Uninstall
-  nsExec::ExecToStack 'powershell -inputformat none -ExecutionPolicy Bypass -File "$InstDir\Setup\pre-remove.ps1"  '
+  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\pre-remove.ps1"  '
 
   ${UnpinShortcut} "$SMPrograms\${NAME}.lnk"
   Delete "$SMPrograms\${NAME}.lnk"

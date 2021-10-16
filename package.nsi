@@ -71,6 +71,7 @@ Section "Program files (Required)"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "URLInfoAbout" "https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayIcon" "$InstDir\logo-swmb.ico"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString" '"$InstDir\Uninst.exe"'
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "InstallFolder" "$InstDir"
   WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "NoModify" 1
   WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "NoRepair" 1
 

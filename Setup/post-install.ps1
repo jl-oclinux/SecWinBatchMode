@@ -23,10 +23,10 @@
 #)
 
 # Installation Folder
-$InstallFolder  = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
-#If (!(Test-Path -LiteralPath $InstallFolder)) {
-#	New-Item -Path $InstallFolder -ItemType Directory
-#}
+$InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
+If (Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SWMB\InstallFolder")) {
+	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder")
+}
 
 # Create ProgramData Folders
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
@@ -56,7 +56,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 	$BootObject | Set-ScheduledTask
 }
 
-# Create Logon script for All Users
+# Create Logon Task for All Users
 If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 	$LogonTrigger = New-ScheduledTaskTrigger -AtLogon
 	$LogonTask    = 'SWMB-CurrentUser-Logon'
@@ -80,7 +80,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 #	$Shortcut.Save()
 #}
 
-# Create EventLog for our source
+# Create EventLog for our Source
 If ([System.Diagnostics.EventLog]::SourceExists("SWMB") -eq $False) {
 	New-EventLog -LogName "Application" -Source "SWMB"
 }

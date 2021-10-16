@@ -135,7 +135,7 @@ Function EnableAutoloadDriver {
 # View
 Function ViewAutoloadDriver {
 	Write-Output 'Autoload driver from network (0 no or not exist - enable, 1 disable)'
-	Get-ItemProperty -Path "HHKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork"
 }
 
 

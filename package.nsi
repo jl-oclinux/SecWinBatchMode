@@ -27,7 +27,7 @@ OutFile "${NAME}-Setup-${VERSION}.exe"
 RequestExecutionLevel Admin ; Request admin rights on WinVista+ (when UAC is turned on)
 InstallDir "$ProgramFiles64\$(^Name)"
 InstallDirRegKey HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString"
-AutoCloseWindow true ; Setup close automatically when you finish use
+;AutoCloseWindow true ; Setup close automatically when you finish use
 Icon "logo-swmb.ico" ; Select your Icon file
 
 ; Version Information 
@@ -152,10 +152,13 @@ Section "Program files (Required)"
 SectionEnd
 
 Section "Task Scheduler"
+  ExpandEnvStrings $0 "%COMSPEC%"
+  ExecShell "" '"$0"' '/C powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1"' SW_HIDE
+
   ;nsExec::ExecToStack '$WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
-  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1"  '
-  Pop $0 # return value/error/timeout
-  Pop $1 # printed text, up to ${NSIS_MAX_STRLEN}
+  ;nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1"  '
+  Pop $0 ; return value/error/timeout
+  Pop $1 ; printed text, up to ${NSIS_MAX_STRLEN}
   DetailPrint '"$InstDir\Setup\post-install.ps1"'
   ;ExecWait 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  ' $0
   DetailPrint "  Printed: $1"
@@ -170,8 +173,8 @@ SectionEnd
 
 Section -Uninstall
   nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\pre-remove.ps1"  '
-  Pop $0 # return value/error/timeout
-  Pop $1 # printed text, up to ${NSIS_MAX_STRLEN}
+  Pop $0 ; return value/error/timeout
+  Pop $1 ; printed text, up to ${NSIS_MAX_STRLEN}
   DetailPrint '"$InstDir\Setup\pre-remove.ps1"'
   DetailPrint "  Printed: $1"
   DetailPrint "  Return value: $0"

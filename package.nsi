@@ -16,13 +16,29 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define SWMBVersion "3.12.99.3"
+!define VERSION "3.12.99.4"
+!define DESCRIPTION "Secure Windows Mode Batch"
+!define PUBLISHER "CNRS RESINFO / GT SWMB"
+!define PUBLISHERLIGHT "CNRS France"
+!define /date YEAR "%Y"
 !define REGPATH_UNINSTSUBKEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
 Name "${NAME}"
-OutFile "${NAME}-Setup-${SWMBVersion}.exe"
+OutFile "${NAME}-Setup-${VERSION}.exe"
 RequestExecutionLevel Admin ; Request admin rights on WinVista+ (when UAC is turned on)
 InstallDir "$ProgramFiles64\$(^Name)"
 InstallDirRegKey HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString"
+AutoCloseWindow true ; Setup close automatically when you finish use
+Icon "logo-swmb.ico" ; Select your Icon file
+
+; Version Information 
+VIAddVersionKey "ProductName" "${NAME}"
+VIAddVersionKey "CompanyName" "${PUBLISHER}"
+VIAddVersionKey "LegalTrademarks" "${NAME} is a name create by ${PUBLISHERLIGHT}"
+VIAddVersionKey "LegalCopyright" "© {YEAR} ${PUBLISHERLIGHT}"
+VIAddVersionKey "FileDescription" "${DESCRIPTION}"
+VIAddVersionKey "FileVersion" "${VERSION}"
+VIAddVersionKey "ProductVersion" "${VERSION}"
+VIProductVersion "${VERSION}"
 
 Page Directory
 Page InstFiles
@@ -64,17 +80,16 @@ Section "Program files (Required)"
 
   SetOutPath $InstDir
   WriteUninstaller "$InstDir\Uninst.exe"
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayName" "${NAME} release ${SWMBVersion}"
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayVersion" "${SWMBVersion}"
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Comments" "${NAME} (${SWMBVersion})"
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Publisher" "CNRS RESINFO / GT SWMB"
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayName" "${NAME} release ${VERSION}"
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayVersion" "${VERSION}"
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Comments" "${NAME} (${VERSION})"
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Publisher" "${PUBLISHER}"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "URLInfoAbout" "https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayIcon" "$InstDir\logo-swmb.ico"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString" '"$InstDir\Uninst.exe"'
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "InstallFolder" "$InstDir"
   WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "NoModify" 1
   WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "NoRepair" 1
-
   File "swmb.ps1"
   File "logo-swmb.ico"
   File "CONTRIBUTING.md"

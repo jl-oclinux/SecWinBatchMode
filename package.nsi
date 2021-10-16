@@ -83,6 +83,10 @@ Section "Program files (Required)"
   File "README.md"
   File "REFERENCES.md"
 
+  SetOutPath $INSTDIR\Setup
+  File "Setup\post-install.ps1"
+  File "Setup\pre-remove.ps1"
+
   SetOutPath $INSTDIR\Modules
   File "Modules\SWMB.psd1"
   File "Modules\SWMB.psm1"
@@ -129,21 +133,17 @@ Section "Program files (Required)"
   SetOutPath $INSTDIR\Tasks
   File "Tasks\CurrentUser-Logon.ps1"
   File "Tasks\LocalMachine-Boot.ps1"
-
-  SetOutPath $INSTDIR\Setup
-  File "Setup\post-install.ps1"
-  File "Setup\pre-remove.ps1"
 SectionEnd
 
 Section "Task Scheduler"
   ;nsExec::ExecToStack '$WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
-  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$EXEDIR\Setup\post-install.ps1"  '
+  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1"  '
   Pop $0 # return value/error/timeout
   Pop $1 # printed text, up to ${NSIS_MAX_STRLEN}
-  DetailPrint '"$EXEDIR\Setup\post-install.ps1" printed: $1'
-  DetailPrint ""
+  DetailPrint '"$InstDir\Setup\post-install.ps1"'
   ;ExecWait 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  ' $0
-  DetailPrint "       Return value: $0"
+  DetailPrint "  Printed: $1'
+  DetailPrint "  Return value: $0"
   DetailPrint ""
 SectionEnd
 
@@ -154,6 +154,12 @@ SectionEnd
 
 Section -Uninstall
   nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\pre-remove.ps1"  '
+  Pop $0 # return value/error/timeout
+  Pop $1 # printed text, up to ${NSIS_MAX_STRLEN}
+  DetailPrint '"$InstDir\Setup\pre-remove.ps1"'
+  DetailPrint "  Printed: $1'
+  DetailPrint "  Return value: $0"
+  DetailPrint ""
 
   ${UnpinShortcut} "$SMPrograms\${NAME}.lnk"
   Delete "$SMPrograms\${NAME}.lnk"

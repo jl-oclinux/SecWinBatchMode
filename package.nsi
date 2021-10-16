@@ -142,7 +142,7 @@ Section "Task Scheduler"
   Pop $1 # printed text, up to ${NSIS_MAX_STRLEN}
   DetailPrint '"$InstDir\Setup\post-install.ps1"'
   ;ExecWait 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  ' $0
-  DetailPrint "  Printed: $1'
+  DetailPrint "  Printed: $1"
   DetailPrint "  Return value: $0"
   DetailPrint ""
 SectionEnd
@@ -157,7 +157,7 @@ Section -Uninstall
   Pop $0 # return value/error/timeout
   Pop $1 # printed text, up to ${NSIS_MAX_STRLEN}
   DetailPrint '"$InstDir\Setup\pre-remove.ps1"'
-  DetailPrint "  Printed: $1'
+  DetailPrint "  Printed: $1"
   DetailPrint "  Return value: $0"
   DetailPrint ""
 

@@ -24,8 +24,8 @@
 
 # Installation Folder
 $InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
-If (Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SWMB\InstallFolder") {
-	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder")
+If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
+	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
 }
 
 # Create ProgramData Folders

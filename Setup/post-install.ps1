@@ -24,7 +24,7 @@
 
 # Installation Folder
 $InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
-If (Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SWMB\InstallFolder")) {
+If (Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SWMB\InstallFolder") {
 	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder")
 }
 

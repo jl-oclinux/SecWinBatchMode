@@ -16,7 +16,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.4"
+!define VERSION "3.12.99.5"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -149,19 +149,28 @@ Section "Program files (Required)"
   SetOutPath $INSTDIR\Tasks
   File "Tasks\CurrentUser-Logon.ps1"
   File "Tasks\LocalMachine-Boot.ps1"
+  
+  ; ProgramData and sets all user permissions
+  SetShellVarContext all ; to have $APPDATA point to ProgramData folder
+  ;CreateDirectory "$APPDATA\${NAME}\Presets"
+  CreateDirectory "$APPDATA\${NAME}\CurrentUser\Presets"
+  CreateDirectory "$APPDATA\${NAME}\LocalMachine\Presets"
+  ;AccessControl::GrantOnFile "$APPDATA\${NAME}" "(S-1-5-32-545)" "FullAccess"
+  ;AccessControl::GrantOnFile "$APPDATA\${NAME}\*" "(S-1-5-32-545)" "FullAccess"
 SectionEnd
 
 Section "Task Scheduler"
-  ExpandEnvStrings $0 "%COMSPEC%"
-  ExecShell "" '"$0"' '/C powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1" SW_HIDE'
+  ;ExpandEnvStrings $0 "%COMSPEC%"
+  ;ExecShell "" '"$0"' '/C powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1" SW_HIDE'
 
   ;nsExec::ExecToStack '$WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
   ;nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1"  '
+  ExecWait '"$InstDir\Setup\post-install.ps1"' $0
   Pop $0 ; return value/error/timeout
-  Pop $1 ; printed text, up to ${NSIS_MAX_STRLEN}
+  ;Pop $1 ; printed text, up to ${NSIS_MAX_STRLEN}
   DetailPrint '"$InstDir\Setup\post-install.ps1"'
   ;ExecWait 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  ' $0
-  DetailPrint "  Printed: $1"
+  ;DetailPrint "  Printed: $1"
   DetailPrint "  Return value: $0"
   DetailPrint ""
 SectionEnd
@@ -182,6 +191,13 @@ Section -Uninstall
 
   ${UnpinShortcut} "$SMPrograms\${NAME}.lnk"
   Delete "$SMPrograms\${NAME}.lnk"
+
+  SetShellVarContext all
+  RMDir "$APPDATA\${NAME}\CurrentUser\Presets"
+  RMDir "$APPDATA\${NAME}\CurrentUser"
+  RMDir "$APPDATA\${NAME}\LocalMachine\Presets"
+  RMDir "$APPDATA\${NAME}\LocalMachine"
+  RMDir "$APPDATA\${NAME}"
 
   Delete "$InstDir\Uninst.exe"
   Delete "$InstDir\swmb.ps1"

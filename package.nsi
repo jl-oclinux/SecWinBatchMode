@@ -153,7 +153,7 @@ SectionEnd
 
 Section "Task Scheduler"
   ExpandEnvStrings $0 "%COMSPEC%"
-  ExecShell "" '"$0"' '/C powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1"' SW_HIDE
+  ExecShell "" '"$0"' '/C powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1" SW_HIDE'
 
   ;nsExec::ExecToStack '$WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
   ;nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1"  '

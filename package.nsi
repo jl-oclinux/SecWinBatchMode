@@ -16,7 +16,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.6"
+!define VERSION "3.12.99.7"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -25,7 +25,7 @@ Unicode True
 Name "${NAME}"
 OutFile "${NAME}-Setup-${VERSION}.exe"
 RequestExecutionLevel Admin ; Request admin rights on WinVista+ (when UAC is turned on)
-InstallDir "$ProgramFiles64\$(^Name)"
+InstallDir "$ProgramFiles64\${NAME}"
 InstallDirRegKey HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString"
 ;AutoCloseWindow true ; Setup close automatically when you finish use
 Icon "logo-swmb.ico" ; Select your Icon file
@@ -61,7 +61,7 @@ Function .onInit
   SetShellVarContext All
   !insertmacro EnsureAdminRights
 
-  StrCpy $INSTDIR "$ProgramFiles64\${NAME}"
+  StrCpy $InstDir "$ProgramFiles64\${NAME}"
 
   ${If} ${RunningX64}
   ${EnableX64FSRedirection}
@@ -101,15 +101,15 @@ Section "Program files (Required)"
   File "README.md"
   File "REFERENCES.md"
 
-  SetOutPath $INSTDIR\Setup
+  SetOutPath $InstDir\Setup
   File "Setup\post-install.ps1"
   File "Setup\pre-remove.ps1"
 
-  SetOutPath $INSTDIR\Modules
+  SetOutPath $InstDir\Modules
   File "Modules\SWMB.psd1"
   File "Modules\SWMB.psm1"
 
-  SetOutPath $INSTDIR\Modules\SWMB
+  SetOutPath $InstDir\Modules\SWMB
   File "Modules\SWMB\BSI.psm1"
   File "Modules\SWMB\Contrib.psm1"
   File "Modules\SWMB\CurrentUser-Application.psm1"
@@ -134,7 +134,7 @@ Section "Program files (Required)"
   File "Modules\SWMB\Win10-UI.psm1"
   File "Modules\SWMB\Win10-UWPPrivacy.psm1"
 
-  SetOutPath $INSTDIR\Presets
+  SetOutPath $InstDir\Presets
   File "Presets\CurrentUser-All.preset"
   File "Presets\CurrentUser-Resinfo.preset"
   File "Presets\CurrentUser-UserExperience.preset"
@@ -148,27 +148,20 @@ Section "Program files (Required)"
   File "Presets\LocalMachine-UserExperience.preset"
   File "Presets\Post-Install.preset"
 
-  SetOutPath $INSTDIR\Tasks
+  SetOutPath $InstDir\Tasks
   File "Tasks\CurrentUser-Logon.ps1"
   File "Tasks\LocalMachine-Boot.ps1"
   
   ; ProgramData and sets all user permissions
-  SetShellVarContext all ; to have $APPDATA point to ProgramData folder
-  ;CreateDirectory "$APPDATA\${NAME}\Presets"
-  CreateDirectory "$APPDATA\${NAME}\CurrentUser\Presets"
-  CreateDirectory "$APPDATA\${NAME}\LocalMachine\Presets"
-  ;AccessControl::GrantOnFile "$APPDATA\${NAME}" "(S-1-5-32-545)" "FullAccess"
-  ;AccessControl::GrantOnFile "$APPDATA\${NAME}\*" "(S-1-5-32-545)" "FullAccess"
+  SetShellVarContext all ; to have $AppData point to ProgramData folder
+  ;CreateDirectory "$AppData\${NAME}\Presets"
+  CreateDirectory "$AppData\${NAME}\CurrentUser\Presets"
+  CreateDirectory "$AppData\${NAME}\LocalMachine\Presets"
+  ;AccessControl::GrantOnFile "$AppData\${NAME}" "(S-1-5-32-545)" "FullAccess"
+  ;AccessControl::GrantOnFile "$AppData\${NAME}\*" "(S-1-5-32-545)" "FullAccess"
 SectionEnd
 
 Section "Task Scheduler"
-  ;ExpandEnvStrings $0 "%COMSPEC%"
-  ;ExecShell "" '"$0"' '/C powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1" SW_HIDE'
-
-  ;nsExec::ExecToStack '$WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
-  ;nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -NoLogo -Sta -NoProfile -File "$InstDir\Setup\post-install.ps1"  '
-  ;ExecWait '"$InstDir\Setup\post-install.ps1"' $0
-  ;ExecWait 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  ' $0
   nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
   Pop $0 ; return value/error/timeout
   Pop $1 ; printed text, up to ${NSIS_MAX_STRLEN}
@@ -196,11 +189,11 @@ Section -Uninstall
   Delete "$SMPrograms\${NAME}.lnk"
 
   SetShellVarContext all
-  RMDir "$APPDATA\${NAME}\CurrentUser\Presets"
-  RMDir "$APPDATA\${NAME}\CurrentUser"
-  RMDir "$APPDATA\${NAME}\LocalMachine\Presets"
-  RMDir "$APPDATA\${NAME}\LocalMachine"
-  RMDir "$APPDATA\${NAME}"
+  RMDir "$AppData\${NAME}\CurrentUser\Presets"
+  RMDir "$AppData\${NAME}\CurrentUser"
+  RMDir "$AppData\${NAME}\LocalMachine\Presets"
+  RMDir "$AppData\${NAME}\LocalMachine"
+  RMDir "$AppData\${NAME}"
 
   Delete "$InstDir\Uninst.exe"
   Delete "$InstDir\swmb.ps1"
@@ -211,10 +204,10 @@ Section -Uninstall
   Delete "$InstDir\NEWS.md"
   Delete "$InstDir\README.md"
   Delete "$InstDir\REFERENCES.md"
-  RMDir /r $INSTDIR\Modules
-  RMDir /r $INSTDIR\Presets
-  RMDir /r $INSTDIR\Tasks
-  RMDir /r $INSTDIR\Setup
+  RMDir /r "$InstDir\Modules"
+  RMDir /r "$InstDir\Presets"
+  RMDir /r "$InstDir\Tasks"
+  RMDir /r "$InstDir\Setup"
   RMDir "$InstDir"
   DeleteRegKey HKLM "${REGPATH_UNINSTSUBKEY}"
 SectionEnd

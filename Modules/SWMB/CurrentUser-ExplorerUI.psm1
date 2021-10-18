@@ -40,6 +40,12 @@ Function HideKnownExtensions_CU {
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 1
 }
 
+# View
+Function ViewKnownExtensions_CU {
+	Write-Output "Wiew known file extensions for CU (0: Show, 1: Hide)"
+	Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt"
+}
+
 ################################################################
 
 # Show hidden files

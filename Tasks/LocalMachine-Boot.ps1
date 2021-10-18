@@ -13,7 +13,8 @@
 
 # Change Path to the root
 $ScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
-Set-Location --Path (Join-Path -Path $ScriptPath -ChildPath "..")
+Set-Location --Path "$ScriptPath"
+Set-Location --Path ..
 
 # Define Boot preset on ProgramData
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")

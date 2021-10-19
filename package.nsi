@@ -16,7 +16,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.11"
+!define VERSION "3.12.99.12"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -84,7 +84,7 @@ Function .onInit
 uninst:
   ClearErrors
   ${If} ${Silent}
-  Exec $R0 /S
+  Exec "$R0 /S"
   ${Else}
   Exec $R0
   ${EndIf}

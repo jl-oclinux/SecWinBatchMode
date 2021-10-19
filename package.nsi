@@ -69,6 +69,22 @@ Function .onInit
   MessageBox MB_OK "Sorry this application runs only on x64 machines"
   Abort
   ${EndIf}
+
+  ReadRegStr $R0 HKLM \
+  "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}" \
+  "UninstallString"
+  StrCmp $R0 "" done
+ 
+  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
+  "${NAME} is already installed. $\n$\nClick `OK` to remove the \
+  previous version or `Cancel` to cancel this upgrade." \
+  IDOK uninst
+  Abort
+
+uninst:
+    ClearErrors
+    Exec $R0
+done:
 FunctionEnd
 
 Function un.onInit

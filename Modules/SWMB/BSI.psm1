@@ -2,7 +2,7 @@
 # Project CNRS RESINFO SWMB
 # Copyright (C) 2020-2021, CNRS, France
 # License: MIT License (Same as project Win10-Initial-Setup-Script)
-# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb
+# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
 # Authors:
 #  2021 - Sébastien Morin (CNRS / DCM)
 #  2021 - Olivier de Marchi (Grenoble INP / LEGI)

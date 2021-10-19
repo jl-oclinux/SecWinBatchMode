@@ -224,9 +224,9 @@ Function EnableActivityHistory {
 # View
 Function ViewActivityHistory {
 	Write-Output 'View Activity History (0: Disable, Error: Enable)'
-	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed"
-	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" 
-	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed"    | Select-Object -Property Enable*  | Format-List
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" | Select-Object -Property Publish* | Format-List
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities"  | Select-Object -Property Upload*  | Format-List
 }
 
 ################################################################
@@ -467,7 +467,7 @@ Function EnableDiagTrack {
 # View
 Function ViewDiagTrack {
 	Write-Output 'Connected User Experiences and Telemetry (2 activated, 4 no)'
-	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start"
+	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" | Select-Object -Property Start*  | Format-List
 }
 
 ################################################################

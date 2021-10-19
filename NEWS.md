@@ -2,8 +2,31 @@
 
 ## Version 3.13 (in progress)
 
+Add a setup file, juste write `make pkg` under Linux (Add a `Makefile`).
+Continuous integration build the package,
+see https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/.
+
 Automatically search `Overload` and `Autodel` module in `C:\ProgramData\SWMB` folder
 (and `Modules` subfolder).
+
+Create two tasks:
+* CurrentUser-Logon.ps1 - Execute at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
+* LocalMachine-Boot.ps - Execute at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+
+If a module with the same name exist in `C:\ProgramData\SWMB\Modules`, it's will be launch.
+
+An event is created in Application at begin and end.
+Output is redirect in a log file inside the folder `C:\ProgramData\SWMB\Logs`.
+
+Two preset `CurrentUser-Logon-Test.preset` and `LocalMachine-Boot.preset`
+are copied on folder `C:\ProgramData\SWMB\Presets`.
+They could serve for test or as simple examples.
+
+New presets/rules:
+* 2021/10/16 - SysEvent - Like SysMessage but open a Box (experimental)
+* 2021/10/15 - SysEvent - Like SysMessage but send an Event
+* 2021/10/11 - $IMPORT - Like $INCLUDE but import a module from a preset file
+
 
 ## Version 3.12 (2021/09/14)
 

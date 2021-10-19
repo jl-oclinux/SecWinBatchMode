@@ -65,7 +65,7 @@ Function .onInit
 
   ${If} ${RunningX64}
   ${EnableX64FSRedirection}
-  ${else}
+  ${Else}
   MessageBox MB_OK "Sorry this application runs only on x64 machines"
   Abort
   ${EndIf}
@@ -82,8 +82,12 @@ Function .onInit
   Abort
 
 uninst:
-    ClearErrors
-    Exec $R0
+  ClearErrors
+  ${If} ${Silent}
+  Exec $R0 /S
+  ${Else}
+  Exec $R0
+  ${EndIf}
 done:
 FunctionEnd
 

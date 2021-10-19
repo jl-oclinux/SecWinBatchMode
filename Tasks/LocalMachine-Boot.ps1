@@ -11,6 +11,9 @@
 # Version: v3.12, 2021-07-10
 ################################################################
 
+Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 10 `
+	-Message "SWMB: Run Boot Script for LocalMachine - Begin"
+
 # Change Path to the root Installation Folder
 $InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
 If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
@@ -32,5 +35,5 @@ If (Test-Path -LiteralPath $BootPreset) {
 	}
 }
 
-Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 2 `
-	-Message "SWMB: Run Boot Script for LocalMachine"
+Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `
+	-Message "SWMB: Run Boot Script for LocalMachine - End"

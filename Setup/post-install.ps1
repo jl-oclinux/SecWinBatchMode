@@ -50,7 +50,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 	$BootAction  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-File `"$InstallFolder\Tasks\LocalMachine-Boot.ps1`""
 	Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $BootTrigger -User $User -Action $BootAction `
-		-RunLevel Highest -Description "SWMB tweaks action at boot"
+		-RunLevel Highest -Description "SWMB tweaks action at boot" -TaskPath "$InstallFolder"
 	$BootObject = Get-ScheduledTask $BootTask
 	$BootObject.Author = "CNRS RESINFO / GT SWMB"
 	$BootObject | Set-ScheduledTask
@@ -63,7 +63,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 	$LogonAction  = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-File `"$InstallFolder\Tasks\CurrentUser-Logon.ps1`""
 	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $LogonTask -Trigger $LogonTrigger -Action $LogonAction `
-		-RunLevel Highest -Description "SWMB tweaks action at user logon"
+		-RunLevel Highest -Description "SWMB tweaks action at user logon" -TaskPath "$InstallFolder"
 	$LogonObject = Get-ScheduledTask $LogonTask
 	$LogonObject.Author = "CNRS RESINFO / GT SWMB"
 	$LogonObject | Set-ScheduledTask

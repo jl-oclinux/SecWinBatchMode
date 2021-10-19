@@ -11,10 +11,12 @@
 # Version: v3.12, 2021-07-10
 ################################################################
 
-# Change Path to the root
-$ScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
-Set-Location --Path "$ScriptPath"
-Set-Location --Path ..
+# Change Path to the root Installation Folder
+$InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
+If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
+	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
+}
+Set-Location $InstallFolder
 
 # Define Boot preset on ProgramData
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
@@ -29,3 +31,6 @@ If (Test-Path -LiteralPath $BootPreset) {
 		.\swmb.ps1 -preset $BootPreset
 	}
 }
+
+Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 2 `
+	-Message "SWMB: Run Boot Script for LocalMachine"

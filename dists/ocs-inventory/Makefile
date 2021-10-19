@@ -36,7 +36,7 @@ clean:
 		)
 	(cd tmp; \
 		cp ../README.md ./; \
-		zip -r ../$@ install.bat README.md SWMB-Setup-Last.exe)
+		zip -r ../$@ install.bat README.md SWMB-Setup-$(VERSION).exe)
 	chmod ugo+rw $@
 
 

@@ -70,14 +70,13 @@ Function .onInit
   Abort
   ${EndIf}
 
-  ReadRegStr $R0 HKLM \
-  "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}" \
-  "UninstallString"
+  ReadRegStr $R0 HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString"
   StrCmp $R0 "" done
 
   ${If} ${Silent}
   ClearErrors
-  ExecWait '"$R0" /S_?=$INSTDIR' $0
+  nsExec::ExecToStack '"$R0" /S  '
+  Pop $0 ; return value/error/timeout
   DetailPrint "  $R0 /S exit code $0"
   Goto done
   ${Else}
@@ -225,6 +224,8 @@ Section -Uninstall
   RMDir "$AppData\${NAME}\Modules"
   Delete "$AppData\${NAME}\Presets\CurrentUser-Logon-Test.preset"
   Delete "$AppData\${NAME}\Presets\LocalMachine-Boot-Test.preset"
+  Delete "$AppData\${NAME}\Presets\CurrentUser-Logon-Test2.preset"
+  Delete "$AppData\${NAME}\Presets\LocalMachine-Boot-Test2.preset"
   RMDir "$AppData\${NAME}\Presets"
   RMDir "$AppData\${NAME}"
 

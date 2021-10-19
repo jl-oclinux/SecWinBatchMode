@@ -10,8 +10,8 @@ Automatically search `Overload` and `Autodel` module in `C:\ProgramData\SWMB` fo
 (and `Modules` subfolder).
 
 Create two tasks:
-* CurrentUser-Logon.ps1 - Execute at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
-* LocalMachine-Boot.ps - Execute at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+* `CurrentUser-Logon.ps1` - Execute at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
+* `LocalMachine-Boot.ps` - Execute at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
 
 If a module with the same name exist in `C:\ProgramData\SWMB\Modules`, it's will be launch.
 

@@ -62,6 +62,14 @@ It is an extension that we added.
 More references on the page [REFERENCES](./REFERENCES.md).
 
 
+## Installation
+
+You can find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ the latest versions of the SWMB installer.
+These setup packages are made with the NSIS software.
+
+It is possible to do a silent installation with the `/S` flag.
+
+
 ## Preset
 
 The preset file is in practice a list of tweaks to apply.
@@ -158,6 +166,29 @@ SWMB_RunTweaks
  * `-exp` : this is just a shortcut to import the `Experimental.psm1` module.
    This option is mainly used by developers to help test new tweaks.
 
+### Tasks
+
+The goal is not to change anything in the SWMB installation folder.
+Two scheduled tasks are configured.
+One takes place at machine startup (Boot) and the other at user login (Logon).
+
+These two tasks will look for their parameters in the `C:\ProgramData\SWMB\Presets` folder.
+ * CurrentUser-Logon.ps1 - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
+ * LocalMachine-Boot.ps - Load preset  at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+
+If a module with the same name (with extension `.psm1`) exist in the folder `C:\ProgramData\SWMB\Modules`,
+it's will be import.
+
+An event is created in Application journal at begin and end of the task.
+Output of the task are redirected in a log file inside the folder `C:\ProgramData\SWMB\Logs`.
+
+Two preset `CurrentUser-Logon-Test.preset` and `LocalMachine-Boot-Test.preset`
+are copied on folder `C:\ProgramData\SWMB\Presets`.
+They could serve for test or as simple example.
+Do not modify these examples directly, they will be updated in the next software update.
+Rename them and modify them.
+
+
 ### Integration into another Git project
 
 One way to use SWMB is to integrate it in one of your projects as a Git subtree.
@@ -209,7 +240,7 @@ The recursive search in subfolders stops as soon as one or both modules are foun
 
 ## Examples of deployment and use
 
-You find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ last packages made with NSIS.
+You find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ last packages made with NSIS Setup.
 
 You will find, in the [dists](dists) directory, examples of deployment of the script
 (manual, at machine startup, with OCS Inventory, volume encryption...).

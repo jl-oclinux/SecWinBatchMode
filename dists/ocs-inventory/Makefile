@@ -1,12 +1,11 @@
 SOFT:=SWMB
-VERSION:=1.0
+VERSION:=$(shell grep '!define VERSION' ../../package.nsi | cut -f 2 -d '"')
 PATCH:=1
-
 
 
 .PHONY: all help update clean ocs
 
-all: $(SOFT)-$(VERSION)-$(PATCH).zip ocs
+all: $(SOFT)-OCS-$(VERSION)-$(PATCH).zip ocs
 
 
 help:
@@ -21,22 +20,23 @@ update:
 
 
 clean:
-	rm -f $(SOFT)-$(VERSION)-$(PATCH).zip
+	rm -f $(SOFT)-OCS-$(VERSION)-$(PATCH).zip
+	rm -rf tmp
 
 
 %.zip: Makefile
-	perl -pi.bak -e ' \
+	mkdir -p tmp
+	perl -p -e ' \
 		s/^(SET\ssoftversion=)\d[\.\d]+/$${1}$(VERSION)/; \
-		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/;' install.bat
+		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/;' install.bat > tmp/install.bat
 	rm -f $@
-	zip -r $@ install.bat
-	(cd ../..; zip -r dists/ocs/$@ \
-		Presets/*.preset \
-		Modules/*.psm1 \
-		Modules/SWMB/*.psm1 \
-		swmb.ps1 \
-		-x \*.git/* \
+	(cd ../..; \
+		make pkg; \
+		cp SWMB-Setup-$(VERSION).exe ./dists/ocs-inventory/tmp/ \
 		)
+	(cd tmp; \
+		cp ../README.md ./; \
+		zip -r ../$@ install.bat README.md SWMB-Setup-Last.exe)
 	chmod ugo+rw $@
 
 

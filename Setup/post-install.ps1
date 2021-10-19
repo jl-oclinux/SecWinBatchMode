@@ -52,7 +52,7 @@ If (Test-Path -LiteralPath $Env:ProgramData) {
 	}
 
 	# ACL on Logs for Users (Read / Write)
-	icacls.exe $DataLogs --% /Grant:r "S-1-5-32-545:(OI)(CI)(GR,GW,DE,RD)" /T
+	icacls.exe $DataLogs --% /Grant:r "*S-1-5-32-545:(OI)(CI)(GR,GW,DE,RD)" /T
 	icacls.exe $DataLogs /InheritanceLevel:e
 }
 

@@ -74,20 +74,21 @@ Function .onInit
   "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}" \
   "UninstallString"
   StrCmp $R0 "" done
- 
+
+  ${If} ${Silent}
+  Exec "$R0 /S"
+  Goto done
+  ${Else}
   MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
   "${NAME} is already installed. $\n$\nClick `OK` to remove the \
   previous version or `Cancel` to cancel this upgrade." \
   IDOK uninst
   Abort
+  ${EndIf}
 
 uninst:
   ClearErrors
-  ${If} ${Silent}
-  Exec "$R0 /S"
-  ${Else}
   Exec $R0
-  ${EndIf}
 done:
 FunctionEnd
 

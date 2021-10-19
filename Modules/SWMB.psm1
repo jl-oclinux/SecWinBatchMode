@@ -20,7 +20,7 @@ $Script:SWMB_MsgCount = 0
 
 Function SysMessage {
 	$Script:SWMB_MsgCount++
-	Write-Host "Message separator " $Script:SWMB_MsgCount
+	Write-Output "Message separator " $Script:SWMB_MsgCount
 }
 
 ################################################################
@@ -71,7 +71,7 @@ Function SysRestart {
 # The main implementation in swmb.ps1 is used otherwise in the CLI
 Function SysRequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		Write-Host "You must run this script with administrator privileges"
+		Write-Output "You must run this script with administrator privileges"
 		Exit
 	}
 }
@@ -94,11 +94,11 @@ Function SysAutoUpgrade {
 	Invoke-WebRequest -Uri $gitUrl -OutFile $outZipFile -ErrorAction SilentlyContinue
 	Expand-Archive -Path $outZipFile -DestinationPath $tmpFolder
 	If (Test-Path "$tmpFolder\resinfo-swmb-master") {
-		Write-Host "Upgrade of SWMB installation..."
+		Write-Output "Upgrade of SWMB installation..."
 		Copy-Item -Path "$tmpFolder\resinfo-swmb-master\*" -Destination "$swmbCorePath" -Recurse -Force
 		Get-ChildItem -Path "$swmbCorePath" -Recurse | Unblock-File
 	} Else {
-		Write-Host "Error: Upgrade of SWMB impossible..."
+		Write-Output "Error: Upgrade of SWMB impossible..."
 	}
 
 	if (Test-Path "$tmpFolder") {
@@ -277,7 +277,7 @@ Function SWMB_CheckTweaks {
 	ForEach ($tweak in $Global:SWMB_Tweaks) {
 		# Test if tweak function really exists
 		If (-not(Get-Command -Name $tweak -ErrorAction SilentlyContinue)) {
-			Write-Host "Tweak $tweak is not defined!"
+			Write-Output "Tweak $tweak is not defined!"
 		}
 
 		# Push tweak in a hash table
@@ -290,7 +290,7 @@ Function SWMB_CheckTweaks {
 			Continue
 		}
 		$message = "Tweak {0} is defined {1} times!" -f $tweak, $uniqueTweak[$tweak]
-		Write-Host $message
+		Write-Output $message
 	}
 }
 

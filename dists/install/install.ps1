@@ -27,7 +27,7 @@ $ScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
 $MainPath = (Resolve-Path (Join-Path -Path $ScriptPath -ChildPath (Join-Path -Path ".." -ChildPath "..")) -ErrorAction SilentlyContinue)
 
 If (Test-Path $MainPath) {
-	Write-Host "Begin installation of SWMB..."
+	Write-Output "Begin installation of SWMB..."
 	Copy-Item -Path "$MainPath\*" -Destination "$InstallFolder" -Recurse -Force
 	Get-ChildItem -Path "$InstallFolder" -Recurse | Unblock-File
 }

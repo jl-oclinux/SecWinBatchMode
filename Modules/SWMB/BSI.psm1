@@ -11,12 +11,12 @@
 #  2021 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
-#Write-host @"
+#Write-Host @"
 #
 #TEST DES CLES DE REGISTRE DE LA BSI ALLEMANDE ET PROPOSITION DE CORRECTION SI INACTIVES
 #
 #Pour pouvoir exécuter le script téléchargé et non signé, faire ceci avant de le lancer :
-#dir -Path C:\SWMB\resinfo-swmb-master -Recurse | Unblock-File
+#Dir -Path C:\SWMB\resinfo-swmb-master -Recurse | Unblock-File
 #Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 
 #"@ -ForegroundColor Green

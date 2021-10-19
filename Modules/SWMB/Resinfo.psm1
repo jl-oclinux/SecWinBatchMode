@@ -599,18 +599,18 @@ Function EnableBitlocker {
 			# Todo question : do I delete the file afterwards?
 		}
 		Catch {
-			Write-Host ("$networkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
+			Write-Output ("$networkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
 			_NetworkKeyBackup -wantToSave $true
 		}
 	}
 
 	Function _DecryptAndWait ([string]$letter) {
 		Disable-BitLocker -MountPoint $letter
-		Write-Host "decryption in progress for $letter"
+		Write-Output "decryption in progress for $letter"
 		While ((Get-BitLockerVolume -MountPoint $letter).EncryptionPercentage -gt 0 ) {
 			Start-Sleep -Seconds 20
 		}
-		Write-Host "$letter is fully decrypted"
+		Write-Output "$letter is fully decrypted"
 	}
 
 	Function _EncryptSytemDrive() {
@@ -624,27 +624,27 @@ Function EnableBitlocker {
 		$useCodePin = Read-Host -Prompt "Activation bitlocker - Do you want to use PIN code? [Y/n]"
 		If ($useCodePin.ToLower() -ne "n") {
 			$secure = Read-Host -AsSecureString -Prompt "Code PIN (6 digits)"
-			Write-Host "Enable bitlocker on system drive $systemDrive with PIN code"
+			Write-Output "Enable bitlocker on system drive $systemDrive with PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmAndPinProtector -Pin $secure -EncryptionMethod "XtsAes256" 3> $null
 			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 2 `
 				-Message "SWMB: Enable bitlocker on system drive $systemDrive with PIN code"
 		}
 		Else {
-			Write-Host "Enable bitlocker on system drive $systemDrive without PIN code"
+			Write-Output "Enable bitlocker on system drive $systemDrive without PIN code"
 			Enable-BitLocker -MountPoint "$systemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
 			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 3 `
 				-Message "SWMB: Enable bitlocker on system drive $systemDrive without PIN code"
 		}
 
-		Write-Host "Add system drive key"
+		Write-Output "Add system drive key"
 		Add-BitLockerKeyProtector -MountPoint "$systemDrive" -RecoveryPasswordProtector
-		Write-Host "Copy system drive key on $systemDrive"
+		Write-Output "Copy system drive key on $systemDrive"
 		$pathKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $systemDriveLetter + ".txt"
 		If (Test-Path -Path $pathKey -PathType leaf) {
 			$oldKey = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $systemDriveLetter + ".txt.old"
-			Write-Host "Warning: $pathKey already exist => rename with .old extension"
+			Write-Output "Warning: $pathKey already exist => rename with .old extension"
 			If (Test-Path -Path $oldKey -PathType leaf) {
-				Write-Host "Warning: delete before old key $oldKey"
+				Write-Output "Warning: delete before old key $oldKey"
 				Remove-Item -Path $oldKey -Force
 			}
 			Rename-Item -Path $pathKey -NewName $oldKey
@@ -662,7 +662,7 @@ Function EnableBitlocker {
 			}
 			Catch {
 				$message = "Error backuping $pathKey on network folder $networkKeyBackupFolder"
-				Write-Host $message
+				Write-Output $message
 				Write-EventLog -LogName Application -Source "SWMB" -EntryType Warning -EventID 4 -Message $message
 			}
 		}
@@ -687,25 +687,25 @@ Function EnableBitlocker {
 
 			# Test if partition is already encrypted (like for C:)
 			If ((Get-BitLockerVolume $letter).ProtectionStatus -eq "On") {
-				Write-Host "Bitlocker on drive $letter is already ON!"
+				Write-Output "Bitlocker on drive $letter is already ON!"
 				continue
 			}
 
-			Write-Host "Bitlocker activation on drive $letter is going to start"
+			Write-Output "Bitlocker activation on drive $letter is going to start"
 
 			Enable-BitLocker -MountPoint $letter -RecoveryPasswordProtector -UsedSpaceOnly -EncryptionMethod "XtsAes256" 3> $null
 			Resume-BitLocker -MountPoint $letter
 			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 1 -Message "SWMB: Bitlocker enable drive $letter"
 
-			Write-Host "Copy drive $letter key"
+			Write-Output "Copy drive $letter key"
 			$backupFile = $systemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $dateNow + "-" + $letter + ".txt"
-			Write-Host $backupFile
+			Write-Output $backupFile
 			(Get-BitLockerVolume -MountPoint $letterColon).KeyProtector > $backupFile
 
 			icacls.exe $backupFile /Reset
 			icacls.exe $backupFile /Grant:r "$((Get-Acl -Path $backupFile).Owner):(R)"
 			icacls.exe $backupFile /InheritanceLevel:r
-			Write-Host "Bitlocker activation on drive $letter ended with success"
+			Write-Output "Bitlocker activation on drive $letter ended with success"
 
 			# copy key if $networkKeyBackup
 			If (-not ([string]::IsNullOrEmpty($networkKeyBackupFolder))) {
@@ -714,7 +714,7 @@ Function EnableBitlocker {
 				}
 				Catch {
 					$message = "Error backuping $backupFile on network folder $networkKeyBackupFolder"
-					Write-Host $message
+					Write-Output $message
 					Write-EventLog -LogName Application -Source "SWMB" -EntryType Warning -EventID 4 -Message $message
 				}
 			}
@@ -809,7 +809,7 @@ Function EnableBitlocker {
 		Return
 	}
 	If (!(Get-Tpm).TpmReady) {
-		Write-Host "Get-TPM informations"
+		Write-Output "Get-TPM informations"
 		Get-Tpm
 		Write-Error "TPM not ready!"
 		Return
@@ -827,13 +827,13 @@ Function EnableBitlocker {
 		Return
 	}
 
-	Write-Host "Bitlocker Volume Status encryption on $systemDrive is $sytemDriveStatus"
+	Write-Output "Bitlocker Volume Status encryption on $systemDrive is $sytemDriveStatus"
 
 	If (((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") -or ($sytemDriveStatus -eq "EncryptionInProgress")) {
-		Write-Host "Bitlocker on system drive is already on (or in progress)"
+		Write-Output "Bitlocker on system drive is already on (or in progress)"
 		If ((Get-BitLockerVolume $Env:SystemDrive).EncryptionMethod -ne "XtsAes256") {
 			Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256"
-			Write-Host "Decrypt with command : swmb.ps1 DisableBitlocker"
+			Write-Output "Decrypt with command : swmb.ps1 DisableBitlocker"
 			Return
 		}
 		Else {

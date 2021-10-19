@@ -8,6 +8,7 @@
 # Authors:
 #  2017 - Disassembler <disassembler@dasm.cz>
 #  2021 - Gabriel Moreau (CNRS / LEGI)
+#  2021 - Olivier de Marchi (Grenoble INP / LEGI)
 # Version: v3.12, 2021-07-10
 ################################################################
 
@@ -25,13 +26,14 @@ Set-Location $InstallFolder
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $BootPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "CurrentUser-Logon.preset"))
 $BootModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "CurrentUser-Logon.psm1"))
+$BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "CurrentUser-lastLogon.log"))
 
 # Launch SWMB with this preset
 If (Test-Path -LiteralPath $BootPreset) {
 	If (Test-Path -LiteralPath $BootModule) {
-		.\swmb.ps1 -include $BootModule -preset $BootPreset
+		.\swmb.ps1 -include $BootModule -preset $BootPreset > $BootLog
 	} Else {
-		.\swmb.ps1 -preset $BootPreset
+		.\swmb.ps1 -preset $BootPreset > $BootLog
 	}
 }
 

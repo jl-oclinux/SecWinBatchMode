@@ -157,8 +157,6 @@ Section "Program files (Required)"
   ; ProgramData and sets all user permissions
   SetShellVarContext all ; to have $AppData point to ProgramData folder
   CreateDirectory "$AppData\${NAME}\Logs"
-  ; https://nsis.sourceforge.io/AccessControl_plug-in
-  AccessControl::GrantOnFile "$AppData\${NAME}\Logs" "(S-1-5-32-545)" "Delete + AddFile + GenericRead + GenericWrite + ListDirectory"
   CreateDirectory "$AppData\${NAME}\Modules"
   CreateDirectory "$AppData\${NAME}\Presets"
   ;AccessControl::GrantOnFile "$AppData\${NAME}" "(S-1-5-32-545)" "FullAccess"

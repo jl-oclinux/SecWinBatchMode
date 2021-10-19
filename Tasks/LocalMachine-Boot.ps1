@@ -11,7 +11,7 @@
 # Version: v3.12, 2021-07-10
 ################################################################
 
-Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 10 `
+Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 0 `
 	-Message "SWMB: Run Boot Script for LocalMachine - Begin"
 
 # Change Path to the root Installation Folder

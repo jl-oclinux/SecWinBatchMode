@@ -23,6 +23,7 @@ are copied on folder `C:\ProgramData\SWMB\Presets`.
 They could serve for test or as simple examples.
 
 New presets/rules:
+* 2021/10/19 - $INCLUDE and $IMPORT can open filename with space in PATH. Protect the string with double quote `"`.
 * 2021/10/16 - SysEvent - Like SysMessage but open a Box (experimental)
 * 2021/10/15 - SysEvent - Like SysMessage but send an Event
 * 2021/10/11 - $IMPORT - Like $INCLUDE but import a module from a preset file

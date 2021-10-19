@@ -16,7 +16,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.12"
+!define VERSION "3.12.99.13"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -76,7 +76,9 @@ Function .onInit
   StrCmp $R0 "" done
 
   ${If} ${Silent}
-  Exec "$R0 /S"
+  ClearErrors
+  ExecWait '"$R0" /S_?=$INSTDIR' $0
+  DetailPrint "  $R0 /S exit code $0"
   Goto done
   ${Else}
   MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
@@ -89,7 +91,9 @@ Function .onInit
 uninst:
   ClearErrors
   Exec $R0
+
 done:
+
 FunctionEnd
 
 Function un.onInit

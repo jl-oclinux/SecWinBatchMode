@@ -70,47 +70,6 @@ These setup packages are made with the NSIS software.
 It is possible to do a silent installation with the `/S` flag.
 
 
-## Preset
-
-The preset file is in practice a list of tweaks to apply.
-There is one tweak per line.
-It is possible to have empty lines, comments.
-These are identified with the # character, as in many scripting languages.
-
-The presets are classified in the folder `Presets`.
-Currently, there is one preset per paragraph of the ANSSI concerning the settings for the computer configuration.
- * Telemetry preset
- * Cortana and search preset
- * User experience preset
- * Universal Applications preset
- * Cloud preset
-
-Moreover, some presets concern the computer while others concern the current user.
-In one case, the tweaks affect the overall operation of the operating system and must be run as an administrator (or under the SYSTEM user),
-in the other case, the actions are to be launched, for example at login, with the identity of the person.
-Preset files are therefore prefixed with the extensions `LocalMachine-` and `CurrentUser-`.
-
-It is possible to include a set of presets in another file with the keyword `$INCLUDE` (same keyword as in the freeradius server software configuration).
-The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.
-It is currently not possible to have a space in the path name (it is always possible to put a wildcard like a `*` or a `?` to get around it).
-```ps1
-$INCLUDE LocalMachine-Cloud.preset
-$INCLUDE LocalMachine-CortanaSearch.preset
-...
-```
-In order to facilitate the deployment,
-the modularity and the management of programmed tasks,
-it is also possible to import a module within a preset file, with the keyword `$IMPORT`.
-This is the same way as the `$INCLUDE` keyword.
-Note the support of wildcards in the name of the module to import, allowing to import several of them.
-The module path must be relative to the preset file.
-It is currently not possible to have a space in the path name (it is always possible to put a wildcard like a `*` or a `?` to get around it).
-```ps1
-$IMPORT ..\Modules\MyModule.psm1
-```
-You can import as many modules as you want.
-
-
 ## Usage
 
 ### Direct use from PowerShell
@@ -189,20 +148,45 @@ Do not modify these examples directly, they will be updated in the next software
 Rename them and modify them.
 
 
-### Integration into another Git project
+## Preset
 
-One way to use SWMB is to integrate it in one of your projects as a Git subtree.
-```bash
-git remote add -f SWMB https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb.git
-git subtree add --prefix SWMB/ SWMB master --squash
+The preset file is in practice a list of tweaks to apply.
+There is one tweak per line.
+It is possible to have empty lines, comments.
+These are identified with the # character, as in many scripting languages.
+
+The presets are classified in the folder `Presets`.
+Currently, there is one preset per paragraph of the ANSSI concerning the settings for the computer configuration.
+ * Telemetry preset
+ * Cortana and search preset
+ * User experience preset
+ * Universal Applications preset
+ * Cloud preset
+
+Moreover, some presets concern the computer while others concern the current user.
+In one case, the tweaks affect the overall operation of the operating system and must be run as an administrator (or under the SYSTEM user),
+in the other case, the actions are to be launched, for example at login, with the identity of the person.
+Preset files are therefore prefixed with the extensions `LocalMachine-` and `CurrentUser-`.
+
+It is possible to include a set of presets in another file with the keyword `$INCLUDE` (same keyword as in the freeradius server software configuration).
+The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.
+It is currently not possible to have a space in the path name (it is always possible to put a wildcard like a `*` or a `?` to get around it).
+```ps1
+$INCLUDE LocalMachine-Cloud.preset
+$INCLUDE LocalMachine-CortanaSearch.preset
+...
 ```
-
-To update (synchronize) your repository with the SWMB project repository:
-```bash
-git subtree pull --prefix SWMB/ https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb.git master --squash
+In order to facilitate the deployment,
+the modularity and the management of programmed tasks,
+it is also possible to import a module within a preset file, with the keyword `$IMPORT`.
+This is the same way as the `$INCLUDE` keyword.
+Note the support of wildcards in the name of the module to import, allowing to import several of them.
+The module path must be relative to the preset file.
+It is currently not possible to have a space in the path name (it is always possible to put a wildcard like a `*` or a `?` to get around it).
+```ps1
+$IMPORT ..\Modules\MyModule.psm1
 ```
-
-See [CONTRIBUTING](./CONTRIBUTING.md).
+You can import as many modules as you want.
 
 
 ### Definition of your own variable values
@@ -212,7 +196,7 @@ If you want to define your own variable values used in the `Custom.psm1` module,
    or in any parent `..` or sub-folder `Modules` of a parent folder!
    This leaves a lot of choices...
    It's also possible to create it inside the program data folder dedicated to SWMB
-   (`C:\ProgramData\SWMB`).
+   (`C:\ProgramData\SWMB\Modules`).
  * Set the hash values of your global variables
    (Don't change the whole hash table like in the `Custom-VarDefault.psm1` file)
  * Example:
@@ -236,6 +220,22 @@ So it is only valid once unless you recreate it between two SWMB launches.
 The module `Custom-VarAutodel.psm1` is searched in the same folder as the module `Custom-VarOverload.psm1`.
 The `VarOverload` module **is loaded first** if it exists, however **both modules are loaded if they are in the same folder**.
 The recursive search in subfolders stops as soon as one or both modules are found in a folder.
+
+
+### Integration into another Git project
+
+One way to use SWMB is to integrate it in one of your projects as a Git subtree.
+```bash
+git remote add -f SWMB https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb.git
+git subtree add --prefix SWMB/ SWMB master --squash
+```
+
+To update (synchronize) your repository with the SWMB project repository:
+```bash
+git subtree pull --prefix SWMB/ https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb.git master --squash
+```
+
+See [CONTRIBUTING](./CONTRIBUTING.md).
 
 
 ## Examples of deployment and use

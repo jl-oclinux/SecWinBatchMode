@@ -16,7 +16,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.8"
+!define VERSION "3.12.99.9"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -136,9 +136,11 @@ Section "Program files (Required)"
 
   SetOutPath $InstDir\Presets
   File "Presets\CurrentUser-All.preset"
+  File "Presets\CurrentUser-Logon-Test.preset"
   File "Presets\CurrentUser-Resinfo.preset"
   File "Presets\CurrentUser-UserExperience.preset"
   File "Presets\LocalMachine-All.preset"
+  File "Presets\LocalMachine-Boot-Test.preset"
   File "Presets\LocalMachine-Cloud.preset"
   File "Presets\LocalMachine-CortanaSearch.preset"
   File "Presets\LocalMachine-Default.preset"
@@ -154,11 +156,16 @@ Section "Program files (Required)"
   
   ; ProgramData and sets all user permissions
   SetShellVarContext all ; to have $AppData point to ProgramData folder
-  ;CreateDirectory "$AppData\${NAME}\Presets"
+  CreateDirectory "$AppData\${NAME}\Presets"
   CreateDirectory "$AppData\${NAME}\CurrentUser\Presets"
   CreateDirectory "$AppData\${NAME}\LocalMachine\Presets"
   ;AccessControl::GrantOnFile "$AppData\${NAME}" "(S-1-5-32-545)" "FullAccess"
   ;AccessControl::GrantOnFile "$AppData\${NAME}\*" "(S-1-5-32-545)" "FullAccess"
+
+  ; Capy Simple Sample Test
+  SetOutPath $AppData\${NAME}\Presets
+  File "Presets\CurrentUser-Logon-Test.preset"
+  File "Presets\LocalMachine-Boot-Test.preset"
 SectionEnd
 
 Section "Task Scheduler"
@@ -189,6 +196,9 @@ Section -Uninstall
   Delete "$SMPrograms\${NAME}.lnk"
 
   SetShellVarContext all
+  Delete "$AppData\${NAME}\Presets\CurrentUser-Logon-Test.preset"
+  Delete "$AppData\${NAME}\Presets\LocalMachine-Boot-Test.preset"
+  RMDir "$AppData\${NAME}\Presets"
   RMDir "$AppData\${NAME}\CurrentUser\Presets"
   RMDir "$AppData\${NAME}\CurrentUser"
   RMDir "$AppData\${NAME}\LocalMachine\Presets"

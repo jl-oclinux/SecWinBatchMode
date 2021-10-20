@@ -67,6 +67,15 @@ Function SysRestart {
 
 ################################################################
 
+# Restart computer
+Function SysCheckpoint {
+	Write-Output "Make a System Checkpoint..."
+	$Date = (Get-Date -Format "yyyy/MM/dd HH:mm")
+	Checkpoint-Computer –Description "SWMB Checkpoint performed at $Date"
+}
+
+################################################################
+
 # Implementation used in powershell script
 # The main implementation in swmb.ps1 is used otherwise in the CLI
 Function SysRequireAdmin {

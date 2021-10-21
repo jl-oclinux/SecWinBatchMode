@@ -45,9 +45,18 @@ While ($i -lt $args.Length) {
 		# Wilcard support
 		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
 			$include = $_.Path
-			$Global:SWMB_PSCommandArgs += "-include `"$include`""
+			$Global:SWMB_PSCommandArgs += "-import `"$include`""
 			# Import the included file as a module
 			Import-Module -Name $include -ErrorAction Stop
+		}
+	} ElseIf ($args[$i].ToLower() -eq "-import") {
+		# Resolve full path to the imported module file
+		# Wilcard support
+		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
+			$import = $_.Path
+			$Global:SWMB_PSCommandArgs += "-import `"$import`""
+			# Import the imported file as a module
+			Import-Module -Name $import -ErrorAction Stop
 		}
 	} ElseIf ($args[$i].ToLower() -eq "-exp") {
 		$experimental = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" (Join-Path -Path "SWMB" -ChildPath "Experimental.psm1")))

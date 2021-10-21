@@ -188,6 +188,14 @@ Function SWMB_AddOrRemoveTweak() {
 		# Include preset file, wildcard possible
 		$TweakFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$INCLUDE\s+([^\s])', '$1'))
 		SWMB_LoadTweakFile -TweakFile "$TweakFile" -CLI $False
+	} ElseIf ($Tweak -cmatch '^\$PRESET\s+"[^"]+"') {
+		# PRESET preset file, wildcard possible
+		$TweakFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$PRESET\s+"([^"]+)"', '$1'))
+		SWMB_LoadTweakFile -TweakFile "$TweakFile" -CLI $False
+	} ElseIf ($Tweak -cmatch '^\$PRESET\s+[^\s]') {
+		# PRESET preset file, wildcard possible
+		$TweakFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$PRESET\s+([^\s])', '$1'))
+		SWMB_LoadTweakFile -TweakFile "$TweakFile" -CLI $False
 	} ElseIf ($Tweak -cmatch '^\$IMPORT\s+"[^"]+"') {
 		# Import the file as a module, wildcard possible
 		$ModuleFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$IMPORT\s+"([^"]+)"', '$1'))

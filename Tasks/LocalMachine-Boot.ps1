@@ -31,9 +31,9 @@ $BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"  
 # Launch SWMB with this preset
 If (Test-Path -LiteralPath $BootPreset) {
 	If (Test-Path -LiteralPath $BootModule) {
-		.\swmb.ps1 -include $BootModule -preset $BootPreset > $BootLog
+		.\swmb.ps1 -log "$BootLog" -include "$BootModule" -preset "$BootPreset"
 	} Else {
-		.\swmb.ps1 -preset $BootPreset > $BootLog
+		.\swmb.ps1 -log "$BootLog" -preset "$BootPreset"
 	}
 }
 

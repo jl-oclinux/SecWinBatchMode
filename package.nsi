@@ -16,7 +16,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.13"
+!define VERSION "3.12.99.14"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -56,43 +56,66 @@ Uninstpage InstFiles
   ${EndIf}
 !macroend
 
+Function TrimQuotes
+Exch $R0
+Push $R1
+ 
+  StrCpy $R1 $R0 1
+  StrCmp $R1 `"` 0 +2
+    StrCpy $R0 $R0 `` 1
+  StrCpy $R1 $R0 1 -1
+  StrCmp $R1 `"` 0 +2
+    StrCpy $R0 $R0 -1
+ 
+Pop $R1
+Exch $R0
+FunctionEnd
+ 
+!macro _TrimQuotes Input Output
+  Push `${Input}`
+  Call TrimQuotes
+  Pop ${Output}
+!macroend
+!define TrimQuotes `!insertmacro _TrimQuotes`
 
 Function .onInit
   SetShellVarContext All
   !insertmacro EnsureAdminRights
 
-  StrCpy $InstDir "$ProgramFiles64\${NAME}"
+  StrCpy $INSTDIR "$ProgramFiles64\${NAME}"
 
   ${If} ${RunningX64}
-  ${EnableX64FSRedirection}
+    ${EnableX64FSRedirection}
   ${Else}
-  MessageBox MB_OK "Sorry this application runs only on x64 machines"
-  Abort
+    MessageBox MB_OK "Sorry this application runs only on x64 machines"
+    Abort
   ${EndIf}
 
   ReadRegStr $R0 HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString"
+  ; $R0 has the double quote around
   StrCmp $R0 "" done
 
-  ${If} ${Silent}
-  ClearErrors
-  nsExec::ExecToStack '"$R0" /S  '
-  Pop $0 ; return value/error/timeout
-  DetailPrint "  $R0 /S exit code $0"
-  Goto done
-  ${Else}
-  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
-  "${NAME} is already installed. $\n$\nClick `OK` to remove the \
-  previous version or `Cancel` to cancel this upgrade." \
-  IDOK uninst
-  Abort
+  ${TrimQuotes} $R0 $R1
+  ${If} ${FileExists} "$R1"
+    ${If} ${Silent}
+      ClearErrors
+      nsExec::ExecToStack '$R0 /S  '
+      Sleep 10000 ; 10 second because exec do not block... why ?
+    ${Else}
+      MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
+        "${NAME} is already installed. $\n$\nClick `OK` to remove the \
+        previous version or `Cancel` to cancel this upgrade." \
+        IDOK uninst
+      Abort
+    ${EndIf}
   ${EndIf}
+  Goto done
 
 uninst:
   ClearErrors
   Exec $R0
 
 done:
-
 FunctionEnd
 
 Function un.onInit
@@ -104,16 +127,16 @@ FunctionEnd
 Section "Program files (Required)"
   SectionIn Ro
 
-  SetOutPath $InstDir
-  WriteUninstaller "$InstDir\Uninst.exe"
+  SetOutPath $INSTDIR
+  WriteUninstaller "$INSTDIR\Uninst.exe"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayName" "${NAME} release ${VERSION}"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayVersion" "${VERSION}"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Comments" "${NAME} (${VERSION})"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "Publisher" "${PUBLISHER}"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "URLInfoAbout" "https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb"
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayIcon" "$InstDir\logo-swmb.ico"
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString" '"$InstDir\Uninst.exe"'
-  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "InstallFolder" "$InstDir"
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "DisplayIcon" "$INSTDIR\logo-swmb.ico"
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString" '"$INSTDIR\Uninst.exe"'
+  WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "InstallFolder" "$INSTDIR"
   WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "NoModify" 1
   WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "NoRepair" 1
   File "swmb.ps1"
@@ -125,15 +148,15 @@ Section "Program files (Required)"
   File "README.md"
   File "REFERENCES.md"
 
-  SetOutPath $InstDir\Setup
+  SetOutPath $INSTDIR\Setup
   File "Setup\post-install.ps1"
   File "Setup\pre-remove.ps1"
 
-  SetOutPath $InstDir\Modules
+  SetOutPath $INSTDIR\Modules
   File "Modules\SWMB.psd1"
   File "Modules\SWMB.psm1"
 
-  SetOutPath $InstDir\Modules\SWMB
+  SetOutPath $INSTDIR\Modules\SWMB
   File "Modules\SWMB\BSI.psm1"
   File "Modules\SWMB\Contrib.psm1"
   File "Modules\SWMB\CurrentUser-Application.psm1"
@@ -158,7 +181,7 @@ Section "Program files (Required)"
   File "Modules\SWMB\Win10-UI.psm1"
   File "Modules\SWMB\Win10-UWPPrivacy.psm1"
 
-  SetOutPath $InstDir\Presets
+  SetOutPath $INSTDIR\Presets
   File "Presets\CurrentUser-All.preset"
   File "Presets\CurrentUser-Logon-Test.preset"
   File "Presets\CurrentUser-Resinfo.preset"
@@ -174,44 +197,42 @@ Section "Program files (Required)"
   File "Presets\LocalMachine-UserExperience.preset"
   File "Presets\Post-Install.preset"
 
-  SetOutPath $InstDir\Tasks
+  SetOutPath $INSTDIR\Tasks
   File "Tasks\CurrentUser-Logon.ps1"
   File "Tasks\LocalMachine-Boot.ps1"
-  
-  ; ProgramData and sets all user permissions
-  SetShellVarContext all ; to have $AppData point to ProgramData folder
-  CreateDirectory "$AppData\${NAME}\Logs"
-  CreateDirectory "$AppData\${NAME}\Modules"
-  CreateDirectory "$AppData\${NAME}\Presets"
-  ;AccessControl::GrantOnFile "$AppData\${NAME}" "(S-1-5-32-545)" "FullAccess"
-  ;AccessControl::GrantOnFile "$AppData\${NAME}\*" "(S-1-5-32-545)" "FullAccess"
-
-  ; Capy Simple Sample Test
-  SetOutPath $AppData\${NAME}\Presets
-  File "Presets\CurrentUser-Logon-Test.preset"
-  File "Presets\LocalMachine-Boot-Test.preset"
 SectionEnd
 
 Section "Task Scheduler"
-  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\post-install.ps1"  '
+  ; ProgramData and sets all user permissions
+  CreateDirectory "$APPDATA\${NAME}\Logs"
+  CreateDirectory "$APPDATA\${NAME}\Modules"
+  CreateDirectory "$APPDATA\${NAME}\Presets"
+
+  ; Copy Simple Sample Test
+  SetOutPath $APPDATA\${NAME}\Presets
+  File "Presets\CurrentUser-Logon-Test.preset"
+  File "Presets\LocalMachine-Boot-Test.preset"
+
+  ; ACL on Logs and Register Task
+  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$INSTDIR\Setup\post-install.ps1"  '
   Pop $0 ; return value/error/timeout
   Pop $1 ; printed text, up to ${NSIS_MAX_STRLEN}
-  DetailPrint '"$InstDir\Setup\post-install.ps1"'
+  DetailPrint '"$INSTDIR\Setup\post-install.ps1"'
   DetailPrint "  Printed: $1"
   DetailPrint "  Return value: $0"
   DetailPrint ""
 SectionEnd
 
 Section "Start Menu shortcut"
-  CreateShortcut /NoWorkingDir "$SMPrograms\${NAME}.lnk" "$InstDir\swmb.ps1"
+  CreateShortcut /NoWorkingDir "$SMPrograms\${NAME}.lnk" "$INSTDIR\swmb.ps1"
 SectionEnd
 
 
 Section -Uninstall
-  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$InstDir\Setup\pre-remove.ps1"  '
+  nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -File "$INSTDIR\Setup\pre-remove.ps1"  '
   Pop $0 ; return value/error/timeout
   Pop $1 ; printed text, up to ${NSIS_MAX_STRLEN}
-  DetailPrint '"$InstDir\Setup\pre-remove.ps1"'
+  DetailPrint '"$INSTDIR\Setup\pre-remove.ps1"'
   DetailPrint "  Printed: $1"
   DetailPrint "  Return value: $0"
   DetailPrint ""
@@ -219,29 +240,28 @@ Section -Uninstall
   ${UnpinShortcut} "$SMPrograms\${NAME}.lnk"
   Delete "$SMPrograms\${NAME}.lnk"
 
-  SetShellVarContext all
-  RMDir "$AppData\${NAME}\Logs"
-  RMDir "$AppData\${NAME}\Modules"
-  Delete "$AppData\${NAME}\Presets\CurrentUser-Logon-Test.preset"
-  Delete "$AppData\${NAME}\Presets\LocalMachine-Boot-Test.preset"
-  Delete "$AppData\${NAME}\Presets\CurrentUser-Logon-Test2.preset"
-  Delete "$AppData\${NAME}\Presets\LocalMachine-Boot-Test2.preset"
-  RMDir "$AppData\${NAME}\Presets"
-  RMDir "$AppData\${NAME}"
+  RMDir "$APPDATA\${NAME}\Logs"
+  RMDir "$APPDATA\${NAME}\Modules"
+  Delete "$APPDATA\${NAME}\Presets\CurrentUser-Logon-Test.preset"
+  Delete "$APPDATA\${NAME}\Presets\LocalMachine-Boot-Test.preset"
+  Delete "$APPDATA\${NAME}\Presets\CurrentUser-Logon-Test2.preset"
+  Delete "$APPDATA\${NAME}\Presets\LocalMachine-Boot-Test2.preset"
+  RMDir "$APPDATA\${NAME}\Presets"
+  RMDir "$APPDATA\${NAME}"
 
-  Delete "$InstDir\Uninst.exe"
-  Delete "$InstDir\swmb.ps1"
-  Delete "$InstDir\logo-swmb.ico"
-  Delete "$InstDir\CONTRIBUTING.md"
-  Delete "$InstDir\FAQ.md"
-  Delete "$InstDir\LICENSE.md"
-  Delete "$InstDir\NEWS.md"
-  Delete "$InstDir\README.md"
-  Delete "$InstDir\REFERENCES.md"
-  RMDir /r "$InstDir\Modules"
-  RMDir /r "$InstDir\Presets"
-  RMDir /r "$InstDir\Tasks"
-  RMDir /r "$InstDir\Setup"
-  RMDir "$InstDir"
+  Delete "$INSTDIR\Uninst.exe"
+  Delete "$INSTDIR\swmb.ps1"
+  Delete "$INSTDIR\logo-swmb.ico"
+  Delete "$INSTDIR\CONTRIBUTING.md"
+  Delete "$INSTDIR\FAQ.md"
+  Delete "$INSTDIR\LICENSE.md"
+  Delete "$INSTDIR\NEWS.md"
+  Delete "$INSTDIR\README.md"
+  Delete "$INSTDIR\REFERENCES.md"
+  RMDir /r "$INSTDIR\Modules"
+  RMDir /r "$INSTDIR\Presets"
+  RMDir /r "$INSTDIR\Tasks"
+  RMDir /r "$INSTDIR\Setup"
+  RMDir "$INSTDIR"
   DeleteRegKey HKLM "${REGPATH_UNINSTSUBKEY}"
 SectionEnd

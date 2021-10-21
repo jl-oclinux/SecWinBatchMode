@@ -30,6 +30,6 @@ REM execeution de swmb.ps1
 ECHO SWMBPowershell>>%logfile% 2>&1
 C:
 CD "C:\Program Files\SWMB"
-%pwrsh% -File "C:\Program Files\SWMB\swmb.ps1" -include "Modules\SWMB\Custom.psm1" -preset "Presets\LocalMachine-Default.preset" >>%logfile% 2>&1
+%pwrsh% -File "C:\Program Files\SWMB\swmb.ps1" -import "Modules\SWMB\Custom.psm1" -preset "Presets\LocalMachine-Default.preset" >>%logfile% 2>&1
 
 EXIT

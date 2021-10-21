@@ -109,9 +109,9 @@ See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_versio
 
 ## Advanced usage
 
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 [-include filename] [-preset filename] [-log logname] [[!]tweakname]
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 [-import filename] [-preset filename] [-log logname] [[!]tweakname]
 
-    -include filename       load module with user-defined tweaks
+    -import filename       load module with user-defined tweaks
     -preset filename        load preset with tweak names to apply
     -log logname            save script output to a file
     tweakname               apply tweak with this particular name
@@ -119,13 +119,13 @@ See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_versio
 
 ### Presets
 
-The tweak library consists of separate idempotent functions, containing one tweak each. The functions can be grouped to *presets*. Preset is simply a list of function names which should be called. Any function which is not present or is commented in a preset will not be called, thus the corresponding tweak will not be applied. In order for the script to do something, you need to supply at least one tweak library via `-include` and at least one tweak name, either via `-preset` or directly as command line argument.
+The tweak library consists of separate idempotent functions, containing one tweak each. The functions can be grouped to *presets*. Preset is simply a list of function names which should be called. Any function which is not present or is commented in a preset will not be called, thus the corresponding tweak will not be applied. In order for the script to do something, you need to supply at least one tweak library via `-import` and at least one tweak name, either via `-preset` or directly as command line argument.
 
 The tweak names can be prefixed with exclamation mark (`!`) which will instead cause the tweak to be removed from selection. This is useful in cases when you want to apply the whole preset, but omit a few specific tweaks in the current run. Alternatively, you can have a preset which "patches" another preset by adding and removing a small amount of tweaks.
 
 To supply a customized preset, you can either pass the function names directly as arguments.
 
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -include Win10.psm1 EnableFirewall EnableDefender
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -import Win10.psm1 EnableFirewall EnableDefender
 
 Or you can create a file where you write the function names (one function name per line, no commas or quotes, whitespaces allowed, comments starting with `#`) and then pass the filename using `-preset` parameter.  
 Example of a preset file `mypreset.txt`:
@@ -140,11 +140,11 @@ Example of a preset file `mypreset.txt`:
 
 Command using the preset file above:
 
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -include Win10.psm1 -preset mypreset.txt
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -import Win10.psm1 -preset mypreset.txt
 
 ### Includes
 
-The script also supports inclusion of custom tweaks from user-supplied modules passed via `-include` parameter. The content of the user-supplied module is completely up to the user, however it is strongly recommended to have the tweaks separated in respective functions as the main tweak library has. The user-supplied scripts are loaded into the main script via `Import-Module`, so the library should ideally be a `.psm1` PowerShell module. 
+The script also supports inclusion of custom tweaks from user-supplied modules passed via `-import` parameter. The content of the user-supplied module is completely up to the user, however it is strongly recommended to have the tweaks separated in respective functions as the main tweak library has. The user-supplied scripts are loaded into the main script via `Import-Module`, so the library should ideally be a `.psm1` PowerShell module. 
 Example of a user-supplied tweak library `mytweaks.psm1`:
 
 ```powershell
@@ -161,11 +161,11 @@ Function MyTweak2 {
 
 Command using the script above:
 
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -include mytweaks.psm1 MyTweak1 MyTweak2
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -import mytweaks.psm1 MyTweak1 MyTweak2
 
 ### Combination
 
-All features described above can be combined. You can have a preset which includes both tweaks from the original script and your personal ones. Both `-include` and `-preset` options can be used more than once, so you can split your tweaks into groups and then combine them based on your current needs. The `-include` modules are always imported before the first tweak is applied, so the order of the command line parameters doesn't matter and neither does the order of the tweaks (except for `RequireAdmin`, which should always be called first and `Restart`, which should be always called last). It can happen that some tweaks are applied more than once during a singe run because you have them in multiple presets. That shouldn't cause any problems as the tweaks are idempotent.  
+All features described above can be combined. You can have a preset which includes both tweaks from the original script and your personal ones. Both `-import` and `-preset` options can be used more than once, so you can split your tweaks into groups and then combine them based on your current needs. The `-import` modules are always imported before the first tweak is applied, so the order of the command line parameters doesn't matter and neither does the order of the tweaks (except for `RequireAdmin`, which should always be called first and `Restart`, which should be always called last). It can happen that some tweaks are applied more than once during a singe run because you have them in multiple presets. That shouldn't cause any problems as the tweaks are idempotent.  
 Example of a preset file `otherpreset.txt`:
 
     MyTweak1
@@ -175,7 +175,7 @@ Example of a preset file `otherpreset.txt`:
 
 Command using all three examples combined:
 
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -include Win10.psm1 -include mytweaks.psm1 -preset mypreset.txt -preset otherpreset.txt Restart
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -import Win10.psm1 -import mytweaks.psm1 -preset mypreset.txt -preset otherpreset.txt Restart
 
 &nbsp;
 
@@ -183,7 +183,7 @@ Command using all three examples combined:
 
 If you'd like to store output from the script execution, you can do so using `-log` parameter followed by a filename of the log file you want to create. For example:
 
-    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -include Win10.psm1 -preset mypreset.txt -log myoutput.log
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -import Win10.psm1 -preset mypreset.txt -log myoutput.log
 
 The logging is done using PowerShell `Start-Transcript` cmdlet, which writes extra information about current environment (date, machine and user name, command used for execution etc.) to the beginning of the file and logs both standard output and standard error streams.
 

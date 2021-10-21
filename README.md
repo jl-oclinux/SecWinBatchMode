@@ -113,7 +113,7 @@ SWMB_RunTweaks
  * `-core` : if used, it must be the first option.
    Import only the core (minimal) module `SWMB.psm1`,
    not all the neested module declared in `SWMB.psd1`.
- * `-include module_file` : imports the module into SWMB.
+ * `-import module_file` : imports the module into SWMB.
    You can extend SWMB, as is, with your own tweaks.
    This option can be declare as many times as necessary.
  * `-preset preset_file` : loads all the tweak groups defined in a preset file.

@@ -20,6 +20,7 @@ Function SysRequireAdmin {
 }
 
 $Script:SWMB_CheckTweak = 'Run'
+$Script:SWMB_Log        = ''
 
 # First argument
 $i = 0
@@ -57,11 +58,15 @@ While ($i -lt $args.Length) {
 		# Load tweak preset file
 		SWMB_LoadTweakFile($args[++$i])
 	} ElseIf ($args[$i].ToLower() -eq "-log") {
-		# Resolve full path to the output file
-		$log = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($args[++$i])
-		$Global:SWMB_PSCommandArgs += "-log `"$log`""
-		# Record session to the output file
-		Start-Transcript $log
+		If ([string]::IsNullOrEmpty($Script:SWMB_Log)) {
+			# Resolve full path to the output file
+			$Script:SWMB_Log = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($args[++$i])
+			$Global:SWMB_PSCommandArgs += "-log `"$Script:SWMB_Log`""
+			# Record session to the output file
+			Start-Transcript -Path $Script:SWMB_Log
+		} Else {
+			Write-Error -Message "SWMB support only one -log command line option" -ErrorAction Stop
+		}
 	} ElseIf ($args[$i].ToLower() -eq "-check") {
 		$Script:SWMB_CheckTweak = 'Check'
 	} ElseIf ($args[$i].ToLower() -eq "-print") {
@@ -87,4 +92,8 @@ Switch ($Script:SWMB_CheckTweak) {
 		# Call the desired tweak functions
 		SWMB_PrintTweaks
 		}
+}
+
+If (-not ([string]::IsNullOrEmpty($Script:SWMB_Log))) {
+	Stop-Transcript
 }

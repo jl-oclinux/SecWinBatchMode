@@ -19,7 +19,7 @@ Function SysRequireAdmin {
 	}
 }
 
-$Script:SWMB_CheckTweak = $False
+$Script:SWMB_CheckTweak = 'Run'
 
 # First argument
 $i = 0
@@ -63,7 +63,9 @@ While ($i -lt $args.Length) {
 		# Record session to the output file
 		Start-Transcript $log
 	} ElseIf ($args[$i].ToLower() -eq "-check") {
-		$Script:SWMB_CheckTweak = $True
+		$Script:SWMB_CheckTweak = 'Check'
+	} ElseIf ($args[$i].ToLower() -eq "-print") {
+		$Script:SWMB_CheckTweak = 'Print'
 	} Else {
 		$Global:SWMB_PSCommandArgs += $args[$i]
 		# Load tweak names from command line
@@ -72,10 +74,17 @@ While ($i -lt $args.Length) {
 	$i++
 }
 
-If ($Script:SWMB_CheckTweak) {
-	# Only check for multiple same tweak
-	SWMB_CheckTweaks
-} Else {
-	# Call the desired tweak functions
-	SWMB_RunTweaks
+Switch ($Script:SWMB_CheckTweak) {
+	'Check' {
+		# Only check for multiple same tweak
+		SWMB_CheckTweaks
+		}
+	'Run' {
+		# Call the desired tweak functions
+		SWMB_RunTweaks
+		}
+	'Print' {
+		# Call the desired tweak functions
+		SWMB_PrintTweaks
+		}
 }

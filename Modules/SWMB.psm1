@@ -67,11 +67,11 @@ Function SysRestart {
 
 ################################################################
 
-# Restart computer
+# Checkpoint computer
 Function SysCheckpoint {
 	Write-Output "Make a System Checkpoint..."
 	$Date = (Get-Date -Format "yyyy/MM/dd HH:mm")
-	Checkpoint-Computer –Description "SWMB Checkpoint performed at $Date"
+	Checkpoint-Computer -Description "SWMB Checkpoint performed at $Date"
 }
 
 ################################################################
@@ -223,6 +223,44 @@ Function SWMB_RunTweaks {
 
 ################################################################
 
+Function SWMB_CheckTweaks {
+	$uniqueTweak = @{}
+
+	ForEach ($tweak in $Global:SWMB_Tweaks) {
+		# Test if tweak function really exists
+		If (-not(Get-Command -Name $tweak -ErrorAction SilentlyContinue)) {
+			Write-Output "Tweak $tweak is not defined!"
+		}
+
+		# Push tweak in a hash table
+		$key = $tweak -Replace '^(Enable|Disable|Install|Uninstall|Show|Hide|Add|Remove|Set|Unset|Pin|Unpin)',''
+		$uniqueTweak[$key]++
+	}
+
+	ForEach ($tweak in $uniqueTweak.keys) {
+		If ($uniqueTweak[$tweak] -eq 1) {
+			Continue
+		}
+		$message = "Tweak {0} is defined {1} times!" -f $tweak, $uniqueTweak[$tweak]
+		Write-Output $message
+	}
+}
+
+################################################################
+
+Function SWMB_PrintTweaks {
+	ForEach ($tweak in $Global:SWMB_Tweaks) {
+		# Test if tweak function really exists
+		If (-not(Get-Command -Name $tweak -ErrorAction SilentlyContinue)) {
+			Write-Output "# $tweak"
+		} Else {
+			Write-Output "$tweak"
+		}
+	}
+}
+
+################################################################
+
 Function SWMB_ImportModuleParameter() {
 	Param (
 		[Parameter(Mandatory = $true)] [string]$moduleScriptName
@@ -285,31 +323,6 @@ Function SWMB_ImportModuleParameter() {
 	}
 	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataModule -ChildPath $moduleScriptBasename)) {
 		Return $true
-	}
-}
-
-################################################################
-
-Function SWMB_CheckTweaks {
-	$uniqueTweak = @{}
-
-	ForEach ($tweak in $Global:SWMB_Tweaks) {
-		# Test if tweak function really exists
-		If (-not(Get-Command -Name $tweak -ErrorAction SilentlyContinue)) {
-			Write-Output "Tweak $tweak is not defined!"
-		}
-
-		# Push tweak in a hash table
-		$key = $tweak -Replace '^(Enable|Disable|Install|Uninstall|Show|Hide|Add|Remove|Set|Unset|Pin|Unpin)',''
-		$uniqueTweak[$key]++
-	}
-
-	ForEach ($tweak in $uniqueTweak.keys) {
-		If ($uniqueTweak[$tweak] -eq 1) {
-			Continue
-		}
-		$message = "Tweak {0} is defined {1} times!" -f $tweak, $uniqueTweak[$tweak]
-		Write-Output $message
 	}
 }
 

@@ -151,6 +151,7 @@ Function RequireAdmin {
 Function SWMB_Init {
 	$Global:SWMB_Tweaks = @()
 	$Global:SWMB_PSCommandArgs = @()
+	# $Global:SWMB_ChkSumFile = (Join-Path -Path (Join-Path -Path (Join-Path -Path $Env:ProgramData -ChildPath "SWMB") -ChildPath "Caches") -ChildPath "last.chksum")
 }
 
 ################################################################
@@ -161,26 +162,41 @@ Function SWMB_AddOrRemoveTweak() {
 		[string]$Path = '.'
 	)
 
+	Function _MergePath {
+		Param (
+			[Parameter(Mandatory = $true)] [string]$Path
+			[Parameter(Mandatory = $true)] [string]$FilePath
+		)
+
+		If (($FilePath -cmatch '^[A-Z]:\\') -or ($FilePath -cmatch '^\\\\') {
+			# Absolute Path
+			Return $FilePath
+		} Else {
+			# Relative Path
+			Return (Join-Path -Path $Path -ChildPath $FilePath)
+		}
+	}
+
 	If ($Tweak[0] -eq "!") {
 		# If the name starts with exclamation mark (!), exclude the tweak from selection
 		$Global:SWMB_Tweaks = $Global:SWMB_Tweaks | Where-Object { $_ -ne $Tweak.Substring(1) }
 	} ElseIf ($Tweak -cmatch '^\$INCLUDE\s+"[^"]+"') {
 		# Include preset file, wildcard possible
-		$TweakFile = (Join-Path -Path $Path -ChildPath ($Tweak -creplace '^\$INCLUDE\s+"([^"]+)"', '$1'))
+		$TweakFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$INCLUDE\s+"([^"]+)"', '$1'))
 		SWMB_LoadTweakFile -TweakFile "$TweakFile" -CLI $False
 	} ElseIf ($Tweak -cmatch '^\$INCLUDE\s+[^\s]') {
 		# Include preset file, wildcard possible
-		$TweakFile = (Join-Path -Path $Path -ChildPath ($Tweak -creplace '^\$INCLUDE\s+([^\s])', '$1'))
+		$TweakFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$INCLUDE\s+([^\s])', '$1'))
 		SWMB_LoadTweakFile -TweakFile "$TweakFile" -CLI $False
 	} ElseIf ($Tweak -cmatch '^\$IMPORT\s+"[^"]+"') {
 		# Import the file as a module, wildcard possible
-		$ModuleFile = (Join-Path -Path $Path -ChildPath ($Tweak -creplace '^\$IMPORT\s+"([^"]+)"', '$1'))
+		$ModuleFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$IMPORT\s+"([^"]+)"', '$1'))
 		Resolve-Path $ModuleFile -ErrorAction Stop | ForEach-Object {
 			Import-Module -Name "$_.Path" -ErrorAction Stop
 		}
 	} ElseIf ($Tweak -cmatch '^\$IMPORT\s+[^\s]') {
 		# Import the file as a module, wildcard possible
-		$ModuleFile = (Join-Path -Path $Path -ChildPath ($Tweak -creplace '^\$IMPORT\s+([^\s])', '$1'))
+		$ModuleFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$IMPORT\s+([^\s])', '$1'))
 		Resolve-Path $ModuleFile -ErrorAction Stop | ForEach-Object {
 			Import-Module -Name "$_.Path" -ErrorAction Stop
 		}

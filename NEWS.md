@@ -25,12 +25,17 @@ are copied on folder `C:\ProgramData\SWMB\Presets`.
 They could serve for test or as simple examples.
 
 New presets/rules:
+* 2021/10/21 - $PRESET replace $INCLUDE to include a preset file
 * 2021/10/20 - SysCheckpoint - Make a system checkpoint if possible (max one per day)
-* 2021/10/19 - $INCLUDE and $IMPORT can open filename with space in PATH. Protect the string with double quote `"`.
+* 2021/10/19 - $INCLUDE ($PRESET) and $IMPORT can open filename with space in PATH. Protect the string with double quote `"`.
 * 2021/10/16 - SysBox - Like SysMessage but open a Box (experimental)
 * 2021/10/15 - SysEvent - Like SysMessage but send an Event
-* 2021/10/11 - $IMPORT - Like $INCLUDE but import a module from a preset file
+* 2021/10/11 - $IMPORT - Like $PRESET but import a module from a preset file
 
+New CLI parameter:
+* `-import` replace `-include` to be more clear.
+  As `$PRESET` replace `$INCLUDE` in preset file.
+  The word `include` is not use anymore because sometime it was on modules and sometime on preset files.
 
 ## Version 3.12 (2021/09/14)
 

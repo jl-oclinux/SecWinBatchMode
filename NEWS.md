@@ -25,7 +25,8 @@ are copied on folder `C:\ProgramData\SWMB\Presets`.
 They could serve for test or as simple examples.
 
 New presets/rules:
-* 2021/10/21 - $PRESET replace $INCLUDE to include a preset file
+* 2021/10/21 - $PRESET and $IMPORT can open absolute and relative path file (before only relative path was possible)
+* 2021/10/21 - $PRESET replace $INCLUDE to include a preset file.
 * 2021/10/20 - SysCheckpoint - Make a system checkpoint if possible (max one per day)
 * 2021/10/19 - $INCLUDE ($PRESET) and $IMPORT can open filename with space in PATH. Protect the string with double quote `"`.
 * 2021/10/16 - SysBox - Like SysMessage but open a Box (experimental)
@@ -36,6 +37,9 @@ New CLI parameter:
 * `-import` replace `-include` to be more clear.
   As `$PRESET` replace `$INCLUDE` in preset file.
   The word `include` is not use anymore because sometime it was on modules and sometime on preset files.
+
+New module architecture, Win10- prefix has been replaced by LocalMachine-.
+This is better for the new Windows 11 operating system.
 
 ## Version 3.12 (2021/09/14)
 

@@ -11,7 +11,7 @@
 # Obsolete script, now use swmb.ps1
 # Script for compatibility
 
-Write-Output "Warning: obsolete command, now use swmb.ps1"
+Write-Output "Warning: obsolete command Win10.ps1, now use swmb.ps1"
 
 $cmd = (Get-PSCallStack)[0].ScriptName
 $cmd = (($cmd -replace 'Win10.ps1$', 'swmb.ps1') -replace ' ', '` ') + ' ' + $args

@@ -43,6 +43,7 @@ While ($i -lt $args.Length) {
 	If ($args[$i].ToLower() -eq "-include") {
 		# Resolve full path to the included file
 		# Wilcard support
+		Write-Output "Warning: obsolete command line argument -include, now use -import"
 		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
 			$include = $_.Path
 			$Global:SWMB_PSCommandArgs += "-import `"$include`""

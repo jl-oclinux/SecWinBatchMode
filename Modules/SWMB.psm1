@@ -122,7 +122,7 @@ Function SysAutoUpgrade {
 # Since 2021/06
 # Wait for key press
 Function WaitForKey {
-	Write-Output "Warning: obsolete tweak, now use SysPause"
+	Write-Output "Warning: obsolete tweak WaitForKey, now use SysPause"
 	SysPause
 }
 
@@ -131,7 +131,7 @@ Function WaitForKey {
 # Since 2021/06
 # Restart computer
 Function Restart {
-	Write-Output "Warning: obsolete tweak, now use SysRestart"
+	Write-Output "Warning: obsolete tweak Restart, now use SysRestart"
 	SysRestart
 }
 
@@ -140,7 +140,7 @@ Function Restart {
 # Since 2021/07
 # Require administrator privileges
 Function RequireAdmin {
-	Write-Output "Warning: obsolete tweak, now use SysRequireAdmin"
+	Write-Output "Warning: obsolete tweak RequireAdmin, now use SysRequireAdmin"
 	SysRequireAdmin
 }
 
@@ -181,10 +181,12 @@ Function SWMB_AddOrRemoveTweak() {
 		# If the name starts with exclamation mark (!), exclude the tweak from selection
 		$Global:SWMB_Tweaks = $Global:SWMB_Tweaks | Where-Object { $_ -ne $Tweak.Substring(1) }
 	} ElseIf ($Tweak -cmatch '^\$INCLUDE\s+"[^"]+"') {
+		Write-Output "Warning: obsolete special tweak `$INCLUDE, now use `$PRESET"
 		# Include preset file, wildcard possible
 		$TweakFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$INCLUDE\s+"([^"]+)"', '$1'))
 		SWMB_LoadTweakFile -TweakFile "$TweakFile" -CLI $False
 	} ElseIf ($Tweak -cmatch '^\$INCLUDE\s+[^\s]') {
+		Write-Output "Warning: obsolete special tweak `$INCLUDE, now use `$PRESET"
 		# Include preset file, wildcard possible
 		$TweakFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$INCLUDE\s+([^\s])', '$1'))
 		SWMB_LoadTweakFile -TweakFile "$TweakFile" -CLI $False

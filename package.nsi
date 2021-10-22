@@ -16,7 +16,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.15"
+!define VERSION "3.12.99.16"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -100,7 +100,11 @@ Function .onInit
     ${If} ${Silent}
       ClearErrors
       nsExec::ExecToStack '$R0 /S  '
-      Sleep 10000 ; 10 second because exec do not block... why ?
+loop:
+      Sleep 1000 ; one second
+      ReadRegStr $R1 HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString"
+      StrCmp $R1 "" done
+      Goto loop
     ${Else}
       MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
         "${NAME} is already installed. $\n$\nClick `OK` to remove the \

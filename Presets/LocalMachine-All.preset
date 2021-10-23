@@ -205,5 +205,5 @@ RemoveFaxPrinter                # AddFaxPrinter
 # UnpinTaskbarIcons
 
 ### Auxiliary Functions ###
-# WaitForKey
+# SysPause
 # Restart

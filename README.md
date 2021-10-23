@@ -163,14 +163,24 @@ Currently, there is one preset per paragraph of the ANSSI concerning the setting
  * Universal Applications preset
  * Cloud preset
 
-Moreover, some presets concern the computer while others concern the current user.
+**Prefix** - Moreover, some presets concern the computer while others concern the current user.
 In one case, the tweaks affect the overall operation of the operating system and must be run as an administrator (or under the SYSTEM user),
 in the other case, the actions are to be launched, for example at login, with the identity of the person.
 Preset files are therefore prefixed with the extensions `LocalMachine-` and `CurrentUser-`.
 
 It is possible to include a set of presets in another file with the keyword `$PRESET`.
 The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.
-It is currently not possible to have a space in the path name (it is always possible to put a wildcard like a `*` or a `?` to get around it).
+
+**Path** -  It is possible to put a wildcard in the name of a preset.
+All presets that match the rule are then loaded.
+
+It is also possible to have a space in the path name by protecting the string with double quotation marks,
+otherwise these quotation marks are optional.
+The path can be both relative and absolute (local path to the machine like `C:\` or UNC network path starting with `\\`).
+If you have a space and a double quote in your path,
+it is always possible to put a wildcard like a `*` or a `?` to get around either one.
+Normally, no standard path uses both symbols.
+
 ```ps1
 $PRESET LocalMachine-Cloud.preset
 $PRESET LocalMachine-CortanaSearch.preset
@@ -179,12 +189,12 @@ $PRESET LocalMachine-CortanaSearch.preset
 In order to facilitate the deployment,
 the modularity and the management of programmed tasks,
 it is also possible to import a module within a preset file, with the keyword `$IMPORT`.
-This is the same way as the `$PRESET` keyword.
+This is the same way ans same rules for the path as the `$PRESET` keyword.
 Note the support of wildcards in the name of the module to import, allowing to import several of them.
-The module path must be relative to the preset file.
-It is currently not possible to have a space in the path name (it is always possible to put a wildcard like a `*` or a `?` to get around it).
+The module path must be relative to the preset file or absolute.
 ```ps1
 $IMPORT ..\Modules\MyModule.psm1
+$IMPORT "C:\Program Files\MyLocalProgram\Modules\MyModule.psm1"
 ```
 You can import as many modules as you want.
 

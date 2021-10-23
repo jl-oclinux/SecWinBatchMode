@@ -168,7 +168,7 @@ Function SWMB_AddOrRemoveTweak() {
 			[Parameter(Mandatory = $true)] [string]$FilePath
 		)
 
-		If (($FilePath -cmatch '^[A-Z]:\\') -or ($FilePath -cmatch '^\\\\') {
+		If (($FilePath -cmatch '^[A-Z]:\\') -or ($FilePath -cmatch '^\\\\')) {
 			# Absolute Path
 			Return $FilePath
 		} Else {

@@ -171,11 +171,10 @@ Preset files are therefore prefixed with the extensions `LocalMachine-` and `Cur
 It is possible to include a set of presets in another file with the keyword `$PRESET`.
 The preset `LocalMachine-Default.preset` gathers all the recommended presets mentioned above for the machine.
 
-**Path** -  It is possible to put a wildcard in the name of a preset.
+**Path** -  It is possible to put a wildcard, for example `*`, in the name of a preset.
 All presets that match the rule are then loaded.
-
-It is also possible to have a space in the path name by protecting the string with double quotation marks,
-otherwise these quotation marks are optional.
+It is also possible to have a space in the path name by protecting the entire string with double quotation marks `"`
+(and only double quote), otherwise these quotation marks are optional.
 The path can be both relative and absolute (local path to the machine like `C:\` or UNC network path starting with `\\`).
 If you have a space and a double quote in your path,
 it is always possible to put a wildcard like a `*` or a `?` to get around either one.

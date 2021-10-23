@@ -164,7 +164,7 @@ Function SWMB_AddOrRemoveTweak() {
 
 	Function _MergePath {
 		Param (
-			[Parameter(Mandatory = $true)] [string]$Path
+			[Parameter(Mandatory = $true)] [string]$Path,
 			[Parameter(Mandatory = $true)] [string]$FilePath
 		)
 

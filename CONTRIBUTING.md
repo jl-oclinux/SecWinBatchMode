@@ -6,9 +6,9 @@
  - [Windows builds overview](#windows-builds-overview)
 
 
-## Maintaining own forks
+## Maintaining own Git forks
 
-### Récupérer le dépot du projet SWMB
+### Retrieve the SWMB project repository
 
 It is preferable to use SSH keys rather than HTTPS.
 However, you must not forget to put a passphrase to protect your private key.
@@ -138,11 +138,20 @@ Try to give a function a meaningful name up to 25 characters long, which gives a
 Use verbs like `Enable`/`Disable`, `Show`/`Hide`, `Install`/`Uninstall`, `Add`/`Remove` in the beginning of the function name.
 In case the function doesn't fit any of these verbs, come up with another name,
 beginning with the verb `Set`, which indicates what the function does, e.g. `SetCurrentNetworkPrivate` and `SetCurrentNetworkPublic`.
+System functions begin with `Sys`, they are all defined in the core module `SWMB.psm1`. For example, `SysMessage`, `SysRestart`...
+
+### Context of the current user or the local machine
+Functions can be applied on the local machine under the administrator (or SYSTEM) account or under the current user.
+Functions that can be applied by the current user have the postfix `_CU` in their names.
 
 ### Revert functions
 Always add a function with opposite name (or equivalent) which reverts the behavior to default.
 The default is considered freshly installed Windows 10 or Windows Server 2016 / 2019 with no adjustments made during or after the installation.
 If you don't have access to either of these, create the revert function to the best of your knowledge and I will fill in the rest if necessary.
+
+### View functions
+It is useful for debugging to add a `View` function that allows you to quickly see what has changed between the Enable and Disable functions.
+For example `ViewCurrentNetwork`.
 
 ### Function similarities
 Check if there isn't already a function with similar purpose as the one you're trying to add.
@@ -152,6 +161,9 @@ As long as the name and objective of the existing function is unchanged, feel fr
 Try to group functions thematically.
 There are already several major groups (privacy, security, services etc.), but even within these, some tweaks may be related to each other.
 In such case, add a new tweak below the existing one and not to the end of the whole group.
+
+Group functions concerning the current machine under module names prefixed with `LocalMachine-`.
+Modules of functions for the current user will be prefixed with `CurrentUser-`.
 
 ### Default preset
 Always add a reference to the tweak and its revert function in the *Default.preset*.

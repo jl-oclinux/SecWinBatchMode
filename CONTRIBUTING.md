@@ -247,7 +247,14 @@ Function DisableSomeFeature {
 
 ## Windows builds overview
 
-See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_version_history)
+* See [Windows 11 version history](https://en.wikipedia.org/wiki/Windows_11_version_history)
+
+| Version |        Code name        |      Release date      | Build |
+| :-----: | ----------------------- | ---------------------- | :---: |
+|  21H2   | Sun Valley              | October 4, 2021        | 22000 |
+
+
+* See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_version_history)
 
 | Version |        Code name        |     Marketing name     | Build |
 | :-----: | ----------------------- | ---------------------- | :---: |
@@ -263,3 +270,4 @@ See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_versio
 |  2004   | 20H1                    | May 2020 Update        | 19041 |
 |  20H2   | 20H2                    | October 2020 Update    | 19042 |
 |  21H1   | 21H1                    | May 2021 Update        | 19043 |
+

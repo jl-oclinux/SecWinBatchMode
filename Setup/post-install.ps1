@@ -77,7 +77,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 	$LogonTrigger = New-ScheduledTaskTrigger -AtLogon
 	$LogonTask    = 'SWMB-CurrentUser-Logon'
 	$LogonAction  = New-ScheduledTaskAction -Execute "powershell.exe" `
-		-Argument "-File `"$InstallFolder\Tasks\CurrentUser-Logon.ps1`"" `
+		-Argument "-NoProfile -WindowStyle Hidden -File `"$InstallFolder\Tasks\CurrentUser-Logon.ps1`"" `
 		-WorkingDirectory "$InstallFolder"
 	$STPrin = New-ScheduledTaskPrincipal -GroupId "S-1-5-32-545" -RunLevel Highest
 	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue

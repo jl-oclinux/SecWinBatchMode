@@ -79,9 +79,10 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 	$LogonAction  = New-ScheduledTaskAction -Execute "powershell.exe" `
 		-Argument "-File `"$InstallFolder\Tasks\CurrentUser-Logon.ps1`"" `
 		-WorkingDirectory "$InstallFolder"
+	$STPrin = New-ScheduledTaskPrincipal -GroupId "S-1-5-32-545" -RunLevel Highest
 	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $LogonTask -Trigger $LogonTrigger -Action $LogonAction `
-		-RunLevel Highest -Description "SWMB tweaks action at user logon"
+		-Principal $STPrin -Description "SWMB tweaks action at user logon"
 	$LogonObject = Get-ScheduledTask $LogonTask
 	$LogonObject.Author = "CNRS RESINFO / GT SWMB"
 	$LogonObject | Set-ScheduledTask

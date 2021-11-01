@@ -24,7 +24,7 @@ pages:
     - echo '<html><body><h1>SWMB Setup and OCS / WAPT (zip) Package (last update ' $(date '+%Y/%m/%d %H:%M') ')</h1><ul>' > public/index.html
     - (cd public; while read file; do printf '<li><a href="%s">%s</a> (%s)</li>\n' $file $file $(stat -c %y $file | cut -f 1 -d ' '); done < <(ls -1t *.exe *.zip) >> index.html)
     - echo '</ul></body></html>' >> public/index.html
-    - (cd public ; tar -czf ../download.tar.gz SWMB-Setup-*.exe SWMB-OCS-*.zip SWMB-WAPT-*.zip)
+    - (cd public ; tar --exclude '*-Latest.*' -czf ../download.tar.gz SWMB-Setup-*.exe SWMB-OCS-*.zip SWMB-WAPT-*.zip)
     - mv download.tar.gz public/
   artifacts:
     paths:

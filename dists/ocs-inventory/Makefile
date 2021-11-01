@@ -9,10 +9,10 @@ all: $(SOFT)-OCS-$(VERSION)-$(PATCH).zip ocs
 
 
 help:
-	@echo "all      Création de l'archive zip"
-	@echo "ocs      Aide pour le téléversement de l'archive dans OCS"
-	@echo "clean    Nettoyage du dossier"
-	@echo "update   Réalise un git pull (mise à jour) du projet SWMB à sa racine"
+	@echo "all      create a zip archive"
+	@echo "ocs      help for upload the Zip archive in OCS server"
+	@echo "clean    clean folder"
+	@echo "update   make a git pull (update local repository)"
 
 
 update:
@@ -31,7 +31,7 @@ clean:
 		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/;' install.bat > tmp/install.bat
 	rm -f $@
 	(cd ../..; \
-		make pkg; \
+		make; \
 		cp SWMB-Setup-$(VERSION).exe ./dists/ocs-inventory/tmp/ \
 		)
 	(cd tmp; \

@@ -9,9 +9,9 @@ all: $(SOFT)-WAPT-$(VERSION)-$(PATCH).zip
 
 
 help:
-	@echo "all      Création de l'archive zip"
-	@echo "clean    Nettoyage du dossier"
-	@echo "update   Réalise un git pull (mise à jour) du projet SWMB à sa racine"
+	@echo "all      create a Zip archive"
+	@echo "clean    clean folder"
+	@echo "update   make a git pull (update local repository)"
 
 
 update:
@@ -33,7 +33,7 @@ clean:
 	@cp -f ../../LICENSE.md setup.py ./swmb.png ./tmp/swmb/
 	@rm -f $@
 	@(cd ../..; \
-		make pkg; \
+		make; \
 		cp SWMB-Setup-$(VERSION).exe ./dists/wapt/tmp/swmb/ \
 		)
 	@(cd tmp; \

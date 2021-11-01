@@ -17,6 +17,10 @@ pages:
     - mv dists/ocs-inventory/SWMB-OCS-*.zip public/
     - (cd dists/wapt/; make)
     - mv dists/wapt/SWMB-WAPT-*.zip public/
+    - rm -f public/SWMB-*-Latest.*
+    - (cd public/; ln -sf $(ls -1t SWMB-Setup-*.exe | head -1) SWMB-Setup-Latest.exe)
+    - (cd public/; ln -sf $(ls -1t SWMB-OCS-*.zip   | head -1) SWMB-OCS-Latest.zip)
+    - (cd public/; ln -sf $(ls -1t SWMB-WAPT-*.zip  | head -1) SWMB-WAPT-Latest.zip)
     - echo '<html><body><h1>SWMB Setup and OCS / WAPT (zip) Package (last update ' $(date '+%Y/%m/%d %H:%M') ')</h1><ul>' > public/index.html
     - (cd public; while read file; do printf '<li><a href="%s">%s</a> (%s)</li>\n' $file $file $(stat -c %y $file | cut -f 1 -d ' '); done < <(ls -1t *.exe *.zip) >> index.html)
     - echo '</ul></body></html>' >> public/index.html

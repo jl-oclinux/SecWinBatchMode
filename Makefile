@@ -1,11 +1,18 @@
+SOFT:=SWMB
+VERSION:=$(shell grep '!define VERSION' ./package.nsi | cut -f 2 -d '"')
 
-.PHONY: help pkg check clean
+.PHONY: all help pkg check clean
+
+all: $(SOFT)-Setup-$(VERSION).exe
 
 help:
-	@echo "pkg    create .exe installer"
+	@echo "all    create .exe installer"
 	@echo "check  check tweaks"
+	@echo "clean  clean setup.exe file"
 
-pkg:
+pkg: $(SOFT)-Setup-$(VERSION).exe
+
+%.exe:
 	makensis package.nsi
 
 check:

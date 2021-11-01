@@ -15,10 +15,12 @@ pages:
     - mv SWMB-Setup-*.exe public/
     - (cd dists/ocs-inventory/; make)
     - mv dists/ocs-inventory/SWMB-OCS-*.zip public/
-    - echo '<html><body><h1>SWMB Setup and OCS (zip) Package (last update ' $(date '+%Y/%m/%d %H:%M') ')</h1><ul>' > public/index.html
+    - (cd dists/wapt/; make)
+    - mv dists/wapt/SWMB-WAPT-*.zip public/
+    - echo '<html><body><h1>SWMB Setup and OCS / WAPT (zip) Package (last update ' $(date '+%Y/%m/%d %H:%M') ')</h1><ul>' > public/index.html
     - (cd public; while read file; do printf '<li><a href="%s">%s</a> (%s)</li>\n' $file $file $(stat -c %y $file | cut -f 1 -d ' '); done < <(ls -1t *.exe *.zip) >> index.html)
     - echo '</ul></body></html>' >> public/index.html
-    - (cd public ; tar -czf ../download.tar.gz SWMB-Setup-*.exe SWMB-OCS-*.zip)
+    - (cd public ; tar -czf ../download.tar.gz SWMB-Setup-*.exe SWMB-OCS-*.zip SWMB-WAPT-*.zip)
     - mv download.tar.gz public/
   artifacts:
     paths:

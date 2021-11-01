@@ -1,0 +1,43 @@
+package           : resinfo-swmb
+version           : __VERSION__-__PATCH__
+architecture      : x64
+section           : host
+priority          : optional
+name              : SWMB
+categories        : system
+maintainer        : RESINFO <swmb-gt@listes.resinfo.org>
+description       : SWMB - Secure Windows Mode Batch
+depends           :
+conflicts         :
+maturity          : PROD
+locale            :
+target_os         :
+min_os_version    :
+max_os_version    :
+min_wapt_version  :
+sources           : https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/
+installed_size    :
+impacted_process  :
+description_fr    : SWMB - Secure Windows Mode Batch
+description_pl    :
+description_de    :
+description_es    :
+description_pt    :
+description_it    :
+description_nl    :
+description_ru    :
+audit_schedule    :
+editor            : CNRS France, RESINFO / GT SWMB
+keywords          :
+licence           : MIT License
+homepage          : https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
+package_uuid      :
+valid_from        :
+valid_until       :
+forced_install_on :
+changelog         :
+signer            :
+signer_fingerprint:
+signature         :
+signature_date    :
+signed_attributes : 

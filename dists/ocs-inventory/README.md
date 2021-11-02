@@ -1,21 +1,24 @@
-# Création d'un paquet SWMB pour OCS Inventory
+# Creating a SWMB package for OCS Inventory
 
-Nous créons une archive zip contenant un fichier `install.bat`
-ainsi que tous les fichiers de l'application SWMB.
-Afin de simplifier cette tache, les différentes commandes sont regroupés dans un `Makefile`.
-Celles-ci sont plus faciles à utiliser sous GNU/Linux.
+We create a zip archive containing an `install.bat` file
+and the setup installer of the SWMB application.
+To simplify this task, the different commands are grouped in a `Makefile`.
+These are easier to use under GNU/Linux.
 ```bash
 make help
 ```
 
-Dans le fichier `Makefile`, mettre les variables `VERSION` et `PATCH` aux bonnes valeurs.
-Lors de la création de l'archive zip, le script `install.bat` sera automatiquement mis à jour avec ces bonnes valeurs.
+In the `Makefile`, set the `VERSION` and `PATCH` variables to the correct values.
+Normally, the `VERSION` number is automatically updated with the value in the main installer `package.nsi`.
+If no problem, `PATCH` value is one.
+When creating the zip archive, the `install.bat` script will be automatically updated with these values.
 
-Il est possible de faire un `make update` afin de se mettre à jour avec la dernière version proposée par le groupe de travail de RESINFO.
-Cette commande est strictement équivalente à un `git pull` à la racine de votre clone SWMB.
+It is possible to do a `make update` to update to the latest version proposed by the RESINFO working group.
+This command is strictly equivalent to a `git pull` at the root of your SWMB clone.
 
-Une fois fixées les versions, faites
+Once the versions are set, do
 ```bash
 make
 ```
-puis téléverser le zip fournit dans votre serveur OCS Inventory en suivant les réponses que vous indique le `Makefile`.
+then upload the provided zip into your OCS Inventory server following the answers that the `Makefile` tells you.
+Unfortunately, OCS does not yet have a REST API that allows simple uploading of the package from the command line.

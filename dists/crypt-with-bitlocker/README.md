@@ -1,20 +1,29 @@
-# Chiffrer le disque système et les autres volumes avec Microsoft Bitlocker
-Contrairement à la majorité des Presets proposés par SWMB,
-celui-ci ne doit être réalisé qu'une seule fois.
-Génréralement, nous allons faire cette étape de chiffrement lors de l'installation de l'ordinateur,
-à la fin de celle-ci.
-# Pré-requis
-Pour fonctionner correctement, le script nécessite quelques pré-requis
-* Etre exécuté avec un compte administrateur et élévation de privilèges
-* Le bios doit être en UEFI
-* Le secure boot doit être activé
-* L'ordinateur doit disposer d'un TPM
-# Exécution
-Voici 2 méthodes pour lancer le script.
+# Encrypt system disk and other volumes with Microsoft Bitlocker
 
-La deuxième méthode est simplement un script qui exécute automatiquement les commandes de la méthode 1.
-## Méthode 1
-Ouvrir dans une fenêtre PowerShell ayant des privilèges élevés (exécuter en tant qu'administrateur)
+Unlike most of the presets offered by SWMB,
+this one has to be done only once.
+Generally, we will do this encryption step during the installation of the computer,
+at the end of it.
+
+
+## Prerequisites
+
+To work properly, the script requires a few pre-requisites:
+* To be executed with an administrator account and elevation of privileges
+* The BIOS must be in UEFI
+* Secure boot must be enabled
+* The computer must have a TPM
+
+
+## Execution
+
+Here are 2 methods to run the script.
+The second method is simply a script that automatically executes the commands in method 1.
+
+### Method 1
+
+Open in a PowerShell window with elevated privileges (run as administrator)
+
 ```ps
 mkdir C:\SWMB
 cd C:\SWMB
@@ -31,12 +40,16 @@ cd C:\SWMB\resinfo-swmb-master
 
 .\swmb.ps1 EnableBitlocker
 ```
-Il est possible de vérifier le statut du lecteur système
+
+It is possible to check the status of the system drive
 ```ps
 manage-bde -status C:
 ```
-## Méthode 2
-* Télécharger les fichiers swmb-bitlocker-launcher.bat et swmb-bitlocker-launcher.ps1 de ce répertoire
-* Editer ces 2 fichiers et les lire! Il convient de le faire pour tout script téléchargé depuis internet!
-* Clic-droit sur swmb-bitlocker-launcher.bat et "Exécuter en tant qu'administrateur"
-* And voilà!
+
+### Method 2
+
+* Download the files `swmb-bitlocker-launcher.bat` and `swmb-bitlocker-launcher.ps1` from this directory
+* Edit these two files and read them!
+  This should be done for any script downloaded from the internet!
+* Right-click on `swmb-bitlocker-launcher.bat` and "Run as administrator"
+* And that's it!

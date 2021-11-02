@@ -1,9 +1,9 @@
-# Installation de SWMB depuis un partage réseau et lancement à chaque démarrage
+# Install SWMB from a network share and run it on every boot
 
-Le script `install.bat` est divisé en trois parties :
+The `install.bat` script is divided into three parts:
 
-* paramétrage des dossiers sources et destinations ;
+1. setting up source and destination folders;
 
-* copie de tous les fichiers et dévérrouillage de ceux-ci ;
+2. copying all files and unlocking them;
 
-* mise en place d'une tache programmée pour lancer SWMB lors du démarrage (boot) de la machine.
+3. setting up a programmed task to launch SWMB when the machine is booted.

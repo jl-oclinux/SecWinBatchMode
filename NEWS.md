@@ -6,6 +6,7 @@ Add a setup file, juste write `make pkg` under Linux (Add a `Makefile`).
 Continuous integration build the package,
 see https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/.
 A Zip file is created for OCS Inventory.
+A Zip file is also created for WAPT package.
 You can use it as-is.
 
 Automatically search `Overload` and `Autodel` module in `C:\ProgramData\SWMB` folder
@@ -20,9 +21,17 @@ If a module with the same name exist in `C:\ProgramData\SWMB\Modules`, it's will
 An event is created in Application at begin and end.
 Output is redirect in a log file inside the folder `C:\ProgramData\SWMB\Logs`.
 
-Two preset `CurrentUser-Logon-Test.preset` and `LocalMachine-Boot-Test.preset`
+Two presets `CurrentUser-Logon-Test.preset` and `LocalMachine-Boot-Test.preset`
 are copied on folder `C:\ProgramData\SWMB\Presets`.
 They could serve for test or as simple examples.
+
+Two presets `CurrentUser-Logon-Recommanded.preset` and `LocalMachine-Boot-Recommanded.preset`
+are copied on folder `C:\ProgramData\SWMB\Presets`
+with the names `CurrentUser-Logon.preset` and `LocalMachine-Boot.preset`.
+They are execute at logon (account SYSTEM) and at boot (account CurrentUser).
+Configuration tweaks are thus performed on any workstation that installs SWMB.
+These tweaks are selected by the SWMB working group (RESINFO).
+If you don't want any tweaks, replace these two files with empty ones.
 
 New presets/rules:
 * 2021/10/21 - $PRESET and $IMPORT can open absolute and relative path file (before only relative path was possible)

@@ -31,7 +31,13 @@ with the names `CurrentUser-Logon.preset` and `LocalMachine-Boot.preset`.
 They are execute at logon (account SYSTEM) and at boot (account CurrentUser).
 Configuration tweaks are thus performed on any workstation that installs SWMB.
 These tweaks are selected by the SWMB working group (RESINFO).
-If you don't want any tweaks, replace these two files with empty ones.
+If you don't want any tweaks, replace these two files with empty ones
+or don't activate them with the installer.
+On the command line you can do this with:
+```ps1
+SWMB-Setup-XXX.exe /S /ACTIVATED_PRESET=0
+```
+Any value other than 0 (or nothing) will activate the default preset.
 
 New presets/rules:
 * 2021/10/21 - $PRESET and $IMPORT can open absolute and relative path file (before only relative path was possible)

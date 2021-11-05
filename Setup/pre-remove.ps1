@@ -20,23 +20,38 @@ Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction Silent
 # Destroy Logon script for All Users
 $LogonTask = 'SWMB-CurrentUser-Logon'
 Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
-#$LogonTask = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\SWMB-CurrentUser-Logon.lnk"
-#If (Test-Path -LiteralPath $LogonTask) {
-#	Remove-Item $LogonTask -Force -ErrorAction SilentlyContinue
-#}
 
-# Destroy ProgramData Folders if Empty
+
+# Destroy ProgramData Folders and Recommanded Preset
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
 
+Function _RemovePresetFile {
+	Param (
+		[Parameter(Mandatory = $true)] [string]$Path
+	)
+
+	If (Test-Path -LiteralPath "$Path") {
+		$MagicString = (Select-String -Path "$Path" -Pattern "file automatically updated").Line
+		If (-not ([string]::IsNullOrEmpty($MagicString))) {
+			Remove-Item -Path $Path -Force -ErrorAction SilentlyContinue
+		}
+	}
+}
+
+# Remove data default recommanded preset if not modified
+_RemovePresetFile -Path "$DataPresets\LocalMachine-Boot.preset"
+_RemovePresetFile -Path "$DataPresets\CurrentUser-Logon.preset"
+
+# Remove data folders
 If (Test-Path -LiteralPath $DataPresets) {
 	if((Get-ChildItem $DataPresets).Count -eq 0) {
-		Remove-Item $DataPresets -Force -ErrorAction SilentlyContinue
+		Remove-Item -Path $DataPresets -Force -ErrorAction SilentlyContinue
 	}
 }
 
 If (Test-Path -LiteralPath $DataFolder) {
 	if((Get-ChildItem $DataFolder).Count -eq 0) {
-		Remove-Item $DataFolder -Force -ErrorAction SilentlyContinue
+		Remove-Item -Path $DataFolder -Force -ErrorAction SilentlyContinue
 	}
 }

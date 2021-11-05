@@ -16,7 +16,7 @@ Unicode True
 !include Integration.nsh
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.16"
+!define VERSION "3.12.99.17"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -187,10 +187,12 @@ Section "Program files (Required)"
 
   SetOutPath $INSTDIR\Presets
   File "Presets\CurrentUser-All.preset"
+  File "Presets\CurrentUser-Logon-Recommanded.preset"
   File "Presets\CurrentUser-Logon-Test.preset"
   File "Presets\CurrentUser-Resinfo.preset"
   File "Presets\CurrentUser-UserExperience.preset"
   File "Presets\LocalMachine-All.preset"
+  File "Presets\LocalMachine-Boot-Recommanded.preset"
   File "Presets\LocalMachine-Boot-Test.preset"
   File "Presets\LocalMachine-Cloud.preset"
   File "Presets\LocalMachine-CortanaSearch.preset"
@@ -248,8 +250,6 @@ Section -Uninstall
   RMDir "$APPDATA\${NAME}\Modules"
   Delete "$APPDATA\${NAME}\Presets\CurrentUser-Logon-Test.preset"
   Delete "$APPDATA\${NAME}\Presets\LocalMachine-Boot-Test.preset"
-  Delete "$APPDATA\${NAME}\Presets\CurrentUser-Logon-Test2.preset"
-  Delete "$APPDATA\${NAME}\Presets\LocalMachine-Boot-Test2.preset"
   RMDir "$APPDATA\${NAME}\Presets"
   RMDir "$APPDATA\${NAME}"
 

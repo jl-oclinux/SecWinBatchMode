@@ -88,6 +88,29 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 	$LogonObject | Set-ScheduledTask
 }
 
+# Copy recommanded preset
+Function _UpdatePresetFile {
+	Param (
+		[Parameter(Mandatory = $true)] [string]$New,
+		[Parameter(Mandatory = $true)] [string]$Actual
+	)
+
+	If (Test-Path -LiteralPath "$New") {
+		If (Test-Path -LiteralPath "$Actual") {
+			$MagicString = (Select-String -Path "$Actual" -Pattern "file automatically updated").Line
+			If (-not ([string]::IsNullOrEmpty($MagicString))) {
+				Copy-Item -Path "$New" -Destination "$Actual" -Force
+				}
+		} Else {
+			Copy-Item -Path "$New" -Destination "$Actual" -Force
+		}
+	}
+}
+
+_UpdatePresetFile -New "$InstallFolder\Presets\LocalMachine-Boot-Recommanded.preset" -Actual "$DataPresets\LocalMachine-Boot.preset"
+_UpdatePresetFile -New "$InstallFolder\Presets\CurrentUser-Logon-Recommanded.preset" -Actual "$DataPresets\CurrentUser-Logon.preset"
+
+
 #$StartUp = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
 #If ((Test-Path -LiteralPath $StartUp) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1")) {
 #	If (Test-Path -LiteralPath "$StartUp\SWMB-CurrentUser-Logon.lnk") {

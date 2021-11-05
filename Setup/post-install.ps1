@@ -16,12 +16,6 @@
 # folder and creates a scheduled task that runs the script when the
 # computer starts.
 
-#Param (
-#	# Installation Folder
-#	# $InstallFolder  = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
-#	[Parameter(Mandatory = $true)] [string]$InstallFolder
-#)
-
 # Installation Folder
 $InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
 If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
@@ -107,9 +101,14 @@ Function _UpdatePresetFile {
 	}
 }
 
-_UpdatePresetFile -New "$InstallFolder\Presets\LocalMachine-Boot-Recommanded.preset" -Actual "$DataPresets\LocalMachine-Boot.preset"
-_UpdatePresetFile -New "$InstallFolder\Presets\CurrentUser-Logon-Recommanded.preset" -Actual "$DataPresets\CurrentUser-Logon.preset"
-
+$ActivatedPreset = 1
+If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
+	$ActivatedPreset = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "ActivatedPreset").ActivatedPreset
+}
+If ($ActivatedPreset -eq 1) {
+	_UpdatePresetFile -New "$InstallFolder\Presets\LocalMachine-Boot-Recommanded.preset" -Actual "$DataPresets\LocalMachine-Boot.preset"
+	_UpdatePresetFile -New "$InstallFolder\Presets\CurrentUser-Logon-Recommanded.preset" -Actual "$DataPresets\CurrentUser-Logon.preset"
+}
 
 #$StartUp = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
 #If ((Test-Path -LiteralPath $StartUp) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1")) {

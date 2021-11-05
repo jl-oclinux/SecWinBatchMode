@@ -11,9 +11,14 @@
 
 Unicode True
 
+!include nsDialogs.nsh
 !include x64.nsh
 !include LogicLib.nsh
 !include Integration.nsh
+!include FileFunc.nsh
+
+!insertmacro GetParameters
+!insertmacro GetOptions
 
 !define NAME "SWMB"
 !define VERSION "3.12.99.17"
@@ -41,10 +46,14 @@ VIAddVersionKey "ProductVersion" "${VERSION}"
 VIProductVersion "${VERSION}"
 
 Page Directory
+Page custom ActivatedPresetWindow ActivatedPresetCall
 Page InstFiles
 
 Uninstpage UninstConfirm
 Uninstpage InstFiles
+
+Var ActivatedPreset_ID
+Var ActivatedPreset_Val
 
 !macro EnsureAdminRights
   UserInfo::GetAccountType
@@ -57,18 +66,16 @@ Uninstpage InstFiles
 !macroend
 
 Function TrimQuotes
-Exch $R0
-Push $R1
- 
+  Exch $R0
+  Push $R1
   StrCpy $R1 $R0 1
   StrCmp $R1 `"` 0 +2
-    StrCpy $R0 $R0 `` 1
+  StrCpy $R0 $R0 `` 1
   StrCpy $R1 $R0 1 -1
   StrCmp $R1 `"` 0 +2
-    StrCpy $R0 $R0 -1
- 
-Pop $R1
-Exch $R0
+  StrCpy $R0 $R0 -1
+  Pop $R1
+  Exch $R0
 FunctionEnd
  
 !macro _TrimQuotes Input Output
@@ -77,6 +84,29 @@ FunctionEnd
   Pop ${Output}
 !macroend
 !define TrimQuotes `!insertmacro _TrimQuotes`
+
+Function ActivatedPresetWindow
+  nsDialogs::Create 1018
+  Pop $0
+
+  ${NSD_CreateLabel} 0 40u 75% 40u "SWMB will install two Schedule tasks.$\nOne at boot and one at current user logon.$\nThese tasks will apply a default tweaks preset."
+  Pop $0
+
+  ${NSD_CreateCheckbox} 0 -50 100% 8u "Deploy and active default preset (tweaks) for task"
+  Pop $ActivatedPreset_ID
+  ${NSD_SetState} $ActivatedPreset_ID ${BST_CHECKED}
+
+  nsDialogs::Show
+FunctionEnd
+
+Function ActivatedPresetCall
+  ${NSD_GetState} $ActivatedPreset_ID $0
+  ${If} $0 <> ${BST_UNCHECKED}
+    StrCpy $ActivatedPreset_Val "ENABLE"
+  ${Else}
+    StrCpy $ActivatedPreset_Val "DISABLE"
+  ${EndIf}
+FunctionEnd
 
 Function .onInit
   SetShellVarContext All
@@ -120,6 +150,15 @@ uninst:
   Exec $R0
 
 done:
+  ${If} ${Silent}
+    StrCpy $ActivatedPreset_Val "ENABLE"
+    ${GetParameters} $0
+    ClearErrors
+    ${GetOptions} '$0' '/ACTIVATED_PRESET=' $1
+    ${If} $1 == "0"
+      StrCpy $ActivatedPreset_Val "DISABLE"
+    ${EndIf}
+  ${EndIf}
 FunctionEnd
 
 Function un.onInit
@@ -143,6 +182,11 @@ Section "Program files (Required)"
   WriteRegStr HKLM "${REGPATH_UNINSTSUBKEY}" "InstallFolder" "$INSTDIR"
   WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "NoModify" 1
   WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "NoRepair" 1
+  ${If} $ActivatedPreset_Val == "ENABLE"
+    WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "ActivatedPreset" 1
+  ${Else}
+    WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "ActivatedPreset" 0
+  ${EndIf}
   File "swmb.ps1"
   File "logo-swmb.ico"
   File "CONTRIBUTING.md"

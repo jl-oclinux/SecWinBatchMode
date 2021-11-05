@@ -9,7 +9,6 @@
 #  2021 - David Gras (CNRS / DR11)
 #
 # LocalVersion: 1
-#
 ################################################################
 #
 # This is the minimum preset file recommended by the RESINFO SWMB WG.
@@ -27,6 +26,8 @@
 # You have to delete this line above or the whole paragraph if you don't
 # want this file to be updated automatically.
 #
+################################################################
+# Preset Logon for CurrentUser
 ################################################################
 
 #Tweak                      # Date        Local  Global

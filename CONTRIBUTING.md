@@ -99,6 +99,63 @@ git reset HEAD~1
 git checkout -- Win10-Initial-Setup-Script/
 ```
 
+### Global step for fork
+
+The easiest way to customize the script settings it is to create your own preset and,
+if needed, your own tweak scripts as described above.
+For easy start, you can base the modifications on the *Default.cmd* and *Default.preset* and maintain just that.
+If you choose to fork the script anyway, you don't need to comment or remove the actual functions in *Win10.psm1*,
+because if they are not called, they are not used.
+
+If you wish to make more elaborate modifications of the basic script and incorporate some personal tweaks or adjustments,
+then I suggest doing it in a following way:
+
+1. Fork the repository on GitHub (obviously).
+2. Clone your fork on your computer.
+
+    ```
+    git clone https://github.com/<yournamehere>/Win10-Initial-Setup-Script
+    cd Win10-Initial-Setup-Script
+    ```
+
+3. Add the original repository as a remote (*upstream*).
+
+    ```
+    git remote add upstream https://github.com/Disassembler0/Win10-Initial-Setup-Script
+    ```
+
+4. Commit your modifications as you see fit.
+5. Once there are new additions in the upstream, create a temporary branch,
+   fetch the changes and reset the branch to be identical with this repository.
+
+    ```
+    git branch upstream
+    git checkout upstream
+    git fetch upstream
+    git reset --hard upstream/master
+    ```
+
+6. When you have the upstream branch up to date, check back your master and rebase it based on the upstream branch.
+   If there are some conflicts between the changesets, you'll be asked to resolve them manually.
+
+    ```
+    git checkout master
+    git rebase upstream
+    ```
+
+7. Eventually, delete the upstream branch and force push your changes back onto GitHub.
+
+    ```
+    git branch -D upstream
+    git push -f master
+    ```
+
+**Word of warning:** Rebasing and force-pushing will change the history of your commits.
+The upside is that your adjustments will always stay on top of the commit history.
+The downside is that everybody remote-tracking your repository will always have to rebase and force-push too,
+otherwise their commit history will not match yours.
+
+
 ### Advanced features
 
 #### Reverse the order of the commits
@@ -134,6 +191,7 @@ In cases when there are too many rule violations, I might simply redo the whole 
 If you'd like to make my work easier, please consider adhering to the following rules too.
 
 ### Function naming
+
 Try to give a function a meaningful name up to 25 characters long, which gives away the purpose of the function.
 Use verbs like `Enable`/`Disable`, `Show`/`Hide`, `Install`/`Uninstall`, `Add`/`Remove` in the beginning of the function name.
 In case the function doesn't fit any of these verbs, come up with another name,
@@ -141,23 +199,28 @@ beginning with the verb `Set`, which indicates what the function does, e.g. `Set
 System functions begin with `Sys`, they are all defined in the core module `SWMB.psm1`. For example, `SysMessage`, `SysRestart`...
 
 ### Context of the current user or the local machine
+
 Functions can be applied on the local machine under the administrator (or SYSTEM) account or under the current user.
 Functions that can be applied by the current user have the postfix `_CU` in their names.
 
 ### Revert functions
+
 Always add a function with opposite name (or equivalent) which reverts the behavior to default.
 The default is considered freshly installed Windows 10 or Windows Server 2016 / 2019 with no adjustments made during or after the installation.
 If you don't have access to either of these, create the revert function to the best of your knowledge and I will fill in the rest if necessary.
 
 ### View functions
+
 It is useful for debugging to add a `View` function that allows you to quickly see what has changed between the Enable and Disable functions.
 For example `ViewCurrentNetwork`.
 
 ### Function similarities
+
 Check if there isn't already a function with similar purpose as the one you're trying to add.
 As long as the name and objective of the existing function is unchanged, feel free to add your tweak to that function rather than creating a new one.
 
 ### Function grouping
+
 Try to group functions thematically.
 There are already several major groups (privacy, security, services etc.), but even within these, some tweaks may be related to each other.
 In such case, add a new tweak below the existing one and not to the end of the whole group.
@@ -166,6 +229,7 @@ Group functions concerning the current machine under module names prefixed with 
 Modules of functions for the current user will be prefixed with `CurrentUser-`.
 
 ### Default preset
+
 Always add a reference to the tweak and its revert function in the *Default.preset*.
 Add references to both functions on the same line (mind the spaces) and always comment out the revert function.
 Whether to comment out also the tweak in the default preset is a matter of personal preference.
@@ -173,17 +237,20 @@ The rule of thumb is that if the tweak makes the system faster, smoother, more s
 Usability has preference over performance (that's why e.g. indexing is kept enabled).
 
 ### Repeatability
+
 Unless applied on unsupported system, all functions have to be applicable repeatedly without any errors.
 When you're creating a registry key, always check first if the key doesn't happen to already exist.
 When you're deleting registry value, always append `-ErrorAction SilentlyContinue` to prevent errors while deleting already deleted values.
 
 ### Input / output hiding
+
 Suppress all output generated by commands and cmdlets using `| Out-Null` or `-ErrorAction SilentlyContinue` where applicable.
 Whenever an input is needed, use appropriate arguments to suppress the prompt and programmatically provide values for the command to run
 (e.g. using `-Confirm:$false`).
 The only acceptable output is from the `Write-Output` cmdlets in the beginning of each function and from non-suppressible cmdlets like `Remove-AppxPackage`.
 
 ### Registry
+
 Create the registry keys only if they don't exist on fresh installation if Windows 10 or Windows Server 2016 / 2019.
 When deleting registry, delete only registry values, not the whole keys.
 When you're setting registry values, always use `Set-ItemProperty` instead of `New-ItemProperty`.
@@ -199,11 +266,13 @@ If (!(Test-Path "HKU:")) {
 ```
 
 ### Force usage
+
 Star Wars jokes aside, don't use `-Force` option unless absolutely necessary.
 The only permitted case is when you're creating a new registry key (not a value) and you need to ensure that all parent keys will be created as well.
 In such case always check first if the key doesn't already exist, otherwise you will delete all its existing values.
 
 ### Comments
+
 Always add a simple comment above the function briefly describing what the function does,
 especially if it has an ambiguous name or if there is some logic hidden under the hood.
 If you know that the tweak doesn't work on some editions of Windows 10 or on Windows Server, state it in the comment too.
@@ -212,6 +281,7 @@ so the user can see what is being executed and which function is the problematic
 The comment is written in present simple tense, the `Write-Output` in present continuous with ellipsis (resp. three dots) at the end.
 
 ### Coding style
+
 Indent using tabs, enclose all string values in double quotes (`"`) and strictly use `PascalCase` wherever possible.
 Put opening curly bracket on the same line as the function name or condition, but leave the closing bracket on a separate line for readability.
 

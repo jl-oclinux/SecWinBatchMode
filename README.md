@@ -147,6 +147,11 @@ SWMB_RunTweaks
    (in accordance with the preset file).
  * `-exp` : this is just a shortcut to import the `Experimental.psm1` module.
    This option is mainly used by developers to help test new tweaks.
+ * `-hash filename` makes a hash of the tweak list (preset)
+   and compares it with the old hash stored in filename.
+   If the hashes differ, a system checkpoint is performed.
+   It is a good idea to put the hash file in the `C:\ProgramData\SWMB\Caches` folder
+   with the name of the most important preset followed by the `.hash` extension.
 
 ### Tasks
 

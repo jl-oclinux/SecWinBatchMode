@@ -52,6 +52,11 @@ New CLI parameter:
 * `-import` replace `-include` to be more clear.
   As `$PRESET` replace `$INCLUDE` in preset file.
   The word `include` is not use anymore because sometime it was on modules and sometime on preset files.
+* `-hash filename` makes a hash of the tweak list (preset)
+  and compares it with the old hash stored in filename.
+  If the hashes differ, a system checkpoint is performed.
+  A folder `Caches` is created in `C:\ProgramData\SWMB`
+  to store all the hashes.
 
 New module architecture, Win10- prefix has been replaced by LocalMachine-.
 This is better for the new Windows 11 operating system.

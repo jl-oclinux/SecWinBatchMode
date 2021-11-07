@@ -352,6 +352,36 @@ Function SWMB_ImportModuleParameter() {
 	}
 }
 
+################################################################
+
+Function SWMB_MakeCkeckpoint() {
+	Param (
+		[Parameter(Mandatory = $true)] [string]$Path
+	)
+
+	Function _String2Sha256 {
+		Param (
+			[Parameter(Mandatory=$true)] [string]$Text
+		)
+
+		$Hasher = [System.Security.Cryptography.HashAlgorithm]::Create('SHA256')
+		$Hash = $Hasher.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($Text))
+		$HashString = [System.BitConverter]::ToString($Hash)
+		Return $HashString.Replace('-', '')
+	}
+
+	SysRequireAdmin
+	$HashPrev = "UNKNOWN"
+	If (Test-Path -LiteralPath $Path) {
+		$HashPrev = Get-Content -Path $Path
+	}
+
+	$HashNext = _String2Sha256 -Text ($Global:SWMB_Tweaks -Join '/')
+	If ($HashNext -ne $HashPrev) {
+		SysCheckpoint
+		Write-Output $HashNext > $Path
+	}
+}
 
 ################################################################
 ###### Export Functions

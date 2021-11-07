@@ -21,6 +21,7 @@ Function SysRequireAdmin {
 
 $Script:SWMB_CheckTweak = 'Run'
 $Script:SWMB_Log        = ''
+$Script:SWMB_Hash       = ''
 
 # First argument
 $i = 0
@@ -77,6 +78,14 @@ While ($i -lt $args.Length) {
 		} Else {
 			Write-Error -Message "SWMB support only one -log command line option" -ErrorAction Stop
 		}
+	} ElseIf ($args[$i].ToLower() -eq "-hash") {
+		If ([string]::IsNullOrEmpty($Script:SWMB_Hash)) {
+			# Resolve full path to the hash file
+			$Script:SWMB_Hash = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($args[++$i])
+			$Global:SWMB_PSCommandArgs += "-hash `"$Script:SWMB_Hash`""
+		} Else {
+			Write-Error -Message "SWMB support only one -hash command line option" -ErrorAction Stop
+		}
 	} ElseIf ($args[$i].ToLower() -eq "-check") {
 		$Script:SWMB_CheckTweak = 'Check'
 	} ElseIf ($args[$i].ToLower() -eq "-print") {
@@ -96,6 +105,9 @@ Switch ($Script:SWMB_CheckTweak) {
 		}
 	'Run' {
 		# Call the desired tweak functions
+		If ($Script:SWMB_Hash -ne '') {
+			SWMB_MakeCkeckpoint -Path $Script:SWMB_Hash
+		}
 		SWMB_RunTweaks
 		}
 	'Print' {

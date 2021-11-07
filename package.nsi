@@ -21,7 +21,7 @@ Unicode True
 !insertmacro GetOptions
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.17"
+!define VERSION "3.12.99.18"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -255,6 +255,7 @@ SectionEnd
 Section "Task Scheduler"
   ; ProgramData and sets all user permissions
   CreateDirectory "$APPDATA\${NAME}\Logs"
+  CreateDirectory "$APPDATA\${NAME}\Caches"
   CreateDirectory "$APPDATA\${NAME}\Modules"
   CreateDirectory "$APPDATA\${NAME}\Presets"
 
@@ -291,6 +292,7 @@ Section -Uninstall
   Delete "$SMPrograms\${NAME}.lnk"
 
   RMDir "$APPDATA\${NAME}\Logs"
+  RMDir "$APPDATA\${NAME}\Caches"
   RMDir "$APPDATA\${NAME}\Modules"
   Delete "$APPDATA\${NAME}\Presets\CurrentUser-Logon-Test.preset"
   Delete "$APPDATA\${NAME}\Presets\LocalMachine-Boot-Test.preset"

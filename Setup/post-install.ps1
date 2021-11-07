@@ -27,6 +27,7 @@ $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
 $DataModules = (Join-Path -Path $DataFolder      -ChildPath "Modules")
 $DataLogs    = (Join-Path -Path $DataFolder      -ChildPath "Logs")
+$DataCaches  = (Join-Path -Path $DataFolder      -ChildPath "Caches")
 
 If (Test-Path -LiteralPath $Env:ProgramData) {
 	If (!(Test-Path -LiteralPath $DataFolder)) {
@@ -44,10 +45,13 @@ If (Test-Path -LiteralPath $Env:ProgramData) {
 	If (!(Test-Path -LiteralPath $DataLogs)) {
 		New-Item -Path $DataLogs -ItemType Directory
 	}
-
 	# ACL on Logs for Users (Read / Write)
 	icacls.exe $DataLogs --% /Grant:r "*S-1-5-32-545:(OI)(CI)(GR,GW,DE,RD)" /T
 	icacls.exe $DataLogs /InheritanceLevel:e
+
+	If (!(Test-Path -LiteralPath $DataCaches)) {
+		New-Item -Path $DataCaches -ItemType Directory
+	}
 }
 
 # Create Boot Task

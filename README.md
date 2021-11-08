@@ -72,6 +72,18 @@ You can find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ the latest 
 These setup packages are made with the NSIS software.
 
 It is possible to do a silent installation with the `/S` flag.
+The `/ACTIVATED_PRESET` flag can be set to 0 if you do not want the default presets
+to be installed for predefined scheduled tasks (see [Tasks](#task)).
+
+```
+SWMB-Setup-XXX.XXX.XXX.exe /S /ACTIVATED_PRESET=0
+```
+
+You will also find, in the [dists](dists) directory, examples of deployment of the script
+(manual, at machine startup, with OCS Inventory, WAPT package, volume encryption...).
+
+The [README](dists/manual-use/README.md) file in the "manual-use" directory
+reminds some principles about Powershell execution policies.
 
 
 ## Usage
@@ -130,24 +142,26 @@ SWMB_RunTweaks
     tweakname               apply tweak with this particular name
     !tweakname              remove tweak with this particular name from selection
 
-### Command line option
+### All command line option
 
 `swmb.ps1` currently supports the following parameters:
+
  * `-core` : if used, it must be the first option.
    Import only the core (minimal) module `SWMB.psm1`,
    not all the neested module declared in `SWMB.psd1`.
- * `-import module_file` : imports the module into SWMB.
+ * `-import module_file.psm1` : imports the module into SWMB.
    You can extend SWMB, as is, with your own tweaks.
    This option can be declare as many times as necessary.
- * `-preset preset_file` : loads all the tweak groups defined in a preset file.
+ * `-preset preset_file.preset` : loads all the tweak groups defined in a preset file.
    This option can be declared as many times as necessary.
  * `-log log_file` : messages will be written to the log file file
    and not in the terminal.
  * `-check` : does not execute the tweaks but only checks if they exist
    (in accordance with the preset file).
+ * `-print` : does not execute the tweaks but only print them.
  * `-exp` : this is just a shortcut to import the `Experimental.psm1` module.
    This option is mainly used by developers to help test new tweaks.
- * `-hash filename` makes a hash of the tweak list (preset)
+ * `-hash hash_file.hash` makes a hash of the tweak list (preset)
    and compares it with the old hash stored in filename.
    If the hashes differ, a system checkpoint is performed.
    It is a good idea to put the hash file in the `C:\ProgramData\SWMB\Caches` folder
@@ -162,6 +176,15 @@ One takes place at machine startup (Boot) and the other at user login (Logon).
 These two tasks will look for their parameters in the `C:\ProgramData\SWMB\Presets` folder.
  * CurrentUser-Logon.ps1 - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
  * LocalMachine-Boot.ps - Load preset  at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+
+By default, the presets [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset) 
+and [LocalMachine-Boot-Recommanded.preset](Presets/LocalMachine-Boot-Recommanded.preset) are copied
+to the `C:\ProgramData\SWMB\Presets` folder.
+They are automatically updated with each new version of SWMB because they contain the magic string "`file automatically updated`".
+If you have your own preset files, they will not be updated.
+Moreover, during the installation,
+it is possible not to set these preset files by default by unchecking a box in the installer
+(flag `/ACTIVATED_PRESET=0` in command line).
 
 If a module with the same name (with extension `.psm1`) exist in the folder `C:\ProgramData\SWMB\Modules`,
 it's will be import.
@@ -351,14 +374,3 @@ git subtree pull --prefix SWMB/ https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-
 ```
 
 See [CONTRIBUTING](./CONTRIBUTING.md).
-
-
-## Examples of deployment and use
-
-You find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ last packages made with NSIS Setup.
-
-You will find, in the [dists](dists) directory, examples of deployment of the script
-(manual, at machine startup, with OCS Inventory, volume encryption...).
-
-The [README](dists/manual-use/README.md) file in the "manual-use" directory
-reminds some principles about Powershell execution policies.

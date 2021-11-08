@@ -376,7 +376,10 @@ Function SWMB_MakeCkeckpoint() {
 		$HashPrev = Get-Content -Path $Path
 	}
 
-	$HashNext = _String2Sha256 -Text ($Global:SWMB_Tweaks -Join '/')
+	$Build = [System.Environment]::OSVersion.Version.Build # Windows version
+	$Text = "BuildOSVersion-" + $Build + "/" + ($Global:SWMB_Tweaks -Join '/')
+	$HashNext = _String2Sha256 -Text $Text
+	# Checkpoint when OS version change or tweak list change
 	If ($HashNext -ne $HashPrev) {
 		SysCheckpoint
 		Write-Output $HashNext > $Path

@@ -27,13 +27,14 @@ $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $BootPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "LocalMachine-Boot.preset"))
 $BootModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "LocalMachine-Boot.psm1"))
 $BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "LocalMachine-LastBoot.log"))
+$Boothash    = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Caches"  -ChildPath "LocalMachine-LastBoot.hash"))
 
 # Launch SWMB with this preset
 If (Test-Path -LiteralPath $BootPreset) {
 	If (Test-Path -LiteralPath $BootModule) {
-		.\swmb.ps1 -log "$BootLog" -import "$BootModule" -preset "$BootPreset"
+		.\swmb.ps1 -log "$BootLog" -import "$BootModule" -preset "$BootPreset" -hash $Boothash
 	} Else {
-		.\swmb.ps1 -log "$BootLog" -preset "$BootPreset"
+		.\swmb.ps1 -log "$BootLog" -preset "$BootPreset" -hash $Boothash
 	}
 }
 

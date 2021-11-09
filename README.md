@@ -122,7 +122,7 @@ SWMB_Init
 SWMB_LoadTweakFile "Presets\LocalMachine-Default.preset"
 
 # Load one tweak (can be called multiple times)
-# Unloads the tweak if it ends with the - sign
+# Unloads the tweak if it starts with the exclamation mark (!)
 SWMB_AddOrRemoveTweak "NomFonction"
 
 # If you want to check the consistency of tweaks

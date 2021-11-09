@@ -38,7 +38,7 @@ Import-Module .\Modules\SWMB.psd1
 SWMB_Init
 
 # Load one tweak (can be called multiple times)
-# Unloads the tweak if it ends with the - sign
+# Unloads the tweak if it starts with the exclamation mark (!)
 SWMB_AddOrRemoveTweak "EnableBitlocker"
 
 # Execute all loaded tweaks (presets)

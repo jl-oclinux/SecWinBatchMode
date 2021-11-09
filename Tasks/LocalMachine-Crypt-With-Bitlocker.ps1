@@ -39,10 +39,7 @@ SWMB_Init
 
 # Load one tweak (can be called multiple times)
 # Unloads the tweak if it ends with the - sign
-SWMB_AddOrRemoveTweak "SysMessage"
-SWMB_AddOrRemoveTweak "SysPause"
-SWMB_AddOrRemoveTweak "SysMessage"
-SWMB_AddOrRemoveTweak "SysPause"
+SWMB_AddOrRemoveTweak "EnableBitlocker"
 
 # Execute all loaded tweaks (presets)
 SWMB_RunTweaks

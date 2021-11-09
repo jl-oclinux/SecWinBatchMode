@@ -250,6 +250,7 @@ Section "Program files (Required)"
   SetOutPath $INSTDIR\Tasks
   File "Tasks\CurrentUser-Logon.ps1"
   File "Tasks\LocalMachine-Boot.ps1"
+  File "Tasks\LocalMachine-Crypt-With-Bitlocker.ps1"
 SectionEnd
 
 Section "Task Scheduler"

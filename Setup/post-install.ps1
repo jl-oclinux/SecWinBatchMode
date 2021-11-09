@@ -114,16 +114,22 @@ If ($ActivatedPreset -eq 1) {
 	_UpdatePresetFile -New "$InstallFolder\Presets\CurrentUser-Logon-Recommanded.preset" -Actual "$DataPresets\CurrentUser-Logon.preset"
 }
 
-#$StartUp = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp"
-#If ((Test-Path -LiteralPath $StartUp) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1")) {
-#	If (Test-Path -LiteralPath "$StartUp\SWMB-CurrentUser-Logon.lnk") {
-#		Remove-Item "$StartUp\SWMB-CurrentUser-Logon.lnk" -Force -ErrorAction SilentlyContinue
-#	}
-#	$WshShell = New-Object -ComObject WScript.Shell
-#	$Shortcut = $WshShell.CreateShortcut("$StartUp\SWMB-CurrentUser-Logon.lnk")
-#	$Shortcut.TargetPath = "$InstallFolder\Tasks\CurrentUser-Logon.ps1"
-#	$Shortcut.Save()
-#}
+# Bitlocker Script in Start Menu
+$StartMenu = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs"
+If ((Test-Path -LiteralPath $StartMenu) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1")) {
+	If (Test-Path -LiteralPath "$StartMenu\SWMB-Crypt-With-Bitlocker.lnk") {
+		Remove-Item "$StartMenu\SWMB-Crypt-With-Bitlocker.lnk" -Force -ErrorAction SilentlyContinue
+	}
+	$WshShell = New-Object -ComObject WScript.Shell
+	$Shortcut = $WshShell.CreateShortcut("$StartMenu\SWMB-Crypt-With-Bitlocker.lnk")
+	$Shortcut.TargetPath = "powershell.exe"
+	$ShortCut.Arguments = "-ExecutionPolicy Bypass -File `"$InstallFolder\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1`""
+	$ShortCut.WorkingDirectory = "$InstallFolder";
+	$ShortCut.WindowStyle = 1;
+	$ShortCut.IconLocation = "$InstallFolder\logo-swmb.ico";
+	$ShortCut.Description = "SWMB - Crypt disk with Bitlocker";
+	$Shortcut.Save()
+}
 
 # Create EventLog for our Source
 If ([System.Diagnostics.EventLog]::SourceExists("SWMB") -eq $False) {

@@ -39,8 +39,11 @@
 
 SysEvent                                                                      # 2021/11/05      1    3.13
 SysMessage                                                                    # 2021/11/05      1    3.13
-#DisableActivityHistory                                                       # 2021/11/05      2    3.13
+#DisableActivityHistory                                                       # 2021/11/10      2    3.13
 #$PRESET "C:\Program Files\SWMB\Presets\LocalMachine-Cloud.preset"            # 2021/11/10      2    3.13
+DisableMicrosoftAccount                                                       # 2021/11/10      2    3.13
+DisableWindowsHello                                                           # 2021/11/10      2    3.13
+SysMessage                                                                    # 2021/11/05      1    3.13
 $PRESET "C:\Program Files\SWMB\Presets\LocalMachine-CortanaSearch.preset"     # 2021/11/10      2    3.13
 SysMessage                                                                    # 2021/11/05      1    3.13
 $PRESET "C:\Program Files\SWMB\Presets\LocalMachine-Telemetry.preset"         # 2021/11/10      2    3.13

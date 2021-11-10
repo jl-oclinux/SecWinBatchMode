@@ -8,14 +8,19 @@
 #  2021 - Olivier de Marchi (Grenoble INP / LEGI)
 #  2021 - David Gras (CNRS / DR11)
 #
-# LocalVersion: 1
+# LocalVersion: 2
 ################################################################
 #
 # This is the minimum preset file recommended by the RESINFO SWMB WG.
 # This file can be replaced by yours, more complete, which includes this
-# one if needed
+# one if needed.
 #
 # $PRESET "C:\Program Files\SWMB\Presets\LocalMachine-Boot-Recommanded.preset"
+# 
+# If you don't want one or some tweak predefined in a preset loaded
+# earlier, it's very easy to just exclude them with an exclamation mark.
+#
+# !DisableStoreApps
 #
 # This file should not be modified as is. It is updated automatically
 # with each installation of SWMB. We automatically detect the following
@@ -30,10 +35,19 @@
 # Preset Boot for LocalMachine
 ################################################################
 
-#Tweak                      # Date        Local  Global
+#Tweak                                                                        # Date        Local  Global
 
-SysEvent                    # 2021/11/05      1    3.13
-SysMessage                  # 2021/11/05      1    3.13
-DisableActivityHistory      # 2021/11/05      1    3.13
-SysMessage                  # 2021/11/05      1    3.13
-SysEvent                    # 2021/11/05      1    3.13
+SysEvent                                                                      # 2021/11/05      1    3.13
+SysMessage                                                                    # 2021/11/05      1    3.13
+#DisableActivityHistory                                                       # 2021/11/05      2    3.13
+#$PRESET "C:\Program Files\SWMB\Presets\LocalMachine-Cloud.preset"            # 2021/11/10      2    3.13
+$PRESET "C:\Program Files\SWMB\Presets\LocalMachine-CortanaSearch.preset"     # 2021/11/10      2    3.13
+SysMessage                                                                    # 2021/11/05      1    3.13
+$PRESET "C:\Program Files\SWMB\Presets\LocalMachine-Telemetry.preset"         # 2021/11/10      2    3.13
+SysMessage                                                                    # 2021/11/05      1    3.13
+#$PRESET "C:\Program Files\SWMB\Presets\LocalMachine-UniversalApps.preset"    # 2021/11/10      2    3.13
+$PRESET "C:\Program Files\SWMB\Presets\LocalMachine-UserExperience.preset"    # 2021/11/10      2    3.13
+SysMessage                                                                    # 2021/11/05      1    3.13
+$PRESET "C:\Program Files\SWMB\Presets\LocalMachine-Service.preset"           # 2021/11/10      2    3.13
+SysMessage                                                                    # 2021/11/05      1    3.13
+SysEvent                                                                      # 2021/11/05      1    3.13

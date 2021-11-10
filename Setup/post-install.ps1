@@ -115,7 +115,10 @@ If ($ActivatedPreset -eq 1) {
 }
 
 # Bitlocker Script in Start Menu
-$StartMenu = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs"
+$StartMenu = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\SWMB"
+If (!(Test-Path -LiteralPath $StartMenu)) {
+	New-Item -Path $StartMenu -ItemType Directory
+}
 If ((Test-Path -LiteralPath $StartMenu) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1")) {
 	If (Test-Path -LiteralPath "$StartMenu\SWMB-Crypt-With-Bitlocker.lnk") {
 		Remove-Item "$StartMenu\SWMB-Crypt-With-Bitlocker.lnk" -Force -ErrorAction SilentlyContinue

@@ -21,7 +21,7 @@ Unicode True
 !insertmacro GetOptions
 
 !define NAME "SWMB"
-!define VERSION "3.12.99.19"
+!define VERSION "3.12.99.20"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -188,6 +188,7 @@ Section "Program files (Required)"
     WriteRegDWORD HKLM "${REGPATH_UNINSTSUBKEY}" "ActivatedPreset" 0
   ${EndIf}
   File "swmb.ps1"
+  File "wisemoui.ps1"
   File "logo-swmb.ico"
   File "CONTRIBUTING.md"
   File "FAQ.md"
@@ -276,7 +277,8 @@ Section "Task Scheduler"
 SectionEnd
 
 Section "Start Menu shortcut"
-  CreateShortcut /NoWorkingDir "$SMPrograms\${NAME}.lnk" "$INSTDIR\swmb.ps1"
+  CreateDirectory "$SMPrograms\${NAME}"
+  CreateShortcut /NoWorkingDir "$SMPrograms\${NAME}\${NAME}.lnk" "$INSTDIR\swmb.ps1"
 SectionEnd
 
 
@@ -289,8 +291,10 @@ Section -Uninstall
   DetailPrint "  Return value: $0"
   DetailPrint ""
 
-  ${UnpinShortcut} "$SMPrograms\${NAME}.lnk"
-  Delete "$SMPrograms\${NAME}.lnk"
+  ${UnpinShortcut} "$SMPrograms\${NAME}\${NAME}.lnk"
+  Delete "$SMPrograms\${NAME}\${NAME}.lnk"
+  Delete "$SMPrograms\${NAME}\SWMB-Crypt-With-Bitlocker.lnk"
+  RMDir "$SMPrograms\${NAME}"
 
   RMDir "$APPDATA\${NAME}\Logs"
   RMDir "$APPDATA\${NAME}\Caches"
@@ -302,6 +306,7 @@ Section -Uninstall
 
   Delete "$INSTDIR\Uninst.exe"
   Delete "$INSTDIR\swmb.ps1"
+  Delete "$INSTDIR\wisemoui.ps1"
   Delete "$INSTDIR\logo-swmb.ico"
   Delete "$INSTDIR\CONTRIBUTING.md"
   Delete "$INSTDIR\FAQ.md"

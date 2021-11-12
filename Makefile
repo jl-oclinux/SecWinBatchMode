@@ -13,7 +13,7 @@ help:
 pkg: $(SOFT)-Setup-$(VERSION).exe
 
 version:
-	@echo $(VERSION)
+	@echo -n $(VERSION)
 
 %.exe:
 	@mkdir -p tmp

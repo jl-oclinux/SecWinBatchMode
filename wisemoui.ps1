@@ -15,7 +15,7 @@
 # Relaunch the script with administrator privileges
 Function SysRequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+		Start-Process powershell.exe "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
 		Exit
 	}
 }
@@ -90,7 +90,7 @@ $ButtonExit = New-Object System.Windows.Forms.Button
 $ButtonExit.Location = New-Object System.Drawing.Point(310,230)
 $ButtonExit.Width = 100
 $ButtonExit.Height = 40
-$ButtonExit.Text = " Exit "
+$ButtonExit.Text = "Exit"
 $ButtonExit.Add_Click({
 	$Form.Close()
 })

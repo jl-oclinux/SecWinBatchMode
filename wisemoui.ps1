@@ -32,6 +32,15 @@ Set-Location $InstallFolder
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "LocalMachine-LastBoot.log"))
 
+$VersionModule = (Join-Path -Path "$InstallFolder" -ChildPath (Join-Path -Path "Modules" (Join-Path -Path "SWMB" -ChildPath "Version.psd1")))
+$Version = ''
+If (Test-Path $VersionModule) {
+	Import-Module -Name $VersionModule -ErrorAction Stop
+	$Version = (Get-Module -Name Version).Version.ToString()
+}
+$SWMB_Url = 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb'
+$NextVersion = ((Invoke-WebRequest -Uri "$SWMB_Url/version.txt" -Method Get -ErrorAction SilentlyContinue).Content)
+
 
 # Main Windows
 Add-Type -AssemblyName System.Windows.Forms
@@ -85,6 +94,28 @@ $ButtonBoot.Add_Click({
 	Start-Process notepad.exe "`"$BootLog`""
 	$BtnBootStatus.Text = "Finish!"
 })
+
+# Version
+$BtnVersion = New-Object System.Windows.Forms.label
+$BtnVersion.Location = New-Object System.Drawing.Size(30,240)
+$BtnVersion.Width = 120
+$BtnVersion.Height = 40
+$BtnVersion.BackColor = "Transparent"
+$BtnVersion.Text = "Version: $Version"
+$Form.Controls.Add($BtnVersion)
+
+If ($Version -ne $NextVersion) {
+	$BtnUpdate = New-Object System.Windows.Forms.Button
+	$BtnUpdate.Location = New-Object System.Drawing.Point(150,230)
+	$BtnUpdate.Width = 120
+	$BtnUpdate.Height = 40
+	$BtnUpdate.Text = "New release available"
+	$Form.controls.Add($BtnUpdate)
+
+	$BtnUpdate.Add_Click({
+		Start-Process "$SWMB_Url"
+	})
+}
 
 $ButtonExit = New-Object System.Windows.Forms.Button
 $ButtonExit.Location = New-Object System.Drawing.Point(310,230)

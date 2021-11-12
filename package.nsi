@@ -202,10 +202,11 @@ Section "Program files (Required)"
   File "Setup\pre-remove.ps1"
 
   SetOutPath $INSTDIR\Modules
-  File "Modules\SWMB.psd1"
+  File "tmp\SWMB.psd1"
   File "Modules\SWMB.psm1"
 
   SetOutPath $INSTDIR\Modules\SWMB
+  File "tmp\Version.psd1"
   File "Modules\SWMB\BSI.psm1"
   File "Modules\SWMB\Contrib.psm1"
   File "Modules\SWMB\CurrentUser-Application.psm1"

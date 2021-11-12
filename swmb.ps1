@@ -78,6 +78,13 @@ While ($i -lt $args.Length) {
 		} Else {
 			Write-Error -Message "SWMB support only one -log command line option" -ErrorAction Stop
 		}
+	} ElseIf ($args[$i].ToLower() -eq "-version") {
+		$VersionModule = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" (Join-Path -Path "SWMB" -ChildPath "Version.psd1")))
+		If (Test-Path $VersionModule) {
+			Import-Module -Name $VersionModule -ErrorAction Stop
+			Write-Output (Get-Module -Name Version).Version.ToString()
+		}
+		Exit
 	} ElseIf ($args[$i].ToLower() -eq "-hash") {
 		If ([string]::IsNullOrEmpty($Script:SWMB_Hash)) {
 			# Resolve full path to the hash file

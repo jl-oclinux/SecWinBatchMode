@@ -16,6 +16,9 @@ version:
 	@echo $(VERSION)
 
 %.exe:
+	@mkdir -p tmp
+	@sed -e "s/\(ModuleVersion = \)'.*$$/\1'$(VERSION)'/;" Modules/SWMB.psd1 > tmp/SWMB.psd1
+	@echo "@{ ModuleVersion = '$(VERSION)' }" > tmp/Version.psd1
 	makensis package.nsi
 
 check:

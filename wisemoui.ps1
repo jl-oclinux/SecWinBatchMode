@@ -37,22 +37,37 @@ $BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 $Form = New-Object System.Windows.Forms.Form
-$Form.ClientSize = '300,300'
+$Form.ClientSize = '500,300'
 $Form.Text = "SWMB: Secure Windows Mode Batch"
-    
+
+#Logo
+$image1 = New-Object System.Windows.Forms.PictureBox
+$image1.Location = New-Object Drawing.Point(270,10)
+$image1.Size = New-Object System.Drawing.Size(200,201)
+$image1.image = [system.drawing.image]::FromFile("$InstallFolder\logo-swmb.ico")
+$Form.Controls.Add($image1)
+
+# Crypt  
 $ButtonCrypt = New-Object System.Windows.Forms.Button
 $ButtonCrypt.Location = New-Object System.Drawing.Point(30,50)
 $ButtonCrypt.Width = 100
 $ButtonCrypt.Height = 60
-$ButtonCrypt.Text = "Crypt disks with Bitlocker"
+$ButtonCrypt.Text = "Crypt all Disks with Bitlocker"
 $Form.controls.Add($ButtonCrypt)
 
 $ButtonCrypt.Add_Click({
-	& "$PSScriptRoot\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1"
-	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
-		& eventvwr.exe /c:Application
-	}
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1`"" -WindowStyle Normal
 })
+
+# Boot Task
+$BtnBootStatus = New-Object System.Windows.Forms.label
+$BtnBootStatus.Location = New-Object System.Drawing.Size(140,160)
+#$BtnBootStatus.Size = New-Object System.Drawing.Size(100,60)
+$BtnBootStatus.Width = 100
+$BtnBootStatus.Height = 40
+$BtnBootStatus.BackColor = "Transparent"
+$BtnBootStatus.Text = ""
+$Form.Controls.Add($BtnBootStatus)
 
 $ButtonBoot = New-Object System.Windows.Forms.Button
 $ButtonBoot.Location = New-Object System.Drawing.Point(30,140)
@@ -62,15 +77,17 @@ $ButtonBoot.Text = "Run Boot Task Schedule Now"
 $Form.controls.Add($ButtonBoot)
 
 $ButtonBoot.Add_Click({
-	& "$PSScriptRoot\Tasks\LocalMachine-Boot.ps1"
+	$BtnBootStatus.Text = "Start..."
 	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
 		& eventvwr.exe /c:Application
 	}
-	#Start-Job -ScriptBlock { Get-Content $BootLog -Wait } | Receive-Job
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Boot.ps1`"" -WindowStyle Hidden -Wait
+	Start-Process notepad.exe "`"$BootLog`""
+	$BtnBootStatus.Text = "Finish!"
 })
 
 $ButtonExit = New-Object System.Windows.Forms.Button
-$ButtonExit.Location = New-Object System.Drawing.Point(160,230)
+$ButtonExit.Location = New-Object System.Drawing.Point(310,230)
 $ButtonExit.Width = 100
 $ButtonExit.Height = 40
 $ButtonExit.Text = " Exit "

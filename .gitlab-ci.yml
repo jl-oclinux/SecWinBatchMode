@@ -13,6 +13,7 @@ pages:
     - '[ -s download.tar.gz ] && ( cd public ; tar -xzf ../download.tar.gz )'
     - make pkg
     - mv SWMB-Setup-*.exe public/
+    - make version > public/version.txt
     - (cd dists/ocs-inventory/; make)
     - mv dists/ocs-inventory/SWMB-OCS-*.zip public/
     - (cd dists/wapt/; make)

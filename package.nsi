@@ -277,8 +277,8 @@ Section "Task Scheduler"
 SectionEnd
 
 Section "Start Menu shortcut"
-  CreateDirectory "$SMPrograms\${NAME}"
-  CreateShortcut /NoWorkingDir "$SMPrograms\${NAME}\${NAME}.lnk" "$INSTDIR\swmb.ps1"
+  ;CreateDirectory "$SMPrograms\${NAME}"
+  CreateShortcut /NoWorkingDir "$SMPrograms\${NAME} Secure Windows.lnk" powershell.exe '-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File "$INSTDIR\wisemoui.ps1"' "$INSTDIR\logo-swmb.ico"
 SectionEnd
 
 
@@ -292,9 +292,10 @@ Section -Uninstall
   DetailPrint ""
 
   ${UnpinShortcut} "$SMPrograms\${NAME}\${NAME}.lnk"
-  Delete "$SMPrograms\${NAME}\${NAME}.lnk"
-  Delete "$SMPrograms\${NAME}\SWMB-Crypt-With-Bitlocker.lnk"
-  RMDir "$SMPrograms\${NAME}"
+  Delete "$SMPrograms\${NAME} Secure Windows.lnk"
+  ;Delete "$SMPrograms\${NAME}\${NAME}.lnk"
+  ;Delete "$SMPrograms\${NAME}\SWMB-Crypt-With-Bitlocker.lnk"
+  ;RMDir "$SMPrograms\${NAME}"
 
   RMDir "$APPDATA\${NAME}\Logs"
   RMDir "$APPDATA\${NAME}\Caches"

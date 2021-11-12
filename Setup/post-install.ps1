@@ -115,24 +115,24 @@ If ($ActivatedPreset -eq 1) {
 }
 
 # Bitlocker Script in Start Menu
-$StartMenu = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\SWMB"
-If (!(Test-Path -LiteralPath $StartMenu)) {
-	New-Item -Path $StartMenu -ItemType Directory
-}
-If ((Test-Path -LiteralPath $StartMenu) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1")) {
-	If (Test-Path -LiteralPath "$StartMenu\SWMB-Crypt-With-Bitlocker.lnk") {
-		Remove-Item "$StartMenu\SWMB-Crypt-With-Bitlocker.lnk" -Force -ErrorAction SilentlyContinue
-	}
-	$WshShell = New-Object -ComObject WScript.Shell
-	$Shortcut = $WshShell.CreateShortcut("$StartMenu\SWMB-Crypt-With-Bitlocker.lnk")
-	$Shortcut.TargetPath = "powershell.exe"
-	$ShortCut.Arguments = "-ExecutionPolicy Bypass -File `"$InstallFolder\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1`""
-	$ShortCut.WorkingDirectory = "$InstallFolder";
-	$ShortCut.WindowStyle = 1;
-	$ShortCut.IconLocation = "$InstallFolder\logo-swmb.ico";
-	$ShortCut.Description = "SWMB - Crypt disk with Bitlocker";
-	$Shortcut.Save()
-}
+#$StartMenu = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\SWMB"
+#If (!(Test-Path -LiteralPath $StartMenu)) {
+#	New-Item -Path $StartMenu -ItemType Directory
+#}
+#If ((Test-Path -LiteralPath $StartMenu) -And (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1")) {
+#	If (Test-Path -LiteralPath "$StartMenu\SWMB-Crypt-With-Bitlocker.lnk") {
+#		Remove-Item "$StartMenu\SWMB-Crypt-With-Bitlocker.lnk" -Force -ErrorAction SilentlyContinue
+#	}
+#	$WshShell = New-Object -ComObject WScript.Shell
+#	$Shortcut = $WshShell.CreateShortcut("$StartMenu\SWMB-Crypt-With-Bitlocker.lnk")
+#	$Shortcut.TargetPath = "powershell.exe"
+#	$ShortCut.Arguments = "-ExecutionPolicy Bypass -File `"$InstallFolder\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1`""
+#	$ShortCut.WorkingDirectory = "$InstallFolder";
+#	$ShortCut.WindowStyle = 1;
+#	$ShortCut.IconLocation = "$InstallFolder\logo-swmb.ico";
+#	$ShortCut.Description = "SWMB - Crypt disk with Bitlocker";
+#	$Shortcut.Save()
+#}
 
 # Create EventLog for our Source
 If ([System.Diagnostics.EventLog]::SourceExists("SWMB") -eq $False) {

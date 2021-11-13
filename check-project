@@ -3,6 +3,10 @@
 # 2020/06/11 Gabriel Moreau
 
 
+# Detect Windows File with no CRLF line terminator
+find . \( -name '*.ps1' -o -name '*.psm1' -o -name '*.psd1' -o -name '*.bat' \) -exec file {} \+ | egrep -v '(with CRLF line|/tmp/)'
+
+
 function msg1 {
    local msg=$1
    local total=$2

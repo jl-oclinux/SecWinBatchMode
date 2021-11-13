@@ -22,7 +22,7 @@ version:
 	makensis package.nsi
 
 check:
-	./check-projectcheck:
+	@./check-project
 
 clean:
 	rm -f SWMB*.exe

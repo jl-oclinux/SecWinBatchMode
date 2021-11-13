@@ -187,7 +187,7 @@ These two tasks will look for their parameters in the `C:\ProgramData\SWMB\Prese
  * CurrentUser-Logon.ps1 - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
  * LocalMachine-Boot.ps - Load preset  at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
 
-By default, the presets [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset) 
+By default, the presets [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset)
 and [LocalMachine-Boot-Recommanded.preset](Presets/LocalMachine-Boot-Recommanded.preset) are copied
 to the `C:\ProgramData\SWMB\Presets` folder.
 They are automatically updated with each new version of SWMB because they contain the magic string "`file automatically updated`".

@@ -27,12 +27,14 @@ Two presets `CurrentUser-Logon-Test.preset` and `LocalMachine-Boot-Test.preset`
 are copied on folder `C:\ProgramData\SWMB\Presets`.
 They could serve for test or as simple examples.
 
-Two presets `CurrentUser-Logon-Recommanded.preset` and `LocalMachine-Boot-Recommanded.preset`
+Two presets [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset)
+and [LocalMachine-Boot-Recommanded.preset](Presets/LocalMachine-Boot-Recommanded.preset)
 are copied on folder `C:\ProgramData\SWMB\Presets`
 with the names `CurrentUser-Logon.preset` and `LocalMachine-Boot.preset`.
 They are execute at logon (account SYSTEM) and at boot (account CurrentUser).
 Configuration tweaks are thus performed on any workstation that installs SWMB.
 These tweaks are selected by the SWMB working group (RESINFO).
+The default boot preset is not empty.
 If you don't want any tweaks, replace these two files with empty ones
 or don't activate them with the installer.
 On the command line you can do this with:
@@ -40,9 +42,6 @@ On the command line you can do this with:
 SWMB-Setup-XXX.exe /S /ACTIVATED_PRESET=0
 ```
 Any value other than 0 (or nothing) will activate the default preset.
-
-The default boot preset is not empty.
-See [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset).
 
 New presets/rules:
 * 2021/10/21 - $PRESET and $IMPORT can open absolute and relative path file (before only relative path was possible)

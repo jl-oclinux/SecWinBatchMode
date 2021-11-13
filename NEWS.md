@@ -57,6 +57,7 @@ New CLI parameter:
   If the hashes differ, a system checkpoint is performed.
   A folder `Caches` is created in `C:\ProgramData\SWMB`
   to store all the hashes.
+* `-version` print the program version.
 
 New module architecture, Win10- prefix has been replaced by LocalMachine-.
 This is better for the new Windows 11 operating system.

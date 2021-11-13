@@ -159,6 +159,7 @@ SWMB_RunTweaks
  * `-check` : does not execute the tweaks but only checks if they exist
    (in accordance with the preset file).
  * `-print` : does not execute the tweaks but only print them.
+ * `-version` : print the SWMB version.
  * `-exp` : this is just a shortcut to import the `Experimental.psm1` module.
    This option is mainly used by developers to help test new tweaks.
  * `-hash hash_file.hash` makes a hash of the tweak list (preset)

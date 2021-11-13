@@ -167,6 +167,15 @@ SWMB_RunTweaks
    It is a good idea to put the hash file in the `C:\ProgramData\SWMB\Caches` folder
    with the name of the most important preset followed by the `.hash` extension.
 
+### Graphical User Interface
+
+There is a minimal graphical user interface.
+A link to it appears in the start menu under the name SWMB Secure Windows.
+This interface allows to force the execution of some tasks: boot, disk encryption...
+There is also a version number check.
+
+![SWMB Graphical User Interface](Images/capture-wisemoui.png)
+
 ### Tasks
 
 The goal is not to change anything in the SWMB installation folder.

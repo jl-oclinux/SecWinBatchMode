@@ -9,6 +9,8 @@ A Zip file is created for OCS Inventory.
 A Zip file is also created for WAPT package.
 You can use it as-is.
 
+Add a minimal UI with wisemoui.ps1 program. Launch it via the Start Menu.
+
 Automatically search `Overload` and `Autodel` module in `C:\ProgramData\SWMB` folder
 (and `Modules` subfolder).
 
@@ -38,6 +40,9 @@ On the command line you can do this with:
 SWMB-Setup-XXX.exe /S /ACTIVATED_PRESET=0
 ```
 Any value other than 0 (or nothing) will activate the default preset.
+
+The default boot preset is not empty.
+See [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset).
 
 New presets/rules:
 * 2021/10/21 - $PRESET and $IMPORT can open absolute and relative path file (before only relative path was possible)

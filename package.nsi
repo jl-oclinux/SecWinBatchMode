@@ -204,6 +204,7 @@ Section "Program files (Required)"
   SetOutPath $INSTDIR\Modules
   File "tmp\SWMB.psd1"
   File "Modules\SWMB.psm1"
+  File "Modules\WiSeMoUI.psm1"
 
   SetOutPath $INSTDIR\Modules\SWMB
   File "tmp\Version.psd1"

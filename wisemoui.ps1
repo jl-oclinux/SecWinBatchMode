@@ -21,30 +21,12 @@ Function SysRequireAdmin {
 }
 SysRequireAdmin
 
-# Change Path to the root Installation Folder
-$InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
-If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
-	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
-}
-Set-Location $InstallFolder
-
 # Define Boot preset on ProgramData
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "LocalMachine-LastBoot.log"))
 
 Import-Module -Name "$PSScriptRoot\Modules\SWMB.psd1" -ErrorAction Stop
 Import-Module -Name "$PSScriptRoot\Modules\WiSeMoUI.psm1" -ErrorAction Stop
-
-#$VersionModule = (Join-Path -Path "$InstallFolder" -ChildPath (Join-Path -Path "Modules" (Join-Path -Path "SWMB" -ChildPath "Version.psd1")))
-#$Version = ''
-#If (Test-Path $VersionModule) {
-#	Import-Module -Name $VersionModule -ErrorAction Stop
-#	$Version = (Get-Module -Name Version).Version.ToString()
-#}
-#$SWMB_Url = 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb'
-#$NextVersion = ((Invoke-WebRequest -Uri "$SWMB_Url/version.txt" -Method Get -ErrorAction SilentlyContinue).Content)
-
-
 
 # Main Windows
 Add-Type -AssemblyName System.Windows.Forms
@@ -63,21 +45,21 @@ $Form.Controls.Add($Logo)
 # Bitlocker Status
 $BitlockerStatus  = SWMB_GetBitLockerStatus -Drive $Env:SystemDrive
 $BtnBitlockerStatus = New-Object System.Windows.Forms.label
-$BtnBitlockerStatus.Location = New-Object System.Drawing.Size(30,15)
-$BtnBitlockerStatus.Width = 230
-$BtnBitlockerStatus.Height = 30
+$BtnBitlockerStatus.Location = New-Object System.Drawing.Size(30,25)
+$BtnBitlockerStatus.Width = 220
+$BtnBitlockerStatus.Height = 20
 $BtnBitlockerStatus.BackColor = "Transparent"
-$BtnBitlockerStatus.Text = "Bitlocker: $BitlockerStatus"
+$BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 $Form.Controls.Add($BtnBitlockerStatus)
 
-# Crypt  
-$ButtonCrypt = New-Object System.Windows.Forms.Button
-$ButtonCrypt.Location = New-Object System.Drawing.Point(30,50)
-$ButtonCrypt.Width = 100
-$ButtonCrypt.Height = 60
-$ButtonCrypt.Text = "Crypt all Disks with Bitlocker"
-$Form.controls.Add($ButtonCrypt)
-$ButtonCrypt.Add_Click({
+# Bitlocker Crypt  
+$BtnCrypt = New-Object System.Windows.Forms.Button
+$BtnCrypt.Location = New-Object System.Drawing.Point(30,50)
+$BtnCrypt.Width = 100
+$BtnCrypt.Height = 60
+$BtnCrypt.Text = "Crypt all Disks with Bitlocker"
+$Form.controls.Add($BtnCrypt)
+$BtnCrypt.Add_Click({
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1`"" -WindowStyle Normal
 })
 
@@ -99,7 +81,7 @@ $BtnBitlockerAction.Add_Click({
 		$BitlockerAction = "Halt"
 		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive $Env:SystemDrive
 		$BtnBitlockerAction.Text = "Please Halt for your Maintenance"
-		$BtnBitlockerStatus.Text = "Bitlocker: $BitlockerStatus"
+		$BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 	} ElseIf ($BitlockerAction -eq "Halt") {
 		Stop-Computer -ComputerName localhost
 	} Else {
@@ -108,11 +90,19 @@ $BtnBitlockerAction.Add_Click({
 		If ($BitlockerStatus -cmatch "Running") {
 			$BitlockerAction  = "Suspend"
 			$BtnBitlockerAction.Text = "$BitlockerAction"
-			$BtnBitlockerStatus.Text = "Bitlocker: $BitlockerStatus"
+			$BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 		}
 	}
 })
 
+# Bitlocker Frame
+$BtnBitlockerFrame = New-Object System.Windows.Forms.GroupBox
+$BtnBitlockerFrame.Location = New-Object System.Drawing.Size(20,10)
+$BtnBitlockerFrame.Width = 240
+$BtnBitlockerFrame.Height = 110
+#$BtnBitlockerFrame.BackColor = "Transparent"
+$BtnBitlockerFrame.Text = "Bitlocker"
+$Form.Controls.Add($BtnBitlockerFrame)    
 
 # Boot Task
 $BtnBootStatus = New-Object System.Windows.Forms.label
@@ -124,14 +114,13 @@ $BtnBootStatus.BackColor = "Transparent"
 $BtnBootStatus.Text = ""
 $Form.Controls.Add($BtnBootStatus)
 
-$ButtonBoot = New-Object System.Windows.Forms.Button
-$ButtonBoot.Location = New-Object System.Drawing.Point(30,140)
-$ButtonBoot.Width = 100
-$ButtonBoot.Height = 60
-$ButtonBoot.Text = "Run Boot Task Schedule Now"
-$Form.controls.Add($ButtonBoot)
-
-$ButtonBoot.Add_Click({
+$BtnBoot = New-Object System.Windows.Forms.Button
+$BtnBoot.Location = New-Object System.Drawing.Point(30,140)
+$BtnBoot.Width = 100
+$BtnBoot.Height = 60
+$BtnBoot.Text = "Run Boot Task Schedule Now"
+$Form.controls.Add($BtnBoot)
+$BtnBoot.Add_Click({
 	$BtnBootStatus.Text = "Start..."
 	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
 		& eventvwr.exe /c:Application
@@ -165,14 +154,16 @@ If ($RunningVersion -ne $PublishedVersion) {
 	})
 }
 
-$ButtonExit = New-Object System.Windows.Forms.Button
-$ButtonExit.Location = New-Object System.Drawing.Point(310,230)
-$ButtonExit.Width = 100
-$ButtonExit.Height = 40
-$ButtonExit.Text = "Exit"
-$ButtonExit.Add_Click({
+# Exit
+$BtnExit = New-Object System.Windows.Forms.Button
+$BtnExit.Location = New-Object System.Drawing.Point(310,230)
+$BtnExit.Width = 100
+$BtnExit.Height = 40
+$BtnExit.Text = "Exit"
+$BtnExit.Add_Click({
 	$Form.Close()
 })
-$Form.controls.Add($ButtonExit)
+$Form.controls.Add($BtnExit)
 
+# Main Loop
 $Form.ShowDialog()

@@ -70,12 +70,15 @@ Function SWMB_GetBitLockerStatus {
 	$DriveEMethod = (Get-BitLockerVolume $Drive).EncryptionMethod
 
 	If (($DrivePStatus -eq "On") -or ($DriveVStatus -eq "EncryptionInProgress")) {
-		Return "Runnning"
+		Return "Running / $DriveEMethod"
+	}
+	If (($DrivePStatus -eq "Off") -or ($DriveVStatus -eq "FullyEncrypted")) {
+		Return "Suspend / $DriveEMethod"
 	}
 	If (($DrivePStatus -eq "Off") -or ($DriveVStatus -eq "FullyDecrypted")) {
 		Return "NotConfigured"
 	}
-	Return "$DrivePStatus/$DriveVStatus/$DriveEMethod"
+	Return "$DrivePStatus / $DriveVStatus / $DriveEMethod"
 }
 
 ################################################################

@@ -61,7 +61,7 @@ $Logo.image = [system.drawing.image]::FromFile("$PSScriptRoot\logo-swmb.ico")
 $Form.Controls.Add($Logo)
 
 # Bitlocker Status
-$BitlockerStatus  = SWMB_GetBitLockerStatus
+$BitlockerStatus  = SWMB_GetBitLockerStatus -Drive $Env:SystemDrive
 $BtnBitlockerStatus = New-Object System.Windows.Forms.label
 $BtnBitlockerStatus.Location = New-Object System.Drawing.Size(60,15)
 $BtnBitlockerStatus.Width = 140
@@ -97,7 +97,7 @@ $BtnBitlockerAction.Add_Click({
 	If ($BitlockerAction -eq "Suspend") {
 		Suspend-BitLocker -MountPoint "$Env:SystemDrive" -RebootCount 0
 		$BitlockerAction = "Halt"
-		$BtnBitlockerAction.Text = "Please Halt"
+		$BtnBitlockerAction.Text = "Please Halt for Maintenance"
 	} ElseIf ($BitlockerAction -eq "Halt") {
 		Stop-Computer -ComputerName localhost
 	} Else {

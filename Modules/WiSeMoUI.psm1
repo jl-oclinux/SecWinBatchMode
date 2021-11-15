@@ -47,20 +47,35 @@ Function SWMB_GetLastPublishedVersion {
 }
 
 ################################################################
+# ProtectionStatus
+#   On
+#   Off
+# VolumeStatus
+#   FullyDecrypted
+#   FullyEncrypted
+#   EncryptionInProgress
+#   DecryptionInProgress
+# EncryptionMethod
+#   XtsAes256
+#   XtsAes128
 
 Function SWMB_GetBitLockerStatus {
-	$SystemDrive       = $Env:SystemDrive
-	$SystemDriveLetter = $systemDrive.Substring(0, 1)
-	$SytemDrivePStatus = (Get-BitLockerVolume $SystemDrive).ProtectionStatus
-	$SytemDriveVStatus = (Get-BitLockerVolume $SystemDrive).VolumeStatus
+	Param (
+		[Parameter(Mandatory = $true)] [string]$Drive
+	)
 
-	If (($SytemDrivePStatus -eq "On") -or ($SytemDriveVStatus -eq "EncryptionInProgress")) {
+	#$DriveLetter  = $Drive.Substring(0, 1)
+	$DrivePStatus = (Get-BitLockerVolume $Drive).ProtectionStatus
+	$DriveVStatus = (Get-BitLockerVolume $Drive).VolumeStatus
+	$DriveEMethod = (Get-BitLockerVolume $Drive).EncryptionMethod
+
+	If (($DrivePStatus -eq "On") -or ($DriveVStatus -eq "EncryptionInProgress")) {
 		Return "Runnning"
 	}
-	If (($SytemDrivePStatus -eq "Off") -or ($SytemDriveVStatus -eq "FullyDecrypted")) {
-		Return "Not Configured"
+	If (($DrivePStatus -eq "Off") -or ($DriveVStatus -eq "FullyDecrypted")) {
+		Return "NotConfigured"
 	}
-	Return "$SytemDrivePStatus/$SytemDriveVStatus"
+	Return "$DrivePStatus/$DriveVStatus/$DriveEMethod"
 }
 
 ################################################################

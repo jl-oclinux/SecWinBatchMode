@@ -2,9 +2,9 @@
 
 ## Version 3.14 (in progress)
 
-Add `Tweak` string in front of all tweak functions.
-Preset files cannot call standart Powershell function anymore.
-A specific tweak function must be written for security reason.
+The string `Tweak` has been added in front of the name of all tweak functions.
+This means that preset files can no longer call standard Powershell functions.
+If needed, a specific tweak function must be written for security reasons.
 
 
 ## Version 3.13 (2021/11/22)

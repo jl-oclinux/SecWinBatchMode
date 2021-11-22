@@ -1,6 +1,6 @@
 # NEWS
 
-## Version 3.13 (in progress)
+## Version 3.13 (2021/11/22)
 
 Add a setup file, juste write `make pkg` under Linux (Add a `Makefile`).
 Continuous integration build the package,
@@ -9,7 +9,7 @@ A Zip file is created for OCS Inventory.
 A Zip file is also created for WAPT package.
 You can use it as-is.
 
-Add a minimal UI with wisemoui.ps1 program. Launch it via the Start Menu.
+Add a minimal UI with `wisemoui.ps1` program. Launch it via the Start Menu.
 
 Automatically search `Overload` and `Autodel` module in `C:\ProgramData\SWMB` folder
 (and `Modules` subfolder).

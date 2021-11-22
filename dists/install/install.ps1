@@ -8,7 +8,7 @@
 # Authors:
 #  2017 - Disassembler <disassembler@dasm.cz>
 #  2021 - Gabriel Moreau (CNRS / LEGI)
-# Version: v3.12, 2021-07-10
+# Version: v3.13, 2021-11-22
 ################################################################
 
 # This script must be run as an administrator with privileges.

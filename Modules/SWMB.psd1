@@ -33,7 +33,7 @@ NestedModules = @(
 	'.\SWMB\Resinfo.psm1',
 	'.\SWMB\TemporaryBypass.psm1'
 	)
-ModuleVersion = '3.12.99.13'
+ModuleVersion = '3.13'
 GUID = 'ba50acca-ccda-456b-8349-6ff2569dc229'
 Author = 'RESINFO / GT SWMB'
 CompanyName = 'CNRS'

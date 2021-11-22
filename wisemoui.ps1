@@ -9,7 +9,7 @@
 #  2017 - Disassembler <disassembler@dasm.cz>
 #  2021 - Gabriel Moreau (CNRS / LEGI)
 #  2021 - Olivier de Marchi (Grenoble INP / LEGI)
-# Version: v3.12, 2021-07-10
+# Version: v3.13, 2021-11-22
 ################################################################
 
 # Relaunch the script with administrator privileges

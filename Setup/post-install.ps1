@@ -8,7 +8,7 @@
 # Authors:
 #  2017 - Disassembler <disassembler@dasm.cz>
 #  2021 - Gabriel Moreau (CNRS / LEGI)
-# Version: v3.12, 2021-07-10
+# Version: v3.13, 2021-11-22
 ################################################################
 
 # This script must be run as an administrator with privileges.
@@ -69,6 +69,28 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 	$BootObject.Author = "CNRS RESINFO / GT SWMB"
 	$BootObject | Set-ScheduledTask
 }
+
+# Create Weekly Task
+#If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
+#	$Days = @("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+#	$RandDay = (Get-Random -InputObject $Days -Count 1)
+#	$Hours = @("8am", "9am", "10am", "11am", "12am", "1pm", "2pm", "3pm")
+#	$RandHour = (Get-Random -InputObject $Hours -Count 1)
+#	#$WeeklyTrigger = New-ScheduledTaskTrigger -Weekly -At 11am -RandomDelay (New-TimeSpan -Day 6)
+#	$WeeklyTrigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek $RandDay -At $RandHour -RandomDelay (New-TimeSpan -Hour 24)
+#	$WeeklySetting = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 2)
+#	$User          = "NT AUTHORITY\SYSTEM"
+#	$WeeklyTask    = 'SWMB-LocalMachine-Weekly'
+#	$WeeklyAction  = New-ScheduledTaskAction -Execute "powershell.exe" `
+#		-Argument "-File `"$InstallFolder\Tasks\LocalMachine-Boot.ps1`"" `
+#		-WorkingDirectory "$InstallFolder"
+#	Unregister-ScheduledTask -TaskName $WeeklyTask -Confirm:$false -ErrorAction SilentlyContinue
+#	Register-ScheduledTask -Force -TaskName $WeeklyTask -Trigger $WeeklyTrigger -User $User -Action $WeeklyAction `
+#		-RunLevel Highest -Description "SWMB weekly tweaks action" -Settings $WeeklySetting
+#	$WeeklyObject = Get-ScheduledTask $WeeklyTask
+#	$WeeklyObject.Author = "CNRS RESINFO / GT SWMB"
+#	$WeeklyObject | Set-ScheduledTask
+#}
 
 # Create Logon Task for All Users
 If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {

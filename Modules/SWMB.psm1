@@ -123,7 +123,7 @@ Function TweakSysAutoUpgrade {
 # Wait for key press
 Function TweakWaitForKey {
 	Write-Output "Warning: obsolete tweak WaitForKey, now use SysPause"
-	SysPause
+	TweakSysPause
 }
 
 ################################################################
@@ -132,7 +132,7 @@ Function TweakWaitForKey {
 # Restart computer
 Function TweakRestart {
 	Write-Output "Warning: obsolete tweak Restart, now use SysRestart"
-	SysRestart
+	TweakSysRestart
 }
 
 ################################################################
@@ -141,7 +141,7 @@ Function TweakRestart {
 # Require administrator privileges
 Function TweakRequireAdmin {
 	Write-Output "Warning: obsolete tweak RequireAdmin, now use SysRequireAdmin"
-	SysRequireAdmin
+	TweakSysRequireAdmin
 }
 
 ################################################################
@@ -370,7 +370,7 @@ Function SWMB_MakeCkeckpoint() {
 		Return $HashString.Replace('-', '')
 	}
 
-	SysRequireAdmin
+	TweakSysRequireAdmin
 	$HashPrev = "UNKNOWN"
 	If (Test-Path -LiteralPath $Path) {
 		$HashPrev = Get-Content -Path $Path

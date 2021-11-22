@@ -299,7 +299,7 @@ Even though the names are not 100% match, they aim to tweak similar aspects and 
 
 ```powershell
 # Enable some feature
-Function EnableSomeFeature {
+Function TweakEnableSomeFeature {
 	Write-Output "Enabling some feature..."
 	If (!(Test-Path "HKLM:\Some\Registry\Key")) {
 		New-Item -Path "HKLM:\Some\Registry\Key" -Force | Out-Null
@@ -308,7 +308,7 @@ Function EnableSomeFeature {
 }
 
 # Disable some feature
-Function DisableSomeFeature {
+Function TweakDisableSomeFeature {
 	Write-Output "Disabling some feature..."
 	Remove-ItemProperty -Path "HKLM:\Some\Registry\Key" -Name "SomeValueName" -ErrorAction SilentlyContinue
 }

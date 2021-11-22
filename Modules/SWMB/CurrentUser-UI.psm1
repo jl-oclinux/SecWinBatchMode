@@ -12,7 +12,7 @@
 ################################################################
 
 # Disable Action Center (Notification Center)
-Function DisableActionCenter_CU {
+Function TweakDisableActionCenter_CU {
 	Write-Output "Disabling Action Center (Notification Center) for CU..."
 	If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer")) {
 		New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" | Out-Null
@@ -22,7 +22,7 @@ Function DisableActionCenter_CU {
 }
 
 # Enable Action Center (Notification Center)
-Function EnableActionCenter_CU {
+Function TweakEnableActionCenter_CU {
 	Write-Output "Enabling Action Center (Notification Center) for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -ErrorAction SilentlyContinue
@@ -31,13 +31,13 @@ Function EnableActionCenter_CU {
 ################################################################
 
 # Disable Aero Shake (minimizing other windows when one is dragged by mouse and shaken)
-Function DisableAeroShake_CU {
+Function TweakDisableAeroShake_CU {
 	Write-Output "Disabling Aero Shake for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DisallowShaking" -Type DWord -Value 1
 }
 
 # Enable Aero Shake
-Function EnableAeroShake_CU {
+Function TweakEnableAeroShake_CU {
 	Write-Output "Enabling Aero Shake for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DisallowShaking" -ErrorAction SilentlyContinue
 }
@@ -45,7 +45,7 @@ Function EnableAeroShake_CU {
 ################################################################
 
 # Disable accessibility keys prompts (Sticky keys, Toggle keys, Filter keys)
-Function DisableAccessibilityKeys_CU {
+Function TweakDisableAccessibilityKeys_CU {
 	Write-Output "Disabling accessibility keys prompts for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\ToggleKeys" -Name "Flags" -Type String -Value "58"
@@ -53,7 +53,7 @@ Function DisableAccessibilityKeys_CU {
 }
 
 # Enable accessibility keys prompts (Sticky keys, Toggle keys, Filter keys)
-Function EnableAccessibilityKeys_CU {
+Function TweakEnableAccessibilityKeys_CU {
 	Write-Output "Enabling accessibility keys prompts for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "510"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\ToggleKeys" -Name "Flags" -Type String -Value "62"
@@ -64,7 +64,7 @@ Function EnableAccessibilityKeys_CU {
 
 # Show Task Manager details - Applicable since 1607
 # Although this functionality exist even in earlier versions, the Task Manager's behavior is different there and is not compatible with this tweak
-Function ShowTaskManagerDetails_CU {
+Function TweakShowTaskManagerDetails_CU {
 	Write-Output "Showing task manager details for CU..."
 	$taskmgr = Start-Process -WindowStyle Hidden -FilePath taskmgr.exe -PassThru
 	$timeout = 30000
@@ -82,7 +82,7 @@ Function ShowTaskManagerDetails_CU {
 }
 
 # Hide Task Manager details - Applicable since 1607
-Function HideTaskManagerDetails_CU {
+Function TweakHideTaskManagerDetails_CU {
 	Write-Output "Hiding task manager details for CU..."
 	$preferences = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -ErrorAction SilentlyContinue
 	If ($preferences) {
@@ -94,7 +94,7 @@ Function HideTaskManagerDetails_CU {
 ################################################################
 
 # Show file operations details
-Function ShowFileOperationsDetails_CU {
+Function TweakShowFileOperationsDetails_CU {
 	Write-Output "Showing file operations details for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" | Out-Null
@@ -103,7 +103,7 @@ Function ShowFileOperationsDetails_CU {
 }
 
 # Hide file operations details
-Function HideFileOperationsDetails_CU {
+Function TweakHideFileOperationsDetails_CU {
 	Write-Output "Hiding file operations details for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager" -Name "EnthusiastMode" -ErrorAction SilentlyContinue
 }
@@ -111,7 +111,7 @@ Function HideFileOperationsDetails_CU {
 ################################################################
 
 # Enable file delete confirmation dialog
-Function EnableFileDeleteConfirm_CU {
+Function TweakEnableFileDeleteConfirm_CU {
 	Write-Output "Enabling file delete confirmation dialog for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
@@ -120,7 +120,7 @@ Function EnableFileDeleteConfirm_CU {
 }
 
 # Disable file delete confirmation dialog
-Function DisableFileDeleteConfirm_CU {
+Function TweakDisableFileDeleteConfirm_CU {
 	Write-Output "Disabling file delete confirmation dialog for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "ConfirmFileDelete" -ErrorAction SilentlyContinue
 }
@@ -128,19 +128,19 @@ Function DisableFileDeleteConfirm_CU {
 ################################################################
 
 # Hide Taskbar Search icon / box
-Function HideTaskbarSearch_CU {
+Function TweakHideTaskbarSearch_CU {
 	Write-Output "Hiding Taskbar Search icon / box for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 0
 }
 
 # Show Taskbar Search icon
-Function ShowTaskbarSearchIcon_CU {
+Function TweakShowTaskbarSearchIcon_CU {
 	Write-Output "Showing Taskbar Search icon for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 1
 }
 
 # Show Taskbar Search box
-Function ShowTaskbarSearchBox_CU {
+Function TweakShowTaskbarSearchBox_CU {
 	Write-Output "Showing Taskbar Search box for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "SearchboxTaskbarMode" -Type DWord -Value 2
 }
@@ -148,13 +148,13 @@ Function ShowTaskbarSearchBox_CU {
 ################################################################
 
 # Hide Task View button
-Function HideTaskView_CU {
+Function TweakHideTaskView_CU {
 	Write-Output "Hiding Task View button for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Type DWord -Value 0
 }
 
 # Show Task View button
-Function ShowTaskView_CU {
+Function TweakShowTaskView_CU {
 	Write-Output "Showing Task View button for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -ErrorAction SilentlyContinue
 }
@@ -162,13 +162,13 @@ Function ShowTaskView_CU {
 ################################################################
 
 # Show small icons in taskbar
-Function ShowSmallTaskbarIcons_CU {
+Function TweakShowSmallTaskbarIcons_CU {
 	Write-Output "Showing small icons in taskbar for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarSmallIcons" -Type DWord -Value 1
 }
 
 # Show large icons in taskbar
-Function ShowLargeTaskbarIcons_CU {
+Function TweakShowLargeTaskbarIcons_CU {
 	Write-Output "Showing large icons in taskbar for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarSmallIcons" -ErrorAction SilentlyContinue
 }
@@ -176,21 +176,21 @@ Function ShowLargeTaskbarIcons_CU {
 ################################################################
 
 # Set taskbar buttons to show labels and combine when taskbar is full
-Function SetTaskbarCombineWhenFull_CU {
+Function TweakSetTaskbarCombineWhenFull_CU {
 	Write-Output "Setting taskbar buttons to combine when taskbar is full for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarGlomLevel" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MMTaskbarGlomLevel" -Type DWord -Value 1
 }
 
 # Set taskbar buttons to show labels and never combine
-Function SetTaskbarCombineNever_CU {
+Function TweakSetTaskbarCombineNever_CU {
 	Write-Output "Setting taskbar buttons to never combine for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarGlomLevel" -Type DWord -Value 2
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MMTaskbarGlomLevel" -Type DWord -Value 2
 }
 
 # Set taskbar buttons to always combine and hide labels
-Function SetTaskbarCombineAlways_CU {
+Function TweakSetTaskbarCombineAlways_CU {
 	Write-Output "Setting taskbar buttons to always combine, hide labels for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarGlomLevel" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "MMTaskbarGlomLevel" -ErrorAction SilentlyContinue
@@ -199,7 +199,7 @@ Function SetTaskbarCombineAlways_CU {
 ################################################################
 
 # Hide Taskbar People icon
-Function HideTaskbarPeopleIcon_CU {
+Function TweakHideTaskbarPeopleIcon_CU {
 	Write-Output "Hiding People icon for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" | Out-Null
@@ -208,7 +208,7 @@ Function HideTaskbarPeopleIcon_CU {
 }
 
 # Show Taskbar People icon
-Function ShowTaskbarPeopleIcon_CU {
+Function TweakShowTaskbarPeopleIcon_CU {
 	Write-Output "Showing People icon for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People" -Name "PeopleBand" -ErrorAction SilentlyContinue
 }
@@ -216,7 +216,7 @@ Function ShowTaskbarPeopleIcon_CU {
 ################################################################
 
 # Show all tray icons
-Function ShowTrayIcons_CU {
+Function TweakShowTrayIcons_CU {
 	Write-Output "Showing all tray icons for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
@@ -225,7 +225,7 @@ Function ShowTrayIcons_CU {
 }
 
 # Hide tray icons as needed
-Function HideTrayIcons_CU {
+Function TweakHideTrayIcons_CU {
 	Write-Output "Hiding tray icons for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoAutoTrayNotify" -ErrorAction SilentlyContinue
 }
@@ -233,7 +233,7 @@ Function HideTrayIcons_CU {
 ################################################################
 
 # Show seconds in taskbar
-Function ShowSecondsInTaskbar_CU {
+Function TweakShowSecondsInTaskbar_CU {
 	Write-Output "Showing seconds in taskbar for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" | Out-Null
@@ -242,7 +242,7 @@ Function ShowSecondsInTaskbar_CU {
 }
 
 # Hide seconds from taskbar
-Function HideSecondsFromTaskbar_CU {
+Function TweakHideSecondsFromTaskbar_CU {
 	Write-Output "Hiding seconds from taskbar for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowSecondsInSystemClock" -ErrorAction SilentlyContinue
 }
@@ -250,7 +250,7 @@ Function HideSecondsFromTaskbar_CU {
 ################################################################
 
 # Set PowerShell instead of Command prompt in Start Button context menu (Win+X) - Default since 1703
-Function SetWinXMenuPowerShell_CU {
+Function TweakSetWinXMenuPowerShell_CU {
 	Write-Output "Setting PowerShell instead of Command prompt in WinX menu for CU..."
 	If ([System.Environment]::OSVersion.Version.Build -le 14393) {
 		Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DontUsePowerShellOnWinX" -Type DWord -Value 0
@@ -260,7 +260,7 @@ Function SetWinXMenuPowerShell_CU {
 }
 
 # Set Command prompt instead of PowerShell in Start Button context menu (Win+X) - Default in 1507 - 1607
-Function SetWinXMenuCmd_CU {
+Function TweakSetWinXMenuCmd_CU {
 	Write-Output "Setting Command prompt instead of PowerShell in WinX menu for CU..."
 	If ([System.Environment]::OSVersion.Version.Build -le 14393) {
 		Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DontUsePowerShellOnWinX" -ErrorAction SilentlyContinue
@@ -272,7 +272,7 @@ Function SetWinXMenuCmd_CU {
 ################################################################
 
 # Set Control Panel view to Small icons (Classic)
-Function SetControlPanelSmallIcons_CU {
+Function TweakSetControlPanelSmallIcons_CU {
 	Write-Output "Setting Control Panel view to small icons for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" | Out-Null
@@ -282,7 +282,7 @@ Function SetControlPanelSmallIcons_CU {
 }
 
 # Set Control Panel view to Large icons (Classic)
-Function SetControlPanelLargeIcons_CU {
+Function TweakSetControlPanelLargeIcons_CU {
 	Write-Output "Setting Control Panel view to large icons for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" | Out-Null
@@ -292,7 +292,7 @@ Function SetControlPanelLargeIcons_CU {
 }
 
 # Set Control Panel view to categories
-Function SetControlPanelCategories_CU {
+Function TweakSetControlPanelCategories_CU {
 	Write-Output "Setting Control Panel view to categories for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" -Name "StartupPage" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel" -Name "AllItemsIconView" -ErrorAction SilentlyContinue
@@ -301,13 +301,13 @@ Function SetControlPanelCategories_CU {
 ################################################################
 
 # Disable adding '- shortcut' to shortcut name
-Function DisableShortcutInName_CU {
+Function TweakDisableShortcutInName_CU {
 	Write-Output "Disabling adding '- shortcut' to shortcut name for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name "link" -Type Binary -Value ([byte[]](0,0,0,0))
 }
 
 # Enable adding '- shortcut' to shortcut name
-Function EnableShortcutInName_CU {
+Function TweakEnableShortcutInName_CU {
 	Write-Output "Enabling adding '- shortcut' to shortcut name for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name "link" -ErrorAction SilentlyContinue
 }
@@ -315,7 +315,7 @@ Function EnableShortcutInName_CU {
 ################################################################
 
 # Adjusts visual effects for performance - Disables animations, transparency etc. but leaves font smoothing and miniatures enabled
-Function SetVisualFXPerformance_CU {
+Function TweakSetVisualFXPerformance_CU {
 	Write-Output "Adjusting visual effects for performance for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Type String -Value 0
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Type String -Value 0
@@ -330,7 +330,7 @@ Function SetVisualFXPerformance_CU {
 }
 
 # Adjusts visual effects for appearance
-Function SetVisualFXAppearance_CU {
+Function TweakSetVisualFXAppearance_CU {
 	Write-Output "Adjusting visual effects for appearance for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Type String -Value 1
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Type String -Value 400
@@ -347,13 +347,13 @@ Function SetVisualFXAppearance_CU {
 ################################################################
 
 # Enable window title bar color according to prevalent background color
-Function EnableTitleBarColor_CU {
+Function TweakEnableTitleBarColor_CU {
 	Write-Output "Enabling window title bar color for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "ColorPrevalence" -Type DWord -Value 1
 }
 
 # Disable window title bar color
-Function DisableTitleBarColor_CU {
+Function TweakDisableTitleBarColor_CU {
 	Write-Output "Disabling window title bar color for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\DWM" -Name "ColorPrevalence" -Type DWord -Value 0
 }
@@ -361,13 +361,13 @@ Function DisableTitleBarColor_CU {
 ################################################################
 
 # Set Dark Mode for Applications
-Function SetAppsDarkMode_CU {
+Function TweakSetAppsDarkMode_CU {
 	Write-Output "Setting Dark Mode for Applications for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 0
 }
 
 # Set Light Mode for Applications
-Function SetAppsLightMode_CU {
+Function TweakSetAppsLightMode_CU {
 	Write-Output "Setting Light Mode for Applications for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "AppsUseLightTheme" -Type DWord -Value 1
 }
@@ -375,13 +375,13 @@ Function SetAppsLightMode_CU {
 ################################################################
 
 # Set Light Mode for System - Applicable since 1903
-Function SetSystemLightMode_CU {
+Function TweakSetSystemLightMode_CU {
 	Write-Output "Setting Light Mode for System for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 1
 }
 
 # Set Dark Mode for System - Applicable since 1903
-Function SetSystemDarkMode_CU {
+Function TweakSetSystemDarkMode_CU {
 	Write-Output "Setting Dark Mode for System for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "SystemUsesLightTheme" -Type DWord -Value 0
 }
@@ -389,7 +389,7 @@ Function SetSystemDarkMode_CU {
 ################################################################
 
 # Add secondary en-US keyboard
-Function AddENKeyboard_CU {
+Function TweakAddENKeyboard_CU {
 	Write-Output "Adding secondary en-US keyboard for CU..."
 	$langs = Get-WinUserLanguageList
 	$langs.Add("en-US")
@@ -397,7 +397,7 @@ Function AddENKeyboard_CU {
 }
 
 # Remove secondary en-US keyboard
-Function RemoveENKeyboard_CU {
+Function TweakRemoveENKeyboard_CU {
 	Write-Output "Removing secondary en-US keyboard for CU..."
 	$langs = Get-WinUserLanguageList
 	Set-WinUserLanguageList ($langs | Where-Object {$_.LanguageTag -ne "en-US"}) -Force
@@ -406,7 +406,7 @@ Function RemoveENKeyboard_CU {
 ################################################################
 
 # Disable enhanced pointer precision
-Function DisableEnhPointerPrecision_CU {
+Function TweakDisableEnhPointerPrecision_CU {
 	Write-Output "Disabling enhanced pointer precision for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSpeed" -Type String -Value "0"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold1" -Type String -Value "0"
@@ -414,7 +414,7 @@ Function DisableEnhPointerPrecision_CU {
 }
 
 # Enable enhanced pointer precision
-Function EnableEnhPointerPrecision_CU {
+Function TweakEnableEnhPointerPrecision_CU {
 	Write-Output "Enabling enhanced pointer precision for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseSpeed" -Type String -Value "1"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Mouse" -Name "MouseThreshold1" -Type String -Value "6"
@@ -424,7 +424,7 @@ Function EnableEnhPointerPrecision_CU {
 ################################################################
 
 # Set sound scheme to No Sounds
-Function SetSoundSchemeNone_CU {
+Function TweakSetSoundSchemeNone_CU {
 	Write-Output "Setting sound scheme to No Sounds for CU..."
 	$SoundScheme = ".None"
 	Get-ChildItem -Path "HKCU:\AppEvents\Schemes\Apps\*\*" | ForEach-Object {
@@ -446,7 +446,7 @@ Function SetSoundSchemeNone_CU {
 }
 
 # Set sound scheme to Windows Default
-Function SetSoundSchemeDefault_CU {
+Function TweakSetSoundSchemeDefault_CU {
 	Write-Output "Setting sound scheme to Windows Default for CU..."
 	$SoundScheme = ".Default"
 	Get-ChildItem -Path "HKCU:\AppEvents\Schemes\Apps\*\*" | ForEach-Object {
@@ -470,7 +470,7 @@ Function SetSoundSchemeDefault_CU {
 ################################################################
 
 # Disable F1 Help key in Explorer and on the Desktop
-Function DisableF1HelpKey_CU {
+Function TweakDisableF1HelpKey_CU {
 	Write-Output "Disabling F1 Help key for CU..."
 	If (!(Test-Path "HKCU:\Software\Classes\TypeLib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win32")) {
 		New-Item -Path "HKCU:\Software\Classes\TypeLib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0\win32" -Force | Out-Null
@@ -483,7 +483,7 @@ Function DisableF1HelpKey_CU {
 }
 
 # Enable F1 Help key in Explorer and on the Desktop
-Function EnableF1HelpKey_CU {
+Function TweakEnableF1HelpKey_CU {
 	Write-Output "Enabling F1 Help key for CU..."
 	Remove-Item "HKCU:\Software\Classes\TypeLib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0" -Recurse -ErrorAction SilentlyContinue
 }

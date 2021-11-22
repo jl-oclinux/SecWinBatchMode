@@ -12,13 +12,13 @@
 ################################################################
 
 # Hide Quick Access from Explorer navigation pane
-Function HideQuickAccess {
+Function TweakHideQuickAccess {
 	Write-Output "Hiding Quick Access from Explorer navigation pane..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "HubMode" -Type DWord -Value 1
 }
 
 # Show Quick Access in Explorer navigation pane
-Function ShowQuickAccess {
+Function TweakShowQuickAccess {
 	Write-Output "Showing Quick Access in Explorer navigation pane..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "HubMode" -ErrorAction SilentlyContinue
 }
@@ -26,13 +26,13 @@ Function ShowQuickAccess {
 ################################################################
 
 # Hide Desktop icon from This PC - The icon remains in personal folders and open/save dialogs
-Function HideDesktopFromThisPC {
+Function TweakHideDesktopFromThisPC {
 	Write-Output "Hiding Desktop icon from This PC..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}" -Recurse -ErrorAction SilentlyContinue
 }
 
 # Show Desktop icon in This PC
-Function ShowDesktopInThisPC {
+Function TweakShowDesktopInThisPC {
 	Write-Output "Showing Desktop icon in This PC..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}" | Out-Null
@@ -42,14 +42,14 @@ Function ShowDesktopInThisPC {
 ################################################################
 
 # Hide Desktop icon from Explorer namespace - Hides the icon also from personal folders and open/save dialogs
-Function HideDesktopFromExplorer {
+Function TweakHideDesktopFromExplorer {
 	Write-Output "Hiding Desktop icon from Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 }
 
 # Show Desktop icon in Explorer namespace
-Function ShowDesktopInExplorer {
+Function TweakShowDesktopInExplorer {
 	Write-Output "Showing Desktop icon in Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
@@ -58,14 +58,14 @@ Function ShowDesktopInExplorer {
 ################################################################
 
 # Hide Documents icon from This PC - The icon remains in personal folders and open/save dialogs
-Function HideDocumentsFromThisPC {
+Function TweakHideDocumentsFromThisPC {
 	Write-Output "Hiding Documents icon from This PC..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}" -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A8CDFF1C-4878-43be-B5FD-F8091C1C60D0}" -Recurse -ErrorAction SilentlyContinue
 }
 
 # Show Documents icon in This PC
-Function ShowDocumentsInThisPC {
+Function TweakShowDocumentsInThisPC {
 	Write-Output "Showing Documents icon in This PC..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{d3162b92-9365-467a-956b-92703aca08af}" | Out-Null
@@ -78,14 +78,14 @@ Function ShowDocumentsInThisPC {
 ################################################################
 
 # Hide Documents icon from Explorer namespace - Hides the icon also from personal folders and open/save dialogs
-Function HideDocumentsFromExplorer {
+Function TweakHideDocumentsFromExplorer {
 	Write-Output "Hiding Documents icon from Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{f42ee2d3-909f-4907-8871-4c22fc0bf756}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{f42ee2d3-909f-4907-8871-4c22fc0bf756}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 }
 
 # Show Documents icon in Explorer namespace
-Function ShowDocumentsInExplorer {
+Function TweakShowDocumentsInExplorer {
 	Write-Output "Showing Documents icon in Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{f42ee2d3-909f-4907-8871-4c22fc0bf756}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{f42ee2d3-909f-4907-8871-4c22fc0bf756}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
@@ -94,14 +94,14 @@ Function ShowDocumentsInExplorer {
 ################################################################
 
 # Hide Downloads icon from This PC - The icon remains in personal folders and open/save dialogs
-Function HideDownloadsFromThisPC {
+Function TweakHideDownloadsFromThisPC {
 	Write-Output "Hiding Downloads icon from This PC..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}" -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{374DE290-123F-4565-9164-39C4925E467B}" -Recurse -ErrorAction SilentlyContinue
 }
 
 # Show Downloads icon in This PC
-Function ShowDownloadsInThisPC {
+Function TweakShowDownloadsInThisPC {
 	Write-Output "Showing Downloads icon in This PC..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{088e3905-0323-4b02-9826-5d99428e115f}" | Out-Null
@@ -114,14 +114,14 @@ Function ShowDownloadsInThisPC {
 ################################################################
 
 # Hide Downloads icon from Explorer namespace - Hides the icon also from personal folders and open/save dialogs
-Function HideDownloadsFromExplorer {
+Function TweakHideDownloadsFromExplorer {
 	Write-Output "Hiding Downloads icon from Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{7d83ee9b-2244-4e70-b1f5-5393042af1e4}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{7d83ee9b-2244-4e70-b1f5-5393042af1e4}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 }
 
 # Show Downloads icon in Explorer namespace
-Function ShowDownloadsInExplorer {
+Function TweakShowDownloadsInExplorer {
 	Write-Output "Showing Downloads icon in Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{7d83ee9b-2244-4e70-b1f5-5393042af1e4}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{7d83ee9b-2244-4e70-b1f5-5393042af1e4}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
@@ -130,14 +130,14 @@ Function ShowDownloadsInExplorer {
 ################################################################
 
 # Hide Music icon from This PC - The icon remains in personal folders and open/save dialogs
-Function HideMusicFromThisPC {
+Function TweakHideMusicFromThisPC {
 	Write-Output "Hiding Music icon from This PC..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{1CF1260C-4DD0-4ebb-811F-33C572699FDE}" -Recurse -ErrorAction SilentlyContinue
 }
 
 # Show Music icon in This PC
-Function ShowMusicInThisPC {
+Function TweakShowMusicInThisPC {
 	Write-Output "Showing Music icon in This PC..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}" | Out-Null
@@ -150,14 +150,14 @@ Function ShowMusicInThisPC {
 ################################################################
 
 # Hide Music icon from Explorer namespace - Hides the icon also from personal folders and open/save dialogs
-Function HideMusicFromExplorer {
+Function TweakHideMusicFromExplorer {
 	Write-Output "Hiding Music icon from Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{a0c69a99-21c8-4671-8703-7934162fcf1d}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{a0c69a99-21c8-4671-8703-7934162fcf1d}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 }
 
 # Show Music icon in Explorer namespace
-Function ShowMusicInExplorer {
+Function TweakShowMusicInExplorer {
 	Write-Output "Showing Music icon in Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{a0c69a99-21c8-4671-8703-7934162fcf1d}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{a0c69a99-21c8-4671-8703-7934162fcf1d}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
@@ -166,14 +166,14 @@ Function ShowMusicInExplorer {
 ################################################################
 
 # Hide Pictures icon from This PC - The icon remains in personal folders and open/save dialogs
-Function HidePicturesFromThisPC {
+Function TweakHidePicturesFromThisPC {
 	Write-Output "Hiding Pictures icon from This PC..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{3ADD1653-EB32-4cb0-BBD7-DFA0ABB5ACCA}" -Recurse -ErrorAction SilentlyContinue
 }
 
 # Show Pictures icon in This PC
-Function ShowPicturesInThisPC {
+Function TweakShowPicturesInThisPC {
 	Write-Output "Showing Pictures icon in This PC..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}" | Out-Null
@@ -186,14 +186,14 @@ Function ShowPicturesInThisPC {
 ################################################################
 
 # Hide Pictures icon from Explorer namespace - Hides the icon also from personal folders and open/save dialogs
-Function HidePicturesFromExplorer {
+Function TweakHidePicturesFromExplorer {
 	Write-Output "Hiding Pictures icon from Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{0ddd015d-b06c-45d5-8c4c-f59713854639}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{0ddd015d-b06c-45d5-8c4c-f59713854639}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 }
 
 # Show Pictures icon in Explorer namespace
-Function ShowPicturesInExplorer {
+Function TweakShowPicturesInExplorer {
 	Write-Output "Showing Pictures icon in Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{0ddd015d-b06c-45d5-8c4c-f59713854639}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{0ddd015d-b06c-45d5-8c4c-f59713854639}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
@@ -202,14 +202,14 @@ Function ShowPicturesInExplorer {
 ################################################################
 
 # Hide Videos icon from This PC - The icon remains in personal folders and open/save dialogs
-Function HideVideosFromThisPC {
+Function TweakHideVideosFromThisPC {
 	Write-Output "Hiding Videos icon from This PC..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{A0953C92-50DC-43bf-BE83-3742FED03C9C}" -Recurse -ErrorAction SilentlyContinue
 }
 
 # Show Videos icon in This PC
-Function ShowVideosInThisPC {
+Function TweakShowVideosInThisPC {
 	Write-Output "Showing Videos icon in This PC..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}" | Out-Null
@@ -222,14 +222,14 @@ Function ShowVideosInThisPC {
 ################################################################
 
 # Hide Videos icon from Explorer namespace - Hides the icon also from personal folders and open/save dialogs
-Function HideVideosFromExplorer {
+Function TweakHideVideosFromExplorer {
 	Write-Output "Hiding Videos icon from Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{35286a68-3c57-41a1-bbb1-0eae73d76c95}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{35286a68-3c57-41a1-bbb1-0eae73d76c95}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Hide"
 }
 
 # Show Videos icon in Explorer namespace
-Function ShowVideosInExplorer {
+Function TweakShowVideosInExplorer {
 	Write-Output "Showing Videos icon in Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{35286a68-3c57-41a1-bbb1-0eae73d76c95}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{35286a68-3c57-41a1-bbb1-0eae73d76c95}\PropertyBag" -Name "ThisPCPolicy" -Type String -Value "Show"
@@ -238,13 +238,13 @@ Function ShowVideosInExplorer {
 ################################################################
 
 # Hide 3D Objects icon from This PC - The icon remains in personal folders and open/save dialogs
-Function Hide3DObjectsFromThisPC {
+Function TweakHide3DObjectsFromThisPC {
 	Write-Output "Hiding 3D Objects icon from This PC..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}" -Recurse -ErrorAction SilentlyContinue
 }
 
 # Show 3D Objects icon in This PC
-Function Show3DObjectsInThisPC {
+Function TweakShow3DObjectsInThisPC {
 	Write-Output "Showing 3D Objects icon in This PC..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}" | Out-Null
@@ -254,7 +254,7 @@ Function Show3DObjectsInThisPC {
 ################################################################
 
 # Hide 3D Objects icon from Explorer namespace - Hides the icon also from personal folders and open/save dialogs
-Function Hide3DObjectsFromExplorer {
+Function TweakHide3DObjectsFromExplorer {
 	Write-Output "Hiding 3D Objects icon from Explorer namespace..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag" -Force | Out-Null
@@ -267,7 +267,7 @@ Function Hide3DObjectsFromExplorer {
 }
 
 # Show 3D Objects icon in Explorer namespace
-Function Show3DObjectsInExplorer {
+Function TweakShow3DObjectsInExplorer {
 	Write-Output "Showing 3D Objects icon in Explorer namespace..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag" -Name "ThisPCPolicy" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag" -Name "ThisPCPolicy" -ErrorAction SilentlyContinue
@@ -276,13 +276,13 @@ Function Show3DObjectsInExplorer {
 ################################################################
 
 # Hide Network icon from Explorer namespace - Hides the icon also from personal folders and open/save dialogs
-Function HideNetworkFromExplorer {
+Function TweakHideNetworkFromExplorer {
 	Write-Output "Hiding Network icon from Explorer namespace..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum" -Name "{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}" -Type DWord -Value 1
 }
 
 # Show Network icon in Explorer namespace
-Function ShowNetworkInExplorer {
+Function TweakShowNetworkInExplorer {
 	Write-Output "Showing Network icon in Explorer namespace..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum" -Name "{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}" -ErrorAction SilentlyContinue
 }
@@ -290,7 +290,7 @@ Function ShowNetworkInExplorer {
 ################################################################
 
 # Hide 'Include in library' context menu item
-Function HideIncludeInLibraryMenu {
+Function TweakHideIncludeInLibraryMenu {
 	Write-Output "Hiding 'Include in library' context menu item..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -299,7 +299,7 @@ Function HideIncludeInLibraryMenu {
 }
 
 # Show 'Include in library' context menu item
-Function ShowIncludeInLibraryMenu {
+Function TweakShowIncludeInLibraryMenu {
 	Write-Output "Showing 'Include in library' context menu item..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -311,7 +311,7 @@ Function ShowIncludeInLibraryMenu {
 ################################################################
 
 # Hide 'Give access to' (until 1703 'Share With') context menu item.
-Function HideGiveAccessToMenu {
+Function TweakHideGiveAccessToMenu {
 	Write-Output "Hiding 'Give access to' context menu item..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -324,7 +324,7 @@ Function HideGiveAccessToMenu {
 }
 
 # Show 'Give access to' (until 1703 'Share With') context menu item.
-Function ShowGiveAccessToMenu {
+Function TweakShowGiveAccessToMenu {
 	Write-Output "Showing 'Give access to' context menu item..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -342,7 +342,7 @@ Function ShowGiveAccessToMenu {
 ################################################################
 
 # Hide 'Share' context menu item. Applicable since 1709
-Function HideShareMenu {
+Function TweakHideShareMenu {
 	Write-Output "Hiding 'Share' context menu item..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -351,7 +351,7 @@ Function HideShareMenu {
 }
 
 # Show 'Share' context menu item. Applicable since 1709
-Function ShowShareMenu {
+Function TweakShowShareMenu {
 	Write-Output "Showing 'Share' context menu item..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null

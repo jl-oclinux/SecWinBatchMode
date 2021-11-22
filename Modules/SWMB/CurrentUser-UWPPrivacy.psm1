@@ -13,7 +13,7 @@
 
 # Disable UWP apps background access - ie. if UWP apps can download data or update themselves when they aren't used
 # Until 1809, Cortana and ShellExperienceHost need to be explicitly excluded as their inclusion breaks start menu search and toast notifications respectively.
-Function DisableUWPBackgroundApps_CU {
+Function TweakDisableUWPBackgroundApps_CU {
 	Write-Output "Disabling UWP apps background access for CU. See DisableUWPBackgroundApps..."
 	If ([System.Environment]::OSVersion.Version.Build -ge 17763) {
 	} Else {
@@ -25,7 +25,7 @@ Function DisableUWPBackgroundApps_CU {
 }
 
 # Enable UWP apps background access
-Function EnableUWPBackgroundApps_CU {
+Function TweakEnableUWPBackgroundApps_CU {
 	Write-Output "Enabling UWP apps background access for CU. See EnableUWPBackgroundApps..."
 	Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" | ForEach-Object {
 		Remove-ItemProperty -Path $_.PsPath -Name "Disabled" -ErrorAction SilentlyContinue
@@ -36,7 +36,7 @@ Function EnableUWPBackgroundApps_CU {
 ################################################################
 
 # Hide Account Protection warning in Defender about not using a Microsoft account
-Function HideAccountProtectionWarn_CU {
+Function TweakHideAccountProtectionWarn_CU {
 	Write-Output "Hiding Account Protection warning for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows Security Health\State")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows Security Health\State" -Force | Out-Null
@@ -45,7 +45,7 @@ Function HideAccountProtectionWarn_CU {
 }
 
 # Show Account Protection warning in Defender
-Function ShowAccountProtectionWarn_CU {
+Function TweakShowAccountProtectionWarn_CU {
 	Write-Output "Showing Account Protection warning for CU..."
 	Remove-ItemProperty "HKCU:\Software\Microsoft\Windows Security Health\State" -Name "AccountProtection_MicrosoftAccount_Disconnected" -ErrorAction SilentlyContinue
 }
@@ -53,7 +53,7 @@ Function ShowAccountProtectionWarn_CU {
 ################################################################
 
 # Disable blocking of downloaded files (i.e. storing zone information - no need to do File\Properties\Unblock)
-Function DisableDownloadBlocking_CU {
+Function TweakDisableDownloadBlocking_CU {
 	Write-Output "Disabling blocking of downloaded files for CU..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" | Out-Null
@@ -62,7 +62,7 @@ Function DisableDownloadBlocking_CU {
 }
 
 # Enable blocking of downloaded files
-Function EnableDownloadBlocking_CU {
+Function TweakEnableDownloadBlocking_CU {
 	Write-Output "Enabling blocking of downloaded files for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" -Name "SaveZoneInformation" -ErrorAction SilentlyContinue
 }

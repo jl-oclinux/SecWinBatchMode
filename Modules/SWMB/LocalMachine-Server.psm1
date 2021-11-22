@@ -12,7 +12,7 @@
 ################################################################
 
 # Hide Server Manager after login
-Function HideServerManagerOnLogin {
+Function TweakHideServerManagerOnLogin {
 	Write-Output "Hiding Server Manager after login..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Server\ServerManager")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Server\ServerManager" -Force | Out-Null
@@ -21,7 +21,7 @@ Function HideServerManagerOnLogin {
 }
 
 # Show Server Manager after login
-Function ShowServerManagerOnLogin {
+Function TweakShowServerManagerOnLogin {
 	Write-Output "Showing Server Manager after login..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Server\ServerManager" -Name "DoNotOpenAtLogon" -ErrorAction SilentlyContinue
 }
@@ -29,7 +29,7 @@ Function ShowServerManagerOnLogin {
 ################################################################
 
 # Disable Shutdown Event Tracker
-Function DisableShutdownTracker {
+Function TweakDisableShutdownTracker {
 	Write-Output "Disabling Shutdown Event Tracker..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Reliability")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Reliability" -Force | Out-Null
@@ -38,7 +38,7 @@ Function DisableShutdownTracker {
 }
 
 # Enable Shutdown Event Tracker
-Function EnableShutdownTracker {
+Function TweakEnableShutdownTracker {
 	Write-Output "Enabling Shutdown Event Tracker..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\Reliability" -Name "ShutdownReasonOn" -ErrorAction SilentlyContinue
 }
@@ -46,7 +46,7 @@ Function EnableShutdownTracker {
 ################################################################
 
 # Disable password complexity and maximum age requirements
-Function DisablePasswordPolicy {
+Function TweakDisablePasswordPolicy {
 	Write-Output "Disabling password complexity and maximum age requirements..."
 	$tmpfile = New-TemporaryFile
 	secedit /export /cfg $tmpfile /quiet
@@ -56,7 +56,7 @@ Function DisablePasswordPolicy {
 }
 
 # Enable password complexity and maximum age requirements
-Function EnablePasswordPolicy {
+Function TweakEnablePasswordPolicy {
 	Write-Output "Enabling password complexity and maximum age requirements..."
 	$tmpfile = New-TemporaryFile
 	secedit /export /cfg $tmpfile /quiet
@@ -68,13 +68,13 @@ Function EnablePasswordPolicy {
 ################################################################
 
 # Disable Ctrl+Alt+Del requirement before login
-Function DisableCtrlAltDelLogin {
+Function TweakDisableCtrlAltDelLogin {
 	Write-Output "Disabling Ctrl+Alt+Del requirement before login..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "DisableCAD" -Type DWord -Value 1
 }
 
 # Enable Ctrl+Alt+Del requirement before login
-Function EnableCtrlAltDelLogin {
+Function TweakEnableCtrlAltDelLogin {
 	Write-Output "Enabling Ctrl+Alt+Del requirement before login..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "DisableCAD" -Type DWord -Value 0
 }
@@ -82,14 +82,14 @@ Function EnableCtrlAltDelLogin {
 ################################################################
 
 # Disable Internet Explorer Enhanced Security Configuration (IE ESC)
-Function DisableIEEnhancedSecurity {
+Function TweakDisableIEEnhancedSecurity {
 	Write-Output "Disabling Internet Explorer Enhanced Security Configuration (IE ESC)..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 0
 }
 
 # Enable Internet Explorer Enhanced Security Configuration (IE ESC)
-Function EnableIEEnhancedSecurity {
+Function TweakEnableIEEnhancedSecurity {
 	Write-Output "Enabling Internet Explorer Enhanced Security Configuration (IE ESC)..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" -Name "IsInstalled" -Type DWord -Value 1
@@ -98,14 +98,14 @@ Function EnableIEEnhancedSecurity {
 ################################################################
 
 # Enable Audio
-Function EnableAudio {
+Function TweakEnableAudio {
 	Write-Output "Enabling Audio..."
 	Set-Service "Audiosrv" -StartupType Automatic
 	Start-Service "Audiosrv" -WarningAction SilentlyContinue
 }
 
 # Disable Audio
-Function DisableAudio {
+Function TweakDisableAudio {
 	Write-Output "Disabling Audio..."
 	Stop-Service "Audiosrv" -WarningAction SilentlyContinue
 	Set-Service "Audiosrv" -StartupType Manual

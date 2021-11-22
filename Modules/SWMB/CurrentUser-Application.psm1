@@ -12,14 +12,14 @@
 ################################################################
 
 # Disable Xbox features - Not applicable to Server
-Function DisableXboxFeatures_CU {
+Function TweakDisableXboxFeatures_CU {
 	Write-Output "Disabling Xbox features for CU. See DisableXboxFeatures..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "AutoGameModeEnabled" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 0
 }
 
 # Enable Xbox features - Not applicable to Server
-Function EnableXboxFeatures_CU {
+Function TweakEnableXboxFeatures_CU {
 	Write-Output "Enabling Xbox features for CU. See EnableXboxFeatures..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\GameBar" -Name "AutoGameModeEnabled" -ErrorAction SilentlyContinue
 	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 1
@@ -28,7 +28,7 @@ Function EnableXboxFeatures_CU {
 ################################################################
 
 # Disable Fullscreen optimizations
-Function DisableFullscreenOptims_CU {
+Function TweakDisableFullscreenOptims_CU {
 	Write-Output "Disabling Fullscreen optimizations for CU..."
 	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_DXGIHonorFSEWindowsCompatible" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_FSEBehavior" -Type DWord -Value 2
@@ -37,7 +37,7 @@ Function DisableFullscreenOptims_CU {
 }
 
 # Enable Fullscreen optimizations
-Function EnableFullscreenOptims_CU {
+Function TweakEnableFullscreenOptims_CU {
 	Write-Output "Enabling Fullscreen optimizations for CU..."
 	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_DXGIHonorFSEWindowsCompatible" -Type DWord -Value 0
 	Remove-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_FSEBehavior" -ErrorAction SilentlyContinue
@@ -48,7 +48,7 @@ Function EnableFullscreenOptims_CU {
 ################################################################
 
 # Disable Windows Media Player online access - audio file metadata download, radio presets, DRM.
-Function DisableMediaOnlineAccess_CU {
+Function TweakDisableMediaOnlineAccess_CU {
 	Write-Output "Disabling Windows Media Player online access for CU. See DisableMediaOnlineAccess..."
 	If (!(Test-Path "HKCU:\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer")) {
 		New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer" -Force | Out-Null
@@ -59,7 +59,7 @@ Function DisableMediaOnlineAccess_CU {
 }
 
 # Enable Windows Media Player online access
-Function EnableMediaOnlineAccess_CU {
+Function TweakEnableMediaOnlineAccess_CU {
 	Write-Output "Enabling Windows Media Player online access for CU. See EnableMediaOnlineAccess..."
 	Remove-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer" -Name "PreventCDDVDMetadataRetrieval" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer" -Name "PreventMusicFileMetadataRetrieval" -ErrorAction SilentlyContinue

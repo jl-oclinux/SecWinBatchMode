@@ -16,7 +16,7 @@
 # https://www.cert.ssi.gouv.fr/alerte/CERTFR-2021-ALE-013/
 # CVE-2021-34527 exploit to keep your Print Servers running while a patch is not available
 # Disable
-Function DisablePrintForSystem {
+Function TweakDisablePrintForSystem {
 	Write-Output "Disable print for System user (CVE-2021-34527)..."
 	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
@@ -31,7 +31,7 @@ Function DisablePrintForSystem {
 }
 
 # Enable
-Function EnablePrintForSystem {
+Function TweakEnablePrintForSystem {
 	Write-Output "Enable print for System user (CVE-2021-34527)..."
 	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
@@ -46,7 +46,7 @@ Function EnablePrintForSystem {
 }
 
 # View
-Function ViewPrintForSystem {
+Function TweakViewPrintForSystem {
 	Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers" | Select -Expand Access | Out-GridView
 }
 
@@ -56,7 +56,7 @@ Function ViewPrintForSystem {
 # http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-40444
 # https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-40444
 # Microsoft MSHTML Remote Code Execution Vulnerability
-Function DisableMSHTMLActiveX {
+Function TweakDisableMSHTMLActiveX {
 	Write-Output "Disable ActiveX in MSHTML (CVE-2021-40444)..."
 	For ($zone = 0 ; $zone -le 3 ; $zone++){
 		If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone")) {
@@ -68,7 +68,7 @@ Function DisableMSHTMLActiveX {
 }
 
 # Enable
-Function EnableMSHTMLActiveX {
+Function TweakEnableMSHTMLActiveX {
 	Write-Output "Enable ActiveX in MSHTML (CVE-2021-40444)..."
 	For ($zone = 0 ; $zone -le 3 ; $zone++){
 		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1001" -ErrorAction SilentlyContinue
@@ -77,7 +77,7 @@ Function EnableMSHTMLActiveX {
 }
 
 # View
-Function ViewMSHTMLActiveX {
+Function TweakViewMSHTMLActiveX {
 	Write-Output 'ActiveX in MSHTML (not exist - enable, 3 disable)'
 	For ($zone = 0 ; $zone -le 3 ; $zone++){
 		$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone"

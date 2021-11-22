@@ -1,5 +1,12 @@
 # NEWS
 
+## Version 3.14 (in progress)
+
+Add `Tweak` string in front of all tweak functions.
+Preset files cannot call standart Powershell function anymore.
+A specific tweak function must be written for security reason.
+
+
 ## Version 3.13 (2021/11/22)
 
 Add a setup file, juste write `make pkg` under Linux (Add a `Makefile`).
@@ -65,6 +72,7 @@ New CLI parameter:
 
 New module architecture, Win10- prefix has been replaced by LocalMachine-.
 This is better for the new Windows 11 operating system.
+
 
 ## Version 3.12 (2021/09/14)
 

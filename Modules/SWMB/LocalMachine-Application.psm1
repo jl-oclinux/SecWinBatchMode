@@ -12,7 +12,7 @@
 ################################################################
 
 # Disable OneDrive
-Function DisableOneDrive {
+Function TweakDisableOneDrive {
 	Write-Output "Disabling OneDrive..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
@@ -21,7 +21,7 @@ Function DisableOneDrive {
 }
 
 # Enable OneDrive
-Function EnableOneDrive {
+Function TweakEnableOneDrive {
 	Write-Output "Enabling OneDrive..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -ErrorAction SilentlyContinue
 }
@@ -29,7 +29,7 @@ Function EnableOneDrive {
 ################################################################
 
 # Uninstall OneDrive - Not applicable to Server
-Function UninstallOneDrive {
+Function TweakUninstallOneDrive {
 	Write-Output "Uninstalling OneDrive..."
 	Stop-Process -Name "OneDrive" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -s 2
@@ -55,7 +55,7 @@ Function UninstallOneDrive {
 }
 
 # Install OneDrive - Not applicable to Server
-Function InstallOneDrive {
+Function TweakInstallOneDrive {
 	Write-Output "Installing OneDrive..."
 	$onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
 	If (!(Test-Path $onedrive)) {
@@ -67,7 +67,7 @@ Function InstallOneDrive {
 ################################################################
 
 # Uninstall default Microsoft applications
-Function UninstallMsftBloat {
+Function TweakUninstallMsftBloat {
 	Write-Output "Uninstalling default Microsoft applications..."
 	Get-AppxPackage "Microsoft.3DBuilder" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.AppConnector" | Remove-AppxPackage
@@ -130,7 +130,7 @@ Function UninstallMsftBloat {
 }
 
 # Install default Microsoft applications
-Function InstallMsftBloat {
+Function TweakInstallMsftBloat {
 	Write-Output "Installing default Microsoft applications..."
 	Get-AppxPackage -AllUsers "Microsoft.3DBuilder" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.Advertising.Xaml" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"} # Dependency for microsoft.windowscommunicationsapps, Microsoft.BingWeather
@@ -201,7 +201,7 @@ Function InstallMsftBloat {
 ################################################################
 
 # Uninstall default third party applications
-function UninstallThirdPartyBloat {
+Function TweakUninstallThirdPartyBloat {
 	Write-Output "Uninstalling default third party applications..."
 	Get-AppxPackage "2414FC7A.Viber" | Remove-AppxPackage
 	Get-AppxPackage "41038Axilesoft.ACGMediaPlayer" | Remove-AppxPackage
@@ -249,7 +249,7 @@ function UninstallThirdPartyBloat {
 }
 
 # Install default third party applications
-Function InstallThirdPartyBloat {
+Function TweakInstallThirdPartyBloat {
 	Write-Output "Installing default third party applications..."
 	Get-AppxPackage -AllUsers "2414FC7A.Viber" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "41038Axilesoft.ACGMediaPlayer" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -299,7 +299,7 @@ Function InstallThirdPartyBloat {
 ################################################################
 
 # Uninstall Windows Store
-Function UninstallWindowsStore {
+Function TweakUninstallWindowsStore {
 	Write-Output "Uninstalling Windows Store..."
 	Get-AppxPackage "Microsoft.DesktopAppInstaller" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Services.Store.Engagement" | Remove-AppxPackage
@@ -308,7 +308,7 @@ Function UninstallWindowsStore {
 }
 
 # Install Windows Store
-Function InstallWindowsStore {
+Function TweakInstallWindowsStore {
 	Write-Output "Installing Windows Store..."
 	Get-AppxPackage -AllUsers "Microsoft.DesktopAppInstaller" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.Services.Store.Engagement" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -319,7 +319,7 @@ Function InstallWindowsStore {
 ################################################################
 
 # Disable Xbox features - Not applicable to Server
-Function DisableXboxFeatures {
+Function TweakDisableXboxFeatures {
 	Write-Output "Disabling Xbox features. See DisableXboxFeatures_CU..."
 	Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.XboxIdentityProvider" | Remove-AppxPackage -ErrorAction SilentlyContinue
@@ -336,7 +336,7 @@ Function DisableXboxFeatures {
 }
 
 # Enable Xbox features - Not applicable to Server
-Function EnableXboxFeatures {
+Function TweakEnableXboxFeatures {
 	Write-Output "Enabling Xbox features. See EnableXboxFeatures_CU..."
 	Get-AppxPackage -AllUsers "Microsoft.XboxApp" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.XboxIdentityProvider" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -352,7 +352,7 @@ Function EnableXboxFeatures {
 ################################################################
 
 # Disable built-in Adobe Flash in IE and Edge
-Function DisableAdobeFlash {
+Function TweakDisableAdobeFlash {
 	Write-Output "Disabling built-in Adobe Flash in IE and Edge..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer" -Force | Out-Null
@@ -365,7 +365,7 @@ Function DisableAdobeFlash {
 }
 
 # Enable built-in Adobe Flash in IE and Edge
-Function EnableAdobeFlash {
+Function TweakEnableAdobeFlash {
 	Write-Output "Enabling built-in Adobe Flash in IE and Edge..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer" -Name "DisableFlashInIE" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\Addons" -Name "FlashPlayerEnabled" -ErrorAction SilentlyContinue
@@ -374,7 +374,7 @@ Function EnableAdobeFlash {
 ################################################################
 
 # Disable Edge preload after Windows startup - Applicable since Win10 1809
-Function DisableEdgePreload {
+Function TweakDisableEdgePreload {
 	Write-Output "Disabling Edge preload..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\Main")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\Main" -Force | Out-Null
@@ -387,7 +387,7 @@ Function DisableEdgePreload {
 }
 
 # Enable Edge preload after Windows startup
-Function EnableEdgePreload {
+Function TweakEnableEdgePreload {
 	Write-Output "Enabling Edge preload..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\Main" -Name "AllowPrelaunch" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\TabPreloader" -Name "AllowTabPreloading" -ErrorAction SilentlyContinue
@@ -396,13 +396,13 @@ Function EnableEdgePreload {
 ################################################################
 
 # Disable Edge desktop shortcut creation after certain Windows updates are applied
-Function DisableEdgeShortcutCreation {
+Function TweakDisableEdgeShortcutCreation {
 	Write-Output "Disabling Edge shortcut creation..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "DisableEdgeDesktopShortcutCreation" -Type DWord -Value 1
 }
 
 # Enable Edge desktop shortcut creation after certain Windows updates are applied
-Function EnableEdgeShortcutCreation {
+Function TweakEnableEdgeShortcutCreation {
 	Write-Output "Enabling Edge shortcut creation..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" -Name "DisableEdgeDesktopShortcutCreation" -ErrorAction SilentlyContinue
 }
@@ -410,7 +410,7 @@ Function EnableEdgeShortcutCreation {
 ################################################################
 
 # Disable Internet Explorer first run wizard
-Function DisableIEFirstRun {
+Function TweakDisableIEFirstRun {
 	Write-Output "Disabling Internet Explorer first run wizard..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Force | Out-Null
@@ -419,7 +419,7 @@ Function DisableIEFirstRun {
 }
 
 # Enable Internet Explorer first run wizard
-Function EnableIEFirstRun {
+Function TweakEnableIEFirstRun {
 	Write-Output "Disabling Internet Explorer first run wizard..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -ErrorAction SilentlyContinue
 }
@@ -427,13 +427,13 @@ Function EnableIEFirstRun {
 ################################################################
 
 # Disable "Hi!" First Logon Animation (it will be replaced by "Preparing Windows" message)
-Function DisableFirstLogonAnimation {
+Function TweakDisableFirstLogonAnimation {
 	Write-Output "Disabling First Logon Animation..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableFirstLogonAnimation" -Type DWord -Value 0
 }
 
 # Enable "Hi!" First Logon Animation
-Function EnableFirstLogonAnimation {
+Function TweakEnableFirstLogonAnimation {
 	Write-Output "Enabling First Logon Animation..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableFirstLogonAnimation" -ErrorAction SilentlyContinue
 }
@@ -441,7 +441,7 @@ Function EnableFirstLogonAnimation {
 ################################################################
 
 # Disable Windows Media Player's media sharing feature
-Function DisableMediaSharing {
+Function TweakDisableMediaSharing {
 	Write-Output "Disabling Windows Media Player media sharing..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer" -Force | Out-Null
@@ -450,7 +450,7 @@ Function DisableMediaSharing {
 }
 
 # Enable Windows Media Player's media sharing feature
-Function EnableMediaSharing {
+Function TweakEnableMediaSharing {
 	Write-Output "Enabling Windows Media Player media sharing..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsMediaPlayer" -Name "PreventLibrarySharing" -ErrorAction SilentlyContinue
 }
@@ -458,7 +458,7 @@ Function EnableMediaSharing {
 ################################################################
 
 # Disable Windows Media Player online access - audio file metadata download, radio presets, DRM.
-Function DisableMediaOnlineAccess {
+Function TweakDisableMediaOnlineAccess {
 	Write-Output "Disabling Windows Media Player online access. See DisableMediaOnlineAccess_CU..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WMDRM")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WMDRM" -Force | Out-Null
@@ -467,7 +467,7 @@ Function DisableMediaOnlineAccess {
 }
 
 # Enable Windows Media Player online access
-Function EnableMediaOnlineAccess {
+Function TweakEnableMediaOnlineAccess {
 	Write-Output "Enabling Windows Media Player online access. See EnableMediaOnlineAccess_CU..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WMDRM" -Name "DisableOnline" -ErrorAction SilentlyContinue
 }
@@ -475,14 +475,14 @@ Function EnableMediaOnlineAccess {
 ################################################################
 
 # Enable Developer Mode
-Function EnableDeveloperMode {
+Function TweakEnableDeveloperMode {
 	Write-Output "Enabling Developer Mode..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowDevelopmentWithoutDevLicense" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowAllTrustedApps" -Type DWord -Value 1
 }
 
 # Disable Developer Mode
-Function DisableDeveloperMode {
+Function TweakDisableDeveloperMode {
 	Write-Output "Disabling Developer Mode..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowDevelopmentWithoutDevLicense" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowAllTrustedApps" -ErrorAction SilentlyContinue
@@ -491,14 +491,14 @@ Function DisableDeveloperMode {
 ################################################################
 
 # Uninstall Windows Media Player
-Function UninstallMediaPlayer {
+Function TweakUninstallMediaPlayer {
 	Write-Output "Uninstalling Windows Media Player..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "WindowsMediaPlayer" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Media.WindowsMediaPlayer*" } | Remove-WindowsCapability -Online | Out-Null
 }
 
 # Install Windows Media Player
-Function InstallMediaPlayer {
+Function TweakInstallMediaPlayer {
 	Write-Output "Installing Windows Media Player..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "WindowsMediaPlayer" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Media.WindowsMediaPlayer*" } | Add-WindowsCapability -Online | Out-Null
@@ -507,14 +507,14 @@ Function InstallMediaPlayer {
 ################################################################
 
 # Uninstall Internet Explorer
-Function UninstallInternetExplorer {
+Function TweakUninstallInternetExplorer {
 	Write-Output "Uninstalling Internet Explorer..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -like "Internet-Explorer-Optional*" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Browser.InternetExplorer*" } | Remove-WindowsCapability -Online | Out-Null
 }
 
 # Install Internet Explorer
-Function InstallInternetExplorer {
+Function TweakInstallInternetExplorer {
 	Write-Output "Installing Internet Explorer..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -like "Internet-Explorer-Optional*" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Browser.InternetExplorer*" } | Add-WindowsCapability -Online | Out-Null
@@ -523,13 +523,13 @@ Function InstallInternetExplorer {
 ################################################################
 
 # Uninstall Work Folders Client - Not applicable to Server
-Function UninstallWorkFolders {
+Function TweakUninstallWorkFolders {
 	Write-Output "Uninstalling Work Folders Client..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "WorkFolders-Client" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
 
 # Install Work Folders Client - Not applicable to Server
-Function InstallWorkFolders {
+Function TweakInstallWorkFolders {
 	Write-Output "Installing Work Folders Client..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "WorkFolders-Client" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
@@ -537,13 +537,13 @@ Function InstallWorkFolders {
 ################################################################
 
 # Uninstall Windows Hello Face - Not applicable to Server
-Function UninstallHelloFace {
+Function TweakUninstallHelloFace {
 	Write-Output "Uninstalling Windows Hello Face..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Hello.Face*" } | Remove-WindowsCapability -Online | Out-Null
 }
 
 # Install Windows Hello Face - Not applicable to Server
-Function InstallHelloFace {
+Function TweakInstallHelloFace {
 	Write-Output "Installing Windows Hello Face..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Hello.Face*" } | Add-WindowsCapability -Online | Out-Null
 }
@@ -551,13 +551,13 @@ Function InstallHelloFace {
 ################################################################
 
 # Uninstall Math Recognizer - Not applicable to Server
-Function UninstallMathRecognizer {
+Function TweakUninstallMathRecognizer {
 	Write-Output "Uninstalling Math Recognizer..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "MathRecognizer*" } | Remove-WindowsCapability -Online | Out-Null
 }
 
 # Install Math Recognizer - Not applicable to Server
-Function InstallMathRecognizer {
+Function TweakInstallMathRecognizer {
 	Write-Output "Installing Math Recognizer..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "MathRecognizer*" } | Add-WindowsCapability -Online | Out-Null
 }
@@ -567,7 +567,7 @@ Function InstallMathRecognizer {
 # Uninstall PowerShell 2.0 Environment
 # PowerShell 2.0 is deprecated since September 2018. This doesn't affect PowerShell 5 or newer which is the default PowerShell environment.
 # May affect Microsoft Diagnostic Tool and possibly other scripts. See https://blogs.msdn.microsoft.com/powershell/2017/08/24/windows-powershell-2-0-deprecation/
-Function UninstallPowerShellV2 {
+Function TweakUninstallPowerShellV2 {
 	Write-Output "Uninstalling PowerShell 2.0 Environment..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "MicrosoftWindowsPowerShellV2Root" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -577,7 +577,7 @@ Function UninstallPowerShellV2 {
 }
 
 # Install PowerShell 2.0 Environment
-Function InstallPowerShellV2 {
+Function TweakInstallPowerShellV2 {
 	Write-Output "Installing PowerShell 2.0 Environment..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "MicrosoftWindowsPowerShellV2Root" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -590,13 +590,13 @@ Function InstallPowerShellV2 {
 
 # Uninstall PowerShell Integrated Scripting Environment - Applicable since 2004
 # Note: Also removes built-in graphical methods like Out-GridView
-Function UninstallPowerShellISE {
+Function TweakUninstallPowerShellISE {
 	Write-Output "Uninstalling PowerShell Integrated Scripting Environment..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Microsoft.Windows.PowerShell.ISE*" } | Remove-WindowsCapability -Online | Out-Null
 }
 
 # Install PowerShell Integrated Scripting Environment - Applicable since 2004
-Function InstallPowerShellISE {
+Function TweakInstallPowerShellISE {
 	Write-Output "Installing PowerShell Integrated Scripting Environment..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Microsoft.Windows.PowerShell.ISE*" } | Add-WindowsCapability -Online | Out-Null
 }
@@ -606,13 +606,13 @@ Function InstallPowerShellISE {
 # Install Linux Subsystem - Applicable since Win10 1607 and Server 1709
 # Note: 1607 requires also EnableDevelopmentMode for WSL to work
 # For automated Linux distribution installation, see https://docs.microsoft.com/en-us/windows/wsl/install-on-server
-Function InstallLinuxSubsystem {
+Function TweakInstallLinuxSubsystem {
 	Write-Output "Installing Linux Subsystem..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Windows-Subsystem-Linux" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
 
 # Uninstall Linux Subsystem - Applicable since Win10 1607 and Server 1709
-Function UninstallLinuxSubsystem {
+Function TweakUninstallLinuxSubsystem {
 	Write-Output "Uninstalling Linux Subsystem..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Windows-Subsystem-Linux" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
@@ -620,7 +620,7 @@ Function UninstallLinuxSubsystem {
 ################################################################
 
 # Install Hyper-V - Not applicable to Home
-Function InstallHyperV {
+Function TweakInstallHyperV {
 	Write-Output "Installing Hyper-V..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Hyper-V-All" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -630,7 +630,7 @@ Function InstallHyperV {
 }
 
 # Uninstall Hyper-V - Not applicable to Home
-Function UninstallHyperV {
+Function TweakUninstallHyperV {
 	Write-Output "Uninstalling Hyper-V..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Microsoft-Hyper-V-All" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -642,13 +642,13 @@ Function UninstallHyperV {
 ################################################################
 
 # Uninstall OpenSSH Client - Applicable since 1803
-Function UninstallSSHClient {
+Function TweakUninstallSSHClient {
 	Write-Output "Uninstalling OpenSSH Client..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "OpenSSH.Client*" } | Remove-WindowsCapability -Online | Out-Null
 }
 
 # Install OpenSSH Client - Applicable since 1803
-Function InstallSSHClient {
+Function TweakInstallSSHClient {
 	Write-Output "Installing OpenSSH Client..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "OpenSSH.Client*" } | Add-WindowsCapability -Online | Out-Null
 }
@@ -656,13 +656,13 @@ Function InstallSSHClient {
 ################################################################
 
 # Install OpenSSH Server - Applicable since 1809
-Function InstallSSHServer {
+Function TweakInstallSSHServer {
 	Write-Output "Installing OpenSSH Server..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "OpenSSH.Server*" } | Add-WindowsCapability -Online | Out-Null
 }
 
 # Uninstall OpenSSH Server - Applicable since 1809
-Function UninstallSSHServer {
+Function TweakUninstallSSHServer {
 	Write-Output "Uninstalling OpenSSH Server..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "OpenSSH.Server*" } | Remove-WindowsCapability -Online | Out-Null
 }
@@ -670,7 +670,7 @@ Function UninstallSSHServer {
 ################################################################
 
 # Install Telnet Client
-Function InstallTelnetClient {
+Function TweakInstallTelnetClient {
 	Write-Output "Installing Telnet Client..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "TelnetClient" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -680,7 +680,7 @@ Function InstallTelnetClient {
 }
 
 # Uninstall Telnet Client
-Function UninstallTelnetClient {
+Function TweakUninstallTelnetClient {
 	Write-Output "Uninstalling Telnet Client..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "TelnetClient" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -692,7 +692,7 @@ Function UninstallTelnetClient {
 ################################################################
 
 # Install .NET Framework 2.0, 3.0 and 3.5 runtimes - Requires internet connection
-Function InstallNET23 {
+Function TweakInstallNET23 {
 	Write-Output "Installing .NET Framework 2.0, 3.0 and 3.5 runtimes..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "NetFx3" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -702,7 +702,7 @@ Function InstallNET23 {
 }
 
 # Uninstall .NET Framework 2.0, 3.0 and 3.5 runtimes
-Function UninstallNET23 {
+Function TweakUninstallNET23 {
 	Write-Output "Uninstalling .NET Framework 2.0, 3.0 and 3.5 runtimes..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "NetFx3" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
@@ -714,7 +714,7 @@ Function UninstallNET23 {
 ################################################################
 
 # Set Photo Viewer association for bmp, gif, jpg, png and tif
-Function SetPhotoViewerAssociation {
+Function TweakSetPhotoViewerAssociation {
 	Write-Output "Setting Photo Viewer association for bmp, gif, jpg, png and tif..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -728,7 +728,7 @@ Function SetPhotoViewerAssociation {
 }
 
 # Unset Photo Viewer association for bmp, gif, jpg, png and tif
-Function UnsetPhotoViewerAssociation {
+Function TweakUnsetPhotoViewerAssociation {
 	Write-Output "Unsetting Photo Viewer association for bmp, gif, jpg, png and tif..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -745,7 +745,7 @@ Function UnsetPhotoViewerAssociation {
 ################################################################
 
 # Add Photo Viewer to 'Open with...'
-Function AddPhotoViewerOpenWith {
+Function TweakAddPhotoViewerOpenWith {
 	Write-Output "Adding Photo Viewer to 'Open with...'"
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -758,7 +758,7 @@ Function AddPhotoViewerOpenWith {
 }
 
 # Remove Photo Viewer from 'Open with...'
-Function RemovePhotoViewerOpenWith {
+Function TweakRemovePhotoViewerOpenWith {
 	Write-Output "Removing Photo Viewer from 'Open with...'"
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
@@ -769,13 +769,13 @@ Function RemovePhotoViewerOpenWith {
 ################################################################
 
 # Uninstall Microsoft Print to PDF
-Function UninstallPDFPrinter {
+Function TweakUninstallPDFPrinter {
 	Write-Output "Uninstalling Microsoft Print to PDF..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Printing-PrintToPDFServices-Features" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
 
 # Install Microsoft Print to PDF
-Function InstallPDFPrinter {
+Function TweakInstallPDFPrinter {
 	Write-Output "Installing Microsoft Print to PDF..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Printing-PrintToPDFServices-Features" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
@@ -783,13 +783,13 @@ Function InstallPDFPrinter {
 ################################################################
 
 # Uninstall Microsoft XPS Document Writer
-Function UninstallXPSPrinter {
+Function TweakUninstallXPSPrinter {
 	Write-Output "Uninstalling Microsoft XPS Document Writer..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Printing-XPSServices-Features" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
 
 # Install Microsoft XPS Document Writer
-Function InstallXPSPrinter {
+Function TweakInstallXPSPrinter {
 	Write-Output "Installing Microsoft XPS Document Writer..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "Printing-XPSServices-Features" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 }
@@ -797,13 +797,13 @@ Function InstallXPSPrinter {
 ################################################################
 
 # Remove Default Fax Printer
-Function RemoveFaxPrinter {
+Function TweakRemoveFaxPrinter {
 	Write-Output "Removing Default Fax Printer..."
 	Remove-Printer -Name "Fax" -ErrorAction SilentlyContinue
 }
 
 # Add Default Fax Printer
-Function AddFaxPrinter {
+Function TweakAddFaxPrinter {
 	Write-Output "Adding Default Fax Printer..."
 	Add-Printer -Name "Fax" -DriverName "Microsoft Shared Fax Driver" -PortName "SHRFAX:" -ErrorAction SilentlyContinue
 }
@@ -811,14 +811,14 @@ Function AddFaxPrinter {
 ################################################################
 
 # Uninstall Windows Fax and Scan Services - Not applicable to Server
-Function UninstallFaxAndScan {
+Function TweakUninstallFaxAndScan {
 	Write-Output "Uninstalling Windows Fax and Scan Services..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "FaxServicesClientPackage" } | Disable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Print.Fax.Scan*" } | Remove-WindowsCapability -Online | Out-Null
 }
 
 # Install Windows Fax and Scan Services - Not applicable to Server
-Function InstallFaxAndScan {
+Function TweakInstallFaxAndScan {
 	Write-Output "Installing Windows Fax and Scan Services..."
 	Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -eq "FaxServicesClientPackage" } | Enable-WindowsOptionalFeature -Online -NoRestart -WarningAction SilentlyContinue | Out-Null
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Print.Fax.Scan*" } | Add-WindowsCapability -Online | Out-Null

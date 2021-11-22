@@ -13,7 +13,7 @@
 
 # Unpin all Start Menu tiles
 # Note: This function has no counterpart. You have to pin the tiles back manually.
-Function UnpinStartMenuTiles_CU {
+Function TweakUnpinStartMenuTiles_CU {
 	Write-Output "Unpinning all Start Menu tiles for CU..."
 	If ([System.Environment]::OSVersion.Version.Build -ge 15063 -And [System.Environment]::OSVersion.Version.Build -le 16299) {
 		Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount" -Include "*.group" -Recurse | ForEach-Object {
@@ -31,7 +31,7 @@ Function UnpinStartMenuTiles_CU {
 
 # Unpin all Taskbar icons
 # Note: This function has no counterpart. You have to pin the icons back manually.
-Function UnpinTaskbarIcons_CU {
+Function TweakUnpinTaskbarIcons_CU {
 	Write-Output "Unpinning all Taskbar icons for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "Favorites" -Type Binary -Value ([byte[]](255))
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "FavoritesResolve" -ErrorAction SilentlyContinue

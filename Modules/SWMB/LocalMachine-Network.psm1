@@ -12,13 +12,13 @@
 ################################################################
 
 # Set current network profile to private (allow file sharing, device discovery, etc.)
-Function SetCurrentNetworkPrivate {
+Function TweakSetCurrentNetworkPrivate {
 	Write-Output "Setting current network profile to private..."
 	Set-NetConnectionProfile -NetworkCategory Private
 }
 
 # Set current network profile to public (deny file sharing, device discovery, etc.)
-Function SetCurrentNetworkPublic {
+Function TweakSetCurrentNetworkPublic {
 	Write-Output "Setting current network profile to public..."
 	Set-NetConnectionProfile -NetworkCategory Public
 }
@@ -26,7 +26,7 @@ Function SetCurrentNetworkPublic {
 ################################################################
 
 # Set unknown networks profile to private (allow file sharing, device discovery, etc.)
-Function SetUnknownNetworksPrivate {
+Function TweakSetUnknownNetworksPrivate {
 	Write-Output "Setting unknown networks profile to private..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\010103000F0000F0010000000F0000F0C967A3643C3AD745950DA7859209176EF5B87C875FA20DF21951640E807D7C24")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\010103000F0000F0010000000F0000F0C967A3643C3AD745950DA7859209176EF5B87C875FA20DF21951640E807D7C24" -Force | Out-Null
@@ -35,7 +35,7 @@ Function SetUnknownNetworksPrivate {
 }
 
 # Set unknown networks profile to public (deny file sharing, device discovery, etc.)
-Function SetUnknownNetworksPublic {
+Function TweakSetUnknownNetworksPublic {
 	Write-Output "Setting unknown networks profile to public..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\NetworkList\Signatures\010103000F0000F0010000000F0000F0C967A3643C3AD745950DA7859209176EF5B87C875FA20DF21951640E807D7C24" -Name "Category" -ErrorAction SilentlyContinue
 }
@@ -43,7 +43,7 @@ Function SetUnknownNetworksPublic {
 ################################################################
 
 # Disable automatic installation of network devices
-Function DisableNetDevicesAutoInst {
+Function TweakDisableNetDevicesAutoInst {
 	Write-Output "Disabling automatic installation of network devices..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\NcdAutoSetup\Private")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\NcdAutoSetup\Private" -Force | Out-Null
@@ -52,7 +52,7 @@ Function DisableNetDevicesAutoInst {
 }
 
 # Enable automatic installation of network devices
-Function EnableNetDevicesAutoInst {
+Function TweakEnableNetDevicesAutoInst {
 	Write-Output "Enabling automatic installation of network devices..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\NcdAutoSetup\Private" -Name "AutoSetup" -ErrorAction SilentlyContinue
 }
@@ -60,7 +60,7 @@ Function EnableNetDevicesAutoInst {
 ################################################################
 
 # Stop and disable Home Groups services - Not applicable since 1803. Not applicable to Server
-Function DisableHomeGroups {
+Function TweakDisableHomeGroups {
 	Write-Output "Stopping and disabling Home Groups services..."
 	If (Get-Service "HomeGroupListener" -ErrorAction SilentlyContinue) {
 		Stop-Service "HomeGroupListener" -WarningAction SilentlyContinue
@@ -73,7 +73,7 @@ Function DisableHomeGroups {
 }
 
 # Enable and start Home Groups services - Not applicable since 1803. Not applicable to Server
-Function EnableHomeGroups {
+Function TweakEnableHomeGroups {
 	Write-Output "Starting and enabling Home Groups services..."
 	Set-Service "HomeGroupListener" -StartupType Manual
 	Set-Service "HomeGroupProvider" -StartupType Manual
@@ -84,13 +84,13 @@ Function EnableHomeGroups {
 
 # Change name by Resinfo
 # Disable obsolete SMB 1.0 protocol on server - Disabled by default since 1709
-Function DisableSMB1Server {
+Function TweakDisableSMB1Server {
 	Write-Output "Disabling SMB 1.0 protocol on server..."
 	Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
 }
 
 # Enable obsolete SMB 1.0 protocol on server - Disabled by default since 1709
-Function EnableSMB1Server {
+Function TweakEnableSMB1Server {
 	Write-Output "Enabling SMB 1.0 protocol on server..."
 	Set-SmbServerConfiguration -EnableSMB1Protocol $true -Force
 }
@@ -99,7 +99,7 @@ Function EnableSMB1Server {
 
 # Disable SMB Server - Completely disables file and printer sharing, but leaves the system able to connect to another SMB server as a client
 # Note: Do not run this if you plan to use Docker and Shared Drives (as it uses SMB internally), see https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/216
-Function DisableSMBServer {
+Function TweakDisableSMBServer {
 	Write-Output "Disabling SMB Server..."
 	Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
 	Set-SmbServerConfiguration -EnableSMB2Protocol $false -Force
@@ -107,7 +107,7 @@ Function DisableSMBServer {
 }
 
 # Enable SMB Server
-Function EnableSMBServer {
+Function TweakEnableSMBServer {
 	Write-Output "Enabling SMB Server..."
 	Set-SmbServerConfiguration -EnableSMB2Protocol $true -Force
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_server"
@@ -116,13 +116,13 @@ Function EnableSMBServer {
 ################################################################
 
 # Disable NetBIOS over TCP/IP on all currently installed network interfaces
-Function DisableNetBIOS {
+Function TweakDisableNetBIOS {
 	Write-Output "Disabling NetBIOS over TCP/IP..."
 	Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces\Tcpip*" -Name "NetbiosOptions" -Type DWord -Value 2
 }
 
 # Enable NetBIOS over TCP/IP on all currently installed network interfaces
-Function EnableNetBIOS {
+Function TweakEnableNetBIOS {
 	Write-Output "Enabling NetBIOS over TCP/IP..."
 	Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces\Tcpip*" -Name "NetbiosOptions" -Type DWord -Value 0
 }
@@ -130,7 +130,7 @@ Function EnableNetBIOS {
 ################################################################
 
 # Disable Link-Local Multicast Name Resolution (LLMNR) protocol
-Function DisableLLMNR {
+Function TweakDisableLLMNR {
 	Write-Output "Disabling Link-Local Multicast Name Resolution (LLMNR)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" -Force | Out-Null
@@ -139,7 +139,7 @@ Function DisableLLMNR {
 }
 
 # Enable Link-Local Multicast Name Resolution (LLMNR) protocol
-Function EnableLLMNR {
+Function TweakEnableLLMNR {
 	Write-Output "Enabling Link-Local Multicast Name Resolution (LLMNR)..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" -Name "EnableMulticast" -ErrorAction SilentlyContinue
 }
@@ -147,13 +147,13 @@ Function EnableLLMNR {
 ################################################################
 
 # Disable Local-Link Discovery Protocol (LLDP) for all installed network interfaces
-Function DisableLLDP {
+Function TweakDisableLLDP {
 	Write-Output "Disabling Local-Link Discovery Protocol (LLDP)..."
 	Disable-NetAdapterBinding -Name "*" -ComponentID "ms_lldp"
 }
 
 # Enable Local-Link Discovery Protocol (LLDP) for all installed network interfaces
-Function EnableLLDP {
+Function TweakEnableLLDP {
 	Write-Output "Enabling Local-Link Discovery Protocol (LLDP)..."
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_lldp"
 }
@@ -161,14 +161,14 @@ Function EnableLLDP {
 ################################################################
 
 # Disable Local-Link Topology Discovery (LLTD) for all installed network interfaces
-Function DisableLLTD {
+Function TweakDisableLLTD {
 	Write-Output "Disabling Local-Link Topology Discovery (LLTD)..."
 	Disable-NetAdapterBinding -Name "*" -ComponentID "ms_lltdio"
 	Disable-NetAdapterBinding -Name "*" -ComponentID "ms_rspndr"
 }
 
 # Enable Local-Link Topology Discovery (LLTD) for all installed network interfaces
-Function EnableLLTD {
+Function TweakEnableLLTD {
 	Write-Output "Enabling Local-Link Topology Discovery (LLTD)..."
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_lltdio"
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_rspndr"
@@ -177,13 +177,13 @@ Function EnableLLTD {
 ################################################################
 
 # Disable Client for Microsoft Networks for all installed network interfaces
-Function DisableMSNetClient {
+Function TweakDisableMSNetClient {
 	Write-Output "Disabling Client for Microsoft Networks..."
 	Disable-NetAdapterBinding -Name "*" -ComponentID "ms_msclient"
 }
 
 # Enable Client for Microsoft Networks for all installed network interfaces
-Function EnableMSNetClient {
+Function TweakEnableMSNetClient {
 	Write-Output "Enabling Client for Microsoft Networks..."
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_msclient"
 }
@@ -191,13 +191,13 @@ Function EnableMSNetClient {
 ################################################################
 
 # Disable Quality of Service (QoS) packet scheduler for all installed network interfaces
-Function DisableQoS {
+Function TweakDisableQoS {
 	Write-Output "Disabling Quality of Service (QoS) packet scheduler..."
 	Disable-NetAdapterBinding -Name "*" -ComponentID "ms_pacer"
 }
 
 # Enable Quality of Service (QoS) packet scheduler for all installed network interfaces
-Function EnableQoS {
+Function TweakEnableQoS {
 	Write-Output "Enabling Quality of Service (QoS) packet scheduler..."
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_pacer"
 }
@@ -205,13 +205,13 @@ Function EnableQoS {
 ################################################################
 
 # Disable IPv4 stack for all installed network interfaces
-Function DisableIPv4 {
+Function TweakDisableIPv4 {
 	Write-Output "Disabling IPv4 stack..."
 	Disable-NetAdapterBinding -Name "*" -ComponentID "ms_tcpip"
 }
 
 # Enable IPv4 stack for all installed network interfaces
-Function EnableIPv4 {
+Function TweakEnableIPv4 {
 	Write-Output "Enabling IPv4 stack..."
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_tcpip"
 }
@@ -219,13 +219,13 @@ Function EnableIPv4 {
 ################################################################
 
 # Disable IPv6 stack for all installed network interfaces
-Function DisableIPv6 {
+Function TweakDisableIPv6 {
 	Write-Output "Disabling IPv6 stack..."
 	Disable-NetAdapterBinding -Name "*" -ComponentID "ms_tcpip6"
 }
 
 # Enable IPv6 stack for all installed network interfaces
-Function EnableIPv6 {
+Function TweakEnableIPv6 {
 	Write-Output "Enabling IPv6 stack..."
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_tcpip6"
 }
@@ -235,13 +235,13 @@ Function EnableIPv6 {
 # Disable Network Connectivity Status Indicator active test
 # Note: This may reduce the ability of OS and other components to determine internet access, however protects against a specific type of zero-click attack.
 # See https://github.com/Disassembler0/Win10-Initial-Setup-Script/pull/111 for details
-Function DisableNCSIProbe {
+Function TweakDisableNCSIProbe {
 	Write-Output "Disabling Network Connectivity Status Indicator (NCSI) active test..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator" -Name "NoActiveProbe" -Type DWord -Value 1
 }
 
 # Enable Network Connectivity Status Indicator active test
-Function EnableNCSIProbe {
+Function TweakEnableNCSIProbe {
 	Write-Output "Enabling Network Connectivity Status Indicator (NCSI) active test..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkConnectivityStatusIndicator" -Name "NoActiveProbe" -ErrorAction SilentlyContinue
 }
@@ -249,13 +249,13 @@ Function EnableNCSIProbe {
 ################################################################
 
 # Disable Internet Connection Sharing (e.g. mobile hotspot)
-Function DisableConnectionSharing {
+Function TweakDisableConnectionSharing {
 	Write-Output "Disabling Internet Connection Sharing..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections" -Name "NC_ShowSharedAccessUI" -Type DWord -Value 0
 }
 
 # Enable Internet Connection Sharing (e.g. mobile hotspot)
-Function EnableConnectionSharing {
+Function TweakEnableConnectionSharing {
 	Write-Output "Enabling Internet Connection Sharing..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Network Connections" -Name "NC_ShowSharedAccessUI" -ErrorAction SilentlyContinue
 }
@@ -263,14 +263,14 @@ Function EnableConnectionSharing {
 ################################################################
 
 # Disable Remote Assistance - Not applicable to Server (unless Remote Assistance is explicitly installed)
-Function DisableRemoteAssistance {
+Function TweakDisableRemoteAssistance {
 	Write-Output "Disabling Remote Assistance..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "App.Support.QuickAssist*" } | Remove-WindowsCapability -Online | Out-Null
 }
 
 # Enable Remote Assistance - Not applicable to Server (unless Remote Assistance is explicitly installed)
-Function EnableRemoteAssistance {
+Function TweakEnableRemoteAssistance {
 	Write-Output "Enabling Remote Assistance..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 1
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "App.Support.QuickAssist*" } | Add-WindowsCapability -Online | Out-Null
@@ -279,14 +279,14 @@ Function EnableRemoteAssistance {
 ################################################################
 
 # Enable Remote Desktop
-Function EnableRemoteDesktop {
+Function TweakEnableRemoteDesktop {
 	Write-Output "Enabling Remote Desktop..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Type DWord -Value 0
 	Enable-NetFirewallRule -Name "RemoteDesktop*"
 }
 
 # Disable Remote Desktop
-Function DisableRemoteDesktop {
+Function TweakDisableRemoteDesktop {
 	Write-Output "Disabling Remote Desktop..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Type DWord -Value 1
 	Disable-NetFirewallRule -Name "RemoteDesktop*"

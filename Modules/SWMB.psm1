@@ -18,7 +18,7 @@
 # Write message separator
 $Script:SWMB_MsgCount = 0
 
-Function SysMessage {
+Function TweakSysMessage {
 	$Script:SWMB_MsgCount++
 	Write-Output "Message separator " $Script:SWMB_MsgCount
 }
@@ -28,7 +28,7 @@ Function SysMessage {
 # Write event message
 $Script:SWMB_EventCount = 0
 
-Function SysEvent {
+Function TweakSysEvent {
 	$Script:SWMB_EventCount++
 	Write-EventLog -LogName "Application" -Source "SWMB" -EntryType "Information" -EventID $Script:SWMB_EventCount `
 		-Message "SWMB Event Message $Script:SWMB_EventCount"
@@ -37,14 +37,14 @@ Function SysEvent {
 ################################################################
 
 # Wait for box ok
-Function SysBox {
+Function TweakSysBox {
 	[System.Windows.MessageBox]::Show('SWMB: Press OK to continue')
 }
 
 ################################################################
 
 # Wait for key press
-Function SysPause {
+Function TweakSysPause {
 	Write-Output "`nPress any key to continue..."
 	[Console]::ReadKey($true) | Out-Null
 }
@@ -52,7 +52,7 @@ Function SysPause {
 ################################################################
 
 # Halt computer
-Function SysHalt {
+Function TweakSysHalt {
 	Write-Output "Shutdown now..."
 	Stop-Computer -ComputerName localhost -Force
 }
@@ -60,7 +60,7 @@ Function SysHalt {
 ################################################################
 
 # Restart computer
-Function SysRestart {
+Function TweakSysRestart {
 	Write-Output "Restarting..."
 	Restart-Computer
 }
@@ -68,7 +68,7 @@ Function SysRestart {
 ################################################################
 
 # Checkpoint computer
-Function SysCheckpoint {
+Function TweakSysCheckpoint {
 	Write-Output "Make a System Checkpoint..."
 	$Date = (Get-Date -Format "yyyy/MM/dd HH:mm")
 	Checkpoint-Computer -Description "SWMB Checkpoint performed at $Date"
@@ -78,7 +78,7 @@ Function SysCheckpoint {
 
 # Implementation used in powershell script
 # The main implementation in swmb.ps1 is used otherwise in the CLI
-Function SysRequireAdmin {
+Function TweakSysRequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 		Write-Output "You must run this script with administrator privileges"
 		Exit
@@ -87,7 +87,7 @@ Function SysRequireAdmin {
 
 ################################################################
 
-Function SysAutoUpgrade {
+Function TweakSysAutoUpgrade {
 	$moduleScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
 	$swmbCorePath = (Resolve-Path (Join-Path -Path $moduleScriptPath -ChildPath '..') -ErrorAction SilentlyContinue)
 
@@ -121,7 +121,7 @@ Function SysAutoUpgrade {
 
 # Since 2021/06
 # Wait for key press
-Function WaitForKey {
+Function TweakWaitForKey {
 	Write-Output "Warning: obsolete tweak WaitForKey, now use SysPause"
 	SysPause
 }
@@ -130,7 +130,7 @@ Function WaitForKey {
 
 # Since 2021/06
 # Restart computer
-Function Restart {
+Function TweakRestart {
 	Write-Output "Warning: obsolete tweak Restart, now use SysRestart"
 	SysRestart
 }
@@ -139,7 +139,7 @@ Function Restart {
 
 # Since 2021/07
 # Require administrator privileges
-Function RequireAdmin {
+Function TweakRequireAdmin {
 	Write-Output "Warning: obsolete tweak RequireAdmin, now use SysRequireAdmin"
 	SysRequireAdmin
 }
@@ -243,7 +243,7 @@ Function SWMB_LoadTweakFile() {
 
 Function SWMB_RunTweaks {
 	$Global:SWMB_Tweaks | ForEach-Object {
-		Invoke-Expression $_
+		Invoke-Expression "Tweak$_"
 	}
 }
 
@@ -254,7 +254,7 @@ Function SWMB_CheckTweaks {
 
 	ForEach ($tweak in $Global:SWMB_Tweaks) {
 		# Test if tweak function really exists
-		If (-not(Get-Command -Name $tweak -ErrorAction SilentlyContinue)) {
+		If (-not(Get-Command -Name "Tweak$tweak" -ErrorAction SilentlyContinue)) {
 			Write-Output "Tweak $tweak is not defined!"
 		}
 
@@ -277,7 +277,7 @@ Function SWMB_CheckTweaks {
 Function SWMB_PrintTweaks {
 	ForEach ($tweak in $Global:SWMB_Tweaks) {
 		# Test if tweak function really exists
-		If (-not(Get-Command -Name $tweak -ErrorAction SilentlyContinue)) {
+		If (-not(Get-Command -Name "Tweak$tweak" -ErrorAction SilentlyContinue)) {
 			Write-Output "# $tweak"
 		} Else {
 			Write-Output "$tweak"

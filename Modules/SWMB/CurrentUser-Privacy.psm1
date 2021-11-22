@@ -12,7 +12,7 @@
 ################################################################
 
 # Disable Cortana
-Function DisableCortana_CU {
+Function TweakDisableCortana_CU {
 	Write-Output "Disabling Cortana for CU. See DisableCortana..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Personalization\Settings")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Personalization\Settings" -Force | Out-Null
@@ -28,7 +28,7 @@ Function DisableCortana_CU {
 }
 
 # Enable Cortana
-Function EnableCortana_CU {
+Function TweakEnableCortana_CU {
 	Write-Output "Enabling Cortana for CU. See EnableCortana..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Personalization\Settings" -Name "AcceptedPrivacyPolicy" -ErrorAction SilentlyContinue
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 0
@@ -40,14 +40,14 @@ Function EnableCortana_CU {
 ################################################################
 
 # Disable Web Search in Start Menu
-Function DisableWebSearch_CU {
+Function TweakDisableWebSearch_CU {
 	Write-Output "Disabling Bing Search in Start Menu for CU. See DisableWebSearch..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "CortanaConsent" -Type DWord -Value 0
 }
 
 # Enable Web Search in Start Menu
-Function EnableWebSearch_CU {
+Function TweakEnableWebSearch_CU {
 	Write-Output "Enabling Bing Search in Start Menu for CU. See EnableWebSearch..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -ErrorAction SilentlyContinue
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "CortanaConsent" -Type DWord -Value 1
@@ -56,7 +56,7 @@ Function EnableWebSearch_CU {
 ################################################################
 
 # Disable Application suggestions and automatic installation
-Function DisableAppSuggestions_CU {
+Function TweakDisableAppSuggestions_CU {
 	Write-Output "Disabling Application suggestions for CU. See DisableAppSuggestions..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "ContentDeliveryAllowed" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "OemPreInstalledAppsEnabled" -Type DWord -Value 0
@@ -86,7 +86,7 @@ Function DisableAppSuggestions_CU {
 }
 
 # Enable Application suggestions and automatic installation
-Function EnableAppSuggestions_CU {
+Function TweakEnableAppSuggestions_CU {
 	Write-Output "Enabling Application suggestions for CU. See EnableAppSuggestions..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "ContentDeliveryAllowed" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "OemPreInstalledAppsEnabled" -Type DWord -Value 1
@@ -109,7 +109,7 @@ Function EnableAppSuggestions_CU {
 ################################################################
 
 # Disable Feedback
-Function DisableFeedback_CU {
+Function TweakDisableFeedback_CU {
 	Write-Output "Disabling Feedback for CU. See DisableFeedback..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Siuf\Rules")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Force | Out-Null
@@ -121,7 +121,7 @@ Function DisableFeedback_CU {
 }
 
 # Enable Feedback
-Function EnableFeedback_CU {
+Function TweakEnableFeedback_CU {
 	Write-Output "Enabling Feedback for CU. See EnableFeedback..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Name "NumberOfSIUFInPeriod" -ErrorAction SilentlyContinue
 	Enable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-Null
@@ -131,7 +131,7 @@ Function EnableFeedback_CU {
 ################################################################
 
 # Disable Tailored Experiences
-Function DisableTailoredExperiences_CU {
+Function TweakDisableTailoredExperiences_CU {
 	Write-Output "Disabling Tailored Experiences for CU..."
 	If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent")) {
 		New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Force | Out-Null
@@ -140,7 +140,7 @@ Function DisableTailoredExperiences_CU {
 }
 
 # Enable Tailored Experiences
-Function EnableTailoredExperiences_CU {
+Function TweakEnableTailoredExperiences_CU {
 	Write-Output "Enabling Tailored Experiences for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\CloudContent" -Name "DisableTailoredExperiencesWithDiagnosticData" -ErrorAction SilentlyContinue
 }
@@ -148,13 +148,13 @@ Function EnableTailoredExperiences_CU {
 ################################################################
 
 # Disable setting 'Let websites provide locally relevant content by accessing my language list'
-Function DisableWebLangList_CU {
+Function TweakDisableWebLangList_CU {
 	Write-Output "Disabling Website Access to Language List for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\International\User Profile" -Name "HttpAcceptLanguageOptOut" -Type DWord -Value 1
 }
 
 # Enable setting 'Let websites provide locally relevant content by accessing my language list'
-Function EnableWebLangList_CU {
+Function TweakEnableWebLangList_CU {
 	Write-Output "Enabling Website Access to Language List for CU..."
 	Remove-ItemProperty -Path "HKCU:\Control Panel\International\User Profile" -Name "HttpAcceptLanguageOptOut" -ErrorAction SilentlyContinue
 }

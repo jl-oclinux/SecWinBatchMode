@@ -12,7 +12,7 @@
 ################################################################
 
 # Disable Lock screen
-Function DisableLockScreen {
+Function TweakDisableLockScreen {
 	Write-Output "Disabling Lock screen..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization" | Out-Null
@@ -21,7 +21,7 @@ Function DisableLockScreen {
 }
 
 # Enable Lock screen
-Function EnableLockScreen {
+Function TweakEnableLockScreen {
 	Write-Output "Enabling Lock screen..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization" -Name "NoLockScreen" -ErrorAction SilentlyContinue
 }
@@ -29,7 +29,7 @@ Function EnableLockScreen {
 ################################################################
 
 # Disable Lock screen - Anniversary Update workaround. The GPO used in DisableLockScreen has been broken in 1607 and fixed again in 1803
-Function DisableLockScreenRS1 {
+Function TweakDisableLockScreenRS1 {
 	Write-Output "Disabling Lock screen using scheduler workaround..."
 	$service = New-Object -com Schedule.Service
 	$service.Connect()
@@ -45,7 +45,7 @@ Function DisableLockScreenRS1 {
 }
 
 # Enable Lock screen - Anniversary Update workaround. The GPO used in DisableLockScreen has been broken in 1607 and fixed again in 1803
-Function EnableLockScreenRS1 {
+Function TweakEnableLockScreenRS1 {
 	Write-Output "Enabling Lock screen (removing scheduler workaround)..."
 	Unregister-ScheduledTask -TaskName "Disable LockScreen" -Confirm:$false -ErrorAction SilentlyContinue
 }
@@ -53,13 +53,13 @@ Function EnableLockScreenRS1 {
 ################################################################
 
 # Hide network options from Lock Screen
-Function HideNetworkFromLockScreen {
+Function TweakHideNetworkFromLockScreen {
 	Write-Output "Hiding network options from Lock Screen..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "DontDisplayNetworkSelectionUI" -Type DWord -Value 1
 }
 
 # Show network options on lock screen
-Function ShowNetworkOnLockScreen {
+Function TweakShowNetworkOnLockScreen {
 	Write-Output "Showing network options on Lock Screen..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "DontDisplayNetworkSelectionUI" -ErrorAction SilentlyContinue
 }
@@ -67,13 +67,13 @@ Function ShowNetworkOnLockScreen {
 ################################################################
 
 # Hide shutdown options from Lock Screen
-Function HideShutdownFromLockScreen {
+Function TweakHideShutdownFromLockScreen {
 	Write-Output "Hiding shutdown options from Lock Screen..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ShutdownWithoutLogon" -Type DWord -Value 0
 }
 
 # Show shutdown options on lock screen
-Function ShowShutdownOnLockScreen {
+Function TweakShowShutdownOnLockScreen {
 	Write-Output "Showing shutdown options on Lock Screen..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ShutdownWithoutLogon" -Type DWord -Value 1
 }
@@ -81,13 +81,13 @@ Function ShowShutdownOnLockScreen {
 ################################################################
 
 # Disable Lock screen Blur - Applicable since 1903
-Function DisableLockScreenBlur {
+Function TweakDisableLockScreenBlur {
 	Write-Output "Disabling Lock screen Blur..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "DisableAcrylicBackgroundOnLogon" -Type DWord -Value 1
 }
 
 # Enable Lock screen Blur - Applicable since 1903
-Function EnableLockScreenBlur {
+Function TweakEnableLockScreenBlur {
 	Write-Output "Enabling Lock screen Blur..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "DisableAcrylicBackgroundOnLogon" -ErrorAction SilentlyContinue
 }
@@ -95,7 +95,7 @@ Function EnableLockScreenBlur {
 ################################################################
 
 # Disable search for app in store for unknown extensions
-Function DisableSearchAppInStore {
+Function TweakDisableSearchAppInStore {
 	Write-Output "Disabling search for app in store for unknown extensions..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
@@ -104,7 +104,7 @@ Function DisableSearchAppInStore {
 }
 
 # Enable search for app in store for unknown extensions
-Function EnableSearchAppInStore {
+Function TweakEnableSearchAppInStore {
 	Write-Output "Enabling search for app in store for unknown extensions..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "NoUseStoreOpenWith" -ErrorAction SilentlyContinue
 }
@@ -112,7 +112,7 @@ Function EnableSearchAppInStore {
 ################################################################
 
 # Disable 'How do you want to open this file?' prompt
-Function DisableNewAppPrompt {
+Function TweakDisableNewAppPrompt {
 	Write-Output "Disabling 'How do you want to open this file?' prompt..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
@@ -121,7 +121,7 @@ Function DisableNewAppPrompt {
 }
 
 # Enable 'How do you want to open this file?' prompt
-Function EnableNewAppPrompt {
+Function TweakEnableNewAppPrompt {
 	Write-Output "Enabling 'How do you want to open this file?' prompt..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "NoNewAppAlert" -ErrorAction SilentlyContinue
 }
@@ -129,7 +129,7 @@ Function EnableNewAppPrompt {
 ################################################################
 
 # Hide 'Recently added' list from the Start Menu
-Function HideRecentlyAddedApps {
+Function TweakHideRecentlyAddedApps {
 	Write-Output "Hiding 'Recently added' list from the Start Menu..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
@@ -138,7 +138,7 @@ Function HideRecentlyAddedApps {
 }
 
 # Show 'Recently added' list in the Start Menu
-Function ShowRecentlyAddedApps {
+Function TweakShowRecentlyAddedApps {
 	Write-Output "Showing 'Recently added' list in the Start Menu..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "HideRecentlyAddedApps" -ErrorAction SilentlyContinue
 }
@@ -146,7 +146,7 @@ Function ShowRecentlyAddedApps {
 ################################################################
 
 # Hide 'Most used' apps list from the Start Menu - Applicable until 1703 (hidden by default since then)
-Function HideMostUsedApps {
+Function TweakHideMostUsedApps {
 	Write-Output "Hiding 'Most used' apps list from the Start Menu..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
@@ -155,7 +155,7 @@ Function HideMostUsedApps {
 }
 
 # Show 'Most used' apps list in the Start Menu - Applicable until 1703 (GPO broken since then)
-Function ShowMostUsedApps {
+Function TweakShowMostUsedApps {
 	Write-Output "Showing 'Most used' apps list in the Start Menu..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoStartMenuMFUprogramsList" -ErrorAction SilentlyContinue
 }
@@ -163,7 +163,7 @@ Function ShowMostUsedApps {
 ################################################################
 
 # Hide shortcut icon arrow
-Function HideShortcutArrow {
+Function TweakHideShortcutArrow {
 	Write-Output "Hiding shortcut icon arrow..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" | Out-Null
@@ -172,7 +172,7 @@ Function HideShortcutArrow {
 }
 
 # Show shortcut icon arrow
-Function ShowShortcutArrow {
+Function TweakShowShortcutArrow {
 	Write-Output "Showing shortcut icon arrow..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons" -Name "29" -ErrorAction SilentlyContinue
 }
@@ -180,7 +180,7 @@ Function ShowShortcutArrow {
 ################################################################
 
 # Enable NumLock after startup
-Function EnableNumlock {
+Function TweakEnableNumlock {
 	Write-Output "Enabling NumLock after startup..."
 	If (!(Test-Path "HKU:")) {
 		New-PSDrive -Name "HKU" -PSProvider "Registry" -Root "HKEY_USERS" | Out-Null
@@ -194,7 +194,7 @@ Function EnableNumlock {
 }
 
 # Disable NumLock after startup
-Function DisableNumlock {
+Function TweakDisableNumlock {
 	Write-Output "Disabling NumLock after startup..."
 	If (!(Test-Path "HKU:")) {
 		New-PSDrive -Name "HKU" -PSProvider "Registry" -Root "HKEY_USERS" | Out-Null
@@ -210,13 +210,13 @@ Function DisableNumlock {
 ################################################################
 
 # Disable playing Windows Startup sound
-Function DisableStartupSound {
+Function TweakDisableStartupSound {
 	Write-Output "Disabling Windows Startup sound..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" -Name "DisableStartupSound" -Type DWord -Value 1
 }
 
 # Enable playing Windows Startup sound
-Function EnableStartupSound {
+Function TweakEnableStartupSound {
 	Write-Output "Enabling Windows Startup sound..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" -Name "DisableStartupSound" -Type DWord -Value 0
 }
@@ -224,7 +224,7 @@ Function EnableStartupSound {
 ################################################################
 
 # Disable changing sound scheme
-Function DisableChangingSoundScheme {
+Function TweakDisableChangingSoundScheme {
 	Write-Output "Disabling changing sound scheme..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization" -Force | Out-Null
@@ -233,7 +233,7 @@ Function DisableChangingSoundScheme {
 }
 
 # Enable changing sound scheme
-Function EnableChangingSoundScheme {
+Function TweakEnableChangingSoundScheme {
 	Write-Output "Enabling changing sound scheme..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization" -Name "NoChangingSoundScheme" -ErrorAction SilentlyContinue
 }
@@ -241,7 +241,7 @@ Function EnableChangingSoundScheme {
 ################################################################
 
 # Enable verbose startup/shutdown status messages
-Function EnableVerboseStatus {
+Function TweakEnableVerboseStatus {
 	Write-Output "Enabling verbose startup/shutdown status messages..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "VerboseStatus" -Type DWord -Value 1
@@ -251,7 +251,7 @@ Function EnableVerboseStatus {
 }
 
 # Disable verbose startup/shutdown status messages
-Function DisableVerboseStatus {
+Function TweakDisableVerboseStatus {
 	Write-Output "Disabling verbose startup/shutdown status messages..."
 	If ((Get-CimInstance -Class "Win32_OperatingSystem").ProductType -eq 1) {
 		Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "VerboseStatus" -ErrorAction SilentlyContinue

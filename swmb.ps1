@@ -12,7 +12,7 @@
 ################################################################
 
 # Relaunch the script with administrator privileges
-Function SysRequireAdmin {
+Function TweakSysRequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $Global:SWMB_PSCommandArgs" -Verb RunAs
 		Exit

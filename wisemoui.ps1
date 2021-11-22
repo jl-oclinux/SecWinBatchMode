@@ -13,13 +13,13 @@
 ################################################################
 
 # Relaunch the script with administrator privileges
-Function SysRequireAdmin {
+Function TweakSysRequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 		Start-Process powershell.exe "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
 		Exit
 	}
 }
-SysRequireAdmin
+TweakSysRequireAdmin
 
 # Define Boot preset on ProgramData
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")

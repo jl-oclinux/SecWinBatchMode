@@ -15,7 +15,7 @@
 
 # Disable UWP apps background access - ie. if UWP apps can download data or update themselves when they aren't used
 # Until 1809, Cortana and ShellExperienceHost need to be explicitly excluded as their inclusion breaks start menu search and toast notifications respectively.
-Function DisableUWPBackgroundApps {
+Function TweakDisableUWPBackgroundApps {
 	Write-Output "Disabling UWP apps background access. See DisableUWPBackgroundApps_CU..."
 	If ([System.Environment]::OSVersion.Version.Build -ge 17763) {
 		If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
@@ -26,7 +26,7 @@ Function DisableUWPBackgroundApps {
 }
 
 # Enable UWP apps background access
-Function EnableUWPBackgroundApps {
+Function TweakEnableUWPBackgroundApps {
 	Write-Output "Enabling UWP apps background access. See EnableUWPBackgroundApps_CU..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsRunInBackground" -ErrorAction SilentlyContinue
 }
@@ -34,7 +34,7 @@ Function EnableUWPBackgroundApps {
 ################################################################
 
 # Disable access to voice activation from UWP apps
-Function DisableUWPVoiceActivation {
+Function TweakDisableUWPVoiceActivation {
 	Write-Output "Disabling access to voice activation from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -44,7 +44,7 @@ Function DisableUWPVoiceActivation {
 }
 
 # Enable access to voice activation from UWP apps
-Function EnableUWPVoiceActivation {
+Function TweakEnableUWPVoiceActivation {
 	Write-Output "Enabling access to voice activation from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsActivateWithVoice" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsActivateWithVoiceAboveLock" -ErrorAction SilentlyContinue
@@ -53,7 +53,7 @@ Function EnableUWPVoiceActivation {
 ################################################################
 
 # Disable access to notifications from UWP apps
-Function DisableUWPNotifications {
+Function TweakDisableUWPNotifications {
 	Write-Output "Disabling access to notifications from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -62,7 +62,7 @@ Function DisableUWPNotifications {
 }
 
 # Enable access to notifications from UWP apps
-Function EnableUWPNotifications {
+Function TweakEnableUWPNotifications {
 	Write-Output "Enabling access to notifications from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessNotifications" -ErrorAction SilentlyContinue
 }
@@ -70,7 +70,7 @@ Function EnableUWPNotifications {
 ################################################################
 
 # Disable access to account info from UWP apps
-Function DisableUWPAccountInfo {
+Function TweakDisableUWPAccountInfo {
 	Write-Output "Disabling access to account info from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -79,7 +79,7 @@ Function DisableUWPAccountInfo {
 }
 
 # Enable access to account info from UWP apps
-Function EnableUWPAccountInfo {
+Function TweakEnableUWPAccountInfo {
 	Write-Output "Enabling access to account info from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessAccountInfo" -ErrorAction SilentlyContinue
 }
@@ -87,7 +87,7 @@ Function EnableUWPAccountInfo {
 ################################################################
 
 # Disable access to contacts from UWP apps
-Function DisableUWPContacts {
+Function TweakDisableUWPContacts {
 	Write-Output "Disabling access to contacts from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -96,7 +96,7 @@ Function DisableUWPContacts {
 }
 
 # Enable access to contacts from UWP apps
-Function EnableUWPContacts {
+Function TweakEnableUWPContacts {
 	Write-Output "Enabling access to contacts from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessContacts" -ErrorAction SilentlyContinue
 }
@@ -104,7 +104,7 @@ Function EnableUWPContacts {
 ################################################################
 
 # Disable access to calendar from UWP apps
-Function DisableUWPCalendar {
+Function TweakDisableUWPCalendar {
 	Write-Output "Disabling access to calendar from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -113,7 +113,7 @@ Function DisableUWPCalendar {
 }
 
 # Enable access to calendar from UWP apps
-Function EnableUWPCalendar {
+Function TweakEnableUWPCalendar {
 	Write-Output "Enabling access to calendar from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessCalendar" -ErrorAction SilentlyContinue
 }
@@ -121,7 +121,7 @@ Function EnableUWPCalendar {
 ################################################################
 
 # Disable access to phone calls from UWP apps
-Function DisableUWPPhoneCalls {
+Function TweakDisableUWPPhoneCalls {
 	Write-Output "Disabling access to phone calls from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -130,7 +130,7 @@ Function DisableUWPPhoneCalls {
 }
 
 # Enable access to phone calls from UWP apps
-Function EnableUWPPhoneCalls {
+Function TweakEnableUWPPhoneCalls {
 	Write-Output "Enabling access to phone calls from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessPhone" -ErrorAction SilentlyContinue
 }
@@ -138,7 +138,7 @@ Function EnableUWPPhoneCalls {
 ################################################################
 
 # Disable access to call history from UWP apps
-Function DisableUWPCallHistory {
+Function TweakDisableUWPCallHistory {
 	Write-Output "Disabling access to call history from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -147,7 +147,7 @@ Function DisableUWPCallHistory {
 }
 
 # Enable access to call history from UWP apps
-Function EnableUWPCallHistory {
+Function TweakEnableUWPCallHistory {
 	Write-Output "Enabling access to call history from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessCallHistory" -ErrorAction SilentlyContinue
 }
@@ -155,7 +155,7 @@ Function EnableUWPCallHistory {
 ################################################################
 
 # Disable access to email from UWP apps
-Function DisableUWPEmail {
+Function TweakDisableUWPEmail {
 	Write-Output "Disabling access to email from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -164,7 +164,7 @@ Function DisableUWPEmail {
 }
 
 # Enable access to email from UWP apps
-Function EnableUWPEmail {
+Function TweakEnableUWPEmail {
 	Write-Output "Enabling access to email from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessEmail" -ErrorAction SilentlyContinue
 }
@@ -172,7 +172,7 @@ Function EnableUWPEmail {
 ################################################################
 
 # Disable access to tasks from UWP apps
-Function DisableUWPTasks {
+Function TweakDisableUWPTasks {
 	Write-Output "Disabling access to tasks from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -181,7 +181,7 @@ Function DisableUWPTasks {
 }
 
 # Enable access to tasks from UWP apps
-Function EnableUWPTasks {
+Function TweakEnableUWPTasks {
 	Write-Output "Enabling access to tasks from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessTasks" -ErrorAction SilentlyContinue
 }
@@ -189,7 +189,7 @@ Function EnableUWPTasks {
 ################################################################
 
 # Disable access to messaging (SMS, MMS) from UWP apps
-Function DisableUWPMessaging {
+Function TweakDisableUWPMessaging {
 	Write-Output "Disabling access to messaging from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -198,7 +198,7 @@ Function DisableUWPMessaging {
 }
 
 # Enable access to messaging from UWP apps
-Function EnableUWPMessaging {
+Function TweakEnableUWPMessaging {
 	Write-Output "Enabling access to messaging from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessMessaging" -ErrorAction SilentlyContinue
 }
@@ -206,7 +206,7 @@ Function EnableUWPMessaging {
 ################################################################
 
 # Disable access to radios (e.g. Bluetooth) from UWP apps
-Function DisableUWPRadios {
+Function TweakDisableUWPRadios {
 	Write-Output "Disabling access to radios from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -215,7 +215,7 @@ Function DisableUWPRadios {
 }
 
 # Enable access to radios from UWP apps
-Function EnableUWPRadios {
+Function TweakEnableUWPRadios {
 	Write-Output "Enabling access to radios from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessRadios" -ErrorAction SilentlyContinue
 }
@@ -223,7 +223,7 @@ Function EnableUWPRadios {
 ################################################################
 
 # Disable access to other devices (unpaired, beacons, TVs etc.) from UWP apps
-Function DisableUWPOtherDevices {
+Function TweakDisableUWPOtherDevices {
 	Write-Output "Disabling access to other devices from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -232,7 +232,7 @@ Function DisableUWPOtherDevices {
 }
 
 # Enable access to other devices from UWP apps
-Function EnableUWPOtherDevices {
+Function TweakEnableUWPOtherDevices {
 	Write-Output "Enabling access to other devices from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsSyncWithDevices" -ErrorAction SilentlyContinue
 }
@@ -240,7 +240,7 @@ Function EnableUWPOtherDevices {
 ################################################################
 
 # Disable access to diagnostic information from UWP apps
-Function DisableUWPDiagInfo {
+Function TweakDisableUWPDiagInfo {
 	Write-Output "Disabling access to diagnostic information from UWP apps..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -249,7 +249,7 @@ Function DisableUWPDiagInfo {
 }
 
 # Enable access to diagnostic information from UWP apps
-Function EnableUWPDiagInfo {
+Function TweakEnableUWPDiagInfo {
 	Write-Output "Enabling access to diagnostic information from UWP apps..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsGetDiagnosticInfo" -ErrorAction SilentlyContinue
 }
@@ -257,7 +257,7 @@ Function EnableUWPDiagInfo {
 ################################################################
 
 # Disable access to libraries and file system from UWP apps
-Function DisableUWPFileSystem {
+Function TweakDisableUWPFileSystem {
 	Write-Output "Disabling access to libraries and file system from UWP apps..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary" -Name "Value" -Type String -Value "Deny"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary" -Name "Value" -Type String -Value "Deny"
@@ -266,7 +266,7 @@ Function DisableUWPFileSystem {
 }
 
 # Enable access to libraries and file system from UWP apps
-Function EnableUWPFileSystem {
+Function TweakEnableUWPFileSystem {
 	Write-Output "Enabling access to libraries and file system from UWP apps..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary" -Name "Value" -Type String -Value "Allow"
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary" -Name "Value" -Type String -Value "Allow"
@@ -278,13 +278,13 @@ Function EnableUWPFileSystem {
 
 # Disable UWP apps swap file
 # This disables creation and use of swapfile.sys and frees 256 MB of disk space. Swapfile.sys is used only by UWP apps. The tweak has no effect on the real swap in pagefile.sys.
-Function DisableUWPSwapFile {
+Function TweakDisableUWPSwapFile {
 	Write-Output "Disabling UWP apps swap file..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "SwapfileControl" -Type Dword -Value 0
 }
 
 # Enable UWP apps swap file
-Function EnableUWPSwapFile {
+Function TweakEnableUWPSwapFile {
 	Write-Output "Enabling UWP apps swap file..."
 	Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "SwapfileControl" -ErrorAction SilentlyContinue
 }

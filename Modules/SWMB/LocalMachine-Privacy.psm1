@@ -16,7 +16,7 @@
 # Windows Update control panel may show message "Your device is at risk because it's out of date and missing important security and quality updates. Let's get you back on track so Windows can run more securely. Select this button to get going".
 # In such case, enable telemetry, run Windows update and then disable telemetry again.
 # See also https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/57 and https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/92
-Function DisableTelemetry {
+Function TweakDisableTelemetry {
 	Write-Output "Disabling Telemetry..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
@@ -63,7 +63,7 @@ Function DisableTelemetry {
 }
 
 # Enable Telemetry
-Function EnableTelemetry {
+Function TweakEnableTelemetry {
 	Write-Output "Enabling Telemetry..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 3
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 3
@@ -91,7 +91,7 @@ Function EnableTelemetry {
 ################################################################
 
 # Disable Cortana
-Function DisableCortana {
+Function TweakDisableCortana {
 	Write-Output "Disabling Cortana. See DisableCortana_CU..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Experience\AllowCortana" -Name "Value" -Type DWord -Value 0
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
@@ -106,7 +106,7 @@ Function DisableCortana {
 }
 
 # Enable Cortana
-Function EnableCortana {
+Function TweakEnableCortana {
 	Write-Output "Enabling Cortana. See EnableCortana_CU..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Experience\AllowCortana" -Name "Value" -Type DWord -Value 1
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCortana" -ErrorAction SilentlyContinue
@@ -117,7 +117,7 @@ Function EnableCortana {
 ################################################################
 
 # Disable Wi-Fi Sense
-Function DisableWiFiSense {
+Function TweakDisableWiFiSense {
 	Write-Output "Disabling Wi-Fi Sense..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" -Force | Out-Null
@@ -135,7 +135,7 @@ Function DisableWiFiSense {
 }
 
 # Enable Wi-Fi Sense
-Function EnableWiFiSense {
+Function TweakEnableWiFiSense {
 	Write-Output "Enabling Wi-Fi Sense..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" -Force | Out-Null
@@ -152,7 +152,7 @@ Function EnableWiFiSense {
 ################################################################
 
 # Disable SmartScreen Filter
-Function DisableSmartScreen {
+Function TweakDisableSmartScreen {
 	Write-Output "Disabling SmartScreen Filter..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -Type DWord -Value 0
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter")) {
@@ -162,7 +162,7 @@ Function DisableSmartScreen {
 }
 
 # Enable SmartScreen Filter
-Function EnableSmartScreen {
+Function TweakEnableSmartScreen {
 	Write-Output "Enabling SmartScreen Filter..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableSmartScreen" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter" -Name "EnabledV9" -ErrorAction SilentlyContinue
@@ -171,7 +171,7 @@ Function EnableSmartScreen {
 ################################################################
 
 # Disable Web Search in Start Menu
-Function DisableWebSearch {
+Function TweakDisableWebSearch {
 	Write-Output "Disabling Bing Search in Start Menu. See DisableWebSearch_CU..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -180,7 +180,7 @@ Function DisableWebSearch {
 }
 
 # Enable Web Search in Start Menu
-Function EnableWebSearch {
+Function TweakEnableWebSearch {
 	Write-Output "Enabling Bing Search in Start Menu. See EnableWebSearch_CU..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableWebSearch" -ErrorAction SilentlyContinue
 }
@@ -188,7 +188,7 @@ Function EnableWebSearch {
 ################################################################
 
 # Disable Application suggestions and automatic installation
-Function DisableAppSuggestions {
+Function TweakDisableAppSuggestions {
 	Write-Output "Disabling Application suggestions. See DisableAppSuggestions_CU..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace" -Force | Out-Null
@@ -197,7 +197,7 @@ Function DisableAppSuggestions {
 }
 
 # Enable Application suggestions and automatic installation
-Function EnableAppSuggestions {
+Function TweakEnableAppSuggestions {
 	Write-Output "Enabling Application suggestions. See EnableAppSuggestions_CU..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace" -Name "AllowSuggestedAppsInWindowsInkWorkspace" -ErrorAction SilentlyContinue
 }
@@ -206,7 +206,7 @@ Function EnableAppSuggestions {
 
 # Disable Activity History feed in Task View
 # Note: The checkbox "Let Windows collect my activities from this PC" remains checked even when the function is disabled
-Function DisableActivityHistory {
+Function TweakDisableActivityHistory {
 	Write-Output "Disabling Activity History..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" -Type DWord -Value 0
@@ -214,7 +214,7 @@ Function DisableActivityHistory {
 }
 
 # Enable Activity History feed in Task View
-Function EnableActivityHistory {
+Function TweakEnableActivityHistory {
 	Write-Output "Enabling Activity History..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" -ErrorAction SilentlyContinue
@@ -222,7 +222,7 @@ Function EnableActivityHistory {
 }
 
 # View
-Function ViewActivityHistory {
+Function TweakViewActivityHistory {
 	Write-Output 'View Activity History (0: Disable, Error: Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed"    | Select-Object -Property Enable*  | Format-List
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" | Select-Object -Property Publish* | Format-List
@@ -232,7 +232,7 @@ Function ViewActivityHistory {
 ################################################################
 
 # Disable sensor features, such as screen auto rotation
-Function DisableSensors {
+Function TweakDisableSensors {
 	Write-Output "Disabling sensors..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Force | Out-Null
@@ -241,7 +241,7 @@ Function DisableSensors {
 }
 
 # Enable sensor features
-Function EnableSensors {
+Function TweakEnableSensors {
 	Write-Output "Enabling sensors..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableSensors" -ErrorAction SilentlyContinue
 }
@@ -249,7 +249,7 @@ Function EnableSensors {
 ################################################################
 
 # Disable location feature and scripting for the location feature
-Function DisableLocation {
+Function TweakDisableLocation {
 	Write-Output "Disabling location services..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Force | Out-Null
@@ -259,7 +259,7 @@ Function DisableLocation {
 }
 
 # Enable location feature and scripting for the location feature
-Function EnableLocation {
+Function TweakEnableLocation {
 	Write-Output "Enabling location services..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableLocation" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableLocationScripting" -ErrorAction SilentlyContinue
@@ -268,13 +268,13 @@ Function EnableLocation {
 ################################################################
 
 # Disable automatic Maps updates
-Function DisableMapUpdates {
+Function TweakDisableMapUpdates {
 	Write-Output "Disabling automatic Maps updates..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\Maps" -Name "AutoUpdateEnabled" -Type DWord -Value 0
 }
 
 # Enable automatic Maps updates
-Function EnableMapUpdates {
+Function TweakEnableMapUpdates {
 	Write-Output "Enable automatic Maps updates..."
 	Remove-ItemProperty -Path "HKLM:\SYSTEM\Maps" -Name "AutoUpdateEnabled" -ErrorAction SilentlyContinue
 }
@@ -282,7 +282,7 @@ Function EnableMapUpdates {
 ################################################################
 
 # Disable Feedback
-Function DisableFeedback {
+Function TweakDisableFeedback {
 	Write-Output "Disabling Feedback. See DisableFeedback_CU..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DoNotShowFeedbackNotifications" -Type DWord -Value 1
 	# HKCU or HKLM ?
@@ -291,7 +291,7 @@ Function DisableFeedback {
 }
 
 # Enable Feedback
-Function EnableFeedback {
+Function TweakEnableFeedback {
 	Write-Output "Enabling Feedback. See EnableFeedback_CU..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DoNotShowFeedbackNotifications" -ErrorAction SilentlyContinue
 	Enable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-Null
@@ -301,7 +301,7 @@ Function EnableFeedback {
 ################################################################
 
 # Disable Advertising ID
-Function DisableAdvertisingID {
+Function TweakDisableAdvertisingID {
 	Write-Output "Disabling Advertising ID..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" | Out-Null
@@ -310,7 +310,7 @@ Function DisableAdvertisingID {
 }
 
 # Enable Advertising ID
-Function EnableAdvertisingID {
+Function TweakEnableAdvertisingID {
 	Write-Output "Enabling Advertising ID..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo" -Name "DisabledByGroupPolicy" -ErrorAction SilentlyContinue
 }
@@ -319,7 +319,7 @@ Function EnableAdvertisingID {
 
 # Disable biometric features
 # Note: If you log on using biometrics (fingerprint, Windows Hello etc.) it's recommended to create a password recovery disk before applying this tweak.
-Function DisableBiometrics {
+Function TweakDisableBiometrics {
 	Write-Output "Disabling biometric services..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Biometrics")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Biometrics" -Force | Out-Null
@@ -328,7 +328,7 @@ Function DisableBiometrics {
 }
 
 # Enable biometric features
-Function EnableBiometrics {
+Function TweakEnableBiometrics {
 	Write-Output "Enabling biometric services..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Biometrics" -Name "Enabled" -ErrorAction SilentlyContinue
 }
@@ -337,7 +337,7 @@ Function EnableBiometrics {
 
 # Disable access to camera
 # Note: This disables access using standard Windows API. Direct access to device will still be allowed.
-Function DisableCamera {
+Function TweakDisableCamera {
 	Write-Output "Disabling access to camera..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -346,7 +346,7 @@ Function DisableCamera {
 }
 
 # Enable access to camera
-Function EnableCamera {
+Function TweakEnableCamera {
 	Write-Output "Enabling access to camera..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessCamera" -ErrorAction SilentlyContinue
 }
@@ -355,7 +355,7 @@ Function EnableCamera {
 
 # Disable access to microphone
 # Note: This disables access using standard Windows API. Direct access to device will still be allowed.
-Function DisableMicrophone {
+Function TweakDisableMicrophone {
 	Write-Output "Disabling access to microphone..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -364,7 +364,7 @@ Function DisableMicrophone {
 }
 
 # Enable access to microphone
-Function EnableMicrophone {
+Function TweakEnableMicrophone {
 	Write-Output "Enabling access to microphone..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessMicrophone" -ErrorAction SilentlyContinue
 }
@@ -372,14 +372,14 @@ Function EnableMicrophone {
 ################################################################
 
 # Disable Error reporting
-Function DisableErrorReporting {
+Function TweakDisableErrorReporting {
 	Write-Output "Disabling Error reporting..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -Type DWord -Value 1
 	Disable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-Null
 }
 
 # Enable Error reporting
-Function EnableErrorReporting {
+Function TweakEnableErrorReporting {
 	Write-Output "Enabling Error reporting..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting" -Name "Disabled" -ErrorAction SilentlyContinue
 	Enable-ScheduledTask -TaskName "Microsoft\Windows\Windows Error Reporting\QueueReporting" | Out-Null
@@ -388,7 +388,7 @@ Function EnableErrorReporting {
 ################################################################
 
 # Restrict Windows Update P2P delivery optimization to computers in local network - Default since 1703
-Function SetP2PUpdateLocal {
+Function TweakSetP2PUpdateLocal {
 	Write-Output "Restricting Windows Update P2P optimization to local network..."
 	If ([System.Environment]::OSVersion.Version.Build -eq 10240) {
 		# Method used in 1507
@@ -409,7 +409,7 @@ Function SetP2PUpdateLocal {
 }
 
 # Unrestrict Windows Update P2P delivery optimization to both local networks and internet - Default in 1507 - 1607
-Function SetP2PUpdateInternet {
+Function TweakSetP2PUpdateInternet {
 	Write-Output "Unrestricting Windows Update P2P optimization to internet..."
 	If ([System.Environment]::OSVersion.Version.Build -eq 10240) {
 		# Method used in 1507
@@ -431,7 +431,7 @@ Function SetP2PUpdateInternet {
 
 # Disable Windows Update P2P delivery optimization completely
 # Warning: Completely disabling delivery optimization can break Windows Store downloads - see https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/281
-Function SetP2PUpdateDisable {
+Function TweakSetP2PUpdateDisable {
 	Write-Output "Disabling Windows Update P2P optimization..."
 	If ([System.Environment]::OSVersion.Version.Build -eq 10240) {
 		# Method used in 1507
@@ -451,21 +451,21 @@ Function SetP2PUpdateDisable {
 ################################################################
 
 # Stop and disable Connected User Experiences and Telemetry (previously named Diagnostics Tracking Service)
-Function DisableDiagTrack {
+Function TweakDisableDiagTrack {
 	Write-Output "Stopping and disabling Connected User Experiences and Telemetry Service..."
 	Stop-Service "DiagTrack" -WarningAction SilentlyContinue
 	Set-Service "DiagTrack" -StartupType Disabled
 }
 
 # Enable and start Connected User Experiences and Telemetry (previously named Diagnostics Tracking Service)
-Function EnableDiagTrack {
+Function TweakEnableDiagTrack {
 	Write-Output "Enabling and starting Connected User Experiences and Telemetry Service ..."
 	Set-Service "DiagTrack" -StartupType Automatic
 	Start-Service "DiagTrack" -WarningAction SilentlyContinue
 }
 
 # View
-Function ViewDiagTrack {
+Function TweakViewDiagTrack {
 	Write-Output 'Connected User Experiences and Telemetry (2 activated, 4 no)'
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" | Select-Object -Property Start*  | Format-List
 }
@@ -474,14 +474,14 @@ Function ViewDiagTrack {
 
 # Stop and disable Device Management Wireless Application Protocol (WAP) Push Service
 # Note: This service is needed for Microsoft Intune interoperability
-Function DisableWAPPush {
+Function TweakDisableWAPPush {
 	Write-Output "Stopping and disabling Device Management WAP Push Service..."
 	Stop-Service "dmwappushservice" -WarningAction SilentlyContinue
 	Set-Service "dmwappushservice" -StartupType Disabled
 }
 
 # Enable and start Device Management Wireless Application Protocol (WAP) Push Service
-Function EnableWAPPush {
+Function TweakEnableWAPPush {
 	Write-Output "Enabling and starting Device Management WAP Push Service..."
 	Set-Service "dmwappushservice" -StartupType Automatic
 	Start-Service "dmwappushservice" -WarningAction SilentlyContinue
@@ -492,7 +492,7 @@ Function EnableWAPPush {
 
 # Enable clearing of recent files on exit
 # Empties most recently used (MRU) items lists such as 'Recent Items' menu on the Start menu, jump lists, and shortcuts at the bottom of the 'File' menu in applications during every logout.
-Function EnableClearRecentFiles {
+Function TweakEnableClearRecentFiles {
 	Write-Output "Enabling clearing of recent files on exit..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
@@ -501,7 +501,7 @@ Function EnableClearRecentFiles {
 }
 
 # Disable clearing of recent files on exit
-Function DisableClearRecentFiles {
+Function TweakDisableClearRecentFiles {
 	Write-Output "Disabling clearing of recent files on exit..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "ClearRecentDocsOnExit" -ErrorAction SilentlyContinue
 }
@@ -510,7 +510,7 @@ Function DisableClearRecentFiles {
 
 # Disable recent files lists
 # Stops creating most recently used (MRU) items lists such as 'Recent Items' menu on the Start menu, jump lists, and shortcuts at the bottom of the 'File' menu in applications.
-Function DisableRecentFiles {
+Function TweakDisableRecentFiles {
 	Write-Output "Disabling recent files lists..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
@@ -519,7 +519,7 @@ Function DisableRecentFiles {
 }
 
 # Enable recent files lists
-Function EnableRecentFiles {
+Function TweakEnableRecentFiles {
 	Write-Output "Enabling recent files lists..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoRecentDocsHistory" -ErrorAction SilentlyContinue
 }

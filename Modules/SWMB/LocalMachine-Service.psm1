@@ -12,7 +12,7 @@
 ################################################################
 
 # Disable offering of Malicious Software Removal Tool through Windows Update
-Function DisableUpdateMSRT {
+Function TweakDisableUpdateMSRT {
 	Write-Output "Disabling Malicious Software Removal Tool offering..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" | Out-Null
@@ -21,7 +21,7 @@ Function DisableUpdateMSRT {
 }
 
 # Enable offering of Malicious Software Removal Tool through Windows Update
-Function EnableUpdateMSRT {
+Function TweakEnableUpdateMSRT {
 	Write-Output "Enabling Malicious Software Removal Tool offering..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontOfferThroughWUAU" -ErrorAction SilentlyContinue
 }
@@ -31,7 +31,7 @@ Function EnableUpdateMSRT {
 # Disable offering of drivers through Windows Update
 # Note: This doesn't work properly if you use a driver intended for another hardware model. E.g. Intel I219-V on WinServer works only with I219-LM driver.
 # Therefore Windows update will repeatedly try and fail to install I219-V driver indefinitely even if you use the tweak.
-Function DisableUpdateDriver {
+Function TweakDisableUpdateDriver {
 	Write-Output "Disabling driver offering through Windows Update..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Force | Out-Null
@@ -48,7 +48,7 @@ Function DisableUpdateDriver {
 }
 
 # Enable offering of drivers through Windows Update
-Function EnableUpdateDriver {
+Function TweakEnableUpdateDriver {
 	Write-Output "Enabling driver offering through Windows Update..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DriverSearching" -Name "SearchOrderConfig" -ErrorAction SilentlyContinue
@@ -58,13 +58,13 @@ Function EnableUpdateDriver {
 ################################################################
 
 # Enable receiving updates for other Microsoft products via Windows Update
-Function EnableUpdateMSProducts {
+Function TweakEnableUpdateMSProducts {
 	Write-Output "Enabling updates for other Microsoft products..."
 	(New-Object -ComObject Microsoft.Update.ServiceManager).AddService2("7971f918-a847-4430-9279-4a52d1efe18d", 7, "") | Out-Null
 }
 
 # Disable receiving updates for other Microsoft products via Windows Update
-Function DisableUpdateMSProducts {
+Function TweakDisableUpdateMSProducts {
 	Write-Output "Disabling updates for other Microsoft products..."
 	If ((New-Object -ComObject Microsoft.Update.ServiceManager).Services | Where-Object { $_.ServiceID -eq "7971f918-a847-4430-9279-4a52d1efe18d"}) {
 		(New-Object -ComObject Microsoft.Update.ServiceManager).RemoveService("7971f918-a847-4430-9279-4a52d1efe18d") | Out-Null
@@ -74,7 +74,7 @@ Function DisableUpdateMSProducts {
 ################################################################
 
 # Disable Windows Update automatic downloads
-Function DisableUpdateAutoDownload {
+Function TweakDisableUpdateAutoDownload {
 	Write-Output "Disabling Windows Update automatic downloads..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Force | Out-Null
@@ -83,7 +83,7 @@ Function DisableUpdateAutoDownload {
 }
 
 # Enable Windows Update automatic downloads
-Function EnableUpdateAutoDownload {
+Function TweakEnableUpdateAutoDownload {
 	Write-Output "Enabling Windows Update automatic downloads..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "AUOptions" -ErrorAction SilentlyContinue
 }
@@ -93,7 +93,7 @@ Function EnableUpdateAutoDownload {
 # Disable automatic restart after Windows Update installation
 # The tweak is slightly experimental, as it registers a dummy debugger for MusNotification.exe
 # which blocks the restart prompt executable from running, thus never schedulling the restart
-Function DisableUpdateRestart {
+Function TweakDisableUpdateRestart {
 	Write-Output "Disabling Windows Update automatic restart..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MusNotification.exe")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MusNotification.exe" -Force | Out-Null
@@ -102,7 +102,7 @@ Function DisableUpdateRestart {
 }
 
 # Enable automatic restart after Windows Update installation
-Function EnableUpdateRestart {
+Function TweakEnableUpdateRestart {
 	Write-Output "Enabling Windows Update automatic restart..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\MusNotification.exe" -Name "Debugger" -ErrorAction SilentlyContinue
 }
@@ -110,7 +110,7 @@ Function EnableUpdateRestart {
 ################################################################
 
 # Disable nightly wake-up for Automatic Maintenance and Windows Updates
-Function DisableMaintenanceWakeUp {
+Function TweakDisableMaintenanceWakeUp {
 	Write-Output "Disabling nightly wake-up for Automatic Maintenance..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Force | Out-Null
@@ -120,7 +120,7 @@ Function DisableMaintenanceWakeUp {
 }
 
 # Enable nightly wake-up for Automatic Maintenance and Windows Updates
-Function EnableMaintenanceWakeUp {
+Function TweakEnableMaintenanceWakeUp {
 	Write-Output "Enabling nightly wake-up for Automatic Maintenance..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "AUPowerManagement" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" -Name "WakeUp" -ErrorAction SilentlyContinue
@@ -130,13 +130,13 @@ Function EnableMaintenanceWakeUp {
 
 # Disable Automatic Restart Sign-on - Applicable since 1903
 # See https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/winlogon-automatic-restart-sign-on--arso-
-Function DisableAutoRestartSignOn {
+Function TweakDisableAutoRestartSignOn {
 	Write-Output "Disabling Automatic Restart Sign-on..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "DisableAutomaticRestartSignOn" -Type DWord -Value 1
 }
 
 # Enable Automatic Restart Sign-on - Applicable since 1903
-Function EnableAutoRestartSignOn {
+Function TweakEnableAutoRestartSignOn {
 	Write-Output "Enabling Automatic Restart Sign-on..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "DisableAutomaticRestartSignOn" -ErrorAction SilentlyContinue
 }
@@ -144,7 +144,7 @@ Function EnableAutoRestartSignOn {
 ################################################################
 
 # Disable Autorun for all drives
-Function DisableAutorun {
+Function TweakDisableAutorun {
 	Write-Output "Disabling Autorun for all drives..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
@@ -153,7 +153,7 @@ Function DisableAutorun {
 }
 
 # Enable Autorun for removable drives
-Function EnableAutorun {
+Function TweakEnableAutorun {
 	Write-Output "Enabling Autorun for all drives..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoDriveTypeAutoRun" -ErrorAction SilentlyContinue
 }
@@ -163,7 +163,7 @@ Function EnableAutorun {
 # Disable System Restore for system drive - Not applicable to Server
 # Note: This does not delete already existing restore points as the deletion of restore points is irreversible. In order to do that, run also following command.
 # vssadmin Delete Shadows /For=$env:SYSTEMDRIVE /Quiet
-Function DisableRestorePoints {
+Function TweakDisableRestorePoints {
 	Write-Output "Disabling System Restore for system drive..."
 	Disable-ComputerRestore -Drive "$env:SYSTEMDRIVE"
 }
@@ -171,7 +171,7 @@ Function DisableRestorePoints {
 # Enable System Restore for system drive - Not applicable to Server
 # Note: Some systems (notably VMs) have maximum size allowed to be used for shadow copies set to zero. In order to increase the size, run following command.
 # vssadmin Resize ShadowStorage /On=$env:SYSTEMDRIVE /For=$env:SYSTEMDRIVE /MaxSize=10GB
-Function EnableRestorePoints {
+Function TweakEnableRestorePoints {
 	Write-Output "Enabling System Restore for system drive..."
 	Enable-ComputerRestore -Drive "$env:SYSTEMDRIVE"
 }
@@ -179,13 +179,13 @@ Function EnableRestorePoints {
 ################################################################
 
 # Disable scheduled defragmentation task
-Function DisableDefragmentation {
+Function TweakDisableDefragmentation {
 	Write-Output "Disabling scheduled defragmentation..."
 	Disable-ScheduledTask -TaskName "Microsoft\Windows\Defrag\ScheduledDefrag" | Out-Null
 }
 
 # Enable scheduled defragmentation task
-Function EnableDefragmentation {
+Function TweakEnableDefragmentation {
 	Write-Output "Enabling scheduled defragmentation..."
 	Enable-ScheduledTask -TaskName "Microsoft\Windows\Defrag\ScheduledDefrag" | Out-Null
 }
@@ -193,14 +193,14 @@ Function EnableDefragmentation {
 ################################################################
 
 # Stop and disable Superfetch service
-Function DisableSuperfetch {
+Function TweakDisableSuperfetch {
 	Write-Output "Stopping and disabling Superfetch service..."
 	Stop-Service "SysMain" -WarningAction SilentlyContinue
 	Set-Service "SysMain" -StartupType Disabled
 }
 
 # Start and enable Superfetch service
-Function EnableSuperfetch {
+Function TweakEnableSuperfetch {
 	Write-Output "Starting and enabling Superfetch service..."
 	Set-Service "SysMain" -StartupType Automatic
 	Start-Service "SysMain" -WarningAction SilentlyContinue
@@ -209,14 +209,14 @@ Function EnableSuperfetch {
 ################################################################
 
 # Stop and disable Windows Search indexing service
-Function DisableIndexing {
+Function TweakDisableIndexing {
 	Write-Output "Stopping and disabling Windows Search indexing service..."
 	Stop-Service "WSearch" -WarningAction SilentlyContinue
 	Set-Service "WSearch" -StartupType Disabled
 }
 
 # Start and enable Windows Search indexing service
-Function EnableIndexing {
+Function TweakEnableIndexing {
 	Write-Output "Starting and enabling Windows Search indexing service..."
 	Set-Service "WSearch" -StartupType Automatic
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WSearch" -Name "DelayedAutoStart" -Type DWord -Value 1
@@ -226,13 +226,13 @@ Function EnableIndexing {
 ################################################################
 
 # Enable NTFS paths with length over 260 characters
-Function EnableNTFSLongPaths {
+Function TweakEnableNTFSLongPaths {
 	Write-Output "Enabling NTFS paths with length over 260 characters..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Type DWord -Value 1
 }
 
 # Disable NTFS paths with length over 260 characters
-Function DisableNTFSLongPaths {
+Function TweakDisableNTFSLongPaths {
 	Write-Output "Disabling NTFS paths with length over 260 characters..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Type DWord -Value 0
 }
@@ -240,14 +240,14 @@ Function DisableNTFSLongPaths {
 ################################################################
 
 # Disable updating of NTFS last access timestamps
-Function DisableNTFSLastAccess {
+Function TweakDisableNTFSLastAccess {
 	Write-Output "Disabling updating of NTFS last access timestamps..."
 	# User Managed, Last Access Updates Disabled
 	fsutil behavior set DisableLastAccess 1 | Out-Null
 }
 
 # Enable updating of NTFS last access timestamps
-Function EnableNTFSLastAccess {
+Function TweakEnableNTFSLastAccess {
 	Write-Output "Enabling updating of NTFS last access timestamps..."
 	If ([System.Environment]::OSVersion.Version.Build -ge 17134) {
 		# System Managed, Last Access Updates Enabled
@@ -261,13 +261,13 @@ Function EnableNTFSLastAccess {
 ################################################################
 
 # Set BIOS time to UTC
-Function SetBIOSTimeUTC {
+Function TweakSetBIOSTimeUTC {
 	Write-Output "Setting BIOS time to UTC..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation" -Name "RealTimeIsUniversal" -Type DWord -Value 1
 }
 
 # Set BIOS time to local time
-Function SetBIOSTimeLocal {
+Function TweakSetBIOSTimeLocal {
 	Write-Output "Setting BIOS time to Local time..."
 	Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation" -Name "RealTimeIsUniversal" -ErrorAction SilentlyContinue
 }
@@ -275,7 +275,7 @@ Function SetBIOSTimeLocal {
 ################################################################
 
 # Enable Hibernation - Do not use on Server with automatically started Hyper-V hvboot service as it may lead to BSODs (Win10 with Hyper-V is fine)
-Function EnableHibernation {
+Function TweakEnableHibernation {
 	Write-Output "Enabling Hibernation..."
 	Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Power" -Name "HibernateEnabled" -Type DWord -Value 1
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings")) {
@@ -286,7 +286,7 @@ Function EnableHibernation {
 }
 
 # Disable Hibernation
-Function DisableHibernation {
+Function TweakDisableHibernation {
 	Write-Output "Disabling Hibernation..."
 	Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Power" -Name "HibernateEnabled" -Type DWord -Value 0
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings")) {
@@ -299,7 +299,7 @@ Function DisableHibernation {
 ################################################################
 
 # Disable Sleep start menu and keyboard button
-Function DisableSleepButton {
+Function TweakDisableSleepButton {
 	Write-Output "Disabling Sleep start menu and keyboard button..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" | Out-Null
@@ -310,7 +310,7 @@ Function DisableSleepButton {
 }
 
 # Enable Sleep start menu and keyboard button
-Function EnableSleepButton {
+Function TweakEnableSleepButton {
 	Write-Output "Enabling Sleep start menu and keyboard button..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" | Out-Null
@@ -323,7 +323,7 @@ Function EnableSleepButton {
 ################################################################
 
 # Disable display and sleep mode timeouts
-Function DisableSleepTimeout {
+Function TweakDisableSleepTimeout {
 	Write-Output "Disabling display and sleep mode timeouts..."
 	powercfg /X monitor-timeout-ac 0
 	powercfg /X monitor-timeout-dc 0
@@ -332,7 +332,7 @@ Function DisableSleepTimeout {
 }
 
 # Enable display and sleep mode timeouts
-Function EnableSleepTimeout {
+Function TweakEnableSleepTimeout {
 	Write-Output "Enabling display and sleep mode timeouts..."
 	powercfg /X monitor-timeout-ac 10
 	powercfg /X monitor-timeout-dc 5
@@ -343,13 +343,13 @@ Function EnableSleepTimeout {
 ################################################################
 
 # Disable Fast Startup
-Function DisableFastStartup {
+Function TweakDisableFastStartup {
 	Write-Output "Disabling Fast Startup..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Type DWord -Value 0
 }
 
 # Enable Fast Startup
-Function EnableFastStartup {
+Function TweakEnableFastStartup {
 	Write-Output "Enabling Fast Startup..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Type DWord -Value 1
 }
@@ -357,13 +357,13 @@ Function EnableFastStartup {
 ################################################################
 
 # Disable automatic reboot on crash (BSOD)
-Function DisableAutoRebootOnCrash {
+Function TweakDisableAutoRebootOnCrash {
 	Write-Output "Disabling automatic reboot on crash (BSOD)..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "AutoReboot" -Type DWord -Value 0
 }
 
 # Enable automatic reboot on crash (BSOD)
-Function EnableAutoRebootOnCrash {
+Function TweakEnableAutoRebootOnCrash {
 	Write-Output "Enabling automatic reboot on crash (BSOD)..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "AutoReboot" -Type DWord -Value 1
 }

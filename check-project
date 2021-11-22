@@ -34,44 +34,44 @@ swmb_module=$(find . -path './Modules/SWMB/LocalMachine-*.psm1' -prune -o -path 
 
 # global numbers
 msg1 "number of SWMB rules" \
-   $(grep -hEi '^Function[[:space:]](Enable|Disable)' ${swmb_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Enable|Disable)' ${swmb_module} | awk '{print $2}' | wc -l)
 
 msg2 "number of enable and disable rules" \
-   $(grep -hEi '^Function[[:space:]](Enable)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]](Disable)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Enable)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Disable)' ${all_module} | awk '{print $2}' | wc -l)
 
 msg2 "number of install and uninstall rules" \
-   $(grep -hEi '^Function[[:space:]](Install)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]](Uninstall)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Install)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Uninstall)' ${all_module} | awk '{print $2}' | wc -l)
 
 msg2 "number of show and hide rules" \
-   $(grep -hEi '^Function[[:space:]](Show)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]](Hide)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Show)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Hide)' ${all_module} | awk '{print $2}' | wc -l)
 
 msg2 "number of add and remove rules" \
-   $(grep -hEi '^Function[[:space:]](Add)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]](Remove)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Add)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Remove)' ${all_module} | awk '{print $2}' | wc -l)
 
 msg2 "number of set and unset rules" \
-   $(grep -hEi '^Function[[:space:]](Set)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]](Unset)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Set)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Unset)' ${all_module} | awk '{print $2}' | wc -l)
 
 msg2 "number of pin and unpin rules" \
-   $(grep -hEi '^Function[[:space:]](Pin)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]](Unpin)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Pin)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Unpin)' ${all_module} | awk '{print $2}' | wc -l)
    
 msg1 "number of total rules"  \
-   $(grep -hEi '^Function (Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' ${all_module} | wc -l)
+   $(grep -hEi '^Function Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' ${all_module} | wc -l)
 
 msg1 "number of total functions" \
-   $(grep -hEi '^Function[[:space:]]' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak' ${all_module} | awk '{print $2}' | wc -l)
 
 msg1 "number of view functions (debug)" \
-   $(grep -hEi '^Function[[:space:]](View)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(View)' ${all_module} | awk '{print $2}' | wc -l)
 
 # function that are not in case Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin
 grep -hEi '^Function[[:space:]]' ${all_module} \
-   | grep -Eiv '^Function (Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin|View)' \
+   | grep -Eiv '^Function Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin|View)' \
    | awk '{print $2}' \
    | xargs -r -n 1 printf "Warning: special function: %s\n"
 
@@ -81,7 +81,7 @@ while read rule
 do
    for status in 'Enable' 'Disable'
    do
-      nb_rule=$(grep -E "^Function[[:space:]]${status}${rule}[[:space:]]{" ${all_module} | wc -l)
+      nb_rule=$(grep -E "^Function[[:space:]]Tweak${status}${rule}[[:space:]]{" ${all_module} | wc -l)
       if [ ${nb_rule} -eq 0 ]
       then
          echo "Error: undefined function: " ${status}${rule}
@@ -90,20 +90,20 @@ do
          echo "Error: ${nb_rule} copies of the function: " ${status}${rule}
       fi
    done
-done < <(grep -hEi '^Function[[:space:]](Enable|Disable)' ${all_module} \
+done < <(grep -hEi '^Function[[:space:]]Tweak(Enable|Disable)' ${all_module} \
    | awk '{print $2}' \
-   | sed -Ee 's/^(Enable|Disable)//i;' \
+   | sed -Ee 's/^Tweak(Enable|Disable)//i;' \
    | sort -u)
 
 # Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin...
-kind_rule=$(grep -i '^Function[[:space:]]' ${all_module} \
+kind_rule=$(grep -i '^Function[[:space:]]Tweak' ${all_module} \
    | awk '{print $2}' \
    | grep -Eo '^[A-Z][a-z]+' \
    | sort -u \
    | tr '\n' '|' \
    | sed -e 's/|$//;')
 # detect the definition of a missing preset
-for rule in $(grep -hEi "^Function[[:space:]](${kind_rule})" ${all_module} \
+for rule in $(grep -hEi "^Function[[:space:]]Tweak(${kind_rule})" ${all_module} \
    | awk '{print $2}' \
    | sed -Ee "s/^(${kind_rule})//i;" \
    | sort -u)

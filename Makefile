@@ -26,3 +26,4 @@ check:
 
 clean:
 	rm -f SWMB*.exe
+	[ -d ./tmp ] && rm -f ./tmp/*

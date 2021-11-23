@@ -819,45 +819,41 @@ Function TweakEnableBitlocker {
 		Return
 	}
 
-# use network to save key ?
+	# use network to save key ?
 	$networkBackup = _NetworkKeyBackup -wantToSave $false
 
+	If ($DriveEMethod -eq "None") {
+		# Disk ready for encryption
+		_EnforceCryptGPO
+		_EncryptSytemDrive -networkKeyBackupFolder $networkBackup
+		_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
 
-If ($DriveEMethod -eq "None") {
-	# Disk ready for encryption
-	_EnforceCryptGPO
-	_EncryptSytemDrive -networkKeyBackupFolder $networkBackup
-	_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
-
-	 $reboot = Read-Host -Prompt "The computer must be restarted to finish the system disk encryption. Reboot now? [Y/n]"
-	 If ($reboot.ToLower() -ne "n") {
-		 Restart-Computer -Force
-	 }
-}
-Elseif ($DriveEMethod -eq "XtsAes256") {
-	if (($DriveVStatus -eq "DecryptionInProgress") -or ($DriveVStatus -eq "EncryptionInProgress")) {
-		Write-Warning "Operation in progress on your $Env:SystemDrive => $DriveVStatus"
-		Write-Output "Stop and wait"
+		$reboot = Read-Host -Prompt "The computer must be restarted to finish the system disk encryption. Reboot now? [Y/n]"
+		If ($reboot.ToLower() -ne "n") {
+			Restart-Computer -Force
+		}
+	} ElseIf ($DriveEMethod -eq "XtsAes256") {
+		# Disk crypt but...
+		If (($DriveVStatus -eq "DecryptionInProgress") -or ($DriveVStatus -eq "EncryptionInProgress")) {
+			Write-Warning "Operation in progress on your $Env:SystemDrive => $DriveVStatus"
+			Write-Output "Stop and wait"
+			Return
+		} Else {
+			If ($DrivePStatus -eq "On") {
+				Write-Warning "Your $Env:SystemDrive is already encrypt (XtsAes256) and activated"
+				Write-Output "Nothing to do !"
+				Return
+			} Else {
+				Write-Output "Bitlocker is suspend, resume with :"
+				Write-Output "Resume-BitLocker $systemDrive ... and save your key"
+			}
+		}
+	} ElseIf ($DriveEMethod -ne "XtsAes256") {
+		# Disk crypt but not with XtsAes256
+		Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256, the encryption is $DriveEMethod"
+		Write-Output "Decrypt with command : .\swmb.ps1 DisableBitlocker"
 		Return
 	}
-	else {
-		if ($DrivePStatus -eq "On"){
-    	Write-Warning "Your $Env:SystemDrive is already encrypt (XtsAes256) and activated"
-			Write-Output "Nothing to do !"
-			return
-		}
-		else {
-			Write-Output "Bitlocker is suspend, resume with :"
-			Write-Output "Resume-BitLocker $systemDrive ... and save your key"
-		}
-	}
-}
-Elseif ($DriveEMethod -ne "XtsAes256") {
-	Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256, the encryption is $DriveEMethod"
-	Write-Output "Decrypt with command : swmb.ps1 DisableBitlocker"
-	Return
-}
-
 }
 
 # Disable

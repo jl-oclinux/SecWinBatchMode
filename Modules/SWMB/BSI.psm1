@@ -74,13 +74,13 @@ Function TweakEnablePowershell2 { # RESINFO
 #PAS ENCORE FAIT
 
 # Disable
-Function TweakDisableRemotePowershell { # RESINFO
+Function TweakDisableRemotePowershell { # RESINFO # Experimental
 	Write-Output "Désactivation de l'utilisation de PowerShell à distance"
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
 # Enable
-Function TweakEnableRemotePowershell { # RESINFO
+Function TweakEnableRemotePowershell { # RESINFO # Experimental
 	Write-Output "Activation de l'utilisation de PowerShell à distance"
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }

@@ -47,7 +47,7 @@ Function TweakEnableAutologgerDiagTrack { # RESINFO
 }
 
 # View
-Function TweakViewEnableAutologgerDiagTrack { # RESINFO
+Function TweakViewAutologgerDiagTrack { # RESINFO
 	Write-Output 'Autologger-DiagTrack-Listener (0 no or not exist, 2 activated)'
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start"
 }

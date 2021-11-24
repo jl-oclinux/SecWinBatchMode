@@ -11,7 +11,7 @@ function msg1 {
    local msg=$1
    local total=$2
  
-   printf " | %-4s | %-38s | %3s | %3s | %3i |\n" 'Info' "${msg}" '' '' "${total}"
+   printf " | %-6s | %-38s | %4s | %4s | %4i |\n" 'Info' "${msg}" '' '' "${total}"
    }
 
 function msg2 {
@@ -25,14 +25,15 @@ function msg2 {
       status='Warn'
    fi
 
-   printf " | %-4s | %-38s | %3i | %3i | %3i |\n" "${status}" "${msg}" "${on}" "${off}" $((${on} + ${off}))
+   printf " | %-6s | %-38s | %4i | %4i | %4i |\n" "${status}" "${msg}" "${on}" "${off}" $((${on} + ${off}))
    }
 
 # list of files
 # all_module=$(find . -path './Modules/SWMB/*.psm1' -print)
 all_module=$(find ./Modules/ -name '*.psm1' -print)
 
-printf " | %-4s | %-38s | %3s | %3s | %3s |\n" ':--' ':--' '--:' '--:' '--:'
+printf " | %-6s | %-38s | %4s | %4s | %4s |\n" 'Status' 'Number of tweaks' '' '' ''
+printf " | %-6s | %-38s | %4s | %4s | %4s |\n" ':---' ':---' '---:' '---:' '---:'
 
 # global numbers
 msg1 "Number of RESINFO tweaks" \

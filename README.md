@@ -288,7 +288,23 @@ Command using the preset file above:
 
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -import Win10.psm1 -preset mypreset.txt
 
-### Includes
+### Summary of the total number of tweaks
+
+| :--  | :--                                    | --: | --: | --: |
+| Info | Number of RESINFO tweaks               |     |     |  84 |
+| Info | Number of Enable and Disable tweaks    | 179 | 179 | 358 |
+| Info | Number of Install and Uninstall tweaks |  20 |  20 |  40 |
+| Warn | Number of Show and Hide tweaks         |  56 |  53 | 109 |
+| Info | Number of Add and Remove tweaks        |   3 |   3 |   6 |
+| Warn | Number of Set and Unset tweaks         |  35 |   4 |  39 |
+| Warn | Number of Pin and Unpin tweaks         |   0 |   2 |   2 |
+| Info | Number of total tweaks GPO             |     |     | 554 |
+| Info | Number of Sys tweaks (system)          |     |     |   9 |
+| Info | Number of View tweaks (debug)          |     |     |   7 |
+| Info | Number of Obsolete tweaks              |     |     |   3 |
+| Info | Number of total tweaks functions       |     |     | 573 |
+
+### Import your lib
 
 The script also supports inclusion of custom tweaks from user-supplied modules passed via `-import` parameter. The content of the user-supplied module is completely up to the user, however it is strongly recommended to have the tweaks separated in respective functions as the main tweak library has. The user-supplied scripts are loaded into the main script via `Import-Module`, so the library should ideally be a `.psm1` PowerShell module. 
 Example of a user-supplied tweak library `mytweaks.psm1`:

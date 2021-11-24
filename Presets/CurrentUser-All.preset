@@ -1,10 +1,10 @@
 ##########
-# Win 10 / Server 2016 / Server 2019 Initial Setup Script - Default preset
-# Author: Disassembler <disassembler@dasm.cz>
-# Version: v3.10, 2020-07-15
-# Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
+## Win 10 / Server 2016 / Server 2019 Initial Setup Script - Default preset
+## Author: Disassembler <disassembler@dasm.cz>
+## Version: v3.10, 2020-07-15
+## Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
 ##########
-# Tweak for CurrentUser
+## Tweak for CurrentUser
 ##########
 
 ### Privacy Tweaks ###
@@ -78,3 +78,18 @@ DisableThumbsDBOnNetwork_CU     # EnableThumbsDBOnNetwork_CU
 
 ### Application Tweaks ###
 DisableXboxFeatures_CU          # EnableXboxFeatures_CU
+
+### Tweaks that needs to be classified ###
+# EnableGodMod_CU               # DisableGodMod_CU
+# AddENKeyboard_CU              # RemoveENKeyboard_CU
+# DisableFeedback_CU            # EnableFeedback_CU
+# ShowFolderMergeConflicts_CU   # HideFolderMergeConflicts_CU
+# DisableFullscreenOptims_CU    # EnableFullscreenOptims_CU
+# DisableMediaOnlineAccess_CU   # EnableMediaOnlineAccess_CU
+# ShowNavPaneAllFolders_CU      # HideNavPaneAllFolders_CU
+# ShowNavPaneLibraries_CU       # HideNavPaneLibraries_CU
+# EnableRestoreFldrWindows_CU   # DisableRestoreFldrWindows_CU
+# EnableStorageSense_CU         # DisableStorageSense_CU
+# DisableThumbnails_CU          # EnableThumbnails_CU
+# UnpinStartMenuTiles_CU
+# UnpinTaskbarIcons_CU

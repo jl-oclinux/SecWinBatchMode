@@ -55,6 +55,8 @@ Function TweakEnableOverrideReportingMAPS { # RESINFO
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "LocalSettingOverrideSpynetReporting" -Type DWord -Value 1 -ErrorAction SilentlyContinue
 }
 
+################################################################
+
 # ANSSI Annexe A3
 # https://getadmx.com/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
 
@@ -284,6 +286,7 @@ Function TweakEnablePrivateStoreOnly { # RESINFO
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RequirePrivateStoreOnly" -Type DWord -Value 1
 }
 
+################################################################
 
 ### Déactiver le Windows Store
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
@@ -306,6 +309,8 @@ Function TweakEnableWindowsStore { # RESINFO
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RemoveWindowsStore" -Type DWord -Value 0
 }
 
+################################################################
+
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Désactiver toutes les applications du Windows Store / activé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::DisableStoreApps&Language=fr-fr
 # Disable
@@ -325,6 +330,8 @@ Function TweakEnableStoreApps { # RESINFO
 	}
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "DisableStoreApps" -Type DWord -Value 0
 }
+
+################################################################
 
 Function TweakDisableAppsAccessAccount { # RESINFO
 	Write-Output "Windows apps are not allowed to access account information..."
@@ -368,6 +375,8 @@ Function TweakEnableMicrosoftAccount { # RESINFO
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "NoConnectedUser" -Type DWord -Value 0
 }
+
+################################################################
 
 # Windows Hello Authentification
 # https://answers.microsoft.com/en-us/windows/forum/windows_10-hello/how-to-disable-windows-hello/05ab5492-19c7-4d44-b762-d93b44a9cf65
@@ -416,6 +425,8 @@ Function TweakEnableCortanaAboveLock { # RESINFO
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCortanaAboveLock" -Type DWord -Value 1
 }
 
+################################################################
+
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser l'indexation des fichiers chiffrés / desactivé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowIndexingEncryptedStoresOrItems
 # ANSSI Annexe B1
@@ -435,6 +446,8 @@ Function TweakEnableIndexingEncryptedStores { # RESINFO
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowIndexingEncryptedStoresOrItems" -Type DWord -Value 1
 }
+
+################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Définir quelles informations sont partagées dans search / activé type => informations anonymes
 # https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::SearchPrivacy
@@ -456,6 +469,8 @@ Function TweakEnableSharedInformationSearch { # RESINFO
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "ConnectedSearchPrivacy" -Type DWord -Value 1
 }
 
+################################################################
+
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::DoNotUseWebResults
 # ANSSI Annexe B1
@@ -475,6 +490,8 @@ Function TweakEnableDisplayWebResults { # RESINFO
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "ConnectedSearchUseWeb" -Type DWord -Value 1
 }
+
+################################################################
 
 # Windows_FW_Rules_DR11
 # GPO Configuration Ordinateur / Paramètres Windows / Paramètres de sécurité / Pare-feu Windows avec sécurité avancée
@@ -497,6 +514,8 @@ Function TweakDisablePrivateProfile { # RESINFO
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -Name "EnableFirewall" -Type DWord -Value 0
 }
 
+################################################################
+
 Function TweakDisablePublicProfile { # RESINFO
 	Write-Output "Disabling Public Profile..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile")) {
@@ -516,6 +535,8 @@ Function TweakEnableDomainProfile { # RESINFO
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" -Name "DefaultOutboundAction" -Type DWord -Value 0
 }
 
+################################################################
+
 Function TweakEnablePrivateProfile { # RESINFO
 	Write-Output "Enabling Private Profile..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile")) {
@@ -526,6 +547,8 @@ Function TweakEnablePrivateProfile { # RESINFO
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -Name "DefaultOutboundAction" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -Name "DoNotAllowExceptions" -Type DWord -Value 1
 }
+
+################################################################
 
 Function TweakEnablePublicProfile { # RESINFO
 	Write-Output "Enabling Public Profile..."
@@ -540,6 +563,8 @@ Function TweakEnablePublicProfile { # RESINFO
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" -Name "DisableNotifications" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" -Name "DoNotAllowExceptions" -Type DWord -Value 1
 }
+
+################################################################
 
 # Turn off hybrid sleep
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.PowerManagement::DCStandbyWithHiberfileEnable_2
@@ -866,6 +891,20 @@ Function TweakDisableBitlocker { # RESINFO
 	}
 }
 
+################################################################
+
+# Suspend or Resume Bitlocker
+# Set
+Function TweakSetBitlocker { # RESINFO
+	Write-Output "Set bitlocker on all crypt drive (resume)..."
+	Get-BitLockerVolume | Resume-BitLocker
+}
+
+# Unset
+Function TweakUnsetBitlocker { # RESINFO
+	Write-Output "Unset bitlocker on all crypt drive (suspend)..."
+	Get-BitLockerVolume | Suspend-BitLocker -RebootCount 0
+}
 
 ################################################################
 ###### Export Functions

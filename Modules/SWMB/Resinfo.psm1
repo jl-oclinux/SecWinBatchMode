@@ -844,6 +844,11 @@ Function TweakEnableBitlocker { # RESINFO
 		Return
 	}
 
+	If (($DriveVStatus -eq "FullyDecrypted") -and ((Get-BitLockerVolume $systemDrive).KeyProtector)) {
+		Write-Warning "Your are FullyDecrypted with a Key protector. Your computer need reboot"
+		return
+	}
+
 	# use network to save key ?
 	$networkBackup = _NetworkKeyBackup -wantToSave $false
 

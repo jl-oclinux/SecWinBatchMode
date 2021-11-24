@@ -866,7 +866,8 @@ Function TweakEnableBitlocker { # RESINFO
 		} Else {
 			If ($DrivePStatus -eq "On") {
 				Write-Warning "Your $Env:SystemDrive is already encrypt (XtsAes256) and activated"
-				Write-Output "Nothing to do !"
+				Write-Output "Nothing to do on System drive !"
+				_EncryptNonSytemDrives -networkKeyBackupFolder $networkBackup
 				Return
 			} Else {
 				Write-Output "Bitlocker is suspend, resume with :"

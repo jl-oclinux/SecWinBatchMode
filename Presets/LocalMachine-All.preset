@@ -102,7 +102,6 @@ DisableMaintenanceWakeUp                        # EnableMaintenanceWakeUp
 # DisableAutoRestartSignOn                      # EnableAutoRestartSignOn
 DisableAutorun                                  # EnableAutorun
 # DisableRestorePoints                          # EnableRestorePoints
-# EnableStorageSense                            # DisableStorageSense
 # DisableDefragmentation                        # EnableDefragmentation
 # DisableSuperfetch                             # EnableSuperfetch
 # DisableIndexing                               # EnableIndexing
@@ -127,17 +126,12 @@ DisableNewAppPrompt                             # EnableNewAppPrompt
 # HideRecentlyAddedApps                         # ShowRecentlyAddedApps
 # HideMostUsedApps                              # ShowMostUsedApps
 # HideShortcutArrow                             # ShowShortcutArrow
-# AddENKeyboard                                 # RemoveENKeyboard
 # EnableNumlock                                 # DisableNumlock
 # DisableStartupSound                           # EnableStartupSound
 # DisableChangingSoundScheme                    # EnableChangingSoundScheme
 # EnableVerboseStatus                           # DisableVerboseStatus
 
 ### Explorer UI Tweaks ###
-# ShowFolderMergeConflicts                      # HideFolderMergeConflicts
-# ShowNavPaneAllFolders                         # HideNavPaneAllFolders
-# ShowNavPaneLibraries                          # HideNavPaneLibraries
-# EnableRestoreFldrWindows                      # DisableRestoreFldrWindows
 HideQuickAccess                                 # ShowQuickAccess
 HideDesktopFromThisPC                           # ShowDesktopInThisPC
 # HideDesktopFromExplorer                       # ShowDesktopInExplorer
@@ -157,7 +151,6 @@ Hide3DObjectsFromThisPC                         # Show3DObjectsInThisPC
 # HideIncludeInLibraryMenu                      # ShowIncludeInLibraryMenu
 # HideGiveAccessToMenu                          # ShowGiveAccessToMenu
 # HideShareMenu                                 # ShowShareMenu
-# DisableThumbnails                             # EnableThumbnails
 
 ### Application Tweaks ###
 DisableOneDrive                                 # EnableOneDrive
@@ -166,7 +159,6 @@ UninstallMsftBloat                              # InstallMsftBloat
 UninstallThirdPartyBloat                        # InstallThirdPartyBloat
 # UninstallWindowsStore                         # InstallWindowsStore
 DisableXboxFeatures                             # EnableXboxFeatures
-# DisableFullscreenOptims                       # EnableFullscreenOptims
 DisableAdobeFlash                               # EnableAdobeFlash
 DisableEdgePreload                              # EnableEdgePreload
 DisableEdgeShortcutCreation                     # EnableEdgeShortcutCreation
@@ -202,10 +194,6 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableCtrlAltDelLogin                        # EnableCtrlAltDelLogin
 # DisableIEEnhancedSecurity                     # EnableIEEnhancedSecurity
 # EnableAudio                                   # DisableAudio
-
-### Unpinning Tweaks ###
-# UnpinStartMenuTiles
-# UnpinTaskbarIcons
 
 ### Bitlocker Tweaks ###
 # EnableBitlocker                               # DisableBitlocker
@@ -257,7 +245,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableWindowsStore                           # EnableWindowsStore
 
 # DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
-# DisableDomainProfile                          # EnableDomainProfile                           # ViewEnableAutologgerDiagTrack
+# DisableDomainProfile                          # EnableDomainProfile
 # DisableHybridSleep                            # EnableHybridSleep
 # DisablePowershell2                            # EnablePowershell2
 # DisablePrivateProfile                         # EnablePrivateProfile

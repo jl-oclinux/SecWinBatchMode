@@ -31,6 +31,7 @@ function msg2 {
 # list of files
 # all_module=$(find . -path './Modules/SWMB/*.psm1' -print)
 all_module=$(find ./Modules/ -name '*.psm1' -print)
+preset_all=$(ls -1 Presets/{CurrentUser,LocalMachine}-All.preset)
 
 printf " | %-6s | %-38s | %4s | %4s | %4s |\n" 'Status' 'Number of tweaks' '' '' ''
 printf " | %-6s | %-38s | %4s | %4s | %4s |\n" ':---' ':---' '---:' '---:' '---:'
@@ -160,10 +161,10 @@ for rule in $(grep -hEi "^Function[[:space:]]Tweak(${kind_rule})" ${all_module} 
    | sed -e 's/^Tweak//;' \
    | sort -u)
 do
-   if ! grep -Eq "^(#[[:space:]])?${rule}\b" Presets/{CurrentUser,LocalMachine}-All.preset
+   if ! grep -Eq "^(#[[:space:]])?${rule}\b" ${preset_all}
    then
       # Do not propose preset for current user
-      if ! grep -Eq "#[[:space:]]${rule}\b" Presets/{CurrentUser,LocalMachine}-All.preset
+      if ! grep -Eq "#[[:space:]]${rule}\b" ${preset_all}
       then
          grep -Eh "^Function[[:space:]]Tweak${rule}\b" ${all_module} \
            | awk '{print $2}' \
@@ -171,4 +172,15 @@ do
            | xargs printf "Warning: no preset proposed for tweak: %s\n"
       fi
    fi
+done
+
+for rule in $(sed -e 's/##.*//; s/[[:space:]]/\n/g;' ${preset_all} \
+  | grep -v '^#' \
+  | grep . \
+  | sort -u)
+do
+  if ! grep -Eq "^Function[[:space:]]Tweak${rule}\b" ${all_module}
+  then
+    echo "Warning: tweak doesn't have an implementaton: ${rule}"
+  fi
 done

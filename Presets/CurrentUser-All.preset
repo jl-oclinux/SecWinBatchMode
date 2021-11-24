@@ -26,6 +26,7 @@ DisableSharedExperiences_CU     # EnableSharedExperiences_CU
 DisableAutoplay_CU              # EnableAutoplay_CU
 # EnableClipboardHistory_CU     # DisableClipboardHistory_CU
 # DisableRecycleBin_CU          # EnableRecycleBin_CU
+# EnableStorageSense_CU         # DisableStorageSense_CU
 
 ### UI Tweaks ###
 DisableActionCenter_CU          # EnableActionCenter_CU
@@ -74,22 +75,23 @@ SetExplorerThisPC_CU            # SetExplorerQuickAccess_CU
 # HideRecycleBinFromDesktop_CU  # ShowRecycleBinOnDesktop_CU
 ShowThisPCOnDesktop_CU          # HideThisPCFromDesktop_CU
 DisableThumbnailCache_CU        # EnableThumbnailCache_CU
+# DisableThumbnails_CU          # EnableThumbnails_CU
 DisableThumbsDBOnNetwork_CU     # EnableThumbsDBOnNetwork_CU
+# EnableRestoreFldrWindows_CU   # DisableRestoreFldrWindows_CU
+# ShowNavPaneAllFolders_CU      # HideNavPaneAllFolders_CU
+# ShowFolderMergeConflicts_CU   # HideFolderMergeConflicts_CU
+# ShowNavPaneLibraries_CU       # HideNavPaneLibraries_CU
 
 ### Application Tweaks ###
 DisableXboxFeatures_CU          # EnableXboxFeatures_CU
+# DisableFullscreenOptims_CU    # EnableFullscreenOptims_CU
+
+### Unpinning Tweaks ###
+# UnpinStartMenuTiles_CU
+# UnpinTaskbarIcons_CU
 
 ### Tweaks that needs to be classified ###
 # EnableGodMod_CU               # DisableGodMod_CU
 # AddENKeyboard_CU              # RemoveENKeyboard_CU
 # DisableFeedback_CU            # EnableFeedback_CU
-# ShowFolderMergeConflicts_CU   # HideFolderMergeConflicts_CU
-# DisableFullscreenOptims_CU    # EnableFullscreenOptims_CU
 # DisableMediaOnlineAccess_CU   # EnableMediaOnlineAccess_CU
-# ShowNavPaneAllFolders_CU      # HideNavPaneAllFolders_CU
-# ShowNavPaneLibraries_CU       # HideNavPaneLibraries_CU
-# EnableRestoreFldrWindows_CU   # DisableRestoreFldrWindows_CU
-# EnableStorageSense_CU         # DisableStorageSense_CU
-# DisableThumbnails_CU          # EnableThumbnails_CU
-# UnpinStartMenuTiles_CU
-# UnpinTaskbarIcons_CU

@@ -174,12 +174,15 @@ do
    fi
 done
 
-for rule in $(sed -e 's/##.*//; s/[[:space:]]/\n/g;' ${preset_all} \
+# reverse check all preset files
+for rule in $(grep -Ehv '^([#[:space:]])*\$(PRESET|IMPORT)' Presets/*.preset \
+  | sed -e 's/##.*//; s/[[:space:]]/\n/g;' \
   | grep -v '^#' \
+  | grep -Ev '^\$(PRESET|IMPORT)' \
   | grep . \
   | sort -u)
 do
-  if ! grep -Eq "^Function[[:space:]]Tweak${rule}\b" ${all_module}
+  if ! grep -q "^Function[[:space:]]Tweak${rule}\b" ${all_module}
   then
     echo "Warning: tweak doesn't have an implementaton: ${rule}"
   fi

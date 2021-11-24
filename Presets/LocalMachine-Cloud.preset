@@ -1,13 +1,13 @@
 ################################################################
-# Project CNRS RESINFO SWMB
-# Copyright (C) 2020-2021, CNRS, France
-# License: MIT License (Same as project Win10-Initial-Setup-Script)
-# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
-# Authors:
-#  2020 - Olivier de Marchi (Grenoble INP / LEGI)
-#  2020 - David Gras (CNRS / DR11)
-#  2020 - Clément Deiber (CNRS / DR11)
-#  2020 - Gabriel Moreau (CNRS / LEGI)
+## Project CNRS RESINFO SWMB
+## Copyright (C) 2020-2021, CNRS, France
+## License: MIT License (Same as project Win10-Initial-Setup-Script)
+## Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
+## Authors:
+##  2020 - Olivier de Marchi (Grenoble INP / LEGI)
+##  2020 - David Gras (CNRS / DR11)
+##  2020 - Clément Deiber (CNRS / DR11)
+##  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
 ################################################################
@@ -17,15 +17,15 @@
 
 ### ANSSI Annexe E ####
 
-# Configuration ordinateur / Paramètres Windows / Paramètres de Sécurité / Stratégies Locales / Options de sécurité / Comptes : Bloquer les comptes Microsoft /  Les utilisateurs ne peuvent pas ajouter de comptes Microsoft ni se connecter avec ces derniers
-# Block Microsoft Accounts
+## Configuration ordinateur / Paramètres Windows / Paramètres de Sécurité / Stratégies Locales / Options de sécurité / Comptes : Bloquer les comptes Microsoft /  Les utilisateurs ne peuvent pas ajouter de comptes Microsoft ni se connecter avec ces derniers
+## Block Microsoft Accounts
 DisableMicrosoftAccount
-# Block Windows Hello Authentification
+## Block Windows Hello Authentification
 DisableWindowsHello
 
-# Configuration ordinateur / Modèles d'administration / Composants Windows / OneDrive / Empecher l'utilisation de OneDrive pour le stockage de fichier / activé
-# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.OneDrive::PreventOnedriveFileSync&Language=fr-fr
+## Configuration ordinateur / Modèles d'administration / Composants Windows / OneDrive / Empecher l'utilisation de OneDrive pour le stockage de fichier / activé
+## https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.OneDrive::PreventOnedriveFileSync&Language=fr-fr
 DisableOneDrive
-# Plus radical est de desintaller OneDrive mais nécessite un redémarrage du processus explorer.exe
+## Plus radical est de desintaller OneDrive mais nécessite un redémarrage du processus explorer.exe
 # UninstallOneDrive
-# voir aussi : https://github.com/W4RH4WK/Debloat-Windows-10/blob/master/scripts/remove-onedrive.ps1
+## voir aussi : https://github.com/W4RH4WK/Debloat-Windows-10/blob/master/scripts/remove-onedrive.ps1

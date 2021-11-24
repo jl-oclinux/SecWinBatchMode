@@ -1,37 +1,37 @@
 ################################################################
-# Project CNRS RESINFO SWMB
-# Copyright (C) 2020-2021, CNRS, France
-# License: MIT License (Same as project Win10-Initial-Setup-Script)
-# Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
-# Authors:
-#  2020 - Olivier de Marchi (Grenoble INP / LEGI)
-#  2020 - David Gras (CNRS / DR11)
-#  2020 - Clément Deiber (CNRS / DR11)
-#  2020 - Gabriel Moreau (CNRS / LEGI)
+## Project CNRS RESINFO SWMB
+## Copyright (C) 2020-2021, CNRS, France
+## License: MIT License (Same as project Win10-Initial-Setup-Script)
+## Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
+## Authors:
+##  2020 - Olivier de Marchi (Grenoble INP / LEGI)
+##  2020 - David Gras (CNRS / DR11)
+##  2020 - Clément Deiber (CNRS / DR11)
+##  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
 ################################################################
 ###### Preset Cortana and Search
 ################################################################
 
-# https://docs.microsoft.com/fr-fr/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services#2-cortana-et-recherche2-cortana-and-search
+## https://docs.microsoft.com/fr-fr/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services#2-cortana-et-recherche2-cortana-and-search
 
 ### ANSSI Annexe B ###
 
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona / desactivé
+## Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona / desactivé
 DisableCortana
 
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona au-dessus de l'écran de verouillage / desactivé
+## Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona au-dessus de l'écran de verouillage / desactivé
 DisableCortanaAboveLock
 
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser l'indexation des fichiers chiffrés / desactivé
+## Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser l'indexation des fichiers chiffrés / desactivé
 DisableIndexingEncryptedStores
 
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Définir quelles informations sont partagées dans search / activé type => informations anonymes
+## Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Définir quelles informations sont partagées dans search / activé type => informations anonymes
 DisableSharedInformationSearch
 
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas autoriser la recherche Web / activé
-DisableWebSearch # 3 clés => HKCU BingSearchEnabled/CortanaConsent et HKLM DisableWebSearch
+## Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas autoriser la recherche Web / activé
+DisableWebSearch ## 3 clés => HKCU BingSearchEnabled/CortanaConsent et HKLM DisableWebSearch
 
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
+## Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
 DisableDisplayWebResults

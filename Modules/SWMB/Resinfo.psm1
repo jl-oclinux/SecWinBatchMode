@@ -836,7 +836,7 @@ Function TweakEnableBitlocker { # RESINFO
 		# Disk crypt but...
 		If (($DriveVStatus -eq "DecryptionInProgress") -or ($DriveVStatus -eq "EncryptionInProgress")) {
 			Write-Warning "Operation in progress on your $Env:SystemDrive => $DriveVStatus"
-			Write-Output "Stop and wait"
+			Write-Output ("Stop and try later - Encryption percentage = " + (Get-BitLockerVolume $systemDrive).EncryptionPercentage)
 			Return
 		} Else {
 			If ($DrivePStatus -eq "On") {

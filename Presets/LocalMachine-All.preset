@@ -204,6 +204,20 @@ RemoveFaxPrinter                # AddFaxPrinter
 # UnpinStartMenuTiles
 # UnpinTaskbarIcons
 
+### Bitlocker ###
+# EnableBitlocker               # DisableBitlocker
+# SetBitlockerActive            # UnsetBitlockerActive
+
+### TemporaryBypass ###
+# DisablePrintForSystem         # EnablePrintForSystem
+# DisableMSHTMLActiveX          # EnableMSHTMLActiveX
+
 ### Auxiliary Functions ###
+# SysEvent
+# SysBox
 # SysPause
-# Restart
+# SysHalt
+# SysRestart
+# SysCheckpoint
+# SysRequireAdmin
+# SysAutoUpgrade

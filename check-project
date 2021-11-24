@@ -87,6 +87,7 @@ grep -hEi '^Function[[:space:]]' ${all_module} \
 
 
 # detect a forgotten rule and multiple identical rule definitions in our rules
+# Enable / Disable
 while read rule
 do
    for status in 'Enable' 'Disable'
@@ -105,26 +106,70 @@ done < <(grep -hEi '^Function[[:space:]]Tweak(Enable|Disable)' ${all_module} \
    | sed -Ee 's/^Tweak(Enable|Disable)//i;' \
    | sort -u)
 
+# Install / Uninstall
+while read rule
+do
+   for status in 'Install' 'Uninstall'
+   do
+      nb_rule=$(grep -E "^Function[[:space:]]Tweak${status}${rule}[[:space:]]{" ${all_module} | wc -l)
+      if [ ${nb_rule} -eq 0 ]
+      then
+         echo "Error: undefined function: " ${status}${rule}
+      elif [ ${nb_rule} -gt 1 ]
+      then
+         echo "Error: ${nb_rule} copies of the function: " ${status}${rule}
+      fi
+   done
+done < <(grep -hEi '^Function[[:space:]]Tweak(Install|Uninstall)' ${all_module} \
+   | awk '{print $2}' \
+   | sed -Ee 's/^Tweak(Install|Uninstall)//i;' \
+   | sort -u)
+
+# Add / Remove
+while read rule
+do
+   for status in 'Add' 'Remove'
+   do
+      nb_rule=$(grep -E "^Function[[:space:]]Tweak${status}${rule}[[:space:]]{" ${all_module} | wc -l)
+      if [ ${nb_rule} -eq 0 ]
+      then
+         echo "Error: undefined function: " ${status}${rule}
+      elif [ ${nb_rule} -gt 1 ]
+      then
+         echo "Error: ${nb_rule} copies of the function: " ${status}${rule}
+      fi
+   done
+done < <(grep -hEi '^Function[[:space:]]Tweak(Add|Remove)' ${all_module} \
+   | awk '{print $2}' \
+   | sed -Ee 's/^Tweak(Add|Remove)//i;' \
+   | sort -u)
+
 # Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin...
 kind_rule=$(grep -i '^Function[[:space:]]Tweak' ${all_module} \
+   | grep -Ev '# (Obsolete|Experimental)' \
    | awk '{print $2}' \
+   | sed -e 's/^Tweak//;' \
    | grep -Eo '^[A-Z][a-z]+' \
    | sort -u \
    | tr '\n' '|' \
    | sed -e 's/|$//;')
 # detect the definition of a missing preset
 for rule in $(grep -hEi "^Function[[:space:]]Tweak(${kind_rule})" ${all_module} \
+   | grep -Ev '# (Obsolete|Experimental)' \
    | awk '{print $2}' \
+   | sed -e 's/^Tweak//;' \
    | sed -Ee "s/^(${kind_rule})//i;" \
    | sort -u)
 do
-   if ! grep -Eq "^(#[[:space:]])?(${kind_rule})${rule}" Presets/*.preset
+   if ! grep -Eq "^(#[[:space:]])?(${kind_rule})${rule}\b" Presets/*.preset
    then
       # Do not propose preset for current user
-      #echo ${rule}| grep -q '_CU$' && continue
-      if ! grep -Eq "#[[:space:]](${kind_rule})${rule}" Presets/*.preset
+      if ! grep -Eq "#[[:space:]](${kind_rule})${rule}\b" Presets/*.preset
       then
-         echo "Warning: no preset proposed for rule: ${rule}"
+         grep -Eh "^Function[[:space:]]Tweak(${kind_rule})${rule}\b" ${all_module} \
+           | awk '{print $2}' \
+           | sed -e 's/^Tweak//;' \
+           | xargs printf "Warning: no preset proposed for tweak: %s\n"
       fi
    fi
 done

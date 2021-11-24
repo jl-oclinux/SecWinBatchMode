@@ -160,10 +160,10 @@ for rule in $(grep -hEi "^Function[[:space:]]Tweak(${kind_rule})" ${all_module} 
    | sed -e 's/^Tweak//;' \
    | sort -u)
 do
-   if ! grep -Eq "^(#[[:space:]])?${rule}\b" Presets/*-All.preset
+   if ! grep -Eq "^(#[[:space:]])?${rule}\b" Presets/{CurrentUser,LocalMachine}-All.preset
    then
       # Do not propose preset for current user
-      if ! grep -Eq "#[[:space:]]${rule}\b" Presets/*-All.preset
+      if ! grep -Eq "#[[:space:]]${rule}\b" Presets/{CurrentUser,LocalMachine}-All.preset
       then
          grep -Eh "^Function[[:space:]]Tweak${rule}\b" ${all_module} \
            | awk '{print $2}' \

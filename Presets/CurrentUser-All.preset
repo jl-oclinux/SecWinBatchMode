@@ -59,7 +59,7 @@ DisableF1HelpKey_CU             # EnableF1HelpKey_CU
 # HideSelectCheckboxes_CU       # ShowSelectCheckboxes_CU
 # ShowEncCompFilesColor_CU      # HideEncCompFilesColor_CU
 # EnableFldrSeparateProcess_CU  # DisableFldrSeparateProcess_CU
-ShowKnownExtensions_CU          # HideKnownExtensions_CU
+ShowKnownExtensions_CU          # HideKnownExtensions_CU        # ViewKnownExtensions_CU
 ShowHiddenFiles_CU              # HideHiddenFiles_CU
 # ShowBuildNumberOnDesktop_CU   # HideBuildNumberFromDesktop_CU
 # ShowControlPanelOnDesktop_CU  # HideControlPanelFromDesktop_CU

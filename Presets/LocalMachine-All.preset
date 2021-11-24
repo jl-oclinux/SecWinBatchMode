@@ -16,7 +16,7 @@ DisableCortana                                  # EnableCortana
 DisableWiFiSense                                # EnableWiFiSense
 # DisableSmartScreen                            # EnableSmartScreen
 # DisableWebSearch                              # EnableWebSearch
-DisableAppSuggestions                           # EnableAppSuggestions
+DisableAppSuggestions                           # EnableAppSuggestions                          # ViewActivityHistory
 DisableActivityHistory                          # EnableActivityHistory
 # DisableSensors                                # EnableSensors
 DisableLocation                                 # EnableLocation
@@ -28,7 +28,7 @@ DisableAdvertisingID                            # EnableAdvertisingID
 # DisableMicrophone                             # EnableMicrophone
 DisableErrorReporting                           # EnableErrorReporting
 # SetP2PUpdateLocal                             # SetP2PUpdateInternet                          # SetP2PUpdateDisable
-DisableDiagTrack                                # EnableDiagTrack
+DisableDiagTrack                                # EnableDiagTrack                               # ViewDiagTrack
 DisableWAPPush                                  # EnableWAPPush
 # EnableClearRecentFiles                        # DisableClearRecentFiles
 # DisableRecentFiles                            # EnableRecentFiles
@@ -212,8 +212,8 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # SetBitlockerActive                            # UnsetBitlockerActive
 
 ### TemporaryBypass Tweaks ###
-# DisablePrintForSystem                         # EnablePrintForSystem
-# DisableMSHTMLActiveX                          # EnableMSHTMLActiveX
+# DisablePrintForSystem                         # EnablePrintForSystem                          # ViewPrintForSystem
+# DisableMSHTMLActiveX                          # EnableMSHTMLActiveX                           # ViewMSHTMLActiveX
 
 ### Auxiliary Functions Tweaks ###
 # SysEvent
@@ -254,11 +254,11 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableWindowsErrorReporting                  # EnableWindowsErrorReporting
 # DisableWindowsFeeds                           # EnableWindowsFeeds
 # DisableWindowsHello                           # EnableWindowsHello
+# DisableWindowsStore                           # EnableWindowsStore
 
-# DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack
+# DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
 # DisableDomainProfile                          # EnableDomainProfile                           # ViewEnableAutologgerDiagTrack
 # DisableHybridSleep                            # EnableHybridSleep
 # DisablePowershell2                            # EnablePowershell2
 # DisablePrivateProfile                         # EnablePrivateProfile
 # DisablePublicProfile                          # EnablePublicProfile
-

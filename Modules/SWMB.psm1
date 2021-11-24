@@ -121,7 +121,7 @@ Function TweakSysAutoUpgrade {
 
 # Since 2021/06
 # Wait for key press
-Function TweakWaitForKey {
+Function TweakWaitForKey { # Obsolete
 	Write-Output "Warning: obsolete tweak WaitForKey, now use SysPause"
 	TweakSysPause
 }
@@ -130,7 +130,7 @@ Function TweakWaitForKey {
 
 # Since 2021/06
 # Restart computer
-Function TweakRestart {
+Function TweakRestart { # Obsolete
 	Write-Output "Warning: obsolete tweak Restart, now use SysRestart"
 	TweakSysRestart
 }
@@ -139,7 +139,7 @@ Function TweakRestart {
 
 # Since 2021/07
 # Require administrator privileges
-Function TweakRequireAdmin {
+Function TweakRequireAdmin { # Obsolete
 	Write-Output "Warning: obsolete tweak RequireAdmin, now use SysRequireAdmin"
 	TweakSysRequireAdmin
 }

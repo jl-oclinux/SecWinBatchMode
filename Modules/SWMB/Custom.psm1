@@ -20,13 +20,13 @@ SWMB_ImportModuleParameter (Get-PSCallStack)[0].ScriptName
 ### Renommage du compte administrateur
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégies locales / Options de sécurité
 # Set
-Function TweakSetAdminAccountLogin {
+Function TweakSetAdminAccountLogin { # RESINFO
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $Global:SWMB_Custom.LocalAdminNameToSet -ErrorAction SilentlyContinue
 }
 
 # Unset
-Function TweakUnsetAdminAccountLogin {
+Function TweakUnsetAdminAccountLogin { # RESINFO
 	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
 	Rename-LocalUser -Name $localAdminName.name -NewName $Global:SWMB_Custom.LocalAdminNameOriginal -ErrorAction SilentlyContinue
 }
@@ -35,7 +35,7 @@ Function TweakUnsetAdminAccountLogin {
 
 ### Ne pas afficher le nom du dernier utilisateur
 # Enable
-Function TweakEnableDontDisplayLastUsername {
+Function TweakEnableDontDisplayLastUsername { # RESINFO
 	Write-Output "Ne pas afficher le dernier utilisateur..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
@@ -44,7 +44,7 @@ Function TweakEnableDontDisplayLastUsername {
 }
 
 # Disable
-Function TweakDisableDontDisplayLastUsername {
+Function TweakDisableDontDisplayLastUsername { # RESINFO
 	Write-Output "Afficher le dernier utilisateur..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
@@ -56,7 +56,7 @@ Function TweakDisableDontDisplayLastUsername {
 
 ### Verrouillage de la session : timeout de session
 # Enable
-Function TweakEnableSessionLockTimeout {
+Function TweakEnableSessionLockTimeout { # RESINFO
 	Write-Output "Définition du timeout de session..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
@@ -65,7 +65,7 @@ Function TweakEnableSessionLockTimeout {
 }
 
 # Disable
-Function TweakDisableSessionLockTimeout {
+Function TweakDisableSessionLockTimeout { # RESINFO
 	Write-Output "Suppression du timeout de session..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
@@ -83,7 +83,7 @@ Function TweakDisableSessionLockTimeout {
 # cf : https://www.itninja.com/blog/view/using-secedit-to-apply-security-templates
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégie de comptes / Stratégie de mots de passe
 # Set
-Function TweakSetSecurityParamAccountPolicy {
+Function TweakSetSecurityParamAccountPolicy { # RESINFO
 	$tempFile = New-TemporaryFile
 	$tempInfFile = "$tempFile.inf"
 
@@ -112,7 +112,7 @@ EnableGuestAccount = $($Global:SWMB_Custom.EnableGuestAccount)
 }
 
 # Unset
-Function TweakUnsetSecurityParamAccountPolicy {
+Function TweakUnsetSecurityParamAccountPolicy { # RESINFO
 	# Nécessite un reboot
 	secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb
 }
@@ -122,7 +122,7 @@ Function TweakUnsetSecurityParamAccountPolicy {
 # NTP time service
 # https://docs.microsoft.com/fr-fr/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings
 # Set
-Function TweakSetNTPConfig {
+Function TweakSetNTPConfig { # RESINFO
 	w32tm /register
 	net start w32time
 	w32tm /config /manualpeerlist: "$($Global:SWMB_Custom.NTP_ManualPeerList)"
@@ -131,7 +131,7 @@ Function TweakSetNTPConfig {
 }
 
 # Unset
-Function TweakUnsetNTPConfig {
+Function TweakUnsetNTPConfig { # RESINFO
 	w32tm /unregister
 	net stop w32time
 }

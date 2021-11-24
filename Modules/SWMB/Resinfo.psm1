@@ -41,7 +41,7 @@ GUID       : 862ac9b1-a77b-408f-ae49-0dd500561860
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows /Antivirus Windows Defender / MAPS / Configurer une valeur de remplacement de paramètre locale pour l'envoi de rapports à Microsoft MAPS / Desactivé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::Spynet_LocalSettingOverrideSpynetReporting&Language=fr-fr
-Function TweakDisableOverrideReportingMAPS {
+Function TweakDisableOverrideReportingMAPS { # RESINFO
 	Write-Output "Disabling override for reporting to Microsoft MAPS..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Force | Out-Null
@@ -50,7 +50,7 @@ Function TweakDisableOverrideReportingMAPS {
 }
 
 # Enable
-Function TweakEnableOverrideReportingMAPS {
+Function TweakEnableOverrideReportingMAPS { # RESINFO
 	Write-Output "Enabling override for reporting to Microsoft MAPS..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "LocalSettingOverrideSpynetReporting" -Type DWord -Value 1 -ErrorAction SilentlyContinue
 }
@@ -58,7 +58,7 @@ Function TweakEnableOverrideReportingMAPS {
 # ANSSI Annexe A3
 # https://getadmx.com/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
 
-Function TweakDisableMRTReportInfectionInformation {
+Function TweakDisableMRTReportInfectionInformation { # RESINFO
 	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" | Out-Null
@@ -67,7 +67,7 @@ Function TweakDisableMRTReportInfectionInformation {
 }
 
 # Enable
-Function TweakEnableMRTReportInfectionInformation {
+Function TweakEnableMRTReportInfectionInformation { # RESINFO
 	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontReportInfectionInformation" -ErrorAction SilentlyContinue
 }
@@ -81,7 +81,7 @@ Function TweakEnableMRTReportInfectionInformation {
 # Computer Configuration\Administrative Templates\Windows Components\OOBE
 # https://docs.microsoft.com/fr-fr/windows/client-management/mdm/policy-csp-privacy#privacy-disableprivacyexperience
 # Disable
-Function TweakDisablePrivacyExperience {
+Function TweakDisablePrivacyExperience { # RESINFO
 	Write-Output "Disabling privacy experience from launching during user logon for new and upgraded users..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" -Force | Out-Null
@@ -90,7 +90,7 @@ Function TweakDisablePrivacyExperience {
 }
 
 # Enable
-Function TweakEnablePrivacyExperience {
+Function TweakEnablePrivacyExperience { # RESINFO
 	Write-Output "Enabling privacy experience from launching during user logon for new and upgraded users..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" -Name "DisablePrivacyExperience" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
@@ -100,7 +100,7 @@ Function TweakEnablePrivacyExperience {
 ### Enregistreur d'actions utilisateur
 # https://support.microsoft.com/en-us/help/22878/windows-10-record-steps
 # Disable
-Function TweakDisableStepsRecorder {
+Function TweakDisableStepsRecorder { # RESINFO
 	Write-Output "Disabling Windows steps recorder..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat" -Force | Out-Null
@@ -109,7 +109,7 @@ Function TweakDisableStepsRecorder {
 }
 
 # Enable
-Function TweakEnableStepsRecorder {
+Function TweakEnableStepsRecorder { # RESINFO
 	Write-Output "Enable Windows steps recorder..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat" -Name "DisableUAR" -ErrorAction SilentlyContinue
 }
@@ -120,7 +120,7 @@ Function TweakEnableStepsRecorder {
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4723
 # Disable
-Function TweakDisableDidYouKnow {
+Function TweakDisableDidYouKnow { # RESINFO
 	Write-Output "Turn off Help and Support Center Did you know? content..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Force | Out-Null
@@ -129,7 +129,7 @@ Function TweakDisableDidYouKnow {
 }
 
 # Enable
-Function TweakEnableDidYouKnow {
+Function TweakEnableDidYouKnow { # RESINFO
 	Write-Output "Turn on Help and Support Center Did you know? content..."
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
@@ -140,7 +140,7 @@ Function TweakEnableDidYouKnow {
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4754
 # Disable
-Function TweakDisableHandwritingDataSharing {
+Function TweakDisableHandwritingDataSharing { # RESINFO
 	Write-Output "Turn off handwriting personalization data sharing..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Force | Out-Null
@@ -149,7 +149,7 @@ Function TweakDisableHandwritingDataSharing {
 }
 
 # Enable
-Function TweakEnableHandwritingDataSharing {
+Function TweakEnableHandwritingDataSharing { # RESINFO
 	Write-Output "Turn on handwriting personalization data sharing..."
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
@@ -160,7 +160,7 @@ Function TweakEnableHandwritingDataSharing {
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4743
 # Disable
-Function TweakDisableHandwritingRecognitionErrorReporting {
+Function TweakDisableHandwritingRecognitionErrorReporting { # RESINFO
 	Write-Output "Turn off handwriting recognition error reporting..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Force | Out-Null
@@ -169,7 +169,7 @@ Function TweakDisableHandwritingRecognitionErrorReporting {
 }
 
 # Enable
-Function TweakEnableHandwritingRecognitionErrorReporting {
+Function TweakEnableHandwritingRecognitionErrorReporting { # RESINFO
 	Write-Output "Turn on handwriting recognition error reporting..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -ErrorAction SilentlyContinue
 }
@@ -180,7 +180,7 @@ Function TweakEnableHandwritingRecognitionErrorReporting {
 # ANSSI Annexe C1
 # https://gpsearch.azurewebsites.net/#4727
 # Disable
-Function TweakDisableWindowsErrorReporting {
+Function TweakDisableWindowsErrorReporting { # RESINFO
 	Write-Output "Turn off Windows error reporting..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\" -Force | Out-Null
@@ -189,7 +189,7 @@ Function TweakDisableWindowsErrorReporting {
 }
 
 # Enable
-Function TweakEnableWindowsErrorReporting {
+Function TweakEnableWindowsErrorReporting { # RESINFO
 	Write-Output "Turn on Windows error reporting..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting" -Name "DoReport" -ErrorAction SilentlyContinue
 }
@@ -201,7 +201,7 @@ Function TweakEnableWindowsErrorReporting {
 # https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_2
 # GPO Desactivé par défaut
 # Disable
-Function TweakDisableOsGeneratedReport {
+Function TweakDisableOsGeneratedReport { # RESINFO
 	Write-Output "Turn off OS-generated error reports"
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
@@ -210,7 +210,7 @@ Function TweakDisableOsGeneratedReport {
 }
 
 # Enable
-Function TweakEnableOsGeneratedReport {
+Function TweakEnableOsGeneratedReport { # RESINFO
 	Write-Output "Turn on OS-generated error reports"
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -ErrorAction SilentlyContinue
 }
@@ -222,7 +222,7 @@ Function TweakEnableOsGeneratedReport {
 # https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerNoSecondLevelData_2
 # GPO activé par défaut
 # Disable
-Function TweakDisableSendAdditionalData {
+Function TweakDisableSendAdditionalData { # RESINFO
 	Write-Output "Disable Error reporting Send Additional Data"
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
@@ -231,7 +231,7 @@ Function TweakDisableSendAdditionalData {
 }
 
 # Enable
-Function TweakEnableSendAdditionalData {
+Function TweakEnableSendAdditionalData { # RESINFO
 	Write-Output "Enable Error reporting Send Additional Data"
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -ErrorAction SilentlyContinue
 }
@@ -241,7 +241,7 @@ Function TweakEnableSendAdditionalData {
 # Configuration ordinateur / Modèles d'administration / Panneau de Configuration / Options Regionales et Linguistiques / Personnalisation de l'écriture manuscrite / Désactiver l’apprentissage automatique / Activé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.Globalization::ImplicitDataCollectionOff_2
 # Disable
-Function TweakDisableAutomaticLearning {
+Function TweakDisableAutomaticLearning { # RESINFO
 	Write-Output "Turn off automatic learning..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
@@ -251,7 +251,7 @@ Function TweakDisableAutomaticLearning {
 }
 
 # Enable
-Function TweakEnableAutomaticLearning {
+Function TweakEnableAutomaticLearning { # RESINFO
 	Write-Output "Turn on automatic learning..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
@@ -267,7 +267,7 @@ Function TweakEnableAutomaticLearning {
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore /Afficher uniquement le magasin privé dans l'application du windows store / activé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RequirePrivateStoreOnly_2&Language=fr-fr
-Function TweakDisablePrivateStoreOnly {
+Function TweakDisablePrivateStoreOnly { # RESINFO
 	Write-Output "Disable PrivateStoreOnly..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
@@ -276,7 +276,7 @@ Function TweakDisablePrivateStoreOnly {
 }
 
 # Enable
-Function TweakEnablePrivateStoreOnly {
+Function TweakEnablePrivateStoreOnly { # RESINFO
 	Write-Output "Enable PrivateStoreOnly..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
@@ -289,7 +289,7 @@ Function TweakEnablePrivateStoreOnly {
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Desactiver l'application / active
 # Disable
-Function TweakDisableWindowsStore {
+Function TweakDisableWindowsStore { # RESINFO
 	Write-Output "Disable Windows Store..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
@@ -298,7 +298,7 @@ Function TweakDisableWindowsStore {
 }
 
 # Enable
-Function TweakEnableWindowsStore {
+Function TweakEnableWindowsStore { # RESINFO
 	Write-Output "Enable Windows Store..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
@@ -309,7 +309,7 @@ Function TweakEnableWindowsStore {
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Désactiver toutes les applications du Windows Store / activé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::DisableStoreApps&Language=fr-fr
 # Disable
-Function TweakDisableStoreApps {
+Function TweakDisableStoreApps { # RESINFO
 	Write-Output "Disable StoreApps..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
@@ -318,7 +318,7 @@ Function TweakDisableStoreApps {
 }
 
 # Enable
-Function TweakEnableStoreApps {
+Function TweakEnableStoreApps { # RESINFO
 	Write-Output "Enable StoreApps..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
@@ -326,7 +326,7 @@ Function TweakEnableStoreApps {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "DisableStoreApps" -Type DWord -Value 0
 }
 
-Function TweakDisableAppsAccessAccount {
+Function TweakDisableAppsAccessAccount { # RESINFO
 	Write-Output "Windows apps are not allowed to access account information..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
@@ -337,7 +337,7 @@ Function TweakDisableAppsAccessAccount {
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessAccountInfo_ForceAllowTheseApps" -Type MultiString -value $null -Force | Out-Null
 }
 
-Function TweakEnableAppsAccessAccount {
+Function TweakEnableAppsAccessAccount { # RESINFO
 	Write-Output "Windows apps access account information not configured..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessAccountInfo" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessAccountInfo_ForceDenyTheseApps" -ErrorAction SilentlyContinue
@@ -352,7 +352,7 @@ Function TweakEnableAppsAccessAccount {
 
 # Configuration Ordinateur / Paramètres Windows / Paramètres de Sécurité / Stratégies Locales / Options de sécurité / Comptes : Bloquer les comptes Microsoft /  Les utilisateurs ne peuvent pas ajouter de comptes Microsoft ni se connecter avec ces derniers
 # Disable
-Function TweakDisableMicrosoftAccount {
+Function TweakDisableMicrosoftAccount { # RESINFO
 	Write-Output "Block Microsoft Account..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
@@ -361,7 +361,7 @@ Function TweakDisableMicrosoftAccount {
 }
 
 # Enable
-Function TweakEnableMicrosoftAccount {
+Function TweakEnableMicrosoftAccount { # RESINFO
 	Write-Output "Enable Microsoft Account..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
@@ -374,7 +374,7 @@ Function TweakEnableMicrosoftAccount {
 # https://www.minitool.com/news/disable-windows-hello.html
 # Computer Configuration -> Administrative Templates -> System -> Logon : Turn on PIN sign-in and select Disabled.
 # Disable
-Function TweakDisableWindowsHello {
+Function TweakDisableWindowsHello { # RESINFO
 	Write-Output "Block Windows Hello Authentification..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Force | Out-Null
@@ -383,7 +383,7 @@ Function TweakDisableWindowsHello {
 }
 
 # Enable
-Function TweakEnableWindowsHello {
+Function TweakEnableWindowsHello { # RESINFO
 	Write-Output "Enable Windows Hello Authentification..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Force | Out-Null
@@ -399,7 +399,7 @@ Function TweakEnableWindowsHello {
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona au-dessus de l'écran de verouillage / desactivé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCortanaAboveLock&Language=fr-fr
 # ANSSI Annexe B1
-Function TweakDisableCortanaAboveLock {
+Function TweakDisableCortanaAboveLock { # RESINFO
 	Write-Output "Disable Cortana AboveLock..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -408,7 +408,7 @@ Function TweakDisableCortanaAboveLock {
 }
 
 # Enable
-Function TweakEnableCortanaAboveLock {
+Function TweakEnableCortanaAboveLock { # RESINFO
 	Write-Output "Enable Cortana AboveLock..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -419,7 +419,7 @@ Function TweakEnableCortanaAboveLock {
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser l'indexation des fichiers chiffrés / desactivé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowIndexingEncryptedStoresOrItems
 # ANSSI Annexe B1
-Function TweakDisableIndexingEncryptedStores {
+Function TweakDisableIndexingEncryptedStores { # RESINFO
 	Write-Output "Disable IndexingEncryptedStores..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -428,7 +428,7 @@ Function TweakDisableIndexingEncryptedStores {
 }
 
 # Enable
-Function TweakEnableIndexingEncryptedStores {
+Function TweakEnableIndexingEncryptedStores { # RESINFO
 	Write-Output "Allow IndexingEncryptedStores..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -439,7 +439,7 @@ Function TweakEnableIndexingEncryptedStores {
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Définir quelles informations sont partagées dans search / activé type => informations anonymes
 # https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::SearchPrivacy
 # ANSSI Annexe B1
-Function TweakDisableSharedInformationSearch {
+Function TweakDisableSharedInformationSearch { # RESINFO
 	Write-Output "Anonymous information is shared in Search..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -448,7 +448,7 @@ Function TweakDisableSharedInformationSearch {
 }
 
 # Enable
-Function TweakEnableSharedInformationSearch {
+Function TweakEnableSharedInformationSearch { # RESINFO
 	Write-Output "User info and location is shared in Search..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -459,7 +459,7 @@ Function TweakEnableSharedInformationSearch {
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
 # https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::DoNotUseWebResults
 # ANSSI Annexe B1
-Function TweakDisableDisplayWebResults {
+Function TweakDisableDisplayWebResults { # RESINFO
 	Write-Output "Don't search the web or display web results in Search..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -468,7 +468,7 @@ Function TweakDisableDisplayWebResults {
 }
 
 # Enable
-Function TweakEnableDisplayWebResults {
+Function TweakEnableDisplayWebResults { # RESINFO
 	Write-Output "Web results will be displayed ..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -481,7 +481,7 @@ Function TweakEnableDisplayWebResults {
 # Paramètres du profil de domaine | Paramètres du profil privé | Paramètres du profil public
 
 # Disable Firewall
-Function TweakDisableDomainProfile {
+Function TweakDisableDomainProfile { # RESINFO
 	Write-Output "Disabling Domain Profile..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" -Force | Out-Null
@@ -489,7 +489,7 @@ Function TweakDisableDomainProfile {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" -Name "EnableFirewall" -Type DWord -Value 0
 }
 
-Function TweakDisablePrivateProfile {
+Function TweakDisablePrivateProfile { # RESINFO
 	Write-Output "Disabling Private Profile..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -Force | Out-Null
@@ -497,7 +497,7 @@ Function TweakDisablePrivateProfile {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -Name "EnableFirewall" -Type DWord -Value 0
 }
 
-Function TweakDisablePublicProfile {
+Function TweakDisablePublicProfile { # RESINFO
 	Write-Output "Disabling Public Profile..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" -Force | Out-Null
@@ -506,7 +506,7 @@ Function TweakDisablePublicProfile {
 }
 
 # Enable Firewall
-Function TweakEnableDomainProfile {
+Function TweakEnableDomainProfile { # RESINFO
 	Write-Output "Enabling Domain Profile..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" -Force | Out-Null
@@ -516,7 +516,7 @@ Function TweakEnableDomainProfile {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" -Name "DefaultOutboundAction" -Type DWord -Value 0
 }
 
-Function TweakEnablePrivateProfile {
+Function TweakEnablePrivateProfile { # RESINFO
 	Write-Output "Enabling Private Profile..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -Force | Out-Null
@@ -527,7 +527,7 @@ Function TweakEnablePrivateProfile {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" -Name "DoNotAllowExceptions" -Type DWord -Value 1
 }
 
-Function TweakEnablePublicProfile {
+Function TweakEnablePublicProfile { # RESINFO
 	Write-Output "Enabling Public Profile..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" -Force | Out-Null
@@ -545,7 +545,7 @@ Function TweakEnablePublicProfile {
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.PowerManagement::DCStandbyWithHiberfileEnable_2
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.PowerManagement::ACStandbyWithHiberfileEnable_2
 # Disable
-Function TweakDisableHybridSleep {
+Function TweakDisableHybridSleep { # RESINFO
 	Write-Output "Turn off hybrid sleep (plugged in and battery)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e" -Force | Out-Null
@@ -555,7 +555,7 @@ Function TweakDisableHybridSleep {
 }
 
 # Enable
-Function TweakEnableHybridSleep {
+Function TweakEnableHybridSleep { # RESINFO
 	Write-Output "Turn on hybrid sleep (plugged in and battery)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e" -Force | Out-Null
@@ -570,7 +570,7 @@ Function TweakEnableHybridSleep {
 ################################################################
 
 # Enable
-Function TweakEnableBitlocker {
+Function TweakEnableBitlocker { # RESINFO
 	## PowerShell bitlocker commands
 	# https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
 
@@ -857,7 +857,7 @@ Function TweakEnableBitlocker {
 }
 
 # Disable
-Function TweakDisableBitlocker {
+Function TweakDisableBitlocker { # RESINFO
 	$listVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" }
 	Foreach ($volume in $listVolume) {
 		If (-not ($volume.DriveLetter)) { continue }

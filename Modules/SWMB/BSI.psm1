@@ -32,13 +32,13 @@
 # Par défaut cette clé ne semble pas exister, on l'efface donc en fonction Disable, comme avant
 
 # Disable
-Function TweakDisableAutologgerDiagTrack {
+Function TweakDisableAutologgerDiagTrack { # RESINFO
 	Write-Output "Désactivation du Autologger-DiagTrack-Listener..."
 	Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
 }
 
 # Enable
-Function TweakEnableAutologgerDiagTrack {
+Function TweakEnableAutologgerDiagTrack { # RESINFO
 	Write-Output "Activation du Autologger-DiagTrack-Listener..."
 	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener")) {
 		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
@@ -47,7 +47,7 @@ Function TweakEnableAutologgerDiagTrack {
 }
 
 # View
-Function TweakViewEnableAutologgerDiagTrack {
+Function TweakViewEnableAutologgerDiagTrack { # RESINFO
 	Write-Output 'Autologger-DiagTrack-Listener (0 no or not exist, 2 activated)'
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start"
 }
@@ -57,13 +57,13 @@ Function TweakViewEnableAutologgerDiagTrack {
 # Désactivation des anciennes versions de PowerShell (2.0) qui ne proposent pas les fonctionnalités de sécurité avancées
 
 # Disable
-Function TweakDisablePowershell2 {
+Function TweakDisablePowershell2 { # RESINFO
 	Write-Output "Désactivation des anciennes versions de Powershell(2)..."
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
 # Enable
-Function TweakEnablePowershell2 {
+Function TweakEnablePowershell2 { # RESINFO
 	Write-Output "Activation des anciennes versions de Powershell(2)..."
 	Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
@@ -74,13 +74,13 @@ Function TweakEnablePowershell2 {
 #PAS ENCORE FAIT
 
 # Disable
-Function TweakDisableRemotePowershell {
+Function TweakDisableRemotePowershell { # RESINFO
 	Write-Output "Désactivation de l'utilisation de PowerShell à distance"
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
 # Enable
-Function TweakEnableRemotePowershell {
+Function TweakEnableRemotePowershell { # RESINFO
 	Write-Output "Activation de l'utilisation de PowerShell à distance"
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }

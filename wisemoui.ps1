@@ -77,7 +77,7 @@ $BtnBitlockerAction.Text = "$BitlockerAction"
 $Form.Controls.Add($BtnBitlockerAction)
 $BtnBitlockerAction.Add_Click({
 	If ($BitlockerAction -eq "Suspend") {
-		Suspend-BitLocker -MountPoint "$Env:SystemDrive" -RebootCount 0
+		Get-BitLockerVolume | Suspend-BitLocker -RebootCount 0
 		$BitlockerAction = "Halt"
 		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive $Env:SystemDrive
 		$BtnBitlockerAction.Text = "Please Halt for your Maintenance"

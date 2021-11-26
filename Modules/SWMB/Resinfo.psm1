@@ -819,77 +819,91 @@ Function TweakEnableBitlocker { # RESINFO
 		Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "OSRequireActiveDirectoryBackup" -Value 0
 
 		# Update GPO
-		gpupdate
+		# gpupdate
+		Invoke-GPUpdate -Force
 	}
 
-	# Begin main program
-	$DateNow           = (Get-Date).ToString("yyyyMMddhhmm")
-	$SystemDrive       = $Env:SystemDrive
-	$SystemDriveLetter = $SystemDrive.Substring(0, 1)
+	Function _EncryptAllDrives() {
+		# Preliminary Test on SecureBoot and TPM
+		If (!(Confirm-SecureBootUEFI)) {
+			Write-Error "SecureBoot is OFF!"
+			Return
+		}
+		If (!(Get-Tpm).TpmReady) {
+			Write-Output "Get-TPM informations"
+			Get-Tpm
+			Write-Error "TPM not ready!"
+			Return
+		}
 
-	$DrivePStatus = (Get-BitLockerVolume $SystemDrive).ProtectionStatus
-	$DriveVStatus = (Get-BitLockerVolume $SystemDrive).VolumeStatus
-	$DriveEMethod = (Get-BitLockerVolume $SystemDrive).EncryptionMethod
+		$DateNow           = (Get-Date).ToString("yyyyMMddhhmm")
+		$SystemDrive       = $Env:SystemDrive
+		$SystemDriveLetter = $SystemDrive.Substring(0, 1)
+
+		$DrivePStatus = (Get-BitLockerVolume $SystemDrive).ProtectionStatus
+		$DriveVStatus = (Get-BitLockerVolume $SystemDrive).VolumeStatus
+		$DriveEMethod = (Get-BitLockerVolume $SystemDrive).EncryptionMethod
+
+		If (($DriveVStatus -eq "FullyDecrypted") -and ((Get-BitLockerVolume $SystemDrive).KeyProtector)) {
+			Write-Warning "Your are FullyDecrypted with a Key protector. Your computer need reboot"
+			Return
+		}
+
+		If ($DriveEMethod -eq "None") {
+			# use network to save key ?
+			$NetworkBackup = _NetworkKeyBackup -wantToSave $false
+
+			# Disk ready for encryption
+			_EnforceCryptGPO
+			_EncryptSytemDrive -networkKeyBackupFolder $NetworkBackup
+			_EncryptNonSytemDrives -networkKeyBackupFolder $NetworkBackup
+
+			$reboot = Read-Host -Prompt "The computer must be restarted to finish the system disk encryption. Reboot now? [Y/n]"
+			If ($reboot.ToLower() -ne "n") {
+				Restart-Computer -Force
+			}
+		} ElseIf ($DriveEMethod -eq "XtsAes256") {
+			# Disk crypt but...
+			If (($DriveVStatus -eq "DecryptionInProgress") -or ($DriveVStatus -eq "EncryptionInProgress")) {
+				Write-Warning "Operation in progress on your $Env:SystemDrive => $DriveVStatus"
+				Write-Output ("Stop and try later - Encryption percentage = " + (Get-BitLockerVolume $SystemDrive).EncryptionPercentage)
+				Return
+			} Else {
+				If ($DrivePStatus -eq "On") {
+					Write-Warning "Your $Env:SystemDrive is already encrypt (XtsAes256) and activated"
+					Write-Output "Nothing to do on System drive !"
+
+					# use network to save key ?
+					$NetworkBackup = _NetworkKeyBackup -wantToSave $false
+					_EncryptNonSytemDrives -networkKeyBackupFolder $NetworkBackup
+					Return
+				} Else {
+					Write-Output "Bitlocker is suspend, resume with :"
+					Write-Output "Resume-BitLocker $SystemDrive ... and save your key"
+					Return
+				}
+			}
+		} ElseIf ($DriveEMethod -ne "XtsAes256") {
+			# Disk crypt but not with XtsAes256
+			Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256, the encryption is $DriveEMethod"
+			Write-Output "Decrypt with command : .\swmb.ps1 DisableBitlocker"
+			Return
+		}
+	}
+
+	$AskCrypt = Read-Host -Prompt "Activation bitlocker - Do you really want to crypt your system? [Y/n]"
+	If ($AskCrypt.ToLower() -ne "n") {
+		Return
+	}
 
 	If (!(Get-Eventlog -LogName Application -Source "SWMB")){
 		New-EventLog -LogName Application -Source "SWMB"
 	}
 
-	If (!(Confirm-SecureBootUEFI)) {
-		Write-Error "SecureBoot is OFF!"
-		Return
-	}
-	If (!(Get-Tpm).TpmReady) {
-		Write-Output "Get-TPM informations"
-		Get-Tpm
-		Write-Error "TPM not ready!"
-		Return
-	}
+	_EncryptAllDrives
 
-	If (($DriveVStatus -eq "FullyDecrypted") -and ((Get-BitLockerVolume $SystemDrive).KeyProtector)) {
-		Write-Warning "Your are FullyDecrypted with a Key protector. Your computer need reboot"
-		return
-	}
-
-	If ($DriveEMethod -eq "None") {
-		# use network to save key ?
-		$NetworkBackup = _NetworkKeyBackup -wantToSave $false
-
-		# Disk ready for encryption
-		_EnforceCryptGPO
-		_EncryptSytemDrive -networkKeyBackupFolder $NetworkBackup
-		_EncryptNonSytemDrives -networkKeyBackupFolder $NetworkBackup
-
-		$reboot = Read-Host -Prompt "The computer must be restarted to finish the system disk encryption. Reboot now? [Y/n]"
-		If ($reboot.ToLower() -ne "n") {
-			Restart-Computer -Force
-		}
-	} ElseIf ($DriveEMethod -eq "XtsAes256") {
-		# Disk crypt but...
-		If (($DriveVStatus -eq "DecryptionInProgress") -or ($DriveVStatus -eq "EncryptionInProgress")) {
-			Write-Warning "Operation in progress on your $Env:SystemDrive => $DriveVStatus"
-			Write-Output ("Stop and try later - Encryption percentage = " + (Get-BitLockerVolume $SystemDrive).EncryptionPercentage)
-			Return
-		} Else {
-			If ($DrivePStatus -eq "On") {
-				Write-Warning "Your $Env:SystemDrive is already encrypt (XtsAes256) and activated"
-				Write-Output "Nothing to do on System drive !"
-
-				# use network to save key ?
-				$NetworkBackup = _NetworkKeyBackup -wantToSave $false
-				_EncryptNonSytemDrives -networkKeyBackupFolder $NetworkBackup
-				Return
-			} Else {
-				Write-Output "Bitlocker is suspend, resume with :"
-				Write-Output "Resume-BitLocker $SystemDrive ... and save your key"
-			}
-		}
-	} ElseIf ($DriveEMethod -ne "XtsAes256") {
-		# Disk crypt but not with XtsAes256
-		Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256, the encryption is $DriveEMethod"
-		Write-Output "Decrypt with command : .\swmb.ps1 DisableBitlocker"
-		Return
-	}
+	Write-Output "`nActivation bitlocker - Press any key to finish..."
+	[Console]::ReadKey($true) | Out-Null
 }
 
 # Disable
@@ -907,13 +921,13 @@ Function TweakDisableBitlocker { # RESINFO
 # Suspend or Resume Bitlocker
 # Set
 Function TweakSetBitlockerActive { # RESINFO
-	Write-Output "Set bitlocker on all crypt drive (resume)..."
+	Write-Output "Set bitlocker on all crypt drive (Resume)..."
 	Get-BitLockerVolume | Resume-BitLocker
 }
 
 # Unset
 Function TweakUnsetBitlockerActive { # RESINFO
-	Write-Output "Unset bitlocker on all crypt drive (suspend)..."
+	Write-Output "Unset bitlocker on all crypt drive (Suspend)..."
 	Get-BitLockerVolume | Suspend-BitLocker -RebootCount 0
 }
 

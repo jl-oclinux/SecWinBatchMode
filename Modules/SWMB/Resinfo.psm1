@@ -851,10 +851,10 @@ Function TweakEnableBitlocker { # RESINFO
 		return
 	}
 
-	# use network to save key ?
-	$NetworkBackup = _NetworkKeyBackup -wantToSave $false
-
 	If ($DriveEMethod -eq "None") {
+		# use network to save key ?
+		$NetworkBackup = _NetworkKeyBackup -wantToSave $false
+
 		# Disk ready for encryption
 		_EnforceCryptGPO
 		_EncryptSytemDrive -networkKeyBackupFolder $NetworkBackup
@@ -874,6 +874,9 @@ Function TweakEnableBitlocker { # RESINFO
 			If ($DrivePStatus -eq "On") {
 				Write-Warning "Your $Env:SystemDrive is already encrypt (XtsAes256) and activated"
 				Write-Output "Nothing to do on System drive !"
+
+				# use network to save key ?
+				$NetworkBackup = _NetworkKeyBackup -wantToSave $false
 				_EncryptNonSytemDrives -networkKeyBackupFolder $NetworkBackup
 				Return
 			} Else {

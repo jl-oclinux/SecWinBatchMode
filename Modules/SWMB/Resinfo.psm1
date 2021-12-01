@@ -892,7 +892,7 @@ Function TweakEnableBitlocker { # RESINFO
 	}
 
 	$AskCrypt = Read-Host -Prompt "Activation bitlocker - Do you really want to crypt your system? [Y/n]"
-	If ($AskCrypt.ToLower() -ne "n") {
+	If ($AskCrypt.ToLower() -eq "n") {
 		Return
 	}
 

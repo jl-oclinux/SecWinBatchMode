@@ -16,6 +16,6 @@ graph TD
    Node256[Algo XtsAes256 - check VolumeStatus] --> |Not in Progress| NotProgress
    NotProgress[Correct Algo check Protection Status] --> |on| nothing[Nothing to do - already encrypt]
    NotProgress[Correct Algo check Protection Status] --> |off| suspend[Protection is suspend] --> resume[Resume your drive]
-   NodeOther[Not the correct algo] --> Not256[not in Xs256, use DisableBitlocker command]
+   NodeOther[Not the correct algo] --> Not256[not in XtsAes256 algo, use DisableBitlocker command]
 
   ``` 

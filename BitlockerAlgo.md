@@ -14,8 +14,8 @@ graph TD
    NodeNone[Ready for encryption] --> gpo[GPO] --> encrypt[Encrypt] --> OtherDrive
    Node256[Algo XtsAes256 - check VolumeStatus] --> |in Progress| InProgress[Encryption or decryption in progress] --> Stop
    Node256[Algo XtsAes256 - check VolumeStatus] --> |Not in Progress| NotProgress
-   NotProgress[Right Algo check Protection Status] --> |on| nothing[Nothing to do - already encrypt]
-   NotProgress[Right Algo check Protection Status] --> |off| suspend[Protection is suspend] --> resume[Resume your drive]
-   NodeOther[Not the right alogo] --> Not256[not in Xs256, use DisableBitlocker command]
+   NotProgress[Correct Algo check Protection Status] --> |on| nothing[Nothing to do - already encrypt]
+   NotProgress[Correct Algo check Protection Status] --> |off| suspend[Protection is suspend] --> resume[Resume your drive]
+   NodeOther[Not the correct algo] --> Not256[not in Xs256, use DisableBitlocker command]
 
   ``` 

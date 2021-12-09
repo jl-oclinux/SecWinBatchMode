@@ -89,7 +89,7 @@ Function ActivatedPresetWindow
   nsDialogs::Create 1018
   Pop $0
 
-  ${NSD_CreateLabel} 0 40u 75% 40u "SWMB will install two Schedule tasks.$\nOne at boot and one at current user logon.$\nThese tasks will apply a default tweaks preset."
+  ${NSD_CreateLabel} 0 40u 75% 40u "SWMB will install two Schedule tasks.$\nOne at boot and one at current user logon.$\nThese tasks will apply a default tweaks preset.$\nPlease note that these default presets were developed as part$\nof a corporate strategy with centralized internal authentication."
   Pop $0
 
   ${NSD_CreateCheckbox} 0 -50 100% 8u "Deploy and active default preset (tweaks) for task"

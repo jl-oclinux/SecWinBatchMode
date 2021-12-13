@@ -71,6 +71,9 @@ More references on the page [REFERENCES](./REFERENCES.md).
 You can find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ the latest versions of the SWMB installer.
 These setup packages are made with the NSIS software.
 
+![SWMB Graphical Installer 1](Images/swmb-setup-1.png)
+![SWMB Graphical Installer 2](Images/swmb-setup-2.png)
+
 It is possible to do a silent installation with the `/S` flag.
 The `/ACTIVATED_PRESET` flag can be set to 0 if you do not want the default presets
 to be installed for predefined scheduled tasks (see [Tasks](#task)).

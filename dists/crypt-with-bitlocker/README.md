@@ -5,6 +5,8 @@ this one has to be done only once.
 Generally, we will do this encryption step during the installation of the computer,
 at the end of it.
 
+The algorithm for choosing whether or not to encrypt is quite complex.
+It can be summarized in this [diagram](ALGORITHM.md).
 
 ## Prerequisites
 

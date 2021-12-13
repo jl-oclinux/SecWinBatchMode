@@ -72,6 +72,7 @@ Function TweakEnablePowershell2 { # RESINFO
 
 # Désactivation de l'utilisation de PowerShell à distance
 #PAS ENCORE FAIT
+#EDITION DU 1-12-2021
 
 # Disable
 Function TweakDisableRemotePowershell { # RESINFO # Experimental

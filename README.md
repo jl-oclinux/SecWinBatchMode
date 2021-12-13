@@ -69,7 +69,8 @@ More references on the page [REFERENCES](./REFERENCES.md).
 ## Installation
 
 You can find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ the latest versions of the SWMB installer.
-These setup packages are made with the NSIS software.
+These setup packages are made with the [NSIS](https://sf.net/projects/nsis/) software (Nullsoft Scriptable Install System).
+It is possible not to install and activate scheduled tasks at computer startup and user logon.
 
 ![SWMB Graphical Installer 1](Images/swmb-setup-1.png)
 ![SWMB Graphical Installer 2](Images/swmb-setup-2.png)

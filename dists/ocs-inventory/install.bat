@@ -23,13 +23,16 @@ SWMB-Setup-%softversion%.exe /S
 REM ajoute les droits pour l'execution de scripts powershell
 %pwrsh% Set-ExecutionPolicy RemoteSigned -Force -Scope LocalMachine
 
-REM droits execution sur swmb.ps1
+REM droits execution sur swmb.ps1 et wisemoui.ps1
 %pwrsh% "Unblock-File -Path ${env:ProgramFiles}\SWMB\swmb.ps1"
+%pwrsh% "Unblock-File -Path ${env:ProgramFiles}\SWMB\wisemoui.ps1"
 
-REM execeution de swmb.ps1
-ECHO SWMBPowershell>>%logfile% 2>&1
-C:
-CD "C:\Program Files\SWMB"
-%pwrsh% -File "C:\Program Files\SWMB\swmb.ps1" -import "Modules\SWMB\Custom.psm1" -preset "Presets\LocalMachine-Default.preset" >>%logfile% 2>&1
+REM execution de swmb.ps1
+REM ECHO SWMBPowershell>>%logfile% 2>&1
+REM C:
+REM CD "C:\Program Files\SWMB"
+REM %pwrsh% -File "C:\Program Files\SWMB\swmb.ps1" -import "Modules\SWMB\Custom.psm1" -preset "Presets\LocalMachine-Default.preset" >>%logfile% 2>&1
+REM execution de la tache au boot
+%pwrsh% -Command "&{Start-ScheduledTask -TaskName 'SWMB-LocalMachine-Boot'}"
 
 EXIT

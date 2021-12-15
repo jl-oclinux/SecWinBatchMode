@@ -202,13 +202,13 @@ Function SWMB_AddOrRemoveTweak() {
 		# Import the file as a module, wildcard possible
 		$ModuleFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$IMPORT\s+"([^"]+)"', '$1'))
 		Resolve-Path $ModuleFile -ErrorAction Stop | ForEach-Object {
-			Import-Module -Name "$_.Path" -ErrorAction Stop
+			Import-Module -Name "$_" -ErrorAction Stop
 		}
 	} ElseIf ($Tweak -cmatch '^\$IMPORT\s+[^\s]') {
 		# Import the file as a module, wildcard possible
 		$ModuleFile = (_MergePath -Path $Path -FilePath ($Tweak -creplace '^\$IMPORT\s+([^\s])', '$1'))
 		Resolve-Path $ModuleFile -ErrorAction Stop | ForEach-Object {
-			Import-Module -Name "$_.Path" -ErrorAction Stop
+			Import-Module -Name "$_" -ErrorAction Stop
 		}
 	} ElseIf ($Tweak -ne "") {
 		# Otherwise add the tweak

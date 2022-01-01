@@ -11,11 +11,10 @@ graph TD
    Node5[EncryptionMethod] --> |None| NodeNone
    Node5[EncryptionMethod] --> |XtsAes256| Node256
    Node5[EncryptionMethod] --> |Other| NodeOther
-   NodeNone{Ready for encryption} --> gpo(apply GPO) --> encrypt(Encrypt) --> OtherDrive(Check Othe Drive) 
-   Node256[Algo XtsAes256 - check VolumeStatus] --> |in Progress| InProgress{Encryption or decryption in progress} --> Stop(Stop)
+   NodeNone{{Ready for encryption}} --> gpo(apply GPO) --> encrypt(Encrypt) --> OtherDrive(Check Othe Drive) 
+   Node256[Algo XtsAes256 - check VolumeStatus] --> |in Progress| InProgress{{Encryption or decryption in progress}} --> Stop(Stop)
    Node256[Algo XtsAes256 - check VolumeStatus] --> |Not in Progress| NotProgress
-   NotProgress[Correct Algo check Protection Status] --> |on| already{already encrypt} --> nothing(Nothing to do)
-   NotProgress[Correct Algo check Protection Status] --> |off| suspend{Protection is suspend} --> resume(Resume your drive)
-   NodeOther{Not the correct algo} --> Not256(not in XtsAes256 algo, use DisableBitlocker command)
-
+   NotProgress[Correct Algo check Protection Status] --> |on| already{{already encrypt}} --> nothing(Nothing to do)
+   NotProgress[Correct Algo check Protection Status] --> |off| suspend{{Protection is suspend}} --> resume(Resume your drive)
+   NodeOther{{Not the correct algo}} --> Not256(not in XtsAes256 algo, use DisableBitlocker command)
   ``` 

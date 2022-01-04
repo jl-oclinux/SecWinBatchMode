@@ -40,7 +40,7 @@ GUID       : 862ac9b1-a77b-408f-ae49-0dd500561860
 ################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows /Antivirus Windows Defender / MAPS / Configurer une valeur de remplacement de paramètre locale pour l'envoi de rapports à Microsoft MAPS / Desactivé
-# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::Spynet_LocalSettingOverrideSpynetReporting&Language=fr-fr
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::Spynet_LocalSettingOverrideSpynetReporting&Language=fr-fr
 Function TweakDisableOverrideReportingMAPS { # RESINFO
 	Write-Output "Disabling override for reporting to Microsoft MAPS..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet")) {
@@ -58,7 +58,7 @@ Function TweakEnableOverrideReportingMAPS { # RESINFO
 ################################################################
 
 # ANSSI Annexe A3
-# https://getadmx.com/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
+# https://admx.help/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
 
 Function TweakDisableMRTReportInfectionInformation { # RESINFO
 	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
@@ -200,7 +200,7 @@ Function TweakEnableWindowsErrorReporting { # RESINFO
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Envoyer automatiquement des images mémoires pour les rapports
 # key AutoApproveOSDumps
-# https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_2
+# https://admx.help/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_2
 # GPO Desactivé par défaut
 # Disable
 Function TweakDisableOsGeneratedReport { # RESINFO
@@ -221,7 +221,7 @@ Function TweakEnableOsGeneratedReport { # RESINFO
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Ne pas envoyer des données complémentaires
 # key DontSendAdditionalData
-# https://getadmx.com/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerNoSecondLevelData_2
+# https://admx.help/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerNoSecondLevelData_2
 # GPO activé par défaut
 # Disable
 Function TweakDisableSendAdditionalData { # RESINFO
@@ -241,7 +241,7 @@ Function TweakEnableSendAdditionalData { # RESINFO
 ################################################################
 
 # Configuration ordinateur / Modèles d'administration / Panneau de Configuration / Options Regionales et Linguistiques / Personnalisation de l'écriture manuscrite / Désactiver l’apprentissage automatique / Activé
-# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.Globalization::ImplicitDataCollectionOff_2
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Globalization::ImplicitDataCollectionOff_2
 # Disable
 Function TweakDisableAutomaticLearning { # RESINFO
 	Write-Output "Turn off automatic learning..."
@@ -268,7 +268,7 @@ Function TweakEnableAutomaticLearning { # RESINFO
 ################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore /Afficher uniquement le magasin privé dans l'application du windows store / activé
-# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RequirePrivateStoreOnly_2&Language=fr-fr
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RequirePrivateStoreOnly_2&Language=fr-fr
 Function TweakDisablePrivateStoreOnly { # RESINFO
 	Write-Output "Disable PrivateStoreOnly..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
@@ -289,7 +289,7 @@ Function TweakEnablePrivateStoreOnly { # RESINFO
 ################################################################
 
 ### Déactiver le Windows Store
-# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Desactiver l'application / active
 # Disable
 Function TweakDisableWindowsStore { # RESINFO
@@ -312,7 +312,7 @@ Function TweakEnableWindowsStore { # RESINFO
 ################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Désactiver toutes les applications du Windows Store / activé
-# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::DisableStoreApps&Language=fr-fr
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::DisableStoreApps&Language=fr-fr
 # Disable
 Function TweakDisableStoreApps { # RESINFO
 	Write-Output "Disable StoreApps..."
@@ -406,7 +406,7 @@ Function TweakEnableWindowsHello { # RESINFO
 ################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona au-dessus de l'écran de verouillage / desactivé
-# https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCortanaAboveLock&Language=fr-fr
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCortanaAboveLock&Language=fr-fr
 # ANSSI Annexe B1
 Function TweakDisableCortanaAboveLock { # RESINFO
 	Write-Output "Disable Cortana AboveLock..."
@@ -428,7 +428,7 @@ Function TweakEnableCortanaAboveLock { # RESINFO
 ################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser l'indexation des fichiers chiffrés / desactivé
-# https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowIndexingEncryptedStoresOrItems
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowIndexingEncryptedStoresOrItems
 # ANSSI Annexe B1
 Function TweakDisableIndexingEncryptedStores { # RESINFO
 	Write-Output "Disable IndexingEncryptedStores..."
@@ -450,7 +450,7 @@ Function TweakEnableIndexingEncryptedStores { # RESINFO
 ################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Définir quelles informations sont partagées dans search / activé type => informations anonymes
-# https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::SearchPrivacy
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::SearchPrivacy
 # ANSSI Annexe B1
 Function TweakDisableSharedInformationSearch { # RESINFO
 	Write-Output "Anonymous information is shared in Search..."
@@ -472,7 +472,7 @@ Function TweakEnableSharedInformationSearch { # RESINFO
 ################################################################
 
 # Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
-# https://getadmx.com/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::DoNotUseWebResults
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::DoNotUseWebResults
 # ANSSI Annexe B1
 Function TweakDisableDisplayWebResults { # RESINFO
 	Write-Output "Don't search the web or display web results in Search..."
@@ -767,7 +767,7 @@ Function TweakEnableBitlocker { # RESINFO
 
 	Function _EnforceCryptGPO() {
 		# All registry keys :
-		# https://getadmx.com/HKLM/Software/Policies/Microsoft/FVE
+		# https://admx.help/HKLM/Software/Policies/Microsoft/FVE
 		If (-not (Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE")) {
 			New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "FVE"
 		}

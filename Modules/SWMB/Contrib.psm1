@@ -55,7 +55,7 @@ Function TweakDisableGodMod_CU { # RESINFO
 ###### Universal Apps
 ################################################################
 
-## https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.AppPrivacy::LetAppsAccessLocation&Language=fr-fr
+## https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.AppPrivacy::LetAppsAccessLocation&Language=fr-fr
 # Disable access to location from UWP apps
 Function TweakDisableUWPAccessLocation { # RESINFO
 	Write-Output "Disabling access to location from UWP apps..."
@@ -93,7 +93,7 @@ Function TweakEnableSMB1Protocol { # RESINFO
 ##### Server Specific
 ################################################################
 
-# https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.LanmanWorkstation::Pol_EnableInsecureGuestLogons
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.LanmanWorkstation::Pol_EnableInsecureGuestLogons
 # https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-workstationservice-allowinsecureguestauth
 # Enable
 Function TweakEnableInsecureGuestLogons { # RESINFO

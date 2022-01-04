@@ -1,7 +1,7 @@
 /*
 
 # SWMB NSIS Installer
-# Copyright (C) 2020-2021, CNRS, France
+# Copyright (C) 2020-2022, CNRS, France
 # License: MIT License (Same as project Win10-Initial-Setup-Script)
 # Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
 # Authors:
@@ -21,7 +21,7 @@ Unicode True
 !insertmacro GetOptions
 
 !define NAME "SWMB"
-!define VERSION "3.13.80.1"
+!define VERSION "3.13.81.1"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"

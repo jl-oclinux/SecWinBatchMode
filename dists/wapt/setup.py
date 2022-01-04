@@ -5,7 +5,7 @@
 #
 # This file is part of project CNRS RESINFO SWMB
 # Copyright (c) 2017-2020, Disassembler <disassembler@dasm.cz>
-# Copyright (C) 2020-2021, CNRS, France
+# Copyright (C) 2020-2022, CNRS, France
 #
 # License: MIT License (Same as project Win10-Initial-Setup-Script)
 # Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb

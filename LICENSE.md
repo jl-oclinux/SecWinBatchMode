@@ -1,7 +1,7 @@
 # Released under MIT License
 
 Copyright (c) 2017-2020, Disassembler <disassembler@dasm.cz>\
-Copyright (C) 2020-2021, CNRS, France
+Copyright (C) 2020-2022, CNRS, France
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -819,8 +819,8 @@ Function TweakEnableBitlocker { # RESINFO
 		Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE" -Name "OSRequireActiveDirectoryBackup" -Value 0
 
 		# Update GPO
-		# gpupdate
-		Invoke-GPUpdate -Force
+		gpupdate
+		# Invoke-GPUpdate -Force # don't work on all powershell versions
 	}
 
 	Function _EncryptAllDrives() {

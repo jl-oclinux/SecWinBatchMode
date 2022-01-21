@@ -14,7 +14,7 @@ Unicode True
 !include nsDialogs.nsh
 !include x64.nsh
 !include LogicLib.nsh
-!include Integration.nsh
+;!include Integration.nsh
 !include FileFunc.nsh
 
 !insertmacro GetParameters
@@ -293,7 +293,7 @@ Section -Uninstall
   DetailPrint "  Return value: $0"
   DetailPrint ""
 
-  ${UnpinShortcut} "$SMPrograms\${NAME}\${NAME}.lnk"
+  ;${UnpinShortcut} "$SMPrograms\${NAME}\${NAME}.lnk"
   Delete "$SMPrograms\${NAME} Secure Windows.lnk"
   ;Delete "$SMPrograms\${NAME}\${NAME}.lnk"
   ;Delete "$SMPrograms\${NAME}\SWMB-Crypt-With-Bitlocker.lnk"

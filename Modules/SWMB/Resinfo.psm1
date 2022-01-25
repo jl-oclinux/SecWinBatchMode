@@ -886,7 +886,12 @@ Function TweakEnableBitlocker { # RESINFO
 		} ElseIf ($DriveEMethod -ne "XtsAes256") {
 			# Disk crypt but not with XtsAes256
 			Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256, the encryption is $DriveEMethod"
-			Write-Output "Decrypt with command : .\swmb.ps1 DisableBitlocker"
+			$decrypt = Read-Host -Prompt "Do you want to decrypt all fixed drive [Y/n]"
+			If ($decrypt.ToLower() -ne "n") {
+				TweakDisableBitlocker
+				Write-Output "Wait for the end of decryption and launch this script again"
+			}
+			Else {Write-Output "You can decrypt with command : .\swmb.ps1 DisableBitlocker"}
 			Return
 		}
 	}

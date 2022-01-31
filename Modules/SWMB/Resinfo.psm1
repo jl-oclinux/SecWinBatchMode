@@ -854,6 +854,11 @@ Function TweakEnableBitlocker { # RESINFO
 			$NetworkBackup = _NetworkKeyBackup -wantToSave $false
 
 			# Disk ready for encryption
+			$applyGPO = Read-Host -Prompt "Your disk is ready for encryption. Are you agree to apply Resinfo GPO and start encryption [Y/n]"
+			If ($applyGPO.ToLower() -eq "n") {
+				Write-Warning "Stop script. Your drive is not encrypted"
+				Return
+			}
 			_EnforceCryptGPO
 			_EncryptSytemDrive -networkKeyBackupFolder $NetworkBackup
 			_EncryptNonSytemDrives -networkKeyBackupFolder $NetworkBackup

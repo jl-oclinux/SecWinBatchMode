@@ -70,6 +70,7 @@ EnableF8BootMenu                                # DisableF8BootMenu
 # DisableRecoveryAndReset                       # EnableRecoveryAndReset
 SetDEPOptOut                                    # SetDEPOptIn
 DisableInsecureGuestLogons                      # EnableInsecureGuestLogons
+EnableASLR                                      # DisableASLR
 
 ### Network Tweaks ###
 SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic

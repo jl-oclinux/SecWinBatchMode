@@ -6,6 +6,9 @@ The string `Tweak` has been added in front of the name of all tweak functions.
 This means that preset files can no longer call standard Powershell functions.
 If needed, a specific tweak function must be written for security reasons.
 
+New presets/rules:
+* 2022/02/02 - EnableASLR/DisableASLR -> Address Space Layout Randomisation
+
 
 ## Version 3.13 (2021/11/22)
 

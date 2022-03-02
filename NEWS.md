@@ -7,6 +7,7 @@ This means that preset files can no longer call standard Powershell functions.
 If needed, a specific tweak function must be written for security reasons.
 
 New presets/rules:
+* 2022/03/02 - EnableClearPageFile/DisableClearPageFile -> Clean PAGEFILE.SYS at shutdown
 * 2022/02/02 - EnableASLR/DisableASLR -> Address Space Layout Randomisation
 
 

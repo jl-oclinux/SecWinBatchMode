@@ -12,6 +12,29 @@
 
 ################################################################
 
+################################################################
+
+# ClearPageFileAtShutdown
+# https://deployadmin.com/2019/11/03/vider-le-fichier-dechange-a-chaque-arret-de-windows/
+# Enable
+Function TweakEnableClearPageFile { # RESINFO
+	Write-Output "Clear PageFile.sys at shutdown..."
+	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "ClearPageFileAtShutdown" -Type DWord -Value 1
+}
+
+# Disable
+Function TweakDisableClearPageFile { # RESINFO
+	Write-Output "Do not reset PageFile.sys at shutdown..."
+	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "ClearPageFileAtShutdown" -Type DWord -Value 0
+}
+
+# View
+Function TweakViewClearPageFile { # RESINFO
+	Write-Output 'Clear PageFile.sys (0 nothing enable, 1 clear at shutdown)'
+	$KeyPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"
+	Get-ItemProperty -Path $KeyPath -Name "ClearPageFileAtShutdown"
+}
+
 
 ################################################################
 ###### Export Functions

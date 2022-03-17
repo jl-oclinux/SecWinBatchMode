@@ -21,6 +21,7 @@
  * [Debloat Windows 10](https://github.com/W4RH4WK/Debloat-Windows-10) (script in PowerShell)
  * [Optimizer](https://github.com/hellzerg/optimizer) (Windows faster and more secure)
  * [O&O ShutUp10](https://www.oo-software.com/en/shutup10) (Free antispy tool for Windows 10) - non libre
+ * [HardeningKitty and Windows 10 Hardening](https://github.com/0x6d69636b/windows_hardening) (script in PowerShell)
 
 ## 2021
 

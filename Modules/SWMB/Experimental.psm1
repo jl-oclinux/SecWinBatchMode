@@ -43,9 +43,9 @@ Function TweakViewClearPageFile { # RESINFO
 # Enable
 Function TweakSetTargetRelease { # RESINFO
 	Write-Output "Set Target Release..."
-	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "ProductVersion" -value 'Windows 10' -Type String -Force
+	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "ProductVersion" -value  $Global:SWMB_Custom.ProductVersion -Type String -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersion" -value '00000001' -Type DWord -Force
-	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -value '21H2' -Type String -Force
+	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -value $Global:SWMB_Custom.TargetReleaseVersionInfo -Type String -Force
 }
 
 # Disable
@@ -58,7 +58,7 @@ Function TweakUnsetTargetRelease { # RESINFO
 
 # View
 Function TweakViewTargetRelease { # RESINFO
-	Write-Output 'Target Release (nothing enable = no target release)'
+	Write-Output 'Target Release (nothing = no target release)'
 	Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
 }
 

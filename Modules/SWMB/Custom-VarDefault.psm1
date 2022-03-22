@@ -37,4 +37,8 @@ $Global:SWMB_Custom = @{
 
 	# NTP
 	NTP_ManualPeerList     = "0.pool.ntp.org, 1.pool.ntp.org, 2.pool.ntp.org, 3.pool.ntp.org"
+
+	# Target Release
+	ProductVersion = "Windows 10"
+	TargetReleaseVersionInfo = "21H2"
 }

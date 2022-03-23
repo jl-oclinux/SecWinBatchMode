@@ -1,5 +1,7 @@
 # SWMB - Secure Windows Mode Batch
 
+The last version of this document could be found online at https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/.
+
  * [CONTRIBUTING](./CONTRIBUTING.md)
  * [FAQ](./FAQ.md)
  * [LICENSE](./LICENSE.md)

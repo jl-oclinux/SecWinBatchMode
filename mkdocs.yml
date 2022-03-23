@@ -4,6 +4,7 @@ docs_dir: __HERE__
 site_dir: /tmp/swmb/site
 nav:
     - Home: README.md
+    - Use case (distribution): dists/README.md
     - Contributing: CONTRIBUTING.md
     - Faq: FAQ.md
     - News: NEWS.md

@@ -340,4 +340,4 @@ Function TweakDisableSomeFeature {
 |  2004   | 20H1                    | May 2020 Update        | 19041 |
 |  20H2   | 20H2                    | October 2020 Update    | 19042 |
 |  21H1   | 21H1                    | May 2021 Update        | 19043 |
-
+|  21H2   | 21H2                    | November 2021 Update   | 19044 |

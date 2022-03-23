@@ -1,7 +1,7 @@
 SOFT:=SWMB
 VERSION:=$(shell grep '!define VERSION' ./package.nsi | cut -f 2 -d '"')
 
-.PHONY: all help pkg version check clean
+.PHONY: all help pkg version check clean doc
 
 all: $(SOFT)-Setup-$(VERSION).exe
 
@@ -27,3 +27,8 @@ check:
 clean:
 	rm -f SWMB*.exe
 	[ -d ./tmp ] && rm -f ./tmp/*
+
+doc:
+	mkdir -p /tmp/swmb/site
+	sed -e 's|__HERE__|$(CURDIR)|;' mkdocs.yml > /tmp/swmb/mkdocs.yml
+	mkdocs build -f /tmp/swmb/mkdocs.yml

@@ -3,7 +3,7 @@ image: debian:latest
 
 before_script:
   - apt-get update -yqq
-  - apt-get install -yqq perl make binutils findutils tar wget nsis zip
+  - apt-get install -yqq perl make binutils findutils tar wget nsis zip mkdocs
 
 pages:
   stage: build
@@ -27,6 +27,9 @@ pages:
     - echo '</ul></body></html>' >> public/index.html
     - (cd public ; tar --exclude '*-Latest.*' -czf ../download.tar.gz SWMB-Setup-*.exe SWMB-OCS-*.zip SWMB-WAPT-*.zip)
     - mv download.tar.gz public/
+    - mkdir -p public/docs
+    - make doc
+    - cp -r /tmp/swmb/site/* public/docs/
   artifacts:
     paths:
       - public

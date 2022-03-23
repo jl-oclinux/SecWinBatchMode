@@ -1,0 +1,12 @@
+site_name: SWMB - Secure Windows Mode Batch
+site_url: https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs
+docs_dir: __HERE__
+site_dir: /tmp/swmb/site
+nav:
+    - Home: README.md
+    - Contributing: CONTRIBUTING.md
+    - Faq: FAQ.md
+    - News: NEWS.md
+    - License: LICENSE.md
+    - References: REFERENCES.md
+theme: readthedocs

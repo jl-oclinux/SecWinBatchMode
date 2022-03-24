@@ -37,6 +37,7 @@ because it met all our criteria above.
 Regarding the applicable security strategies,
 SWMB is mainly based on the tweaks enacted by the French National Agency for Information Systems Security ([ANSSI](https://www.ssi.gouv.fr/)).
 There are thus three levels of possible tweaks in SWMB:
+
  * `Modules\SWMB\Win10` - tweaks extracted from the ANSSI documentation, or from certain instructions of the RSSI of the CNRS,
     applicable in the whole ESR (Higher Education and Research in France);
  * `Modules\SWMB\Custom` - interesting tweaks that you can extend for your site.
@@ -56,6 +57,7 @@ The upstream project on which we based ourselves had not planned to be able to p
 It is an extension that we added.
 
 **Some references**:
+
  * Upstream project `Win10-Initial-Setup-Script` by Disassembler0 user :
    https://github.com/Disassembler0/Win10-Initial-Setup-Script
  * Document from the [ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
@@ -190,6 +192,7 @@ Two scheduled tasks are configured.
 One takes place at machine startup (Boot) and the other at user login (Logon).
 
 These two tasks will look for their parameters in the `C:\ProgramData\SWMB\Presets` folder.
+
  * CurrentUser-Logon.ps1 - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
  * LocalMachine-Boot.ps - Load preset  at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
 
@@ -234,6 +237,7 @@ These are identified with the # character, as in many scripting languages.
 
 The presets are classified in the folder `Presets`.
 Currently, there is one preset per paragraph of the ANSSI concerning the settings for the computer configuration.
+
  * Telemetry preset
  * Cortana and search preset
  * User experience preset
@@ -350,6 +354,7 @@ Command using all three examples combined:
 ### Definition of your own variable values
 
 If you want to define your own variable values used in the `Custom.psm1` module, do the following:
+
  * Create a file named `Custom-VarOverload.psm1` in the same directory as the `Custom-VarDefault.psm1` module,
    or in any parent `..` or sub-folder `Modules` of a parent folder!
    This leaves a lot of choices...
@@ -362,6 +367,7 @@ If you want to define your own variable values used in the `Custom.psm1` module,
    $Global:SWMB_Custom.NTP_ManualPeerList = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org"
    ```
 Order in which the `Custom-VarOverload.psm1` module will be loaded into memory:
+
  1. `..\Custom-VarOverload.psm1`
  1. `..\Modules\Custom-VarOverload.psm1`
  1. `..\..\Custom-VarOverload.psm1`
@@ -390,7 +396,6 @@ For example:
 The logging is done using PowerShell `Start-Transcript` cmdlet,
 which writes extra information about current environment (date, machine and user name, command used for execution etc.)
 to the beginning of the file and logs both standard output and standard error streams.
-
 
 
 ### Integration into another Git project

@@ -1,6 +1,6 @@
 # SWMB - Secure Windows Mode Batch
 
-The last version of this document could be found online at https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/.
+The last version of this document could be found [online](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
 
  * [CONTRIBUTING](./CONTRIBUTING.md)
  * [FAQ](./FAQ.md)
@@ -30,7 +30,7 @@ It is software like any other and can therefore be integrated into any configura
 
 The project is intended to be modular.
 It must be easy to maintain, easy to understand, easy to extend and easy to use.
-The website https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/ references many possible solutions.
+The website [comparison-of-windows-10-privacy-tools](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/) references many possible solutions.
 SWMB chose to take as a starting point the code of Disassembler0 which is now archived: `Win10-Initial-Setup-Script`,
 because it met all our criteria above.
 
@@ -58,21 +58,20 @@ It is an extension that we added.
 
 **Some references**:
 
- * Upstream project `Win10-Initial-Setup-Script` by Disassembler0 user :
-   https://github.com/Disassembler0/Win10-Initial-Setup-Script
+ * Upstream project [Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script) by Disassembler0 user
  * Document from the [ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
    (Agence Nationale de la Sécurité des Systèmes d'Information - France) :
-   [https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
+   [restreindre-la-collecte-de-donnees-sous-windows-10](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
  * Document of the [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
    (Federal Office for Information Technology Security - Germany) :
-   [https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
+   [Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
 
 More references on the page [REFERENCES](./REFERENCES.md).
 
 
 ## Installation
 
-You can find on https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/ the latest versions of the SWMB installer.
+You can find on [resinfo-swmb](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/) the latest versions of the SWMB installer.
 These setup packages are made with the [NSIS](https://sf.net/projects/nsis/) software (Nullsoft Scriptable Install System).
 It is possible not to install and activate scheduled tasks at computer startup and user logon.
 

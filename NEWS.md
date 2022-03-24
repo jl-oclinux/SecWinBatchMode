@@ -8,16 +8,16 @@ If needed, a specific tweak function must be written for security reasons.
 
 New presets/rules:
 
- * 2022/03/16 - SetTargetRelease/UnsetTargetRelease -> For fix the target Feature Update version see https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsUpdate::TargetReleaseVersion
- * 2022/03/02 - EnableClearPageFile/DisableClearPageFile -> Clean PAGEFILE.SYS at shutdown
- * 2022/02/02 - EnableASLR/DisableASLR -> Address Space Layout Randomisation
+ * 2022/03/16 - `SetTargetRelease`/`UnsetTargetRelease` -> For fix the target Feature Update version ([see more](https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsUpdate::TargetReleaseVersion))
+ * 2022/03/02 - `EnableClearPageFile`/`DisableClearPageFile` -> Clean PAGEFILE.SYS at shutdown
+ * 2022/02/02 - `EnableASLR`/`DisableASLR` -> Address Space Layout Randomisation
 
 
 ## Version 3.13 (2021/11/22)
 
 Add a setup file, juste write `make pkg` under Linux (Add a `Makefile`).
-Continuous integration build the package,
-see https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/.
+Continuous integration build the package
+([here](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/)).
 A Zip file is created for OCS Inventory.
 A Zip file is also created for WAPT package.
 You can use it as-is.
@@ -59,13 +59,13 @@ Any value other than 0 (or nothing) will activate the default preset.
 
 New presets/rules:
 
- * 2021/10/21 - $PRESET and $IMPORT can open absolute and relative path file (before only relative path was possible)
- * 2021/10/21 - $PRESET replace $INCLUDE to include a preset file.
- * 2021/10/20 - SysCheckpoint - Make a system checkpoint if possible (max one per day)
- * 2021/10/19 - $INCLUDE ($PRESET) and $IMPORT can open filename with space in PATH. Protect the string with double quote `"`.
- * 2021/10/16 - SysBox - Like SysMessage but open a Box (experimental)
- * 2021/10/15 - SysEvent - Like SysMessage but send an Event
- * 2021/10/11 - $IMPORT - Like $PRESET but import a module from a preset file
+ * 2021/10/21 - `$PRESET` and `$IMPORT` can open absolute and relative path file (before only relative path was possible)
+ * 2021/10/21 - `$PRESET` replace `$INCLUDE` to include a preset file.
+ * 2021/10/20 - `SysCheckpoint` - Make a system checkpoint if possible (max one per day)
+ * 2021/10/19 - `$INCLUDE` (`$PRESET`) and `$IMPORT` can open filename with space in PATH. Protect the string with double quote `"`.
+ * 2021/10/16 - `SysBox` - Like `SysMessage` but open a Box (experimental)
+ * 2021/10/15 - `SysEvent` - Like `SysMessage` but send an Event
+ * 2021/10/11 - `$IMPORT` - Like `$PRESET` but import a module from a preset file
 
 New CLI parameter:
 
@@ -127,23 +127,23 @@ Preset file could now include other files with the $INCLUDE directive
 
 New presets/rules:
 
- * 2021/09/10 - DisableMSHTMLActiveX/EnableMSHTMLActiveX/View... Disable ActiveX in MSHTML (Internet Explorer) CVE-2021-40444
- * 2021/08/28 - DisableAutoloadDriver/EnableAutoloadDriver -> Zero day on autoload driver on network
- * 2021/07/10 - SysRequireAdmin replace RequireAdmin
- * 2021/07/07 - SysAutoUpgrade - Auto Upgrade your SWMB folder! Need an internet access to the Git repository
- * 2021/07/02 - DisablePrintForSystem/EnablePrintForSystem/ViewPrintForSystem -> Pseudo patch for CVE-2021-34527
- * 2021/06/14 - EnableInsecureGuestLogons/DisableInsecureGuestLogons -> Disable by default
- * 2021/06/13 - DisableSMB1Protocol/EnableSMB1Protocol -> SMBv1 protocol
- * 2021/06/13 - DisableSMB1/EnableSMB1 rename -> DisableSMB1Server/EnableSMB1Server
- * 2021/06/05 - SetNTPConfig/UnsetNTPConfig - NTP service configuration
- * 2021/06/05 - EnableGodMod_CU/EnableGodMod_CU - God Mod for Current user
- * 2021/06/05 - Rename Restart -> SysRestart and WaitForKey -> SysPause
- * 2021/06/05 - SysHalt - Halt computer and not Reboot
- * 2021/06/04 - SysMessage - Just write a message on terminal for debugging purpose (like WaitForKey)
- * 2021/06/04 - DisableUWPAccessLocation/EnableUWPAccessLocation - Let UWP Apps Access Location
- * 2021/06/01 - DisableWindowsFeeds/EnableWindowsFeeds - News and Interests on Taskbar
- * 2021/05/12 - EnableBitlocker/DisableBitlocker - Crypt hard drive with bitlocker
- * 2021/04/29 - DisableWindowsHello/EnableWindowsHello - Windows Hello Authentification
+ * 2021/09/10 - `DisableMSHTMLActiveX`/`EnableMSHTMLActiveX`/`View...` Disable ActiveX in MSHTML (Internet Explorer) CVE-2021-40444
+ * 2021/08/28 - `DisableAutoloadDriver`/`EnableAutoloadDriver` -> Zero day on autoload driver on network
+ * 2021/07/10 - `SysRequireAdmin` replace `RequireAdmin`
+ * 2021/07/07 - `SysAutoUpgrade` - Auto Upgrade your SWMB folder! Need an internet access to the Git repository
+ * 2021/07/02 - `DisablePrintForSystem`/`EnablePrintForSystem`/`ViewPrintForSystem` -> Pseudo patch for CVE-2021-34527
+ * 2021/06/14 - `EnableInsecureGuestLogons`/`DisableInsecureGuestLogons` -> Disable by default
+ * 2021/06/13 - `DisableSMB1Protocol`/`EnableSMB1Protocol` -> SMBv1 protocol
+ * 2021/06/13 - `DisableSMB1`/`EnableSMB1` rename -> `DisableSMB1Server`/`EnableSMB1Server`
+ * 2021/06/05 - `SetNTPConfig`/`UnsetNTPConfig` - NTP service configuration
+ * 2021/06/05 - `EnableGodMod_CU`/`EnableGodMod_CU` - God Mod for Current user
+ * 2021/06/05 - Rename `Restart` -> `SysRestart` and `WaitForKey` -> `SysPause`
+ * 2021/06/05 - `SysHalt` - Halt computer and not Reboot
+ * 2021/06/04 - `SysMessage` - Just write a message on terminal for debugging purpose (like WaitForKey)
+ * 2021/06/04 - `DisableUWPAccessLocation`/`EnableUWPAccessLocation` - Let UWP Apps Access Location
+ * 2021/06/01 - `DisableWindowsFeeds`/`EnableWindowsFeeds` - News and Interests on Taskbar
+ * 2021/05/12 - `EnableBitlocker`/`DisableBitlocker` - Crypt hard drive with bitlocker
+ * 2021/04/29 - `DisableWindowsHello`/`EnableWindowsHello` - Windows Hello Authentification
 
 
 ## Version 3.11 (never publish)
@@ -156,12 +156,12 @@ New dists folder with use case examples.
 
 New presets selection:
 
- * Cloud-Resinfo.preset
- * CortanaSearch-Resinfo.preset
- * Post-Install.preset
- * Telemetry-Resinfo.preset
- * UniversalApps-Resinfo.preset
- * UserExperience-Resinfo.preset
+ * `Cloud-Resinfo.preset`
+ * `CortanaSearch-Resinfo.preset`
+ * `Post-Install.preset`
+ * `Telemetry-Resinfo.preset`
+ * `UniversalApps-Resinfo.preset`
+ * `UserExperience-Resinfo.preset`
 
 
 ## Version 3.10

@@ -62,6 +62,55 @@ Function TweakViewTargetRelease { # RESINFO
 	Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
 }
 
+Function RemoveKasperskyEndpoint { # RESINFO
+	# Todo
+	# move var in Custom-VarDefault
+	# test on KesKeyFile
+
+	$KesLogin = "KLAdmin"
+	$Kespass = ""
+	$KesKeyFile = ""
+	$KesSecureString = ""
+
+	$kes = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky endpoint security*" }
+
+	if ($kes.IdentifyingNumber) {
+	  Write-Host "Uninstalling Kaspersky version $($kes.Version) with guid => $($kes.IdentifyingNumber)"
+	  if ($Kespass) {
+	    # mot de passe défini en clair
+	    $PlainPassword = $Kespass
+	  }
+	  elseif ($KesSecureString) {
+	    # mot de passe chiffré
+	    $password = $KesSecureString | ConvertTo-SecureString -Key (Get-Content $KesKeyFile)
+	    $credential = New-Object System.Management.Automation.PsCredential($KesLogin,$password)
+	    $PlainPassword = $credential.GetNetworkCredential().Password
+	  }
+	  else {
+	    # Interactif - mot de passe demandé
+	    $PlainPassword = Read-Host -AsSecureString -Prompt "Give the Kaspersky endpoint password for $KesLogin"
+	  }
+
+	### uninstall
+	  $MSIArguments = @(
+	    "/x"
+	    $kes.IdentifyingNumber
+	    "KLLOGIN=$KesLogin"
+	    "KLPASSWD=$PlainPassword"
+	    "/norestart"
+	    "/qn"
+	  )
+	  Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
+	  Write-Host "Uninstall finish"
+	}
+
+	else {
+	  Write-Host "Kaspersky not installed on this computer"
+	}
+}
+
+
+
 ################################################################
 ###### Export Functions
 ################################################################

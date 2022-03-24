@@ -4,16 +4,15 @@
 
  * Document from the [ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
    (Agence Nationale de la Sécurité des Systèmes d'Information - France) :
-   [https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
+   [restreindre-la-collecte-de-donnees-sous-windows-10](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
    (french)
  * Document of the [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
    (Office fédéral de la sécurité des technologies de l’information - Allemagne) :
-   [https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
-   (english)
+   [Hardening Guideline](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
+   (english, pdf)
  * All the tools to secure Windows and privacy 
    [Comparison of Windows 10 Privacy tools](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/) (english)
- * Upstream SWMB project `Win10-Initial-Setup-Script` :
-   https://github.com/Disassembler0/Win10-Initial-Setup-Script (english)
+ * Upstream SWMB project [Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script) (english)
 
 
 ## Other interesting tools
@@ -22,6 +21,10 @@
  * [Optimizer](https://github.com/hellzerg/optimizer) (Windows faster and more secure)
  * [O&O ShutUp10](https://www.oo-software.com/en/shutup10) (Free antispy tool for Windows 10) - non libre
  * [HardeningKitty and Windows 10 Hardening](https://github.com/0x6d69636b/windows_hardening) (script in PowerShell)
+
+## 2022
+
+ * [Sécuriser son parc Windows avec le projet modulaire et communautaire SWMB](https://hal.archives-ouvertes.fr/hal-03608835) (french)
 
 ## 2021
 

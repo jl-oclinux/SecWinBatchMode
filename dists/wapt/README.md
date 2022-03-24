@@ -2,7 +2,7 @@
 
 ## General
 
-source: https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/
+source: [https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/)
 
 maintainer: <Gabriel.Moreau at legi.grenoble-inp.fr>
 

@@ -366,6 +366,7 @@ If you want to define your own variable values used in the `Custom.psm1` module,
    ```ps
    $Global:SWMB_Custom.NTP_ManualPeerList = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org"
    ```
+
 Order in which the `Custom-VarOverload.psm1` module will be loaded into memory:
 
  1. `..\Custom-VarOverload.psm1`

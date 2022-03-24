@@ -62,7 +62,7 @@ Function TweakViewTargetRelease { # RESINFO
 	Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
 }
 
-Function RemoveKasperskyEndpoint { # RESINFO
+Function TweakRemoveKasperskyEndpoint { # RESINFO
 	# Todo
 	# move var in Custom-VarDefault
 	# test on KesKeyFile

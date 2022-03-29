@@ -45,6 +45,6 @@ $Global:SWMB_Custom = @{
 	# Kaspersky Endpoint Security
 	KesLogin = "KLAdmin"
 	Kespass = ""
-	KesKeyFile = ""
 	KesSecureString = ""
+	KesKeyFile = ""
 }

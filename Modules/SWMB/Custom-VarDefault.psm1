@@ -41,4 +41,10 @@ $Global:SWMB_Custom = @{
 	# Target Release
 	ProductVersion = "Windows 10"
 	TargetReleaseVersionInfo = "21H2"
+
+	# Kaspersky Endpoint Security
+	KesLogin = "KLAdmin"
+	Kespass = ""
+	KesKeyFile = ""
+	KesSecureString = ""
 }

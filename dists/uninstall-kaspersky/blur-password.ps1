@@ -1,5 +1,10 @@
 
-$File = Read-Host -Prompt "Your secure string"
-$SecureString = Read-Host -AsSecureString -Prompt "Your secure string"
+$KeyFile = Read-Host -Prompt "Key File"
 $Password = Read-Host -AsSecureString -Prompt "Password to secure"
 
+$Key = New-Object Byte[] 32 # create key AES 256-bit key (32 bytes)
+[Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)
+$Key | Out-File $KeyFile
+
+$EncryptedPass = ConvertFrom-SecureString -SecureString $Password -key $Key
+Write-Output $EncryptedPass

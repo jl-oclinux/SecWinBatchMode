@@ -13,6 +13,7 @@ SysRequireAdmin
 ### Privacy Tweaks ###
 DisableTelemetry                                # EnableTelemetry
 DisableCortana                                  # EnableCortana
+# DisableDisplayWebResults                      # EnableDisplayWebResults
 DisableWiFiSense                                # EnableWiFiSense
 # DisableSmartScreen                            # EnableSmartScreen
 # DisableWebSearch                              # EnableWebSearch
@@ -222,7 +223,6 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableAutomaticLearning                      # EnableAutomaticLearning
 # DisableCortanaAboveLock                       # EnableCortanaAboveLock
 # DisableDidYouKnow                             # EnableDidYouKnow
-# DisableDisplayWebResults                      # EnableDisplayWebResults
 # EnableDontDisplayLastUsername                 # DisableDontDisplayLastUsername
 # DisableHandwritingDataSharing                 # EnableHandwritingDataSharing
 # DisableHandwritingRecognitionErrorReporting   # EnableHandwritingRecognitionErrorReporting

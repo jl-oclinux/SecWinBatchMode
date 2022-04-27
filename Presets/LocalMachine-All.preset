@@ -189,6 +189,13 @@ AddPhotoViewerOpenWith                          # RemovePhotoViewerOpenWith
 UninstallXPSPrinter                             # InstallXPSPrinter
 RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallFaxAndScan                           # InstallFaxAndScan
+# DisableStoreApps                              # EnableStoreApps
+# DisableUWPAccessLocation                      # EnableUWPAccessLocation
+# DisableWindowsErrorReporting                  # EnableWindowsErrorReporting
+# DisableWindowsFeeds                           # EnableWindowsFeeds
+# DisableWindowsHello                           # EnableWindowsHello
+# DisableWindowsStore                           # EnableWindowsStore
+
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin
@@ -238,12 +245,6 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # EnableSessionLockTimeout                      # DisableSessionLockTimeout
 # DisableSharedInformationSearch                # EnableSharedInformationSearch
 # DisableStepsRecorder                          # EnableStepsRecorder
-# DisableStoreApps                              # EnableStoreApps
-# DisableUWPAccessLocation                      # EnableUWPAccessLocation
-# DisableWindowsErrorReporting                  # EnableWindowsErrorReporting
-# DisableWindowsFeeds                           # EnableWindowsFeeds
-# DisableWindowsHello                           # EnableWindowsHello
-# DisableWindowsStore                           # EnableWindowsStore
 
 # DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
 # DisableDomainProfile                          # EnableDomainProfile

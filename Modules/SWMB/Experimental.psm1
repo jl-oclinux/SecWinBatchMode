@@ -35,6 +35,8 @@ Function TweakViewClearPageFile { # RESINFO
 	Get-ItemProperty -Path $KeyPath -Name "ClearPageFileAtShutdown"
 }
 
+################################################################
+
 # Set a target version
 # https://docs.microsoft.com/en-us/windows/release-health/release-information
 # If you don't update this policy before the device reaches end of service, the device will automatically be updated once it is 60 days past end of service for its version.
@@ -62,47 +64,44 @@ Function TweakViewTargetRelease { # RESINFO
 	Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
 }
 
+################################################################
+
+# Suppress Kaspersky Endpoint software
+# Suppress
 Function TweakRemoveKasperskyEndpoint { # RESINFO
-	# Todo
-	# test on KesKeyFile
+	Write-Output "Suppress software Kaspersky Endpoint protection..."
+	$Kes = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky endpoint security*" }
 
-	$kes = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky endpoint security*" }
+	If ($Kes.IdentifyingNumber) {
+		Write-Host "Uninstalling Kaspersky version $($Kes.Version) with GUID => $($Kes.IdentifyingNumber)"
+		If ($Global:SWMB_Custom.KesPassword) {
+			# Batch - password defined in clear text
+			$PlainPassword = $Global:SWMB_Custom.KesPassword
+		} ElseIf ($Global:SWMB_Custom.KesSecureString -And Test-Path -LiteralPath "$Global:SWMB_Custom.KesKeyFile") {
+			# Batch - encrypted (blurred) password
+			$Password = $Global:SWMB_Custom.KesSecureString | ConvertTo-SecureString -Key (Get-Content $Global:SWMB_Custom.KesKeyFile)
+			$Credential = New-Object System.Management.Automation.PsCredential($Global:SWMB_Custom.KesLogin,$Password)
+			$PlainPassword = $Credential.GetNetworkCredential().Password
+		} Else {
+			# Interactive - ask password
+			$PlainPassword = Read-Host -AsSecureString -Prompt "Give the Kaspersky endpoint password for $($Global:SWMB_Custom.KesLogin)"
+		}
 
-	if ($kes.IdentifyingNumber) {
-	  Write-Host "Uninstalling Kaspersky version $($kes.Version) with guid => $($kes.IdentifyingNumber)"
-	  if ($Global:SWMB_Custom.KesPassword) {
-	    # mot de passe défini en clair
-	    $PlainPassword = $Global:SWMB_Custom.KesPassword
-	  }
-	  elseif ($Global:SWMB_Custom.KesSecureString) {
-	    # mot de passe chiffré
-	    $password = $Global:SWMB_Custom.KesSecureString | ConvertTo-SecureString -Key (Get-Content $Global:SWMB_Custom.KesKeyFile)
-	    $credential = New-Object System.Management.Automation.PsCredential($Global:SWMB_Custom.KesLogin,$password)
-	    $PlainPassword = $credential.GetNetworkCredential().Password
-	  }
-	  else {
-	    # Interactif - mot de passe demandé
-	    $PlainPassword = Read-Host -AsSecureString -Prompt "Give the Kaspersky endpoint password for $($Global:SWMB_Custom.KesLogin)"
-	  }
-
-	### uninstall
-	  $MSIArguments = @(
-	    "/x"
-	    $kes.IdentifyingNumber
-	    "KLLOGIN=$($Global:SWMB_Custom.KesLogin)"
-	    "KLPASSWD=$PlainPassword"
-	    "/norestart"
-	    "/qn"
-	  )
-	  Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
-	  Write-Host "Uninstall finish"
-	}
-
-	else {
-	  Write-Host "Kaspersky not installed on this computer"
+		# Uninstall
+		$MSIArguments = @(
+			"/x"
+			$Kes.IdentifyingNumber
+			"KLLOGIN=$($Global:SWMB_Custom.KesLogin)"
+			"KLPASSWD=$PlainPassword"
+			"/norestart"
+			"/qn"
+		)
+		Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
+		Write-Host "Uninstall finish"
+	} Else {
+		Write-Host "Kaspersky not installed on this computer"
 	}
 }
-
 
 
 ################################################################

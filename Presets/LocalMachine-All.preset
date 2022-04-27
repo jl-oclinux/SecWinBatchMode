@@ -13,6 +13,7 @@ SysRequireAdmin
 ### Privacy Tweaks ###
 DisableTelemetry                                # EnableTelemetry
 DisableCortana                                  # EnableCortana
+# DisableCortanaAboveLock                       # EnableCortanaAboveLock
 # DisableDisplayWebResults                      # EnableDisplayWebResults
 DisableWiFiSense                                # EnableWiFiSense
 # DisableSmartScreen                            # EnableSmartScreen
@@ -33,6 +34,17 @@ DisableDiagTrack                                # EnableDiagTrack               
 DisableWAPPush                                  # EnableWAPPush
 # EnableClearRecentFiles                        # DisableClearRecentFiles
 # DisableRecentFiles                            # EnableRecentFiles
+# DisableDidYouKnow                             # EnableDidYouKnow
+# DisableAutomaticLearning                      # EnableAutomaticLearning
+# EnableDontDisplayLastUsername                 # DisableDontDisplayLastUsername
+# DisableHandwritingDataSharing                 # EnableHandwritingDataSharing
+# DisableHandwritingRecognitionErrorReporting   # EnableHandwritingRecognitionErrorReporting
+# DisableMRTReportInfectionInformation          # EnableMRTReportInfectionInformation
+# DisableOsGeneratedReport                      # EnableOsGeneratedReport
+# DisableOverrideReportingMAPS                  # EnableOverrideReportingMAPS
+# DisablePrivacyExperience                      # EnablePrivacyExperience
+
+
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps
@@ -73,6 +85,10 @@ EnableF8BootMenu                                # DisableF8BootMenu
 SetDEPOptOut                                    # SetDEPOptIn
 DisableInsecureGuestLogons                      # EnableInsecureGuestLogons
 EnableASLR                                      # DisableASLR
+# SetAdminAccountLogin                          # UnsetAdminAccountLogin
+# DisableAutoloadDriver                         # EnableAutoloadDriver                          # ViewAutoloadDriver
+# DisableIndexingEncryptedStores                # EnableIndexingEncryptedStores
+# DisableMicrosoftAccount                       # EnableMicrosoftAccount
 
 ### Network Tweaks ###
 SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic
@@ -195,7 +211,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableWindowsFeeds                           # EnableWindowsFeeds
 # DisableWindowsHello                           # EnableWindowsHello
 # DisableWindowsStore                           # EnableWindowsStore
-
+# EnablePrivateStoreOnly                        # DisablePrivateStoreOnly
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin
@@ -225,21 +241,6 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # SysMessage
 
 ### Tweaks that needs to be classified ###
-# SetAdminAccountLogin                          # UnsetAdminAccountLogin
-# DisableAutoloadDriver                         # EnableAutoloadDriver                          # ViewAutoloadDriver
-# DisableAutomaticLearning                      # EnableAutomaticLearning
-# DisableCortanaAboveLock                       # EnableCortanaAboveLock
-# DisableDidYouKnow                             # EnableDidYouKnow
-# EnableDontDisplayLastUsername                 # DisableDontDisplayLastUsername
-# DisableHandwritingDataSharing                 # EnableHandwritingDataSharing
-# DisableHandwritingRecognitionErrorReporting   # EnableHandwritingRecognitionErrorReporting
-# DisableIndexingEncryptedStores                # EnableIndexingEncryptedStores
-# DisableMicrosoftAccount                       # EnableMicrosoftAccount
-# DisableMRTReportInfectionInformation          # EnableMRTReportInfectionInformation
-# DisableOsGeneratedReport                      # EnableOsGeneratedReport
-# DisableOverrideReportingMAPS                  # EnableOverrideReportingMAPS
-# DisablePrivacyExperience                      # EnablePrivacyExperience
-# DisablePrivateStoreOnly                       # EnablePrivateStoreOnly
 # SetSecurityParamAccountPolicy                 # UnsetSecurityParamAccountPolicy
 # DisableSendAdditionalData                     # EnableSendAdditionalData
 # EnableSessionLockTimeout                      # DisableSessionLockTimeout

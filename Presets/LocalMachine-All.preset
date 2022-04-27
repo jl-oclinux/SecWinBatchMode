@@ -50,6 +50,7 @@ DisableUWPBackgroundApps                        # EnableUWPBackgroundApps
 # DisableUWPDiagInfo                            # EnableUWPDiagInfo
 # DisableUWPFileSystem                          # EnableUWPFileSystem
 # DisableUWPSwapFile                            # EnableUWPSwapFile
+# DisableAppsAccessAccount                      # EnableAppsAccessAccount
 
 ### Security Tweaks ###
 # SetUACLow                                     # SetUACHigh
@@ -217,7 +218,6 @@ RemoveFaxPrinter                                # AddFaxPrinter
 
 ### Tweaks that needs to be classified ###
 # SetAdminAccountLogin                          # UnsetAdminAccountLogin
-# DisableAppsAccessAccount                      # EnableAppsAccessAccount
 # DisableAutoloadDriver                         # EnableAutoloadDriver                          # ViewAutoloadDriver
 # DisableAutomaticLearning                      # EnableAutomaticLearning
 # DisableCortanaAboveLock                       # EnableCortanaAboveLock

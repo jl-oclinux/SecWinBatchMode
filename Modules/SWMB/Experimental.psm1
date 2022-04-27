@@ -70,9 +70,9 @@ Function TweakRemoveKasperskyEndpoint { # RESINFO
 
 	if ($kes.IdentifyingNumber) {
 	  Write-Host "Uninstalling Kaspersky version $($kes.Version) with guid => $($kes.IdentifyingNumber)"
-	  if ($Global:SWMB_Custom.Kespass) {
+	  if ($Global:SWMB_Custom.KesPassword) {
 	    # mot de passe défini en clair
-	    $PlainPassword = $Global:SWMB_Custom.Kespass
+	    $PlainPassword = $Global:SWMB_Custom.KesPassword
 	  }
 	  elseif ($Global:SWMB_Custom.KesSecureString) {
 	    # mot de passe chiffré

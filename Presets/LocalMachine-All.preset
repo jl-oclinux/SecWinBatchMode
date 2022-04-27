@@ -84,7 +84,7 @@ EnableF8BootMenu                                # DisableF8BootMenu
 # DisableRecoveryAndReset                       # EnableRecoveryAndReset
 SetDEPOptOut                                    # SetDEPOptIn
 DisableInsecureGuestLogons                      # EnableInsecureGuestLogons
-EnableASLR                                      # DisableASLR
+EnableASLR                                      # DisableASLR                                   # ViewASLR
 # SetAdminAccountLogin                          # UnsetAdminAccountLogin
 # DisableAutoloadDriver                         # EnableAutoloadDriver                          # ViewAutoloadDriver
 # DisableIndexingEncryptedStores                # EnableIndexingEncryptedStores
@@ -253,3 +253,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisablePowershell2                            # EnablePowershell2
 # DisablePrivateProfile                         # EnablePrivateProfile
 # DisablePublicProfile                          # EnablePublicProfile
+
+# EnableClearPageFile                           # DisableClearPageFile                          # ViewClearPageFile
+# RemoveKasperskyEndpoint
+# SetTargetRelease                              # UnsetTargetRelease                            # ViewTargetRelease

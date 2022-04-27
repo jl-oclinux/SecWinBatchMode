@@ -7,4 +7,8 @@ $Key = New-Object Byte[] 32 # create key AES 256-bit key (32 bytes)
 $Key | Out-File $KeyFile
 
 $EncryptedPass = ConvertFrom-SecureString -SecureString $Password -key $Key
-Write-Output $EncryptedPass
+
+Write-Output ""
+Write-Output "`$Global:SWMB_Custom{'KesSecureString'} = '$EncryptedPass'"
+Write-Output "`$Global:SWMB_Custom{'KesKeyFile'}      = '$KeyFile'"
+Write-Output ""

@@ -1,6 +1,8 @@
 
 $KeyFile = Read-Host -Prompt "Key File"
-$SecureString = Read-Host -Prompt "Blur Password"
+$BlurPassword = Read-Host -Prompt "Blur Password"
 
-$Password = ConvertTo-SecureString -Key (Get-Content $KeyFile) $SecureString
-Write-Output $Password
+$Password = $BlurPassword | ConvertTo-SecureString -Key (Get-Content $KeyFile)
+$Credential = New-Object System.Management.Automation.PsCredential('AsYouWant',$Password)
+$PlainPassword = $Credential.GetNetworkCredential().Password
+Write-Output $PlainPassword

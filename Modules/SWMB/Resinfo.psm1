@@ -613,7 +613,7 @@ Function TweakEnableBitlocker { # RESINFO
 
 		Do {
 			$NetworkKeyBackup = Read-Host -Prompt "Provide a CIFS/SMB writable network path with UNC syntax \\serverName\SharedFolder"
-		} until (($NetworkKeyBackup.Length -gt 2) -and ("\\" -ccontains $NetworkKeyBackup.Substring(0, 2)))
+		} Until (($NetworkKeyBackup.Length -gt 2) -and ("\\" -ccontains $NetworkKeyBackup.Substring(0, 2)))
 
 		If ($NetworkKeyBackup.Substring($NetworkKeyBackup.Length - 1) -ne "\") {
 			$NetworkKeyBackup += "\"

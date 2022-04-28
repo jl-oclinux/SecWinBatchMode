@@ -6,4 +6,4 @@ If (!(Test-Path -LiteralPath ".\Custom-VarOverload.psm1")) {
 	Exit
 }
 
-"${Env:ProgramFiles}\SWMB\swmb.ps1" -exp -import "${Env:ProgramFiles}\SWMB\Modules\SWMB\Custom.psm1" UninstallKasperskyEndpoint
+. "${Env:ProgramFiles}\SWMB\swmb.ps1" -exp -import "${Env:ProgramFiles}\SWMB\Modules\SWMB\Custom.psm1" UninstallKasperskyEndpoint

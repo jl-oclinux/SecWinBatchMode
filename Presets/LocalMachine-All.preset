@@ -255,5 +255,5 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisablePublicProfile                          # EnablePublicProfile
 
 # EnableClearPageFile                           # DisableClearPageFile                          # ViewClearPageFile
-# RemoveKasperskyEndpoint
+# UninstallKasperskyEndpoint
 # SetTargetRelease                              # UnsetTargetRelease                            # ViewTargetRelease

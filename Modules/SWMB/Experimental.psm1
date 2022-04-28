@@ -67,8 +67,8 @@ Function TweakViewTargetRelease { # RESINFO
 ################################################################
 
 # Suppress Kaspersky Endpoint software
-# Suppress
-Function TweakRemoveKasperskyEndpoint { # RESINFO
+# Uninstall
+Function TweakUninstallKasperskyEndpoint { # RESINFO
 	Write-Output "Suppress software Kaspersky Endpoint protection..."
 	$Kes = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky endpoint security*" }
 
@@ -102,6 +102,14 @@ Function TweakRemoveKasperskyEndpoint { # RESINFO
 		Write-Host "Kaspersky not installed on this computer"
 	}
 }
+
+# Install
+#Function TweakInstallKasperskyEndpoint { # RESINFO
+#	Write-Output "Install software Kaspersky Endpoint protection..."
+#	Write-Output "Error: Empty function defined only for check"
+#	Write-Output "Error: use your deploiement software in order to install Kasperky Endpoint"
+#	Exit
+#}
 
 
 ################################################################

@@ -63,7 +63,7 @@ msg2 "Number of Set and Unset tweaks" \
 msg2 "Number of Pin and Unpin tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Pin)' ${all_module} | awk '{print $2}' | wc -l) \
    $(grep -hEi '^Function[[:space:]]Tweak(Unpin)' ${all_module} | awk '{print $2}' | wc -l)
-   
+
 msg1 "Number of total tweaks GPO"  \
    $(grep -hEi '^Function Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' ${all_module} | wc -l)
 

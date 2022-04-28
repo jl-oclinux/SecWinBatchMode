@@ -1,7 +1,7 @@
 
 Do {
 	$KeyFile = Read-Host -Prompt "Key File"
-	} Until (Test-Path -LiteralPath "$KeyFile")
+} Until (Test-Path -LiteralPath "$KeyFile")
 
 $EncryptedPass = Read-Host -Prompt "Encrypted blurred Password"
 

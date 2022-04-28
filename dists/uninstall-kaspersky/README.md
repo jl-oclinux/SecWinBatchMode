@@ -1,6 +1,6 @@
 # Uninstall Kaspersky Endpoint
 
-Create a file `Custom-VarOverload.psm1` in the current folder
+Create a file `Custom-VarOverload.psm1` in your current folder
 ```
 # Kaspersky Endpoint Security
 $Global:SWMB_Custom{'KesLogin'}        = "KLAdmin"
@@ -8,7 +8,7 @@ $Global:SWMB_Custom{'KesLogin'}        = "KLAdmin"
 # If clear password
 $Global:SWMB_Custom{'KesPassword'}     = ""
 
-# Or if blurred password
+# Or if encrypted blurred password
 $Global:SWMB_Custom{'KesSecureString'} = ""
 $Global:SWMB_Custom{'KesKeyFile'}      = ""
 ```
@@ -30,9 +30,9 @@ operation via the [get-password-cleartext.ps1](get-password-cleartext.ps1) scrip
 
 Finally, regardless of the method chosen for the password,
 the Kapersky uninstallation operation is launched
-with the following command:
+with the following command ([uninstall-kaspersky.ps1](uninstall-kaspersky.ps1)):
 ```ps1
-"C:\Program Files\SWMB\swmb.ps" -exp UninstallKasperskyEndpoint
+"C:\Program Files\SWMB\swmb.ps1" -exp UninstallKasperskyEndpoint
 ```
 
 

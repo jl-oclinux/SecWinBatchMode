@@ -9,6 +9,6 @@ $Key | Out-File $KeyFile
 $EncryptedPass = ConvertFrom-SecureString -SecureString $Password -Key $Key
 
 Write-Output ""
-Write-Output "`$Global:SWMB_Custom{'KesSecureString'} = '$EncryptedPass'"
-Write-Output "`$Global:SWMB_Custom{'KesKeyFile'}      = '$KeyFile'"
+Write-Output "`$Global:SWMB_Custom.KesSecureString = '$EncryptedPass'"
+Write-Output "`$Global:SWMB_Custom.KesKeyFile      = '$KeyFile'"
 Write-Output ""

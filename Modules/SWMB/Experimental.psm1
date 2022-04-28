@@ -77,7 +77,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		If ($Global:SWMB_Custom.KesPassword) {
 			# Batch - password defined in clear text
 			$PlainPassword = $Global:SWMB_Custom.KesPassword
-		} ElseIf ($Global:SWMB_Custom.KesSecureString -And Test-Path -LiteralPath "$Global:SWMB_Custom.KesKeyFile") {
+		} ElseIf (($Global:SWMB_Custom.KesSecureString) -And (Test-Path -LiteralPath "$Global:SWMB_Custom.KesKeyFile")) {
 			# Batch - encrypted (blurred) password
 			$Password = $Global:SWMB_Custom.KesSecureString | ConvertTo-SecureString -Key (Get-Content $Global:SWMB_Custom.KesKeyFile)
 			$Credential = New-Object System.Management.Automation.PsCredential($Global:SWMB_Custom.KesLogin,$Password)

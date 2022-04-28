@@ -3,14 +3,14 @@
 Create a file `Custom-VarOverload.psm1` in your current folder
 ```
 # Kaspersky Endpoint Security
-$Global:SWMB_Custom{'KesLogin'}        = "KLAdmin"
+$Global:SWMB_Custom.KesLogin        = "KLAdmin"
 
 # If clear password
-$Global:SWMB_Custom{'KesPassword'}     = ""
+$Global:SWMB_Custom.KesPassword     = ""
 
 # Or if encrypted blurred password
-$Global:SWMB_Custom{'KesSecureString'} = ""
-$Global:SWMB_Custom{'KesKeyFile'}      = ""
+$Global:SWMB_Custom.KesSecureString = ""
+$Global:SWMB_Custom.KesKeyFile      = ""
 ```
 
 You can choose to put the password to modify Kasperky in clear text

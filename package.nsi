@@ -21,7 +21,7 @@ Unicode True
 !insertmacro GetOptions
 
 !define NAME "SWMB"
-!define VERSION "3.13.81.2"
+!define VERSION "3.13.82.2"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -232,6 +232,15 @@ Section "Program files (Required)"
   File "Modules\SWMB\Resinfo.psm1"
   File "Modules\SWMB\TemporaryBypass.psm1"
 
+  SetOutPath $INSTDIR\dists
+  File "dists\README.md"
+
+  SetOutPath $INSTDIR\dists\uninstall-kaspersky
+  File "dists\uninstall-kaspersky\get-password-cleartext.ps1"
+  File "dists\uninstall-kaspersky\README.md"
+  File "dists\uninstall-kaspersky\set-password-encrypted.ps1"
+  File "dists\uninstall-kaspersky\uninstall-kaspersky.ps1"
+
   SetOutPath $INSTDIR\Presets
   File "Presets\CurrentUser-All.preset"
   File "Presets\CurrentUser-Logon-Recommanded.preset"
@@ -317,6 +326,7 @@ Section -Uninstall
   Delete "$INSTDIR\NEWS.md"
   Delete "$INSTDIR\README.md"
   Delete "$INSTDIR\REFERENCES.md"
+  RMDir /r "$INSTDIR\dists"
   RMDir /r "$INSTDIR\Modules"
   RMDir /r "$INSTDIR\Presets"
   RMDir /r "$INSTDIR\Tasks"

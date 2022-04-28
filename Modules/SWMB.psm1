@@ -88,8 +88,8 @@ Function TweakSysRequireAdmin {
 ################################################################
 
 Function TweakSysAutoUpgrade {
-	$moduleScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
-	$swmbCorePath = (Resolve-Path (Join-Path -Path $moduleScriptPath -ChildPath '..') -ErrorAction SilentlyContinue)
+	$ModuleScriptPath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
+	$SwmbCorePath = (Resolve-Path (Join-Path -Path $ModuleScriptPath -ChildPath '..') -ErrorAction SilentlyContinue)
 
 	$gitUrl = 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/-/archive/master/resinfo-swmb-master.zip'
 	$tmpFolder = (Join-Path -Path $Env:SystemDrive -ChildPath "SWMB-$(New-Guid)")
@@ -104,8 +104,8 @@ Function TweakSysAutoUpgrade {
 	Expand-Archive -Path $outZipFile -DestinationPath $tmpFolder
 	If (Test-Path "$tmpFolder\resinfo-swmb-master") {
 		Write-Output "Upgrade of SWMB installation..."
-		Copy-Item -Path "$tmpFolder\resinfo-swmb-master\*" -Destination "$swmbCorePath" -Recurse -Force
-		Get-ChildItem -Path "$swmbCorePath" -Recurse | Unblock-File
+		Copy-Item -Path "$tmpFolder\resinfo-swmb-master\*" -Destination "$SwmbCorePath" -Recurse -Force
+		Get-ChildItem -Path "$SwmbCorePath" -Recurse | Unblock-File
 	} Else {
 		Write-Output "Error: Upgrade of SWMB impossible..."
 	}
@@ -289,7 +289,7 @@ Function SWMB_PrintTweaks {
 
 Function SWMB_ImportModuleParameter() {
 	Param (
-		[Parameter(Mandatory = $true)] [string]$moduleScriptName
+		[Parameter(Mandatory = $true)] [string]$ModuleScriptName
 	)
 
 	Function _ModuleAutoLoad() {
@@ -313,41 +313,44 @@ Function SWMB_ImportModuleParameter() {
 		Return $false
 	}
 
-	$moduleScriptPath = (Get-Item $moduleScriptName).DirectoryName
-	$moduleScriptBasename = (Get-Item $moduleScriptName).Basename
+	$ModuleScriptPath = (Get-Item $ModuleScriptName).DirectoryName
+	$ModuleScriptBasename = (Get-Item $ModuleScriptName).Basename
 
 	# Try to load default parameter module with extension -VarDefault
-	$moduleScriptVarDefault = (Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename) + '-VarDefault.psm1'
-	If (Test-Path -LiteralPath $moduleScriptVarDefault) {
-		Import-Module -Name $moduleScriptVarDefault -ErrorAction Stop
+	$ModuleScriptVarDefault = (Join-Path -Path $ModuleScriptPath -ChildPath $ModuleScriptBasename) + '-VarDefault.psm1'
+	If (Test-Path -LiteralPath $ModuleScriptVarDefault) {
+		Import-Module -Name $ModuleScriptVarDefault -ErrorAction Stop
 	}
 	# Try to load local overload parameter module with extension -VarOverload
-	While (Test-Path -LiteralPath $moduleScriptPath) {
-		# Module VarOverload directly in the current folder
-		If (_ModuleAutoLoad -PathBase (Join-Path -Path $moduleScriptPath -ChildPath $moduleScriptBasename)) {
-			Return $true
-		}
+	# From module folder upto root folder and from here to root folder...
+	Foreach ($ItemPath in $ModuleScriptPath, (Get-Location).Path) {
+		While (Test-Path -LiteralPath $ItemPath) {
+			# Module VarOverload directly in the current folder
+			If (_ModuleAutoLoad -PathBase (Join-Path -Path $ItemPath -ChildPath $ModuleScriptBasename)) {
+				Return $true
+			}
 
-		# Or module VarOverload directly in the subfolder Modules
-		If (_ModuleAutoLoad -PathBase (Join-Path -Path $moduleScriptPath -ChildPath (Join-Path -Path "Modules" -ChildPath $moduleScriptBasename))) {
-			Return $true
-		}
+			# Or module VarOverload directly in the subfolder Modules
+			If (_ModuleAutoLoad -PathBase (Join-Path -Path $ItemPath -ChildPath (Join-Path -Path "Modules" -ChildPath $ModuleScriptBasename))) {
+				Return $true
+			}
 
-		# Search module in the parent folder .. and so on
-		$newPath = (Resolve-Path (Join-Path -Path $moduleScriptPath -ChildPath "..") -ErrorAction SilentlyContinue) 
-		If ("$newPath" -eq "$moduleScriptPath") {
-			Break
+			# Search module in the parent folder .. and so on
+			$NewPath = (Resolve-Path (Join-Path -Path $ItemPath -ChildPath "..") -ErrorAction SilentlyContinue) 
+			If ("$NewPath" -eq "$ItemPath") {
+				Break
+			}
+			$ItemPath = $NewPath
 		}
-		$moduleScriptPath = $newPath
 	}
 
 	# Search module in ProgramData folder
 	$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 	$DataModule = (Join-Path -Path $DataFolder      -ChildPath "Modules")
-	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataFolder -ChildPath $moduleScriptBasename)) {
+	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataFolder -ChildPath $ModuleScriptBasename)) {
 		Return $true
 	}
-	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataModule -ChildPath $moduleScriptBasename)) {
+	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataModule -ChildPath $ModuleScriptBasename)) {
 		Return $true
 	}
 }

@@ -10,6 +10,6 @@
 
  * [ocs-inventory](./ocs-inventory) / Creating SWMB package for [OCS Inventory](https://ocsinventory-ng.org/)
 
- * [uninstall-kasperksy](./uninstall-kasperksy) / Uninstall Kaspersky Endpoint
+ * [uninstall-kaspersky](./uninstall-kaspersky) / Uninstall Kaspersky Endpoint
 
  * [wapt](./wapt) / Creating SWMB package for [WAPT](https://www.wapt.fr/en/doc/)

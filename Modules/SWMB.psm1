@@ -321,9 +321,11 @@ Function SWMB_ImportModuleParameter() {
 	If (Test-Path -LiteralPath $ModuleScriptVarDefault) {
 		Import-Module -Name $ModuleScriptVarDefault -ErrorAction Stop
 	}
-	# Try to load local overload parameter module with extension -VarOverload
-	# From module folder upto root folder and from here to root folder...
-	Foreach ($ItemPath in $ModuleScriptPath, (Get-Location).Path) {
+	# Try to load the local overload parameter module with the extension
+	# -VarOverload from the current folder to the root folder,
+	# then from the SWMB ProgramData folder to the root folder,
+	# and finally from the module folder to the root folder.
+	Foreach ($ItemPath in (Get-Location).Path, (Join-Path -Path $Env:ProgramData -ChildPath "SWMB"), $ModuleScriptPath) {
 		While (Test-Path -LiteralPath $ItemPath) {
 			# Module VarOverload directly in the current folder
 			If (_ModuleAutoLoad -PathBase (Join-Path -Path $ItemPath -ChildPath $ModuleScriptBasename)) {

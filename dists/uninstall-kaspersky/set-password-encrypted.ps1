@@ -22,7 +22,7 @@ If (!(Test-Path -LiteralPath ".\Custom-VarOverload.psm1")) {
 # Configuration for Kaspersky Endpoint
 `$Global:SWMB_Custom.KesSecureString = '$EncryptedPass'
 `$Global:SWMB_Custom.KesKeyFile      = '$KeyFile'
-" | Out-File -Path ".\Custom-VarOverload.psm1"
+" | Out-File -FilePath ".\Custom-VarOverload.psm1" -NoClobber
 	}
 } Else {
 	$Query = Read-Host -Prompt "Do you want to append theses parameters in your current configuration file [Y|n]"
@@ -31,6 +31,6 @@ If (!(Test-Path -LiteralPath ".\Custom-VarOverload.psm1")) {
 # Configuration for Kaspersky Endpoint
 `$Global:SWMB_Custom.KesSecureString = '$EncryptedPass'
 `$Global:SWMB_Custom.KesKeyFile      = '$KeyFile'
-" | Out-File -Path ".\Custom-VarOverload.psm1" -Append
+" | Out-File -FilePath ".\Custom-VarOverload.psm1" -Append
 	}
 }

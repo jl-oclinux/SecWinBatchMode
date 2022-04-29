@@ -1,5 +1,7 @@
 # Uninstall Kaspersky Endpoint
 
+## What's in this folder
+
 Create a file `Custom-VarOverload.psm1` in your current folder
 ```
 # Kaspersky Endpoint Security
@@ -29,11 +31,32 @@ You can verify that this password is encrypted by doing the reverse
 operation via the [get-password-cleartext.ps1](get-password-cleartext.ps1) script.
 
 Finally, regardless of the method chosen for the password,
-the Kapersky uninstallation operation is launched
-with the following command ([uninstall-kaspersky.ps1](uninstall-kaspersky.ps1)):
+the Kapersky uninstallation operation is launched with
+the tweak `UninstallKasperskyEndpoint`
+It's resume with the following command
+([uninstall-kaspersky.ps1](uninstall-kaspersky.ps1)):
 ```ps1
-"C:\Program Files\SWMB\swmb.ps1" -exp UninstallKasperskyEndpoint
+"C:\Program Files\SWMB\swmb.ps1" -exp -import "C:\Program Files\SWMB\Modules\SWMB\Custom.psm1" UninstallKasperskyEndpoint
 ```
 
+## In practice
+
+Basically, on a workstation, all you have to do is open a PowerShell
+console as an administrator, then run the script
+```ps1
+cd C:\Program Files\SWMB\dists\uninstall-kaspersky
+
+.\set-password-encrypted.ps1
+
+.\uninstall-kaspersky.ps1
+```
+And that's it,
+Kaspersky Endpoint disappears from the computer... hopefully!
+
+To automate the procedure on a group of machines, you need to deploy
+SWMB and then copy this uninstallation script with the encryption key
+and the configuration mode into the same folder, and that should do it.
+
+## More
 
 To learn more about [encrypting credentials](https://www.pdq.com/blog/secure-password-with-powershell-encrypting-credentials-part-1/).

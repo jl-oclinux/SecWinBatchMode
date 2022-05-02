@@ -18,8 +18,11 @@ e.g. `Custom-varOverload.psm1` are now searched in the current folder,
 then in the `ProgramData` folder and then in the installation folder.
 For these three cases, we start with the current folder,
 the subfolder `Modules` and then we go back up to the root of the file system.
+ * `(Get-Location).Path`  # $PWD
+ * `$Env:ProgramData\SWMB`
+ * Module Script Path  # `$Env:ProgramFiles\SWMB\Modules\SWMB`
 
-Many tweaks had not been classified.
+Many tweaks had not been classified in preset files.
 This work on all the latest tweaks is already well underway.
 
 

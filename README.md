@@ -367,14 +367,24 @@ If you want to define your own variable values used in the `Custom.psm1` module,
    ```
 
 Order in which the `Custom-VarOverload.psm1` module will be loaded into memory:
+first to the current folder (`(Get-Location).Path`),
+second to the program data folder
+and last to the module installation folder.
+For each of these folders, it will recursively search folder after folder
+until it reaches the root folder.
 
+ 1. `.\Custom-VarOverload.psm1`
+ 1. `.\Modules\Custom-VarOverload.psm1`
  1. `..\Custom-VarOverload.psm1`
  1. `..\Modules\Custom-VarOverload.psm1`
  1. `..\..\Custom-VarOverload.psm1`
  1. `..\..\Modules\Custom-VarOverload.psm1`
  1. and so on...
- 1. `C:\ProgramData\SWMB\Custom-VarOverload.psm1`
- 1. `C:\ProgramData\SWMB\Modules\Custom-VarOverload.psm1`
+ 1. `$Env:ProgramData\SWMB\Custom-VarOverload.psm1`
+ 1. `$Env:ProgramData\SWMB\Modules\Custom-VarOverload.psm1`
+ 1. and so on...
+ 1. `$Env:ProgramFiles\SWMB\Modules\SWMB\Custom-VarOverload.psm1`
+ 1. `$Env:ProgramFiles\SWMB\Modules\SWMB\Modules\Custom-VarOverload.psm1`
 
 For sensitive keys, it is possible to define a `Custom-VarAutodel.psm1` module.
 This one works exactly the same way as the `Custom-VarOverload.psm1` module

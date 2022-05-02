@@ -5,7 +5,7 @@
  * The latest version of the SWMB **documentation** can be found [online](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
  * The latest version of the SWMB **setup installer** is available on the [download page](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/).
 
-Main sub-menu:
+**Main sub-menu**:
 
  * [CONTRIBUTING](./CONTRIBUTING.md)
  * [FAQ](./FAQ.md)

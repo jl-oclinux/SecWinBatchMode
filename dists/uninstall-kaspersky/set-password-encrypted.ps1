@@ -10,22 +10,23 @@ $EncryptedPass = ConvertFrom-SecureString -SecureString $Password -Key $Key
 
 Write-Output ""
 Write-Output "# Lines to add in your configuration file Custom-VarOverload.psm1"
+Write-Output "# or in the auto delete one Custom-VarAutodel.psm1"
 Write-Output ""
 Write-Output "`$Global:SWMB_Custom.KesSecureString = '$EncryptedPass'"
 Write-Output "`$Global:SWMB_Custom.KesKeyFile      = '$KeyFile'"
 Write-Output ""
 
-If (!(Test-Path -LiteralPath ".\Custom-VarOverload.psm1")) {
-	$Query = Read-Host -Prompt "Do you want to create a configration file in the current folder [Y|n]"
+If (!(Test-Path -LiteralPath ".\Custom-VarAutodel.psm1")) {
+	$Query = Read-Host -Prompt "Do you want to create an auto-delete configuration file (Custom-VarAutodel) in the current folder [Y|n]"
 	If ($Query.ToLower() -ne "n") {
 		Write-Output "
 # Configuration for Kaspersky Endpoint
 `$Global:SWMB_Custom.KesSecureString = '$EncryptedPass'
 `$Global:SWMB_Custom.KesKeyFile      = '$KeyFile'
-" | Out-File -FilePath ".\Custom-VarOverload.psm1" -NoClobber
+" | Out-File -FilePath ".\Custom-VarAutodel.psm1" -NoClobber
 	}
-} Else {
-	$Query = Read-Host -Prompt "Do you want to append theses parameters in your current configuration file [Y|n]"
+} ElseIf (Test-Path -LiteralPath ".\Custom-VarOverload.psm1") {
+	$Query = Read-Host -Prompt "Do you want to append theses parameters in your current configuration file (Custom-VarOverload) [Y|n]"
 	If ($Query.ToLower() -ne "n") {
 		Write-Output "
 # Configuration for Kaspersky Endpoint

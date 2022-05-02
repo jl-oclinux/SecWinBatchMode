@@ -1,9 +1,24 @@
 # Uninstall Kaspersky Endpoint
 
-## What's in this folder
+## Liminary
 
-Create a file `Custom-VarOverload.psm1` in your current folder
-```
+There is a tweak in SWMB that allows you to uninstall the Kasperksy
+Endpoint software: `UninstallKasperskyEndpoint`.
+However, removing such software is not easy because an antivirus
+program always protects itself against viruses,
+so the easy uninstallation...
+
+## Configuration module
+
+Therefore, you need a password to ensure this operation.
+This password is local to each site.
+You will have to configure / customize your SWMB installation
+before you can uninstall kaspersky Endpoint.
+
+This includes the creation of a parameter module
+`Custom-VarOverload.psm1` which can be saved in the current folder
+or in any other folder...
+```ps1
 # Kaspersky Endpoint Security
 $Global:SWMB_Custom.KesLogin        = "KLAdmin"
 
@@ -14,9 +29,10 @@ $Global:SWMB_Custom.KesPassword     = ""
 $Global:SWMB_Custom.KesSecureString = ""
 $Global:SWMB_Custom.KesKeyFile      = ""
 ```
-
 You can choose to put the password to modify Kasperky in clear text
 or to scramble it via a symmetric encryption process.
+
+## What's in this folder
 
 How to create a password encrypted so blurred ?
 
@@ -53,9 +69,10 @@ cd C:\Program Files\SWMB\dists\uninstall-kaspersky
 And that's it,
 Kaspersky Endpoint disappears from the computer... hopefully!
 
-To automate the procedure on a group of machines, you need to deploy
-SWMB and then copy this uninstallation script with the encryption key
-and the configuration mode into the same folder, and that should do it.
+To automate the procedure on a group of machines, you need to deploy SWMB,
+copy this uninstall script, the encryption key and the configuration
+module to the same folder (this is simpler, but not mandatory),
+and that should be enough.
 
 ## More
 

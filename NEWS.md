@@ -8,9 +8,19 @@ If needed, a specific tweak function must be written for security reasons.
 
 New presets/rules:
 
+ * 2022/03/16 - `UninstallKasperskyEndpoint` ([see more](dists/uninstall-kaspersky/)) - use Custom configuration module
  * 2022/03/16 - `SetTargetRelease`/`UnsetTargetRelease` -> For fix the target Feature Update version ([see more](https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsUpdate::TargetReleaseVersion))
  * 2022/03/02 - `EnableClearPageFile`/`DisableClearPageFile` -> Clean PAGEFILE.SYS at shutdown
  * 2022/02/02 - `EnableASLR`/`DisableASLR` -> Address Space Layout Randomisation
+
+The overload modules for the configuration `*-varOverload.psm1`,
+e.g. `Custom-varOverload.psm1` are now searched in the current folder,
+then in the `ProgramData` folder and then in the installation folder.
+For these three cases, we start with the current folder,
+the subfolder `Modules` and then we go back up to the root of the file system.
+
+Many tweaks had not been classified.
+This work on all the latest tweaks is already well underway.
 
 
 ## Version 3.13 (2021/11/22)

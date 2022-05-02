@@ -46,6 +46,7 @@ DisableWAPPush                                  # EnableWAPPush
 # DisableStepsRecorder                          # EnableStepsRecorder
 # DisableSendAdditionalData                     # EnableSendAdditionalData
 # DisableSharedInformationSearch                # EnableSharedInformationSearch
+# DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
 
 
 ### UWP Privacy Tweaks ###
@@ -93,6 +94,13 @@ EnableASLR                                      # DisableASLR                   
 # DisableMicrosoftAccount                       # EnableMicrosoftAccount
 # SetSecurityParamAccountPolicy                 # UnsetSecurityParamAccountPolicy
 # EnableSessionLockTimeout                      # DisableSessionLockTimeout
+# DisablePowershell2                            # EnablePowershell2
+# DisableDomainProfile                          # EnableDomainProfile
+# DisablePrivateProfile                         # EnablePrivateProfile
+# DisablePublicProfile                          # EnablePublicProfile
+# DisableHybridSleep                            # EnableHybridSleep
+# EnableClearPageFile                           # DisableClearPageFile                          # ViewClearPageFile
+
 
 ### Network Tweaks ###
 SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic
@@ -245,13 +253,5 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # SysMessage
 
 ### Tweaks that needs to be classified ###
-# DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
-# DisableDomainProfile                          # EnableDomainProfile
-# DisableHybridSleep                            # EnableHybridSleep
-# DisablePowershell2                            # EnablePowershell2
-# DisablePrivateProfile                         # EnablePrivateProfile
-# DisablePublicProfile                          # EnablePublicProfile
-
-# EnableClearPageFile                           # DisableClearPageFile                          # ViewClearPageFile
 # UninstallKasperskyEndpoint
 # SetTargetRelease                              # UnsetTargetRelease                            # ViewTargetRelease

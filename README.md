@@ -6,6 +6,7 @@
  * The latest version of the SWMB **setup installer** is available on the [download page](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/).
 
 Main sub-menu:
+
  * [CONTRIBUTING](./CONTRIBUTING.md)
  * [FAQ](./FAQ.md)
  * [LICENSE](./LICENSE.md)
@@ -69,6 +70,7 @@ It is an extension that we added.
  * Document of the [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
    (Federal Office for Information Technology Security - Germany) :
    [Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
+ * [Sécuriser son parc Windows avec le projet modulaire et communautaire SWMB](https://hal.archives-ouvertes.fr/hal-03608835) (french 2022)
 
 More references on the page [REFERENCES](./REFERENCES.md).
 
@@ -91,9 +93,11 @@ to be installed for predefined scheduled tasks (see [Tasks](#task)).
 SWMB-Setup-XXX.XXX.XXX.exe /S /ACTIVATED_PRESET=0
 ```
 
-You will also find, in the [dists](dists) directory, examples of deployment of the script
+You will also find, in the [dists](dists) directory, examples of deployment or use
+of the SWMB software environment
 (manual, at machine startup, with [OCS inventory](https://ocsinventory-ng.org/),
-[WAPT](https://www.wapt.fr) package, volume encryption...).
+[WAPT](https://www.wapt.fr) package, volume encryption,
+uninstall [Kasperky Endpoint](dists/uninstall-kaspersky/README.md)...).
 
 The [README](dists/manual-use/README.md) file in the "manual-use" directory
 reminds some principles about Powershell execution policies.

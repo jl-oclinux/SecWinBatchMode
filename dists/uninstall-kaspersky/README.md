@@ -32,6 +32,11 @@ $Global:SWMB_Custom.KesKeyFile      = ""
 You can choose to put the password to modify Kasperky in clear text
 or to scramble it via a symmetric encryption process.
 
+For safety, you can put this data in a configuration file `Custom-VarAutodel.psm1`.
+The advantage with this is that it is destroyed after use.
+So the password will not remain written in a file on the workstation,
+even if encrypted, after the uninstallation.
+
 ## What's in this folder
 
 How to create a password encrypted so blurred ?
@@ -39,7 +44,7 @@ How to create a password encrypted so blurred ?
 A small script is provided [set-password-encrypted.ps1](set-password-encrypted.ps1).
 It asks you for a file name to store the encryption key and password.
 The blurred encrypted word will then be displayed on the console.
-You have to write these values in the `Custom-VarOverload.psm1` file.
+You have to write these values in the `Custom-VarOverload.psm1` file (or `Custom-VarAutodel.psm1`).
 Finally, the file containing the encryption key should be put next
 to the file of this configuration file (in the same folder).
 

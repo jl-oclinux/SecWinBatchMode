@@ -1,7 +1,11 @@
 # SWMB - Secure Windows Mode Batch
 
-The last version of this document could be found [online](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
+## Main links
 
+ * The latest version of the SWMB **documentation** can be found [online](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
+ * The latest version of the SWMB **setup installer** is available on the [download page](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/).
+
+Main sub-menu:
  * [CONTRIBUTING](./CONTRIBUTING.md)
  * [FAQ](./FAQ.md)
  * [LICENSE](./LICENSE.md)
@@ -71,7 +75,8 @@ More references on the page [REFERENCES](./REFERENCES.md).
 
 ## Installation
 
-You can find on [resinfo-swmb](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/) the latest versions of the SWMB installer.
+You can find on the [download page](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/) the latest versions of the SWMB setup installer,
+and also a [WAPT](https://www.wapt.fr) package, a ZIP archive usable with [OCS inventory](https://ocsinventory-ng.org/)...
 These setup packages are made with the [NSIS](https://sf.net/projects/nsis/) software (Nullsoft Scriptable Install System).
 It is possible not to install and activate scheduled tasks at computer startup and user logon.
 
@@ -87,7 +92,8 @@ SWMB-Setup-XXX.XXX.XXX.exe /S /ACTIVATED_PRESET=0
 ```
 
 You will also find, in the [dists](dists) directory, examples of deployment of the script
-(manual, at machine startup, with OCS Inventory, WAPT package, volume encryption...).
+(manual, at machine startup, with [OCS inventory](https://ocsinventory-ng.org/),
+[WAPT](https://www.wapt.fr) package, volume encryption...).
 
 The [README](dists/manual-use/README.md) file in the "manual-use" directory
 reminds some principles about Powershell execution policies.

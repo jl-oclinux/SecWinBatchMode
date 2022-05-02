@@ -43,7 +43,9 @@ DisableWAPPush                                  # EnableWAPPush
 # DisableOsGeneratedReport                      # EnableOsGeneratedReport
 # DisableOverrideReportingMAPS                  # EnableOverrideReportingMAPS
 # DisablePrivacyExperience                      # EnablePrivacyExperience
-
+# DisableStepsRecorder                          # EnableStepsRecorder
+# DisableSendAdditionalData                     # EnableSendAdditionalData
+# DisableSharedInformationSearch                # EnableSharedInformationSearch
 
 
 ### UWP Privacy Tweaks ###
@@ -89,6 +91,8 @@ EnableASLR                                      # DisableASLR                   
 # DisableAutoloadDriver                         # EnableAutoloadDriver                          # ViewAutoloadDriver
 # DisableIndexingEncryptedStores                # EnableIndexingEncryptedStores
 # DisableMicrosoftAccount                       # EnableMicrosoftAccount
+# SetSecurityParamAccountPolicy                 # UnsetSecurityParamAccountPolicy
+# EnableSessionLockTimeout                      # DisableSessionLockTimeout
 
 ### Network Tweaks ###
 SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic
@@ -241,12 +245,6 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # SysMessage
 
 ### Tweaks that needs to be classified ###
-# SetSecurityParamAccountPolicy                 # UnsetSecurityParamAccountPolicy
-# DisableSendAdditionalData                     # EnableSendAdditionalData
-# EnableSessionLockTimeout                      # DisableSessionLockTimeout
-# DisableSharedInformationSearch                # EnableSharedInformationSearch
-# DisableStepsRecorder                          # EnableStepsRecorder
-
 # DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
 # DisableDomainProfile                          # EnableDomainProfile
 # DisableHybridSleep                            # EnableHybridSleep

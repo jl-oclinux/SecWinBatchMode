@@ -10,6 +10,84 @@
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 
+################################################################
+### SWMB Import Parameter Extension
+################################################################
+
+Function SWMB_ImportModuleParameter() {
+	Param (
+		[Parameter(Mandatory = $true)] [string]$ModuleScriptName
+	)
+
+	Function _ModuleAutoLoad() {
+		Param (
+			[Parameter(Mandatory = $true)] [string]$PathBase
+		)
+
+		$VarOverload = $PathBase + '-VarOverload.psm1'
+		$VarAutodel  = $PathBase + '-VarAutodel.psm1'
+
+		If ((Test-Path -LiteralPath $VarOverload) -Or (Test-Path -LiteralPath $VarAutodel)) {
+			If (Test-Path -LiteralPath $VarOverload) {
+				Import-Module -Name $VarOverload -ErrorAction Stop
+			}
+			If (Test-Path -LiteralPath $VarAutodel) {
+				Import-Module -Name $VarAutodel -ErrorAction Stop
+				Remove-Item $VarAutodel -ErrorAction Stop
+			}
+			Return $true
+		}
+		Return $false
+	}
+
+	$ModuleScriptPath = (Get-Item $ModuleScriptName).DirectoryName
+	$ModuleScriptBasename = (Get-Item $ModuleScriptName).Basename
+
+	# Try to load default parameter module with extension -VarDefault
+	$ModuleScriptVarDefault = (Join-Path -Path $ModuleScriptPath -ChildPath $ModuleScriptBasename) + '-VarDefault.psm1'
+	If (Test-Path -LiteralPath $ModuleScriptVarDefault) {
+		Import-Module -Name $ModuleScriptVarDefault -ErrorAction Stop
+	}
+	# Try to load the local overload parameter module with the extension
+	# -VarOverload from the current folder to the root folder,
+	# then from the SWMB ProgramData folder to the root folder,
+	# and finally from the module folder to the root folder.
+	Foreach ($ItemPath in (Get-Location).Path, (Join-Path -Path $Env:ProgramData -ChildPath "SWMB"), $ModuleScriptPath) {
+		While (Test-Path -LiteralPath $ItemPath) {
+			# Module VarOverload directly in the current folder
+			If (_ModuleAutoLoad -PathBase (Join-Path -Path $ItemPath -ChildPath $ModuleScriptBasename)) {
+				Return $true
+			}
+
+			# Or module VarOverload directly in the subfolder Modules
+			If (_ModuleAutoLoad -PathBase (Join-Path -Path $ItemPath -ChildPath (Join-Path -Path "Modules" -ChildPath $ModuleScriptBasename))) {
+				Return $true
+			}
+
+			# Search module in the parent folder .. and so on
+			$NewPath = (Resolve-Path (Join-Path -Path $ItemPath -ChildPath "..") -ErrorAction SilentlyContinue) 
+			If ("$NewPath" -eq "$ItemPath") {
+				Break
+			}
+			$ItemPath = $NewPath
+		}
+	}
+
+	# Search module in ProgramData folder
+	$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+	$DataModule = (Join-Path -Path $DataFolder      -ChildPath "Modules")
+	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataFolder -ChildPath $ModuleScriptBasename)) {
+		Return $true
+	}
+	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataModule -ChildPath $ModuleScriptBasename)) {
+		Return $true
+	}
+}
+
+################################################################
+### Load module associated parameter
+################################################################
+
 SWMB_ImportModuleParameter (Get-PSCallStack)[0].ScriptName
 
 

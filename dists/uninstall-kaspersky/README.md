@@ -65,7 +65,7 @@ It's resume with the following command
 Basically, on a workstation, all you have to do is open a PowerShell
 console as an administrator, then run the script
 ```ps1
-cd C:\Program Files\SWMB\dists\uninstall-kaspersky
+cd "C:\Program Files\SWMB\dists\uninstall-kaspersky"
 
 .\set-password-encrypted.ps1
 

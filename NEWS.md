@@ -22,6 +22,14 @@ the subfolder `Modules` and then we go back up to the root of the file system.
  * `$Env:ProgramData\SWMB`
  * Module Script Path  # `$Env:ProgramFiles\SWMB\Modules\SWMB`
 
+The `Custom.psm1` module is now loaded by default.
+The `SWMB_ImportModuleParameter` function has been moved from `SWMB.psm1`
+to the Custom module (no other choice was found) and this module is loaded
+first in the list of nested modules (see `SWMB.psd1`).
+In case the `-core` option is used on the `swmb.ps1` command line,
+you must load the Custom module in order for the `SWMB_ImportModuleParameter`
+function to be used.
+
 Many tweaks had not been classified in preset files.
 This work on all the latest tweaks is already well underway.
 

@@ -57,7 +57,7 @@ the tweak `UninstallKasperskyEndpoint`
 It's resume with the following command
 ([uninstall-kaspersky.ps1](uninstall-kaspersky.ps1)):
 ```ps1
-"C:\Program Files\SWMB\swmb.ps1" -exp -import "C:\Program Files\SWMB\Modules\SWMB\Custom.psm1" UninstallKasperskyEndpoint
+. "C:\Program Files\SWMB\swmb.ps1" -exp -import "C:\Program Files\SWMB\Modules\SWMB\Custom.psm1" UninstallKasperskyEndpoint
 ```
 
 ## In practice

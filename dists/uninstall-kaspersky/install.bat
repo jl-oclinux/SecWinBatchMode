@@ -3,9 +3,7 @@ ECHO OFF
 SET softversion=1.0
 SET softpatch=1
 SET softname=kasperkey Endpoint - Uninstall
-SET regkey=SWMB
 SET softpublisher=RESINFO GT SWMB
-SET logfile="C:\Program Files\SWMB\logfile.txt"
 
 SET pwrsh=%WINDIR%\System32\WindowsPowerShell\V1.0\powershell.exe
 IF EXIST "%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe" SET pwrsh=%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe

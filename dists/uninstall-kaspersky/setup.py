@@ -26,4 +26,4 @@ uninstallkey = []
 
 def install():
     print('executing remote command')
-    run(r'.\install.bat')
+    run(r'install.bat')

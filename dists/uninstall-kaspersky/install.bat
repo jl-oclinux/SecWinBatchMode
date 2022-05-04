@@ -15,7 +15,8 @@ REM add rights
 %pwrsh% Set-ExecutionPolicy RemoteSigned -Force -Scope LocalMachine
 
 REM unblock
-%pwrsh% "Unblock-File -Path .\uninstall-kaspersky.ps1"
+%pwrsh% "Unblock-File -Path .\*.ps1"
+%pwrsh% "Unblock-File -Path .\*.psm1"
 
 REM execute
 %pwrsh% -File ".\uninstall-kaspersky.ps1"

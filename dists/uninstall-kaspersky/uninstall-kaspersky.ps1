@@ -4,6 +4,8 @@ If (!(Test-Path -LiteralPath ".\Custom-VarOverload.psm1") -And !(Test-Path -Lite
 	Write-Output "You must have a Custom-VarOverload.psm1 configuration file"
 	Write-Output "(or Custom-VarAutodel.psm1) in the current folder to define"
 	Write-Output "credentials for uninstalling Kaspersky Endpoint software."
+	Write-Output "You can use the script set-password-encrypted.ps1 to help"
+	Write-Output "you create this module."
 	Exit
 }
 

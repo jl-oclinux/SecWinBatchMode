@@ -1,5 +1,5 @@
 
-$KeyFile = Read-Host -Prompt "Key File"
+$KeyFile = Read-Host -Prompt "Key File (please put .key extension)"
 $Password = Read-Host -AsSecureString -Prompt "Password to secure"
 
 $Key = New-Object Byte[] 32 # create key AES 256-bit key (32 bytes)

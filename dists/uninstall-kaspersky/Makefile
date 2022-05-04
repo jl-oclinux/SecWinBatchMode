@@ -40,7 +40,7 @@ zip: $(SOFT)-$(VERSION)-$(PATCH).zip
 	(cd tmp; \
 		cp ../../../Modules/SWMB.psm1 ../../../Modules/SWMB/Custom.psm1 ../../../Modules/SWMB/Custom-VarDefault.psm1 ../../../Modules/SWMB/Experimental.psm1 ./; \
 		cp ../README.md ../get-password-cleartext.ps1 ../set-password-encrypted.ps1 ./; \
-		cp ../uninstall-kaspersky-standalone.ps1 ./uninstall-kasperskyps1; \
+		cp ../uninstall-kaspersky-standalone.ps1 ./uninstall-kaspersky.ps1; \
 		cp ../Custom-VarAutodel.psm1 ../*.key ./; \
 		zip -r ../$@ install.bat README.md *.ps1 *.psm1 *.key \
 		)

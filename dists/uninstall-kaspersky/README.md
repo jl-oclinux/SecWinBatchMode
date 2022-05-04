@@ -46,6 +46,13 @@ In case of deployment with OCS for example,
 there will be nothing left of these files (OCS extracts the Zip archives
 in a temporary folder that it destroys at the end)...
 
+*Note*: it is possible to use the `set-password-encrypted.ps1`
+(and `get-password-cleartext.ps1`) script to prepare the uninstallation
+environment (the Zip archive or equivalent) with an encrypted password under Windows,
+but also under MacOSX or GNU/Linux OSes by installing
+[PowerShell](https://docs.microsoft.com/fr-fr/powershell/scripting/install/installing-powershell)
+(command `pwsh`).
+
 ## Configuration module
 
 Therefore, you need a password to ensure this operation.

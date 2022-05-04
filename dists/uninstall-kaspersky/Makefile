@@ -32,18 +32,19 @@ key:
 zip: $(SOFT)-$(VERSION)-$(PATCH).zip
 
 %.zip: Makefile
-	mkdir -p tmp
+	mkdir -p ./tmp/WAPT
 	perl -p -e ' \
 		s/^(SET\ssoftversion=)\d[\.\d]+/$${1}$(VERSION)/; \
 		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/;' install.bat > tmp/install.bat
+	@perl -p -e ' \
+		s/__VERSION__/$(VERSION)/; \
+		s/__PATCH__/$(PATCH)/;' control > ./tmp/WAPT/control
+	@cp ../../Modules/SWMB.psm1 ../../Modules/SWMB/Custom.psm1 ../../Modules/SWMB/Custom-VarDefault.psm1 ../../Modules/SWMB/Experimental.psm1 ./tmp/; \
+		cp ./README.md ./get-password-cleartext.ps1 ./set-password-encrypted.ps1 ./Custom-VarAutodel.psm1 ./*.key ./tmp/; \
+		cp ./uninstall-kaspersky-standalone.ps1 ./tmp/uninstall-kaspersky.ps1; \
+		cp -f ../../LICENSE.md ./setup.py ./tmp/
 	rm -f $@
-	(cd tmp; \
-		cp ../../../Modules/SWMB.psm1 ../../../Modules/SWMB/Custom.psm1 ../../../Modules/SWMB/Custom-VarDefault.psm1 ../../../Modules/SWMB/Experimental.psm1 ./; \
-		cp ../README.md ../get-password-cleartext.ps1 ../set-password-encrypted.ps1 ./; \
-		cp ../uninstall-kaspersky-standalone.ps1 ./uninstall-kaspersky.ps1; \
-		cp ../Custom-VarAutodel.psm1 ../*.key ./; \
-		zip -r ../$@ install.bat README.md *.ps1 *.psm1 *.key \
-		)
+	(cd tmp; zip -r ../$@ install.bat README.md *.ps1 *.psm1 *.key setup.py LICENSE.md WAPT)
 	chmod ugo+rw $@
 
 

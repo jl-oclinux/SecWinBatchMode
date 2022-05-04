@@ -53,6 +53,11 @@ but also under MacOSX or GNU/Linux OSes by installing
 [PowerShell](https://docs.microsoft.com/fr-fr/powershell/scripting/install/installing-powershell)
 (command `pwsh`).
 
+*WAPT*: The Zip archive is also compatible with a [WAPT](https://www.wapt.fr) package system
+(there are `setup.py` and `control` files inside).
+So it is possible to push this package on your WAPT package server
+(if you configure it as explained above).
+
 ## Configuration module
 
 Therefore, you need a password to ensure this operation.

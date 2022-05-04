@@ -8,6 +8,44 @@ However, removing such software is not easy because an antivirus
 program always protects itself against viruses,
 so the easy uninstallation...
 
+## Quick and Standalone version
+
+There is an independent SWMB version of this tweak to make the
+uninstallation of Kasperky Endpoint even easier.
+
+Just download this [Zip archive](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/Kasperky-Uninstall-Latest.zip).
+
+Then, in the directory where the archive is extracted,
+in a PowerShell console with administrator rights,
+we launch the following command which, despite its name,
+will uninstall Kaspersky.
+```ps1
+.\install.bat 
+```
+It will ask you to run the command
+```ps1
+.\set-password-encrypted.ps1
+```
+because the Zip archive does not contain the files with the key
+and the settings module to give the kaspersky password.
+Then we restart the uninstallation with again
+```ps1
+.\install.bat
+```
+
+To automate this on a computer park, you just have to put the file
+containing the encryption key and the `Custom-VarAutodel.psm1` file
+in the Zip archive and then deploy this archive
+by running `install.bat` during this one (for example with OCS Inventory).
+
+*For information*, the name of the script is install.bat because during
+an automatic deployment, at LEGI, we always run the `install.bat` name script
+of the archive, whatever the script actually does!
+In this case, nothing is installed.
+In case of deployment with OCS for example,
+there will be nothing left of these files (OCS extracts the Zip archives
+in a temporary folder that it destroys at the end)...
+
 ## Configuration module
 
 Therefore, you need a password to ensure this operation.
@@ -78,6 +116,10 @@ To automate the procedure on a group of machines, you need to deploy SWMB,
 copy this uninstall script, the encryption key and the configuration
 module to the same folder (this is simpler, but not mandatory),
 and that should be enough.
+
+There are two versions of the `uninstall-kaspersky` file,
+one uses the `swmb.ps1` engine and the other one uses the minimum
+while being independent (standalone).
 
 ## More
 

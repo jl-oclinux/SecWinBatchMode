@@ -97,6 +97,9 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			"/qn"
 		)
 		Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
+
+		# Remove Kaspersky Agent {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
+		Start-Process "msiexec.exe" -ArgumentList "/X {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B} /qn" -Wait -NoNewWindow
 		Write-Host "Uninstall finish"
 	} Else {
 		Write-Host "Kaspersky not installed on this computer"

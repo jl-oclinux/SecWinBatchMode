@@ -70,7 +70,7 @@ Function TweakViewTargetRelease { # RESINFO
 # Uninstall
 Function TweakUninstallKasperskyEndpoint { # RESINFO
 	Write-Output "Suppress software Kaspersky Endpoint protection..."
-	$Kes = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky endpoint security*" }
+	$Kes = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky Endpoint Security*" }
 
 	If ($Kes.IdentifyingNumber) {
 		Write-Host "Uninstalling Kaspersky version $($Kes.Version) with GUID => $($Kes.IdentifyingNumber)"
@@ -98,7 +98,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		)
 		Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
 
-		# Remove Kaspersky Agent, Franch Guid = {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
+		# Remove Kaspersky Agent, French GUID = {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
 		$KesAgent = Get-WmiObject win32_product | Where { $_.Name -like "*Agent*Kaspersky Security Center*" }
 		If ($KesAgent.IdentifyingNumber) {
 			Write-Output "Suppress Agent Kaspersky Security Center..."
@@ -107,7 +107,12 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			
 		Write-Host "Uninstall finish"
 	} Else {
-		Write-Host "Kaspersky not installed on this computer"
+		Write-Host "Kaspersky Endpoint is not installed on this computer"
+	}
+
+	# Warning if another Kaspersky is still installed on the computer
+	Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky*" } | ForEach-Object {
+		Write-Host "Warning: the product $($_.IdentifyingNumber) is still installed: $($_.Name)"
 	}
 }
 

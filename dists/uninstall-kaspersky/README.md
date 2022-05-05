@@ -3,7 +3,7 @@
 ## Liminary
 
 There is a tweak in SWMB that allows you to uninstall the Kasperksy
-Endpoint software: `UninstallKasperskyEndpoint`.
+Endpoint software and the Network Agent: `UninstallKasperskyEndpoint`.
 However, removing such software is not easy because an antivirus
 program always protects itself against viruses,
 so the easy uninstallation...

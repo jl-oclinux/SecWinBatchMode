@@ -136,3 +136,32 @@ while being independent (standalone).
 ## More
 
 To learn more about [encrypting credentials](https://www.pdq.com/blog/secure-password-with-powershell-encrypting-credentials-part-1/).
+
+Get all Kaspersky programs installed on a computer
+```ps1
+Get-WmiObject win32_product|Where { $_.name -like "*Kaspersky*" }
+```
+
+Example of display on a french installation.
+PLease note that the `UninstallKasperskyEndpoint` tweak uninstall the
+Kasperksy Endpoint software and the Network Agent,
+but not all Kaspersky software!
+```
+IdentifyingNumber : {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
+Name              : Agent d'administration de Kaspersky Security Center
+Vendor            : Kaspersky
+Version           : 12.0.0.7734
+Caption           : Agent d'administration de Kaspersky Security Center
+
+IdentifyingNumber : {7EC66A9F-0A49-4DC0-A9E8-460333EA8013}
+Name              : Kaspersky Endpoint Security for Windows
+Vendor            : AO Kaspersky Lab
+Version           : 11.6.0.394
+Caption           : Kaspersky Endpoint Security for Windows
+
+IdentifyingNumber : {5D35D57A-30B9-493B-819F-C6C2181A0A1A}
+Name              : Console d'administration de Kaspersky Security Center
+Vendor            : Kaspersky
+Version           : 13.2.0.1511
+Caption           : Console d'administration de Kaspersky Security Center
+```

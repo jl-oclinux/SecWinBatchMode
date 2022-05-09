@@ -253,5 +253,5 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # SysMessage
 
 ### Tweaks that needs to be classified ###
-# UninstallKasperskyEndpoint
+# UninstallKasperskyEndpoint                    # UninstallKasperskyConsole                     # ViewKasperskyProduct
 # SetTargetRelease                              # UnsetTargetRelease                            # ViewTargetRelease

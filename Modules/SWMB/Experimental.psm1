@@ -109,20 +109,37 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 	} Else {
 		Write-Host "Kaspersky Endpoint is not installed on this computer"
 	}
+}
 
-	# Warning if another Kaspersky is still installed on the computer
-	Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky*" } | ForEach-Object {
-		Write-Host "Warning: the product $($_.IdentifyingNumber) is still installed: $($_.Name)"
+################################################################
+
+# Suppress Kaspersky Console software
+# Uninstall
+Function TweakUninstallKasperskyConsole { # RESINFO
+	Write-Output "Uninstall software Kaspersky Console..."
+
+	# Remove Kaspersky Console, French GUID = {5D35D57A-30B9-493B-819F-C6C2181A0A1A}
+	$KesConsole = Get-WmiObject win32_product | Where { $_.Name -like "*Console*Kaspersky Security Center*" }
+	If ($KesConsole.IdentifyingNumber) {
+		Write-Output "Suppress Console Kaspersky Security Center..."
+		Start-Process "msiexec.exe" -ArgumentList "/X $($KesConsole.IdentifyingNumber) /qn" -Wait -NoNewWindow
+		Write-Host "Uninstall finish"
+	} Else {
+		Write-Host "Kaspersky Console is not installed on this computer"
 	}
 }
 
-# Install
-#Function TweakInstallKasperskyEndpoint { # RESINFO
-#	Write-Output "Install software Kaspersky Endpoint protection..."
-#	Write-Output "Error: Empty function defined only for check"
-#	Write-Output "Error: use your deploiement software in order to install Kasperky Endpoint"
-#	Exit
-#}
+################################################################
+
+# View all Kaspersky Product
+# View
+Function TweakViewKasperskyProduct { # RESINFO
+	Write-Output "View all Kaspersky products..."
+	# Warning if another Kaspersky is still installed on the computer
+	Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky*" } | ForEach-Object {
+		Write-Host "Note: Product $($_.IdentifyingNumber) is installed: $($_.Name)"
+	}
+}
 
 
 ################################################################

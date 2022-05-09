@@ -8,6 +8,8 @@ If needed, a specific tweak function must be written for security reasons.
 
 New presets/rules:
 
+ * 2022/05/09 - `ViewKasperskyProduct` -> View all the Kaspersky product
+ * 2022/05/09 - `UninstallKasperskyConsole` -> Remove the Kaspersky Console
  * 2022/03/16 - `UninstallKasperskyEndpoint` ([see more](dists/uninstall-kaspersky/)) - use Custom configuration module
  * 2022/03/16 - `SetTargetRelease`/`UnsetTargetRelease` -> For fix the target Feature Update version ([see more](https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsUpdate::TargetReleaseVersion))
  * 2022/03/02 - `EnableClearPageFile`/`DisableClearPageFile` -> Clean PAGEFILE.SYS at shutdown

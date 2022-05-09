@@ -21,5 +21,11 @@ SWMB_Init
 # Unloads the tweak if it starts with the exclamation mark (!)
 SWMB_AddOrRemoveTweak "UninstallKasperskyEndpoint"
 
+# Remove the comment if you want to uninstall the Kaspersky console
+# SWMB_AddOrRemoveTweak "UninstallKasperskyConsole"
+
+# View all Kaspersky product
+SWMB_AddOrRemoveTweak "ViewKasperskyProduct"
+
 # Execute all loaded tweaks (presets)
 SWMB_RunTweaks

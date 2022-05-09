@@ -8,6 +8,12 @@ However, removing such software is not easy because an antivirus
 program always protects itself against viruses,
 so the easy uninstallation...
 
+**Warning**: There is another tweak, `UninstallKasperskyConsole`,
+which allows you to remove the Kaspersky Console software.
+This one is not uninstalled via the present scripts.
+However, it is easy to adapt it or to make another equivalent
+to also remove this console.
+
 ## Quick and Standalone version
 
 There is an independent SWMB version of this tweak to make the

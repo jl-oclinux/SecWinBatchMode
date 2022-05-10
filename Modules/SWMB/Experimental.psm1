@@ -82,10 +82,11 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			$Password = $($Global:SWMB_Custom.KesSecureString) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
 			$Credential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$Password)
 			$PlainPassword = $Credential.GetNetworkCredential().Password
-		} Else {
-			# Interactive - ask password
-			$PlainPassword = Read-Host -AsSecureString -Prompt "Give the Kaspersky endpoint password for $($($Global:SWMB_Custom.KesLogin))"
 		}
+			#Else {
+			# Interactive - ask password
+			#$PlainPassword = Read-Host -AsSecureString -Prompt "Give the Kaspersky endpoint password for $($($Global:SWMB_Custom.KesLogin))"
+		 #}
 
 		# Uninstall
 		$MSIArguments = @(

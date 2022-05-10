@@ -1,7 +1,7 @@
 
 $KesKeyFile = Read-Host -Prompt "Key File (please put .key extension)"
-$KesPassword = Read-Host -AsSecureString -Prompt "Password to secure"
-$KesAgentPassword = Read-Host -AsSecureString -Prompt "Network Agent Password to secure"
+$KesPassword = Read-Host -AsSecureString -Prompt "Kaspersky Endpoint Password to secure"
+$KesAgentPassword = Read-Host -AsSecureString -Prompt "Kaspersky Network Agent Password to secure"
 
 if ($KesKeyFile) {
 	$Key = New-Object Byte[] 32 # create key AES 256-bit key (32 bytes)

@@ -69,29 +69,40 @@ Function TweakViewTargetRelease { # RESINFO
 # Suppress Kaspersky Endpoint software
 # Uninstall
 Function TweakUninstallKasperskyEndpoint { # RESINFO
-	Write-Output "Suppress software Kaspersky Endpoint protection..."
-	$Kes = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky Endpoint Security*" }
 
-	If ($Kes.IdentifyingNumber) {
-		Write-Host "Uninstalling Kaspersky version $($Kes.Version) with GUID => $($Kes.IdentifyingNumber)"
+	Function _String2Hex {
+		Param (
+			[Parameter(Mandatory = $true)] [string]$Text
+		)
+
+		$CharArray=$Text.ToCharArray()
+		ForEach ($Char in $CharArray) {
+			$TextHex = $TextHex + " " + [System.String]::Format("{0:x2}", [System.Convert]::ToUInt32($Char))
+		}
+		Return $TextHex
+	}
+
+	Write-Output "Suppress software Kaspersky Endpoint protection..."
+
+	# Remove Kaspersky Endpoint
+	$KesEndpoint = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky Endpoint Security*" }
+	If ($KesEndpoint.IdentifyingNumber) {
+		Write-Host "Uninstalling Kaspersky version $($KesEndpoint.Version) with GUID => $($KesEndpoint.IdentifyingNumber)"
+		$PlainPassword=''
 		If ($($Global:SWMB_Custom.KesPassword)) {
 			# Batch - password defined in clear text
 			$PlainPassword = $($Global:SWMB_Custom.KesPassword)
 		} ElseIf (($($Global:SWMB_Custom.KesSecureString)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
 			# Batch - encrypted (blurred) password
-			$Password = $($Global:SWMB_Custom.KesSecureString) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
-			$Credential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$Password)
+			$CryptPassword = $($Global:SWMB_Custom.KesSecureString) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
+			$Credential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$CryptPassword)
 			$PlainPassword = $Credential.GetNetworkCredential().Password
 		}
-			#Else {
-			# Interactive - ask password
-			#$PlainPassword = Read-Host -AsSecureString -Prompt "Give the Kaspersky endpoint password for $($($Global:SWMB_Custom.KesLogin))"
-		 #}
 
 		# Uninstall
 		$MSIArguments = @(
 			"/x"
-			$Kes.IdentifyingNumber
+			$KesEndpoint.IdentifyingNumber
 			"KLLOGIN=$($($Global:SWMB_Custom.KesLogin))"
 			"KLPASSWD=$PlainPassword"
 			"/norestart"
@@ -110,7 +121,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		Start-Process "msiexec.exe" -ArgumentList "/x $($KesAgent.IdentifyingNumber) /qn" -Wait -NoNewWindow
 		}
 	Else {
-		Write-Host "Kaspersky agent Security Center is not installed on this computer "
+		Write-Host "Kaspersky Agent Security Center is not installed on this computer "
 	}
 }
 

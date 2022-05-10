@@ -97,17 +97,19 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			"/qn"
 		)
 		Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
-
-		# Remove Kaspersky Agent, French GUID = {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
-		$KesAgent = Get-WmiObject win32_product | Where { $_.Name -like "*Agent*Kaspersky Security Center*" }
-		If ($KesAgent.IdentifyingNumber) {
-			Write-Output "Suppress Agent Kaspersky Security Center..."
-			Start-Process "msiexec.exe" -ArgumentList "/X $($KesAgent.IdentifyingNumber) /qn" -Wait -NoNewWindow
-			}
-			
 		Write-Host "Uninstall finish"
 	} Else {
 		Write-Host "Kaspersky Endpoint is not installed on this computer"
+	}
+
+	# Remove Kaspersky Agent, French GUID = {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
+	$KesAgent = Get-WmiObject win32_product | Where { $_.Name -like "*Agent*Kaspersky Security Center*" }
+	If ($KesAgent.IdentifyingNumber) {
+		Write-Output "Suppress Agent Kaspersky Security Center $($KesAgent.Version) with GUID => $($KesAgent.IdentifyingNumber)"
+		Start-Process "msiexec.exe" -ArgumentList "/X $($KesAgent.IdentifyingNumber) /qn" -Wait -NoNewWindow
+		}
+	Else {
+		Write-Host "Kaspersky agent Security Center is not installed on this computer "
 	}
 }
 

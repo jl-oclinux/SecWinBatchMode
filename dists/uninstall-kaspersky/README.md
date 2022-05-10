@@ -152,6 +152,8 @@ Example of display on a french installation.
 PLease note that the `UninstallKasperskyEndpoint` tweak uninstall the
 Kasperksy Endpoint software and the Network Agent,
 but not all Kaspersky software!
+To remove the Kaspersky Administration Console,
+use the tweak `UninstallKasperskyConsole`.
 ```
 IdentifyingNumber : {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
 Name              : Agent d'administration de Kaspersky Security Center

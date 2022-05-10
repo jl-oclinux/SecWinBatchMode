@@ -99,7 +99,13 @@ of the SWMB software environment
 [WAPT](https://www.wapt.fr) package, volume encryption,
 uninstall [Kasperky Endpoint](dists/uninstall-kaspersky/README.md)...).
 
-The [README](dists/manual-use/README.md) file in the "manual-use" directory
+ * Please note that the uninstallation of
+[Kaspersky Endpoint](dists/uninstall-kaspersky/README.md)
+and its network agent on the client computer is a stand-alone distribution
+in the form of an archive that is self-sufficient
+and does not need to be installed on the computer.
+
+ * The [README](dists/manual-use/README.md) file in the "manual-use" directory
 reminds some principles about Powershell execution policies.
 
 

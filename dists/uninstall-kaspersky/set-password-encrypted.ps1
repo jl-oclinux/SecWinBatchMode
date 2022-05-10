@@ -1,24 +1,24 @@
 
-$KeyFile = Read-Host -Prompt "Key File (please put .key extension)"
-$Password = Read-Host -AsSecureString -Prompt "Password to secure"
-$AgentPassword = Read-Host -AsSecureString -Prompt "Network Agent Password to secure"
+$KesKeyFile = Read-Host -Prompt "Key File (please put .key extension)"
+$KesPassword = Read-Host -AsSecureString -Prompt "Password to secure"
+$KesAgentPassword = Read-Host -AsSecureString -Prompt "Network Agent Password to secure"
 
-if ($KeyFile) {
+if ($KesKeyFile) {
 	$Key = New-Object Byte[] 32 # create key AES 256-bit key (32 bytes)
 	[Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)
-	$Key | Out-File $KeyFile
+	$Key | Out-File $KesKeyFile
 
-	$EncryptedPass = ConvertFrom-SecureString -SecureString $Password -Key $Key
-	$AgentEncryptedPass = ConvertFrom-SecureString -SecureString $AgentPassword -Key $Key
+	$KesSecureString = ConvertFrom-SecureString -SecureString $KesPassword -Key $Key
+	$KesAgentSecureString = ConvertFrom-SecureString -SecureString $KesAgentPassword -Key $Key
 }
 
 Write-Output ""
 Write-Output "# Lines to add in your configuration file Custom-VarOverload.psm1"
 Write-Output "# or in the auto delete one Custom-VarAutodel.psm1"
 Write-Output ""
-Write-Output "`$Global:SWMB_Custom.KesSecureString = '$EncryptedPass'"
-Write-Output "`$Global:SWMB_Custom.AgentSecureString = '$AgentEncryptedPass'"
-Write-Output "`$Global:SWMB_Custom.KesKeyFile      = '$KeyFile'"
+Write-Output "`$Global:SWMB_Custom.KesSecureString = '$KesSecureString'"
+Write-Output "`$Global:SWMB_Custom.KesAgentSecureString = '$KesAgentSecureString'"
+Write-Output "`$Global:SWMB_Custom.KesKeyFile      = '$KesKeyFile'"
 Write-Output ""
 
 If (!(Test-Path -LiteralPath ".\Custom-VarAutodel.psm1")) {
@@ -26,9 +26,9 @@ If (!(Test-Path -LiteralPath ".\Custom-VarAutodel.psm1")) {
 	If ($Query.ToLower() -ne "n") {
 		Write-Output "
 # Configuration for Kaspersky Endpoint
-`$Global:SWMB_Custom.KesSecureString = '$EncryptedPass'
-`$Global:SWMB_Custom.AgentSecureString = '$AgentEncryptedPass'
-`$Global:SWMB_Custom.KesKeyFile      = '$KeyFile'
+`$Global:SWMB_Custom.KesSecureString = '$KesSecureString'
+`$Global:SWMB_Custom.KesAgentSecureString = '$KesAgentSecureString'
+`$Global:SWMB_Custom.KesKeyFile      = '$KesKeyFile'
 " | Out-File -FilePath ".\Custom-VarAutodel.psm1" -NoClobber
 	}
 } ElseIf (Test-Path -LiteralPath ".\Custom-VarOverload.psm1") {
@@ -36,9 +36,9 @@ If (!(Test-Path -LiteralPath ".\Custom-VarAutodel.psm1")) {
 	If ($Query.ToLower() -ne "n") {
 		Write-Output "
 # Configuration for Kaspersky Endpoint
-`$Global:SWMB_Custom.KesSecureString = '$EncryptedPass'
-`$Global:SWMB_Custom.AgentSecureString = '$AgentEncryptedPass'
-`$Global:SWMB_Custom.KesKeyFile      = '$KeyFile'
+`$Global:SWMB_Custom.KesSecureString = '$KesSecureString'
+`$Global:SWMB_Custom.KesAgentSecureString = '$KesAgentSecureString
+`$Global:SWMB_Custom.KesKeyFile      = '$KesKeyFile'
 " | Out-File -FilePath ".\Custom-VarOverload.psm1" -Append
 	}
 }

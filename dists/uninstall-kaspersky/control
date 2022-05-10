@@ -6,7 +6,7 @@ priority          : optional
 name              : SWMB-Kaspersky-Uninstall
 categories        : system
 maintainer        : RESINFO <swmb-gt@listes.resinfo.org>
-description       : SWMB - Remove kaspersky Endpoint (standalone package)
+description       : SWMB - Remove Kaspersky Endpoint and Network Agent (standalone package)
 depends           :
 conflicts         :
 maturity          : PROD
@@ -18,7 +18,7 @@ min_wapt_version  :
 sources           : https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/
 installed_size    :
 impacted_process  :
-description_fr    : SWMB - Supprime Kaspersky Endpoint (paquet indépendant)
+description_fr    : SWMB - Supprime Kaspersky Endpoint et l'agent (paquet indépendant)
 description_pl    :
 description_de    :
 description_es    :

@@ -33,7 +33,8 @@ It will ask you to run the command
 .\set-password-encrypted.ps1
 ```
 because the Zip archive does not contain the files with the key
-and the settings module to give the kaspersky password.
+and the settings module to give the Kaspersky Endpoint password
+and the uninstall Network Agent password.
 Then we restart the uninstallation with again
 ```ps1
 .\install.bat
@@ -66,27 +67,32 @@ So it is possible to push this package on your WAPT package server
 
 ## Configuration module
 
-Therefore, you need a password to ensure this operation.
-This password is local to each site.
-You will have to configure / customize your SWMB installation
-before you can uninstall kaspersky Endpoint.
+You may therefore need several passwords to ensure this uninstallation operation.
+These passwords are local to each site.
+You will need to configure/customize your SWMB installation
+before you can uninstall Kaspersky Endpoint and the Network Agent.
 
 This includes the creation of a parameter module
 `Custom-VarOverload.psm1` which can be saved in the current folder
 or in any other folder...
 ```ps1
 # Kaspersky Endpoint Security
-$Global:SWMB_Custom.KesLogin        = "KLAdmin"
+$Global:SWMB_Custom.KesLogin     = "KLAdmin"
 
 # If clear password
-$Global:SWMB_Custom.KesPassword     = ""
+$Global:SWMB_Custom.KesPassword  = ""
+$Global:SWMB_Custom.KesAgentPass = ""
 
 # Or if encrypted blurred password
-$Global:SWMB_Custom.KesSecureString = ""
-$Global:SWMB_Custom.KesKeyFile      = ""
+$Global:SWMB_Custom.KesKeyFile   = ""
+$Global:SWMB_Custom.KesPassword  = ""
+$Global:SWMB_Custom.KesAgentPass = ""
 ```
-You can choose to put the password to modify Kasperky in clear text
+You can choose to put the password to modify Kasperky Endpoint in clear text
 or to scramble it via a symmetric encryption process.
+Idem with the Network Agent.
+If the key file exists, then the parameter is automatically assumed 
+to be encrypted for both passwords.
 
 For safety, you can put this data in a configuration file `Custom-VarAutodel.psm1`.
 The advantage with this is that it is destroyed after use.

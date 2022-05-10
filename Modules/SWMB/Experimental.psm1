@@ -72,12 +72,12 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 
 	Function _String2Hex {
 		Param (
-			[Parameter(Mandatory = $true)] [string]$Text
+			[string]$Text
 		)
 
 		$CharArray=$Text.ToCharArray()
 		ForEach ($Char in $CharArray) {
-			$TextHex = $TextHex + " " + [System.String]::Format("{0:x2}", [System.Convert]::ToUInt32($Char))
+			$TextHex = $TextHex + [System.String]::Format("{0:x2}", [System.Convert]::ToUInt32($Char))
 		}
 		Return $TextHex
 	}
@@ -88,27 +88,27 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 	$KesEndpoint = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky Endpoint Security*" }
 	If ($KesEndpoint.IdentifyingNumber) {
 		Write-Host "Uninstalling Kaspersky version $($KesEndpoint.Version) with GUID => $($KesEndpoint.IdentifyingNumber)"
-		$PlainPassword=''
-		If ($($Global:SWMB_Custom.KesPassword)) {
-			# Batch - password defined in clear text
-			$PlainPassword = $($Global:SWMB_Custom.KesPassword)
-		} ElseIf (($($Global:SWMB_Custom.KesSecureString)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
+		$EndpointPlainPassword=''
+		If (($($Global:SWMB_Custom.KesPassword)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
 			# Batch - encrypted (blurred) password
-			$CryptPassword = $($Global:SWMB_Custom.KesSecureString) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
-			$Credential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$CryptPassword)
-			$PlainPassword = $Credential.GetNetworkCredential().Password
+			$EndpointCryptPassword = $($Global:SWMB_Custom.KesPassword) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
+			$EndpointCredential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$EndpointCryptPassword)
+			$EndpointPlainPassword = $EndpointCredential.GetNetworkCredential().Password
+		} ElseIf ($($Global:SWMB_Custom.KesPassword)) {
+			# Batch - password defined in clear text
+			$EndpointPlainPassword = $($Global:SWMB_Custom.KesPassword)
 		}
 
 		# Uninstall
-		$MSIArguments = @(
+		$MSIEndpointArguments = @(
 			"/x"
 			$KesEndpoint.IdentifyingNumber
 			"KLLOGIN=$($($Global:SWMB_Custom.KesLogin))"
-			"KLPASSWD=$PlainPassword"
+			"KLPASSWD=$EndpointPlainPassword"
 			"/norestart"
 			"/qn"
 		)
-		Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
+		Start-Process "msiexec.exe" -ArgumentList $MSIEndpointArguments -Wait -NoNewWindow
 		Write-Host "Uninstall finish"
 	} Else {
 		Write-Host "Kaspersky Endpoint is not installed on this computer"
@@ -118,7 +118,26 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 	$KesAgent = Get-WmiObject win32_product | Where { $_.Name -like "*Agent*Kaspersky Security Center*" }
 	If ($KesAgent.IdentifyingNumber) {
 		Write-Output "Suppress Agent Kaspersky Security Center $($KesAgent.Version) with GUID => $($KesAgent.IdentifyingNumber)"
-		Start-Process "msiexec.exe" -ArgumentList "/x $($KesAgent.IdentifyingNumber) /qn" -Wait -NoNewWindow
+		$AgentPlainPassword=''
+		If (($($Global:SWMB_Custom.KesAgentPass)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
+			# Batch - encrypted (blurred) password
+			$AgentCryptPassword = $($Global:SWMB_Custom.KesAgentPass) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
+			$AgentCredential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$AgentCryptPassword)
+			$AgentPlainPassword = $Credential.GetNetworkCredential().Password
+		} ElseIf ($($Global:SWMB_Custom.KesAgentPass)) {
+			# Batch - password defined in clear text
+			$AgentPlainPassword = $($Global:SWMB_Custom.KesPassword)
+		}
+		$AgentHexPassword = (_String2Hex -Text $AgentPlainPassword)
+
+		# Uninstall
+		$MSIAgentArguments = @(
+			"/x"
+			$KesAgent.IdentifyingNumber
+			"KLUNINSTPASSWD=$AgentHexPassword"
+			"/qn"
+		)
+		Start-Process "msiexec.exe" -ArgumentList $MSIAgentArguments -Wait -NoNewWindow
 		}
 	Else {
 		Write-Host "Kaspersky Agent Security Center is not installed on this computer "

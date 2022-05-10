@@ -39,12 +39,12 @@ $Global:SWMB_Custom = @{
 	NTP_ManualPeerList     = "0.pool.ntp.org, 1.pool.ntp.org, 2.pool.ntp.org, 3.pool.ntp.org"
 
 	# Target Release
-	ProductVersion = "Windows 10"
+	ProductVersion           = "Windows 10"
 	TargetReleaseVersionInfo = "21H2"
 
-	# Kaspersky Endpoint Security
-	KesLogin = "KLAdmin"
-	KesPassword = ""
-	KesSecureString = ""
-	KesKeyFile = ""
+	# Kaspersky Endpoint Security and Network Agent
+	KesLogin     = "KLAdmin"
+	KesPassword  = ""
+	KesAgentPass = ""
+	KesKeyFile   = ""
 }

@@ -253,3 +253,5 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # SysRequireAdmin
 # SysAutoUpgrade
 # SysMessage
+
+### Tweaks that needs to be classified ###

@@ -13,6 +13,7 @@ DisableTailoredExperiences_CU   # EnableTailoredExperiences_CU
 DisableWebLangList_CU           # EnableWebLangList_CU
 # DisableWebSearch_CU           # EnableWebSearch_CU
 DisableAppSuggestions_CU        # EnableAppSuggestions_CU
+# DisableFeedback_CU            # EnableFeedback_CU
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps_CU     # EnableUWPBackgroundApps_CU
@@ -52,6 +53,8 @@ DisableShortcutInName_CU        # EnableShortcutInName_CU
 # SetSystemLightMode_CU         # SetSystemDarkMode_CU
 SetVisualFXPerformance_CU       # SetVisualFXAppearance_CU
 DisableF1HelpKey_CU             # EnableF1HelpKey_CU
+# AddENKeyboard_CU              # RemoveENKeyboard_CU
+# EnableGodMod_CU               # DisableGodMod_CU
 
 ### Explorer UI Tweaks ###
 # ShowExplorerTitleFullPath_CU  # HideExplorerTitleFullPath_CU
@@ -68,7 +71,7 @@ ShowHiddenFiles_CU              # HideHiddenFiles_CU
 EnableNavPaneExpand_CU          # DisableNavPaneExpand_CU
 # DisableSharingWizard_CU       # EnableSharingWizard_CU
 # ShowUserFolderOnDesktop_CU    # HideUserFolderFromDesktop_CU
-# HideDesktopIcons_CU           # ShowDesktopIcons_CU 
+# HideDesktopIcons_CU           # ShowDesktopIcons_CU
 HideSyncNotifications_CU        # ShowSyncNotifications_CU
 HideRecentShortcuts_CU          # ShowRecentShortcuts_CU
 SetExplorerThisPC_CU            # SetExplorerQuickAccess_CU
@@ -85,13 +88,10 @@ DisableThumbsDBOnNetwork_CU     # EnableThumbsDBOnNetwork_CU
 ### Application Tweaks ###
 DisableXboxFeatures_CU          # EnableXboxFeatures_CU
 # DisableFullscreenOptims_CU    # EnableFullscreenOptims_CU
+# DisableMediaOnlineAccess_CU   # EnableMediaOnlineAccess_CU
 
 ### Unpinning Tweaks ###
 # UnpinStartMenuTiles_CU
 # UnpinTaskbarIcons_CU
 
 ### Tweaks that needs to be classified ###
-# EnableGodMod_CU               # DisableGodMod_CU
-# AddENKeyboard_CU              # RemoveENKeyboard_CU
-# DisableFeedback_CU            # EnableFeedback_CU
-# DisableMediaOnlineAccess_CU   # EnableMediaOnlineAccess_CU

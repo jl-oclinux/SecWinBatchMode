@@ -108,6 +108,9 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			"/norestart"
 			"/qn"
 		)
+		If ($($Global:SWMB_Custom.KeslogFile)) {
+			$MSIEndpointArguments += "/l*vx `"$($Global:SWMB_Custom.KeslogFile)`""
+		}
 		Start-Process "msiexec.exe" -ArgumentList $MSIEndpointArguments -Wait -NoNewWindow
 		Write-Host "Uninstall finish"
 	} Else {
@@ -137,6 +140,9 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			"KLUNINSTPASSWD=$AgentHexPassword"
 			"/qn"
 		)
+		If ($($Global:SWMB_Custom.KeslogFile)) {
+			$MSIAgentArguments += "/l*vx+ `"$($Global:SWMB_Custom.KeslogFile)`""
+		}
 		Start-Process "msiexec.exe" -ArgumentList $MSIAgentArguments -Wait -NoNewWindow
 		}
 	Else {

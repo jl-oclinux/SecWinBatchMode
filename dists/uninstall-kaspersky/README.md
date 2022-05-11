@@ -73,18 +73,19 @@ You will need to configure/customize your SWMB installation
 before you can uninstall Kaspersky Endpoint and the Network Agent.
 
 This includes the creation of a parameter module
-`Custom-VarOverload.psm1` which can be saved in the current folder
-or in any other folder...
+`Custom-VarOverload.psm1` (or `Custom-VarAutodel.psm1`)
+which can be saved in the current folder or in any other folder...
 ```ps1
 # Kaspersky Endpoint Security
 $Global:SWMB_Custom.KesLogin     = "KLAdmin"
 
-# If clear password
-$Global:SWMB_Custom.KesPassword  = ""
-$Global:SWMB_Custom.KesAgentPass = ""
+# Log file if non empty
+$Global:SWMB_Custom.KesLogFile   = ""
 
-# Or if encrypted blurred password
+# Encrypted passwords if non empty
 $Global:SWMB_Custom.KesKeyFile   = ""
+
+# Clear or encrypted blurred password
 $Global:SWMB_Custom.KesPassword  = ""
 $Global:SWMB_Custom.KesAgentPass = ""
 ```

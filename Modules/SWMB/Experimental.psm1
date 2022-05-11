@@ -123,7 +123,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			# Batch - encrypted (blurred) password
 			$AgentCryptPassword = $($Global:SWMB_Custom.KesAgentPass) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
 			$AgentCredential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$AgentCryptPassword)
-			$AgentPlainPassword = $Credential.GetNetworkCredential().Password
+			$AgentPlainPassword = $AgentCredential.GetNetworkCredential().Password
 		} ElseIf ($($Global:SWMB_Custom.KesAgentPass)) {
 			# Batch - password defined in clear text
 			$AgentPlainPassword = $($Global:SWMB_Custom.KesPassword)

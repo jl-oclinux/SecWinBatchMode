@@ -19,25 +19,29 @@ If ($KesKeyFile) {
 	If ($KesAgentPassword.Length    -ne 0) {$KesAgentSecureString    = ConvertFrom-SecureString -SecureString $KesAgentPassword    -Key $Key}
 } Else {
 	# Default values if no key file
-	$KesEndpointSecureString = ConvertFrom-SecureString -SecureString $KesEndpointPassword -AsPlainText
-	$KesAgentSecureString    = ConvertFrom-SecureString -SecureString $KesAgentPassword    -AsPlainText
+	If ($KesEndpointPassword.Length -ne 0) {$KesEndpointSecureString = ConvertFrom-SecureString -SecureString $KesEndpointPassword -AsPlainText}
+	If ($KesAgentPassword.Length    -ne 0) {$KesAgentSecureString    = ConvertFrom-SecureString -SecureString $KesAgentPassword    -AsPlainText}
 }
 
-Write-Output ""
-Write-Output "# Lines to add in your configuration file Custom-VarOverload.psm1"
-Write-Output "# or in the auto delete one Custom-VarAutodel.psm1"
-Write-Output ""
-Write-Output "# Configuration for Kaspersky Endpoint and Network Agent"
-Write-Output "`$Global:SWMB_Custom.KesPassword  = '$KesEndpointSecureString'"
-Write-Output "`$Global:SWMB_Custom.KesAgentPass = '$KesAgentSecureString'"
-Write-Output "`$Global:SWMB_Custom.KesKeyFile   = '$KesKeyFile'"
-Write-Output ""
+Write-Output "
+# Lines to add in your configuration file Custom-VarOverload.psm1
+# or in the auto delete one Custom-VarAutodel.psm1
+
+# Configuration for Kaspersky Endpoint and Network Agent
+#`$Global:SWMB_Custom.KesLogin     = 'KLAdmin'
+#`$Global:SWMB_Custom.KesLogFile   = ''
+`$Global:SWMB_Custom.KesPassword  = '$KesEndpointSecureString'
+`$Global:SWMB_Custom.KesAgentPass = '$KesAgentSecureString'
+`$Global:SWMB_Custom.KesKeyFile   = '$KesKeyFile'
+"
 
 If (!(Test-Path -LiteralPath ".\Custom-VarAutodel.psm1")) {
 	$Query = Read-Host -Prompt "Do you want to create an auto-delete configuration file (Custom-VarAutodel) in the current folder [Y|n]"
 	If ($Query.ToLower() -ne "n") {
 		Write-Output "
 # Configuration for Kaspersky Endpoint and Network Agent
+#`$Global:SWMB_Custom.KesLogin     = 'KLAdmin'
+#`$Global:SWMB_Custom.KesLogFile   = ''
 `$Global:SWMB_Custom.KesPassword  = '$KesEndpointSecureString'
 `$Global:SWMB_Custom.KesAgentPass = '$KesAgentSecureString'
 `$Global:SWMB_Custom.KesKeyFile   = '$KesKeyFile'
@@ -48,6 +52,8 @@ If (!(Test-Path -LiteralPath ".\Custom-VarAutodel.psm1")) {
 	If ($Query.ToLower() -ne "n") {
 		Write-Output "
 # Configuration for Kaspersky Endpointand Network Agent
+#`$Global:SWMB_Custom.KesLogin     = 'KLAdmin'
+#`$Global:SWMB_Custom.KesLogFile   = ''
 `$Global:SWMB_Custom.KesPassword  = '$KesEndpointSecureString'
 `$Global:SWMB_Custom.KesAgentPass = '$KesAgentSecureString
 `$Global:SWMB_Custom.KesKeyFile   = '$KesKeyFile'

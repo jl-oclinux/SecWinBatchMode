@@ -125,6 +125,7 @@ DisableSMB1Protocol                             # EnableSMB1Protocol
 
 ### Service Tweaks ###
 # DisableUpdateMSRT                             # EnableUpdateMSRT
+# SetTargetRelease                              # UnsetTargetRelease                            # ViewTargetRelease
 # DisableUpdateDriver                           # EnableUpdateDriver
 EnableUpdateMSProducts                          # DisableUpdateMSProducts
 # DisableUpdateAutoDownload                     # EnableUpdateAutoDownload
@@ -205,6 +206,7 @@ DisableMediaSharing                             # EnableMediaSharing
 # UninstallMathRecognizer                       # InstallMathRecognizer
 # UninstallPowerShellV2                         # InstallPowerShellV2
 # UninstallPowerShellISE                        # InstallPowerShellISE
+# UninstallKasperskyEndpoint                    # UninstallKasperskyConsole                     # ViewKasperskyProduct
 # InstallLinuxSubsystem                         # UninstallLinuxSubsystem
 # InstallHyperV                                 # UninstallHyperV
 # UninstallSSHClient                            # InstallSSHClient
@@ -251,7 +253,3 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # SysRequireAdmin
 # SysAutoUpgrade
 # SysMessage
-
-### Tweaks that needs to be classified ###
-# UninstallKasperskyEndpoint                    # UninstallKasperskyConsole                     # ViewKasperskyProduct
-# SetTargetRelease                              # UnsetTargetRelease                            # ViewTargetRelease

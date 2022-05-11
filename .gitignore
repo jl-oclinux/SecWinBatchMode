@@ -1,6 +1,8 @@
 *.bak
+*.sav
 *.zip
 *-VarOverload.psm1
 *-VarAutodel.psm1
+*.key
 SWMB*.exe
 tmp

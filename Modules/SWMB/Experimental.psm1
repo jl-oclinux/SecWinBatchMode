@@ -89,14 +89,16 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 	If ($KesEndpoint.IdentifyingNumber) {
 		Write-Host "Uninstalling Kaspersky version $($KesEndpoint.Version) with GUID => $($KesEndpoint.IdentifyingNumber)"
 		$EndpointPlainPassword=''
-		If (($($Global:SWMB_Custom.KesPassword)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
-			# Batch - encrypted (blurred) password
-			$EndpointCryptPassword = $($Global:SWMB_Custom.KesPassword) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
-			$EndpointCredential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$EndpointCryptPassword)
-			$EndpointPlainPassword = $EndpointCredential.GetNetworkCredential().Password
-		} ElseIf ($($Global:SWMB_Custom.KesPassword)) {
-			# Batch - password defined in clear text
-			$EndpointPlainPassword = $($Global:SWMB_Custom.KesPassword)
+		If ($($Global:SWMB_Custom.KesPassword)) {
+			If (($($Global:SWMB_Custom.KesKeyFile)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
+				# Batch - encrypted (blurred) password
+				$EndpointCryptPassword = $($Global:SWMB_Custom.KesPassword) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
+				$EndpointCredential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$EndpointCryptPassword)
+				$EndpointPlainPassword = $EndpointCredential.GetNetworkCredential().Password
+			} Else {
+				# Batch - password defined in clear text
+				$EndpointPlainPassword = $($Global:SWMB_Custom.KesPassword)
+			}
 		}
 
 		# Uninstall
@@ -122,14 +124,16 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 	If ($KesAgent.IdentifyingNumber) {
 		Write-Output "Suppress Agent Kaspersky Security Center $($KesAgent.Version) with GUID => $($KesAgent.IdentifyingNumber)"
 		$AgentPlainPassword=''
-		If (($($Global:SWMB_Custom.KesAgentPass)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
-			# Batch - encrypted (blurred) password
-			$AgentCryptPassword = $($Global:SWMB_Custom.KesAgentPass) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
-			$AgentCredential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$AgentCryptPassword)
-			$AgentPlainPassword = $AgentCredential.GetNetworkCredential().Password
-		} ElseIf ($($Global:SWMB_Custom.KesAgentPass)) {
-			# Batch - password defined in clear text
-			$AgentPlainPassword = $($Global:SWMB_Custom.KesPassword)
+		If ($($Global:SWMB_Custom.KesAgentPass)) {
+			If (($($Global:SWMB_Custom.KesKeyFile)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
+				# Batch - encrypted (blurred) password
+				$AgentCryptPassword = $($Global:SWMB_Custom.KesAgentPass) | ConvertTo-SecureString -Key (Get-Content $($Global:SWMB_Custom.KesKeyFile))
+				$AgentCredential = New-Object System.Management.Automation.PsCredential($($Global:SWMB_Custom.KesLogin),$AgentCryptPassword)
+				$AgentPlainPassword = $AgentCredential.GetNetworkCredential().Password
+			} Else {
+				# Batch - password defined in clear text
+				$AgentPlainPassword = $($Global:SWMB_Custom.KesAgentPass)
+			}
 		}
 		$AgentHexPassword = (_String2Hex00 -Text $AgentPlainPassword)
 

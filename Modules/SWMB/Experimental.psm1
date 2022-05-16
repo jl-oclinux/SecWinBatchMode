@@ -70,14 +70,14 @@ Function TweakViewTargetRelease { # RESINFO
 # Uninstall
 Function TweakUninstallKasperskyEndpoint { # RESINFO
 
-	Function _String2Hex {
+	Function _String2Hex00 {
 		Param (
 			[string]$Text
 		)
 
 		$CharArray=$Text.ToCharArray()
 		ForEach ($Char in $CharArray) {
-			$TextHex = $TextHex + [System.String]::Format("{0:x2}", [System.Convert]::ToUInt32($Char))
+			$TextHex = $TextHex + [System.String]::Format("{0:x2}", [System.Convert]::ToUInt32($Char)) + '00'
 		}
 		Return $TextHex
 	}
@@ -108,8 +108,8 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			"/norestart"
 			"/qn"
 		)
-		If ($($Global:SWMB_Custom.KeslogFile)) {
-			$MSIEndpointArguments += "/l*vx `"$($Global:SWMB_Custom.KeslogFile)`""
+		If ($($Global:SWMB_Custom.KesLogFile)) {
+			$MSIEndpointArguments += "/l*vx `"$($Global:SWMB_Custom.KesLogFile)`""
 		}
 		Start-Process "msiexec.exe" -ArgumentList $MSIEndpointArguments -Wait -NoNewWindow
 		Write-Host "Uninstall finish"
@@ -131,7 +131,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			# Batch - password defined in clear text
 			$AgentPlainPassword = $($Global:SWMB_Custom.KesPassword)
 		}
-		$AgentHexPassword = (_String2Hex -Text $AgentPlainPassword)
+		$AgentHexPassword = (_String2Hex00 -Text $AgentPlainPassword)
 
 		# Uninstall
 		$MSIAgentArguments = @(
@@ -140,8 +140,8 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			"KLUNINSTPASSWD=$AgentHexPassword"
 			"/qn"
 		)
-		If ($($Global:SWMB_Custom.KeslogFile)) {
-			$MSIAgentArguments += "/l*vx+ `"$($Global:SWMB_Custom.KeslogFile)`""
+		If ($($Global:SWMB_Custom.KesLogFile)) {
+			$MSIAgentArguments += "/l*vx+ `"$($Global:SWMB_Custom.KesLogFile)`""
 		}
 		Start-Process "msiexec.exe" -ArgumentList $MSIAgentArguments -Wait -NoNewWindow
 		}

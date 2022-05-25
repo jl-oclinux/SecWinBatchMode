@@ -239,7 +239,7 @@ Section "Program files (Required)"
   File "dists\uninstall-kaspersky\get-password-cleartext.ps1"
   File "dists\uninstall-kaspersky\README.md"
   File "dists\uninstall-kaspersky\set-password-encrypted.ps1"
-  File "dists\uninstall-kaspersky\uninstall-kaspersky.ps1"
+  File "dists\uninstall-kaspersky\uninstall-kaspersky-integrated.ps1"
 
   SetOutPath $INSTDIR\Presets
   File "Presets\CurrentUser-All.preset"

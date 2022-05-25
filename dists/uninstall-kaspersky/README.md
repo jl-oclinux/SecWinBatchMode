@@ -45,7 +45,7 @@ containing the encryption key and the `Custom-VarAutodel.psm1` file
 in the Zip archive and then deploy this archive
 by running `install.bat` during this one (for example with OCS Inventory).
 
-*For information*, the name of the script is install.bat because during
+*For information*, the name of the script is `install.bat` because during
 an automatic deployment, at LEGI, we always run the `install.bat` name script
 of the archive, whatever the script actually does!
 In this case, nothing is installed.
@@ -118,21 +118,27 @@ Finally, regardless of the method chosen for the password,
 the Kapersky uninstallation operation is launched with
 the tweak `UninstallKasperskyEndpoint`
 It's resume with the following command
-([uninstall-kaspersky.ps1](uninstall-kaspersky.ps1)):
+([uninstall-kaspersky-integrated.ps1](uninstall-kaspersky-integrated.ps1)):
 ```ps1
 . "C:\Program Files\SWMB\swmb.ps1" -exp UninstallKasperskyEndpoint
 ```
 
-## In practice
+The script ([uninstall-kaspersky-standalone.ps1](uninstall-kaspersky-standalone.ps1))
+is a standalone version that works without local SWMB installation.
 
-Basically, on a workstation, all you have to do is open a PowerShell
-console as an administrator, then run the script
+
+## Use with SWMB installed on the workstation
+
+Basically, on a workstation where SWMB is already installed
+(with a recent and updated version),
+all you have to do is to open a PowerShell console as administrator,
+then run the script
 ```ps1
 cd "C:\Program Files\SWMB\dists\uninstall-kaspersky"
 
 .\set-password-encrypted.ps1
 
-.\uninstall-kaspersky.ps1
+.\uninstall-kaspersky-integrated.ps1
 ```
 And that's it,
 Kaspersky Endpoint disappears from the computer... hopefully!
@@ -143,8 +149,10 @@ module to the same folder (this is simpler, but not mandatory),
 and that should be enough.
 
 There are two versions of the `uninstall-kaspersky` file,
-one uses the `swmb.ps1` engine and the other one uses the minimum
+one uses the `swmb.ps1` engine (integrated) and the other one uses the minimum
 while being independent (standalone).
+The proposed Zip archive is independent of a SWMB installation
+and only includes the standalone script.
 
 ## More
 

@@ -242,6 +242,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 ### TemporaryBypass Tweaks ###
 # DisablePrintForSystem                         # EnablePrintForSystem                          # ViewPrintForSystem
 # DisableMSHTMLActiveX                          # EnableMSHTMLActiveX                           # ViewMSHTMLActiveX
+# DisableMSDT                                   # EnableMSDT                                    # ViewMSDT
 
 ### Auxiliary Functions Tweaks ###
 # SysEvent

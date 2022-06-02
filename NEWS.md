@@ -16,6 +16,9 @@ New presets/rules:
  * 2022/03/02 - `EnableClearPageFile`/`DisableClearPageFile` -> Clean PAGEFILE.SYS at shutdown
  * 2022/02/02 - `EnableASLR`/`DisableASLR` -> Address Space Layout Randomisation
 
+There is now a special distribution of SWMB to just uninstall Kaspersky antivirus.
+See [Uninstall Kaspersky](dists/uninstall-kaspersky/).
+
 The overload modules for the configuration `*-varOverload.psm1`,
 e.g. `Custom-varOverload.psm1` are now searched in the current folder,
 then in the `ProgramData` folder and then in the installation folder.

@@ -94,6 +94,63 @@ Function TweakViewMSHTMLActiveX { # RESINFO
 	}
 }
 
+################################################################
+
+# 2022/06/02
+# http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-30190
+# https://msrc-blog.microsoft.com/2022/05/30/guidance-for-cve-2022-30190-microsoft-support-diagnostic-tool-vulnerability/
+# Disable
+Function TweakDisableMSDT { # RESINFO
+	Write-Output "Disable MSDT (CVE-2022-30190)..."
+	If (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	If (Test-Path "HKCR:\ms-msdt") {
+		$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+		$CachesFolder = (Join-Path -Path $DataFolder -ChildPath "Caches" )
+		$RegFile = (Join-Path -Path $CachesFolder -ChildPath "MSDT.reg")
+		If (!(Test-Path $DataFolder)) {
+			New-Item -Path $DataFolder -ItemType Directory
+		}
+		If (!(Test-Path $CachesFolder)) {
+			New-Item -Path $CachesFolder -ItemType Directory
+		}
+		If (!(Test-Path $RegFile)) {
+			# save the keys
+			REG EXPORT HKEY_CLASSES_ROOT\ms-msdt "$RegFile"
+		}
+		# delete the reg tree
+		REG DELETE HKEY_CLASSES_ROOT\ms-msdt /f
+	}
+}
+
+# Enable
+Function TweakEnableMSDT { # RESINFO
+	Write-Output "Enable MSDT..."
+	If (!(Test-Path "HKCR:\ms-msdt")) {
+		$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+		$CachesFolder = (Join-Path -Path $DataFolder -ChildPath "Caches" )
+		$RegFile = (Join-Path -Path $CachesFolder -ChildPath "MSDT.reg")
+		If (Test-Path $RegFile) {
+			# import the reg tree
+			REG IMPORT "$RegFile"
+			# delete the cache reg file
+			Remove-Item -Path $RegFile -Force -ErrorAction SilentlyContinue
+		}
+	}
+}
+
+# View
+Function TweakViewMSDT { # RESINFO
+	Write-Output "MSDT (ms-msdt exist - enable, not exist - disable)"
+	If (!(Test-Path "HKCR:")) {
+		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
+	}
+	If (Test-Path "HKCR:\ms-msdt") {
+		Get-ChildItem HKCR:\ms-msdt
+	}
+}
+
 
 ################################################################
 ###### Export Functions

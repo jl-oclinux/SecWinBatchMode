@@ -8,6 +8,7 @@ If needed, a specific tweak function must be written for security reasons.
 
 New presets/rules:
 
+ * 2022/06/01 - `TweakDisableMSDT`/`TweakEnableMSDT`/`TweakViewMSDT` -> Disable MSDT - Microsoft Support Diagnostic Tool Vulnerability - CVE-2022-30190 
  * 2022/05/09 - `ViewKasperskyProduct` -> View all the Kaspersky product
  * 2022/05/09 - `UninstallKasperskyConsole` -> Remove the Kaspersky Console
  * 2022/03/16 - `UninstallKasperskyEndpoint` ([see more](dists/uninstall-kaspersky/)) - use Custom configuration module

@@ -30,33 +30,48 @@ Function TweakUninstallRealPlayer { # RESINFO
 			$Exe = $UninstallSplit[0] + 'exe'
 			$Args = '"' + $UninstallSplit[1].Trim() + '"' + ' -s'
 			If (Test-Path -Path "$Exe") {
-				Write-Output "Uninstalling Any Existing Versions of RealPlayer $VersionMajor.$VersionMinor"
-				Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -Wait -ErrorAction 'SilentlyContinue'
+				Write-Output "Uninstalling RealPlayer version $VersionMajor.$VersionMinor"
+				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				if ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill RealPlayer uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: RealPlayer uninstall return code $Proc.ExitCode"
+					# Next tweak now
+					Return
+				}
 			}
-			Start-Sleep -s 2
+			Start-Sleep -s 1
 		}
 
 	## Uninstall RealTimes Desktop Service
 	If (Test-Path -Path "$Env:ProgramFiles\Real\RealPlayer\RPDS\uninst.exe") {
 		Write-Output "Uninstalling RealTimes Desktop Service."
-		Start-Process -FilePath "$Env:ProgramFiles\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue'
-		Start-Sleep -s 6
+		Start-Process -FilePath "$Env:ProgramFiles\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		Start-Sleep -s 2
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe") {
 		Write-Output "Uninstalling RealTimes Desktop Service."
-		Start-Process -FilePath "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue'
-		Start-Sleep -s 6
+		Start-Process -FilePath "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		Start-Sleep -s 2
 	}
 	## Uninstall RealUpgrade
 	If (Test-Path -Path "$Env:ProgramFiles\Real\RealUpgrade\uninst.exe") {
 		Write-Output "Uninstalling Any Existing Versions of RealUpgrade."
-		Start-Process -FilePath "$Env:ProgramFiles\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue'
-		Start-Sleep -s 6
+		Start-Process -FilePath "$Env:ProgramFiles\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		Start-Sleep -s 2
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe") {
 		Write-Output "Uninstalling Any Existing Versions of RealUpgrade."
-		Start-Process -FilePath "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue'
-		Start-Sleep -s 6
+		Start-Process -FilePath "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		Start-Sleep -s 2
 	}
 	## Cleanup Start Menu Directory
 	If (Test-Path -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\Real\RealPlayer*.lnk") {
@@ -68,18 +83,18 @@ Function TweakUninstallRealPlayer { # RESINFO
 	If (Test-Path -Path "$Env:ALLUSERSPROFILE\Real\") {
 		Write-Output "Removing Existing Real ProgramData Directory."
 		Remove-Item -Path "$Env:ALLUSERSPROFILE\Real\" -Force -Recurse -ErrorAction SilentlyContinue
-		Sleep -Seconds 2
+		Sleep -Seconds 1
 	}
 	## Cleanup RealPlayer Directories
 	If (Test-Path -Path "$Env:ProgramFiles\Real\") {
 		Write-Output "Cleanup $Env:ProgramFiles\Real\ Directory."
 		Remove-Item -Path "$Env:ProgramFiles\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
-		Sleep -Seconds 2
+		Sleep -Seconds 1
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\") {
 		Write-Output "Cleanup $Env:ProgramFiles\Real\ Directory."
 		Remove-Item -Path "${Env:ProgramFiles(x86)}\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
-		Sleep -Seconds 2
+		Sleep -Seconds 1
 	}
 	## Cleanup Local & Roaming RealPlayer Directories
 	Get-WmiObject -ClassName Win32_UserProfile | Where {!$_.Special} | Select LocalPath | ForEach {

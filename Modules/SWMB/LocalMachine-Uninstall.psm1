@@ -18,42 +18,23 @@
 # With the help of https://silentinstallhq.com/winrar-silent-uninstall-powershell/
 
 Function TweakUninstallRealPlayer { # RESINFO
-	ForEach ($Version in '20.1', '20.0', '19.0', '18.1', '18.0', '17.0', '16.0', '15.0') {
-		If (Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RealPlayer $Version") {
-			Write-Output "Uninstalling Any Existing Versions of RealPlayer $Version."
-			If (Test-Path -Path "$Env:ProgramFiles\Real\RealPlayer\Update\r1puninst.exe") {
-				Start-Process -FilePath "$Env:ProgramFiles\Real\RealPlayer\Update\r1puninst.exe" -ArgumentList """RealNetworks|RealPlayer|$Version"" -s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue'
-				Start-Sleep -s 6
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 
+		Where { $_.Name  -match 'RealPlayer \d' } |
+		ForEach {
+			$Key = (Get-ItemProperty -Path $_.PSPath)
+			$VersionMajor = $Key.VersionMajor
+			$VersionMinor = $Key.VersionMinor
+			$UninstallString = $Key.UninstallString
+			$UninstallSplit = $UninstallString -Split "exe"
+			$Exe = $UninstallSplit[0] + 'exe'
+			$Args = '"' + $UninstallSplit[1].Trim() + '"' + ' -s'
+			If (Test-Path -Path "$Exe") {
+				Write-Output "Uninstalling Any Existing Versions of RealPlayer $VersionMajor.$VersionMinor"
+				Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -Wait -ErrorAction 'SilentlyContinue'
 			}
+			Start-Sleep -s 2
 		}
-		# VersionMajor = 20
-		# VersionMinor = 1
-		If (Test-Path -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\RealPlayer $Version") {
-			Write-Output "Uninstalling Any Existing Versions of RealPlayer $Version."
-			If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealPlayer\Update\r1puninst.exe") {
-				Start-Process -FilePath "${Env:ProgramFiles(x86)}\Real\RealPlayer\Update\r1puninst.exe" -ArgumentList """RealNetworks|RealPlayer|$Version"" -s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue'
-				Start-Sleep -s 6
-			}
-		}
-	}
-
-	ForEach ($Version in '12.0', '6.0') {
-		## Uninstall Any Existing Old Versions of RealPlayer $Version
-		If (Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\RealPlayer $Version") {
-			Write-Output "Uninstalling Any Existing Versions of RealPlayer $Version."
-			If (Test-Path -Path "$Env::CommonProgramFiles\Real\Update_OB\r1puninst.exe") {
-				Start-Process -FilePath "$Env::CommonProgramFiles\Real\Update_OB\r1puninst.exe" -ArgumentList """RealNetworks|RealPlayer|$Version"" -s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue'
-				Start-Sleep -s 6
-			}
-		}
-		If (Test-Path -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\RealPlayer $Version") {
-			Write-Output "Uninstalling Any Existing Versions of RealPlayer $Version."
-			If (Test-Path -Path "${Env:CommonProgramFiles(x86)}\Real\Update_OB\r1puninst.exe") {
-				Start-Process -FilePath "${Env:CommonProgramFiles(x86)}\Real\Update_OB\r1puninst.exe" -ArgumentList """RealNetworks|RealPlayer|$Version"" -s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue'
-				Start-Sleep -s 6
-			}
-		}
-	}
 
 	## Uninstall RealTimes Desktop Service
 	If (Test-Path -Path "$Env:ProgramFiles\Real\RealPlayer\RPDS\uninst.exe") {

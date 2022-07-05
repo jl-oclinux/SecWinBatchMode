@@ -25,6 +25,12 @@ Function TweakUninstallRealPlayer { # RESINFO
 			$VersionMajor = $App.VersionMajor
 			$VersionMinor = $App.VersionMinor
 			$UninstallString = $App.UninstallString
+
+			# Kill process
+			ForEach ($Task in 'RealPlayerUpdateSvc.exe', 'realsched.exe', 'rpbgdownloader.exe', 'rpsystray.exe', 'rpdsvc.exe') {
+				Get-Process -Name "$Task" -ErrorAction 'SilentlyContinue' | Stop-Process -Force -ErrorAction 'SilentlyContinue'
+			}
+
 			$UninstallSplit = $UninstallString -Split "exe"
 			$Exe = $UninstallSplit[0] + 'exe'
 			$Args = '"' + $UninstallSplit[1].Trim() + '"' + ' -s'
@@ -91,7 +97,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 		Start-Sleep -Seconds  1
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\") {
-		Write-Output "Cleanup $Env:ProgramFiles\Real\ Directory."
+		Write-Output "Cleanup ${Env:ProgramFiles(x86)}\Real\ Directory."
 		Remove-Item -Path "${Env:ProgramFiles(x86)}\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
 		Start-Sleep -Seconds  1
 	}

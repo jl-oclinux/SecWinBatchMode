@@ -21,7 +21,7 @@ Unicode True
 !insertmacro GetOptions
 
 !define NAME "SWMB"
-!define VERSION "3.13.87.1"
+!define VERSION "3.13.98.0"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -228,6 +228,7 @@ Section "Program files (Required)"
   File "Modules\SWMB\LocalMachine-Server.psm1"
   File "Modules\SWMB\LocalMachine-Service.psm1"
   File "Modules\SWMB\LocalMachine-UI.psm1"
+  File "Modules\SWMB\LocalMachine-Uninstall.psm1"
   File "Modules\SWMB\LocalMachine-UWPPrivacy.psm1"
   File "Modules\SWMB\Resinfo.psm1"
   File "Modules\SWMB\TemporaryBypass.psm1"

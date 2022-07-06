@@ -30,6 +30,7 @@ NestedModules = @(
 	'.\SWMB\LocalMachine-Server.psm1',
 	'.\SWMB\LocalMachine-Service.psm1',
 	'.\SWMB\LocalMachine-UI.psm1',
+	'.\SWMB\LocalMachine-Uninstall.psm1',
 	'.\SWMB\LocalMachine-UWPPrivacy.psm1',
 	'.\SWMB\Resinfo.psm1',
 	'.\SWMB\TemporaryBypass.psm1'

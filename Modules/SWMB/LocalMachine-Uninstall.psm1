@@ -167,6 +167,53 @@ Function TweakUninstallWinRAR { # RESINFO
 	}
 }
 
+################################################################
+# https://silentinstallhq.com/avast-free-antivirus-silent-install-how-to-guide/
+
+Function TweakUninstallAvast { # RESINFO
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 
+		Where { $_.Name -match 'Avast Antivirus' } |
+		ForEach {
+			$App = (Get-ItemProperty -Path $_.PSPath)
+			$VersionMajor = $App.VersionMajor
+			$VersionMinor = $App.VersionMinor
+			$UninstallString = $App.UninstallString
+			$InstallLocation = $App.InstallLocation
+
+			$UninstallSplit = $UninstallString -Split "exe"
+			$Exe = $UninstallSplit[0] + 'exe'
+			$Args = '"' + $UninstallSplit[1].Trim() + '"' + ' /instop:uninstall /silent /wait'
+			If (Test-Path -Path "$Exe") {
+				# Need to be changed for silent uninstall
+				$StatsIni = "$InstallLocation\setup\Stats.ini"
+				If (Test-Path -Path "$StatsIni") {
+					(Get-Content $StatsIni) | ForEach-Object { $_ -replace "\[Common\]", "[Common]`nSilentUninstallEnabled=1" } | Set-Content $StatsIni
+				}
+
+				Write-Output "Uninstalling Avast Antivirus version $VersionMajor.$VersionMinor"
+				# Ok but UI (without UI if SYSTEM account)
+				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				if ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill Avast uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: Avast uninstall return code $Proc.ExitCode"
+					# Next tweak now
+					Return
+				}
+			}
+			Start-Sleep -Seconds 2
+		}
+}
+
 
 ################################################################
 ###### Export Functions

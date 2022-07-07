@@ -10,4 +10,4 @@ If (!(Test-Path -LiteralPath ".\Custom-VarOverload.psm1") -And !(Test-Path -Lite
 }
 
 # Launch SWMB
-. "${Env:ProgramFiles}\SWMB\swmb.ps1" -exp UninstallKasperskyEndpoint ViewKasperskyProduct
+. "${Env:ProgramFiles}\SWMB\swmb.ps1" UninstallKasperskyEndpoint ViewKasperskyProduct

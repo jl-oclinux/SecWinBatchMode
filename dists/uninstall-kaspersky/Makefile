@@ -39,7 +39,7 @@ zip: $(SOFT)-$(VERSION)-$(PATCH).zip
 	@perl -p -e ' \
 		s/__VERSION__/$(VERSION)/; \
 		s/__PATCH__/$(PATCH)/;' control > ./tmp/WAPT/control
-	@cp ../../Modules/SWMB.psm1 ../../Modules/SWMB/Custom.psm1 ../../Modules/SWMB/Custom-VarDefault.psm1 ../../Modules/SWMB/Experimental.psm1 ./tmp/; \
+	@cp ../../Modules/SWMB.psm1 ../../Modules/SWMB/Custom.psm1 ../../Modules/SWMB/Custom-VarDefault.psm1 ../../Modules/SWMB/LocalMachine-Uninstall.psm1 ./tmp/; \
 		cp ./README.md ./get-password-cleartext.ps1 ./set-password-encrypted.ps1 ./Custom-VarAutodel.psm1 ./*.key ./tmp/; \
 		cp ./uninstall-kaspersky-standalone.ps1 ./tmp/uninstall-kaspersky.ps1; \
 		cp -f ../../LICENSE.md ./setup.py ./tmp/

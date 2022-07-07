@@ -21,7 +21,7 @@ Unicode True
 !insertmacro GetOptions
 
 !define NAME "SWMB"
-!define VERSION "3.14.1"
+!define VERSION "3.14.2.0"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"

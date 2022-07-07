@@ -9,7 +9,7 @@ remove these programs, for example at each startup via the scheduled task.
 It is then enough to put in its preset list, rather towards the end, a
 list of tweaks corresponding to the software that you do not want to see
 on your park. To give an example, why have WinRAR when the 7-Zip software
-exists? The UninstallWinRAR tweak removes any instance installed on the
+exists ? The UninstallWinRAR tweak removes any instance installed on the
 computer.
 
 The aim is not to turn SWMB into a fleet management software, but to
@@ -18,8 +18,13 @@ installed on your computer.
 
 New presets/rules:
 
+ * 2022/07/07 - Move all the `UninstallKaspersky*` tweaks to the `LocalMachine-Uninstall.psm1` module
  * 2022/07/06 - `UninstallWinRAR` -> Remove WinRAR software if installed
  * 2022/07/06 - `UninstallRealPlayer` -> Remove RealPlayer software if installed
+
+The new module `LocalMachine-Uninstall.psm1` is dedicated to all software
+that need to be uninstall on a Windows park, with no rules to install them.
+So they are one way rules only !
 
 ## Version 3.14 (2022/07/07)
 

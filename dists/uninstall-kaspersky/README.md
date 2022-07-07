@@ -120,7 +120,7 @@ the tweak `UninstallKasperskyEndpoint`
 It's resume with the following command
 ([uninstall-kaspersky-integrated.ps1](uninstall-kaspersky-integrated.ps1)):
 ```ps1
-. "C:\Program Files\SWMB\swmb.ps1" -exp UninstallKasperskyEndpoint
+. "C:\Program Files\SWMB\swmb.ps1" UninstallKasperskyEndpoint
 ```
 
 The script ([uninstall-kaspersky-standalone.ps1](uninstall-kaspersky-standalone.ps1))

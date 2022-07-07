@@ -1,6 +1,6 @@
 # NEWS
 
-## Version 3.14 (in progress)
+## Version 3.14
 
 The string `Tweak` has been added in front of the name of all tweak functions.
 This means that preset files can no longer call standard Powershell functions.

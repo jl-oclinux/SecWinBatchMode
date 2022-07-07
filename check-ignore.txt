@@ -1,2 +1,5 @@
 InstallKasperskyEndpoint
 InstallKasperskyConsole
+InstallAvast
+InstallRealPlayer
+InstallWinRAR

@@ -226,6 +226,9 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableWindowsHello                           # EnableWindowsHello
 # DisableWindowsStore                           # EnableWindowsStore
 # EnablePrivateStoreOnly                        # DisablePrivateStoreOnly
+# UninstallAvast ## Beta
+# UninstallRealPlayer
+# UninstallWinRAR
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

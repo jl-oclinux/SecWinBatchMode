@@ -1,6 +1,23 @@
 # NEWS
 
-## Version 3.14
+## Version 3.15 (in progress)
+
+SWMB can also be used to block the installation of certain software on
+computers. The solution being tested consists of making tweaks that silently
+remove these programs, for example at each boot via the programmed task.
+
+It is then enough to put in its list of preset, rather towards the end,
+a list of tweak corresponding to the software which one does not wish
+to see on its park. To give an example, why have WinRAR when the 7-Zip
+software exists? The tweak `UninstallWinRAR` removes any instance
+installed on the computer.
+
+New presets/rules:
+
+ * 2022/07/06 - `UninstallWinRAR` -> Remove WinRAR software if installed
+ * 2022/07/06 - `UninstallRealPlayer` -> Remove RealPlayer software if installed
+
+## Version 3.14 (2022/07/07)
 
 The string `Tweak` has been added in front of the name of all tweak functions.
 This means that preset files can no longer call standard Powershell functions.
@@ -8,7 +25,7 @@ If needed, a specific tweak function must be written for security reasons.
 
 New presets/rules:
 
- * 2022/06/01 - `TweakDisableMSDT`/`TweakEnableMSDT`/`TweakViewMSDT` -> Disable MSDT - Microsoft Support Diagnostic Tool Vulnerability - CVE-2022-30190 
+ * 2022/06/01 - `DisableMSDT`/`EnableMSDT`/`ViewMSDT` -> Disable MSDT - Microsoft Support Diagnostic Tool Vulnerability - CVE-2022-30190 
  * 2022/05/09 - `ViewKasperskyProduct` -> View all the Kaspersky product
  * 2022/05/09 - `UninstallKasperskyConsole` -> Remove the Kaspersky Console
  * 2022/03/16 - `UninstallKasperskyEndpoint` ([see more](dists/uninstall-kaspersky/)) - use Custom configuration module

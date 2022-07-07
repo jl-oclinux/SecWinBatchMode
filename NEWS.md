@@ -3,14 +3,18 @@
 ## Version 3.15 (in progress)
 
 SWMB can also be used to block the installation of certain software on
-computers. The solution being tested consists of making tweaks that silently
-remove these programs, for example at each boot via the programmed task.
+computers. The tested solution consists in making tweaks that silently
+remove these programs, for example at each startup via the scheduled task.
 
-It is then enough to put in its list of preset, rather towards the end,
-a list of tweak corresponding to the software which one does not wish
-to see on its park. To give an example, why have WinRAR when the 7-Zip
-software exists? The tweak `UninstallWinRAR` removes any instance
-installed on the computer.
+It is then enough to put in its preset list, rather towards the end, a
+list of tweaks corresponding to the software that you do not want to see
+on your park. To give an example, why have WinRAR when the 7-Zip software
+exists? The UninstallWinRAR tweak removes any instance installed on the
+computer.
+
+The aim is not to turn SWMB into a fleet management software, but to
+emphasize its security role by listing some software that should not be
+installed on your computer.
 
 New presets/rules:
 

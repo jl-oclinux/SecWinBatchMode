@@ -5,7 +5,7 @@
 # Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
 # Authors:
 #  2020 - Olivier de Marchi (Grenoble INP / LEGI)
-#  2020 - Clément Deiber (CNRS / DR11)
+#  2020 - Clement Deiber (CNRS / DR11)
 #  2020 - Gabriel Moreau (CNRS / LEGI)
 ################################################################
 

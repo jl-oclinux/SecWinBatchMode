@@ -169,7 +169,7 @@ Function TweakUninstallWinRAR { # RESINFO
 
 ################################################################
 # https://silentinstallhq.com/avast-free-antivirus-silent-install-how-to-guide/
-
+# Does not work - impossible to change the Stats.ini file
 Function TweakUninstallAvast { # RESINFO
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 

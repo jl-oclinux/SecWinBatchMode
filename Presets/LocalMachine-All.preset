@@ -146,7 +146,7 @@ EnableNTFSLongPaths                             # DisableNTFSLongPaths
 # DisableSleepTimeout                           # EnableSleepTimeout
 # DisableFastStartup                            # EnableFastStartup
 # DisableAutoRebootOnCrash                      # EnableAutoRebootOnCrash
-# SetNTPConfig                                  # UnsetNTPConfig
+# SetNTPConfig                                  # UnsetNTPConfig                                # ViewNTPConfig
 
 ### UI Tweaks ###
 DisableLockScreen                               # EnableLockScreen

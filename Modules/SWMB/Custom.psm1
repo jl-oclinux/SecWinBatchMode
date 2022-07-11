@@ -203,7 +203,7 @@ Function TweakUnsetSecurityParamAccountPolicy { # RESINFO
 Function TweakSetNTPConfig { # RESINFO
 	w32tm /register
 	net start w32time
-	w32tm /config /manualpeerlist: "$($Global:SWMB_Custom.NTP_ManualPeerList)"
+	w32tm /config "/manualpeerlist: $($Global:SWMB_Custom.NTP_ManualPeerList)"
 	w32tm /config /update
 	w32tm /resync
 }
@@ -212,6 +212,13 @@ Function TweakSetNTPConfig { # RESINFO
 Function TweakUnsetNTPConfig { # RESINFO
 	w32tm /unregister
 	net stop w32time
+}
+
+# View
+Function TweakViewNTPConfig { # RESINFO
+	w32tm /query /configuration
+	w32tm /query /status
+	w32tm /tz
 }
 
 ################################################################

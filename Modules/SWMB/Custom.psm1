@@ -214,6 +214,40 @@ Function TweakUnsetNTPConfig { # RESINFO
 	net stop w32time
 }
 
+################################################################
+
+# Workgroup Name
+# Set
+Function TweakSetWorkgroupName { # RESINFO
+	Write-Output "Setting Workgroup Name..."
+	If (!(Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
+		If (![string]::IsNullOrEmpty($($Global:SWMB_Custom.WorkgroupName))) {
+			If ((Get-WmiObject -Class Win32_ComputerSystem).Workgroup -ne "$($Global:SWMB_Custom.WorkgroupName)") {
+				Add-Computer -WorkgroupName "$($Global:SWMB_Custom.WorkgroupName)"
+			}
+		}
+	}
+}
+
+# Unset
+Function TweakUnsetWorkgroupName { # RESINFO
+	Write-Output "Setting Workgroup Name to the default (WORKGROUP)..."
+	If (!(Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
+		If ((Get-WmiObject -Class Win32_ComputerSystem).Workgroup -ne "WORKGROUP") {
+			Add-Computer -WorkgroupName "WORKGROUP"
+		}
+	}
+}
+
+# View
+Function TweakViewWorkgroupName { # RESINFO
+	If ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
+		Write-Output "This computer is part of domain"
+	} Else {
+		Write-Output "The Workgroup name is: $((Get-WmiObject -Class Win32_ComputerSystem).Workgroup)" 
+	}
+}
+
 
 ################################################################
 ###### Export Functions

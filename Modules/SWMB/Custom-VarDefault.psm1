@@ -47,4 +47,7 @@ $Global:SWMB_Custom = @{
 	KesPassword  = ""
 	KesAgentPass = ""
 	KesKeyFile   = ""
+
+	# Workgroup Name
+	WorkgroupName          = "WORKGROUP"
 }

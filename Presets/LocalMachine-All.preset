@@ -122,6 +122,7 @@ SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic
 DisableRemoteAssistance                         # EnableRemoteAssistance
 # EnableRemoteDesktop                           # DisableRemoteDesktop
 DisableSMB1Protocol                             # EnableSMB1Protocol
+# SetWorkgroupName                              # UnsetWorkgroupName                            # ViewWorkgroupName
 
 ### Service Tweaks ###
 # DisableUpdateMSRT                             # EnableUpdateMSRT

@@ -18,6 +18,7 @@ installed on your computer.
 
 New presets/rules:
 
+ * 2022/07/11 - `SetWorkgroupName`/`UnsetWorkgroupName`/`ViewWorkgroupName` -> Set Windows Workgroup name (`$Global:SWMB_Custom` key `WorkgroupName`)
  * 2022/07/07 - Move all the `UninstallKaspersky*` tweaks to the `LocalMachine-Uninstall.psm1` module
  * 2022/07/06 - `UninstallWinRAR` -> Remove WinRAR software if installed
  * 2022/07/06 - `UninstallRealPlayer` -> Remove RealPlayer software if installed
@@ -25,6 +26,7 @@ New presets/rules:
 The new module `LocalMachine-Uninstall.psm1` is dedicated to all software
 that need to be uninstall on a Windows park, with no rules to install them.
 So they are one way rules only !
+
 
 ## Version 3.14 (2022/07/07)
 

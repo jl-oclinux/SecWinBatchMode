@@ -201,6 +201,7 @@ Function TweakUnsetSecurityParamAccountPolicy { # RESINFO
 # https://docs.microsoft.com/fr-fr/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings
 # Set
 Function TweakSetNTPConfig { # RESINFO
+	Write-Output "Setting NTP client configuration..."
 	w32tm /register
 	net start w32time
 	w32tm /config "/manualpeerlist: $($Global:SWMB_Custom.NTP_ManualPeerList)"
@@ -210,6 +211,7 @@ Function TweakSetNTPConfig { # RESINFO
 
 # Unset
 Function TweakUnsetNTPConfig { # RESINFO
+	Write-Output "Unset NTP client (stop)..."
 	w32tm /unregister
 	net stop w32time
 }

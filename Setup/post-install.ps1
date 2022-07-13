@@ -58,13 +58,13 @@ If (Test-Path -LiteralPath $Env:ProgramData) {
 If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 	$BootTrigger = New-ScheduledTaskTrigger -AtStartup
 	$BootSetting = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 90)
-	$User        = "NT AUTHORITY\SYSTEM"
+	$BootUser    = "NT AUTHORITY\SYSTEM"
 	$BootTask    = 'SWMB-LocalMachine-Boot'
 	$BootAction  = New-ScheduledTaskAction -Execute "powershell.exe" `
 		-Argument "-File `"$InstallFolder\Tasks\LocalMachine-Boot.ps1`"" `
 		-WorkingDirectory "$InstallFolder"
 	Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
-	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $BootTrigger -User $User -Action $BootAction `
+	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $BootTrigger -User $BootUser -Action $BootAction `
 		-RunLevel Highest -Description "SWMB tweaks action at boot" -Settings $BootSetting
 	$BootObject = Get-ScheduledTask $BootTask
 	$BootObject.Author = "CNRS RESINFO / GT SWMB"
@@ -157,6 +157,23 @@ If ($ActivatedPreset -eq 1) {
 #	$ShortCut.Description = "SWMB - Crypt disk with Bitlocker";
 #	$Shortcut.Save()
 #}
+
+# Create Post-Install Task
+If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Install.ps1") {
+	$InstallUser    = "NT AUTHORITY\SYSTEM"
+	$InstallTask    = 'SWMB-LocalMachine-Post-Install'
+	$InstallTrigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(10)
+	$InstallTrigger.EndBoundary = (Get-Date).AddSeconds(60).ToString('s')
+	$InstallSetting = New-ScheduledTaskSettingsSet -DeleteExpiredTaskAfter 00:00:01 -ExecutionTimeLimit (New-TimeSpan -Minutes 120)
+	$InstallAction = New-ScheduledTaskAction -Execute "powershell.exe" `
+		-Argument "-NoProfile -WindowStyle Hidden -File `"$InstallFolder\Tasks\LocalMachine-Install.ps1`"" `
+		-WorkingDirectory "$InstallFolder"
+	Register-ScheduledTask -Force -TaskName $InstallTask -Trigger $InstallTrigger -User $InstallUser -Action $InstallAction `
+		-Description "SWMB tweaks action post-install" -Settings $InstallSetting
+	$InstallObject = Get-ScheduledTask $InstallTask
+	$InstallObject.Author = "CNRS RESINFO / GT SWMB"
+	$InstallObject | Set-ScheduledTask
+}
 
 # Create EventLog for our Source
 If ([System.Diagnostics.EventLog]::SourceExists("SWMB") -eq $False) {

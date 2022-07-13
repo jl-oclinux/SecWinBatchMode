@@ -23,17 +23,21 @@ If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Unins
 Set-Location $InstallFolder
 
 # Define Boot preset on ProgramData
-$DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
-$BootPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "CurrentUser-Logon.preset"))
-$BootModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "CurrentUser-Logon.psm1"))
-$BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "CurrentUser-lastLogon.log"))
+$DataFolder   = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+$LogonPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "CurrentUser-Logon.preset"))
+$LogonModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "CurrentUser-Logon.psm1"))
+$LogonLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "CurrentUser-lastLogon.log"))
 
+# Revert if not exist to module name Local-Addon.psm1
+If (-not(Test-Path -LiteralPath $LogonModule)) {
+	$LogonModule = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "Local-Addon.psm1"))
+}
 # Launch SWMB with this preset
-If (Test-Path -LiteralPath $BootPreset) {
-	If (Test-Path -LiteralPath $BootModule) {
-		.\swmb.ps1 -log "$BootLog" -import "$BootModule" -preset "$BootPreset"
+If (Test-Path -LiteralPath $LogonPreset) {
+	If (Test-Path -LiteralPath $LogonModule) {
+		.\swmb.ps1 -log "$LogonLog" -import "$LogonModule" -preset "$LogonPreset"
 	} Else {
-		.\swmb.ps1 -log "$BootLog" -preset "$BootPreset"
+		.\swmb.ps1 -log "$LogonLog" -preset "$LogonPreset"
 	}
 }
 

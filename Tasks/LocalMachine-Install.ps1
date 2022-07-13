@@ -24,21 +24,22 @@ Set-Location $InstallFolder
 
 # Define Install preset on ProgramData
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
-$InstallPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "LocalMachine-Install.preset"))
-$InstallModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "LocalMachine-Install.psm1"))
-$InstallLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "LocalMachine-LastInstall.log"))
-$Installhash    = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Caches"  -ChildPath "LocalMachine-LastInstall.hash"))
+$PostInstallPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "LocalMachine-Install.preset"))
+$PostInstallModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "LocalMachine-Install.psm1"))
+$PostInstallLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "LocalMachine-LastInstall.log"))
+$PostInstallHash    = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Caches"  -ChildPath "LocalMachine-LastInstall.hash"))
 
-If (-not(Test-Path -LiteralPath $InstallModule)) {
-	$InstallModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "Local-Addon.psm1"))
+# Revert if not exist to module name Local-Addon.psm1
+If (-not(Test-Path -LiteralPath $PostInstallModule)) {
+	$PostInstallModule = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "Local-Addon.psm1"))
 }
 
 # Launch SWMB with this preset
-If (Test-Path -LiteralPath $InstallPreset) {
-	If (Test-Path -LiteralPath $InstallModule) {
-		.\swmb.ps1 -log "$InstallLog" -import "$InstallModule" -preset "$InstallPreset" -hash $Installhash
+If (Test-Path -LiteralPath $PostInstallPreset) {
+	If (Test-Path -LiteralPath $PostInstallModule) {
+		.\swmb.ps1 -log "$PostInstallLog" -import "$PostInstallModule" -preset "$PostInstallPreset" -hash $PostInstallHash
 	} Else {
-		.\swmb.ps1 -log "$InstallLog" -preset "$InstallPreset" -hash $Installhash
+		.\swmb.ps1 -log "$PostInstallLog" -preset "$PostInstallPreset" -hash $PostInstallHash
 	}
 }
 

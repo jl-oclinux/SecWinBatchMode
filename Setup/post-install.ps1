@@ -57,6 +57,7 @@ If (Test-Path -LiteralPath $Env:ProgramData) {
 # Create Boot Task
 If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 	$BootTrigger = New-ScheduledTaskTrigger -AtStartup
+	$BootSetting = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 90)
 	$User        = "NT AUTHORITY\SYSTEM"
 	$BootTask    = 'SWMB-LocalMachine-Boot'
 	$BootAction  = New-ScheduledTaskAction -Execute "powershell.exe" `
@@ -64,7 +65,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 		-WorkingDirectory "$InstallFolder"
 	Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $BootTrigger -User $User -Action $BootAction `
-		-RunLevel Highest -Description "SWMB tweaks action at boot"
+		-RunLevel Highest -Description "SWMB tweaks action at boot" -Settings $BootSetting
 	$BootObject = Get-ScheduledTask $BootTask
 	$BootObject.Author = "CNRS RESINFO / GT SWMB"
 	$BootObject | Set-ScheduledTask
@@ -95,14 +96,15 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 # Create Logon Task for All Users
 If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 	$LogonTrigger = New-ScheduledTaskTrigger -AtLogon
+	$LogonSetting = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 20)
 	$LogonTask    = 'SWMB-CurrentUser-Logon'
 	$LogonAction  = New-ScheduledTaskAction -Execute "powershell.exe" `
 		-Argument "-NoProfile -WindowStyle Hidden -File `"$InstallFolder\Tasks\CurrentUser-Logon.ps1`"" `
 		-WorkingDirectory "$InstallFolder"
-	$STPrin = New-ScheduledTaskPrincipal -GroupId "S-1-5-32-545" -RunLevel Highest
+	$LogonPrincipal = New-ScheduledTaskPrincipal -GroupId "S-1-5-32-545" -RunLevel Highest
 	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $LogonTask -Trigger $LogonTrigger -Action $LogonAction `
-		-Principal $STPrin -Description "SWMB tweaks action at user logon"
+		-Principal $LogonPrincipal -Description "SWMB tweaks action at user logon" -Settings $LogonSetting
 	$LogonObject = Get-ScheduledTask $LogonTask
 	$LogonObject.Author = "CNRS RESINFO / GT SWMB"
 	$LogonObject | Set-ScheduledTask

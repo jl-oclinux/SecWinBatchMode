@@ -256,7 +256,7 @@ Function TweakUninstallWinRAR { # RESINFO
 				$Timeouted = $Null # Reset any previously set timeout
 				# Wait up to 180 seconds for normal termination
 				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				if ($Timeouted) {
+				If ($Timeouted) {
 					# Terminate the process
 					$Proc | Kill
 					Write-Output "Error: kill WinRAR uninstall exe"
@@ -288,6 +288,50 @@ Function TweakUninstallWinRAR { # RESINFO
 			}
 		}
 	}
+}
+
+################################################################
+
+# Suppress Total Commander software
+# With the help of https://silentinstallhq.com/total-commander-silent-install-how-to-guide/
+# Total Commander 10.x
+# "%ProgramFiles%\totalcmd\tcuninst.exe" /7
+# "%ProgramFiles%\totalcmd\tcunin64.exe" /7
+# Total Commander 9.x
+# "%SystemDrive%\totalcmd\tcuninst.exe" /7
+# "%SystemDrive%\totalcmd\tcunin64.exe" /7
+# Uninstall
+Function TweakUninstallTotalCommander { # RESINFO
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 
+		Where { $_.Name -match 'Total Commander' } |
+		ForEach {
+			$App = (Get-ItemProperty -Path $_.PSPath)
+			$VersionMajor = $App.VersionMajor
+			$VersionMinor = $App.VersionMinor
+			$Exe = $App.UninstallString
+			$Args = '/7'
+			If (Test-Path -Path "$Exe") {
+				Write-Output "Uninstalling Total Commander version $VersionMajor.$VersionMinor"
+				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill Total Commander uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: Total Commander uninstall return code $Proc.ExitCode"
+					# Next tweak now
+					Return
+				}
+			}
+			Start-Sleep -Seconds 1
+		}
 }
 
 ################################################################

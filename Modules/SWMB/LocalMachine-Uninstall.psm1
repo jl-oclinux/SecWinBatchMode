@@ -162,7 +162,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 				$Timeouted = $Null # Reset any previously set timeout
 				# Wait up to 180 seconds for normal termination
 				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				if ($Timeouted) {
+				If ($Timeouted) {
 					# Terminate the process
 					$Proc | Kill
 					Write-Output "Error: kill RealPlayer uninstall exe"
@@ -368,7 +368,7 @@ Function TweakUninstallAvast { # RESINFO
 				$Timeouted = $Null # Reset any previously set timeout
 				# Wait up to 180 seconds for normal termination
 				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				if ($Timeouted) {
+				If ($Timeouted) {
 					# Terminate the process
 					$Proc | Kill
 					Write-Output "Error: kill Avast uninstall exe"

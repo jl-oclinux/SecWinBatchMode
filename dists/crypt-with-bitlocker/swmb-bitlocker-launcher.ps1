@@ -19,7 +19,7 @@ To work correctly, this script needs:
 "@ -ForegroundColor Green
 
 $confirmation = Read-Host "Do you want to proceed? [y/N]"
-if ($confirmation -ne "y") {
+If ($confirmation -ne "y") {
     Write-Host @"
 ------------------
 Stop processing!
@@ -37,10 +37,10 @@ Processing directory $swmbBitlockerDirectory...
 ------------------
 "@ -ForegroundColor Green
 
-if (-not (Test-Path $swmbBitlockerDirectory)) {
+If (-not (Test-Path $swmbBitlockerDirectory)) {
     New-Item -Path $swmbBitlockerDirectory -ItemType Directory 
 }
-if (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master") {
+If (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master") {
     Remove-Item "$swmbBitlockerDirectory\resinfo-swmb-master" -Force -Recurse
 }
 
@@ -58,7 +58,7 @@ Decompressing file...
 ------------------
 "@ -ForegroundColor Green
 Expand-Archive -Path $outZipFile -DestinationPath $swmbBitlockerDirectory
-if (-not (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master")) {
+If (-not (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master")) {
     Write-Host @"
 ------------------
 Error decompressing. Stop script!

@@ -110,7 +110,7 @@ Function TweakSysAutoUpgrade {
 		Write-Output "Error: Upgrade of SWMB impossible..."
 	}
 
-	if (Test-Path "$tmpFolder") {
+	If (Test-Path "$tmpFolder") {
 		Remove-Item -Path "$tmpFolder" -Force -Recurse -ErrorAction SilentlyContinue
 	}
 }

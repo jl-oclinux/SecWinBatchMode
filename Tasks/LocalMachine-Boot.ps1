@@ -30,7 +30,7 @@ $BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"  
 $BootHash    = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Caches"  -ChildPath "LocalMachine-LastBoot.hash"))
 
 # Revert if not exist to default module name Local-Addon.psm1
-If (-not(Test-Path -LiteralPath $BootModule)) {
+If (!(Test-Path -LiteralPath $BootModule)) {
 	$BootModule = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "Local-Addon.psm1"))
 }
 # Launch SWMB with this preset

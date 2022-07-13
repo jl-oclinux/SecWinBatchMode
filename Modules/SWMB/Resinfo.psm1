@@ -685,7 +685,7 @@ Function TweakEnableBitlocker { # RESINFO
 		icacls.exe $PathKey /InheritanceLevel:r
 
 		# copy key if $NetworkKeyBackup
-		If (-not ([string]::IsNullOrEmpty($NetworkKeyBackupFolder))) {
+		If (!([string]::IsNullOrEmpty($NetworkKeyBackupFolder))) {
 			Try {
 				Copy-Item $PathKey -Destination $NetworkKeyBackupFolder -ErrorAction Continue
 			} Catch {
@@ -706,7 +706,7 @@ Function TweakEnableBitlocker { # RESINFO
 		# Other drives encryption
 		$ListVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $SystemDriveLetter }
 		Foreach ($Volume in $ListVolume) {
-			If (-not ($Volume.DriveLetter)) { continue }
+			If (!($Volume.DriveLetter)) { continue }
 
 			$Letter = $Volume.DriveLetter
 			$LetterColon = $Letter + ":"
@@ -737,7 +737,7 @@ Function TweakEnableBitlocker { # RESINFO
 			Write-Output "Bitlocker activation on drive $Letter ended with success"
 
 			# copy key if $NetworkKeyBackup
-			If (-not ([string]::IsNullOrEmpty($NetworkKeyBackupFolder))) {
+			If (!([string]::IsNullOrEmpty($NetworkKeyBackupFolder))) {
 				Try {
 					Copy-Item $BackupFile -Destination $NetworkKeyBackupFolder -ErrorAction Continue
 				} Catch {
@@ -768,7 +768,7 @@ Function TweakEnableBitlocker { # RESINFO
 	Function _EnforceCryptGPO() {
 		# All registry keys :
 		# https://admx.help/HKLM/Software/Policies/Microsoft/FVE
-		If (-not (Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE")) {
+		If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\FVE")) {
 			New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\" -Name "FVE"
 		}
 
@@ -920,7 +920,7 @@ Function TweakEnableBitlocker { # RESINFO
 Function TweakDisableBitlocker { # RESINFO
 	$ListVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" }
 	Foreach ($Volume in $ListVolume) {
-		If (-not ($Volume.DriveLetter)) { continue }
+		If (!($Volume.DriveLetter)) { continue }
 		$Letter = $Volume.DriveLetter
 		Disable-BitLocker $Letter
 	}

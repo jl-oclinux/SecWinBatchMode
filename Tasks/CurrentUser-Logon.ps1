@@ -29,7 +29,7 @@ $LogonModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Module
 $LogonLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "CurrentUser-lastLogon.log"))
 
 # Revert if not exist to module name Local-Addon.psm1
-If (-not(Test-Path -LiteralPath $LogonModule)) {
+If (!(Test-Path -LiteralPath $LogonModule)) {
 	$LogonModule = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "Local-Addon.psm1"))
 }
 # Launch SWMB with this preset

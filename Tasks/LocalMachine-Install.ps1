@@ -30,7 +30,7 @@ $PostInstallLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "
 $PostInstallHash    = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Caches"  -ChildPath "LocalMachine-LastInstall.hash"))
 
 # Revert if not exist to module name Local-Addon.psm1
-If (-not(Test-Path -LiteralPath $PostInstallModule)) {
+If (!(Test-Path -LiteralPath $PostInstallModule)) {
 	$PostInstallModule = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "Local-Addon.psm1"))
 }
 

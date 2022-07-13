@@ -123,6 +123,6 @@ Switch ($Script:SWMB_CheckTweak) {
 		}
 }
 
-If (-not ([string]::IsNullOrEmpty($Script:SWMB_Log))) {
+If (!([string]::IsNullOrEmpty($Script:SWMB_Log))) {
 	Stop-Transcript
 }

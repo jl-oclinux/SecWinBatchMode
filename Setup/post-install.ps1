@@ -120,7 +120,7 @@ Function _UpdatePresetFile {
 	If (Test-Path -LiteralPath "$New") {
 		If (Test-Path -LiteralPath "$Actual") {
 			$MagicString = (Select-String -Path "$Actual" -Pattern "file automatically updated").Line
-			If (-not ([string]::IsNullOrEmpty($MagicString))) {
+			If (!([string]::IsNullOrEmpty($MagicString))) {
 				Copy-Item -Path "$New" -Destination "$Actual" -Force
 				}
 		} Else {

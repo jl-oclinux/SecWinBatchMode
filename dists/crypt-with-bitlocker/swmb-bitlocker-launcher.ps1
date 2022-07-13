@@ -37,7 +37,7 @@ Processing directory $swmbBitlockerDirectory...
 ------------------
 "@ -ForegroundColor Green
 
-If (-not (Test-Path $swmbBitlockerDirectory)) {
+If (!(Test-Path $swmbBitlockerDirectory)) {
     New-Item -Path $swmbBitlockerDirectory -ItemType Directory 
 }
 If (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master") {
@@ -58,7 +58,7 @@ Decompressing file...
 ------------------
 "@ -ForegroundColor Green
 Expand-Archive -Path $outZipFile -DestinationPath $swmbBitlockerDirectory
-If (-not (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master")) {
+If (!(Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master")) {
     Write-Host @"
 ------------------
 Error decompressing. Stop script!

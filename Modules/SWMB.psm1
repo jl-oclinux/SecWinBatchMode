@@ -254,7 +254,7 @@ Function SWMB_CheckTweaks {
 
 	ForEach ($tweak in $Global:SWMB_Tweaks) {
 		# Test if tweak function really exists
-		If (-not(Get-Command -Name "Tweak$tweak" -ErrorAction SilentlyContinue)) {
+		If (!(Get-Command -Name "Tweak$tweak" -ErrorAction SilentlyContinue)) {
 			Write-Output "Tweak $tweak is not defined!"
 		}
 
@@ -277,7 +277,7 @@ Function SWMB_CheckTweaks {
 Function SWMB_PrintTweaks {
 	ForEach ($tweak in $Global:SWMB_Tweaks) {
 		# Test if tweak function really exists
-		If (-not(Get-Command -Name "Tweak$tweak" -ErrorAction SilentlyContinue)) {
+		If (!(Get-Command -Name "Tweak$tweak" -ErrorAction SilentlyContinue)) {
 			Write-Output "# $tweak"
 		} Else {
 			Write-Output "$tweak"

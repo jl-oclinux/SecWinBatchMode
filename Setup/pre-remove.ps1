@@ -33,7 +33,7 @@ Function _RemovePresetFile {
 
 	If (Test-Path -LiteralPath "$Path") {
 		$MagicString = (Select-String -Path "$Path" -Pattern "file automatically updated").Line
-		If (-not ([string]::IsNullOrEmpty($MagicString))) {
+		If (!([string]::IsNullOrEmpty($MagicString))) {
 			Remove-Item -Path $Path -Force -ErrorAction SilentlyContinue
 		}
 	}

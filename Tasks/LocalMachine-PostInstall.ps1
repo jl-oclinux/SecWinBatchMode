@@ -13,7 +13,7 @@
 ################################################################
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 0 `
-	-Message "SWMB: Run Post-Install Script for LocalMachine - Begin"
+	-Message "SWMB: Run PostInstall Script for LocalMachine - Begin"
 
 # Change Path to the root Installation Folder
 $InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
@@ -22,12 +22,12 @@ If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Unins
 }
 Set-Location $InstallFolder
 
-# Define Install preset on ProgramData
+# Define PostInstall preset on ProgramData
 $DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
-$PostInstallPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "LocalMachine-Install.preset"))
-$PostInstallModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "LocalMachine-Install.psm1"))
-$PostInstallLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "LocalMachine-LastInstall.log"))
-$PostInstallHash    = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Caches"  -ChildPath "LocalMachine-LastInstall.hash"))
+$PostInstallPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "LocalMachine-PostInstall.preset"))
+$PostInstallModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "LocalMachine-PostInstall.psm1"))
+$PostInstallLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "LocalMachine-PostInstall.log"))
+$PostInstallHash    = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Caches"  -ChildPath "LocalMachine-PostInstall.hash"))
 
 # Revert if not exist to module name Local-Addon.psm1
 If (!(Test-Path -LiteralPath $PostInstallModule)) {
@@ -44,4 +44,4 @@ If (Test-Path -LiteralPath $PostInstallPreset) {
 }
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `
-	-Message "SWMB: Run Post-Install Script for LocalMachine - End"
+	-Message "SWMB: Run PostInstall Script for LocalMachine - End"

@@ -263,7 +263,7 @@ Section "Program files (Required)"
   SetOutPath $INSTDIR\Tasks
   File "Tasks\CurrentUser-Logon.ps1"
   File "Tasks\LocalMachine-Boot.ps1"
-  File "Tasks\LocalMachine-Install.ps1"
+  File "Tasks\LocalMachine-PostInstall.ps1"
   File "Tasks\LocalMachine-Crypt-With-Bitlocker.ps1"
 SectionEnd
 

@@ -158,21 +158,21 @@ If ($ActivatedPreset -eq 1) {
 #	$Shortcut.Save()
 #}
 
-# Create Post-Install Task
-If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Install.ps1") {
-	$InstallUser    = "NT AUTHORITY\SYSTEM"
-	$InstallTask    = 'SWMB-LocalMachine-Post-Install'
-	$InstallTrigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(10)
-	$InstallTrigger.EndBoundary = (Get-Date).AddSeconds(60).ToString('s')
-	$InstallSetting = New-ScheduledTaskSettingsSet -DeleteExpiredTaskAfter 00:00:01 -ExecutionTimeLimit (New-TimeSpan -Minutes 120)
-	$InstallAction = New-ScheduledTaskAction -Execute "powershell.exe" `
-		-Argument "-NoProfile -WindowStyle Hidden -File `"$InstallFolder\Tasks\LocalMachine-Install.ps1`"" `
+# Create PostInstall Task
+If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-PostInstall.ps1") {
+	$PostInstallUser    = "NT AUTHORITY\SYSTEM"
+	$PostInstallTask    = 'SWMB-LocalMachine-PostInstall'
+	$PostInstallTrigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(10)
+	$PostInstallTrigger.EndBoundary = (Get-Date).AddSeconds(60).ToString('s')
+	$PostInstallSetting = New-ScheduledTaskSettingsSet -DeleteExpiredTaskAfter 00:00:01 -ExecutionTimeLimit (New-TimeSpan -Minutes 120)
+	$PostInstallAction = New-ScheduledTaskAction -Execute "powershell.exe" `
+		-Argument "-NoProfile -WindowStyle Hidden -File `"$InstallFolder\Tasks\LocalMachine-PostInstall.ps1`"" `
 		-WorkingDirectory "$InstallFolder"
-	Register-ScheduledTask -Force -TaskName $InstallTask -Trigger $InstallTrigger -User $InstallUser -Action $InstallAction `
-		-Description "SWMB tweaks action post-install" -Settings $InstallSetting
-	$InstallObject = Get-ScheduledTask $InstallTask
-	$InstallObject.Author = "CNRS RESINFO / GT SWMB"
-	$InstallObject | Set-ScheduledTask
+	Register-ScheduledTask -Force -TaskName $PostInstallTask -Trigger $PostInstallTrigger -User $PostInstallUser -Action $PostInstallAction `
+		-Description "SWMB tweaks action PostInstall" -Settings $PostInstallSetting
+	$PostInstallObject = Get-ScheduledTask $PostInstallTask
+	$PostInstallObject.Author = "CNRS RESINFO / GT SWMB"
+	$PostInstallObject | Set-ScheduledTask
 }
 
 # Create EventLog for our Source

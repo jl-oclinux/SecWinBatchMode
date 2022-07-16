@@ -18,6 +18,7 @@ installed on your computer.
 
 New presets/rules:
 
+ * 2022/07/13 - `UninstallTotalCommander` -> Remove TotalCommander software if installed
  * 2022/07/11 - `SetWorkgroupName`/`UnsetWorkgroupName`/`ViewWorkgroupName` -> Set Windows Workgroup name (`$Global:SWMB_Custom` key `WorkgroupName`)
  * 2022/07/07 - Move all the `UninstallKaspersky*` tweaks to the `LocalMachine-Uninstall.psm1` module
  * 2022/07/06 - `UninstallWinRAR` -> Remove WinRAR software if installed
@@ -26,6 +27,26 @@ New presets/rules:
 The new module `LocalMachine-Uninstall.psm1` is dedicated to all software
 that need to be uninstall on a Windows park, with no rules to install them.
 So they are one way rules only !
+
+A new PostInstall task has been defined.
+It starts shortly after SWMB installation if and only if there is a
+`LocalMachine-PostInstall.preset` file in the `C:\ProgramData\SWMB\Presets` folder.
+There is no default preset file in the SWMB distribution.
+So for this to work, you have to put this preset file before the installation.
+The purpose of this new task is to be able to push presets immediately,
+without waiting for a possible reboot which can take place a long time later.
+
+The tasks import by default the PowerShell module having the same name as the preset,
+but having the extension `.psm1` and located in the folder `C:\ProgramData\Modules`.
+If this module does not exist, but there is a module in this same folder
+with the name `Local-Addon.psm1`, then this one is loaded instead.
+This mechanism allows to have one common module for all tasks,
+or to specialize a module for a task.
+
+Thus it is not necessary to load a module at the beginning of a preset file
+(`$IMPORT`) if we follow this naming convention.
+The goal is to simplify the use and configuration of SWMB
+to your machine environment.
 
 
 ## Version 3.14 (2022/07/07)

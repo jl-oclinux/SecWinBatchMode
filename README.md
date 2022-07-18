@@ -202,14 +202,17 @@ There is also a version number check.
 
 ### Tasks
 
-The goal is not to change anything in the SWMB installation folder.
-Two scheduled tasks are configured.
-One takes place at machine startup (Boot) and the other at user login (Logon).
+The goal is to not change anything in the SWMB installation folder.
+Three scheduled tasks are configured.
+One takes place when the machine is started (Boot),
+the other when the user logs in (Logon) and finally the third is
+a bit special because it starts just after the installation of SWMB (PostInstall).
 
-These two tasks will look for their parameters in the `C:\ProgramData\SWMB\Presets` folder.
+These three tasks will look for their parameters in the `C:\ProgramData\SWMB\Presets` folder.
 
  * CurrentUser-Logon.ps1 - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
- * LocalMachine-Boot.ps - Load preset  at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+ * LocalMachine-Boot.ps1 - Load preset at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+ * LocalMachine-PostInstall.ps1 - Load preset after SMWB install `C:\ProgramData\SWMB\Presets\LocalMachine-PostInstall.preset`
 
 By default, the presets [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset)
 and [LocalMachine-Boot-Recommanded.preset](Presets/LocalMachine-Boot-Recommanded.preset) are copied
@@ -220,8 +223,21 @@ Moreover, during the installation,
 it is possible not to set these preset files by default by unchecking a box in the installer
 (flag `/ACTIVATED_PRESET=0` in command line).
 
-If a module with the same name (with extension `.psm1`) exist in the folder `C:\ProgramData\SWMB\Modules`,
-it's will be import.
+Note that there is no default preset for the PostInstall task.
+So by default, the task starts shortly after the installation, but does nothing.
+If you want to benefit from this task,
+you will have to think about putting a preset file `LocalMachine-PostInstall.preset`
+in the `C:\ProgramData\SWMB\Presets` folder before installing SWMB.
+
+If a module with the same name (with the extension `.psm1`) exists
+in the folder `C:\ProgramData\SWMB\Modules`, it will be imported.
+For example, if there is a `C:\ProgramData\SWMB\Modules\LocalMachine-Boot.psm1` module,
+then it is loaded at the beginning of the `LocalMachine-Boot.ps1` task.
+In order to mutualize the code of the modules in a single module,
+which can be more practical on the development and deployment side,
+if there is no module of the name of the task,
+but there is the generic module `Local-Addon.psm1` in the `C:\ProgramData\SWMB\Modules` folder,
+then it is loaded.
 
 An event is created in Application journal at begin and end of the task.
 Output of the task are redirected in a log file inside the folder `C:\ProgramData\SWMB\Logs`.

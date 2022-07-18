@@ -210,9 +210,9 @@ a bit special because it starts just after the installation of SWMB (PostInstall
 
 These three tasks will look for their parameters in the `C:\ProgramData\SWMB\Presets` folder.
 
- * CurrentUser-Logon.ps1 - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
- * LocalMachine-Boot.ps1 - Load preset at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
- * LocalMachine-PostInstall.ps1 - Load preset after SMWB install `C:\ProgramData\SWMB\Presets\LocalMachine-PostInstall.preset`
+ * `CurrentUser-Logon.ps1` - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
+ * `LocalMachine-Boot.ps1` - Load preset at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+ * `LocalMachine-PostInstall.ps1` - Load preset after SMWB install `C:\ProgramData\SWMB\Presets\LocalMachine-PostInstall.preset`
 
 By default, the presets [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset)
 and [LocalMachine-Boot-Recommanded.preset](Presets/LocalMachine-Boot-Recommanded.preset) are copied
@@ -224,7 +224,8 @@ it is possible not to set these preset files by default by unchecking a box in t
 (flag `/ACTIVATED_PRESET=0` in command line).
 
 Note that there is no default preset for the PostInstall task.
-So by default, the task starts shortly after the installation, but does nothing.
+Thus, the task starts shortly after installation,
+but does nothing in the minimal configuration.
 If you want to benefit from this task,
 you will have to think about putting a preset file `LocalMachine-PostInstall.preset`
 in the `C:\ProgramData\SWMB\Presets` folder before installing SWMB.

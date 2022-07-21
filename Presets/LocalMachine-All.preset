@@ -230,6 +230,8 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallAvast ## Beta
 # UninstallRealPlayer
 # UninstallWinRAR
+# UninstallOpenOffice
+# UninstallTotalCommander
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

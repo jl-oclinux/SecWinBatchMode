@@ -384,6 +384,47 @@ Function TweakUninstallAvast { # RESINFO
 		}
 }
 
+################################################################
+
+# Suppress OpenOffice software
+# https://silentinstallhq.com/apache-openoffice-silent-install-how-to-guide/
+# https://www.pdq.com/blog/silently-install-openoffice/
+# https://wiki.openoffice.org/wiki/Documentation/How_Tos/Automatic_Installation_on_Windows
+# Uninstall
+Function TweakUninstallOpenOffice { # RESINFO
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match 'OpenOffice') {
+				$VersionMajor = $App.VersionMajor
+				$VersionMinor = $App.VersionMinor
+				$KeyProduct = $Key | Split-Path -Leaf
+				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
+
+				Write-Output "Uninstalling OpenOffice version $VersionMajor.$VersionMinor"
+				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill OpenOffice uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: OpenOffice uninstall return code $Proc.ExitCode"
+					# Next tweak now
+					Return
+				}
+			}
+		}
+}
+
 
 ################################################################
 ###### Export Functions

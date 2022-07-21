@@ -3,3 +3,5 @@ InstallKasperskyConsole
 InstallAvast
 InstallRealPlayer
 InstallWinRAR
+InstallOpenOffice
+InstallTotalCommander

@@ -18,6 +18,7 @@ installed on your computer.
 
 New presets/rules:
 
+ * 2022/07/21 - `UninstallOPenOffice` -> Remove OpenOffice software if installed
  * 2022/07/13 - `UninstallTotalCommander` -> Remove TotalCommander software if installed
  * 2022/07/11 - `SetWorkgroupName`/`UnsetWorkgroupName`/`ViewWorkgroupName` -> Set Windows Workgroup name (`$Global:SWMB_Custom` key `WorkgroupName`)
  * 2022/07/07 - Move all the `UninstallKaspersky*` tweaks to the `LocalMachine-Uninstall.psm1` module

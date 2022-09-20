@@ -26,7 +26,7 @@ Set-Location $InstallFolder
 $DataFolder   = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 $LogonPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "CurrentUser-Logon.preset"))
 $LogonModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "CurrentUser-Logon.psm1"))
-$LogonLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "CurrentUser-lastLogon.log"))
+$LogonLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "CurrentUser-LastLogon.log"))
 
 # Revert if not exist to module name Local-Addon.psm1
 If (!(Test-Path -LiteralPath $LogonModule)) {

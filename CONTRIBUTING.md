@@ -317,6 +317,8 @@ Function TweakDisableSomeFeature {
 
 ## Windows builds overview
 
+See also - https://learn.microsoft.com/fr-fr/windows/release-health/release-information
+
 * See [Windows 11 version history](https://en.wikipedia.org/wiki/Windows_11_version_history)
 
 | Version |        Code name        |      Release date      | Build |

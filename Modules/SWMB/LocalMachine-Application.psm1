@@ -32,15 +32,15 @@ Function TweakEnableOneDrive {
 Function TweakUninstallOneDrive {
 	Write-Output "Uninstalling OneDrive..."
 	Stop-Process -Name "OneDrive" -Force -ErrorAction SilentlyContinue
-	Start-Sleep -s 2
+	Start-Sleep -Seconds 2
 	$OneDriveExe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
 	If (!(Test-Path $OneDriveExe)) {
 		$OneDriveExe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
 	}
 	Start-Process $OneDriveExe "/uninstall" -NoNewWindow -Wait
-	Start-Sleep -s 2
+	Start-Sleep -Seconds 2
 	Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
-	Start-Sleep -s 2
+	Start-Sleep -Seconds 2
 	If ((Get-ChildItem -Path "$Env:UserProfile\OneDrive" -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
 		Remove-Item -Path "$Env:UserProfile\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
 	}

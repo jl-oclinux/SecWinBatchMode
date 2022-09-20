@@ -203,24 +203,24 @@ Function TweakUninstallRealPlayer { # RESINFO
 	If (Test-Path -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\Real\") {
 		Write-Output "Removing RealPlayer Start Menu Entry."
 		Remove-Item -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\Real\" -Force -Recurse -ErrorAction SilentlyContinue
-		Start-Sleep -Seconds  2 
+		Start-Sleep -Seconds 2 
 	}
 	## Cleanup ProgramData Directory
 	If (Test-Path -Path "$Env:ALLUSERSPROFILE\Real\") {
 		Write-Output "Removing Existing Real ProgramData Directory."
 		Remove-Item -Path "$Env:ALLUSERSPROFILE\Real\" -Force -Recurse -ErrorAction SilentlyContinue
-		Start-Sleep -Seconds  1
+		Start-Sleep -Seconds 1
 	}
 	## Cleanup RealPlayer Directories
 	If (Test-Path -Path "$Env:ProgramFiles\Real\") {
 		Write-Output "Cleanup $Env:ProgramFiles\Real\ Directory."
 		Remove-Item -Path "$Env:ProgramFiles\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
-		Start-Sleep -Seconds  1
+		Start-Sleep -Seconds 1
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\") {
 		Write-Output "Cleanup ${Env:ProgramFiles(x86)}\Real\ Directory."
 		Remove-Item -Path "${Env:ProgramFiles(x86)}\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
-		Start-Sleep -Seconds  1
+		Start-Sleep -Seconds 1
 	}
 	## Cleanup Local & Roaming RealPlayer Directories
 	Get-WmiObject -ClassName Win32_UserProfile | Where {!$_.Special} | Select LocalPath | ForEach {
@@ -275,7 +275,7 @@ Function TweakUninstallWinRAR { # RESINFO
 	If (Test-Path -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\WinRAR\") {
 		Write-Output "Removing WinRAR Start Menu Entry."
 		Remove-Item -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\WinRAR\" -Force -Recurse -ErrorAction SilentlyContinue
-		Start-Sleep -Seconds  2 
+		Start-Sleep -Seconds 2 
 	}
 
 	## Cleanup User Profile (If Present)

@@ -33,20 +33,20 @@ Function TweakUninstallOneDrive {
 	Write-Output "Uninstalling OneDrive..."
 	Stop-Process -Name "OneDrive" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -s 2
-	$OneDriveExe = "$Env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+	$OneDriveExe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
 	If (!(Test-Path $OneDriveExe)) {
-		$OneDriveExe = "$Env:SYSTEMROOT\System32\OneDriveSetup.exe"
+		$OneDriveExe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
 	}
 	Start-Process $OneDriveExe "/uninstall" -NoNewWindow -Wait
 	Start-Sleep -s 2
 	Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -s 2
-	If ((Get-ChildItem -Path "$Env:USERPROFILE\OneDrive" -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
-		Remove-Item -Path "$Env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+	If ((Get-ChildItem -Path "$Env:UserProfile\OneDrive" -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+		Remove-Item -Path "$Env:UserProfile\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
 	}
-	Remove-Item -Path "$Env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$Env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$Env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "$Env:LocalAppData\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "$Env:ProgramData\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "$Env:SystemDrive\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
 	}
@@ -57,9 +57,9 @@ Function TweakUninstallOneDrive {
 # Install OneDrive - Not applicable to Server
 Function TweakInstallOneDrive {
 	Write-Output "Installing OneDrive..."
-	$OneDriveExe = "$Env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+	$OneDriveExe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
 	If (!(Test-Path $OneDriveExe)) {
-		$OneDriveExe = "$Env:SYSTEMROOT\System32\OneDriveSetup.exe"
+		$OneDriveExe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
 	}
 	Start-Process $OneDriveExe -NoNewWindow
 }

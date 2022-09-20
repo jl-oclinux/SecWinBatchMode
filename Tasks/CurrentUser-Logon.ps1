@@ -13,7 +13,7 @@
 ################################################################
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 0 `
-	-Message "SWMB: Run Logon Script for User $env:UserName - Begin"
+	-Message "SWMB: Run Logon Script for User $Env:UserName - Begin"
 
 # Change Path to the root Installation Folder
 $InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
@@ -42,4 +42,4 @@ If (Test-Path -LiteralPath $LogonPreset) {
 }
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `
-	-Message "SWMB: Run Logon Script for User $env:UserName - End"
+	-Message "SWMB: Run Logon Script for User $Env:UserName - End"

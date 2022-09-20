@@ -33,20 +33,20 @@ Function TweakUninstallOneDrive {
 	Write-Output "Uninstalling OneDrive..."
 	Stop-Process -Name "OneDrive" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -s 2
-	$OneDriveExe = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+	$OneDriveExe = "$Env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
 	If (!(Test-Path $OneDriveExe)) {
-		$OneDriveExe = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
+		$OneDriveExe = "$Env:SYSTEMROOT\System32\OneDriveSetup.exe"
 	}
 	Start-Process $OneDriveExe "/uninstall" -NoNewWindow -Wait
 	Start-Sleep -s 2
 	Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -s 2
-	If ((Get-ChildItem -Path "$env:USERPROFILE\OneDrive" -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
-		Remove-Item -Path "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+	If ((Get-ChildItem -Path "$Env:USERPROFILE\OneDrive" -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+		Remove-Item -Path "$Env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
 	}
-	Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "$Env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "$Env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+	Remove-Item -Path "$Env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
 	}
@@ -57,9 +57,9 @@ Function TweakUninstallOneDrive {
 # Install OneDrive - Not applicable to Server
 Function TweakInstallOneDrive {
 	Write-Output "Installing OneDrive..."
-	$OneDriveExe = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+	$OneDriveExe = "$Env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
 	If (!(Test-Path $OneDriveExe)) {
-		$OneDriveExe = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
+		$OneDriveExe = "$Env:SYSTEMROOT\System32\OneDriveSetup.exe"
 	}
 	Start-Process $OneDriveExe -NoNewWindow
 }
@@ -736,7 +736,7 @@ Function TweakUnsetPhotoViewerAssociation {
 	Remove-Item -Path "HKCR:\Paint.Picture\shell\open" -Recurse -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKCR:\giffile\shell\open" -Name "MuiVerb" -ErrorAction SilentlyContinue
 	Set-ItemProperty -Path "HKCR:\giffile\shell\open" -Name "CommandId" -Type String -Value "IE.File"
-	Set-ItemProperty -Path "HKCR:\giffile\shell\open\command" -Name "(Default)" -Type String -Value "`"$env:SystemDrive\Program Files\Internet Explorer\iexplore.exe`" %1"
+	Set-ItemProperty -Path "HKCR:\giffile\shell\open\command" -Name "(Default)" -Type String -Value "`"$Env:SystemDrive\Program Files\Internet Explorer\iexplore.exe`" %1"
 	Set-ItemProperty -Path "HKCR:\giffile\shell\open\command" -Name "DelegateExecute" -Type String -Value "{17FE9752-0B5A-4665-84CD-569794602F5C}"
 	Remove-Item -Path "HKCR:\jpegfile\shell\open" -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "HKCR:\pngfile\shell\open" -Recurse -ErrorAction SilentlyContinue

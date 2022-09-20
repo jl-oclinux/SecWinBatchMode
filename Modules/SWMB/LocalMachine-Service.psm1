@@ -162,18 +162,18 @@ Function TweakEnableAutorun {
 
 # Disable System Restore for system drive - Not applicable to Server
 # Note: This does not delete already existing restore points as the deletion of restore points is irreversible. In order to do that, run also following command.
-# vssadmin Delete Shadows /For=$env:SYSTEMDRIVE /Quiet
+# vssadmin Delete Shadows /For=$Env:SYSTEMDRIVE /Quiet
 Function TweakDisableRestorePoints {
 	Write-Output "Disabling System Restore for system drive..."
-	Disable-ComputerRestore -Drive "$env:SYSTEMDRIVE"
+	Disable-ComputerRestore -Drive "$Env:SYSTEMDRIVE"
 }
 
 # Enable System Restore for system drive - Not applicable to Server
 # Note: Some systems (notably VMs) have maximum size allowed to be used for shadow copies set to zero. In order to increase the size, run following command.
-# vssadmin Resize ShadowStorage /On=$env:SYSTEMDRIVE /For=$env:SYSTEMDRIVE /MaxSize=10GB
+# vssadmin Resize ShadowStorage /On=$Env:SYSTEMDRIVE /For=$Env:SYSTEMDRIVE /MaxSize=10GB
 Function TweakEnableRestorePoints {
 	Write-Output "Enabling System Restore for system drive..."
-	Enable-ComputerRestore -Drive "$env:SYSTEMDRIVE"
+	Enable-ComputerRestore -Drive "$Env:SYSTEMDRIVE"
 }
 
 ################################################################

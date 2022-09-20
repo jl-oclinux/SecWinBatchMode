@@ -368,6 +368,36 @@ Function TweakEnableAutoRebootOnCrash {
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "AutoReboot" -Type DWord -Value 1
 }
 
+################################################################
+
+# Set a target version
+# https://docs.microsoft.com/en-us/windows/release-health/release-information
+# If you don't update this policy before the device reaches end of service, the device will automatically be updated once it is 60 days past end of service for its version.
+# If you specify a TargetReleaseVersion the same as the current version, Windows 10 will stay on this version until it reaches end of service.
+# If you specify a TargetReleaseVersion higher than the current version, Windows 10 will directly update only to the specified version even if a higher version is available.
+# Enable
+Function TweakSetTargetRelease { # RESINFO
+	Write-Output "Set Target Release to $($Global:SWMB_Custom.TargetReleaseVersionInfo)..."
+	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "ProductVersion" -value  $Global:SWMB_Custom.ProductVersion -Type String -Force
+	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersion" -value '00000001' -Type DWord -Force
+	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -value $Global:SWMB_Custom.TargetReleaseVersionInfo -Type String -Force
+}
+
+# Disable
+Function TweakUnsetTargetRelease { # RESINFO
+	Write-Output "No Target Release..."
+	Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "ProductVersion" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersion" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewTargetRelease { # RESINFO
+	Write-Output 'Target Release (nothing = no target release)'
+	Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
+}
+
+
 ##########
 #endregion Service Tweaks
 ##########

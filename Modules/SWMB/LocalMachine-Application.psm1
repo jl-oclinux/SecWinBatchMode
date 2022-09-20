@@ -37,7 +37,7 @@ Function TweakUninstallOneDrive {
 	If (!(Test-Path $OneDriveExe)) {
 		$OneDriveExe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
 	}
-	Start-Process $OneDriveExe "/uninstall" -NoNewWindow -Wait
+	Start-Process -FilePath "$OneDriveExe" -ArgumentList "/uninstall" -NoNewWindow -Wait
 	Start-Sleep -Seconds 2
 	Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -Seconds 2
@@ -61,7 +61,7 @@ Function TweakInstallOneDrive {
 	If (!(Test-Path $OneDriveExe)) {
 		$OneDriveExe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
 	}
-	Start-Process $OneDriveExe -NoNewWindow
+	Start-Process -FilePath "$OneDriveExe" -NoNewWindow
 }
 
 ################################################################

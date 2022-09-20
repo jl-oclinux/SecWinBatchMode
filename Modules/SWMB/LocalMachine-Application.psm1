@@ -33,11 +33,11 @@ Function TweakUninstallOneDrive {
 	Write-Output "Uninstalling OneDrive..."
 	Stop-Process -Name "OneDrive" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -s 2
-	$onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
-	If (!(Test-Path $onedrive)) {
-		$onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
+	$OneDriveExe = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+	If (!(Test-Path $OneDriveExe)) {
+		$OneDriveExe = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
 	}
-	Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
+	Start-Process $OneDriveExe "/uninstall" -NoNewWindow -Wait
 	Start-Sleep -s 2
 	Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -s 2
@@ -57,11 +57,11 @@ Function TweakUninstallOneDrive {
 # Install OneDrive - Not applicable to Server
 Function TweakInstallOneDrive {
 	Write-Output "Installing OneDrive..."
-	$onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
-	If (!(Test-Path $onedrive)) {
-		$onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
+	$OneDriveExe = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+	If (!(Test-Path $OneDriveExe)) {
+		$OneDriveExe = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
 	}
-	Start-Process $onedrive -NoNewWindow
+	Start-Process $OneDriveExe -NoNewWindow
 }
 
 ################################################################

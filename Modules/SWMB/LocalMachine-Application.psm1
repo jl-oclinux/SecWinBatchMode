@@ -41,9 +41,23 @@ Function TweakUninstallOneDrive {
 	Start-Sleep -Seconds 2
 	Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
 	Start-Sleep -Seconds 2
-	If ((Get-ChildItem -Path "$Env:UserProfile\OneDrive" -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
-		Remove-Item -Path "$Env:UserProfile\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+
+	## Cleanup User Profile (If Present and Empty)
+	Get-WmiObject -ClassName Win32_UserProfile | Where {!$_.Special} | Select LocalPath | ForEach {
+		$UserHomePath = $_
+		ForEach ($UserCleanItem in "$UserHomePath\OneDrive") {
+			If ((Get-ChildItem -Path "$UserCleanItem" -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
+				Write-Output "Cleanup ($UserCleanItem) Directory."
+				Remove-Item -Path "$UserCleanItem" -Force -Recurse -ErrorAction SilentlyContinue
+			}
+		}
 	}
+	#Ordinateur\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\System\DisableOneDriveFileSync
+	#Ordinateur\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\SystemSettings\SettingId\SystemSettings_OneBackup_OneDriveBackup
+	#Ordinateur\HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}
+	#Ordinateur\HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}
+	#Ordinateur\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\UFH\ARP
+
 	Remove-Item -Path "$Env:LocalAppData\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "$Env:ProgramData\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "$Env:SystemDrive\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue

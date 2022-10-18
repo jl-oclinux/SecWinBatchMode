@@ -334,18 +334,18 @@ Command using the preset file above:
 
  | Status | Number of tweaks                       |      |      |      |
  | :---   | :---                                   | ---: | ---: | ---: |
- | Info   | Number of RESINFO tweaks               |      |      |   96 |
+ | Info   | Number of RESINFO tweaks               |      |      |  104 |
  | Info   | Number of Enable and Disable tweaks    |  182 |  182 |  364 |
- | Warn   | Number of Install and Uninstall tweaks |   20 |   22 |   42 |
+ | Warn   | Number of Install and Uninstall tweaks |   20 |   28 |   48 |
  | Warn   | Number of Show and Hide tweaks         |   56 |   53 |  109 |
  | Info   | Number of Add and Remove tweaks        |    3 |    3 |    6 |
- | Warn   | Number of Set and Unset tweaks         |   37 |    6 |   43 |
+ | Warn   | Number of Set and Unset tweaks         |   38 |    7 |   45 |
  | Warn   | Number of Pin and Unpin tweaks         |    0 |    2 |    2 |
- | Info   | Number of total tweaks GPO             |      |      |  566 |
+ | Info   | Number of total tweaks GPO             |      |      |  574 |
  | Info   | Number of Sys tweaks (system)          |      |      |    9 |
- | Info   | Number of View tweaks (debug)          |      |      |   12 |
+ | Info   | Number of View tweaks (debug)          |      |      |   14 |
  | Info   | Number of Obsolete tweaks              |      |      |    3 |
- | Info   | Number of total tweaks functions       |      |      |  590 |
+ | Info   | Number of total tweaks functions       |      |      |  600 |
 
 ### Import your lib
 

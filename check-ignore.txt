@@ -5,3 +5,4 @@ InstallRealPlayer
 InstallWinRAR
 InstallOpenOffice
 InstallTotalCommander
+InstallGlassWire

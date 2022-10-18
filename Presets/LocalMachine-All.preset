@@ -232,6 +232,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallWinRAR
 # UninstallOpenOffice
 # UninstallTotalCommander
+# UninstallGlassWire
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

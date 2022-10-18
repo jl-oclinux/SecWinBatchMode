@@ -324,7 +324,7 @@ See also - https://learn.microsoft.com/fr-fr/windows/release-health/release-info
 | Version |        Code name        |      Release date      | Build |
 | :-----: | ----------------------- | ---------------------- | :---: |
 |  21H2   | Sun Valley              | October 4, 2021        | 22000 |
-
+|  22H2   | Sun Valley 2            | September 20, 2022     | 22621 |
 
 * See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_version_history)
 

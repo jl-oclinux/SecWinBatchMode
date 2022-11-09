@@ -204,7 +204,7 @@ Function TweakSetNTPConfig { # RESINFO
 	Write-Output "Setting NTP client configuration..."
 	w32tm /register
 	net start w32time
-	w32tm /config "/manualpeerlist: $($Global:SWMB_Custom.NTP_ManualPeerList)"
+	w32tm /config /manualpeerlist:"$($Global:SWMB_Custom.NTP_ManualPeerList)" /syncfromflags:manual
 	w32tm /config /update
 	w32tm /resync
 }

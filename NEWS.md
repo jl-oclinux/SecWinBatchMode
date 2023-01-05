@@ -26,6 +26,9 @@ New presets/rules:
  * 2022/07/06 - `UninstallWinRAR` -> Remove WinRAR software if installed
  * 2022/07/06 - `UninstallRealPlayer` -> Remove RealPlayer software if installed
 
+Chnage to global parameter:
+ * SWMB_Custom.LocalAdminNameEffective replace SWMB_Custom.LocalAdminNameToSet
+
 The new module `LocalMachine-Uninstall.psm1` is dedicated to all software
 that need to be uninstall on a Windows park, with no rules to install them.
 So they are one way rules only !

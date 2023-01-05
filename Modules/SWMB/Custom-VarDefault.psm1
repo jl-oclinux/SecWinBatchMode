@@ -14,12 +14,12 @@
 # Ne modifier pas directement ce fichier !
 # Vous pouvez surcharger ces variables en les redéfinissant dans un fichier Custom-VarOverload.psm1
 # Exemple :
-# $Global:SWMB_Custom.LocalAdminNameToSet = 'mysysadmin'
+# $Global:SWMB_Custom.LocalAdminNameEffective = 'mysysadmin'
 
 $Global:SWMB_Custom = @{
 	# AdminAccountLogin
-	LocalAdminNameToSet    = "sas-swmb"
-	LocalAdminNameOriginal = "administrateur"
+	LocalAdminNameEffective = "sas-swmb"
+	LocalAdminNameOriginal  = "administrateur"
 
 	# SessionLockTimeout
 	InactivityTimeoutSecs  = 1200

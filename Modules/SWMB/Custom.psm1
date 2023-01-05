@@ -16,12 +16,12 @@
 
 Function SWMB_ImportModuleParameter() {
 	Param (
-		[Parameter(Mandatory = $true)] [string]$ModuleScriptName
+		[Parameter(Mandatory = $True)] [string]$ModuleScriptName
 	)
 
 	Function _ModuleAutoLoad() {
 		Param (
-			[Parameter(Mandatory = $true)] [string]$PathBase
+			[Parameter(Mandatory = $True)] [string]$PathBase
 		)
 
 		$VarOverload = $PathBase + '-VarOverload.psm1'
@@ -35,9 +35,9 @@ Function SWMB_ImportModuleParameter() {
 				Import-Module -Name $VarAutodel -ErrorAction Stop
 				Remove-Item $VarAutodel -ErrorAction Stop
 			}
-			Return $true
+			Return $True
 		}
-		Return $false
+		Return $False
 	}
 
 	$ModuleScriptPath = (Get-Item $ModuleScriptName).DirectoryName
@@ -56,12 +56,12 @@ Function SWMB_ImportModuleParameter() {
 		While (Test-Path -LiteralPath $ItemPath) {
 			# Module VarOverload directly in the current folder
 			If (_ModuleAutoLoad -PathBase (Join-Path -Path $ItemPath -ChildPath $ModuleScriptBasename)) {
-				Return $true
+				Return $True
 			}
 
 			# Or module VarOverload directly in the subfolder Modules
 			If (_ModuleAutoLoad -PathBase (Join-Path -Path $ItemPath -ChildPath (Join-Path -Path "Modules" -ChildPath $ModuleScriptBasename))) {
-				Return $true
+				Return $True
 			}
 
 			# Search module in the parent folder .. and so on
@@ -77,10 +77,10 @@ Function SWMB_ImportModuleParameter() {
 	$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
 	$DataModule = (Join-Path -Path $DataFolder      -ChildPath "Modules")
 	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataFolder -ChildPath $ModuleScriptBasename)) {
-		Return $true
+		Return $True
 	}
 	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataModule -ChildPath $ModuleScriptBasename)) {
-		Return $true
+		Return $True
 	}
 }
 
@@ -168,10 +168,10 @@ Function TweakDisableSessionLockTimeout { # RESINFO
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégie de comptes / Stratégie de mots de passe
 # Set
 Function TweakSetSecurityParamAccountPolicy { # RESINFO
-	$tempFile = New-TemporaryFile
-	$tempInfFile = "$tempFile.inf"
+	$TempFile = New-TemporaryFile
+	$TempInfFile = "$TempFile.inf"
 
-	Rename-Item -Path $tempFile.FullName -NewName $tempInfFile
+	Rename-Item -Path $TempFile.FullName -NewName $TempInfFile
 
 	$securityString = "[Unicode]
 Unicode=yes
@@ -190,9 +190,9 @@ LockoutDuration = $($Global:SWMB_Custom.LockoutDuration)
 EnableGuestAccount = $($Global:SWMB_Custom.EnableGuestAccount)
 "
 
-	$securityString | Out-File -FilePath $tempInfFile
-	secedit /configure  /db hisecws.sdb /cfg $tempInfFile /areas SECURITYPOLICY
-	Remove-Item -Path $tempInfFile
+	$securityString | Out-File -FilePath $TempInfFile
+	secedit /configure  /db hisecws.sdb /cfg $TempInfFile /areas SECURITYPOLICY
+	Remove-Item -Path $TempInfFile
 }
 
 # Unset

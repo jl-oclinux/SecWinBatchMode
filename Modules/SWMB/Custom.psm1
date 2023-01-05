@@ -99,14 +99,20 @@ SWMB_ImportModuleParameter (Get-PSCallStack)[0].ScriptName
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégies locales / Options de sécurité
 # Set
 Function TweakSetAdminAccountLogin { # RESINFO
-	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
-	Rename-LocalUser -Name $localAdminName.name -NewName $Global:SWMB_Custom.LocalAdminNameToSet -ErrorAction SilentlyContinue
+	$ComputerSID = ((Get-LocalUser | Select-Object -First 1).SID).AccountDomainSID.ToString()
+	$LocalAdminAccount = Get-LocalUser -SID "$ComputerSID-500" -ErrorAction SilentlyContinue
+	If ($LocalAdminAccount -And ($LocalAdminAccount.Name -ne $Global:SWMB_Custom.LocalAdminNameEffective)) {
+		Rename-LocalUser -Name $LocalAdminAccount.Name -NewName $Global:SWMB_Custom.LocalAdminNameEffective -ErrorAction SilentlyContinue
+	}
 }
 
 # Unset
 Function TweakUnsetAdminAccountLogin { # RESINFO
-	$localAdminName = get-localuser | where-object {($_.SID -like "S-1-5-21*-500")}
-	Rename-LocalUser -Name $localAdminName.name -NewName $Global:SWMB_Custom.LocalAdminNameOriginal -ErrorAction SilentlyContinue
+	$ComputerSID = ((Get-LocalUser | Select-Object -First 1).SID).AccountDomainSID.ToString()
+	$LocalAdminAccount = Get-LocalUser -SID "$ComputerSID-500" -ErrorAction SilentlyContinue
+	If ($LocalAdminAccount -And ($LocalAdminAccount.Name -ne $Global:SWMB_Custom.LocalAdminNameOriginal)) {
+		Rename-LocalUser -Name $LocalAdminAccount.Name -NewName $Global:SWMB_Custom.LocalAdminNameOriginal -ErrorAction SilentlyContinue
+	}
 }
 
 ################################################################

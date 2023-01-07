@@ -1,6 +1,6 @@
 ################################################################
 # Project CNRS RESINFO SWMB
-# Copyright (C) 2020-2022, CNRS, France
+# Copyright (C) 2020-2023, CNRS, France
 # License: MIT License (Same as project Win10-Initial-Setup-Script)
 # Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
 # Authors:
@@ -39,7 +39,7 @@ ModuleVersion = '3.13'
 GUID = 'ba50acca-ccda-456b-8349-6ff2569dc229'
 Author = 'RESINFO / GT SWMB'
 CompanyName = 'CNRS'
-Copyright = '(C) 2020-2022, CNRS, France'
+Copyright = '(C) 2020-2023, CNRS, France'
 Description = "
 Secure Windows Mode Batch
 

@@ -343,3 +343,4 @@ See also - https://learn.microsoft.com/fr-fr/windows/release-health/release-info
 |  20H2   | 20H2                    | October 2020 Update    | 19042 |
 |  21H1   | 21H1                    | May 2021 Update        | 19043 |
 |  21H2   | 21H2                    | November 2021 Update   | 19044 |
+|  22H2   | 22H2                    | 2022 Update            | 19045 |

@@ -705,7 +705,7 @@ Function TweakEnableBitlocker { # RESINFO
 
 		# Other drives encryption
 		$ListVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" -and $_.DriveLetter -ne $SystemDriveLetter }
-		Foreach ($Volume in $ListVolume) {
+		ForEach ($Volume in $ListVolume) {
 			If (!($Volume.DriveLetter)) { continue }
 
 			$Letter = $Volume.DriveLetter
@@ -919,7 +919,7 @@ Function TweakEnableBitlocker { # RESINFO
 # Disable
 Function TweakDisableBitlocker { # RESINFO
 	$ListVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" }
-	Foreach ($Volume in $ListVolume) {
+	ForEach ($Volume in $ListVolume) {
 		If (!($Volume.DriveLetter)) { continue }
 		$Letter = $Volume.DriveLetter
 		Disable-BitLocker $Letter

@@ -3,7 +3,7 @@ image: debian:latest
 
 before_script:
   - apt-get update -yqq
-  - apt-get install -yqq perl make binutils findutils tar wget nsis zip mkdocs
+  - apt-get install -yqq perl make binutils findutils gzip tar wget nsis zip mkdocs
 
 pages:
   stage: build

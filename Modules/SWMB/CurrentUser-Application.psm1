@@ -68,5 +68,63 @@ Function TweakEnableMediaOnlineAccess_CU {
 
 ################################################################
 
+# Uninstall OneDrive - Not applicable to Server
+Function TweakUninstallOneDrive_CU {
+	Write-Output "Uninstalling OneDrive for CU..."
+	@(Get-ChildItem -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall') |
+		Get-ItemProperty |
+		Where-Object { $_.DisplayName -like 'Microsoft OneDrive*' } |
+		ForEach {
+			$UninstallString = $_.UninstallString
+			$Version = $_.DisplayVersion
+			$UninstallSplit = $UninstallString -Split "exe"
+			$Exe = $UninstallSplit[0] + 'exe'
+			$Args = $UninstallSplit[1].Trim()
+			If (Test-Path -Path "$Exe") {
+				Write-Output "Uninstalling OneDrive version $Version"
+				Stop-Process -Name "OneDrive" -Force -ErrorAction SilentlyContinue
+				Start-Sleep -Seconds 1
+				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill OneDrive uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: OneDrive uninstall return code $Proc.ExitCode"
+					# Next tweak now
+					Return
+				}
+			}
+			Start-Sleep -Seconds 1
+		}
+}
+
+# Install OneDrive - Not applicable to Server
+Function TweakInstallOneDrive_cu {
+	Write-Output "Installing OneDrive for CU..."
+	$Exe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
+	$Args = '/silent'
+	If (!(Test-Path $Exe)) {
+		$Exe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
+	}
+	Start-Process -FilePath "$Exe" -ArgumentList "$Args" -NoNewWindow -ErrorAction 'SilentlyContinue'
+}
+
+# View
+Function TweakViewOneDrive_CU {
+	Write-Output "View OneDrive product for CU..."
+	Get-ChildItem -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall' |
+		Get-ItemProperty |
+		Where-Object {$_.DisplayName -like 'Microsoft OneDrive*' } |
+		Select-Object -Property DisplayName, DisplayVersion, PSChildName
+}
+
+################################################################
+
 # Export functions
 Export-ModuleMember -Function *

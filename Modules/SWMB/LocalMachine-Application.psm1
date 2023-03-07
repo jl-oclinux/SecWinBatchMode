@@ -31,51 +31,57 @@ Function TweakEnableOneDrive {
 # Uninstall OneDrive - Not applicable to Server
 Function TweakUninstallOneDrive {
 	Write-Output "Uninstalling OneDrive..."
-	Stop-Process -Name "OneDrive" -Force -ErrorAction SilentlyContinue
-	Start-Sleep -Seconds 2
-	$OneDriveExe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
-	If (!(Test-Path $OneDriveExe)) {
-		$OneDriveExe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
-	}
-	Start-Process -FilePath "$OneDriveExe" -ArgumentList "/uninstall" -NoNewWindow -Wait
-	Start-Sleep -Seconds 2
-	Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
-	Start-Sleep -Seconds 2
-
-	## Cleanup User Profile (If Present and Empty)
-	Get-WmiObject -ClassName Win32_UserProfile | Where {!$_.Special} | Select LocalPath | ForEach {
-		$UserHomePath = $_
-		ForEach ($UserCleanItem in "$UserHomePath\OneDrive") {
-			If ((Get-ChildItem -Path "$UserCleanItem" -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0) {
-				Write-Output "Cleanup ($UserCleanItem) Directory."
-				Remove-Item -Path "$UserCleanItem" -Force -Recurse -ErrorAction SilentlyContinue
+	@(Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall', 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall') |
+		Get-ItemProperty |
+		Where-Object { $_.DisplayName -like 'Microsoft OneDrive*' } |
+		ForEach {
+			$UninstallString = $_.UninstallString
+			$Version = $_.DisplayVersion
+			$UninstallSplit = $UninstallString -Split "exe"
+			$Exe = $UninstallSplit[0] + 'exe'
+			$Args = $UninstallSplit[1].Trim()
+			If (Test-Path -Path "$Exe") {
+				Write-Output "Uninstalling OneDrive version $Version"
+				Stop-Process -Name "OneDrive" -Force -ErrorAction SilentlyContinue
+				Start-Sleep -Seconds 1
+				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill OneDrive uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: OneDrive uninstall return code $Proc.ExitCode"
+					# Next tweak now
+					Return
+				}
 			}
+			Start-Sleep -Seconds 1
 		}
-	}
-	#Ordinateur\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\System\DisableOneDriveFileSync
-	#Ordinateur\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\SystemSettings\SettingId\SystemSettings_OneBackup_OneDriveBackup
-	#Ordinateur\HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}
-	#Ordinateur\HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}
-	#Ordinateur\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\UFH\ARP
-
-	Remove-Item -Path "$Env:LocalAppData\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$Env:ProgramData\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$Env:SystemDrive\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
-	If (!(Test-Path "HKCR:")) {
-		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
-	}
-	Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
 }
 
 # Install OneDrive - Not applicable to Server
 Function TweakInstallOneDrive {
 	Write-Output "Installing OneDrive..."
-	$OneDriveExe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
-	If (!(Test-Path $OneDriveExe)) {
-		$OneDriveExe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
+	$Exe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
+	$Args = '/silent /allusers'
+	If (!(Test-Path $Exe)) {
+		$Exe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
 	}
-	Start-Process -FilePath "$OneDriveExe" -NoNewWindow
+	Start-Process -FilePath "$Exe" -ArgumentList "$Args" -NoNewWindow -ErrorAction 'SilentlyContinue'
+}
+
+# View
+Function TweakViewOneDrive {
+	Write-Output "View OneDrive product..."
+	Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall', 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall' |
+		Get-ItemProperty |
+		Where-Object {$_.DisplayName -like 'Microsoft OneDrive*' } |
+		Select-Object -Property DisplayName, DisplayVersion, PSChildName
 }
 
 ################################################################

@@ -825,8 +825,14 @@ Function TweakEnableBitlocker { # RESINFO
 
 	Function _EncryptAllDrives() {
 		# Preliminary Test on SecureBoot and TPM
-		If (!(Confirm-SecureBootUEFI)) {
-			Write-Error "SecureBoot is OFF!"
+		try {
+			If (!(Confirm-SecureBootUEFI)) {
+				Write-Error "SecureBoot is OFF!"
+				Return
+			}
+		catch {
+			Write-Error "Error secure boot - verify your bios secure boot"
+			Write-Warning "exit"
 			Return
 		}
 		If (!(Get-Tpm).TpmReady) {

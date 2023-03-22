@@ -830,6 +830,7 @@ Function TweakEnableBitlocker { # RESINFO
 				Write-Error "SecureBoot is OFF!"
 				Return
 			}
+		}	
 		Catch {
 			Write-Error "Error SecureBoot: Verify if your BIOS support SecureBoot"
 			Write-Warning "exit"

@@ -169,7 +169,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 					# Next tweak now
 					Return
 				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: RealPlayer uninstall return code $Proc.ExitCode"
+					Write-Output "Error: RealPlayer uninstall return code $($Proc.ExitCode)"
 					# Next tweak now
 					Return
 				}
@@ -263,7 +263,7 @@ Function TweakUninstallWinRAR { # RESINFO
 					# Next tweak now
 					Return
 				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: WinRAR uninstall return code $Proc.ExitCode"
+					Write-Output "Error: WinRAR uninstall return code $($Proc.ExitCode)"
 					# Next tweak now
 					Return
 				}
@@ -325,7 +325,7 @@ Function TweakUninstallTotalCommander { # RESINFO
 					# Next tweak now
 					Return
 				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: Total Commander uninstall return code $Proc.ExitCode"
+					Write-Output "Error: Total Commander uninstall return code $($Proc.ExitCode)"
 					# Next tweak now
 					Return
 				}
@@ -375,7 +375,7 @@ Function TweakUninstallAvast { # RESINFO
 					# Next tweak now
 					Return
 				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: Avast uninstall return code $Proc.ExitCode"
+					Write-Output "Error: Avast uninstall return code $($Proc.ExitCode)"
 					# Next tweak now
 					Return
 				}
@@ -417,7 +417,7 @@ Function TweakUninstallOpenOffice { # RESINFO
 					# Next tweak now
 					Return
 				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: OpenOffice uninstall return code $Proc.ExitCode"
+					Write-Output "Error: OpenOffice uninstall return code $($Proc.ExitCode)"
 					# Next tweak now
 					Return
 				}
@@ -457,7 +457,7 @@ Function TweakUninstallGlassWire { # RESINFO
 					# Next tweak now
 					Return
 				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: GlassWire uninstall return code $Proc.ExitCode"
+					Write-Output "Error: GlassWire uninstall return code $($Proc.ExitCode)"
 					# Next tweak now
 					Return
 				}

@@ -95,7 +95,7 @@ Function TweakUninstallOneDrive_CU {
 					# Next tweak now
 					Return
 				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: OneDrive uninstall return code $Proc.ExitCode"
+					Write-Output "Error: OneDrive uninstall return code $($Proc.ExitCode)"
 					# Next tweak now
 					Return
 				}

@@ -4,6 +4,8 @@
 
  * The latest version of the SWMB **documentation** can be found [online](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
  * The latest version of the SWMB **setup installer** is available on the [download page](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/).
+ * For your update scripts (for example), you have the number of the latest version of SWMB
+   in the first line of the [version.txt](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt) file.
 
 **Main sub-menu**:
 
@@ -16,7 +18,7 @@
 
 ## Preamble
 
-This is a PowerShell script for automation of routine tasks done after fresh installations of Windows 10 and Windows Server 2016 / 2019.
+This is a PowerShell script for automation of routine tasks done after fresh installations of Windows 10, Windows 11 and Windows Server 2016 / 2019.
 This is by no means any complete set of all existing Windows tweaks and neither is it another "antispying" type of script.
 It's simply a setting which I like to use and which in my opinion make the system less obtrusive.
 

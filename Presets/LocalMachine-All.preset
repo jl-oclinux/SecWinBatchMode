@@ -121,8 +121,13 @@ SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic
 # DisableConnectionSharing                      # EnableConnectionSharing
 DisableRemoteAssistance                         # EnableRemoteAssistance
 # EnableRemoteDesktop                           # DisableRemoteDesktop
+# SetRemoteDesktopPort                          # UnsetRemoteDesktopPort                        # ViewRemoteDesktopPort
 DisableSMB1Protocol                             # EnableSMB1Protocol
 # SetWorkgroupName                              # UnsetWorkgroupName                            # ViewWorkgroupName
+# UnsetInterfaceMetricOn1Gbps                   # SetInterfaceMetricOn1Gbps                     # ViewInterfaceMetricOn1Gbps
+# UnsetInterfaceMetricOn10Gbps                  # SetInterfaceMetricOn10Gbps                    # ViewInterfaceMetricOn10Gbps
+# EnableJumboFrameOn10Gbps                      # DisableJumboFrameOn10Gbps                     # ViewJumboFrameOn10Gbps
+
 
 ### Service Tweaks ###
 # DisableUpdateMSRT                             # EnableUpdateMSRT
@@ -187,7 +192,7 @@ Hide3DObjectsFromThisPC                         # Show3DObjectsInThisPC
 
 ### Application Tweaks ###
 DisableOneDrive                                 # EnableOneDrive
-UninstallOneDrive                               # InstallOneDrive
+UninstallOneDrive                               # InstallOneDrive                               # ViewOneDrive
 UninstallMsftBloat                              # InstallMsftBloat
 UninstallThirdPartyBloat                        # InstallThirdPartyBloat
 # UninstallWindowsStore                         # InstallWindowsStore

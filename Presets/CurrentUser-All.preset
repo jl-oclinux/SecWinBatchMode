@@ -89,6 +89,7 @@ DisableThumbsDBOnNetwork_CU     # EnableThumbsDBOnNetwork_CU
 DisableXboxFeatures_CU          # EnableXboxFeatures_CU
 # DisableFullscreenOptims_CU    # EnableFullscreenOptims_CU
 # DisableMediaOnlineAccess_CU   # EnableMediaOnlineAccess_CU
+UninstallOneDrive_CU            # InstallOneDrive_CU            # ViewOneDrive_CU
 
 ### Unpinning Tweaks ###
 # UnpinStartMenuTiles_CU

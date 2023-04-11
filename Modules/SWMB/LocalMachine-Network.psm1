@@ -299,7 +299,7 @@ Function TweakDisableRemoteDesktop {
 # Get-NetFirewallProfile | ft Name,Enabled
 
 # View
-Function TweakViewRemoteDesktopPort {
+Function TweakViewRemoteDesktopPort { # RESINFO
 	Write-Output "View RemoteDesktop Port..."
 	$RDPActualPort = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").PortNumber
 	Write-Output " RDP Port fix to $RDPActualPort"
@@ -308,7 +308,7 @@ Function TweakViewRemoteDesktopPort {
 }
 
 # Set
-Function TweakSetRemoteDesktopPort {
+Function TweakSetRemoteDesktopPort { # RESINFO
 	Write-Output "Set RemoteDesktop Port..."
 	$RDPActualPort = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").PortNumber
 	$RDPNewPort = $RDPActualPort
@@ -332,7 +332,7 @@ Function TweakSetRemoteDesktopPort {
 }
 
 # Unset
-Function TweakUnsetRemoteDesktopPort {
+Function TweakUnsetRemoteDesktopPort { # RESINFO
 	Write-Output "Unset RemoteDesktop Port (return to 3389)..."
 
 	$RDPNewPort = 3389
@@ -358,7 +358,7 @@ Function TweakUnsetRemoteDesktopPort {
 # Unset push default AutomaticMetric
 
 # View
-Function TweakViewInterfaceMetricOn1Gbps {
+Function TweakViewInterfaceMetricOn1Gbps { # RESINFO
 	Write-Output "View Interface Metric on 1Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "1 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex
@@ -366,7 +366,7 @@ Function TweakViewInterfaceMetricOn1Gbps {
 }
 
 # Set
-Function TweakSetInterfaceMetricOn1Gbps {
+Function TweakSetInterfaceMetricOn1Gbps { # RESINFO
 	Write-Output "Set Interface Metric on 1Gbps interface..."
 
 	$InterfaceMetric = 0
@@ -381,7 +381,7 @@ Function TweakSetInterfaceMetricOn1Gbps {
 }
 
 # Unset
-Function TweakUnsetInterfaceMetricOn1Gbps {
+Function TweakUnsetInterfaceMetricOn1Gbps { # RESINFO
 	Write-Output "Unset Interface Metric on 1Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "1 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -AutomaticMetric Enabled
@@ -395,7 +395,7 @@ Function TweakUnsetInterfaceMetricOn1Gbps {
 # Unset push default AutomaticMetric
 
 # View
-Function TweakViewInterfaceMetricOn10Gbps {
+Function TweakViewInterfaceMetricOn10Gbps { # RESINFO
 	Write-Output "View Interface Metric on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex
@@ -403,7 +403,7 @@ Function TweakViewInterfaceMetricOn10Gbps {
 }
 
 # Set
-Function TweakSetInterfaceMetricOn10Gbps {
+Function TweakSetInterfaceMetricOn10Gbps { # RESINFO
 	Write-Output "Set Interface Metric on 10Gbps interface..."
 
 	$InterfaceMetric = 0
@@ -418,7 +418,7 @@ Function TweakSetInterfaceMetricOn10Gbps {
 }
 
 # Unset
-Function TweakUnsetInterfaceMetricOn10Gbps {
+Function TweakUnsetInterfaceMetricOn10Gbps { # RESINFO
 	Write-Output "Unset Interface Metric on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -AutomaticMetric Enabled
@@ -431,7 +431,7 @@ Function TweakUnsetInterfaceMetricOn10Gbps {
 # Disable will push Ethernet frame of size 1500.
 
 # View
-Function TweakViewJumboFrameOn10Gbps {
+Function TweakViewJumboFrameOn10Gbps { # RESINFO
 	Write-Output "View Jumbo Frame on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex | Select ifIndex, InterfaceAlias,AddressFamily, NlMtu
@@ -439,7 +439,7 @@ Function TweakViewJumboFrameOn10Gbps {
 }
 
 # Enable
-Function TweakEnableJumboFrameOn10Gbps {
+Function TweakEnableJumboFrameOn10Gbps { # RESINFO
 	Write-Output "Enable Jumbo Frame on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -NlMtuBytes 9000
@@ -447,7 +447,7 @@ Function TweakEnableJumboFrameOn10Gbps {
 }
 
 # Disable
-Function TweakDisableJumboFrameOn10Gbps {
+Function TweakDisableJumboFrameOn10Gbps { # RESINFO
 	Write-Output "Enable Jumbo Frame on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -NlMtuBytes 1500

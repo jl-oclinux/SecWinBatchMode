@@ -69,7 +69,7 @@ Function TweakEnableMediaOnlineAccess_CU {
 ################################################################
 
 # Uninstall OneDrive - Not applicable to Server
-Function TweakUninstallOneDrive_CU {
+Function TweakUninstallOneDrive_CU { # RESINFO
 	Write-Output "Uninstalling OneDrive for CU..."
 	@(Get-ChildItem -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall') |
 		Get-ItemProperty |
@@ -105,7 +105,7 @@ Function TweakUninstallOneDrive_CU {
 }
 
 # Install OneDrive - Not applicable to Server
-Function TweakInstallOneDrive_cu {
+Function TweakInstallOneDrive_CU { # RESINFO
 	Write-Output "Installing OneDrive for CU..."
 	$Exe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
 	$Args = '/silent'
@@ -116,7 +116,7 @@ Function TweakInstallOneDrive_cu {
 }
 
 # View
-Function TweakViewOneDrive_CU {
+Function TweakViewOneDrive_CU { # RESINFO
 	Write-Output "View OneDrive product for CU..."
 	Get-ChildItem -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall' |
 		Get-ItemProperty |

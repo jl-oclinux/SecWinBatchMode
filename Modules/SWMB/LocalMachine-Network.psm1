@@ -294,6 +294,65 @@ Function TweakDisableRemoteDesktop {
 
 ################################################################
 
+# https://www.it-connect.fr/chapitres/gerer-le-pare-feu-en-powershell/
+# https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/change-listening-port
+# Get-NetFirewallProfile | ft Name,Enabled
+
+# View
+Function TweakViewRemoteDesktopPort {
+	Write-Output "View RemoteDesktop Port..."
+	$RDPActualPort = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").PortNumber
+	Write-Output " RDP Port fix to $RDPActualPort"
+	Get-NetFirewallRule | Where-Object { $_.DisplayName -match 'SWMB-RDP' -or $_.Description -match 'RDP.*3389' }  | Select DisplayName, Enabled, Profile, Description
+	Get-Service -Name "TermService" | Select Status, Name, DisplayName
+}
+
+# Set
+Function TweakSetRemoteDesktopPort {
+	Write-Output "Set RemoteDesktop Port..."
+	$RDPActualPort = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").PortNumber
+	$RDPNewPort = $RDPActualPort
+	If ($($Global:SWMB_Custom.RDP_PortNumber) -gt 0) {
+		$RDPNewPort = $($Global:SWMB_Custom.RDP_PortNumber)
+	}
+
+	If ($RDPNewPort -ne $RDPActualPort) {
+		# Set Port
+		Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "PortNumber" -Value $RDPNewPort 
+
+		# Firewall on $RDPNewPort and 3389
+		Get-NetFirewallRule -DisplayName 'SWMB-RDP-*-IN' | ForEach-Object { Remove-NetFirewallRule -Name $_.Name }
+		New-NetFirewallRule -DisplayName 'SWMB-RDP-TCP-IN' -Profile 'Any' -Direction Inbound -Action Allow -Protocol TCP -LocalPort $RDPNewPort 
+		New-NetFirewallRule -DisplayName 'SWMB-RDP-UDP-IN' -Profile 'Any' -Direction Inbound -Action Allow -Protocol UDP -LocalPort $RDPNewPort
+		Get-NetFirewallRule | Where-Object { $_.Description -match '[TCP|UDP]\s3389\S' } | ForEach-Object { Set-NetFirewallRule -Name $_.Name -Enabled False }
+
+		# Restart service
+		Get-Service -Name 'TermService' | Where-Object {$_.Status -eq 'Running'} | Restart-Service -Force
+	}
+}
+
+# Unset
+Function TweakUnsetRemoteDesktopPort {
+	Write-Output "Unset RemoteDesktop Port (return to 3389)..."
+
+	$RDPNewPort = 3389
+
+	$RDPActualPort = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").PortNumber
+	If ($RDPNewPort -ne $RDPActualPort) {
+		# Set Port
+		Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "PortNumber" -Value $RDPNewPort
+
+		# Firewall on $RDPNewPort and 3389
+		Get-NetFirewallRule | Where-Object { $_.Description -match '[TCP|UDP]\s3389\S' } | ForEach-Object { Set-NetFirewallRule -Name $_.Name -Enabled True }
+		Get-NetFirewallRule -DisplayName 'SWMB-RDP-*-IN' | ForEach-Object { Remove-NetFirewallRule -Name $_.Name }
+
+		# Restart service
+		Get-Service -Name 'TermService' | Where-Object {$_.Status -eq 'Running'} | Restart-Service -Force
+	}
+}
+
+################################################################
+
 # Set the priority of all interce 1Gbps with the global parameter $Global:SWMB_Custom.InterfaceMetric10G
 # For example : $Global:SWMB_Custom.InterfaceMetric1G = 100
 # Unset push default AutomaticMetric

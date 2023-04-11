@@ -366,6 +366,35 @@ Function TweakUnsetInterfaceMetric10Gbps {
 	}
 }
 
+################################################################
+
+# Enable JumboFrame (9000) on all 10Gbps network interface
+# Disable will push Ethernet frame of size 1500.
+
+# View
+Function TweakViewJumboFrameOn10Gbps {
+	Write-Output "View Jumbo Frame on 10Gbps interface..."
+	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
+		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex | Select ifIndex, InterfaceAlias,AddressFamily, NlMtu
+	}
+}
+
+# Enable
+Function TweakEnableJumboFrameOn10Gbps {
+	Write-Output "Enable Jumbo Frame on 10Gbps interface..."
+	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
+		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -NlMtuBytes 9000
+	}
+}
+
+# Disable
+Function TweakDisableJumboFrameOn10Gbps {
+	Write-Output "Enable Jumbo Frame on 10Gbps interface..."
+	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
+		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -NlMtuBytes 1500
+	}
+}
+
 ##########
 #endregion Network Tweaks
 ##########

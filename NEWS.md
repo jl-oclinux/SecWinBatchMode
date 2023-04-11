@@ -18,6 +18,10 @@ installed on your computer.
 
 New presets/rules:
 
+ * 2023/04/11 - `SetRemoteDesktopPort`/`UnsetRemoteDesktopPort`/`ViewRemoteDesktopPort` -> Set RemoteDesktop port service and push Firewall open rules (`$Global:SWMB_Custom` key `RemoteDesktop_PortNumber`)
+ * 2023/04/11 - `SetInterfaceMetricOn1Gbps`/`UnsetInterfaceMetricOn1Gbps`/`ViewInterfaceMetricOn1Gbps` -> Set Metric (priority) for all 1Gbps network interface (`$Global:SWMB_Custom` key `InterfaceMetricOn1Gbps`)
+ * 2023/04/11 - `SetInterfaceMetricOn10Gbps`/`UnsetInterfaceMetricOn10Gbps`/`ViewInterfaceMetricOn10Gbps` -> Set Metric (priority) for all 10Gbps network interface (`$Global:SWMB_Custom` key `InterfaceMetricOn10Gbps`)
+ * 2023/04/11 - `EnableJumboFrameOn10Gbps`/`DisableumboFrameOn10Gbps`/`ViewJumboFrameOn10Gbps` -> Set Jumbo Frame on all 10Gbps network interface
  * 2022/10/14 - `UninstallGlassWire` -> Remove GlassWire software if installed
  * 2022/07/21 - `UninstallOpenOffice` -> Remove OpenOffice software if installed
  * 2022/07/13 - `UninstallTotalCommander` -> Remove TotalCommander software if installed

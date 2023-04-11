@@ -312,8 +312,8 @@ Function TweakSetRemoteDesktopPort {
 	Write-Output "Set RemoteDesktop Port..."
 	$RDPActualPort = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").PortNumber
 	$RDPNewPort = $RDPActualPort
-	If ($($Global:SWMB_Custom.RDP_PortNumber) -gt 0) {
-		$RDPNewPort = $($Global:SWMB_Custom.RDP_PortNumber)
+	If ($($Global:SWMB_Custom.RemoteDesktop_PortNumber) -gt 0) {
+		$RDPNewPort = $($Global:SWMB_Custom.RemoteDesktop_PortNumber)
 	}
 
 	If ($RDPNewPort -ne $RDPActualPort) {
@@ -353,25 +353,25 @@ Function TweakUnsetRemoteDesktopPort {
 
 ################################################################
 
-# Set the priority of all interce 1Gbps with the global parameter $Global:SWMB_Custom.InterfaceMetric10G
-# For example : $Global:SWMB_Custom.InterfaceMetric1G = 100
+# Set the priority of all interce 1Gbps with the global parameter $Global:SWMB_Custom.InterfaceMetricOn10Gbps
+# For example : $Global:SWMB_Custom.InterfaceMetricOn1Gbps = 100
 # Unset push default AutomaticMetric
 
 # View
-Function TweakViewInterfaceMetric1Gbps {
-	Write-Output "View Interface Metric 1Gbps..."
+Function TweakViewInterfaceMetricOn1Gbps {
+	Write-Output "View Interface Metric on 1Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "1 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex
 	}
 }
 
 # Set
-Function TweakSetInterfaceMetric1Gbps {
-	Write-Output "Set Interface Metric 1Gbps..."
+Function TweakSetInterfaceMetricOn1Gbps {
+	Write-Output "Set Interface Metric on 1Gbps interface..."
 
 	$InterfaceMetric = 0
-	If ($($Global:SWMB_Custom.InterfaceMetric1G) -gt 0) {
-		$InterfaceMetric = $($Global:SWMB_Custom.InterfaceMetric1G)
+	If ($($Global:SWMB_Custom.InterfaceMetricOn1Gbps) -gt 0) {
+		$InterfaceMetric = $($Global:SWMB_Custom.InterfaceMetricOn1Gbps)
 	}
 	If ($InterfaceMetric -gt 0) {
 		Get-NetAdapter | where { $_.LinkSpeed -eq "1 Gbps" } | Select InterfaceIndex | ForEach-Object {
@@ -381,8 +381,8 @@ Function TweakSetInterfaceMetric1Gbps {
 }
 
 # Unset
-Function TweakUnsetInterfaceMetric1Gbps {
-	Write-Output "Unset Interface Metric 1Gbps..."
+Function TweakUnsetInterfaceMetricOn1Gbps {
+	Write-Output "Unset Interface Metric on 1Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "1 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -AutomaticMetric Enabled
 	}
@@ -390,25 +390,25 @@ Function TweakUnsetInterfaceMetric1Gbps {
 
 ################################################################
 
-# Set the priority of all interce 10Gbps with the global parameter $Global:SWMB_Custom.InterfaceMetric10G
-# For example : $Global:SWMB_Custom.InterfaceMetric10G = 100
+# Set the priority of all interce 10Gbps with the global parameter $Global:SWMB_Custom.InterfaceMetricOn10Gbps
+# For example : $Global:SWMB_Custom.InterfaceMetricOn10Gbps = 100
 # Unset push default AutomaticMetric
 
 # View
-Function TweakViewInterfaceMetric10Gbps {
-	Write-Output "View Interface Metric 10Gbps..."
+Function TweakViewInterfaceMetricOn10Gbps {
+	Write-Output "View Interface Metric on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex
 	}
 }
 
 # Set
-Function TweakSetInterfaceMetric10Gbps {
-	Write-Output "Set Interface Metric 10Gbps..."
+Function TweakSetInterfaceMetricOn10Gbps {
+	Write-Output "Set Interface Metric on 10Gbps interface..."
 
 	$InterfaceMetric = 0
-	If ($($Global:SWMB_Custom.InterfaceMetric10G) -gt 0) {
-		$InterfaceMetric = $($Global:SWMB_Custom.InterfaceMetric10G)
+	If ($($Global:SWMB_Custom.InterfaceMetricOn10Gbps) -gt 0) {
+		$InterfaceMetric = $($Global:SWMB_Custom.InterfaceMetricOn10Gbps)
 	}
 	If ($InterfaceMetric -gt 0) {
 		Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
@@ -418,8 +418,8 @@ Function TweakSetInterfaceMetric10Gbps {
 }
 
 # Unset
-Function TweakUnsetInterfaceMetric10Gbps {
-	Write-Output "Unset Interface Metric 10Gbps..."
+Function TweakUnsetInterfaceMetricOn10Gbps {
+	Write-Output "Unset Interface Metric on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -AutomaticMetric Enabled
 	}

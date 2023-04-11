@@ -59,9 +59,9 @@ $Global:SWMB_Custom = @{
 	WorkgroupName          = "WORKGROUP"
 
 	# RemoteDesktop Port
-	$Global:SWMB_Custom.RDP_PortNumber     = 1234
+	RemoteDesktop_PortNumber = 1234
 
 	# Interface Metric
-	$Global:SWMB_Custom.InterfaceMetric1G  = 40
-	$Global:SWMB_Custom.InterfaceMetric10G = 50
+	InterfaceMetricOn1Gbps  = 40
+	InterfaceMetricOn10Gbps = 50
 }

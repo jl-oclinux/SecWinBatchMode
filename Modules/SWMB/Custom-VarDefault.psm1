@@ -59,9 +59,11 @@ $Global:SWMB_Custom = @{
 	WorkgroupName          = "WORKGROUP"
 
 	# RemoteDesktop Port
+	# Use by tweak: SetRemoteDesktopPort
 	RemoteDesktop_PortNumber = 1234
 
 	# Interface Metric
+	# Use by tweak: SetInterfaceMetricOn1Gbps, SetInterfaceMetricOn10Gbps
 	InterfaceMetricOn1Gbps  = 40
 	InterfaceMetricOn10Gbps = 50
 }

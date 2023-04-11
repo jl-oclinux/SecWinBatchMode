@@ -62,5 +62,6 @@ $Global:SWMB_Custom = @{
 	$Global:SWMB_Custom.RDP_PortNumber     = 1234
 
 	# Interface Metric
+	$Global:SWMB_Custom.InterfaceMetric1G  = 40
 	$Global:SWMB_Custom.InterfaceMetric10G = 50
 }

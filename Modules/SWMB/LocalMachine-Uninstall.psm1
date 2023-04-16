@@ -466,6 +466,62 @@ Function TweakUninstallGlassWire { # RESINFO
 		}
 }
 
+################################################################
+
+# Suppress Microsoft Edge WebView2 Runtime
+# https://silentinstallhq.com/microsoft-edge-webview2-runtime-silent-install-how-to-guide/
+# Uninstall
+Function TweakUninstallEdgeWebView2 { # RESINFO
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match 'Microsoft Edge WebView2 Runtime') {
+				$DisplayVersion = $App.DisplayVersion
+				$UninstallString = $App.UninstallString
+				$UninstallSplit = $UninstallString -Split "exe"
+				$Exe = $UninstallSplit[0] + 'exe"'
+				$Args = '--uninstall --msedgewebview --system-level --force-uninstall'
+
+				Write-Output "Uninstalling Microsoft Edge WebView2 Runtime version $DisplayVersion"
+				# Write-Output " $Exe $Args"
+				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill Edge WebView2 uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf (($Proc.ExitCode -ne 0) -And ($Proc.ExitCode -ne 19)) {
+					Write-Output "Error: Edge WebView2 uninstall return code $($Proc.ExitCode)"
+					# Next tweak now
+					Return
+				}
+			}
+		}
+}
+
+# View
+Function TweakWiewEdgeWebView2 { # RESINFO
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match 'Microsoft Edge WebView2 Runtime') {
+				$DisplayVersion = $App.DisplayVersion
+				$UninstallString = $App.UninstallString
+				Write-Output "Microsoft Edge WebView2 Runtime: $DisplayVersion / $UninstallString"
+			}
+		}
+}
 
 ################################################################
 ###### Export Functions

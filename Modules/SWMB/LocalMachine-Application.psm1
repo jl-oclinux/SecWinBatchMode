@@ -429,6 +429,31 @@ Function TweakEnableEdgeShortcutCreation {
 
 ################################################################
 
+# Microsoft Edge Auto Update
+# https://admx.help/?Category=EdgeChromium_Blocker&Policy=Microsoft.Policies.EdgeUpdate::NoUpdate
+# Disable
+Function TweakDisableEdgeUpdate { # RESINFO
+	Write-Output "Disabling Edge auto update..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\EdgeUpdate")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -Name "DoNotUpdateToEdgeWithChromium" -Type DWord -Value 1
+}
+
+# Enable (default)
+Function TweakEnableEdgeUpdate { # RESINFO
+	Write-Output "Enabling Edge auto update..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -Name "DoNotUpdateToEdgeWithChromium" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewEdgeUpdate { # RESINFO
+	Write-Output "Wiew Edge auto update (0 or not exist: Auto update, 1: No update)"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -Name "DoNotUpdateToEdgeWithChromium" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
 # Disable Internet Explorer first run wizard
 Function TweakDisableIEFirstRun {
 	Write-Output "Disabling Internet Explorer first run wizard..."

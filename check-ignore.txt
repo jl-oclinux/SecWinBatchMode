@@ -6,3 +6,4 @@ InstallWinRAR
 InstallOpenOffice
 InstallTotalCommander
 InstallGlassWire
+InstallEdgeWebView2

@@ -200,6 +200,7 @@ DisableXboxFeatures                             # EnableXboxFeatures
 DisableAdobeFlash                               # EnableAdobeFlash
 DisableEdgePreload                              # EnableEdgePreload
 DisableEdgeShortcutCreation                     # EnableEdgeShortcutCreation
+EnableEdgeUpdate                                # DisableEdgeUpdate                             # ViewEdgeUpdate
 DisableIEFirstRun                               # EnableIEFirstRun
 DisableFirstLogonAnimation                      # EnableFirstLogonAnimation
 DisableMediaSharing                             # EnableMediaSharing
@@ -238,6 +239,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallOpenOffice
 # UninstallTotalCommander
 # UninstallGlassWire
+# UninstallEdgeWebView2                                                                         # ViewEdgeWebView2
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

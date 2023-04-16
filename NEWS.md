@@ -18,6 +18,8 @@ installed on your computer.
 
 New presets/rules:
 
+ * 2023/04/16 - `UninstallEdgeWebView2`/`ViewEdgeWebView2` -> Uninstall Microsoft Edge WebView2 Runtime
+ * 2023/04/16 - `EnableEdgeUpdate`/`DisableEdgeUpdate`/`ViewEdgeUpdate` -> Enable or disable Microsoft Edge auto update
  * 2023/04/11 - `SetRemoteDesktopPort`/`UnsetRemoteDesktopPort`/`ViewRemoteDesktopPort` -> Set RemoteDesktop port service and push Firewall open rules (`$Global:SWMB_Custom` key `RemoteDesktop_PortNumber`)
  * 2023/04/11 - `SetInterfaceMetricOn1Gbps`/`UnsetInterfaceMetricOn1Gbps`/`ViewInterfaceMetricOn1Gbps` -> Set Metric (priority) for all 1Gbps network interface (`$Global:SWMB_Custom` key `InterfaceMetricOn1Gbps`)
  * 2023/04/11 - `SetInterfaceMetricOn10Gbps`/`UnsetInterfaceMetricOn10Gbps`/`ViewInterfaceMetricOn10Gbps` -> Set Metric (priority) for all 10Gbps network interface (`$Global:SWMB_Custom` key `InterfaceMetricOn10Gbps`)

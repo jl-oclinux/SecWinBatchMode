@@ -508,7 +508,7 @@ Function TweakUninstallEdgeWebView2 { # RESINFO
 }
 
 # View
-Function TweakWiewEdgeWebView2 { # RESINFO
+Function TweakViewEdgeWebView2 { # RESINFO
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {

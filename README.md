@@ -102,13 +102,17 @@ of the SWMB software environment
 uninstall [Kasperky Endpoint](dists/uninstall-kaspersky/README.md)...).
 
  * Please note that the uninstallation of
-[Kaspersky Endpoint](dists/uninstall-kaspersky/README.md)
-and its network agent on the client computer is a stand-alone distribution
-in the form of an archive that is self-sufficient
-and does not need to be installed on the computer.
+   [Kaspersky Endpoint](dists/uninstall-kaspersky/README.md)
+   and its network agent on the client computer is a stand-alone distribution
+   in the form of an archive that is self-sufficient
+   and does not need to be installed on the computer.
+
+ * The [SWNL](dists/swnl/README.md) is a template distribution
+   for deploying and extending SWMB for use on your local network machines
+   (SWMB for your Local Network).
 
  * The [README](dists/manual-use/README.md) file in the "manual-use" directory
-reminds some principles about Powershell execution policies.
+   reminds some principles about PowerShell execution policies.
 
 
 ## Usage
@@ -336,18 +340,18 @@ Command using the preset file above:
 
  | Status | Number of tweaks                       |      |      |      |
  | :---   | :---                                   | ---: | ---: | ---: |
- | Info   | Number of RESINFO tweaks               |      |      |  104 |
- | Info   | Number of Enable and Disable tweaks    |  182 |  182 |  364 |
- | Warn   | Number of Install and Uninstall tweaks |   20 |   28 |   48 |
+ | Info   | Number of RESINFO tweaks               |      |      |  117 |
+ | Info   | Number of Enable and Disable tweaks    |  184 |  184 |  368 |
+ | Warn   | Number of Install and Uninstall tweaks |   21 |   30 |   51 |
  | Warn   | Number of Show and Hide tweaks         |   56 |   53 |  109 |
  | Info   | Number of Add and Remove tweaks        |    3 |    3 |    6 |
- | Warn   | Number of Set and Unset tweaks         |   38 |    7 |   45 |
+ | Warn   | Number of Set and Unset tweaks         |   41 |   10 |   51 |
  | Warn   | Number of Pin and Unpin tweaks         |    0 |    2 |    2 |
- | Info   | Number of total tweaks GPO             |      |      |  574 |
+ | Info   | Number of total tweaks GPO             |      |      |  587 |
  | Info   | Number of Sys tweaks (system)          |      |      |    9 |
- | Info   | Number of View tweaks (debug)          |      |      |   14 |
+ | Info   | Number of View tweaks (debug)          |      |      |   22 |
  | Info   | Number of Obsolete tweaks              |      |      |    3 |
- | Info   | Number of total tweaks functions       |      |      |  600 |
+ | Info   | Number of total tweaks functions       |      |      |  621 |
 
 ### Import your lib
 

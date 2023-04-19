@@ -107,7 +107,7 @@ uninstall [Kasperky Endpoint](dists/uninstall-kaspersky/README.md)...).
    in the form of an archive that is self-sufficient
    and does not need to be installed on the computer.
 
- * The [SWNL](dists/swnl/README.md) is a template distribution
+ * The [SWLN](dists/swln/README.md) is a template distribution
    for deploying and extending SWMB for use on your local network machines
    (SWMB for your Local Network).
 

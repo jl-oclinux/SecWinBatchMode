@@ -5,57 +5,64 @@ PATCH:=1
 SWMB_VERSION:=3.14.10.0
 
 
-.PHONY: all clean ocs setup
+FILES:=uninstall.bat
+FILES+=logo-swmb.ico
+FILES+=$(shell ls -1 CurrentUser-Logon.preset        2> /dev/null)
+FILES+=$(shell ls -1 LocalMachine-Boot.preset        2> /dev/null)
+FILES+=$(shell ls -1 LocalMachine-PostInstall.preset 2> /dev/null)
+FILES+=$(shell ls -1 Custom-VarOverload.psm1         2> /dev/null)
+FILES+=$(shell ls -1 Local-Addon.psm1                2> /dev/null)
 
-all: $(SOFT)-$(VERSION)-$(PATCH).zip ocs
+TFILES:=install.bat
+TFILES+=post-install.ps1
+TFILES+=SWMB-Setup-$(SWMB_VERSION).exe
 
-setup: $(SOFT)-Setup-$(VERSION).exe
+TMPFILES:=$(addprefix tmp/,$(TFILES))
+
+.PHONY: all clean ocs
+
+all: $(SOFT)-$(VERSION)-$(PATCH).zip
 
 clean:
-	@rm -rf tmp
-	@rm -f $(SOFT)-$(VERSION)-$(PATCH).zip
-	@rm -f SWMB-Setup-*.exe
+	@rm -rf tmp $(SOFT)-$(VERSION)-$(PATCH).zip
 	@find . -name '*.bak' -delete
 
-%.zip: Makefile
+tmp/install.bat: install.bat Makefile
+	@mkdir -p tmp
+	@perl -p -e ' \
+		s/^(SET\ssoftversion=)\d[\.\d]+/$${1}$(VERSION)/; \
+		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/; \
+		s/^(SET\sswmbversion=)\d[\.\d]+/$${1}$(SWMB_VERSION)/;' install.bat > tmp/install.bat
+
+tmp/post-install.ps1: post-install.ps1 Makefile
+	@mkdir -p tmp
+	@perl -p -e ' \
+		s/^(\$$SWLNVersion = )"\d[\.\d]+"/$${1}"$(VERSION)"/; \
+		s/^(\$$SWMBVersion = )"\d[\.\d]+"/$${1}"$(SWMB_VERSION)"/;' post-install.ps1 > tmp/post-install.ps1
+
+tmp/SWMB-Setup-%.exe: Makefile
 	@mkdir -p tmp
 	@(cd tmp ; \
 		curl -# --remote-name --insecure "https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/SWMB-Setup-$(SWMB_VERSION).exe" ; \
 		file "SWMB-Setup-$(SWMB_VERSION).exe" | grep -q "PE32 executable" || echo "Error: bad format for binary SWMB-Setup-$(SWMB_VERSION).exe" ; \
 		which peres >/dev/null && { peres -a "SWMB-Setup-$(SWMB_VERSION).exe" | grep -q "^Product Version:[[:space:]]*$(SWMB_VERSION)" || echo "Error: bad version for binary SWMB-Setup-$(SWMB_VERSION).exe" ; } ; \
 		)
-	@perl -p -e ' \
-		s/^(SET\ssoftversion=)\d[\.\d]+/$${1}$(VERSION)/; \
-		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/; \
-		s/^(SET\sswmbversion=)\d[\.\d]+/$${1}$(SWMB_VERSION)/;' install.bat > tmp/install.bat
-	@perl -p -e ' \
-		s/^(\$$SWLNVersion = )"\d[\.\d]+"/$${1}"$(VERSION)"/; \
-		s/^(\$$SWMBVersion = )"\d[\.\d]+"/$${1}"$(SWMB_VERSION)"/;' post-install.ps1 > tmp/post-install.ps1
+
+%.zip: Makefile $(FILES) $(TMPFILES)
 	@rm -f $@
-	@zip --quiet -r $@ \
-		uninstall.bat \
-		logo-swmb.ico \
-		CurrentUser-Logon.preset \
-		LocalMachine-Boot.preset \
-		LocalMachine-PostInstall.preset \
-		Custom-VarOverload.psm1 \
-		Local-Addon.psm1 \
-		-x \*.git/*
-		@# print/* 
-	@(cd tmp ; \
-		zip -r ../$@ install.bat post-install.ps1 SWMB-Setup-$(SWMB_VERSION).exe ; \
-		)
-	@chmod ugo+rw $@
+	@zip --quiet -r $@ $(FILES) -x \*.git/*
+	@(cd tmp ; zip -r ../$@ $(TFILES) ; )
+	@chmod ug+rw,o+r $@
 
 
-ocs:
+ocs: all
 	@echo ""
 	@echo "Name:     $(SOFT)-$(VERSION)-$(PATCH)"
 	@echo "priority: *2*"
 	@echo "Launch:   install.bat"
 	@echo "Message:  no"
 	@echo ""
-	@echo "Service Informatique du LEGI"
+	@echo "IT Team"
 	@echo " --- "
-	@echo "Installation et/ou mise à jour de $(SOFT)"
+	@echo "Install and Update: $(SOFT) v$(VERSION) (SWMB v$(SWMB_VERSION))"
 	@echo ""

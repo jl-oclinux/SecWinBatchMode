@@ -51,8 +51,10 @@ tmp/SWMB-Setup-%.exe: Makefile
 %.zip: Makefile $(FILES) $(TMPFILES)
 	@rm -f $@
 	@zip --quiet -r $@ $(FILES) -x \*.git/*
-	@(cd tmp ; zip -r ../$@ $(TFILES) ; )
+	@(cd tmp ; zip --quiet -r ../$@ $(TFILES) ; )
 	@chmod ug+rw,o+r $@
+	@du -sh $@
+	@echo $$(($$(unzip -t "$@" | wc -l) - 1)) 'files and folders in Zip package'
 
 
 ocs: all

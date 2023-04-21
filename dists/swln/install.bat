@@ -15,8 +15,8 @@ ECHO BEGIN %date%-%time%
 
 SET softversion=4.6
 SET softpatch=2
-SET regkey=SWLN
-SET softpublisher=LEGI
+SET softregkey=SWLN
+SET softpublisher=RESINFO / Local Network Area
 SET swmbversion=3.6
 
 SET pwrsh=%WINDIR%\System32\WindowsPowerShell\V1.0\powershell.exe
@@ -43,7 +43,7 @@ ECHO Post-install (install SWMB and run it one time)
 ECHO Change Add and Remove values in the register
  > tmp_install.reg ECHO Windows Registry Editor Version 5.00
 >> tmp_install.reg ECHO.
->> tmp_install.reg ECHO [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\%regkey%]
+>> tmp_install.reg ECHO [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\%softregkey%]
 >> tmp_install.reg ECHO "DisplayVersion"="%softversion%"
 >> tmp_install.reg ECHO "Comments"="%softname% (%DATE:~-4%/%DATE:~-7,-5%/%DATE:~-10,-8%)"
 >> tmp_install.reg ECHO "DisplayName"="%softname% (%softversion%-%softpatch% / %swmbversion%)"

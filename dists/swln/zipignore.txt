@@ -1,0 +1,9 @@
+*/.git*
+*/.svn*
+*/.AppleDouble
+*/.DS_Store 
+*/._*
+*/*.bak
+*/*.old
+*/*~
+*/~*

@@ -10,6 +10,8 @@
 
  * [ocs-inventory](./ocs-inventory) / Creating SWMB package for [OCS Inventory](https://ocsinventory-ng.org/)
 
+ * [swln](./swln) / Template to have your own SWMB extend on your Local Network
+
  * [uninstall-kaspersky](./uninstall-kaspersky) / Uninstall Kaspersky Endpoint
 
  * [wapt](./wapt) / Creating SWMB package for [WAPT](https://www.wapt.fr/en/doc/)

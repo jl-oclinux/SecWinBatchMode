@@ -6,6 +6,7 @@
  * The latest version of the SWMB **setup installer** is available on the [download page](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/).
  * For your update scripts (for example), you have the **version number** of the latest SWMB release
    in the first line of the [version.txt](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt) file.
+   This last version is rebuilt at each modification pushed on the Git server, so the code can change.
 
 **Main sub-menu**:
 

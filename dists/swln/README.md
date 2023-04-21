@@ -1,8 +1,10 @@
-# SWLN - SWMB on your Local Network
+# Template to extend SWMB on your Local Network
 
 SWLN (Local Network) is just a template to show you how to use and deploy SWMB on your network.
 You can use SWMB differently from SWLN,
 see for example the [Kaspersky uninstall](../uninstall-kaspersky/) project for workstations.
+With SWLN, all your extensions/ developments / modifications are
+in your project space and you can use SWMB without any modification.
 
 In order to have a fully functional SWMB,
 we must place these files in the `C:\ProgramData\SWMB` tree.

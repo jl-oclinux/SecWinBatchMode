@@ -1,5 +1,6 @@
 
 SOFT:=SWLN
+SWLN_NAME:=SWLN
 SWLN_VERSION:=5.18
 PATCH:=1
 SWMB_VERSION:=3.14.10.0
@@ -40,8 +41,9 @@ tmp/install.bat: install.bat Makefile
 tmp/post-install.ps1: post-install.ps1 Makefile
 	@mkdir -p tmp
 	@perl -p -e ' \
-		s/^(\$$SWLNVersion = )"\d[\.\d]+"/$${1}"$(SWLN_VERSION)"/; \
-		s/^(\$$SWMBVersion = )"\d[\.\d]+"/$${1}"$(SWMB_VERSION)"/;' post-install.ps1 > tmp/post-install.ps1
+		s/^(\$$SWLN_Name = )"\d[\.\d]+"/$${1}"$(SWLN_NAME)"/; \
+		s/^(\$$SWLN_Version = )"\d[\.\d]+"/$${1}"$(SWLN_VERSION)"/; \
+		s/^(\$$SWMB_Version = )"\d[\.\d]+"/$${1}"$(SWMB_VERSION)"/;' post-install.ps1 > tmp/post-install.ps1
 
 tmp/SWMB-Setup-%.exe: Makefile
 	@mkdir -p tmp
@@ -58,6 +60,7 @@ tmp/SWMB-Setup-%.exe: Makefile
 	@chmod ug+rw,o+r $@
 	@du -sh $@
 	@echo $$(($$(unzip -t "$@" | wc -l) - 1)) 'files and folders in Zip package'
+
 
 ocs: all
 	@echo ""

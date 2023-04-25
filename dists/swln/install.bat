@@ -15,7 +15,7 @@ ECHO BEGIN %date%-%time%
 
 SET softversion=4.6
 SET softpatch=2
-SET softregkey=SWLN
+SET softregkey=%softname%
 SET softpublisher=RESINFO / Local Network Area
 SET swmbversion=3.6
 
@@ -25,20 +25,20 @@ IF EXIST "%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe" SET pwrsh=%W
 ECHO Adds the rights to run powershell scripts
 %pwrsh% Set-ExecutionPolicy RemoteSigned -Force -Scope LocalMachine
 
-ECHO Deletes the SWLN directory
-IF EXIST "%ProgramFiles%\SWLN" RMDIR /S /Q "%ProgramFiles%\SWLN"
+ECHO Deletes the %softname% directory
+IF EXIST "%ProgramFiles%\%softname%" RMDIR /S /Q "%ProgramFiles%\%softname%"
 
-ECHO Creation of the directory
-MKDIR "%ProgramFiles%\SWLN"
+ECHO Creation of the install directory
+MKDIR "%ProgramFiles%\%softname%"
 
 ECHO Copy post-install script
-COPY /Y post-install.ps1 "%ProgramFiles%\SWLN"
+COPY /Y post-install.ps1 "%ProgramFiles%\%softname%"
 
 ECHO Execution right post-install.ps1
-%pwrsh% "Unblock-File -Path ${env:ProgramFiles}\SWLN\post-install.ps1"
+%pwrsh% "Unblock-File -Path ${env:ProgramFiles}\%softname%\post-install.ps1"
 
 ECHO Post-install (install SWMB and run it one time)
-%pwrsh% -File "%ProgramFiles%\SWLN\post-install.ps1"
+%pwrsh% -File "%ProgramFiles%\%softname%\post-install.ps1"
 
 ECHO Change Add and Remove values in the register
  > tmp_install.reg ECHO Windows Registry Editor Version 5.00
@@ -47,10 +47,10 @@ ECHO Change Add and Remove values in the register
 >> tmp_install.reg ECHO "DisplayVersion"="%softversion%"
 >> tmp_install.reg ECHO "Comments"="%softname% (%DATE:~-4%/%DATE:~-7,-5%/%DATE:~-10,-8%)"
 >> tmp_install.reg ECHO "DisplayName"="%softname% (%softversion%-%softpatch% / %swmbversion%)"
->> tmp_install.reg ECHO "DisplayIcon"="C:\\Program Files\\SWLN\\logo-swmb.ico"
->> tmp_install.reg ECHO "InstallFolder"="C:\\Program Files\\SWLN"
+>> tmp_install.reg ECHO "DisplayIcon"="C:\\Program Files\\%softname%\\logo-swmb.ico"
+>> tmp_install.reg ECHO "InstallFolder"="C:\\Program Files\\%softname%"
 >> tmp_install.reg ECHO "Publisher"="%softpublisher%"
->> tmp_install.reg ECHO "UninstallString"="C:\\Program Files\\SWLN\\uninstall.bat"
+>> tmp_install.reg ECHO "UninstallString"="C:\\Program Files\\%softname%\\uninstall.bat"
 >> tmp_install.reg ECHO "NoModify"=dword:00000001
 >> tmp_install.reg ECHO "NoRepair"=dword:00000001
 >> tmp_install.reg ECHO.

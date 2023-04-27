@@ -32,13 +32,24 @@ $LogonLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" 
 If (!(Test-Path -LiteralPath $LogonModule)) {
 	$LogonModule = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "Local-Addon.psm1"))
 }
+
+# Build args
+$Args = @()
+
+# Log action
+$Args += '-log', "$LogonLog"
+
+# Add Local Module
+If (Test-Path -LiteralPath $LogonModule) {
+	$Args += '-import', "$LogonModule"
+}
+
 # Launch SWMB with this preset
 If (Test-Path -LiteralPath $LogonPreset) {
-	If (Test-Path -LiteralPath $LogonModule) {
-		.\swmb.ps1 -log "$LogonLog" -import "$LogonModule" -preset "$LogonPreset"
-	} Else {
-		.\swmb.ps1 -log "$LogonLog" -preset "$LogonPreset"
-	}
+	$Args += '-preset', "$LogonPreset"
+	.\swmb.ps1 @Args
+} Else {
+	Write-Output "Error: No preset define, No SWMB launch"
 }
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `

@@ -13,44 +13,56 @@
 ################################################################
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 0 `
-	-Message "SWMB: Run Logon Script for User $Env:UserName - Begin"
+	-Message "SWMB: Run Logon Script for User ${Env:UserName} - Begin"
 
 # Change Path to the root Installation Folder
-$InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
+$InstallFolder = (Join-Path -Path ${Env:ProgramFiles} -ChildPath "SWMB")
 If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
 	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
 }
 Set-Location $InstallFolder
 
-# Define Boot preset on ProgramData
-$DataFolder   = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
-$LogonPreset  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Presets" -ChildPath "CurrentUser-Logon.preset"))
-$LogonModule  = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "CurrentUser-Logon.psm1"))
-$LogonLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs"    -ChildPath "CurrentUser-LastLogon.log"))
+# Define SWMB folder on ProgramData
+$DataFolder   = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
+$PresetFolder = (Join-Path -Path $DataFolder -ChildPath "Presets")
+$ModuleFolder = (Join-Path -Path $DataFolder -ChildPath "Modules")
+$LogFolder    = (Join-Path -Path $DataFolder -ChildPath "Logs")
 
-# Revert if not exist to module name Local-Addon.psm1
-If (!(Test-Path -LiteralPath $LogonModule)) {
-	$LogonModule = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Modules" -ChildPath "Local-Addon.psm1"))
-}
-
-# Build args
+# Host extension and Build args
+$HostExt="Host-$(${Env:ComputerName}.ToLower())"
 $Args = @()
+$FlagPreset = $False
 
 # Log action
-$Args += '-log', "$LogonLog"
+$Args += '-log', "$LogFolder\CurrentUser-LastLogon.log"
 
-# Add Local Module
-If (Test-Path -LiteralPath $LogonModule) {
-	$Args += '-import', "$LogonModule"
+# Site and Host Modules
+If (Test-Path -LiteralPath "$ModuleFolder\Local-Addon.psm1") {
+	$Args += '-import', "$ModuleFolder\Local-Addon.psm1"
+}
+If (Test-Path -LiteralPath "$ModuleFolder\CurrentUser-Logon.psm1") {
+	$Args += '-import', "$ModuleFolder\CurrentUser-Logon.psm1"
+}
+If (Test-Path -LiteralPath "$ModuleFolder\Local-Addon-$HostExt.psm1") {
+	$Args += '-import', "$ModuleFolder\Local-Addon-$HostExt.psm1"
+}
+
+# Site and Host presets
+If (Test-Path -LiteralPath "$PresetFolder\CurrentUser-Logon.preset") {
+	$Args += '-preset', "$PresetFolder\CurrentUser-Logon.preset"
+	$FlagPreset = $True
+}
+If (Test-Path -LiteralPath "$PresetFolder\CurrentUser-Logon-$HostExt.preset") {
+	$Args += '-preset', "$PresetFolder\CurrentUser-Logon-$HostExt.preset"
+	$FlagPreset = $True
 }
 
 # Launch SWMB with this preset
-If (Test-Path -LiteralPath $LogonPreset) {
-	$Args += '-preset', "$LogonPreset"
+If ($FlagPreset) {
 	.\swmb.ps1 @Args
 } Else {
 	Write-Output "Error: No preset define, No SWMB launch"
 }
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `
-	-Message "SWMB: Run Logon Script for User $Env:UserName - End"
+	-Message "SWMB: Run Logon Script for User ${Env:UserName} - End"

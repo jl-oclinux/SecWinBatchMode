@@ -13,7 +13,7 @@
 ################################################################
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 0 `
-	-Message "SWMB: Run Crypt-With-Bitlocker Script for LocalMachine - Begin"
+	-Message "SWMB: Run Crypt-With-Bitlocker Script for LocalMachine ${Env:ComputerName} - Begin"
 
 # Relaunch the script with administrator privileges
 Function TweakSysRequireAdmin {
@@ -25,7 +25,7 @@ Function TweakSysRequireAdmin {
 TweakSysRequireAdmin
 
 # Change Path to the root Installation Folder
-$InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
+$InstallFolder = (Join-Path -Path ${Env:ProgramFiles} -ChildPath "SWMB")
 If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
 	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
 }
@@ -46,4 +46,4 @@ SWMB_RunTweaks
 
 
 Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `
-	-Message "SWMB: Run Crypt-With-Bitlocker Script for LocalMachine - End"
+	-Message "SWMB: Run Crypt-With-Bitlocker Script for LocalMachine ${Env:ComputerName} - End"

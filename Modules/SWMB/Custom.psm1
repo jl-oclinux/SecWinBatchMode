@@ -24,16 +24,27 @@ Function SWMB_ImportModuleParameter() {
 			[Parameter(Mandatory = $True)] [string]$PathBase
 		)
 
-		$VarOverload = $PathBase + '-VarOverload.psm1'
-		$VarAutodel  = $PathBase + '-VarAutodel.psm1'
+		$HostExt="Host-$(${Env:ComputerName}.ToLower())"
 
-		If ((Test-Path -LiteralPath $VarOverload) -Or (Test-Path -LiteralPath $VarAutodel)) {
-			If (Test-Path -LiteralPath $VarOverload) {
-				Import-Module -Name $VarOverload -ErrorAction Stop
+		$VarOverloadSite = $PathBase + '-VarOverload.psm1'
+		$VarAutodelSite  = $PathBase + '-VarAutodel.psm1'
+		$VarOverloadHost = $PathBase + "-VarOverload-$HostExt.psm1"
+		$VarAutodelHost  = $PathBase + "-VarAutodel-$HostExt.psm1"
+
+		If ((Test-Path -LiteralPath $VarOverloadSite) -Or (Test-Path -LiteralPath $VarAutodelSite) -Or (Test-Path -LiteralPath $VarOverloadHost) -Or (Test-Path -LiteralPath $VarAutodelHost)) {
+			If (Test-Path -LiteralPath $VarOverloadSite) {
+				Import-Module -Name $VarOverloadSite -ErrorAction Stop
 			}
-			If (Test-Path -LiteralPath $VarAutodel) {
-				Import-Module -Name $VarAutodel -ErrorAction Stop
-				Remove-Item $VarAutodel -ErrorAction Stop
+			If (Test-Path -LiteralPath $VarAutodelSite) {
+				Import-Module -Name $VarAutodelSite -ErrorAction Stop
+				Remove-Item $VarAutodelSite -ErrorAction Stop
+			}
+			If (Test-Path -LiteralPath $VarOverloadHost) {
+				Import-Module -Name $VarOverloadHost -ErrorAction Stop
+			}
+			If (Test-Path -LiteralPath $VarAutodelHost) {
+				Import-Module -Name $VarAutodelHost -ErrorAction Stop
+				Remove-Item $VarAutodelSite -ErrorAction Stop
 			}
 			Return $True
 		}
@@ -73,15 +84,15 @@ Function SWMB_ImportModuleParameter() {
 		}
 	}
 
-	# Search module in ProgramData folder
-	$DataFolder = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
-	$DataModule = (Join-Path -Path $DataFolder      -ChildPath "Modules")
-	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataFolder -ChildPath $ModuleScriptBasename)) {
-		Return $True
-	}
-	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataModule -ChildPath $ModuleScriptBasename)) {
-		Return $True
-	}
+#	# Search module in ProgramData folder
+#	$DataFolder = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
+#	$DataModule = (Join-Path -Path $DataFolder      -ChildPath "Modules")
+#	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataFolder -ChildPath $ModuleScriptBasename)) {
+#		Return $True
+#	}
+#	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataModule -ChildPath $ModuleScriptBasename)) {
+#		Return $True
+#	}
 }
 
 ################################################################

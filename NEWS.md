@@ -74,6 +74,10 @@ and some computers can have more or less preset (the preset can be deleted with 
 if a specific preset has been defined.
 The host module and host preset are active for Logon, Boot and PostInstall scheduling tasks.
 
+The **Host naming system** is extended to the `Overload` and `Autodel` modules.
+Thus, when the `-VarOverload` and `-VarAutodel` modules are searched,
+the associated `-VarOverload-Host-$(HOSTNAME)` and `-VarAutodel-Host-$(HOSTNAME)` modules are also searched.
+
 With the **host module** and **host presets**, you can **deploy the same configuration** (set of files) to your fleet of computers
 and **have some specific rules** for some computers.
 

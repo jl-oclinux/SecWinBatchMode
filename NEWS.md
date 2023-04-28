@@ -54,11 +54,33 @@ If this module does not exist, but there is a module in this same folder
 with the name `Local-Addon.psm1`, then this one is loaded instead.
 This mechanism allows to have one common module for all tasks,
 or to specialize a module for a task.
+Since 2023/04/28, Schedule tasks now always import the `Local-Addon.psm1` module, if exists,
+before the module specific to the task.
 
 Thus it is not necessary to load a module at the beginning of a preset file
 (`$IMPORT`) if we follow this naming convention.
 The goal is to simplify the use and configuration of SWMB
 to your machine environment.
+
+If a module with the name `Local-Addon-Host-$(HOSTNAME).psm1` (hostname in lower case) exists,
+it is also loaded, after the other modules.
+We don't define the **host module** per task, because too much is too much.
+We have to be simple in the end. One module for all tasks specific to one machine is enough.
+An **host preset** is now also loaded.
+If a hostname preset `LocalMachine-PostInstall-Host-$(HOSTNAME).preset` exists,
+it is loaded after the **site preset**.
+You can have a global preset for all computers
+and some computers can have more or less preset (the preset can be deleted with the symbol !)
+if a specific preset has been defined.
+The host module and host preset are active for Logon, Boot and PostInstall scheduling tasks.
+
+With the **host module** and **host presets**, you can **deploy the same configuration** (set of files) to your fleet of computers
+and **have some specific rules** for some computers.
+
+In [dists](dists/) folder, a template [SWLN](dists/swln/) have been defined.
+[SWLN](dists/swln/) is SWMB for your Local Network.
+This template help you to create a Zip archive to deploy SWMB
+with your configuration on your computer park with OCS, WAPT, PDQ Deploy, etc.
 
 
 ## Version 3.14 (2022/07/07)

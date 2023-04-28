@@ -23,7 +23,7 @@ Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction Silen
 
 
 # Destroy ProgramData Folders and Recommanded Preset
-$DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+$DataFolder  = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
 
 Function _RemovePresetFile {

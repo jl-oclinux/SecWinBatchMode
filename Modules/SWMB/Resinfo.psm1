@@ -668,9 +668,9 @@ Function TweakEnableBitlocker { # RESINFO
 		Write-Output "Add system drive key"
 		Add-BitLockerKeyProtector -MountPoint "$SystemDrive" -RecoveryPasswordProtector
 		Write-Output "Copy system drive key on $SystemDrive"
-		$PathKey = $SystemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $DateNow + "-" + $SystemDriveLetter + ".txt"
+		$PathKey = $SystemDrive + "\" + ${Env:ComputerName} + "-bitlockerRecoveryKey-" + $DateNow + "-" + $SystemDriveLetter + ".txt"
 		If (Test-Path -Path $PathKey -PathType leaf) {
-			$oldKey = $SystemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $DateNow + "-" + $SystemDriveLetter + ".txt.old"
+			$oldKey = $SystemDrive + "\" + ${Env:ComputerName} + "-bitlockerRecoveryKey-" + $DateNow + "-" + $SystemDriveLetter + ".txt.old"
 			Write-Output "Warning: $PathKey already exist => rename with .old extension"
 			If (Test-Path -Path $oldKey -PathType leaf) {
 				Write-Output "Warning: delete before old key $oldKey"
@@ -727,7 +727,7 @@ Function TweakEnableBitlocker { # RESINFO
 			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 1 -Message "SWMB: Bitlocker enable drive $Letter"
 
 			Write-Output "Copy drive $Letter key"
-			$BackupFile = $SystemDrive + "\" + $Env:ComputerName + "-bitlockerRecoveryKey-" + $DateNow + "-" + $Letter + ".txt"
+			$BackupFile = $SystemDrive + "\" + ${Env:ComputerName} + "-bitlockerRecoveryKey-" + $DateNow + "-" + $Letter + ".txt"
 			Write-Output $BackupFile
 			(Get-BitLockerVolume -MountPoint $LetterColon).KeyProtector > $BackupFile
 
@@ -748,7 +748,7 @@ Function TweakEnableBitlocker { # RESINFO
 			}
 
 			# AutoUnlock
-			If ((Get-BitLockerVolume $Env:SystemDrive).ProtectionStatus -eq "On") {
+			If ((Get-BitLockerVolume ${Env:SystemDrive}).ProtectionStatus -eq "On") {
 				Enable-BitLockerAutoUnlock -MountPoint $Letter
 			} Else {
 				$TaskTrigger  = New-ScheduledTaskTrigger -AtStartup
@@ -844,7 +844,7 @@ Function TweakEnableBitlocker { # RESINFO
 		}
 
 		$DateNow           = (Get-Date).ToString("yyyyMMddhhmm")
-		$SystemDrive       = $Env:SystemDrive
+		$SystemDrive       = ${Env:SystemDrive}
 		$SystemDriveLetter = $SystemDrive.Substring(0, 1)
 
 		$DrivePStatus = (Get-BitLockerVolume $SystemDrive).ProtectionStatus
@@ -877,12 +877,12 @@ Function TweakEnableBitlocker { # RESINFO
 		} ElseIf ($DriveEMethod -eq "XtsAes256") {
 			# Disk crypt but...
 			If (($DriveVStatus -eq "DecryptionInProgress") -or ($DriveVStatus -eq "EncryptionInProgress")) {
-				Write-Warning "Operation in progress on your $Env:SystemDrive => $DriveVStatus"
+				Write-Warning "Operation in progress on your ${Env:SystemDrive} => $DriveVStatus"
 				Write-Output ("Stop and try later - Encryption percentage = " + (Get-BitLockerVolume $SystemDrive).EncryptionPercentage)
 				Return
 			} Else {
 				If ($DrivePStatus -eq "On") {
-					Write-Warning "Your $Env:SystemDrive is already encrypt (XtsAes256) and activated"
+					Write-Warning "Your ${Env:SystemDrive} is already encrypt (XtsAes256) and activated"
 					Write-Output "Nothing to do on System drive !"
 
 					# use network to save key ?
@@ -897,7 +897,7 @@ Function TweakEnableBitlocker { # RESINFO
 			}
 		} ElseIf ($DriveEMethod -ne "XtsAes256") {
 			# Disk crypt but not with XtsAes256
-			Write-Warning "Your $Env:SystemDrive is not encrypt in XtsAes256, the encryption is $DriveEMethod"
+			Write-Warning "Your ${Env:SystemDrive} is not encrypt in XtsAes256, the encryption is $DriveEMethod"
 			$decrypt = Read-Host -Prompt "Do you want to decrypt all fixed drive [Y/n]"
 			If ($decrypt.ToLower() -ne "n") {
 				TweakDisableBitlocker

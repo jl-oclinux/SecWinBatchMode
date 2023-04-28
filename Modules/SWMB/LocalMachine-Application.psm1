@@ -67,10 +67,10 @@ Function TweakUninstallOneDrive {
 # Install OneDrive - Not applicable to Server
 Function TweakInstallOneDrive {
 	Write-Output "Installing OneDrive..."
-	$Exe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
+	$Exe = "${Env:SystemRoot}\SysWOW64\OneDriveSetup.exe"
 	$Args = '/silent /allusers'
 	If (!(Test-Path $Exe)) {
-		$Exe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
+		$Exe = "${Env:SystemRoot}\System32\OneDriveSetup.exe"
 	}
 	Start-Process -FilePath "$Exe" -ArgumentList "$Args" -NoNewWindow -ErrorAction 'SilentlyContinue'
 }
@@ -781,7 +781,7 @@ Function TweakUnsetPhotoViewerAssociation {
 	Remove-Item -Path "HKCR:\Paint.Picture\shell\open" -Recurse -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKCR:\giffile\shell\open" -Name "MuiVerb" -ErrorAction SilentlyContinue
 	Set-ItemProperty -Path "HKCR:\giffile\shell\open" -Name "CommandId" -Type String -Value "IE.File"
-	Set-ItemProperty -Path "HKCR:\giffile\shell\open\command" -Name "(Default)" -Type String -Value "`"$Env:SystemDrive\Program Files\Internet Explorer\iexplore.exe`" %1"
+	Set-ItemProperty -Path "HKCR:\giffile\shell\open\command" -Name "(Default)" -Type String -Value "`"${Env:SystemDrive}\Program Files\Internet Explorer\iexplore.exe`" %1"
 	Set-ItemProperty -Path "HKCR:\giffile\shell\open\command" -Name "DelegateExecute" -Type String -Value "{17FE9752-0B5A-4665-84CD-569794602F5C}"
 	Remove-Item -Path "HKCR:\jpegfile\shell\open" -Recurse -ErrorAction SilentlyContinue
 	Remove-Item -Path "HKCR:\pngfile\shell\open" -Recurse -ErrorAction SilentlyContinue

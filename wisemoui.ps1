@@ -22,7 +22,7 @@ Function TweakSysRequireAdmin {
 TweakSysRequireAdmin
 
 # Define Boot preset on ProgramData
-$DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+$DataFolder  = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 $BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "LocalMachine-LastBoot.log"))
 
 Import-Module -Name "$PSScriptRoot\Modules\SWMB.psd1" -ErrorAction Stop
@@ -43,7 +43,7 @@ $Logo.image = [system.drawing.image]::FromFile("$PSScriptRoot\logo-swmb.ico")
 $Form.Controls.Add($Logo)
 
 # Bitlocker Status
-$BitlockerStatus  = SWMB_GetBitLockerStatus -Drive $Env:SystemDrive
+$BitlockerStatus  = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
 $BtnBitlockerStatus = New-Object System.Windows.Forms.label
 $BtnBitlockerStatus.Location = New-Object System.Drawing.Size(30,25)
 $BtnBitlockerStatus.Width = 220
@@ -79,14 +79,14 @@ $BtnBitlockerAction.Add_Click({
 	If ($BitlockerAction -eq "Suspend") {
 		Get-BitLockerVolume | Suspend-BitLocker -RebootCount 0
 		$BitlockerAction = "Halt"
-		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive $Env:SystemDrive
+		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
 		$BtnBitlockerAction.Text = "Please Halt for your Maintenance"
 		$BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 	} ElseIf ($BitlockerAction -eq "Halt") {
 		Stop-Computer -ComputerName localhost
 	} Else {
 		Get-BitLockerVolume | Resume-BitLocker
-		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive $Env:SystemDrive
+		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
 		If ($BitlockerStatus -cmatch "Running") {
 			$BitlockerAction  = "Suspend"
 			$BtnBitlockerAction.Text = "$BitlockerAction"

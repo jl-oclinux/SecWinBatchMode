@@ -18,7 +18,7 @@
 
 
 # Installation Folder
-$InstallFolder  = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
+$InstallFolder  = (Join-Path -Path ${Env:ProgramFiles} -ChildPath "SWMB")
 If (!(Test-Path -LiteralPath $InstallFolder)) {
 	New-Item -Path $InstallFolder -ItemType Directory
 }
@@ -33,10 +33,10 @@ If (Test-Path $MainPath) {
 }
 
 # Create ProgramData Folders
-$DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+$DataFolder  = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
 
-If (Test-Path -LiteralPath $Env:ProgramData) {
+If (Test-Path -LiteralPath ${Env:ProgramData}) {
 	If (!(Test-Path -LiteralPath $DataFolder)) {
 		New-Item -Path $DataFolder -ItemType Directory
 	}

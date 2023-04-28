@@ -178,9 +178,9 @@ Function TweakUninstallRealPlayer { # RESINFO
 		}
 
 	## Uninstall RealTimes Desktop Service
-	If (Test-Path -Path "$Env:ProgramFiles\Real\RealPlayer\RPDS\uninst.exe") {
+	If (Test-Path -Path "${Env:ProgramFiles}\Real\RealPlayer\RPDS\uninst.exe") {
 		Write-Output "Uninstalling RealTimes Desktop Service."
-		Start-Process -FilePath "$Env:ProgramFiles\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		Start-Process -FilePath "${Env:ProgramFiles}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
 		Start-Sleep -Seconds 2
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe") {
@@ -189,9 +189,9 @@ Function TweakUninstallRealPlayer { # RESINFO
 		Start-Sleep -Seconds 2
 	}
 	## Uninstall RealUpgrade
-	If (Test-Path -Path "$Env:ProgramFiles\Real\RealUpgrade\uninst.exe") {
+	If (Test-Path -Path "${Env:ProgramFiles}\Real\RealUpgrade\uninst.exe") {
 		Write-Output "Uninstalling Any Existing Versions of RealUpgrade."
-		Start-Process -FilePath "$Env:ProgramFiles\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		Start-Process -FilePath "${Env:ProgramFiles}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
 		Start-Sleep -Seconds 2
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe") {
@@ -200,21 +200,21 @@ Function TweakUninstallRealPlayer { # RESINFO
 		Start-Sleep -Seconds 2
 	}
 	## Cleanup Start Menu Directory
-	If (Test-Path -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\Real\") {
+	If (Test-Path -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\Real\") {
 		Write-Output "Removing RealPlayer Start Menu Entry."
-		Remove-Item -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\Real\" -Force -Recurse -ErrorAction SilentlyContinue
+		Remove-Item -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\Real\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 2 
 	}
 	## Cleanup ProgramData Directory
-	If (Test-Path -Path "$Env:ALLUSERSPROFILE\Real\") {
+	If (Test-Path -Path "${Env:AllUsersProfile}\Real\") {
 		Write-Output "Removing Existing Real ProgramData Directory."
-		Remove-Item -Path "$Env:ALLUSERSPROFILE\Real\" -Force -Recurse -ErrorAction SilentlyContinue
+		Remove-Item -Path "${Env:AllUsersProfile}\Real\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 1
 	}
 	## Cleanup RealPlayer Directories
-	If (Test-Path -Path "$Env:ProgramFiles\Real\") {
-		Write-Output "Cleanup $Env:ProgramFiles\Real\ Directory."
-		Remove-Item -Path "$Env:ProgramFiles\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
+	If (Test-Path -Path "${Env:ProgramFiles}\Real\") {
+		Write-Output "Cleanup ${Env:ProgramFiles}\Real\ Directory."
+		Remove-Item -Path "${Env:ProgramFiles}\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
 		Start-Sleep -Seconds 1
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\") {
@@ -272,9 +272,9 @@ Function TweakUninstallWinRAR { # RESINFO
 		}
 
 	## Cleanup Start Menu Directory
-	If (Test-Path -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\WinRAR\") {
+	If (Test-Path -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\WinRAR\") {
 		Write-Output "Removing WinRAR Start Menu Entry."
-		Remove-Item -Path "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\WinRAR\" -Force -Recurse -ErrorAction SilentlyContinue
+		Remove-Item -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\WinRAR\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 2 
 	}
 

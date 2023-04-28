@@ -18,7 +18,7 @@
 # Disable
 Function TweakDisablePrintForSystem { # RESINFO
 	Write-Output "Disable print for System user (CVE-2021-34527)..."
-	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
+	$acl = Get-Acl -Path "${Env:SystemRoot}\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
 	$ruleOrg2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'InheritOnly', 'Allow')
 	$ruleNew1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Modify',      'ContainerInherit,ObjectInherit', 'None',        'Deny')
@@ -27,13 +27,13 @@ Function TweakDisablePrintForSystem { # RESINFO
 	$acl.RemoveAccessRule($ruleOrg2)
 	$acl.AddAccessRule($ruleNew1)
 	$acl.AddAccessRule($ruleNew2)
-	$acl | Set-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
+	$acl | Set-Acl -Path "${Env:SystemRoot}\System32\spool\drivers"
 }
 
 # Enable
 Function TweakEnablePrintForSystem { # RESINFO
 	Write-Output "Enable print for System user (CVE-2021-34527)..."
-	$acl = Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
+	$acl = Get-Acl -Path "${Env:SystemRoot}\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
 	$ruleOrg2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'InheritOnly', 'Allow')
 	$ruleNew1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'Modify',      'ContainerInherit,ObjectInherit', 'None',        'Deny')
@@ -42,12 +42,12 @@ Function TweakEnablePrintForSystem { # RESINFO
 	$acl.RemoveAccessRule($ruleNew2)
 	$acl.AddAccessRule($ruleOrg1)
 	$acl.AddAccessRule($ruleOrg2)
-	$acl | Set-Acl -Path "$Env:SystemRoot\System32\spool\drivers"
+	$acl | Set-Acl -Path "${Env:SystemRoot}\System32\spool\drivers"
 }
 
 # View
 Function TweakViewPrintForSystem { # RESINFO
-	Get-Acl -Path "$Env:SystemRoot\System32\spool\drivers" | Select -Expand Access | Out-GridView
+	Get-Acl -Path "${Env:SystemRoot}\System32\spool\drivers" | Select -Expand Access | Out-GridView
 }
 
 ################################################################
@@ -106,7 +106,7 @@ Function TweakDisableMSDT { # RESINFO
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
 	}
 	If (Test-Path "HKCR:\ms-msdt") {
-		$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+		$DataFolder = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 		$CachesFolder = (Join-Path -Path $DataFolder -ChildPath "Caches" )
 		$RegFile = (Join-Path -Path $CachesFolder -ChildPath "MSDT.reg")
 		If (!(Test-Path $DataFolder)) {
@@ -128,7 +128,7 @@ Function TweakDisableMSDT { # RESINFO
 Function TweakEnableMSDT { # RESINFO
 	Write-Output "Enable MSDT..."
 	If (!(Test-Path "HKCR:\ms-msdt")) {
-		$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+		$DataFolder = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 		$CachesFolder = (Join-Path -Path $DataFolder -ChildPath "Caches" )
 		$RegFile = (Join-Path -Path $CachesFolder -ChildPath "MSDT.reg")
 		If (Test-Path $RegFile) {

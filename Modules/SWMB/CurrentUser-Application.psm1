@@ -107,10 +107,10 @@ Function TweakUninstallOneDrive_CU { # RESINFO
 # Install OneDrive - Not applicable to Server
 Function TweakInstallOneDrive_CU { # RESINFO
 	Write-Output "Installing OneDrive for CU..."
-	$Exe = "$Env:SystemRoot\SysWOW64\OneDriveSetup.exe"
+	$Exe = "${Env:SystemRoot}\SysWOW64\OneDriveSetup.exe"
 	$Args = '/silent'
 	If (!(Test-Path $Exe)) {
-		$Exe = "$Env:SystemRoot\System32\OneDriveSetup.exe"
+		$Exe = "${Env:SystemRoot}\System32\OneDriveSetup.exe"
 	}
 	Start-Process -FilePath "$Exe" -ArgumentList "$Args" -NoNewWindow -ErrorAction 'SilentlyContinue'
 }

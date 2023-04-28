@@ -52,7 +52,7 @@ Function SWMB_ImportModuleParameter() {
 	# -VarOverload from the current folder to the root folder,
 	# then from the SWMB ProgramData folder to the root folder,
 	# and finally from the module folder to the root folder.
-	ForEach ($ItemPath in (Get-Location).Path, (Join-Path -Path $Env:ProgramData -ChildPath "SWMB"), $ModuleScriptPath) {
+	ForEach ($ItemPath in (Get-Location).Path, (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB"), $ModuleScriptPath) {
 		While (Test-Path -LiteralPath $ItemPath) {
 			# Module VarOverload directly in the current folder
 			If (_ModuleAutoLoad -PathBase (Join-Path -Path $ItemPath -ChildPath $ModuleScriptBasename)) {
@@ -74,7 +74,7 @@ Function SWMB_ImportModuleParameter() {
 	}
 
 	# Search module in ProgramData folder
-	$DataFolder = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+	$DataFolder = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 	$DataModule = (Join-Path -Path $DataFolder      -ChildPath "Modules")
 	If (_ModuleAutoLoad -PathBase (Join-Path -Path $DataFolder -ChildPath $ModuleScriptBasename)) {
 		Return $True

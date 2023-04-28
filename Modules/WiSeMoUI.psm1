@@ -13,7 +13,7 @@
 ################################################################
 
 Function SWMB_GetInstallFolder {
-	$InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
+	$InstallFolder = (Join-Path -Path ${Env:ProgramFiles} -ChildPath "SWMB")
 	If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
 		$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
 	}

@@ -86,8 +86,8 @@ then in the `ProgramData` folder and then in the installation folder.
 For these three cases, we start with the current folder,
 the subfolder `Modules` and then we go back up to the root of the file system.
  * `(Get-Location).Path`  # `$PWD`
- * `$Env:ProgramData\SWMB`
- * Module Script Path  # `$Env:ProgramFiles\SWMB\Modules\SWMB`
+ * `${Env:ProgramData}\SWMB`
+ * Module Script Path  # `${Env:ProgramFiles}\SWMB\Modules\SWMB`
 
 The `Custom.psm1` module is now loaded by default.
 The `SWMB_ImportModuleParameter` function has been moved from `SWMB.psm1`

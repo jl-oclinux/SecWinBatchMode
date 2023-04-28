@@ -92,9 +92,9 @@ Function TweakSysAutoUpgrade {
 	$SwmbCorePath = (Resolve-Path (Join-Path -Path $ModuleScriptPath -ChildPath '..') -ErrorAction SilentlyContinue)
 
 	$gitUrl = 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/-/archive/master/resinfo-swmb-master.zip'
-	$tmpFolder = (Join-Path -Path $Env:SystemDrive -ChildPath "SWMB-$(New-Guid)")
-	If ($Env:Temp -ne '') {
-		$tmpFolder = (Join-Path -Path $Env:Temp -ChildPath "SWMB-$(New-Guid)")
+	$tmpFolder = (Join-Path -Path ${Env:SystemDrive} -ChildPath "SWMB-$(New-Guid)")
+	If (${Env:Temp} -ne '') {
+		$tmpFolder = (Join-Path -Path ${Env:Temp} -ChildPath "SWMB-$(New-Guid)")
 	}
 	New-Item -Path $tmpFolder -ItemType Directory | Out-Null
 
@@ -151,7 +151,7 @@ Function TweakRequireAdmin { # Obsolete
 Function SWMB_Init {
 	$Global:SWMB_Tweaks = @()
 	$Global:SWMB_PSCommandArgs = @()
-	# $Global:SWMB_ChkSumFile = (Join-Path -Path (Join-Path -Path (Join-Path -Path $Env:ProgramData -ChildPath "SWMB") -ChildPath "Caches") -ChildPath "last.chksum")
+	# $Global:SWMB_ChkSumFile = (Join-Path -Path (Join-Path -Path (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB") -ChildPath "Caches") -ChildPath "last.chksum")
 }
 
 ################################################################

@@ -17,19 +17,19 @@
 # computer starts.
 
 # Installation Folder
-$InstallFolder = (Join-Path -Path $Env:ProgramFiles -ChildPath "SWMB")
+$InstallFolder = (Join-Path -Path ${Env:ProgramFiles} -ChildPath "SWMB")
 If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
 	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
 }
 
 # Create ProgramData Folders
-$DataFolder  = (Join-Path -Path $Env:ProgramData -ChildPath "SWMB")
+$DataFolder  = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
 $DataModules = (Join-Path -Path $DataFolder      -ChildPath "Modules")
 $DataLogs    = (Join-Path -Path $DataFolder      -ChildPath "Logs")
 $DataCaches  = (Join-Path -Path $DataFolder      -ChildPath "Caches")
 
-If (Test-Path -LiteralPath $Env:ProgramData) {
+If (Test-Path -LiteralPath ${Env:ProgramData}) {
 	If (!(Test-Path -LiteralPath $DataFolder)) {
 		New-Item -Path $DataFolder -ItemType Directory
 	}
@@ -139,7 +139,7 @@ If ($ActivatedPreset -eq 1) {
 }
 
 # Bitlocker Script in Start Menu
-#$StartMenu = "$Env:ProgramData\Microsoft\Windows\Start Menu\Programs\SWMB"
+#$StartMenu = "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\SWMB"
 #If (!(Test-Path -LiteralPath $StartMenu)) {
 #	New-Item -Path $StartMenu -ItemType Directory
 #}

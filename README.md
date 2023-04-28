@@ -420,11 +420,11 @@ until it reaches the root folder.
  1. `..\..\Custom-VarOverload.psm1`
  1. `..\..\Modules\Custom-VarOverload.psm1`
  1. and so on...
- 1. `$Env:ProgramData\SWMB\Custom-VarOverload.psm1`
- 1. `$Env:ProgramData\SWMB\Modules\Custom-VarOverload.psm1`
+ 1. `${Env:ProgramData}\SWMB\Custom-VarOverload.psm1`
+ 1. `${Env:ProgramData}\SWMB\Modules\Custom-VarOverload.psm1`
  1. and so on...
- 1. `$Env:ProgramFiles\SWMB\Modules\SWMB\Custom-VarOverload.psm1`
- 1. `$Env:ProgramFiles\SWMB\Modules\SWMB\Modules\Custom-VarOverload.psm1`
+ 1. `${Env:ProgramFiles}\SWMB\Modules\SWMB\Custom-VarOverload.psm1`
+ 1. `${Env:ProgramFiles}\SWMB\Modules\SWMB\Modules\Custom-VarOverload.psm1`
 
 For sensitive keys, it is possible to define a `Custom-VarAutodel.psm1` module.
 This one works exactly the same way as the `Custom-VarOverload.psm1` module

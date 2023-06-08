@@ -704,6 +704,10 @@ Function TweakInstallSSHClient {
 Function TweakInstallSSHServer {
 	Write-Output "Installing OpenSSH Server..."
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "OpenSSH.Server*" } | Add-WindowsCapability -Online | Out-Null
+	Write-Output "Start the sshd service..."
+	Start-Service sshd -WarningAction SilentlyContinue
+	Write-Output "Automatic startup..."
+	Set-Service -Name sshd -StartupType 'Automatic' -WarningAction SilentlyContinue
 }
 
 # Uninstall OpenSSH Server - Applicable since 1809
@@ -877,4 +881,3 @@ Function TweakInstallFaxAndScan {
 
 # Export functions
 Export-ModuleMember -Function *
-

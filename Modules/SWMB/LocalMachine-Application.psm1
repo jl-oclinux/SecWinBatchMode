@@ -5,10 +5,8 @@
 # Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
 ##########
 
-##########
-#region Application Tweaks
-##########
-
+################################################################
+###### Application Tweaks
 ################################################################
 
 # Disable OneDrive
@@ -873,9 +871,39 @@ Function TweakInstallFaxAndScan {
 	Get-WindowsCapability -Online | Where-Object { $_.Name -like "Print.Fax.Scan*" } | Add-WindowsCapability -Online | Out-Null
 }
 
-##########
-#endregion Application Tweaks
-##########
+################################################################
+
+# https://devblogs.microsoft.com/setup/moving-or-disabling-the-package-cache-for-visual-studio-2017/
+# https://answers.microsoft.com/en-us/windows/forum/all/is-it-safe-to-delete-files-in-cprogramdatapackage/8b5897cd-9d7f-4b07-bc17-e46461b728c7
+# Package are cache in folder 'C:\ProgramData\Package Cache\'
+# & "${Env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vs_installer.exe" --nocache
+
+# Disable Visual Studio Cache
+Function TweakDisableVisualStudioCache { # RESINFO
+	Write-Output "Disabling Visual Studio Cache..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Setup")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Setup" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Setup" -Name "KeepDownloadedPayloads" -Type DWord -Value 0
+}
+
+# Enable Visual Studio Cache
+Function TweakEnableVisualStudioCache { # RESINFO
+	Write-Output "Enabling Visual Studio Cache..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Setup")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Setup" -Force | Out-Null
+	}
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Setup" -Name "KeepDownloadedPayloads" -Type DWord -Value 1
+}
+
+# View Visual Studio Cache
+Function TweakViewVisualStudioCache { # RESINFO
+	Write-Output "View Visual Studio Cache (0: disable, 1: enable (default), nothing: not install..."
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Setup"    -Name "KeepDownloadedPayloads"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\VisualStudio\Setup"             -Name "KeepDownloadedPayloads"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\Setup" -Name "KeepDownloadedPayloads"
+}
+
 
 ################################################################
 

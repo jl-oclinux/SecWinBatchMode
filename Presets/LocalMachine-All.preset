@@ -237,7 +237,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallRealPlayer
 # UninstallWinRAR
 # UninstallOpenOffice
-# UninstallTotalCommander
+# UninstallTotalCommander                                                                       # ViewTotalCommander
 # UninstallGlassWire
 # UninstallEdgeWebView2                                                                         # ViewEdgeWebView2
 

@@ -303,34 +303,54 @@ Function TweakUninstallWinRAR { # RESINFO
 # Uninstall
 Function TweakUninstallTotalCommander { # RESINFO
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
-	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 
-		Where { $_.Name -match 'Total Commander' } |
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
-			$App = (Get-ItemProperty -Path $_.PSPath)
-			$VersionMajor = $App.VersionMajor
-			$VersionMinor = $App.VersionMinor
-			$Exe = $App.UninstallString
-			$Args = '/7'
-			If (Test-Path -Path "$Exe") {
-				Write-Output "Uninstalling Total Commander version $VersionMajor.$VersionMinor"
-				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match 'Total Commander') {
+				$DisplayVersion = $App.DisplayVersion
+				$UninstallSplit = $App.UninstallString -Split '"'
+				$Exe = $UninstallSplit[1].Trim()
+				$Args = '/7'
+				If (Test-Path -Path "$Exe") {
+					Write-Output "Uninstalling Total Commander version $DisplayVersion / $Exe $Args"
+					$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
 
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill Total Commander uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: Total Commander uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
+					$Timeouted = $Null # Reset any previously set timeout
+					# Wait up to 180 seconds for normal termination
+					$Proc | Wait-Process -Timeout 180 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+					If ($Timeouted) {
+						# Terminate the process
+						$Proc | Kill
+						Write-Output "Error: kill Total Commander uninstall exe"
+						# Next tweak now
+						Return
+					} ElseIf ($Proc.ExitCode -ne 0) {
+						Write-Output "Error: Total Commander uninstall return code $($Proc.ExitCode)"
+						# Next tweak now
+						Return
+					}
 				}
+				Start-Sleep -Seconds 1
 			}
-			Start-Sleep -Seconds 1
+		}
+}
+
+# View
+Function TweakViewTotalCommander { # RESINFO
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match 'Total Commander') {
+				$DisplayVersion = $App.DisplayVersion
+				$UninstallSplit = $App.UninstallString -Split '"'
+				$Exe = $UninstallSplit[1].Trim()
+				Write-Output "$DisplayName / $DisplayVersion / $Exe"
+			}
 		}
 }
 
@@ -379,8 +399,8 @@ Function TweakUninstallAvast { # RESINFO
 					# Next tweak now
 					Return
 				}
+				Start-Sleep -Seconds 2
 			}
-			Start-Sleep -Seconds 2
 		}
 }
 

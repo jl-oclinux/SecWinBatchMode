@@ -1,0 +1,83 @@
+[
+  {
+    "id": "swmh",
+    "execute-command": "__PWD__/scripts/swmh.sh",
+    "command-working-directory": "/tmp/swmh/run",
+    "include-command-output-in-response": true,
+    "pass-environment-to-command": [
+      {
+        "envname": "SWMB_HOSTNAME",
+        "source": "payload",
+        "name": "swmb.hostname"
+      },
+      {
+        "envname": "SWMB_HOSTID",
+        "source": "payload",
+        "name": "swmb.hostid"
+      },
+      {
+        "envname": "SWMB_OSVERSION",
+        "source": "payload",
+        "name": "swmb.osversion"
+      },
+      {
+        "envname": "SWMB_VERSION",
+        "source": "payload",
+        "name": "swmb.version"
+      },
+      {
+        "envname": "SWMB_USERNAME",
+        "source": "payload",
+        "name": "swmb.username"
+      },
+      {
+        "envname": "SWMB_ISADMIN",
+        "source": "payload",
+        "name": "swmb.isadmin"
+      },
+      {
+        "envname": "SWMB_STATUS",
+        "source": "url",
+        "name": "status"
+      }
+    ],
+    "trigger-rule": {
+      "or": [
+        {
+          "match": {
+            "type": "value",
+            "value": "432",
+            "parameter": {
+              "source": "url",
+              "name": "token"
+            }
+          }
+        },
+        {
+          "match": {
+            "type": "value",
+            "value": "432",
+            "parameter": {
+              "source": "payload",
+              "name": "token"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "hello",
+    "execute-command": "__PWD__/scripts/hello.sh",
+    "command-working-directory": "/tmp/swmh/run",
+    "response-message": "Executing simple webhook...",
+    "include-command-output-in-response": true,
+    "pass-environment-to-command": [
+      {
+        "envname": "SWMB_MSG",
+        "source": "payload",
+        "name": "swmb.msg"
+      }
+    ]
+  }
+]

@@ -373,6 +373,31 @@ Function TweakEnableXboxFeatures {
 ## https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies
 ## https://admx.help/?Category=EdgeChromium
 
+# Enable
+# Clear Edge cached images and files on exit
+Function TweakEnableClearEdgeCacheOnExit { # RESINFO
+	Write-Output "Clear Edge cache on exit..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ClearCachedImagesAndFilesOnExit" -Type DWord -Value 1
+}
+
+# Disable - Default
+# Do not clear Edge cached images and files on exit
+Function TweakDisableClearEdgeCacheOnExit { # RESINFO
+	Write-Output "Don't clear Edge cache on exit..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ClearCachedImagesAndFilesOnExit" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewClearEdgeCacheOnExit { # RESINFO
+	Write-Output "View Edge clear cache on exit (0 or not exist: Not clear, 1: Clear cached images and files on exit )"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ClearCachedImagesAndFilesOnExit" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
 # Disable built-in Adobe Flash in IE and Edge
 Function TweakDisableAdobeFlash {
 	Write-Output "Disabling built-in Adobe Flash in IE and Edge..."

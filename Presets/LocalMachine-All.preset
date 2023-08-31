@@ -197,6 +197,7 @@ UninstallMsftBloat                              # InstallMsftBloat
 UninstallThirdPartyBloat                        # InstallThirdPartyBloat
 # UninstallWindowsStore                         # InstallWindowsStore
 DisableXboxFeatures                             # EnableXboxFeatures
+EnableClearEdgeCacheOnExit                      # EnableClearEdgeCacheOnExit                    # ViewClearEdgeCacheOnExit
 DisableAdobeFlash                               # EnableAdobeFlash
 DisableEdgePreload                              # EnableEdgePreload
 DisableEdgeShortcutCreation                     # EnableEdgeShortcutCreation

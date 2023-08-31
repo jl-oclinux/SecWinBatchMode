@@ -369,6 +369,10 @@ Function TweakEnableXboxFeatures {
 
 ################################################################
 
+### Edge policies
+## https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies
+## https://admx.help/?Category=EdgeChromium
+
 # Disable built-in Adobe Flash in IE and Edge
 Function TweakDisableAdobeFlash {
 	Write-Output "Disabling built-in Adobe Flash in IE and Edge..."

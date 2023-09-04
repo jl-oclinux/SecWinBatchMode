@@ -375,7 +375,7 @@ Function TweakEnableXboxFeatures {
 
 # Enable
 # Clear Edge cached images and files on exit
-Function TweakEnableClearEdgeCacheOnExit { # RESINFO
+Function TweakEnableEdgeClearCacheOnExit { # RESINFO
 	Write-Output "Clear Edge cache on exit..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Force | Out-Null
@@ -385,13 +385,13 @@ Function TweakEnableClearEdgeCacheOnExit { # RESINFO
 
 # Disable - Default
 # Do not clear Edge cached images and files on exit
-Function TweakDisableClearEdgeCacheOnExit { # RESINFO
+Function TweakDisableEdgeClearCacheOnExit { # RESINFO
 	Write-Output "Don't clear Edge cache on exit..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ClearCachedImagesAndFilesOnExit" -ErrorAction SilentlyContinue
 }
 
 # View
-Function TweakViewClearEdgeCacheOnExit { # RESINFO
+Function TweakViewEdgeClearCacheOnExit { # RESINFO
 	Write-Output "View Edge clear cache on exit (0 or not exist: Not clear, 1: Clear cached images and files on exit )"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ClearCachedImagesAndFilesOnExit" -ErrorAction SilentlyContinue
 }

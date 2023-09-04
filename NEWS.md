@@ -18,6 +18,7 @@ installed on your computer.
 
 New presets/rules:
 
+ * 2023/09/01 - `EnableEdgeClearCacheOnExit`/`DisableEdgeClearCacheOnExit`/`ViewEdgeClearCacheOnExit` -> Clear Microsoft Edge on exit
  * 2023/04/16 - `UninstallEdgeWebView2`/`ViewEdgeWebView2` -> Uninstall Microsoft Edge WebView2 Runtime
  * 2023/04/16 - `EnableEdgeUpdate`/`DisableEdgeUpdate`/`ViewEdgeUpdate` -> Enable or disable Microsoft Edge auto update
  * 2023/04/11 - `SetRemoteDesktopPort`/`UnsetRemoteDesktopPort`/`ViewRemoteDesktopPort` -> Set RemoteDesktop port service and push Firewall open rules (`$Global:SWMB_Custom` key `RemoteDesktop_PortNumber`)

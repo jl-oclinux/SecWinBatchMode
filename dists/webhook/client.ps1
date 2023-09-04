@@ -7,6 +7,6 @@ $Payload='{"token": 432, "swmb": {"hostname":"abcmywin", "hostid":"fjjkfhjkj", "
 
 $Preset=$(Invoke-RestMethod -Uri $Url -Body "$Payload" -Method Post -ContentType 'application/json')
 
-$Preset
+Write-Output $Preset
 
 # Invoke-RestMethod -Uri $Url -Body "$Payload" -Method Post -ContentType 'application/json' | Out-File -FilePath ./CurrentUser-Logon-Webhook.preset

@@ -19,6 +19,7 @@ installed on your computer.
 New presets/rules:
 
  * 2023/09/01 - `EnableEdgeClearCacheOnExit`/`DisableEdgeClearCacheOnExit`/`ViewEdgeClearCacheOnExit` -> Clear Microsoft Edge on exit
+ * 2023/07/07 - `EnableVisualStudioCache`/`DisableVisualStudioCache`/`ViewVisualStudioCache` -> Disable VisualStudio Cache
  * 2023/04/16 - `UninstallEdgeWebView2`/`ViewEdgeWebView2` -> Uninstall Microsoft Edge WebView2 Runtime
  * 2023/04/16 - `EnableEdgeUpdate`/`DisableEdgeUpdate`/`ViewEdgeUpdate` -> Enable or disable Microsoft Edge auto update
  * 2023/04/11 - `SetRemoteDesktopPort`/`UnsetRemoteDesktopPort`/`ViewRemoteDesktopPort` -> Set RemoteDesktop port service and push Firewall open rules (`$Global:SWMB_Custom` key `RemoteDesktop_PortNumber`)
@@ -86,6 +87,10 @@ In [dists](dists/) folder, a template [SWLN](dists/swln/) have been defined.
 [SWLN](dists/swln/) is SWMB for your Local Network.
 This template help you to create a Zip archive to deploy SWMB
 with your configuration on your computer park with OCS, WAPT, PDQ Deploy, etc.
+
+In [dists](dists/) folder, a very simple [webhook server](dists/webhook)
+have been defined. The objective is to implement a webhook client inside
+SWMB.
 
 
 ## Version 3.14 (2022/07/07)

@@ -234,6 +234,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableWindowsHello                           # EnableWindowsHello
 # DisableWindowsStore                           # EnableWindowsStore
 # EnablePrivateStoreOnly                        # DisablePrivateStoreOnly
+# EnableVisualStudioCache                       # DisableVisualStudioCache                      # ViewVisualStudioCache
 # UninstallAvast ## Beta
 # UninstallRealPlayer
 # UninstallWinRAR

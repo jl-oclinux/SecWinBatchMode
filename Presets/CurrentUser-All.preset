@@ -91,6 +91,7 @@ DisableXboxFeatures_CU          # EnableXboxFeatures_CU
 # DisableMediaOnlineAccess_CU   # EnableMediaOnlineAccess_CU
 UninstallOneDrive_CU            # InstallOneDrive_CU            # ViewOneDrive_CU
 # UninstallBalenaEtcher_CU                                      # ViewBalenaEtcher_CU
+# UninstallTelegram_CU                                          # ViewTelegram_CU
 
 ### Unpinning Tweaks ###
 # UnpinStartMenuTiles_CU

@@ -9,3 +9,4 @@ InstallGlassWire
 InstallEdgeWebView2
 
 InstallBalenaEtcher_CU
+InstallTelegram_CU

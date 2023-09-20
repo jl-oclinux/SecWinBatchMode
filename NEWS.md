@@ -18,6 +18,7 @@ installed on your computer.
 
 New presets/rules:
 
+ * 2023/09/20 - `UninstallTelegram_CU`/`ViewTelegram_CU` -> Uninstall Telegram Desktop
  * 2023/09/20 - `UninstallBalenaEtcher_CU`/`ViewBalenaEtcher_CU` -> Uninstall BalenaEtcher
  * 2023/09/01 - `EnableEdgeClearCacheOnExit`/`DisableEdgeClearCacheOnExit`/`ViewEdgeClearCacheOnExit` -> Clear Microsoft Edge on exit
  * 2023/07/07 - `EnableVisualStudioCache`/`DisableVisualStudioCache`/`ViewVisualStudioCache` -> Disable VisualStudio Cache

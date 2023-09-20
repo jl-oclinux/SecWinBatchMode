@@ -7,3 +7,5 @@ InstallOpenOffice
 InstallTotalCommander
 InstallGlassWire
 InstallEdgeWebView2
+
+InstallBalenaEtcher_CU

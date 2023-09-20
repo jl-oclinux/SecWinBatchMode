@@ -20,6 +20,7 @@ NestedModules = @(
 	'.\SWMB\CurrentUser-Privacy.psm1',
 	'.\SWMB\CurrentUser-Service.psm1',
 	'.\SWMB\CurrentUser-UI.psm1',
+	'.\SWMB\CurrentUser-Uninstall.psm1',
 	'.\SWMB\CurrentUser-Unpinning.psm1',
 	'.\SWMB\CurrentUser-UWPPrivacy.psm1',
 	'.\SWMB\LocalMachine-Application.psm1',

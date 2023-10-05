@@ -37,10 +37,13 @@ $Form.Text = "SWMB: Secure Windows Mode Batch"
 
 # Logo
 $Logo = New-Object System.Windows.Forms.PictureBox
-$Logo.Location = New-Object Drawing.Point(270,10)
+$Logo.Location = New-Object Drawing.Point(280,20)
 $Logo.Size = New-Object System.Drawing.Size(200,201)
 $Logo.image = [system.drawing.image]::FromFile("$PSScriptRoot\logo-swmb.ico")
 $Form.Controls.Add($Logo)
+
+################################################################
+# Bitlocker Frame
 
 # Bitlocker Status
 $BitlockerStatus  = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
@@ -102,39 +105,102 @@ $BtnBitlockerFrame.Width = 240
 $BtnBitlockerFrame.Height = 110
 #$BtnBitlockerFrame.BackColor = "Transparent"
 $BtnBitlockerFrame.Text = "Bitlocker"
-$Form.Controls.Add($BtnBitlockerFrame)    
+$Form.Controls.Add($BtnBitlockerFrame) 
+   
+################################################################
+# Task Frame
 
 # Boot Task
-$BtnBootStatus = New-Object System.Windows.Forms.label
-$BtnBootStatus.Location = New-Object System.Drawing.Size(140,160)
-#$BtnBootStatus.Size = New-Object System.Drawing.Size(100,60)
-$BtnBootStatus.Width = 100
-$BtnBootStatus.Height = 40
-$BtnBootStatus.BackColor = "Transparent"
-$BtnBootStatus.Text = ""
-$Form.Controls.Add($BtnBootStatus)
+$BtnTaskBootStatus = New-Object System.Windows.Forms.label
+$BtnTaskBootStatus.Location = New-Object System.Drawing.Size(40,212)
+$BtnTaskBootStatus.Width = 50
+$BtnTaskBootStatus.Height = 15
+$BtnTaskBootStatus.BackColor = "Transparent"
+$BtnTaskBootStatus.Text = ""
+$Form.Controls.Add($BtnTaskBootStatus)
 
-$BtnBoot = New-Object System.Windows.Forms.Button
-$BtnBoot.Location = New-Object System.Drawing.Point(30,140)
-$BtnBoot.Width = 100
-$BtnBoot.Height = 60
-$BtnBoot.Text = "Run Boot Task Schedule Now"
-$Form.controls.Add($BtnBoot)
-$BtnBoot.Add_Click({
-	$BtnBootStatus.Text = "Start..."
+$BtnTaskBoot = New-Object System.Windows.Forms.Button
+$BtnTaskBoot.Location = New-Object System.Drawing.Point(30,150)
+$BtnTaskBoot.Width = 60
+$BtnTaskBoot.Height = 60
+$BtnTaskBoot.Text = "Boot"
+$Form.controls.Add($BtnTaskBoot)
+$BtnTaskBoot.Add_Click({
+	$BtnTaskBootStatus.Text = "Start..."
 	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
 		& eventvwr.exe /c:Application
 	}
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Boot.ps1`"" -WindowStyle Hidden -Wait
 	Start-Process notepad.exe "`"$BootLog`""
-	$BtnBootStatus.Text = "Finish!"
+	$BtnTaskBootStatus.Text = "Finish!"
 })
+
+# Post-Install Task
+$BtnTaskPostInstallStatus = New-Object System.Windows.Forms.label
+$BtnTaskPostInstallStatus.Location = New-Object System.Drawing.Size(110,212)
+$BtnTaskPostInstallStatus.Width = 50
+$BtnTaskPostInstallStatus.Height = 15
+$BtnTaskPostInstallStatus.BackColor = "Transparent"
+$BtnTaskPostInstallStatus.Text = ""
+$Form.Controls.Add($BtnTaskPostInstallStatus)
+
+$BtnTaskPostInstall = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstall.Location = New-Object System.Drawing.Point(100,150)
+$BtnTaskPostInstall.Width = 60
+$BtnTaskPostInstall.Height = 60
+$BtnTaskPostInstall.Text = "Post Install"
+$Form.controls.Add($BtnTaskPostInstall)
+$BtnTaskPostInstall.Add_Click({
+	$BtnTaskPostInstallStatus.Text = "Start..."
+	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
+		& eventvwr.exe /c:Application
+	}
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`"" -WindowStyle Hidden -Wait
+	Start-Process notepad.exe "`"$BootLog`""
+	$BtnTaskPostInstallStatus.Text = "Finish!"
+})
+
+# Logon Task
+$BtnTaskLogonStatus = New-Object System.Windows.Forms.label
+$BtnTaskLogonStatus.Location = New-Object System.Drawing.Size(180,212)
+$BtnTaskLogonStatus.Width = 50
+$BtnTaskLogonStatus.Height = 15
+$BtnTaskLogonStatus.BackColor = "Transparent"
+$BtnTaskLogonStatus.Text = ""
+$Form.Controls.Add($BtnTaskLogonStatus)
+
+$BtnTaskLogon = New-Object System.Windows.Forms.Button
+$BtnTaskLogon.Location = New-Object System.Drawing.Point(170,150)
+$BtnTaskLogon.Width = 60
+$BtnTaskLogon.Height = 60
+$BtnTaskLogon.Text = "Logon"
+$Form.controls.Add($BtnTaskLogon)
+$BtnTaskLogon.Add_Click({
+	$BtnTaskLogonStatus.Text = "Start..."
+	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
+		& eventvwr.exe /c:Application
+	}
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`"" -WindowStyle Hidden -Wait
+	Start-Process notepad.exe "`"$BootLog`""
+	$BtnTaskLogonStatus.Text = "Finish!"
+})
+
+# Task Frame
+$BtnTaskFrame = New-Object System.Windows.Forms.GroupBox
+$BtnTaskFrame.Location = New-Object System.Drawing.Size(20,130)
+$BtnTaskFrame.Width = 240
+$BtnTaskFrame.Height = 100
+#$BtnTaskFrame.BackColor = "Transparent"
+$BtnTaskFrame.Text = "Run Task Schedule Now"
+$Form.Controls.Add($BtnTaskFrame) 
+
+################################################################
 
 # Version
 $RunningVersion  = (SWMB_GetRunningVersion)
 $PublishedVersion = (SWMB_GetLastPublishedVersion)
 $BtnVersion = New-Object System.Windows.Forms.label
-$BtnVersion.Location = New-Object System.Drawing.Size(30,240)
+$BtnVersion.Location = New-Object System.Drawing.Size(30,250)
 $BtnVersion.Width = 120
 $BtnVersion.Height = 40
 $BtnVersion.BackColor = "Transparent"
@@ -143,9 +209,9 @@ $Form.Controls.Add($BtnVersion)
 
 If ($RunningVersion -ne $PublishedVersion) {
 	$BtnUpdate = New-Object System.Windows.Forms.Button
-	$BtnUpdate.Location = New-Object System.Drawing.Point(150,230)
-	$BtnUpdate.Width = 120
-	$BtnUpdate.Height = 40
+	$BtnUpdate.Location = New-Object System.Drawing.Point(150,240)
+	$BtnUpdate.Width = 80
+	$BtnUpdate.Height = 50
 	$BtnUpdate.Text = "New release available"
 	$Form.controls.Add($BtnUpdate)
 
@@ -154,15 +220,32 @@ If ($RunningVersion -ne $PublishedVersion) {
 	})
 }
 
+################################################################
+
+# Software
+$BtnSoftware = New-Object System.Windows.Forms.Button
+$BtnSoftware.Location = New-Object System.Drawing.Point(250,240)
+$BtnSoftware.Width = 80
+$BtnSoftware.Height = 50
+$BtnSoftware.Text = "View All Software"
+$Form.controls.Add($BtnSoftware)
+$BtnSoftware.Add_Click({
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\View-All-Software.ps1`"" -WindowStyle Hidden
+})
+
+################################################################
+
 # Exit
 $BtnExit = New-Object System.Windows.Forms.Button
-$BtnExit.Location = New-Object System.Drawing.Point(310,230)
-$BtnExit.Width = 100
-$BtnExit.Height = 40
+$BtnExit.Location = New-Object System.Drawing.Point(350,240)
+$BtnExit.Width = 80
+$BtnExit.Height = 50
 $BtnExit.Text = "Exit"
 $BtnExit.Add_Click({
 	$Form.Close()
 })
+# https://learn.microsoft.com/fr-fr/dotnet/api/system.windows.media.colors
+$BtnExit.BackColor = 'PaleVioletRed'
 $Form.controls.Add($BtnExit)
 
 # Main Loop

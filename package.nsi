@@ -21,7 +21,7 @@ Unicode True
 !insertmacro GetOptions
 
 !define NAME "SWMB"
-!define VERSION "3.14.13.0"
+!define VERSION "3.14.14.0"
 !define DESCRIPTION "Secure Windows Mode Batch"
 !define PUBLISHER "CNRS France, RESINFO / GT SWMB"
 !define PUBLISHERLIGHT "CNRS France"
@@ -89,7 +89,7 @@ Function ActivatedPresetWindow
   nsDialogs::Create 1018
   Pop $0
 
-  ${NSD_CreateLabel} 0 40u 75% 40u "SWMB will install two Schedule tasks.$\nOne at boot and one at current user logon.$\nThese tasks will apply a default tweaks preset.$\nPlease note that these default presets were developed as part$\nof a corporate strategy with centralized internal authentication."
+  ${NSD_CreateLabel} 0 40u 75% 40u "SWMB will install tree Schedule tasks.$\nOne at boot, one after installation and one at current user logon.$\nThese tasks will apply a default tweaks preset.$\nPlease note that these default presets were developed as part$\nof a corporate strategy with centralized internal authentication."
   Pop $0
 
   ${NSD_CreateCheckbox} 0 -50 100% 8u "Deploy and active default preset (tweaks) for task"
@@ -265,6 +265,7 @@ Section "Program files (Required)"
   File "Tasks\LocalMachine-Boot.ps1"
   File "Tasks\LocalMachine-PostInstall.ps1"
   File "Tasks\LocalMachine-Crypt-With-Bitlocker.ps1"
+  File "Tasks\View-All-Software.ps1"
 SectionEnd
 
 Section "Task Scheduler"

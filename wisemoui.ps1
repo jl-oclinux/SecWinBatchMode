@@ -28,12 +28,26 @@ $BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -
 Import-Module -Name "$PSScriptRoot\Modules\SWMB.psd1" -ErrorAction Stop
 Import-Module -Name "$PSScriptRoot\Modules\WiSeMoUI.psm1" -ErrorAction Stop
 
+$Uptime = (Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime
+$day = 'day'
+If ($Uptime.Days -gt 1) { $day = 'days' }
+$hour = 'hour'
+If ($Uptime.Hours -gt 1) { $hour = 'hours' }
+
+If ($Uptime.Days -ne 0) {
+	$UptimeStr = "$($Uptime.Days) $day, $($Uptime.Hours) $hour"
+} ElseIf ($Uptime.Hours -ne 0) {
+	$UptimeStr = "$($Uptime.Hours) $hour, $($Uptime.Minutes) min"
+} Else {
+	$UptimeStr = "$($Uptime.Minutes) min"
+}
+
 # Main Windows
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 $Form = New-Object System.Windows.Forms.Form
 $Form.ClientSize = '500,300'
-$Form.Text = "SWMB: Secure Windows Mode Batch"
+$Form.Text = "SWMB: Secure Windows Mode Batch / $UptimeStr"
 
 # Logo
 $Logo = New-Object System.Windows.Forms.PictureBox

@@ -50,7 +50,7 @@ Function ListSoftware {
 }
 
 # GUI Output
-ListSoftware | Out-GridView -Title 'LocalMachine and CurrentUser Software'
+ListSoftware | Out-GridView -Title 'LocalMachine and CurrentUser Software' -Wait
 
 
 # Output in JSON Format

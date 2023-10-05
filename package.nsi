@@ -89,10 +89,10 @@ Function ActivatedPresetWindow
   nsDialogs::Create 1018
   Pop $0
 
-  ${NSD_CreateLabel} 0 40u 75% 40u "SWMB will install tree Schedule tasks.$\nOne at boot, one after installation and one at current user logon.$\nThese tasks will apply a default tweaks preset.$\nPlease note that these default presets were developed as part$\nof a corporate strategy with centralized internal authentication."
+  ${NSD_CreateLabel} 0 40u 75% 40u "SWMB will install three Schedule tasks :$\n * one task at boot,$\n * one task shortly after installation,$\n * one task when the current user logon.$\nThese tasks will apply a minimally invasive tweak preset by default.$\nPlease note that these default presets have been developed as part of a corporate$\nstrategy with centralized computer management and authentication."
   Pop $0
 
-  ${NSD_CreateCheckbox} 0 -50 100% 8u "Deploy and active default preset (tweaks) for task"
+  ${NSD_CreateCheckbox} 0 -50 100% 8u "Deploy and active default preset (tweaks) for all tasks"
   Pop $ActivatedPreset_ID
   ${NSD_SetState} $ActivatedPreset_ID ${BST_CHECKED}
 

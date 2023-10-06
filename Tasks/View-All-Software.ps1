@@ -11,10 +11,15 @@
 # Version: v3.13, 2021-11-22
 ################################################################
 
-Function ListSoftware {
+Function SWMB_ListSoftware {
+	# Set HKU drive if not exists
+	New-PSDrive -PSProvider 'Registry' -Name 'HKU' -Root 'HKEY_USERS' -ErrorAction 'SilentlyContinue' | Out-Null
+
+	# Init
 	$Soft = @()
+
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
-	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+	  Get-ChildItem -Recurse 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall') |
 		ForEach {
 			$Key = $_
 			$App = (Get-ItemProperty -Path $Key.PSPath)
@@ -36,7 +41,29 @@ Function ListSoftware {
 			}
 		}
 
-	@(Get-ChildItem -Recurse "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall") |
+	@(Get-ChildItem -Recurse 'HKU:\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Uninstall') |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName    = $App.DisplayName
+			$DisplayVersion = $App.DisplayVersion
+			If ([string]::IsNullOrEmpty($DisplayName) -And [string]::IsNullOrEmpty($DisplayVersion)) { Return }
+
+			$Publisher  = $App.Publisher
+			$KeyProduct = $Key | Split-Path -Leaf
+			$Exe = $App.UninstallString
+			$Soft += New-Object PSObject -Property @{
+				DisplayName    = $DisplayName
+				DisplayVersion = $DisplayVersion
+				KeyProduct     = $KeyProduct
+				Publisher      = $Publisher
+				UninstallExe   = $Exe
+				Hive           = 'HKU'
+				#KeyPath        = $Key.Name
+			}
+		}
+
+	@(Get-ChildItem -Recurse 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall') |
 		ForEach {
 			$Key = $_
 			$App = (Get-ItemProperty -Path $Key.PSPath)
@@ -58,12 +85,11 @@ Function ListSoftware {
 			}
 		}
 
-	$Soft | Select Hive,DisplayName,Publisher,DisplayVersion,KeyProduct,UninstallExe | Sort-Object -Property Hive,DisplayName
+	Return ($Soft | Select Hive,DisplayName,Publisher,DisplayVersion,KeyProduct,UninstallExe | Sort-Object -Property Hive,DisplayName)
 }
 
 # GUI Output
-ListSoftware | Out-GridView -Title 'LocalMachine and CurrentUser Software' -Wait
-
+SWMB_ListSoftware | Out-GridView -Title 'LocalMachine and CurrentUser Software' -Wait
 
 # Output in JSON Format
-# ListSoftware | ConvertTo-Json
+# SWMB_ListSoftware | ConvertTo-Json

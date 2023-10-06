@@ -16,6 +16,11 @@ The aim is not to turn SWMB into a fleet management software, but to
 emphasize its security role by listing some software that should not be
 installed on your computer.
 
+The `wisemoui.ps1` graphical interface has been updated.
+Now you can launch all tasks manually (`Boot`, `Post-Install` and `Logon`)
+and a panel has been added to list all software installed on your computer (`HKLM`, `HKU` and `HKCU`).
+Computer uptime has been added to the title bar.
+
 New presets/rules:
 
  * 2023/09/20 - `UninstallTelegram_CU`/`ViewTelegram_CU` -> Uninstall Telegram Desktop

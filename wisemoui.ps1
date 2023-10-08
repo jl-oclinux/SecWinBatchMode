@@ -205,7 +205,7 @@ $BtnTaskFrame.Location = New-Object System.Drawing.Size(20,130)
 $BtnTaskFrame.Width = 240
 $BtnTaskFrame.Height = 100
 #$BtnTaskFrame.BackColor = "Transparent"
-$BtnTaskFrame.Text = "Run Task Schedule Now"
+$BtnTaskFrame.Text = "Run Scheduled Task Now"
 $Form.Controls.Add($BtnTaskFrame) 
 
 ################################################################

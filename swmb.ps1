@@ -24,14 +24,14 @@ $Script:SWMB_Log        = ''
 $Script:SWMB_Hash       = ''
 
 # First argument
-$i = 0
+$Index = 0
 
 # Load default SWMB modules or just core functions
 $SwmbCorePath = (Get-Item (Get-PSCallStack)[0].ScriptName).DirectoryName
 $SwmbCoreModule = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psd1"))
-If (($args.Length -gt 0) -And ($args[$i].ToLower() -eq "-core")) {
+If (($Args.Length -gt 0) -And ($Args[$Index].ToLower() -eq "-core")) {
 	$SwmbCoreModule = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" -ChildPath "SWMB.psm1"))
-	$i++
+	$Index++
 }
 If (Test-Path $SwmbCoreModule) {
 	Import-Module -Name $SwmbCoreModule -ErrorAction Stop
@@ -40,69 +40,69 @@ If (Test-Path $SwmbCoreModule) {
 SWMB_Init
 
 # Parse and resolve paths in passed arguments
-While ($i -lt $args.Length) {
-	If ($args[$i].ToLower() -eq "-include") {
+While ($Index -lt $Args.Length) {
+	If ($Args[$Index].ToLower() -eq "-include") {
 		# Resolve full path to the included file
 		# Wilcard support
 		Write-Output "Warning: obsolete command line argument -include, now use -import"
-		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
-			$include = $_.Path
-			$Global:SWMB_PSCommandArgs += "-import `"$include`""
+		Resolve-Path $Args[++$Index] -ErrorAction Stop | ForEach-Object {
+			$Include = $_.Path
+			$Global:SWMB_PSCommandArgs += "-import `"$Include`""
 			# Import the included file as a module
-			Import-Module -Name $include -ErrorAction Stop
+			Import-Module -Name $Include -ErrorAction Stop
 		}
-	} ElseIf ($args[$i].ToLower() -eq "-import") {
+	} ElseIf ($Args[$Index].ToLower() -eq "-import") {
 		# Resolve full path to the imported module file
 		# Wilcard support
-		Resolve-Path $args[++$i] -ErrorAction Stop | ForEach-Object {
-			$import = $_.Path
-			$Global:SWMB_PSCommandArgs += "-import `"$import`""
+		Resolve-Path $Args[++$Index] -ErrorAction Stop | ForEach-Object {
+			$Import = $_.Path
+			$Global:SWMB_PSCommandArgs += "-import `"$Import`""
 			# Import the imported file as a module
-			Import-Module -Name $import -ErrorAction Stop
+			Import-Module -Name $Import -ErrorAction Stop
 		}
-	} ElseIf ($args[$i].ToLower() -eq "-exp") {
+	} ElseIf ($Args[$Index].ToLower() -eq "-exp") {
 		$experimental = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" (Join-Path -Path "SWMB" -ChildPath "Experimental.psm1")))
 		If (Test-Path $experimental) {
 			Import-Module -Name $experimental -ErrorAction Stop
 		}
-	} ElseIf ($args[$i].ToLower() -eq "-preset") {
+	} ElseIf ($Args[$Index].ToLower() -eq "-preset") {
 		# Load tweak preset file
-		SWMB_LoadTweakFile($args[++$i])
-	} ElseIf ($args[$i].ToLower() -eq "-log") {
+		SWMB_LoadTweakFile($Args[++$Index])
+	} ElseIf ($Args[$Index].ToLower() -eq "-log") {
 		If ([string]::IsNullOrEmpty($Script:SWMB_Log)) {
 			# Resolve full path to the output file
-			$Script:SWMB_Log = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($args[++$i])
+			$Script:SWMB_Log = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Args[++$Index])
 			$Global:SWMB_PSCommandArgs += "-log `"$Script:SWMB_Log`""
 			# Record session to the output file
 			Start-Transcript -Path $Script:SWMB_Log
 		} Else {
 			Write-Error -Message "SWMB support only one -log command line option" -ErrorAction Stop
 		}
-	} ElseIf ($args[$i].ToLower() -eq "-version") {
+	} ElseIf ($Args[$Index].ToLower() -eq "-version") {
 		$VersionModule = (Join-Path -Path "$SwmbCorePath" -ChildPath (Join-Path -Path "Modules" (Join-Path -Path "SWMB" -ChildPath "Version.psd1")))
 		If (Test-Path $VersionModule) {
 			Import-Module -Name $VersionModule -ErrorAction Stop
 			Write-Output (Get-Module -Name Version).Version.ToString()
 		}
 		Exit
-	} ElseIf ($args[$i].ToLower() -eq "-hash") {
+	} ElseIf ($Args[$Index].ToLower() -eq "-hash") {
 		If ([string]::IsNullOrEmpty($Script:SWMB_Hash)) {
 			# Resolve full path to the hash file
-			$Script:SWMB_Hash = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($args[++$i])
+			$Script:SWMB_Hash = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Args[++$Index])
 			$Global:SWMB_PSCommandArgs += "-hash `"$Script:SWMB_Hash`""
 		} Else {
 			Write-Error -Message "SWMB support only one -hash command line option" -ErrorAction Stop
 		}
-	} ElseIf ($args[$i].ToLower() -eq "-check") {
+	} ElseIf ($Args[$Index].ToLower() -eq "-check") {
 		$Script:SWMB_CheckTweak = 'Check'
-	} ElseIf ($args[$i].ToLower() -eq "-print") {
+	} ElseIf ($Args[$Index].ToLower() -eq "-print") {
 		$Script:SWMB_CheckTweak = 'Print'
 	} Else {
-		$Global:SWMB_PSCommandArgs += $args[$i]
+		$Global:SWMB_PSCommandArgs += $Args[$Index]
 		# Load tweak names from command line
-		SWMB_AddOrRemoveTweak($args[$i])
+		SWMB_AddOrRemoveTweak($Args[$Index])
 	}
-	$i++
+	$Index++
 }
 
 Switch ($Script:SWMB_CheckTweak) {

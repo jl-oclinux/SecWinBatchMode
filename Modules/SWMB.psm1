@@ -243,7 +243,11 @@ Function SWMB_LoadTweakFile() {
 
 Function SWMB_RunTweaks {
 	$Global:SWMB_Tweaks | ForEach-Object {
-		Invoke-Expression "Tweak$_"
+		If (Get-Command -Name "Tweak$_" -ErrorAction SilentlyContinue) {
+			Invoke-Expression "Tweak$_"
+		} Else {
+			Write-Output "Tweak $tweak is not defined!"
+		}
 	}
 }
 

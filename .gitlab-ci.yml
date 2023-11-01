@@ -11,6 +11,7 @@ pages:
     - mkdir -p public
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
     - '[ -s download.tar.gz ] && ( cd public ; tar -xzf ../download.tar.gz )'
+    - (git rev-list $(git rev-list --tags --no-walk --max-count=1)..HEAD --count ; echo 0 ) | head -1
     - make pkg
     - mv SWMB-Setup-*.exe public/
     - make version > public/version.txt

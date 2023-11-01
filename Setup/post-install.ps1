@@ -22,6 +22,21 @@ If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Unins
 	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
 }
 
+# Create a unique Host Id if it doesn't already exist,	
+# which will be used in webhooks, for example, to uniquely identify each host
+$KeyId = Get-Item -LiteralPath 'HKLM:\Software\SWMB' -ErrorAction SilentlyContinue
+If (!(($KeyId) -And ($KeyId.GetValue('HostId', $Null) -ne $Null))) {
+	$HostId = (New-Guid).ToString()
+	Write-Output "Warning: create a registry key HostId set to = $HostId"
+	If (!(Test-Path 'HKLM:\Software\SWMB')) {
+		New-Item -Path 'HKLM:\Software\SWMB' | Out-Null
+	}
+	Set-ItemProperty -Path 'HKLM:\Software\SWMB' -Name 'HostId' -Type String -Value "$HostId"
+} Else {
+	$HostId = (Get-ItemProperty -Path 'HKLM:\Software\SWMB' -Name 'HostId').HostId
+	Write-Output "Warning: the registry key for this HostId is = $HostId"
+}
+
 # Create ProgramData Folders
 $DataFolder  = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")

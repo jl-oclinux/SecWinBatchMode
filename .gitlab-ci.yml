@@ -13,13 +13,11 @@ pages:
     - mkdir -p public
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
     - '[ -s download.tar.gz ] && ( cd public ; tar -xzf ../download.tar.gz )'
-    - env
-    - git checkout master; git pull origin master
+    - git checkout master
     - git fetch --all --tags
-    - commits=$((git rev-list $(git rev-list --tags --no-walk --max-count=1 origin master)..HEAD --count origin master; echo 0 ) | head -1)
+    - commits=$((git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count; echo 0 ) | head -1)
     - echo $commits
-    - ls
-    - md5sum *
+    - md5sum *.md *.ps1 .gitlab-ci.yml
     - make pkg
     - mv SWMB-Setup-*.exe public/
     - make version > public/version.txt

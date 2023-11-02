@@ -1,14 +1,21 @@
 SOFT:=SWMB
-VERSION:=$(shell grep '!define VERSION' ./package.nsi | cut -f 2 -d '"')
+NB_COMMIT=$(shell git log $$(git tag | tail -1)..HEAD --oneline | wc -l)
+VERSION_NSI:=$(shell grep '!define VERSION' ./package.nsi | cut -f 2 -d '"')
+VERSION:=$(shell echo $(VERSION_NSI) | sed -e "s/\.0$$/.$(NB_COMMIT)/;")
 
 .PHONY: all help pkg version check clean doc
 
 all: $(SOFT)-Setup-$(VERSION).exe
 
 help:
-	@echo "all    create .exe installer"
-	@echo "check  check tweaks"
-	@echo "clean  clean setup.exe file"
+	@echo "all      create .exe installer"
+	@echo "check    check tweaks"
+	@echo "clean    clean setup.exe file"
+	@echo "version  write version"
+	@echo "doc      build documentation"
+	@echo ""
+	@echo "VersionNSI: $(VERSION_NSI)"
+	@echo "Version:    $(VERSION)"
 
 pkg: $(SOFT)-Setup-$(VERSION).exe
 
@@ -17,16 +24,16 @@ version:
 
 %.exe:
 	@mkdir -p tmp
-	@sed -e "s/\(ModuleVersion = \)'.*$$/\1'$(VERSION)'/;" Modules/SWMB.psd1 > tmp/SWMB.psd1
+	@sed -e "s/__VERSION__/$(VERSION)'/;" Modules/SWMB.psd1 > tmp/SWMB.psd1
 	@echo "@{ ModuleVersion = '$(VERSION)' }" > tmp/Version.psd1
-	makensis package.nsi
+	@sed -e "s/$(VERSION_NSI)/$(VERSION)/;" package.nsi > tmp/package.nsi
+	makensis -NOCD tmp/package.nsi
 
 check:
 	@./check-project
 
 clean:
-	rm -f SWMB*.exe
-	[ -d ./tmp ] && rm -f ./tmp/*
+	@rm -rf SWMB*.exe tmp resources 2> /dev/null
 
 doc:
 	mkdir -p /tmp/swmb/site

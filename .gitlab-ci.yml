@@ -23,7 +23,7 @@ pages:
     - echo $((git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count; echo 0 ) | head -1)
     - git log $(git describe --tags --abbrev=0 --always)..HEAD --oneline | wc -l
     - git log $(git tag | tail -1)..HEAD --oneline | wc -l
-    - md5sum *.md *.ps1 .gitlab-ci.yml
+    - git log $(git tag | tail -1)..HEAD --oneline --no-merges
     - make pkg
     - mv SWMB-Setup-*.exe public/
     - make version > public/version.txt

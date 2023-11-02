@@ -3,7 +3,7 @@ image: debian:latest
 
 before_script:
   - apt-get update -yqq
-  - apt-get install -yqq perl make binutils findutils gzip tar wget nsis zip mkdocs
+  - apt-get install -yqq perl make binutils findutils gzip tar wget nsis zip mkdocs git
 
 pages:
   stage: build
@@ -11,6 +11,9 @@ pages:
     - mkdir -p public
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
     - '[ -s download.tar.gz ] && ( cd public ; tar -xzf ../download.tar.gz )'
+    - env
+    - git fetch --all --tags
+    - (git rev-list $(git rev-list --tags --no-walk --max-count=1)..HEAD --count ; echo 0 ) | head -1
     - make pkg
     - mv SWMB-Setup-*.exe public/
     - make version > public/version.txt

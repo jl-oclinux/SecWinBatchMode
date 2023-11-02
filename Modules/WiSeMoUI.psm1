@@ -35,8 +35,20 @@ Function SWMB_GetRunningVersion {
 
 ################################################################
 
+Function SWMB_GetHomeURL {
+	Return 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb'
+}
+
+################################################################
+
+Function SWMB_GetDownloadURL {
+	Return 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb'
+}
+
+################################################################
+
 Function SWMB_GetLastPublishedVersion {
-	$Url = 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb'
+	$Url = (SWMB_GetDownloadURL)
 	[System.Net.ServicePointManager]::MaxServicePointIdleTime = 3000
 	Try {
 		$NextVersion = ((Invoke-WebRequest -Uri "$Url/version.txt" -Method Get -TimeoutSec 3).Content)
@@ -86,4 +98,4 @@ Function SWMB_GetBitLockerStatus {
 ################################################################
 
 # Export functions
-Export-ModuleMember -Function *
+Export-ModuleMember -Function SWMB_*

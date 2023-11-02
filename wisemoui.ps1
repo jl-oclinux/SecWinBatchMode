@@ -230,7 +230,8 @@ If ($RunningVersion -ne $PublishedVersion) {
 	$Form.controls.Add($BtnUpdate)
 
 	$BtnUpdate.Add_Click({
-		Start-Process "$SWMB_Url"
+	    $HomeUrl = (SWMB_GetHomeURL)
+		Start-Process "$HomeUrl"
 	})
 }
 

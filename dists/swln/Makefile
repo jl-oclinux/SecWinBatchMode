@@ -3,7 +3,7 @@ SOFT:=SWLN
 SWLN_NAME:=SWLN
 SWLN_VERSION:=5.18
 PATCH:=1
-SWMB_VERSION:=3.14.10.0
+SWMB_VERSION:=$(shell curl -s -L 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt')
 
 
 FILES:=uninstall.bat

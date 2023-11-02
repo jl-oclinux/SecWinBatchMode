@@ -1,6 +1,6 @@
 SOFT:=SWMB
 VERSION:=$(shell grep '!define VERSION' ../../tmp/package.nsi | cut -f 2 -d '"')
-PATCH:=2
+PATCH:=1
 DATE:=$(shell date '+%Y/%m/%d')
 
 .PHONY: all help update clean

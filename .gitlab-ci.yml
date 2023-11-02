@@ -15,6 +15,9 @@ pages:
     - '[ -s download.tar.gz ] && ( cd public ; tar -xzf ../download.tar.gz )'
     - git checkout master
     - git fetch --all --tags
+    - git tag
+    - git rev-list $(git tag | tail -1) --max-count=1
+    - git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count
     - commits=$((git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count; echo 0 ) | head -1)
     - echo $commits
     - md5sum *.md *.ps1 .gitlab-ci.yml

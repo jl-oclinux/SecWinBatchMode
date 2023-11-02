@@ -1,6 +1,8 @@
 # NEWS
 
-## Version 3.15 (in progress)
+## Version 3.16 (in progress)
+
+## Version 3.15
 
 SWMB can also be used to block the installation of certain software on
 computers. The tested solution consists in making tweaks that silently
@@ -20,6 +22,9 @@ The `wisemoui.ps1` graphical interface has been updated.
 Now you can launch all tasks manually (`Boot`, `Post-Install` and `Logon`)
 and a panel has been added to list all software installed on your computer (`HKLM`, `HKU` and `HKCU`).
 Computer uptime has been added to the title bar.
+
+During installation, SWMB writes a unique GUID to the registry
+so that it can be used later in webhook calls to always have the same identifier for a computer.
 
 New presets/rules:
 

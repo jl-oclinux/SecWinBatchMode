@@ -1,11 +1,11 @@
 ECHO OFF
 
-SET softversion=1.0
-SET softpatch=1
+SET softversion=__VERSION__
+SET softpatch=__PATCH__
 SET softname=SWMB - Configuration RESINFO
 SET regkey=SWMB
 SET softpublisher=RESINFO GT SWMB
-SET logfile="C:\Program Files\SWMB\logfile.txt"
+SET logfile="C:\Program Files\SWMB\logfile.log"
 
 SET pwrsh=%WINDIR%\System32\WindowsPowerShell\V1.0\powershell.exe
 IF EXIST "%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe" SET pwrsh=%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe
@@ -14,8 +14,8 @@ REM create folder
 IF NOT EXIST "C:\Program Files\SWMB" MKDIR "C:\Program Files\SWMB"
 
 REM log
-COPY /y NUL "C:\Program Files\SWMB\logfile.txt" >NUL  
-ECHO %date%-%time%>>%logfile%
+COPY /y NUL "C:\Program Files\SWMB\logfile.log" >NUL  
+ECHO %date%-%time% >> %logfile%
 
 REM silent install
 SWMB-Setup-%softversion%.exe /S

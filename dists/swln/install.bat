@@ -13,11 +13,11 @@ EXIT /B
 
 ECHO BEGIN %date%-%time%
 
-SET softversion=4.6
-SET softpatch=2
+SET softversion=__SWLN_VERSION__
+SET softpatch=__PATCH__
 SET softregkey=%softname%
 SET softpublisher=RESINFO / Local Network Area
-SET swmbversion=3.6
+SET swmbversion=__SWMB_VERSION__
 
 SET pwrsh=%WINDIR%\System32\WindowsPowerShell\V1.0\powershell.exe
 IF EXIST "%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe" SET pwrsh=%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe

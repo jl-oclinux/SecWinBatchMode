@@ -1,7 +1,7 @@
 
-$SWLN_Name = "SWLN"
-$SWLN_Version = "4.6"
-$SWMB_Version = "3.14.3.0"
+$SWLN_Name = "__SWLN__NAME__"
+$SWLN_Version = "__SWLN_VERSION__"
+$SWMB_Version = "__SWMB_VERSION__"
 
 If (Test-Path "${Env:ProgramFiles}\$SWLN_Name\version.txt" -PathType Leaf) {
 	$SWLN_VersionOld = Get-Content -Path "${Env:ProgramFiles}\$SWLN_Name\version.txt"

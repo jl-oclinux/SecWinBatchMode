@@ -1,5 +1,5 @@
 SOFT:=SWMB
-VERSION:=$(shell grep '!define VERSION' ../../package.nsi | cut -f 2 -d '"')
+VERSION:=$(shell grep '!define VERSION' ../../tmp/package.nsi | cut -f 2 -d '"')
 PATCH:=1
 
 
@@ -26,9 +26,7 @@ clean:
 
 %.zip: Makefile
 	mkdir -p tmp
-	perl -p -e ' \
-		s/^(SET\ssoftversion=)\d[\.\d]+/$${1}$(VERSION)/; \
-		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/;' install.bat > tmp/install.bat
+	sed -e 's/__VERSION__/$(VERSION)/; s/__PATCH__/$(PATCH)/;' install.bat > tmp/install.bat
 	rm -f $@
 	(cd ../..; \
 		make; \

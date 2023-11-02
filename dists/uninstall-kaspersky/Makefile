@@ -1,5 +1,5 @@
 SOFT:=Kasperky-Uninstall
-VERSION:=$(shell grep '!define VERSION' ../../package.nsi | cut -f 2 -d '"')
+VERSION:=$(shell grep '!define VERSION' ../../tmp/package.nsi | cut -f 2 -d '"')
 PATCH:=1
 
 
@@ -33,12 +33,8 @@ zip: $(SOFT)-$(VERSION)-$(PATCH).zip
 
 %.zip: Makefile
 	mkdir -p ./tmp/WAPT
-	perl -p -e ' \
-		s/^(SET\ssoftversion=)\d[\.\d]+/$${1}$(VERSION)/; \
-		s/^(SET\ssoftpatch=)\d+/$${1}$(PATCH)/;' install.bat > tmp/install.bat
-	@perl -p -e ' \
-		s/__VERSION__/$(VERSION)/; \
-		s/__PATCH__/$(PATCH)/;' control > ./tmp/WAPT/control
+	sed -e 's/__VERSION__/$(VERSION)/; s/__PATCH__/$(PATCH)/;' install.bat > tmp/install.bat
+	sed -e 's/__VERSION__/$(VERSION)/; s/__PATCH__/$(PATCH)/;' control > ./tmp/WAPT/control
 	@cp ../../Modules/SWMB.psm1 ../../Modules/SWMB/Custom.psm1 ../../Modules/SWMB/Custom-VarDefault.psm1 ../../Modules/SWMB/LocalMachine-Uninstall.psm1 ./tmp/; \
 		cp ./README.md ./get-password-cleartext.ps1 ./set-password-encrypted.ps1 ./Custom-VarAutodel.psm1 ./*.key ./tmp/; \
 		cp ./uninstall-kaspersky-standalone.ps1 ./tmp/uninstall-kaspersky.ps1; \

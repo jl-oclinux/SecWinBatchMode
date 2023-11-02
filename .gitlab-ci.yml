@@ -18,8 +18,8 @@ pages:
     - git tag
     - git rev-list $(git tag | tail -1) --max-count=1
     - git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count
-    - commits=$((git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count; echo 0 ) | head -1)
-    - echo $commits
+    - git rev-list HEAD --max-count=3
+    - echo $((git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count; echo 0 ) | head -1)
     - md5sum *.md *.ps1 .gitlab-ci.yml
     - make pkg
     - mv SWMB-Setup-*.exe public/

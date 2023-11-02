@@ -7,6 +7,8 @@ before_script:
 
 pages:
   stage: build
+  variables:
+    GIT_STRATEGY: clone
   script:
     - mkdir -p public
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
@@ -14,7 +16,8 @@ pages:
     - env
     - git checkout master ; git pull origin master
     - git fetch --all --tags
-    - (git rev-list $(git rev-list --tags --no-walk --max-count=1)..HEAD --count ; echo 0 ) | head -1
+    - commits=$((git rev-list $(git rev-list --tags --no-walk --max-count=1)..HEAD --count ; echo 0 ) | head -1)
+    - echo $commits
     - ls
     - md5sum *
     - make pkg

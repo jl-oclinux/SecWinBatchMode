@@ -22,7 +22,7 @@ pages:
     - git rev-list HEAD --max-count=3
     - echo $((git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count; echo 0 ) | head -1)
     - git log $(git describe --tags --abbrev=0 --always)..HEAD --oneline | wc -l
-    - git log $(git tag | tail -1)..HEAD --oneline | wc -l
+    - git log $(git tag | tail -1)..HEAD --oneline -n 999 | wc -l
     - git log $(git tag | tail -1)..HEAD --oneline --no-merges
     - make pkg
     - mv SWMB-Setup-*.exe public/

@@ -6,12 +6,13 @@
 ##
 
 ## Fix site version
-#SWLN_VERSION:=5.18
-#PATCH:=1
 #SWMB_VERSION:=3.14.10.0
+#SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\.//g;')
+#PATCH:=1
 
 ## Add folder print
 #FILES+=print
 
-## Put the name of your IT service
+## Put the name of your IT service / Publisher
 #IT_Team:=IT Team
+#PUBLISHER:=CNRS France, RESINFO / Local Network Area

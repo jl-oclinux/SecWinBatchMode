@@ -1,5 +1,5 @@
 
-$SWLN_Name = "__SWLN__NAME__"
+$SWLN_Name = "__SWLN_NAME__"
 $SWLN_Version = "__SWLN_VERSION__"
 $SWMB_Version = "__SWMB_VERSION__"
 

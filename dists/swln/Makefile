@@ -1,9 +1,9 @@
 
 SOFT:=SWLN
 SWLN_NAME:=SWLN
-SWLN_VERSION:=5.18
-PATCH:=1
 SWMB_VERSION:=$(shell curl -s -L 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt')
+SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\.//g;')
+PATCH:=1
 
 
 FILES:=uninstall.bat
@@ -18,6 +18,7 @@ TFILES:=install.bat
 TFILES+=post-install.ps1
 
 IT_Team:=IT Team
+PUBLISHER:=CNRS France, RESINFO / Local Network Area
 
 sinclude extend-variables.mk
 
@@ -27,7 +28,7 @@ TMPFILES:=$(addprefix tmp/,$(TFILES))
 
 .PHONY: all clean ocs check-exe version
 
-all: check-exe $(SOFT)-$(SWLN_VERSION)-$(PATCH).zip
+all: check-exe $(SOFT)_$(SWLN_VERSION)-$(PATCH)_x64.zip
 
 version:
 	@echo "Soft    $(SOFT)"
@@ -39,16 +40,16 @@ version:
 	@echo "TFiles  $(TFILES)"
 
 clean:
-	@rm -rf tmp $(SOFT)-$(SWLN_VERSION)-$(PATCH).zip
+	@rm -rf tmp $(SOFT)_$(SWLN_VERSION)-$(PATCH)_x64.zip resources
 	@find . -name '*.bak' -delete
 
-tmp/install.bat: install.bat Makefile
+tmp/install.bat: install.bat Makefile tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' install.bat > tmp/install.bat
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' install.bat > tmp/install.bat
 
-tmp/post-install.ps1: post-install.ps1 Makefile
+tmp/post-install.ps1: post-install.ps1 Makefile tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' post-install.ps1 > tmp/post-install.ps1
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' post-install.ps1 > tmp/post-install.ps1
 
 tmp/SWMB-Setup-%.exe: Makefile
 	@mkdir -p tmp
@@ -73,7 +74,7 @@ check-exe: tmp/SWMB-Setup-$(SWMB_VERSION).exe
 
 ocs: all
 	@echo ""
-	@echo "Name:     $(SOFT)-$(SWLN_VERSION)-$(PATCH)"
+	@echo "Name:     $(SOFT)_$(SWLN_VERSION)-$(PATCH)_x64"
 	@echo "priority: *2*"
 	@echo "Launch:   install.bat"
 	@echo "Message:  no"

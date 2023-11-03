@@ -1,6 +1,6 @@
 ECHO OFF
 
-SET softname=SWLN
+SET softname=__SWLN_NAME__
 
 SET logdir=%SystemRoot%\Logs\Deploy
 IF NOT EXIST "%logdir%" (
@@ -16,7 +16,7 @@ ECHO BEGIN %date%-%time%
 SET softversion=__SWLN_VERSION__
 SET softpatch=__PATCH__
 SET softregkey=%softname%
-SET softpublisher=RESINFO / Local Network Area
+SET softpublisher=__PUBLISHER__
 SET swmbversion=__SWMB_VERSION__
 
 SET pwrsh=%WINDIR%\System32\WindowsPowerShell\V1.0\powershell.exe

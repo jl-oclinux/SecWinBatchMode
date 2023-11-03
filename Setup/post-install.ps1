@@ -24,17 +24,17 @@ If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Unins
 
 # Create a unique Host Id if it doesn't already exist,	
 # which will be used in webhooks, for example, to uniquely identify each host
-$KeyId = Get-Item -LiteralPath 'HKLM:\Software\SWMB' -ErrorAction SilentlyContinue
+$KeyId = Get-Item -LiteralPath 'HKLM:\Software\WOW6432Node\SWMB' -ErrorAction SilentlyContinue
 If (!(($KeyId) -And ($KeyId.GetValue('HostId', $Null) -ne $Null))) {
 	$HostId = (New-Guid).ToString()
 	Write-Output "Warning: create a registry key HostId set to = $HostId" >> "$InstallFolder\install.log"
-	If (!(Test-Path 'HKLM:\Software\SWMB')) {
-		New-Item -Path 'HKLM:\Software\SWMB' | Out-Null
+	If (!(Test-Path 'HKLM:\Software\WOW6432Node\SWMB')) {
+		New-Item -Path 'HKLM:\Software\WOW6432Node\SWMB' | Out-Null
 	}
-	Set-ItemProperty -Path 'HKLM:\Software\SWMB' -Name 'HostId' -Type String -Value "$HostId"
+	Set-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId' -Type String -Value "$HostId"
 } Else {
-	$HostId = (Get-ItemProperty -Path 'HKLM:\Software\SWMB' -Name 'HostId').HostId
-	Write-Output "Warning: the registry key for this HostId is = $HostId" >> "$InstallFolder\install.log"
+	$HostId = (Get-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId').HostId
+	Write-Output "Info: the registry key for this HostId is = $HostId" >> "$InstallFolder\install.log"
 }
 
 # Create ProgramData Folders

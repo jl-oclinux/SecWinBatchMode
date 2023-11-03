@@ -17,15 +17,26 @@ FILES+=$(shell ls -1 Local-Addon.psm1                2> /dev/null)
 TFILES:=install.bat
 TFILES+=post-install.ps1
 
+IT_Team:=IT Team
+
 sinclude extend-variables.mk
 
 TFILES+=SWMB-Setup-$(SWMB_VERSION).exe
 
 TMPFILES:=$(addprefix tmp/,$(TFILES))
 
-.PHONY: all clean ocs
+.PHONY: all clean ocs check-exe version
 
-all: $(SOFT)-$(SWLN_VERSION)-$(PATCH).zip
+all: check-exe $(SOFT)-$(SWLN_VERSION)-$(PATCH).zip
+
+version:
+	@echo "Soft    $(SOFT)"
+	@echo "Name    $(SWLN_NAME)"
+	@echo "Version $(SWLN_VERSION)"
+	@echo "Patch   $(PATCH)"
+	@echo "SWMB    $(SWMB_VERSION)"
+	@echo "Files   $(FILES)"
+	@echo "TFiles  $(TFILES)"
 
 clean:
 	@rm -rf tmp $(SOFT)-$(SWLN_VERSION)-$(PATCH).zip
@@ -43,8 +54,12 @@ tmp/SWMB-Setup-%.exe: Makefile
 	@mkdir -p tmp
 	@(cd tmp ; \
 		curl -# --remote-name --insecure "https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/SWMB-Setup-$(SWMB_VERSION).exe" ; \
-		file "SWMB-Setup-$(SWMB_VERSION).exe" | grep -q "PE32 executable" || echo "Error: bad format for binary SWMB-Setup-$(SWMB_VERSION).exe" ; \
-		which peres >/dev/null && { peres -a "SWMB-Setup-$(SWMB_VERSION).exe" | grep -q "^Product Version:[[:space:]]*$(SWMB_VERSION)" || echo "Error: bad version for binary SWMB-Setup-$(SWMB_VERSION).exe" ; } ; \
+		)
+
+check-exe: tmp/SWMB-Setup-$(SWMB_VERSION).exe
+	@(cd tmp ; \
+		file "SWMB-Setup-$(SWMB_VERSION).exe" | grep -q "PE32 executable" || { echo "Error: bad format for binary SWMB-Setup-$(SWMB_VERSION).exe" 1>&2 ; exit 1; } ; \
+		which peres >/dev/null && { peres -a "SWMB-Setup-$(SWMB_VERSION).exe" | grep -q "^Product Version:[[:space:]]*$(SWMB_VERSION)" || { echo "Error: bad version for binary SWMB-Setup-$(SWMB_VERSION).exe" 1>&2 ; exit 1; } ; } ; \
 		)
 
 %.zip: Makefile $(FILES) $(TMPFILES)
@@ -63,7 +78,7 @@ ocs: all
 	@echo "Launch:   install.bat"
 	@echo "Message:  no"
 	@echo ""
-	@echo "IT Team"
+	@echo "$(IT_Team)"
 	@echo " --- "
 	@echo "Install and Update: $(SOFT) v$(SWLN_VERSION) (SWMB v$(SWMB_VERSION))"
 	@echo ""

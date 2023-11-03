@@ -12,3 +12,6 @@
 
 ## Add folder print
 #FILES+=print
+
+## Put the name of your IT service
+#IT_Team:=IT Team

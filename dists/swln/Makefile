@@ -33,11 +33,11 @@ clean:
 
 tmp/install.bat: install.bat Makefile
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' install.bat > tmp/install.bat
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' install.bat > tmp/install.bat
 
 tmp/post-install.ps1: post-install.ps1 Makefile
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)"/; s/__SWLN_VERSION__/$(SWLN_VERSION)"/; s/__SWMB_VERSION__/$(SWMB_VERSION)"/;' post-install.ps1 > tmp/post-install.ps1
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' post-install.ps1 > tmp/post-install.ps1
 
 tmp/SWMB-Setup-%.exe: Makefile
 	@mkdir -p tmp

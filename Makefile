@@ -24,9 +24,9 @@ version:
 
 %.exe:
 	@mkdir -p tmp
-	@sed -e "s/__VERSION__/$(VERSION)'/;" Modules/SWMB.psd1 > tmp/SWMB.psd1
+	sed -e 's/__VERSION__/$(VERSION)/;' Modules/SWMB.psd1 > tmp/SWMB.psd1
 	@echo "@{ ModuleVersion = '$(VERSION)' }" > tmp/Version.psd1
-	@sed -e "s/$(VERSION_NSI)/$(VERSION)/;" package.nsi > tmp/package.nsi
+	@sed -e 's/$(VERSION_NSI)/$(VERSION)/;' package.nsi > tmp/package.nsi
 	makensis -NOCD tmp/package.nsi
 
 check:

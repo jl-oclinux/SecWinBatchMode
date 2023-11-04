@@ -27,14 +27,14 @@ If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Unins
 $KeyId = Get-Item -LiteralPath 'HKLM:\Software\WOW6432Node\SWMB' -ErrorAction SilentlyContinue
 If (!(($KeyId) -And ($KeyId.GetValue('HostId', $Null) -ne $Null))) {
 	$HostId = (New-Guid).ToString()
-	Write-Output "Warning: create a registry key HostId set to = $HostId" >> "$InstallFolder\install.log"
+	Write-Output "Warning: create a registry key HostId set to = $HostId"
 	If (!(Test-Path 'HKLM:\Software\WOW6432Node\SWMB')) {
 		New-Item -Path 'HKLM:\Software\WOW6432Node\SWMB' | Out-Null
 	}
 	Set-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId' -Type String -Value "$HostId"
 } Else {
 	$HostId = (Get-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId').HostId
-	Write-Output "Info: the registry key for this HostId is = $HostId" >> "$InstallFolder\install.log"
+	Write-Output "Info: the registry key for this HostId is = $HostId"
 }
 
 # Create ProgramData Folders

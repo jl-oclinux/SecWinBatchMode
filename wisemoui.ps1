@@ -46,12 +46,12 @@ If ($Uptime.Days -ne 0) {
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 $Form = New-Object System.Windows.Forms.Form
-$Form.ClientSize = '500,300'
+$Form.ClientSize = '550,370'
 $Form.Text = "SWMB: Secure Windows Mode Batch / $UptimeStr"
 
 # Logo
 $Logo = New-Object System.Windows.Forms.PictureBox
-$Logo.Location = New-Object Drawing.Point(280,20)
+$Logo.Location = New-Object Drawing.Point(320,30)
 $Logo.Size = New-Object System.Drawing.Size(200,201)
 $Logo.image = [system.drawing.image]::FromFile("$PSScriptRoot\logo-swmb.ico")
 $Form.Controls.Add($Logo)
@@ -72,9 +72,9 @@ $Form.Controls.Add($BtnBitlockerStatus)
 # Bitlocker Crypt  
 $BtnCrypt = New-Object System.Windows.Forms.Button
 $BtnCrypt.Location = New-Object System.Drawing.Point(30,50)
-$BtnCrypt.Width = 100
+$BtnCrypt.Width = 110
 $BtnCrypt.Height = 60
-$BtnCrypt.Text = "Crypt all Disks with Bitlocker"
+$BtnCrypt.Text = "Crypt all Disks`nwith Bitlocker"
 $Form.controls.Add($BtnCrypt)
 $BtnCrypt.Add_Click({
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1`"" -WindowStyle Normal
@@ -86,7 +86,7 @@ If ($BitlockerStatus -cmatch "Suspend") {
 	$BitlockerAction  = "Resume"
 }
 $BtnBitlockerAction = New-Object System.Windows.Forms.Button
-$BtnBitlockerAction.Location = New-Object System.Drawing.Point(150,50)
+$BtnBitlockerAction.Location = New-Object System.Drawing.Point(170,50)
 $BtnBitlockerAction.Width = 80
 $BtnBitlockerAction.Height = 60
 $BtnBitlockerAction.BackColor = "Transparent"
@@ -115,7 +115,7 @@ $BtnBitlockerAction.Add_Click({
 # Bitlocker Frame
 $BtnBitlockerFrame = New-Object System.Windows.Forms.GroupBox
 $BtnBitlockerFrame.Location = New-Object System.Drawing.Size(20,10)
-$BtnBitlockerFrame.Width = 240
+$BtnBitlockerFrame.Width = 250
 $BtnBitlockerFrame.Height = 110
 #$BtnBitlockerFrame.BackColor = "Transparent"
 $BtnBitlockerFrame.Text = "Bitlocker"
@@ -151,7 +151,7 @@ $BtnTaskBoot.Add_Click({
 
 # Post-Install Task
 $BtnTaskPostInstallStatus = New-Object System.Windows.Forms.label
-$BtnTaskPostInstallStatus.Location = New-Object System.Drawing.Size(110,212)
+$BtnTaskPostInstallStatus.Location = New-Object System.Drawing.Size(120,212)
 $BtnTaskPostInstallStatus.Width = 50
 $BtnTaskPostInstallStatus.Height = 15
 $BtnTaskPostInstallStatus.BackColor = "Transparent"
@@ -159,7 +159,7 @@ $BtnTaskPostInstallStatus.Text = ""
 $Form.Controls.Add($BtnTaskPostInstallStatus)
 
 $BtnTaskPostInstall = New-Object System.Windows.Forms.Button
-$BtnTaskPostInstall.Location = New-Object System.Drawing.Point(100,150)
+$BtnTaskPostInstall.Location = New-Object System.Drawing.Point(110,150)
 $BtnTaskPostInstall.Width = 60
 $BtnTaskPostInstall.Height = 60
 $BtnTaskPostInstall.Text = "Post Install"
@@ -176,7 +176,7 @@ $BtnTaskPostInstall.Add_Click({
 
 # Logon Task
 $BtnTaskLogonStatus = New-Object System.Windows.Forms.label
-$BtnTaskLogonStatus.Location = New-Object System.Drawing.Size(180,212)
+$BtnTaskLogonStatus.Location = New-Object System.Drawing.Size(200,212)
 $BtnTaskLogonStatus.Width = 50
 $BtnTaskLogonStatus.Height = 15
 $BtnTaskLogonStatus.BackColor = "Transparent"
@@ -184,7 +184,7 @@ $BtnTaskLogonStatus.Text = ""
 $Form.Controls.Add($BtnTaskLogonStatus)
 
 $BtnTaskLogon = New-Object System.Windows.Forms.Button
-$BtnTaskLogon.Location = New-Object System.Drawing.Point(170,150)
+$BtnTaskLogon.Location = New-Object System.Drawing.Point(190,150)
 $BtnTaskLogon.Width = 60
 $BtnTaskLogon.Height = 60
 $BtnTaskLogon.Text = "Logon"
@@ -202,7 +202,7 @@ $BtnTaskLogon.Add_Click({
 # Task Frame
 $BtnTaskFrame = New-Object System.Windows.Forms.GroupBox
 $BtnTaskFrame.Location = New-Object System.Drawing.Size(20,130)
-$BtnTaskFrame.Width = 240
+$BtnTaskFrame.Width = 250
 $BtnTaskFrame.Height = 100
 #$BtnTaskFrame.BackColor = "Transparent"
 $BtnTaskFrame.Text = "Run Scheduled Task Now"
@@ -214,8 +214,8 @@ $Form.Controls.Add($BtnTaskFrame)
 $RunningVersion  = (SWMB_GetRunningVersion)
 $PublishedVersion = (SWMB_GetLastPublishedVersion)
 $BtnVersion = New-Object System.Windows.Forms.label
-$BtnVersion.Location = New-Object System.Drawing.Size(30,250)
-$BtnVersion.Width = 120
+$BtnVersion.Location = New-Object System.Drawing.Size(30,270)
+$BtnVersion.Width = 110
 $BtnVersion.Height = 40
 $BtnVersion.BackColor = "Transparent"
 $BtnVersion.Text = "Version: $RunningVersion"
@@ -223,10 +223,10 @@ $Form.Controls.Add($BtnVersion)
 
 If ($RunningVersion -ne $PublishedVersion) {
 	$BtnUpdate = New-Object System.Windows.Forms.Button
-	$BtnUpdate.Location = New-Object System.Drawing.Point(150,240)
-	$BtnUpdate.Width = 80
+	$BtnUpdate.Location = New-Object System.Drawing.Point(140,255)
+	$BtnUpdate.Width = 110
 	$BtnUpdate.Height = 50
-	$BtnUpdate.Text = "New release available"
+	$BtnUpdate.Text = "New release available`n$PublishedVersion"
 	$Form.controls.Add($BtnUpdate)
 
 	$BtnUpdate.Add_Click({
@@ -235,11 +235,29 @@ If ($RunningVersion -ne $PublishedVersion) {
 	})
 }
 
+# Hostname
+$HostId = (SWMB_GetHostId)
+$BtnHost = New-Object System.Windows.Forms.label
+$BtnHost.Location = New-Object System.Drawing.Size(30,310)
+$BtnHost.Width = 230
+$BtnHost.Height = 40
+$BtnHost.BackColor = "Transparent"
+$BtnHost.Text = "Host: $Env:ComputerName`n`nId: $HostId"
+$Form.Controls.Add($BtnHost)
+
+# Host features Frame
+$BtnVersionFrame = New-Object System.Windows.Forms.GroupBox
+$BtnVersionFrame.Location = New-Object System.Drawing.Size(20,240)
+$BtnVersionFrame.Width = 250
+$BtnVersionFrame.Height = 115
+$BtnVersionFrame.Text = "Host features"
+$Form.Controls.Add($BtnVersionFrame) 
+
 ################################################################
 
 # Software
 $BtnSoftware = New-Object System.Windows.Forms.Button
-$BtnSoftware.Location = New-Object System.Drawing.Point(250,240)
+$BtnSoftware.Location = New-Object System.Drawing.Point(300,255)
 $BtnSoftware.Width = 80
 $BtnSoftware.Height = 50
 $BtnSoftware.Text = "View All Software"
@@ -252,7 +270,7 @@ $BtnSoftware.Add_Click({
 
 # Exit
 $BtnExit = New-Object System.Windows.Forms.Button
-$BtnExit.Location = New-Object System.Drawing.Point(350,240)
+$BtnExit.Location = New-Object System.Drawing.Point(400,255)
 $BtnExit.Width = 80
 $BtnExit.Height = 50
 $BtnExit.Text = "Exit"

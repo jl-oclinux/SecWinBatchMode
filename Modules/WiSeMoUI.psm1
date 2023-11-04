@@ -47,6 +47,12 @@ Function SWMB_GetDownloadURL {
 
 ################################################################
 
+Function SWMB_GetHostId {
+	Return (Get-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId' -ErrorAction SilentlyContinue).HostId
+}
+
+################################################################
+
 Function SWMB_GetLastPublishedVersion {
 	$Url = (SWMB_GetDownloadURL)
 	[System.Net.ServicePointManager]::MaxServicePointIdleTime = 3000

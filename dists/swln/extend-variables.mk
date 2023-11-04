@@ -6,6 +6,8 @@
 ##
 
 ## Fix site version
+#SOFT:=SWLN
+#SWLN_NAME:=SWLN
 #SWMB_VERSION:=3.14.10.0
 #SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\.//g;')
 #PATCH:=1
@@ -14,5 +16,6 @@
 #FILES+=print
 
 ## Put the name of your IT service / Publisher
+## No / in the name (sed basic replace)!
 #IT_Team:=IT Team
-#PUBLISHER:=CNRS France, RESINFO / Local Network Area
+#PUBLISHER:=RESINFO, Local Network Area

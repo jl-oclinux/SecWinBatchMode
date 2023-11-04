@@ -226,6 +226,7 @@ If ($RunningVersion -ne $PublishedVersion) {
 	$BtnUpdate.Location = New-Object System.Drawing.Point(140,255)
 	$BtnUpdate.Width = 110
 	$BtnUpdate.Height = 50
+	$BtnUpdate.BackColor = "PaleGreen"
 	$BtnUpdate.Text = "New release available`n$PublishedVersion"
 	$Form.controls.Add($BtnUpdate)
 

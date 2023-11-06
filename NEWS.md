@@ -2,6 +2,23 @@
 
 ## Version 3.16 (in progress)
 
+Continuous integration package creation now increments the version counter for each commit.
+SWMB installation no longer generates a unique GUID by default (better GDPR compliant),
+just put the EnableSWMBUniqueId tweak in a preset file, for example `LocalMachine-Boot.preset` and/or `LocalMachine-PostInstall.preset`,
+so that each computer has a unique `HostId` on your park.
+
+The `wisemoui.ps1` graphical interface has been updated.
+The unique HostId is displayed if it exists.
+Add a link to the project web page when the version is too old.
+
+The SWLN template is more generic and its main files do not need to be modified.
+SWLN defaults to the latest available version of SWMB.
+
+New presets/rules:
+
+ * 2023/11/06 - `EnableSWMBUniqueId`/`DisableSWMBUniqueId`/`ViewSWMBUniqueId` -> Add a unique `HostId` identifier for each host for better identification
+
+
 ## Version 3.15
 
 SWMB can also be used to block the installation of certain software on

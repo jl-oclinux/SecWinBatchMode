@@ -152,6 +152,7 @@ EnableNTFSLongPaths                             # DisableNTFSLongPaths
 # DisableFastStartup                            # EnableFastStartup
 # DisableAutoRebootOnCrash                      # EnableAutoRebootOnCrash
 # SetNTPConfig                                  # UnsetNTPConfig                                # ViewNTPConfig
+EnableSWMBUniqueId                              # DisableSWMBUniqueId                           # ViewSWMBUniqueId
 
 ### UI Tweaks ###
 DisableLockScreen                               # EnableLockScreen

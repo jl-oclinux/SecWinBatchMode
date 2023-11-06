@@ -397,6 +397,45 @@ Function TweakViewTargetRelease { # RESINFO
 	Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
 }
 
+################################################################
+
+# Create a unique Host Id if it doesn't already exist,	
+# which will be used in webhooks, for example, to uniquely identify each host
+# Enable
+Function TweakEnableSWMBUniqueId { # RESINFO
+	Write-Output "Enabling SWMB Unique HostId..."
+	$KeyId = Get-Item -LiteralPath 'HKLM:\Software\WOW6432Node\SWMB' -ErrorAction SilentlyContinue
+	If (!(($KeyId) -And ($KeyId.GetValue('HostId', $Null) -ne $Null))) {
+		$HostId = (New-Guid).ToString()
+		# Write-Output " Warning: create a registry key HostId set to = $HostId"
+		If (!(Test-Path 'HKLM:\Software\WOW6432Node\SWMB')) {
+			New-Item -Path 'HKLM:\Software\WOW6432Node\SWMB' | Out-Null
+		}
+		Set-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId' -Type String -Value "$HostId"
+	#} Else {
+	#	$HostId = (Get-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId').HostId
+	#	Write-Output " Info: the registry key for this HostId is = $HostId"
+	}
+}
+
+# Disable
+Function TweakDisableSWMBUniqueId { # RESINFO
+	Write-Output "Disabling SWMB Unique HostId..."
+	Remove-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId' -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewSWMBUniqueId { # RESINFO
+	Write-Output 'View SWMB Unique HostId...'
+	$KeyId = Get-Item -LiteralPath 'HKLM:\Software\WOW6432Node\SWMB' -ErrorAction SilentlyContinue
+	If (!(($KeyId) -And ($KeyId.GetValue('HostId', $Null) -ne $Null))) {
+		Write-Output " Warning: no HostId"
+	} Else {
+		$HostId = (Get-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId').HostId
+		Write-Output " Info: the HostId is $HostId"
+	}
+}
+
 
 ##########
 #endregion Service Tweaks

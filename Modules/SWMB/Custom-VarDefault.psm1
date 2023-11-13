@@ -66,4 +66,8 @@ $Global:SWMB_Custom = @{
 	# Use by tweak: SetInterfaceMetricOn1Gbps, SetInterfaceMetricOn10Gbps
 	InterfaceMetricOn1Gbps  = 40
 	InterfaceMetricOn10Gbps = 50
+
+	# Storage Sense
+	# Global cadence in days
+	StorageSenseCadence = 90
 }

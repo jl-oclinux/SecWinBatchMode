@@ -63,6 +63,32 @@ Function TweakViewStorageSense { # RESINFO
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseGlobal" -ErrorAction SilentlyContinue
 }
 
+# Configure Storage Sense cadence
+Function TweakEnableStorageSenseGloablCadence { # RESINFO
+	Write-Output "Configure Storage Sense cadence $StorageSenseCadence days"
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
+		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
+	}
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -Type DWord -Value $StorageSenseCadence
+}
+
+# Configure Storage Sense cadence
+# The default is 0 (during low free disk space)
+Function TweakDisableStorageSenseGloablCadence { # RESINFO
+	Write-Output "Configure Storage Sense cadence to 0 (during low free disk space)"
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
+		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
+	}
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -Type DWord -Value 0
+}
+
+# View
+Function TweakViewStorageSenseGloablCadence { # RESINFO
+	Write-Output "View Storage Sense cadence"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -ErrorAction SilentlyContinue
+}
+
+
 ################################################################
 
 ################################################################

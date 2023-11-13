@@ -14,6 +14,8 @@ Add a link to the project web page when the version is too old.
 The SWLN template is more generic and its main files do not need to be modified.
 SWLN defaults to the latest available version of SWMB.
 
+Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERENCES.md).
+
 New presets/rules:
 
  * 2023/11/06 - `EnableSWMBUniqueId`/`DisableSWMBUniqueId`/`ViewSWMBUniqueId` -> Add a unique `HostId` identifier for each host for better identification

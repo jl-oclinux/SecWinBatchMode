@@ -18,19 +18,20 @@ Voici un lien sur le [sujet](https://social.technet.microsoft.com/Forums/en-US/0
 ### Exécution “one shot”
 
 * Récupérer les scripts SWMB (par un git clone par exemple) dans `C:\SWMB` par exemple
-  
+
 * Aller dans les propriétés de tous les fichiers `.ps1` et `.psm1` et débloquer les fichiers de la façon suivante
 ![débloquer un fichier](img/unblock.png)
 
 Ou directement en ligne de commande Powershell
 ```ps
 dir -Path C:\SWMB -Recurse | Unblock-File
-```  
+```
+
 * Ouvrir une session powershell en tant qu’administrateur et exécuter
   ```ps
   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
   ```
-  
+
 * Exécuter la commande powershell de lancement du script avec les fichiers de preset que vous avez sélectionné
   (cf. [README](https://gitlab.in2p3.fr/resinfo-gt/swmb/-/blob/master/README.md)).
   *Exemple avec le fichier de preset `UserExperience`* :
@@ -42,13 +43,13 @@ dir -Path C:\SWMB -Recurse | Unblock-File
 ### Création manuelle d’une tâche planifiée qui exécute le script au démarrage du PC
 
 * Dans le planificateur de tâches, créer une «tâche de base» et renseigner de la façon suivante (en considérant qu’on lance le même script que dans l’exemple ci-dessus)
-  
+
 * ![tache1](img/task1.png)
-  
+
 * ![tache2](img/task2.png)
-  
+
 * ![tache3](img/task3.png)
-  
+
 * ![tache4](img/task4.png)
 
 * Dans *Argument*, la commande est :

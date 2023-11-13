@@ -1,9 +1,10 @@
 # Contributing to SWMB
 
 ## Contents
- - [Maintaining own forks](#maintaining-own-forks)
- - [Contribution guidelines](#contribution-guidelines)
- - [Windows builds overview](#windows-builds-overview)
+
+* [Maintaining own forks](#maintaining-own-forks)
+* [Contribution guidelines](#contribution-guidelines)
+* [Windows builds overview](#windows-builds-overview)
 
 
 ## Maintaining own Git forks
@@ -321,10 +322,11 @@ See also - https://learn.microsoft.com/fr-fr/windows/release-health/release-info
 
 * See [Windows 11 version history](https://en.wikipedia.org/wiki/Windows_11_version_history)
 
-| Version |        Code name        |      Release date      | Build |
-| :-----: | ----------------------- | ---------------------- | :---: |
-|  21H2   | Sun Valley              | October 4, 2021        | 22000 |
-|  22H2   | Sun Valley 2            | September 20, 2022     | 22621 |
+  | Version |        Code name        |      Release date      | Build |
+  | :-----: | ----------------------- | ---------------------- | :---: |
+  |  21H2   | Sun Valley              | October 4, 2021        | 22000 |
+  |  22H2   | Sun Valley 2            | September 20, 2022     | 22621 |
+  |  23H2   | Sun Valley 3            | October 31, 2023       | 22631 |
 
 * See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_version_history)
 

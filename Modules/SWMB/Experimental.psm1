@@ -37,7 +37,33 @@ Function TweakViewClearPageFile { # RESINFO
 
 ################################################################
 
+### Automatic clean files - see issues #59 - Storage sense
+## https://support.microsoft.com/en-us/windows/manage-drive-space-with-storage-sense-654f6ada-7bfc-45e5-966b-e24aded96ad5
+## https://admx.help/HKLM/Software/Policies/Microsoft/Windows/StorageSense
 
+# Allow StorageSense
+Function TweakEnableStorageSense { # RESINFO
+	Write-Output "Allow Storage sense..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
+		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
+	}
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseGlobal" -Type DWord -Value 1
+}
+
+# Not Configured:
+# By default, Storage Sense is turned off until the user runs into low disk space or the user enables it manually. Users can configure this setting in Storage settings.
+Function TweakDisableStorageSense { # RESINFO
+	Write-Output "Storage Sense Not Configured"
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewStorageSense { # RESINFO
+	Write-Output "View if Storage Sense is turned on for the machine"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseGlobal" -ErrorAction SilentlyContinue
+}
+
+################################################################
 
 ################################################################
 ###### Export Functions

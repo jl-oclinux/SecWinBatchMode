@@ -18,7 +18,7 @@ Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERE
 
 New presets/rules:
 
- * 2023/11/06 - `EnableSWMBUniqueId`/`DisableSWMBUniqueId`/`ViewSWMBUniqueId` -> Add a unique `HostId` identifier for each host for better identification
+* 2023/11/06 - `EnableSWMBUniqueId`/`DisableSWMBUniqueId`/`ViewSWMBUniqueId` -> Add a unique `HostId` identifier for each host for better identification
 
 
 ## Version 3.15
@@ -47,27 +47,28 @@ so that it can be used later in webhook calls to always have the same identifier
 
 New presets/rules:
 
- * 2023/09/20 - `UninstallTelegram_CU`/`ViewTelegram_CU` -> Uninstall Telegram Desktop
- * 2023/09/20 - `UninstallBalenaEtcher_CU`/`ViewBalenaEtcher_CU` -> Uninstall BalenaEtcher
- * 2023/09/01 - `EnableEdgeClearCacheOnExit`/`DisableEdgeClearCacheOnExit`/`ViewEdgeClearCacheOnExit` -> Clear Microsoft Edge on exit
- * 2023/07/07 - `EnableVisualStudioCache`/`DisableVisualStudioCache`/`ViewVisualStudioCache` -> Disable VisualStudio Cache
- * 2023/04/16 - `UninstallEdgeWebView2`/`ViewEdgeWebView2` -> Uninstall Microsoft Edge WebView2 Runtime
- * 2023/04/16 - `EnableEdgeUpdate`/`DisableEdgeUpdate`/`ViewEdgeUpdate` -> Enable or disable Microsoft Edge auto update
- * 2023/04/11 - `SetRemoteDesktopPort`/`UnsetRemoteDesktopPort`/`ViewRemoteDesktopPort` -> Set RemoteDesktop port service and push Firewall open rules (`$Global:SWMB_Custom` key `RemoteDesktop_PortNumber`)
- * 2023/04/11 - `SetInterfaceMetricOn1Gbps`/`UnsetInterfaceMetricOn1Gbps`/`ViewInterfaceMetricOn1Gbps` -> Set Metric (priority) for all 1Gbps network interface (`$Global:SWMB_Custom` key `InterfaceMetricOn1Gbps`)
- * 2023/04/11 - `SetInterfaceMetricOn10Gbps`/`UnsetInterfaceMetricOn10Gbps`/`ViewInterfaceMetricOn10Gbps` -> Set Metric (priority) for all 10Gbps network interface (`$Global:SWMB_Custom` key `InterfaceMetricOn10Gbps`)
- * 2023/04/11 - `EnableJumboFrameOn10Gbps`/`DisableJumboFrameOn10Gbps`/`ViewJumboFrameOn10Gbps` -> Set Jumbo Frame on all 10Gbps network interface
- * 2023/03/07 - `UninstallOneDrive_CU`/`InstallOneDrive_CU`/`ViewOneDrive_CU` -> Install or uninstall OneDrive per User
- * 2022/10/14 - `UninstallGlassWire` -> Remove GlassWire software if installed
- * 2022/07/21 - `UninstallOpenOffice` -> Remove OpenOffice software if installed
- * 2022/07/13 - `UninstallTotalCommander` -> Remove TotalCommander software if installed
- * 2022/07/11 - `SetWorkgroupName`/`UnsetWorkgroupName`/`ViewWorkgroupName` -> Set Windows Workgroup name (`$Global:SWMB_Custom` key `WorkgroupName`)
- * 2022/07/07 - Move all the `UninstallKaspersky*` tweaks to the `LocalMachine-Uninstall.psm1` module
- * 2022/07/06 - `UninstallWinRAR` -> Remove WinRAR software if installed
- * 2022/07/06 - `UninstallRealPlayer` -> Remove RealPlayer software if installed
+* 2023/09/20 - `UninstallTelegram_CU`/`ViewTelegram_CU` -> Uninstall Telegram Desktop
+* 2023/09/20 - `UninstallBalenaEtcher_CU`/`ViewBalenaEtcher_CU` -> Uninstall BalenaEtcher
+* 2023/09/01 - `EnableEdgeClearCacheOnExit`/`DisableEdgeClearCacheOnExit`/`ViewEdgeClearCacheOnExit` -> Clear Microsoft Edge on exit
+* 2023/07/07 - `EnableVisualStudioCache`/`DisableVisualStudioCache`/`ViewVisualStudioCache` -> Disable VisualStudio Cache
+* 2023/04/16 - `UninstallEdgeWebView2`/`ViewEdgeWebView2` -> Uninstall Microsoft Edge WebView2 Runtime
+* 2023/04/16 - `EnableEdgeUpdate`/`DisableEdgeUpdate`/`ViewEdgeUpdate` -> Enable or disable Microsoft Edge auto update
+* 2023/04/11 - `SetRemoteDesktopPort`/`UnsetRemoteDesktopPort`/`ViewRemoteDesktopPort` -> Set RemoteDesktop port service and push Firewall open rules (`$Global:SWMB_Custom` key `RemoteDesktop_PortNumber`)
+* 2023/04/11 - `SetInterfaceMetricOn1Gbps`/`UnsetInterfaceMetricOn1Gbps`/`ViewInterfaceMetricOn1Gbps` -> Set Metric (priority) for all 1Gbps network interface (`$Global:SWMB_Custom` key `InterfaceMetricOn1Gbps`)
+* 2023/04/11 - `SetInterfaceMetricOn10Gbps`/`UnsetInterfaceMetricOn10Gbps`/`ViewInterfaceMetricOn10Gbps` -> Set Metric (priority) for all 10Gbps network interface (`$Global:SWMB_Custom` key `InterfaceMetricOn10Gbps`)
+* 2023/04/11 - `EnableJumboFrameOn10Gbps`/`DisableJumboFrameOn10Gbps`/`ViewJumboFrameOn10Gbps` -> Set Jumbo Frame on all 10Gbps network interface
+* 2023/03/07 - `UninstallOneDrive_CU`/`InstallOneDrive_CU`/`ViewOneDrive_CU` -> Install or uninstall OneDrive per User
+* 2022/10/14 - `UninstallGlassWire` -> Remove GlassWire software if installed
+* 2022/07/21 - `UninstallOpenOffice` -> Remove OpenOffice software if installed
+* 2022/07/13 - `UninstallTotalCommander` -> Remove TotalCommander software if installed
+* 2022/07/11 - `SetWorkgroupName`/`UnsetWorkgroupName`/`ViewWorkgroupName` -> Set Windows Workgroup name (`$Global:SWMB_Custom` key `WorkgroupName`)
+* 2022/07/07 - Move all the `UninstallKaspersky*` tweaks to the `LocalMachine-Uninstall.psm1` module
+* 2022/07/06 - `UninstallWinRAR` -> Remove WinRAR software if installed
+* 2022/07/06 - `UninstallRealPlayer` -> Remove RealPlayer software if installed
 
 Chnage to global parameter:
- * SWMB_Custom.LocalAdminNameEffective replace SWMB_Custom.LocalAdminNameToSet
+
+* SWMB_Custom.LocalAdminNameEffective replace SWMB_Custom.LocalAdminNameToSet
 
 The new module `LocalMachine-Uninstall.psm1` is dedicated to all software
 that need to be uninstall on a Windows park, with no rules to install them.
@@ -132,13 +133,13 @@ If needed, a specific tweak function must be written for security reasons.
 
 New presets/rules:
 
- * 2022/06/01 - `DisableMSDT`/`EnableMSDT`/`ViewMSDT` -> Disable MSDT - Microsoft Support Diagnostic Tool Vulnerability - CVE-2022-30190 
- * 2022/05/09 - `ViewKasperskyProduct` -> View all the Kaspersky product
- * 2022/05/09 - `UninstallKasperskyConsole` -> Remove the Kaspersky Console
- * 2022/03/16 - `UninstallKasperskyEndpoint` ([see more](dists/uninstall-kaspersky/)) - use Custom configuration module
- * 2022/03/16 - `SetTargetRelease`/`UnsetTargetRelease` -> For fix the target Feature Update version ([see more](https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsUpdate::TargetReleaseVersion))
- * 2022/03/02 - `EnableClearPageFile`/`DisableClearPageFile` -> Clean PAGEFILE.SYS at shutdown
- * 2022/02/02 - `EnableASLR`/`DisableASLR` -> Address Space Layout Randomisation
+* 2022/06/01 - `DisableMSDT`/`EnableMSDT`/`ViewMSDT` -> Disable MSDT - Microsoft Support Diagnostic Tool Vulnerability - CVE-2022-30190 
+* 2022/05/09 - `ViewKasperskyProduct` -> View all the Kaspersky product
+* 2022/05/09 - `UninstallKasperskyConsole` -> Remove the Kaspersky Console
+* 2022/03/16 - `UninstallKasperskyEndpoint` ([see more](dists/uninstall-kaspersky/)) - use Custom configuration module
+* 2022/03/16 - `SetTargetRelease`/`UnsetTargetRelease` -> For fix the target Feature Update version ([see more](https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsUpdate::TargetReleaseVersion))
+* 2022/03/02 - `EnableClearPageFile`/`DisableClearPageFile` -> Clean PAGEFILE.SYS at shutdown
+* 2022/02/02 - `EnableASLR`/`DisableASLR` -> Address Space Layout Randomisation
 
 There is now a special distribution of SWMB to just uninstall Kaspersky antivirus.
 See [Uninstall Kaspersky](dists/uninstall-kaspersky/).
@@ -148,9 +149,10 @@ e.g. `Custom-varOverload.psm1` are now searched in the current folder,
 then in the `ProgramData` folder and then in the installation folder.
 For these three cases, we start with the current folder,
 the subfolder `Modules` and then we go back up to the root of the file system.
- * `(Get-Location).Path`  # `$PWD`
- * `${Env:ProgramData}\SWMB`
- * Module Script Path  # `${Env:ProgramFiles}\SWMB\Modules\SWMB`
+
+* `(Get-Location).Path`  # `$PWD`
+* `${Env:ProgramData}\SWMB`
+* Module Script Path  # `${Env:ProgramFiles}\SWMB\Modules\SWMB`
 
 The `Custom.psm1` module is now loaded by default.
 The `SWMB_ImportModuleParameter` function has been moved from `SWMB.psm1`
@@ -180,8 +182,8 @@ Automatically search `Overload` and `Autodel` module in `C:\ProgramData\SWMB` fo
 
 Create two tasks:
 
- * `CurrentUser-Logon.ps1` - Execute at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
- * `LocalMachine-Boot.ps` - Execute at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+* `CurrentUser-Logon.ps1` - Execute at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
+* `LocalMachine-Boot.ps` - Execute at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
 
 If a module with the same name exist in `C:\ProgramData\SWMB\Modules`, it's will be launch.
 
@@ -210,25 +212,25 @@ Any value other than 0 (or nothing) will activate the default preset.
 
 New presets/rules:
 
- * 2021/10/21 - `$PRESET` and `$IMPORT` can open absolute and relative path file (before only relative path was possible)
- * 2021/10/21 - `$PRESET` replace `$INCLUDE` to include a preset file.
- * 2021/10/20 - `SysCheckpoint` - Make a system checkpoint if possible (max one per day)
- * 2021/10/19 - `$INCLUDE` (`$PRESET`) and `$IMPORT` can open filename with space in PATH. Protect the string with double quote `"`.
- * 2021/10/16 - `SysBox` - Like `SysMessage` but open a Box (experimental)
- * 2021/10/15 - `SysEvent` - Like `SysMessage` but send an Event
- * 2021/10/11 - `$IMPORT` - Like `$PRESET` but import a module from a preset file
+* 2021/10/21 - `$PRESET` and `$IMPORT` can open absolute and relative path file (before only relative path was possible)
+* 2021/10/21 - `$PRESET` replace `$INCLUDE` to include a preset file.
+* 2021/10/20 - `SysCheckpoint` - Make a system checkpoint if possible (max one per day)
+* 2021/10/19 - `$INCLUDE` (`$PRESET`) and `$IMPORT` can open filename with space in PATH. Protect the string with double quote `"`.
+* 2021/10/16 - `SysBox` - Like `SysMessage` but open a Box (experimental)
+* 2021/10/15 - `SysEvent` - Like `SysMessage` but send an Event
+* 2021/10/11 - `$IMPORT` - Like `$PRESET` but import a module from a preset file
 
 New CLI parameter:
 
- * `-import` replace `-include` to be more clear.
-   As `$PRESET` replace `$INCLUDE` in preset file.
-   The word `include` is not use anymore because sometime it was on modules and sometime on preset files.
- * `-hash filename` makes a hash of the tweak list (preset)
-   and compares it with the old hash stored in filename.
-   If the hashes differ, a system checkpoint is performed.
-   A folder `Caches` is created in `C:\ProgramData\SWMB`
-   to store all the hashes.
- * `-version` print the program version.
+* `-import` replace `-include` to be more clear.
+  As `$PRESET` replace `$INCLUDE` in preset file.
+  The word `include` is not use anymore because sometime it was on modules and sometime on preset files.
+* `-hash filename` makes a hash of the tweak list (preset)
+  and compares it with the old hash stored in filename.
+  If the hashes differ, a system checkpoint is performed.
+  A folder `Caches` is created in `C:\ProgramData\SWMB`
+  to store all the hashes.
+* `-version` print the program version.
 
 New module architecture, Win10- prefix has been replaced by LocalMachine-.
 This is better for the new Windows 11 operating system.
@@ -241,13 +243,13 @@ Add a compatibility program for upgrade Win10.ps1
 
 New modules architecture:
 
- * `Modules/SWMB.psd1` - Generic preload module (`Modules/SWMB.psm1`)
- * `Modules/SWMB/Custom.psm1` - Additionnal rules with parameter
- * `Modules/SWMB/Resinfo.psm1` - ANSSI rules
- * `Modules/SWMB/Experimental.psm1` - Experimentals rules
- * `Modules/SWMB/Win10-*.psm1` - Initial module from Disassembler0
- * `Modules/SWMB/CurrentUser-*.psm1` - Initial module from Disassembler0 base on HKCU
- * `Modules/SWMB/TemporaryBypass.psm1` - Temporary Bypass Strategy Module
+* `Modules/SWMB.psd1` - Generic preload module (`Modules/SWMB.psm1`)
+* `Modules/SWMB/Custom.psm1` - Additionnal rules with parameter
+* `Modules/SWMB/Resinfo.psm1` - ANSSI rules
+* `Modules/SWMB/Experimental.psm1` - Experimentals rules
+* `Modules/SWMB/Win10-*.psm1` - Initial module from Disassembler0
+* `Modules/SWMB/CurrentUser-*.psm1` - Initial module from Disassembler0 base on HKCU
+* `Modules/SWMB/TemporaryBypass.psm1` - Temporary Bypass Strategy Module
 
 Parameter module now use global hash table (via the `*-VarOverload.psm1` plugin).
 Automatically search `Overload` variable module in parent folder.
@@ -258,43 +260,43 @@ Add `View*` function to help debugging
 
 New dists:
 
- * [crypt-with-bitlocker](./dists/crypt-with-bitlocker/)
+* [crypt-with-bitlocker](./dists/crypt-with-bitlocker/)
 
 New CLI parameter:
 
- * `-core`  - Load minimal SWMB code module. Must be the first parameter
- * `-check` - Check for duplicated tweak preset and tweak implementations. Do not execute any preset
- * `-exp`  - Load Experimental module (add Experimental feature)
+* `-core`  - Load minimal SWMB code module. Must be the first parameter
+* `-check` - Check for duplicated tweak preset and tweak implementations. Do not execute any preset
+* `-exp`  - Load Experimental module (add Experimental feature)
 
 New preset selection:
 
- * `Post-Install.preset` - Enable Bitlocker after installation
- * `Current-User.preset` - Preset for Current User and not Local Machine
- * `System-Resinfo.preset` - Preset on system and network
- * `LocalMachine-*.preset` - Rename `*-Resinfo.preset` file for local machine tweak
- * `LocalMachine-Default.preset` - New global preset file with $INCLUDE directive
+* `Post-Install.preset` - Enable Bitlocker after installation
+* `Current-User.preset` - Preset for Current User and not Local Machine
+* `System-Resinfo.preset` - Preset on system and network
+* `LocalMachine-*.preset` - Rename `*-Resinfo.preset` file for local machine tweak
+* `LocalMachine-Default.preset` - New global preset file with $INCLUDE directive
 
 Preset file could now include other files with the $INCLUDE directive
 
 New presets/rules:
 
- * 2021/09/10 - `DisableMSHTMLActiveX`/`EnableMSHTMLActiveX`/`View...` Disable ActiveX in MSHTML (Internet Explorer) CVE-2021-40444
- * 2021/08/28 - `DisableAutoloadDriver`/`EnableAutoloadDriver` -> Zero day on autoload driver on network
- * 2021/07/10 - `SysRequireAdmin` replace `RequireAdmin`
- * 2021/07/07 - `SysAutoUpgrade` - Auto Upgrade your SWMB folder! Need an internet access to the Git repository
- * 2021/07/02 - `DisablePrintForSystem`/`EnablePrintForSystem`/`ViewPrintForSystem` -> Pseudo patch for CVE-2021-34527
- * 2021/06/14 - `EnableInsecureGuestLogons`/`DisableInsecureGuestLogons` -> Disable by default
- * 2021/06/13 - `DisableSMB1Protocol`/`EnableSMB1Protocol` -> SMBv1 protocol
- * 2021/06/13 - `DisableSMB1`/`EnableSMB1` rename -> `DisableSMB1Server`/`EnableSMB1Server`
- * 2021/06/05 - `SetNTPConfig`/`UnsetNTPConfig` - NTP service configuration
- * 2021/06/05 - `EnableGodMod_CU`/`EnableGodMod_CU` - God Mod for Current user
- * 2021/06/05 - Rename `Restart` -> `SysRestart` and `WaitForKey` -> `SysPause`
- * 2021/06/05 - `SysHalt` - Halt computer and not Reboot
- * 2021/06/04 - `SysMessage` - Just write a message on terminal for debugging purpose (like WaitForKey)
- * 2021/06/04 - `DisableUWPAccessLocation`/`EnableUWPAccessLocation` - Let UWP Apps Access Location
- * 2021/06/01 - `DisableWindowsFeeds`/`EnableWindowsFeeds` - News and Interests on Taskbar
- * 2021/05/12 - `EnableBitlocker`/`DisableBitlocker` - Crypt hard drive with bitlocker
- * 2021/04/29 - `DisableWindowsHello`/`EnableWindowsHello` - Windows Hello Authentification
+* 2021/09/10 - `DisableMSHTMLActiveX`/`EnableMSHTMLActiveX`/`View...` Disable ActiveX in MSHTML (Internet Explorer) CVE-2021-40444
+* 2021/08/28 - `DisableAutoloadDriver`/`EnableAutoloadDriver` -> Zero day on autoload driver on network
+* 2021/07/10 - `SysRequireAdmin` replace `RequireAdmin`
+* 2021/07/07 - `SysAutoUpgrade` - Auto Upgrade your SWMB folder! Need an internet access to the Git repository
+* 2021/07/02 - `DisablePrintForSystem`/`EnablePrintForSystem`/`ViewPrintForSystem` -> Pseudo patch for CVE-2021-34527
+* 2021/06/14 - `EnableInsecureGuestLogons`/`DisableInsecureGuestLogons` -> Disable by default
+* 2021/06/13 - `DisableSMB1Protocol`/`EnableSMB1Protocol` -> SMBv1 protocol
+* 2021/06/13 - `DisableSMB1`/`EnableSMB1` rename -> `DisableSMB1Server`/`EnableSMB1Server`
+* 2021/06/05 - `SetNTPConfig`/`UnsetNTPConfig` - NTP service configuration
+* 2021/06/05 - `EnableGodMod_CU`/`EnableGodMod_CU` - God Mod for Current user
+* 2021/06/05 - Rename `Restart` -> `SysRestart` and `WaitForKey` -> `SysPause`
+* 2021/06/05 - `SysHalt` - Halt computer and not Reboot
+* 2021/06/04 - `SysMessage` - Just write a message on terminal for debugging purpose (like WaitForKey)
+* 2021/06/04 - `DisableUWPAccessLocation`/`EnableUWPAccessLocation` - Let UWP Apps Access Location
+* 2021/06/01 - `DisableWindowsFeeds`/`EnableWindowsFeeds` - News and Interests on Taskbar
+* 2021/05/12 - `EnableBitlocker`/`DisableBitlocker` - Crypt hard drive with bitlocker
+* 2021/04/29 - `DisableWindowsHello`/`EnableWindowsHello` - Windows Hello Authentification
 
 
 ## Version 3.11 (never publish)
@@ -307,12 +309,12 @@ New dists folder with use case examples.
 
 New presets selection:
 
- * `Cloud-Resinfo.preset`
- * `CortanaSearch-Resinfo.preset`
- * `Post-Install.preset`
- * `Telemetry-Resinfo.preset`
- * `UniversalApps-Resinfo.preset`
- * `UserExperience-Resinfo.preset`
+* `Cloud-Resinfo.preset`
+* `CortanaSearch-Resinfo.preset`
+* `Post-Install.preset`
+* `Telemetry-Resinfo.preset`
+* `UniversalApps-Resinfo.preset`
+* `UserExperience-Resinfo.preset`
 
 
 ## Version 3.10

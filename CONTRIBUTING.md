@@ -330,19 +330,19 @@ See also - https://learn.microsoft.com/fr-fr/windows/release-health/release-info
 
 * See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_version_history)
 
-| Version |        Code name        |     Marketing name     | Build |
-| :-----: | ----------------------- | ---------------------- | :---: |
-|  1507   | Threshold 1 (TH1 / RTM) | N/A                    | 10240 |
-|  1511   | Threshold 2 (TH2)       | November Update        | 10586 |
-|  1607   | Redstone 1 (RS1)        | Anniversary Update     | 14393 |
-|  1703   | Redstone 2 (RS2)        | Creators Update        | 15063 |
-|  1709   | Redstone 3 (RS3)        | Fall Creators Update   | 16299 |
-|  1803   | Redstone 4 (RS4)        | April 2018 Update      | 17134 |
-|  1809   | Redstone 5 (RS5)        | October 2018 Update    | 17763 |
-|  1903   | 19H1                    | May 2019 Update        | 18362 |
-|  1909   | 19H2                    | November 2019 Update   | 18363 |
-|  2004   | 20H1                    | May 2020 Update        | 19041 |
-|  20H2   | 20H2                    | October 2020 Update    | 19042 |
-|  21H1   | 21H1                    | May 2021 Update        | 19043 |
-|  21H2   | 21H2                    | November 2021 Update   | 19044 |
-|  22H2   | 22H2                    | 2022 Update            | 19045 |
+  | Version |        Code name        |     Marketing name     | Build |
+  | :-----: | ----------------------- | ---------------------- | :---: |
+  |  1507   | Threshold 1 (TH1 / RTM) | N/A                    | 10240 |
+  |  1511   | Threshold 2 (TH2)       | November Update        | 10586 |
+  |  1607   | Redstone 1 (RS1)        | Anniversary Update     | 14393 |
+  |  1703   | Redstone 2 (RS2)        | Creators Update        | 15063 |
+  |  1709   | Redstone 3 (RS3)        | Fall Creators Update   | 16299 |
+  |  1803   | Redstone 4 (RS4)        | April 2018 Update      | 17134 |
+  |  1809   | Redstone 5 (RS5)        | October 2018 Update    | 17763 |
+  |  1903   | 19H1                    | May 2019 Update        | 18362 |
+  |  1909   | 19H2                    | November 2019 Update   | 18363 |
+  |  2004   | 20H1                    | May 2020 Update        | 19041 |
+  |  20H2   | 20H2                    | October 2020 Update    | 19042 |
+  |  21H1   | 21H1                    | May 2021 Update        | 19043 |
+  |  21H2   | 21H2                    | November 2021 Update   | 19044 |
+  |  22H2   | 22H2                    | 2022 Update            | 19045 |

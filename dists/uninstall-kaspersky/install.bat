@@ -1,7 +1,7 @@
 ECHO OFF
 
 SET softversion=__VERSION__
-SET softpatch=__PATCH__
+SET softrevision=__REVISION__
 SET softname=kasperkey Endpoint - Uninstall
 SET softpublisher=RESINFO GT SWMB
 

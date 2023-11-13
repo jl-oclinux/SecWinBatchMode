@@ -1,6 +1,6 @@
 SOFT:=Kasperky-Uninstall
 VERSION:=$(shell grep '!define VERSION' ../../tmp/package.nsi | cut -f 2 -d '"')
-PATCH:=1
+REVISION:=1
 
 
 .PHONY: all help update clean key zip ocs
@@ -20,7 +20,7 @@ update:
 
 
 clean:
-	rm -f $(SOFT)-$(VERSION)-$(PATCH).zip
+	rm -f $(SOFT)-$(VERSION)-$(REVISION).zip
 	rm -rf tmp
 	rm -rf *.key Custom-Var*.psm1
 
@@ -29,12 +29,12 @@ key:
 	@pwsh set-password-encrypted.ps1
 
 
-zip: $(SOFT)-$(VERSION)-$(PATCH).zip
+zip: $(SOFT)-$(VERSION)-$(REVISION).zip
 
 %.zip: Makefile
 	mkdir -p ./tmp/WAPT
-	sed -e 's/__VERSION__/$(VERSION)/; s/__PATCH__/$(PATCH)/;' install.bat > tmp/install.bat
-	sed -e 's/__VERSION__/$(VERSION)/; s/__PATCH__/$(PATCH)/;' control > ./tmp/WAPT/control
+	sed -e 's/__VERSION__/$(VERSION)/; s/__REVISION__/$(REVISION)/;' install.bat > tmp/install.bat
+	sed -e 's/__VERSION__/$(VERSION)/; s/__REVISION__/$(REVISION)/;' control > ./tmp/WAPT/control
 	@cp ../../Modules/SWMB.psm1 ../../Modules/SWMB/Custom.psm1 ../../Modules/SWMB/Custom-VarDefault.psm1 ../../Modules/SWMB/LocalMachine-Uninstall.psm1 ./tmp/; \
 		cp ./README.md ./get-password-cleartext.ps1 ./set-password-encrypted.ps1 ./Custom-VarAutodel.psm1 ./*.key ./tmp/; \
 		cp ./uninstall-kaspersky-standalone.ps1 ./tmp/uninstall-kaspersky.ps1; \
@@ -46,7 +46,7 @@ zip: $(SOFT)-$(VERSION)-$(PATCH).zip
 
 ocs:
 	@echo ""
-	@echo "Name:     $(SOFT)-$(VERSION)-$(PATCH)"
+	@echo "Name:     $(SOFT)-$(VERSION)-$(REVISION)"
 	@echo "priority: 2"
 	@echo "Launch:   install.bat"
 	@echo "Message:  no"

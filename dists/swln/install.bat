@@ -14,7 +14,7 @@ EXIT /B
 ECHO BEGIN %date%-%time%
 
 SET softversion=__SWLN_VERSION__
-SET softpatch=__PATCH__
+SET softrevision=__REVISION__
 SET softregkey=%softname%
 SET softpublisher=__PUBLISHER__
 SET swmbversion=__SWMB_VERSION__
@@ -46,7 +46,7 @@ ECHO Change Add and Remove values in the register
 >> tmp_install.reg ECHO [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\%softregkey%]
 >> tmp_install.reg ECHO "DisplayVersion"="%softversion%"
 >> tmp_install.reg ECHO "Comments"="%softname% (%DATE:~-4%/%DATE:~-7,-5%/%DATE:~-10,-8%)"
->> tmp_install.reg ECHO "DisplayName"="%softname% (%softversion%-%softpatch% / %swmbversion%)"
+>> tmp_install.reg ECHO "DisplayName"="%softname% (%softversion%-%softrevision% / %swmbversion%)"
 >> tmp_install.reg ECHO "DisplayIcon"="C:\\Program Files\\%softname%\\logo-swmb.ico"
 >> tmp_install.reg ECHO "InstallFolder"="C:\\Program Files\\%softname%"
 >> tmp_install.reg ECHO "Publisher"="%softpublisher%"

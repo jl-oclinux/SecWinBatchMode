@@ -1,7 +1,7 @@
-package           : swmb-kaspersky-uninstall
-version           : __VERSION__-__PATCH__
+package           : resinfo-swmb-kaspersky-uninstall
+version           : __VERSION__-__REVISION__
 architecture      : x64
-section           :
+section           : base
 priority          : optional
 name              : SWMB-Kaspersky-Uninstall
 categories        : system
@@ -9,9 +9,9 @@ maintainer        : RESINFO <swmb-gt@listes.resinfo.org>
 description       : SWMB - Remove Kaspersky Endpoint and Network Agent (standalone package)
 depends           :
 conflicts         :
-maturity          : PROD
+maturity          : DEV
 locale            :
-target_os         :
+target_os         : windows
 min_os_version    :
 max_os_version    :
 min_wapt_version  :

@@ -3,7 +3,7 @@ SOFT:=SWLN
 SWLN_NAME:=SWLN
 SWMB_VERSION:=$(shell curl -s -L 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt')
 SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\.//g;')
-PATCH:=1
+REVISION:=1
 
 
 FILES:=uninstall.bat
@@ -28,28 +28,28 @@ TMPFILES:=$(addprefix tmp/,$(TFILES))
 
 .PHONY: all clean ocs check-exe version
 
-all: check-exe $(SOFT)_$(SWLN_VERSION)-$(PATCH)_x64.zip
+all: check-exe $(SOFT)_$(SWLN_VERSION)-$(REVISION)_x64.zip
 
 version:
-	@echo "Soft    $(SOFT)"
-	@echo "Name    $(SWLN_NAME)"
-	@echo "Version $(SWLN_VERSION)"
-	@echo "Patch   $(PATCH)"
-	@echo "SWMB    $(SWMB_VERSION)"
-	@echo "Files   $(FILES)"
-	@echo "TFiles  $(TFILES)"
+	@echo "Soft     $(SOFT)"
+	@echo "Name     $(SWLN_NAME)"
+	@echo "Version  $(SWLN_VERSION)"
+	@echo "Revision $(REVISION)"
+	@echo "SWMB     $(SWMB_VERSION)"
+	@echo "Files    $(FILES)"
+	@echo "TFiles   $(TFILES)"
 
 clean:
-	@rm -rf tmp $(SOFT)_$(SWLN_VERSION)-$(PATCH)_x64.zip resources
+	@rm -rf tmp $(SOFT)_$(SWLN_VERSION)-$(REVISION)_x64.zip resources
 	@find . -name '*.bak' -delete
 
 tmp/install.bat: install.bat Makefile tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' install.bat > tmp/install.bat
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' install.bat > tmp/install.bat
 
 tmp/post-install.ps1: post-install.ps1 Makefile tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__PATCH__/$(PATCH)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' post-install.ps1 > tmp/post-install.ps1
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' post-install.ps1 > tmp/post-install.ps1
 
 tmp/SWMB-Setup-%.exe: Makefile
 	@mkdir -p tmp
@@ -74,7 +74,7 @@ check-exe: tmp/SWMB-Setup-$(SWMB_VERSION).exe
 
 ocs: all
 	@echo ""
-	@echo "Name:     $(SOFT)_$(SWLN_VERSION)-$(PATCH)_x64"
+	@echo "Name:     $(SOFT)_$(SWLN_VERSION)-$(REVISION)_x64"
 	@echo "priority: *2*"
 	@echo "Launch:   install.bat"
 	@echo "Message:  no"

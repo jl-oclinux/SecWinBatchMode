@@ -1,11 +1,11 @@
 SOFT:=SWMB
 VERSION:=$(shell grep '!define VERSION' ../../tmp/package.nsi | cut -f 2 -d '"')
-PATCH:=1
+REVISION:=1
 
 
 .PHONY: all help update clean ocs
 
-all: $(SOFT)-OCS-$(VERSION)-$(PATCH).zip ocs
+all: $(SOFT)-OCS-$(VERSION)-$(REVISION).zip ocs
 
 
 help:
@@ -20,13 +20,13 @@ update:
 
 
 clean:
-	rm -f $(SOFT)-OCS-$(VERSION)-$(PATCH).zip
+	rm -f $(SOFT)-OCS-$(VERSION)-$(REVISION).zip
 	rm -rf tmp
 
 
 %.zip: Makefile
 	mkdir -p tmp
-	sed -e 's/__VERSION__/$(VERSION)/; s/__PATCH__/$(PATCH)/;' install.bat > tmp/install.bat
+	sed -e 's/__VERSION__/$(VERSION)/; s/__REVISION__/$(REVISION)/;' install.bat > tmp/install.bat
 	rm -f $@
 	(cd ../..; \
 		make; \
@@ -40,7 +40,7 @@ clean:
 
 ocs:
 	@echo ""
-	@echo "Name:     $(SOFT)-$(VERSION)-$(PATCH)"
+	@echo "Name:     $(SOFT)-$(VERSION)-$(REVISION)"
 	@echo "priority: 2"
 	@echo "Launch:   install.bat"
 	@echo "Message:  no"

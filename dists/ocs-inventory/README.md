@@ -8,9 +8,9 @@ These are easier to use under GNU/Linux.
 make help
 ```
 
-In the `Makefile`, set the `VERSION` and `PATCH` variables to the correct values.
+In the `Makefile`, set the `VERSION` and `REVISION` variables to the correct values.
 Normally, the `VERSION` number is automatically updated with the value in the main installer `package.nsi`.
-If no problem, `PATCH` value is one.
+If no problem, `REVISION` value is one.
 When creating the zip archive, the `install.bat` script will be automatically updated with these values.
 
 It is possible to do a `make update` to update to the latest version proposed by the RESINFO working group.

@@ -1,11 +1,12 @@
 package           : resinfo-swmb
-version           : __VERSION__-__PATCH__
+version           : __VERSION__-__REVISION__
 architecture      : x64
 section           : base
 priority          : optional
+name              : SWMB
 categories        : system
 maintainer        : RESINFO <swmb-gt@listes.resinfo.org>
-description       : SWMB - Secure Windows Mode Batch
+description       : SWMB - Secure Windows Mode Batch - Securing Windows with automated tweak-based scripts
 depends           :
 conflicts         :
 maturity          : DEV
@@ -17,7 +18,7 @@ min_wapt_version  :
 sources           : https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/
 installed_size    :
 impacted_process  :
-description_fr    : SWMB - Secure Windows Mode Batch
+description_fr    : SWMB - Secure Windows Mode Batch - Sécuriser Windows à l'aide de scripts automatisés basés sur des tweaks
 description_pl    :
 description_de    :
 description_es    :

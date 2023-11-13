@@ -50,12 +50,6 @@ The `--squash` option allows to get all the patches of the upstream project
 project in the form of a single commit.
 So we don't import the whole history in our project.
 
-Il faut ajouter le lien avec le subtree amont `Win10-Initial-Setup-Script`
-afin de pouvoir gérer les mises à jour.
-L'option `--squash` permet de récupérer tous les patchs du projet amont
-sous la forme d'un seul commit.
-Ainsi on n'importe pas l'ensemble de l'historique dans notre projet.
-
 The `subtree pull` command allows to do a `fetch` and a `merge` in one step.
 
 Before doing this, it is better to think about pushing (`push`)

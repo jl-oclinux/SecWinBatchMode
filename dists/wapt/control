@@ -1,17 +1,16 @@
 package           : resinfo-swmb
 version           : __VERSION__-__PATCH__
 architecture      : x64
-section           :
+section           : base
 priority          : optional
-name              : SWMB
 categories        : system
 maintainer        : RESINFO <swmb-gt@listes.resinfo.org>
 description       : SWMB - Secure Windows Mode Batch
 depends           :
 conflicts         :
-maturity          : PROD
+maturity          : DEV
 locale            :
-target_os         :
+target_os         : windows
 min_os_version    :
 max_os_version    :
 min_wapt_version  :

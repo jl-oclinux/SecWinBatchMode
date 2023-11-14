@@ -65,11 +65,11 @@ Function TweakViewStorageSense { # RESINFO
 
 # Configure Storage Sense cadence
 Function TweakEnableStorageSenseGloablCadence { # RESINFO
-	Write-Output "Configure Storage Sense cadence $StorageSenseCadence days"
+	Write-Output "Configure Storage Sense cadence $($Global:SWMB_Custom.StorageSenseCadence) days"
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
 	}
-	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -Type DWord -Value $StorageSenseCadence
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -Type DWord -Value $($Global:SWMB_Custom.StorageSenseCadence)
 }
 
 # Configure Storage Sense cadence

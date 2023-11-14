@@ -68,6 +68,6 @@ $Global:SWMB_Custom = @{
 	InterfaceMetricOn10Gbps = 50
 
 	# Storage Sense
-	# Global cadence in days
-	StorageSenseCadence = 90
+	# Global cadence in days - Every day = 1 - Every week = 7 - Every month = 30 - During low free disk space = 0
+	StorageSenseCadence = 30 # every month
 }

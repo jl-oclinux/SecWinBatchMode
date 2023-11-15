@@ -544,6 +544,66 @@ Function TweakViewEdgeWebView2 { # RESINFO
 }
 
 ################################################################
+
+# Suppress Google Toolbar for Internet Explorer
+# https://community.spiceworks.com/topic/263040-how-do-i-uninstall-google-toolbar-using-pdq
+# "C:\Program Files (x86)\Google\Google Toolbar\Component\GoogleToolbarManager_E6C807F38EB64284.exe" /uninstall
+# Uninstall
+Function TweakUninstallGoogleToolbar { # RESINFO
+	$RefName = 'Google Toolbar for Internet Explorer'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match $RefName) {
+				$DisplayVersion = $App.DisplayVersion
+				$UninstallString = $App.UninstallString
+				$UninstallSplit = $UninstallString -Split "exe"
+				$Exe = $UninstallSplit[0] + 'exe"'
+				$Args = '/uninstall /S'
+
+				Write-Output "Uninstalling $RefName version $DisplayVersion"
+				# Write-Output " $Exe $Args"
+				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill $RefName uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf (($Proc.ExitCode -ne 0) -And ($Proc.ExitCode -ne 19)) {
+					Write-Output "Error: $RefName uninstall return code $($Proc.ExitCode)"
+					# Next tweak now
+					Return
+				}
+			}
+		}
+}
+
+# View
+Function TweakViewGoogleToolbar { # RESINFO
+	$RefName = 'Google Toolbar for Internet Explorer'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match $RefName) {
+				$DisplayVersion = $App.DisplayVersion
+				$UninstallString = $App.UninstallString
+				Write-Output "${RefName}: $DisplayVersion / $UninstallString"
+			}
+		}
+}
+
+################################################################
 ###### Export Functions
 ################################################################
 

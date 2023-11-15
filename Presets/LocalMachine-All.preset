@@ -243,6 +243,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallTotalCommander                                                                       # ViewTotalCommander
 # UninstallGlassWire
 # UninstallEdgeWebView2                                                                         # ViewEdgeWebView2
+# UninstallGoogleToolbar                                                                        # ViewGoogleToolbar
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

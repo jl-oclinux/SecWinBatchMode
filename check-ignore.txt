@@ -7,6 +7,7 @@ InstallOpenOffice
 InstallTotalCommander
 InstallGlassWire
 InstallEdgeWebView2
+InstallGoogleToolbar
 
 InstallBalenaEtcher_CU
 InstallTelegram_CU

@@ -274,3 +274,6 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # SysMessage
 
 ### Tweaks that needs to be classified ###
+# EnableStorageSense                            # DisableStorageSense                           # ViewStorageSense
+# EnableStorageSenseTempCleanup                 # DisableStorageSenseTempCleanup                # ViewStorageSenseTempCleanup
+# EnableStorageSenseTrashCleanup                # DisableStorageSenseTrashCleanup               # ViewStorageSenseTrashCleanup

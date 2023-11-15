@@ -89,6 +89,29 @@ Function TweakViewStorageSenseTemporaryFilesCleanup { # RESINFO
 }
 
 
+# Configure Storage Sense Recycle Bin cleanup threshold
+# minimum age threshold (in days) of a file in the Recycle Bin before Storage Sense will delete it
+Function TweakEnableStorageSenseBinCleanup { # RESINFO
+	Write-Output "Files in the recycle bin that are more than $($Global:SWMB_Custom.StorageSenseUserBinCadence) days old will be deleted automatically"
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
+		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
+	}
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -Type DWord -Value $Global:SWMB_Custom.StorageSenseUserBinCadence
+}
+
+# Disabled:
+# By default, Storage Sense will delete files in the user's Recycle Bin that have been there for over 30 days.
+Function TweakDisableStorageSenseBinCleanup { # RESINFO
+	Write-Output "Disable Storage sense Temporary Files Cleanup"
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewStorageSenseBinCleanup { # RESINFO
+	Write-Output "View Storage Sense Bin automatically Cleanup"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
+}
+
 ################################################################
 
 ################################################################

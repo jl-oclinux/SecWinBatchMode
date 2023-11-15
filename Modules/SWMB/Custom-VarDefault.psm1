@@ -70,4 +70,5 @@ $Global:SWMB_Custom = @{
 	# Storage Sense
 	# Global cadence in days - Every day = 1 - Every week = 7 - Every month = 30 - During low free disk space = 0
 	StorageSenseCadence = 30 # every month
+  StorageSenseUserBinCadence = 120 # delete files in recycle bin that are more than 120 days
 }

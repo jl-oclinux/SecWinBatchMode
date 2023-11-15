@@ -65,6 +65,29 @@ Function TweakViewStorageSense { # RESINFO
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -ErrorAction SilentlyContinue
 }
 
+# Allow storage sense tempory files Cleanup
+# Storage Sense will delete the user's temporary files that are not in use. Users cannot disable this setting in Storage settings.
+Function TweakEnableStorageSenseTemporaryFilesCleanup { # RESINFO
+	Write-Output "Allow Storage sense Temporary Files Cleanup"
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
+		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
+	}
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -Type DWord -Value 1
+}
+
+# Disabled:
+# Storage Sense will not delete the user's temporary files. Users cannot enable this setting in Storage settings.
+Function TweakDisableStorageSenseTemporaryFilesCleanup { # RESINFO
+	Write-Output "Disable Storage sense Temporary Files Cleanup"
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -Type DWord -Value 0
+}
+
+# View
+Function TweakViewStorageSenseTemporaryFilesCleanup { # RESINFO
+	Write-Output "View if Storage Sense Temporary Files Cleanup is turned on"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -ErrorAction SilentlyContinue
+}
+
 
 ################################################################
 

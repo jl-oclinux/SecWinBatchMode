@@ -1,10 +1,14 @@
+# Makefile for SWLN (SWMB project)
+# Warnning: Do not change variables and rules in this file!
+# Change them in extend-variables.mk and extend-rules.mk include makefiles
 
 SOFT:=SWLN
 SWLN_NAME:=SWLN
 SWMB_VERSION:=$(shell curl -s -L 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt')
-SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\.//g;')
+SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\./ /g;' | xargs -r printf "%i%02i%02i%03i")
 REVISION:=1
 
+LOG_DIR:=%SystemRoot%\\Logs\\Deploy
 
 FILES:=uninstall.bat
 FILES+=logo-swmb.ico
@@ -45,11 +49,11 @@ clean:
 
 tmp/install.bat: install.bat Makefile tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' install.bat > tmp/install.bat
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' install.bat > tmp/install.bat
 
 tmp/post-install.ps1: post-install.ps1 Makefile tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/;' post-install.ps1 > tmp/post-install.ps1
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' post-install.ps1 > tmp/post-install.ps1
 
 tmp/SWMB-Setup-%.exe: Makefile
 	@mkdir -p tmp

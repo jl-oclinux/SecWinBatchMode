@@ -2,7 +2,7 @@ ECHO OFF
 
 SET softname=__SWLN_NAME__
 
-SET logdir=%SystemRoot%\Logs\Deploy
+SET logdir=__LOG_DIR__
 IF NOT EXIST "%logdir%" (
   MKDIR "%logdir%"
 )

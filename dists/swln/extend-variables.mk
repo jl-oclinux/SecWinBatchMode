@@ -9,8 +9,11 @@
 #SOFT:=SWLN
 #SWLN_NAME:=SWLN
 #SWMB_VERSION:=3.14.10.0
-#SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\.//g;')
+#SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\./ /g;' | xargs -r printf "%i%02i%02i%03i")
 #REVISION:=1
+
+# Protect backslash (double)
+#LOG_DIR:=%SystemRoot%\\Logs\\Deploy
 
 ## Add folder print
 #FILES+=print

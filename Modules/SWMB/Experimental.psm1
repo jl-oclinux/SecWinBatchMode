@@ -65,9 +65,11 @@ Function TweakViewStorageSense { # RESINFO
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -ErrorAction SilentlyContinue
 }
 
+################################################################
+
 # Allow storage sense tempory files Cleanup
 # Storage Sense will delete the user's temporary files that are not in use. Users cannot disable this setting in Storage settings.
-Function TweakEnableStorageSenseTemporaryFilesCleanup { # RESINFO
+Function TweakEnableStorageSenseTempCleanup { # RESINFO
 	Write-Output "Allow Storage sense Temporary Files Cleanup"
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
@@ -77,37 +79,38 @@ Function TweakEnableStorageSenseTemporaryFilesCleanup { # RESINFO
 
 # Disabled:
 # Storage Sense will not delete the user's temporary files. Users cannot enable this setting in Storage settings.
-Function TweakDisableStorageSenseTemporaryFilesCleanup { # RESINFO
+Function TweakDisableStorageSenseTempCleanup { # RESINFO
 	Write-Output "Disable Storage sense Temporary Files Cleanup"
 	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -Type DWord -Value 0
 }
 
 # View
-Function TweakViewStorageSenseTemporaryFilesCleanup { # RESINFO
+Function TweakViewStorageSenseTempCleanup { # RESINFO
 	Write-Output "View if Storage Sense Temporary Files Cleanup is turned on"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -ErrorAction SilentlyContinue
 }
 
+################################################################
 
 # Configure Storage Sense Recycle Bin cleanup threshold
 # minimum age threshold (in days) of a file in the Recycle Bin before Storage Sense will delete it
-Function TweakEnableStorageSenseBinCleanup { # RESINFO
-	Write-Output "Files in the recycle bin that are more than $($Global:SWMB_Custom.StorageSenseUserBinCadence) days old will be deleted automatically"
+Function TweakEnableStorageSenseTrashCleanup { # RESINFO
+	Write-Output "Files in the recycle bin that are more than $($Global:SWMB_Custom.StorageSenseTrashCleanup) days old will be deleted automatically"
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
 	}
-	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -Type DWord -Value $Global:SWMB_Custom.StorageSenseUserBinCadence
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -Type DWord -Value $Global:SWMB_Custom.StorageSenseTrashCleanup
 }
 
 # Disabled:
 # By default, Storage Sense will delete files in the user's Recycle Bin that have been there for over 30 days.
-Function TweakDisableStorageSenseBinCleanup { # RESINFO
+Function TweakDisableStorageSenseTrashCleanup { # RESINFO
 	Write-Output "Disable Storage sense Temporary Files Cleanup"
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
 }
 
 # View
-Function TweakViewStorageSenseBinCleanup { # RESINFO
+Function TweakViewStorageSenseTrashCleanup { # RESINFO
 	Write-Output "View Storage Sense Bin automatically Cleanup"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
 }
@@ -119,4 +122,4 @@ Function TweakViewStorageSenseBinCleanup { # RESINFO
 ################################################################
 
 # Export functions
-Export-ModuleMember -Function *
+Export-ModuleMember -Function Tweak*

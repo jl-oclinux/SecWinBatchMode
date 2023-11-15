@@ -68,7 +68,8 @@ $Global:SWMB_Custom = @{
 	InterfaceMetricOn10Gbps = 50
 
 	# Storage Sense
+	# Use by tweak: StorageSense, StorageSenseTrashCleanup
 	# Global cadence in days - Every day = 1 - Every week = 7 - Every month = 30 - During low free disk space = 0
-	StorageSenseCadence = 30 # every month
-  StorageSenseUserBinCadence = 120 # delete files in recycle bin that are more than 120 days
+	StorageSenseCadence      =  30 # every month
+	StorageSenseTrashCleanup = 120 # delete files in recycle bin that are more than 120 days
 }

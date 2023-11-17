@@ -18,6 +18,9 @@ Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERE
 
 New presets/rules:
 
+* 2023/11/16 - `EnableStorageSense`/`DisableStorageSense`/`ViewStorageSense` -> Active global cleanup
+* 2023/11/16 - `EnableStorageSenseTempCleanup`/`DisableStorageSenseTempCleanup`/`ViewStorageSenseTempCleanup` -> Active cleanup of temporary files
+* 2023/11/16 - `EnableStorageSenseTrashCleanup`/`DisableStorageSenseTrashCleanup`/`ViewStorageSenseTrashCleanup` -> Active cleanup of user Recycle Bin
 * 2023/11/15 - `UninstallGoogleToolbar`/`ViewGoogleToolbar` -> Uninstall Google Toolbar for Internet Explorer (very old!) 
 * 2023/11/06 - `EnableSWMBUniqueId`/`DisableSWMBUniqueId`/`ViewSWMBUniqueId` -> Add a unique `HostId` identifier for each host for better identification
 

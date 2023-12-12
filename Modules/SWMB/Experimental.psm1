@@ -117,6 +117,59 @@ Function TweakViewStorageSenseTrashCleanup { # RESINFO
 
 ################################################################
 
+# Force reboot now if pending reboot
+# Adapted from https://gist.github.com/altrive/5329377
+# Based on <https://gallery.technet.microsoft.com/scriptcenter/Get-PendingReboot-Query-bdb79542>
+# https://www.geekbits.io/how-to-view-a-pending-reboot-in-windows/
+# https://stackoverflow.com/questions/47867949/how-can-i-check-for-a-pending-reboot
+	Function _TestPendingReboot {
+		# Check for 'Reboot Required' registry key 
+		If (Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending" -ErrorAction SilentlyContinue) { Return $True }
+
+		# Check for 'Reboot Required' registry key 
+		If (Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired" -ErrorAction SilentlyContinue) { Return $True }
+
+	#	# Check for recent installation requiring reboot
+	#	If (Test-Path "HKLM:\SOFTWARE\Microsoft\Updates\UpdateExeVolatile" -ErrorAction SilentlyContinue) { Return $True }
+
+		# Check for System Center Configuration Manager 
+		If (Test-Path "HKLM:\SOFTWARE\Microsoft\SMS\Mobile Client\Reboot Management\RebootData" -ErrorAction SilentlyContinue) { Return $True }
+
+	#	#Check for PendingFileRenameOperations
+	#	If (Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager" -Name 'PendingFileRenameOperations' -ErrorAction SilentlyContinue) { Return $True }
+
+	#	Try { 
+	#		$Util = [wmiclass]"\\.\root\ccm\clientsdk:CCM_ClientUtilities"
+	#		$Status = $Util.DetermineIfRebootPending()
+	#		if(($Status -ne $Null) -and $Status.RebootPending){
+	#			return $True
+	#		}
+	#	} Catch {}
+
+		Return $False
+	}
+
+# View
+Function TweakViewPendingReboot { # RESINFO
+	If (_TestPendingReboot) {
+		Write-Output "View PendingReboot: reboot is needed"
+	} Else {
+		Write-Output "View PendingReboot: no reboot in queue"
+	}
+}
+
+# Set
+Function TweakSetPendingReboot { # RESINFO
+	If (_TestPendingReboot) {
+		Write-Output "PendingReboot: reboot computer now..."
+		Restart-Computer
+	} Else {
+		Write-Output "View PendingReboot: no reboot in queue"
+	}
+}
+
+################################################################
+
 ################################################################
 ###### Export Functions
 ################################################################

@@ -18,6 +18,7 @@ Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERE
 
 New presets/rules:
 
+* 2023/12/12 - `SetPendingReboot`/`ViewPendingReboot` -> Restart computer if PendingReboot
 * 2023/11/16 - `EnableStorageSense`/`DisableStorageSense`/`ViewStorageSense` -> Active global cleanup
 * 2023/11/16 - `EnableStorageSenseTempCleanup`/`DisableStorageSenseTempCleanup`/`ViewStorageSenseTempCleanup` -> Active cleanup of temporary files
 * 2023/11/16 - `EnableStorageSenseTrashCleanup`/`DisableStorageSenseTrashCleanup`/`ViewStorageSenseTrashCleanup` -> Active cleanup of user Recycle Bin

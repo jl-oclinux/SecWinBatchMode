@@ -341,7 +341,7 @@ Command using the preset file above:
 
  | Status | Number of tweaks                       |         LM ||  All |         CU ||
  | :---   | :---                                   | ---: | ---: | ---: | ---: | ---: |
- | Info   | Number of RESINFO tweaks               |      |      |  133 |      |      |
+ | Info   | Number of RESINFO tweaks               |        127 ||  133 |          6 ||
  | Info   | Number of Enable and Disable tweaks    |  158 |  158 |  380 |   32 |   32 |
  | Warn   | Number of Install and Uninstall tweaks |   20 |   30 |   54 |    1 |    3 |
  | Warn   | Number of Show and Hide tweaks         |   26 |   26 |  109 |   30 |   27 |

@@ -16,16 +16,10 @@ function msg1 {
 
 function msg2 {
    local msg=$1
-   local on=$2
-   local off=$3
+   local total=$2
+   local totalcu=$3
 
-   local status='Info'
-   if [ "${on}" != "${off}" ]
-   then
-      status='Warn'
-   fi
-
-   printf " | %-6s | %-38s | %4i | %4i | %4i |      |      |\n" "${status}" "${msg}" "${on}" "${off}" $((${on} + ${off}))
+   printf " | %-6s | %-38s | %10i || %4i | %10i ||\n" 'Info'  "${msg}" $((${total} - ${totalcu})) "${total}" "${totalcu}"
    }
 
 function msg4 {
@@ -53,8 +47,9 @@ printf " | %-6s | %-38s | %10s || %4s | %10s ||\n" 'Status' 'Number of tweaks' '
 printf " | %-6s | %-38s | %4s | %4s | %4s | %4s | %4s |\n" ':---' ':---' '---:' '---:' '---:' '---:' '---:'
 
 # global numbers
-msg1 "Number of RESINFO tweaks" \
-   $(grep -hEi '^Function[[:space:]]Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin).* # RESINFO' ${all_module} | awk '{print $2}' | wc -l)
+msg2 "Number of RESINFO tweaks" \
+   $(grep -hEi '^Function[[:space:]]Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin).* # RESINFO' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin).*_CU { # RESINFO' ${all_module} | awk '{print $2}' | wc -l)
 
 msg4 "Number of Enable and Disable tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Enable)' ${all_module} | awk '{print $2}' | wc -l) \

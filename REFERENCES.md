@@ -10,7 +10,7 @@
   (Office fédéral de la sécurité des technologies de l’information - Allemagne) :
   [Hardening Guideline](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
   (english, pdf)
-* All the tools to secure Windows and privacy 
+* All the tools to secure Windows and privacy
   [Comparison of Windows 10 Privacy tools](https://www.ghacks.net/2015/08/14/comparison-of-windows-10-privacy-tools/) (english)
 * Upstream SWMB project [Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script) (english)
 

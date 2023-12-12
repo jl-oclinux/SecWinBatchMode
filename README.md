@@ -339,20 +339,20 @@ Command using the preset file above:
 
 ### Summary of the total number of tweaks
 
- | Status | Number of tweaks                       |      |      |      |
- | :---   | :---                                   | ---: | ---: | ---: |
- | Info   | Number of RESINFO tweaks               |      |      |  132 |
- | Info   | Number of Enable and Disable tweaks    |  190 |  190 |  380 |
- | Warn   | Number of Install and Uninstall tweaks |   21 |   33 |   54 |
- | Warn   | Number of Show and Hide tweaks         |   56 |   53 |  109 |
- | Info   | Number of Add and Remove tweaks        |    3 |    3 |    6 |
- | Warn   | Number of Set and Unset tweaks         |   41 |   10 |   51 |
- | Warn   | Number of Pin and Unpin tweaks         |    0 |    2 |    2 |
- | Info   | Number of total tweaks GPO             |      |      |  602 |
- | Info   | Number of Sys tweaks (system)          |      |      |    9 |
- | Info   | Number of View tweaks (debug)          |      |      |   32 |
- | Info   | Number of Obsolete tweaks              |      |      |    3 |
- | Info   | Number of total tweaks functions       |      |      |  646 |
+ | Status | Number of tweaks                       |         LM ||  All |         CU ||
+ | :---   | :---                                   | ---: | ---: | ---: | ---: | ---: |
+ | Info   | Number of RESINFO tweaks               |      |      |  133 |      |      |
+ | Info   | Number of Enable and Disable tweaks    |  158 |  158 |  380 |   32 |   32 |
+ | Warn   | Number of Install and Uninstall tweaks |   20 |   30 |   54 |    1 |    3 |
+ | Warn   | Number of Show and Hide tweaks         |   26 |   26 |  109 |   30 |   27 |
+ | Info   | Number of Add and Remove tweaks        |    2 |    2 |    6 |    1 |    1 |
+ | Warn   | Number of Set and Unset tweaks         |   24 |   10 |   52 |   18 |    0 |
+ | Warn   | Number of Pin and Unpin tweaks         |    0 |    0 |    2 |    0 |    2 |
+ | Info   | Number of total tweaks GPO             |      |      |  603 |      |      |
+ | Info   | Number of Sys tweaks (system)          |      |      |    9 |      |      |
+ | Info   | Number of View tweaks (debug)          |      |      |   33 |      |      |
+ | Info   | Number of Obsolete tweaks              |      |      |    3 |      |      |
+ | Info   | Number of total tweaks functions       |      |      |  648 |      |      |
 
 ### Import your lib
 

@@ -11,7 +11,7 @@ function msg1 {
    local msg=$1
    local total=$2
  
-   printf " | %-6s | %-38s | %4s | %4s | %4i |\n" 'Info' "${msg}" '' '' "${total}"
+   printf " | %-6s | %-38s | %4s | %4s | %4i |      |      |\n" 'Info' "${msg}" '' '' "${total}"
    }
 
 function msg2 {
@@ -25,7 +25,23 @@ function msg2 {
       status='Warn'
    fi
 
-   printf " | %-6s | %-38s | %4i | %4i | %4i |\n" "${status}" "${msg}" "${on}" "${off}" $((${on} + ${off}))
+   printf " | %-6s | %-38s | %4i | %4i | %4i |      |      |\n" "${status}" "${msg}" "${on}" "${off}" $((${on} + ${off}))
+   }
+
+function msg4 {
+   local msg=$1
+   local on=$2
+   local off=$3
+   local onci=$4
+   local offci=$5
+
+   local status='Info'
+   if [ "${on}" != "${off}" ]
+   then
+      status='Warn'
+   fi
+
+   printf " | %-6s | %-38s | %4i | %4i | %4i | %4i | %4i |\n" "${status}" "${msg}" $((${on} - ${onci})) $((${off} - ${offci})) $((${on} + ${off}))  "${onci}" "${offci}"
    }
 
 # list of files
@@ -33,36 +49,48 @@ function msg2 {
 all_module=$(find ./Modules/ -name '*.psm1' -print)
 preset_all=$(ls -1 Presets/{CurrentUser,LocalMachine}-All.preset)
 
-printf " | %-6s | %-38s | %4s | %4s | %4s |\n" 'Status' 'Number of tweaks' '' '' ''
-printf " | %-6s | %-38s | %4s | %4s | %4s |\n" ':---' ':---' '---:' '---:' '---:'
+printf " | %-6s | %-38s | %10s || %4s | %10s ||\n" 'Status' 'Number of tweaks' 'LM' 'All' 'CU'
+printf " | %-6s | %-38s | %4s | %4s | %4s | %4s | %4s |\n" ':---' ':---' '---:' '---:' '---:' '---:' '---:'
 
 # global numbers
 msg1 "Number of RESINFO tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin).* # RESINFO' ${all_module} | awk '{print $2}' | wc -l)
 
-msg2 "Number of Enable and Disable tweaks" \
+msg4 "Number of Enable and Disable tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Enable)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]]Tweak(Disable)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Disable)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Enable).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Disable).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l)
 
-msg2 "Number of Install and Uninstall tweaks" \
+msg4 "Number of Install and Uninstall tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Install)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]]Tweak(Uninstall)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Uninstall)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Install).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Uninstall).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l)
 
-msg2 "Number of Show and Hide tweaks" \
+msg4 "Number of Show and Hide tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Show)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]]Tweak(Hide)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Hide)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Show).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Hide).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l)
 
-msg2 "Number of Add and Remove tweaks" \
+msg4 "Number of Add and Remove tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Add)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]]Tweak(Remove)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Remove)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Add).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Remove).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l)
 
-msg2 "Number of Set and Unset tweaks" \
+msg4 "Number of Set and Unset tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Set)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]]Tweak(Unset)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Unset)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Set).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Unset).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l)
 
-msg2 "Number of Pin and Unpin tweaks" \
+msg4 "Number of Pin and Unpin tweaks" \
    $(grep -hEi '^Function[[:space:]]Tweak(Pin)' ${all_module} | awk '{print $2}' | wc -l) \
-   $(grep -hEi '^Function[[:space:]]Tweak(Unpin)' ${all_module} | awk '{print $2}' | wc -l)
+   $(grep -hEi '^Function[[:space:]]Tweak(Unpin)' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Pin).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l) \
+   $(grep -hEi '^Function[[:space:]]Tweak(Unpin).*_CU[[:space:]]' ${all_module} | awk '{print $2}' | wc -l)
 
 msg1 "Number of total tweaks GPO"  \
    $(grep -hEi '^Function Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin)' ${all_module} | wc -l)

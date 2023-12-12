@@ -31,6 +31,7 @@
 ## 2022
 
 * [Sécuriser son parc Windows avec le projet modulaire et communautaire SWMB](https://hal.science/hal-03608835) (french)
+* [Group Policy Settings Reference Spreadsheet for Windows 11 2022 Update (22H2)](https://www.microsoft.com/en-us/download/details.aspx?id=104594) (Spreadsheet XLSX, 9/21/2022)
 
 ## 2021
 
@@ -43,6 +44,10 @@
 ## 2019
 
 * [Top 10 Group Policy PowerShell Commands](https://blog.netwrix.com/2019/04/11/top-10-group-policy-powershell-commands/)
+
+## 2017
+
+* [Group Policy Settings Reference for Windows and Windows Server](https://www.microsoft.com/en-us/download/details.aspx?id=25250) (Spreadsheet XLSX, 10/17/2017)
 
 ## 2010
 

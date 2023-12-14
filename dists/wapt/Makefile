@@ -1,7 +1,7 @@
 SOFT:=SWMB
 VERSION:=$(shell grep '!define VERSION' ../../tmp/package.nsi | cut -f 2 -d '"')
 REVISION:=1
-DATE:=$(shell date '+%Y/%m/%d')
+DATE:=$(shell date '+%Y-%m-%d')
 
 .PHONY: all help update clean
 
@@ -23,17 +23,17 @@ clean:
 	rm -rf tmp
 
 
-%.zip: Makefile
+%.zip: Makefile control README.md setup.py swmb.png ../../tmp/package.nsi
 	@rm -rf ./tmp
-	@mkdir -p ./tmp/swmb/WAPT
-	@sed -e 's/__VERSION__/$(VERSION)/; s/__REVISION__/$(REVISION)/;' control > ./tmp/swmb/WAPT/control
-	@perl -p -e 's{__DATE__}{$(DATE)};' README.md > ./tmp/swmb/README.md
-	@cp -f ../../LICENSE.md setup.py ./swmb.png ./tmp/swmb/
+	@mkdir -p ./tmp/resinfo-swmb/WAPT
+	@sed -e 's/__VERSION__/$(VERSION)/; s/__REVISION__/$(REVISION)/;' control > ./tmp/resinfo-swmb/WAPT/control
+	@perl -p -e 's{__DATE__}{$(DATE)};' README.md > ./tmp/resinfo-swmb/README.md
+	@cp -f ../../LICENSE.md setup.py ./swmb.png ./tmp/resinfo-swmb/
 	@rm -f $@
 	@(cd ../..; \
 		make; \
-		cp SWMB-Setup-$(VERSION).exe ./dists/wapt/tmp/swmb/ \
+		cp SWMB-Setup-$(VERSION).exe ./dists/wapt/tmp/resinfo-swmb/ \
 		)
 	@(cd tmp; \
-		zip -r ../$@ swmb)
+		zip -r ../$@ resinfo-swmb)
 	@chmod ugo+rw $@

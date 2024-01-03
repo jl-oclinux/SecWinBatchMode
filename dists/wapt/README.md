@@ -4,9 +4,12 @@
 
 source: [https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/)
 
-maintainer: <Gabriel.Moreau at legi.grenoble-inp.fr>
+maintainer: wapt-dev@listes.resinfo.org
+ * from 2023-11-27 Gabriel.Moreau@legi.grenoble-inp.fr
 
 date: __DATE__
+
+licence : [MIT](https://spdx.org/licenses/MIT.html)
 
 description: see the main [README](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/README.md) web page
 

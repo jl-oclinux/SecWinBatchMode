@@ -7,6 +7,8 @@
  * For your update scripts (for example), you have the **version number** of the latest SWMB release
    in the first line of the [version.txt](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt) file.
    This last version is rebuilt at each modification pushed on the Git server, so the code can change.
+ * The master Git repository in on the [IN2P3 Gitlab](https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb).
+   Other Git repository are mirror or fork.
 
 **Main sub-menu**:
 

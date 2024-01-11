@@ -97,3 +97,6 @@ DisableAppSuggestions
 
 ## https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.NewsAndInterests::AllowNewsAndInterests
 DisableWidgetsNewsAndInterests
+
+## https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.StartMenu::ShowOrHideMostUsedApps
+HideMostUsedApps

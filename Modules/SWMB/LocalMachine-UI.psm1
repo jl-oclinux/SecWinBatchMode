@@ -283,6 +283,32 @@ Function TweakViewWidgetsNewsAndInterests {
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests"
 }
 
+################################################################
+
+# Hide Most Used Apps
+Function TweakHideMostUsedApps {
+	Write-Output "Hide Most Used Apps... "
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "ShowOrHideMostUsedApps" -Type DWord -Value 2
+}
+
+# Show Most Used Apps
+Function TweakShowMostUsedApps {
+	Write-Output "Show Most Used Apps... "
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "ShowOrHideMostUsedApps" -Type DWord -Value 1
+}
+
+
+# View Most Used Apps
+Function TweakViewMostUsedApps {
+	Write-Output "View Hide or Show Most Used Apps (2: Hide, 1: Show, 0: Not Configured)"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "ShowOrHideMostUsedApps"
+}
 
 ##########
 #endregion UI Tweaks

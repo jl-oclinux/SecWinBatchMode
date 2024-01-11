@@ -171,6 +171,7 @@ DisableNewAppPrompt                             # EnableNewAppPrompt
 # DisableChangingSoundScheme                    # EnableChangingSoundScheme
 # EnableVerboseStatus                           # DisableVerboseStatus
 DisableWidgetsNewsAndInterests                  # EnableWidgetsNewsAndInterests                # ViewWidgetsNewsAndInterests
+HideMostUsedApps                                # ShowMostUsedApps                             # ViewMostUsedApps
 
 ### Explorer UI Tweaks ###
 HideQuickAccess                                 # ShowQuickAccess

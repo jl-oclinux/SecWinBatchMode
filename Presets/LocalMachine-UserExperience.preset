@@ -94,3 +94,6 @@ DisableAppSuggestions
 ## Disable access to location from UWP apps
 ## À Faire - choisir si on active ou pas cette GPO là
 # DisableUWPAccessLocation
+
+## https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.NewsAndInterests::AllowNewsAndInterests
+DisableWidgetsNewsAndInterests

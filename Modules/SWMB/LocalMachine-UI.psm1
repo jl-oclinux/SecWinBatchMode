@@ -260,6 +260,30 @@ Function TweakDisableVerboseStatus {
 	}
 }
 
+################################################################
+
+# Disable Widget news and interests
+Function TweakDisableWidgetsNewsAndInterests {
+	Write-Output "Disable Widgets News and Interests..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests" -Type DWord -Value 0
+}
+
+# Enable Widget news and interests
+Function TweakEnableWidgetsNewsAndInterests {
+	Write-Output  "Enable Widgets News and Interests..."
+	Remove-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewWidgetsNewsAndInterests {
+	Write-Output 'View Widgets News and Interests (0: Disable, Error: Enable)'
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests"
+}
+
+
 ##########
 #endregion UI Tweaks
 ##########

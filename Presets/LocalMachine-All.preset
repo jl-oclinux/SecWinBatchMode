@@ -170,6 +170,7 @@ DisableNewAppPrompt                             # EnableNewAppPrompt
 # DisableStartupSound                           # EnableStartupSound
 # DisableChangingSoundScheme                    # EnableChangingSoundScheme
 # EnableVerboseStatus                           # DisableVerboseStatus
+DisableWidgetsNewsAndInterests                  # EnableWidgetsNewsAndInterests                # ViewWidgetsNewsAndInterests
 
 ### Explorer UI Tweaks ###
 HideQuickAccess                                 # ShowQuickAccess

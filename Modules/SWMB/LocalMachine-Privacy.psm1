@@ -50,16 +50,16 @@ Function TweakDisableTelemetry {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" -Name "AllowLinguisticDataCollection" -Type DWord -Value 0
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-Null
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Microsoft Compatibility Appraiser"}) { Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "ProgramDataUpdater"}) {Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Proxy"}) {Disable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Consolidator"}) {Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "UsbCeip"}) {Disable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Microsoft-Windows-DiskDiagnosticDataCollector"}) {Disable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-Null}
 	# Office 2016 / 2019
-	Disable-ScheduledTask -TaskName "Microsoft\Office\Office ClickToRun Service Monitor" -ErrorAction SilentlyContinue | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Office\OfficeTelemetryAgentFallBack2016" -ErrorAction SilentlyContinue | Out-Null
-	Disable-ScheduledTask -TaskName "Microsoft\Office\OfficeTelemetryAgentLogOn2016" -ErrorAction SilentlyContinue | Out-Null
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Office ClickToRun Service Monitor"}) {Disable-ScheduledTask -TaskName "Microsoft\Office\Office ClickToRun Service Monitor" -ErrorAction SilentlyContinue | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "OfficeTelemetryAgentFallBack2016"}) {Disable-ScheduledTask -TaskName "Microsoft\Office\OfficeTelemetryAgentFallBack2016" -ErrorAction SilentlyContinue | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "OfficeTelemetryAgentLogOn2016"}) {Disable-ScheduledTask -TaskName "Microsoft\Office\OfficeTelemetryAgentLogOn2016" -ErrorAction SilentlyContinue | Out-Null}
 }
 
 # Enable Telemetry
@@ -76,16 +76,16 @@ Function TweakEnableTelemetry {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\AppV\CEIP" -Name "CEIPEnable" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput" -Name "AllowLinguisticDataCollection" -ErrorAction SilentlyContinue
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-Null
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Microsoft Compatibility Appraiser"}) {Enable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "ProgramDataUpdater"}) {Enable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\ProgramDataUpdater" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Proxy"}) {Enable-ScheduledTask -TaskName "Microsoft\Windows\Autochk\Proxy" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Consolidator"})  {Enable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\Consolidator" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "UsbCeip"}) {Enable-ScheduledTask -TaskName "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Microsoft-Windows-DiskDiagnosticDataCollector"}) {Enable-ScheduledTask -TaskName "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector" | Out-Null}
 	# Office 2016 / 2019
-	Enable-ScheduledTask -TaskName "Microsoft\Office\Office ClickToRun Service Monitor" -ErrorAction SilentlyContinue | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Office\OfficeTelemetryAgentFallBack2016" -ErrorAction SilentlyContinue | Out-Null
-	Enable-ScheduledTask -TaskName "Microsoft\Office\OfficeTelemetryAgentLogOn2016" -ErrorAction SilentlyContinue | Out-Null
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "Office ClickToRun Service Monitor"}) {Enable-ScheduledTask -TaskName "Microsoft\Office\Office ClickToRun Service Monitor" -ErrorAction SilentlyContinue | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "OfficeTelemetryAgentFallBack2016"}) {Enable-ScheduledTask -TaskName "Microsoft\Office\OfficeTelemetryAgentFallBack2016" -ErrorAction SilentlyContinue | Out-Null}
+	if (Get-ScheduledTask | Where-Object {$_.Taskname -eq "OfficeTelemetryAgentLogOn2016"}) {Enable-ScheduledTask -TaskName "Microsoft\Office\OfficeTelemetryAgentLogOn2016" -ErrorAction SilentlyContinue | Out-Null}
 }
 
 ################################################################

@@ -211,6 +211,30 @@ Function TweakViewHighlightsSearch {
 
 ################################################################
 
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCloudSearch
+# Disable Cloud Search
+Function TweakDisableCloudSearch {
+	Write-Output "Disable Cloud Search..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch" -Type DWord -Value 0
+}
+
+# Enable Cloud Search
+Function TweakEnableCloudSearch {
+	Write-Output "Allow Cloud Search..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewCloudSearch {
+	Write-Output 'View Cloud Search (0: Disable, Error: Not configured = Enable)'
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch"
+}
+
+################################################################
+
 # Disable Application suggestions and automatic installation
 Function TweakDisableAppSuggestions {
 	Write-Output "Disabling Application suggestions. See DisableAppSuggestions_CU..."

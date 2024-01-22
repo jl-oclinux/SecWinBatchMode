@@ -187,6 +187,30 @@ Function TweakEnableWebSearch {
 
 ################################################################
 
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowSearchHighlights
+# Disable search highlights
+Function TweakDisableHighlightsSearch {
+	Write-Output "Disable search highlights..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB" -Type DWord -Value 1
+}
+
+# Enable search highlights
+Function TweakEnableHighlightsSearch {
+	Write-Output "Allow search highlights..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewHighlightsSearch {
+	Write-Output 'View Highlights Search (1: Disable, Error: Not configured = Enable)'
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB"
+}
+
+################################################################
+
 # Disable Application suggestions and automatic installation
 Function TweakDisableAppSuggestions {
 	Write-Output "Disabling Application suggestions. See DisableAppSuggestions_CU..."

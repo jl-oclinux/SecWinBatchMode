@@ -249,6 +249,9 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallGlassWire
 # UninstallEdgeWebView2                                                                         # ViewEdgeWebView2
 # UninstallGoogleToolbar                                                                        # ViewGoogleToolbar
+EnableStorageSense                              # DisableStorageSense                           # ViewStorageSense
+EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup                # ViewStorageSenseTempCleanup
+# EnableStorageSenseTrashCleanup                  # DisableStorageSenseTrashCleanup               # ViewStorageSenseTrashCleanup
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

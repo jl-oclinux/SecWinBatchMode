@@ -170,6 +170,7 @@ Function TweakEnableSmartScreen {
 
 ################################################################
 
+# https://admx.help/?Category=Windows_11_2022&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::DisableWebSearch
 # Disable Web Search in Start Menu
 Function TweakDisableWebSearch {
 	Write-Output "Disabling Bing Search in Start Menu. See DisableWebSearch_CU..."

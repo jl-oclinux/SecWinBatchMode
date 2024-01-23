@@ -49,6 +49,7 @@ DisableWAPPush                                  # EnableWAPPush
 # DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
 DisableHighlightsSearch                         # EnableHighlightsSearch                        # ViewHighlightsSearch
 DisableCloudSearch                              # EnableCloudSearch                             # ViewCloudSearch
+DisableSearchOnTaskbar                          # EnableSearchOnTaskbar                         # ViewSearchOnTaskbar
 
 
 ### UWP Privacy Tweaks ###

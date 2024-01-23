@@ -236,6 +236,36 @@ Function TweakViewCloudSearch {
 
 ################################################################
 
+#
+# Disable Search on Taskbar and Start Menu for All Users
+Function TweakDisableSearchOnTaskbar {
+	Write-Output "Disable Search on Taskbar and Start Menu for All Users..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "value" -Type DWord -Value 1
+
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch" -Type DWord -Value 1
+}
+
+# Enable Search on Taskbar and Start Menu for All Users
+Function TweakEnableSearchOnTaskbar {
+	Write-Output "Enable Search on Taskbar and Start Menu for All Users..."
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "value" -Type DWord -Value 0
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewSearchOnTaskbar {
+	Write-Output 'View search on taskbar (0: Disable, Error: Not configured = Enable)'
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch"
+}
+
+################################################################
+
 # Disable Application suggestions and automatic installation
 Function TweakDisableAppSuggestions {
 	Write-Output "Disabling Application suggestions. See DisableAppSuggestions_CU..."

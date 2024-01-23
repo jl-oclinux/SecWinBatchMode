@@ -2,6 +2,10 @@
 
 ## Version 3.16 (in progress)
 
+This version offers specific initial support for Windows11.
+Indeed, initial tweaks have been written and made default to limit searches and data leaks for Windows 11.
+Tweaks can be deployed on Windows 11 and Windows 10 without disruption to the latter.
+
 Continuous integration package creation now increments the version counter for each commit.
 SWMB installation no longer generates a unique GUID by default (better GDPR compliant),
 just put the EnableSWMBUniqueId tweak in a preset file, for example `LocalMachine-Boot.preset` and/or `LocalMachine-PostInstall.preset`,
@@ -17,7 +21,11 @@ SWLN defaults to the latest available version of SWMB.
 Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERENCES.md).
 
 New presets/rules:
-
+* 2024/01/22 - `DisableCloudSearch`/`EnableCloudSearch`/`ViewCloudSearch` -> No search on cloud by default in menu (Windows11)
+* 2024/01/22 - `DisableHighlightsSearch`/`EnableHighlightsSearch`/`ViewHighlightsSearch` -> Limit Highlights search (Windows11)
+* 2024/01/11 - `DisableWidgetsNewsAndInterests`/`EnableWidgetsNewsAndInterests`/`ViewWidgetsNewsAndInterests` -> Limit news in menu (Windows11)
+* 2024/01/11 - `HideMostUsedApps`/`ShowMostUsedApps`/`ViewMostUsedApps` -> Remove most used applications (Windows11)
+* 2024/01/11 - `DisableTelemetry` -> Better code with more test
 * 2023/12/12 - `SetPendingReboot`/`ViewPendingReboot` -> Restart computer if PendingReboot
 * 2023/11/16 - `EnableStorageSense`/`DisableStorageSense`/`ViewStorageSense` -> Active global cleanup
 * 2023/11/16 - `EnableStorageSenseTempCleanup`/`DisableStorageSenseTempCleanup`/`ViewStorageSenseTempCleanup` -> Active cleanup of temporary files

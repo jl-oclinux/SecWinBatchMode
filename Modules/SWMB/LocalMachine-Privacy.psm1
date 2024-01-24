@@ -236,7 +236,7 @@ Function TweakViewCloudSearch {
 
 ################################################################
 
-#
+## WARNING NOT RECOMMANDED - disable search start menu
 # Disable Search on Taskbar and Start Menu for All Users
 Function TweakDisableSearchOnTaskbar {
 	Write-Output "Disable Search on Taskbar and Start Menu for All Users..."

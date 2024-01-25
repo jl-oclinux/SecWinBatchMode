@@ -168,6 +168,7 @@ DisableSearchAppInStore                         # EnableSearchAppInStore
 DisableNewAppPrompt                             # EnableNewAppPrompt
 # HideRecentlyAddedApps                         # ShowRecentlyAddedApps
 # HideMostUsedApps                              # ShowMostUsedApps
+# HideFrequentlyUsedProgramsList                  # ShowFrequentlyUsedProgramsList
 # HideShortcutArrow                             # ShowShortcutArrow
 # EnableNumlock                                 # DisableNumlock
 # DisableStartupSound                           # EnableStartupSound

@@ -176,6 +176,7 @@ DisableNewAppPrompt                             # EnableNewAppPrompt
 # EnableVerboseStatus                           # DisableVerboseStatus
 DisableWidgetsNewsAndInterests                  # EnableWidgetsNewsAndInterests                # ViewWidgetsNewsAndInterests
 HideMostUsedApps                                # ShowMostUsedApps                             # ViewMostUsedApps
+HideRecommendedSection                          # ShowRecommendedSection
 
 ### Explorer UI Tweaks ###
 HideQuickAccess                                 # ShowQuickAccess

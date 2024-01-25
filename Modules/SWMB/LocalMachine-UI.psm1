@@ -163,6 +163,23 @@ Function TweakShowFrequentlyUsedProgramsList {
 
 ################################################################
 
+# Hide Recommended Section in start menu
+Function TweakHideRecommendedSection {
+	Write-Output "Hide Recommended Section in start menu..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideRecommendedSection" -Type DWord -Value 1
+}
+
+# Show Recommended Section in start menu
+Function TweakShowRecommendedSection {
+	Write-Output "Show Recommended Section in start menu..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideRecommendedSection" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
 # Hide shortcut icon arrow
 Function TweakHideShortcutArrow {
 	Write-Output "Hiding shortcut icon arrow..."

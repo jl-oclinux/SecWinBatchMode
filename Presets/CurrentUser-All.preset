@@ -55,6 +55,7 @@ SetVisualFXPerformance_CU       # SetVisualFXAppearance_CU
 DisableF1HelpKey_CU             # EnableF1HelpKey_CU
 # AddENKeyboard_CU              # RemoveENKeyboard_CU
 # EnableGodMod_CU               # DisableGodMod_CU
+DisableSearchInternetInStartMenu_CU # EnableSearchInternetInStartMenu_CU # ViewSearchInternetInStartMenu_CU
 
 ### Explorer UI Tweaks ###
 # ShowExplorerTitleFullPath_CU  # HideExplorerTitleFullPath_CU

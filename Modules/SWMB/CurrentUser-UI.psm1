@@ -147,6 +147,28 @@ Function TweakShowTaskbarSearchBox_CU {
 
 ################################################################
 
+# https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.StartMenu::NoSearchInternetInStartMenu
+# No Search Internet In StartMenu
+Function TweakDisableSearchInternetInStartMenu_CU {
+	Write-Output "Disable Search Internet In StartMenu for CU..."
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoSearchInternetInStartMenu" -Type DWord -Value 1
+}
+
+# Search Internet In StartMenu
+Function TweakEnableSearchInternetInStartMenu_CU {
+	Write-Output "Enable Search Internet In StartMenu for CU..."
+	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoSearchInternetInStartMenu" -ErrorAction SilentlyContinue
+}
+
+# View Search Internet In StartMenu
+Function TweakViewSearchInternetInStartMenu_CU {
+	Write-Output "View Search Internet In StartMenu for CU..."
+	Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoSearchInternetInStartMenu"
+}
+
+
+################################################################
+
 # Hide Task View button
 Function TweakHideTaskView_CU {
 	Write-Output "Hiding Task View button for CU..."

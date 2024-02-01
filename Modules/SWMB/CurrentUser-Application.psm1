@@ -75,7 +75,7 @@ Function TweakUninstallOneDrive_CU { # RESINFO
 		Get-ItemProperty |
 		Where-Object { $_.DisplayName -like 'Microsoft OneDrive*' } |
 		ForEach {
-			$UninstallString = $_.UninstallString
+			$UninstallString = ($_.UninstallString).Replace('"',"")
 			$Version = $_.DisplayVersion
 			$UninstallSplit = $UninstallString -Split "exe"
 			$Exe = $UninstallSplit[0] + 'exe'

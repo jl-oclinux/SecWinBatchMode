@@ -699,6 +699,56 @@ Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, H
 }
 
 ################################################################
+
+# HP built-in apps to remove
+# https://gist.github.com/mark05e/a79221b4245962a477a49eb281d97388
+
+Function TweakUninstallHPBuiltInApps { # RESINFO
+	$UninstallPackages = @(
+    "AD2F1837.HPJumpStarts"
+    "AD2F1837.HPPCHardwareDiagnosticsWindows"
+    "AD2F1837.HPPowerManager"
+    "AD2F1837.HPPrivacySettings"
+    #"AD2F1837.HPSupportAssistant"
+    "AD2F1837.HPSureShieldAI"
+    "AD2F1837.HPSystemInformation"
+    "AD2F1837.HPQuickDrop"
+    "AD2F1837.HPWorkWell"
+    "AD2F1837.myHP"
+    "AD2F1837.HPDesktopSupportUtilities"
+    "AD2F1837.HPQuickTouch"
+    "AD2F1837.HPEasyClean"
+    "AD2F1837.HPSystemInformation"
+	)
+	$InstalledPackages = Get-AppxPackage -AllUsers | Where-Object {($UninstallPackages -contains $_.Name)}
+	$ProvisionedPackages = Get-AppxProvisionedPackage -Online | Where-Object {($UninstallPackages -contains $_.DisplayName)}
+
+	# Remove appx provisioned packages - AppxProvisionedPackage
+	ForEach ($ProvPackage in $ProvisionedPackages) {
+
+    Write-Host -Object "Attempting to remove provisioned package: [$($ProvPackage.DisplayName)]..."
+
+    Try {
+        $Null = Remove-AppxProvisionedPackage -PackageName $ProvPackage.PackageName -Online -ErrorAction Stop
+        Write-Host -Object "Successfully removed provisioned package: [$($ProvPackage.DisplayName)]"
+    }
+    Catch {Write-Warning -Message "Failed to remove provisioned package: [$($ProvPackage.DisplayName)]"}
+	}
+
+	# Remove appx packages - AppxPackage
+	ForEach ($AppxPackage in $InstalledPackages) {
+
+    Write-Host -Object "Attempting to remove Appx package: [$($AppxPackage.Name)]..."
+
+    Try {
+        $Null = Remove-AppxPackage -Package $AppxPackage.PackageFullName -AllUsers -ErrorAction Stop
+        Write-Host -Object "Successfully removed Appx package: [$($AppxPackage.Name)]"
+    }
+    Catch {Write-Warning -Message "Failed to remove Appx package: [$($AppxPackage.Name)]"}
+	}
+}
+
+################################################################
 ###### Export Functions
 ################################################################
 

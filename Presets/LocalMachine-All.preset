@@ -254,7 +254,10 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallGoogleToolbar                                                                        # ViewGoogleToolbar
 EnableStorageSense                              # DisableStorageSense                           # ViewStorageSense
 EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup                # ViewStorageSenseTempCleanup
-# EnableStorageSenseTrashCleanup                  # DisableStorageSenseTrashCleanup               # ViewStorageSenseTrashCleanup
+# EnableStorageSenseTrashCleanup                # DisableStorageSenseTrashCleanup               # ViewStorageSenseTrashCleanup
+# UninstallHPWolfSecurity                                                                       # ViewHPWolfSecurity
+# UninstallHPBuiltInApps
+# UninstallHPBloatware
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

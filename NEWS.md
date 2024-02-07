@@ -21,6 +21,7 @@ SWLN defaults to the latest available version of SWMB.
 Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERENCES.md).
 
 New presets/rules:
+* 2024/02/07 - `UninstallHPWolfSecurity`/`UninstallHPBuiltInApps`/`UninstallHPBloatware` -> uninstall HP software
 * 2024/01/22 - `DisableCloudSearch`/`EnableCloudSearch`/`ViewCloudSearch` -> No search on cloud by default in menu (Windows11)
 * 2024/01/22 - `DisableHighlightsSearch`/`EnableHighlightsSearch`/`ViewHighlightsSearch` -> Limit Highlights search (Windows11)
 * 2024/01/11 - `DisableWidgetsNewsAndInterests`/`EnableWidgetsNewsAndInterests`/`ViewWidgetsNewsAndInterests` -> Limit news in menu (Windows11)
@@ -30,7 +31,7 @@ New presets/rules:
 * 2023/11/16 - `EnableStorageSense`/`DisableStorageSense`/`ViewStorageSense` -> Active global cleanup
 * 2023/11/16 - `EnableStorageSenseTempCleanup`/`DisableStorageSenseTempCleanup`/`ViewStorageSenseTempCleanup` -> Active cleanup of temporary files
 * 2023/11/16 - `EnableStorageSenseTrashCleanup`/`DisableStorageSenseTrashCleanup`/`ViewStorageSenseTrashCleanup` -> Active cleanup of user Recycle Bin
-* 2023/11/15 - `UninstallGoogleToolbar`/`ViewGoogleToolbar` -> Uninstall Google Toolbar for Internet Explorer (very old!) 
+* 2023/11/15 - `UninstallGoogleToolbar`/`ViewGoogleToolbar` -> Uninstall Google Toolbar for Internet Explorer (very old!)
 * 2023/11/06 - `EnableSWMBUniqueId`/`DisableSWMBUniqueId`/`ViewSWMBUniqueId` -> Add a unique `HostId` identifier for each host for better identification
 
 
@@ -146,7 +147,7 @@ If needed, a specific tweak function must be written for security reasons.
 
 New presets/rules:
 
-* 2022/06/01 - `DisableMSDT`/`EnableMSDT`/`ViewMSDT` -> Disable MSDT - Microsoft Support Diagnostic Tool Vulnerability - CVE-2022-30190 
+* 2022/06/01 - `DisableMSDT`/`EnableMSDT`/`ViewMSDT` -> Disable MSDT - Microsoft Support Diagnostic Tool Vulnerability - CVE-2022-30190
 * 2022/05/09 - `ViewKasperskyProduct` -> View all the Kaspersky product
 * 2022/05/09 - `UninstallKasperskyConsole` -> Remove the Kaspersky Console
 * 2022/03/16 - `UninstallKasperskyEndpoint` ([see more](dists/uninstall-kaspersky/)) - use Custom configuration module

@@ -139,7 +139,7 @@ Function TweakViewKasperskyProduct { # RESINFO
 # Uninstall
 Function TweakUninstallRealPlayer { # RESINFO
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
-	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		Where { $_.Name -match 'RealPlayer \d' } |
 		ForEach {
 			$App = (Get-ItemProperty -Path $_.PSPath)
@@ -203,7 +203,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 	If (Test-Path -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\Real\") {
 		Write-Output "Removing RealPlayer Start Menu Entry."
 		Remove-Item -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\Real\" -Force -Recurse -ErrorAction SilentlyContinue
-		Start-Sleep -Seconds 2 
+		Start-Sleep -Seconds 2
 	}
 	## Cleanup ProgramData Directory
 	If (Test-Path -Path "${Env:AllUsersProfile}\Real\") {
@@ -214,12 +214,12 @@ Function TweakUninstallRealPlayer { # RESINFO
 	## Cleanup RealPlayer Directories
 	If (Test-Path -Path "${Env:ProgramFiles}\Real\") {
 		Write-Output "Cleanup ${Env:ProgramFiles}\Real\ Directory."
-		Remove-Item -Path "${Env:ProgramFiles}\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
+		Remove-Item -Path "${Env:ProgramFiles}\Real\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 1
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\") {
 		Write-Output "Cleanup ${Env:ProgramFiles(x86)}\Real\ Directory."
-		Remove-Item -Path "${Env:ProgramFiles(x86)}\Real\" -Force -Recurse -ErrorAction SilentlyContinue 
+		Remove-Item -Path "${Env:ProgramFiles(x86)}\Real\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 1
 	}
 	## Cleanup Local & Roaming RealPlayer Directories
@@ -241,7 +241,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 # Uninstall
 Function TweakUninstallWinRAR { # RESINFO
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
-	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		Where { $_.Name -match 'WinRAR archiver' } |
 		ForEach {
 			$App = (Get-ItemProperty -Path $_.PSPath)
@@ -275,7 +275,7 @@ Function TweakUninstallWinRAR { # RESINFO
 	If (Test-Path -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\WinRAR\") {
 		Write-Output "Removing WinRAR Start Menu Entry."
 		Remove-Item -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\WinRAR\" -Force -Recurse -ErrorAction SilentlyContinue
-		Start-Sleep -Seconds 2 
+		Start-Sleep -Seconds 2
 	}
 
 	## Cleanup User Profile (If Present)
@@ -362,7 +362,7 @@ Function TweakViewTotalCommander { # RESINFO
 # Uninstall
 Function TweakUninstallAvast { # RESINFO
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
-	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		Where { $_.Name -match 'Avast Antivirus' } |
 		ForEach {
 			$App = (Get-ItemProperty -Path $_.PSPath)
@@ -452,7 +452,7 @@ Function TweakUninstallOpenOffice { # RESINFO
 # Uninstall
 Function TweakUninstallGlassWire { # RESINFO
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
-	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") | 
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		Where { $_.Name -match 'GlassWire' } |
 		ForEach {
 			$App = (Get-ItemProperty -Path $_.PSPath)
@@ -601,6 +601,101 @@ Function TweakViewGoogleToolbar { # RESINFO
 				Write-Output "${RefName}: $DisplayVersion / $UninstallString"
 			}
 		}
+}
+
+################################################################
+
+# Suppress HP wolf security
+# https://support.hpwolf.com/s/article/How-to-uninstall-HP-Wolf-Pro-Security
+Function TweakUninstallHPWolfSecurity { # RESINFO
+
+	$Wolf = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object {$_.DisplayName -match "HP Wolf Security" }
+	$WolfConsole = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object {$_.DisplayName -match "HP Wolf Security - Console" }
+	$SecurityUpdate = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object {$_.DisplayName -match "HP Security Update Service" }
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match 'HP Wolf Security') {
+				$VersionMajor = $App.VersionMajor
+				$VersionMinor = $App.VersionMinor
+				$KeyProduct = $Key | Split-Path -Leaf
+				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
+
+				Write-Output "Uninstalling HP Wolf Security version $VersionMajor.$VersionMinor"
+				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill HP Wolf Security uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: HP Wolf Security uninstall return code $($Proc.ExitCode)"
+					# Next tweak now
+					Return
+				}
+			}
+			If ($DisplayName -match 'HP Wolf Security - Console') {
+				$VersionMajor = $App.VersionMajor
+				$VersionMinor = $App.VersionMinor
+				$KeyProduct = $Key | Split-Path -Leaf
+				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
+
+				Write-Output "Uninstalling HP Wolf Security - Console version $VersionMajor.$VersionMinor"
+				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill HP Wolf Security - Console uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: HP Wolf Security - Console uninstall return code $($Proc.ExitCode)"
+					# Next tweak now
+					Return
+				}
+			}
+			If ($DisplayName -match 'HP Security Update Service') {
+				$VersionMajor = $App.VersionMajor
+				$VersionMinor = $App.VersionMinor
+				$KeyProduct = $Key | Split-Path -Leaf
+				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
+
+				Write-Output "Uninstalling HP Security Update Service version $VersionMajor.$VersionMinor"
+				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+				$Timeouted = $Null # Reset any previously set timeout
+				# Wait up to 180 seconds for normal termination
+				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+				If ($Timeouted) {
+					# Terminate the process
+					$Proc | Kill
+					Write-Output "Error: kill HP Security Update Service uninstall exe"
+					# Next tweak now
+					Return
+				} ElseIf ($Proc.ExitCode -ne 0) {
+					Write-Output "Error: HP Security Update Service uninstall return code $($Proc.ExitCode)"
+					# Next tweak now
+					Return
+				}
+			}
+		}
+}
+
+# View
+Function TweakViewHPWolfSecurity { # RESINFO
+Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object {$_.DisplayName -like "*HP*Security*" } | Select-Object -Property DisplayName, DisplayVersion, UninstallString
 }
 
 ################################################################

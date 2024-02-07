@@ -748,6 +748,43 @@ Function TweakUninstallHPBuiltInApps { # RESINFO
 	}
 }
 
+
+################################################################
+
+# HP built-in apps to remove
+# https://gist.github.com/mark05e/a79221b4245962a477a49eb281d97388
+
+Function TweakUninstallHPBloatware { # RESINFO
+# List of programs to uninstall
+	$UninstallPrograms = @(
+    "HP Client Security Manager"
+    "HP Connection Optimizer"
+    "HP Documentation"
+    "HP MAC Address Manager"
+    "HP Notifications"
+    #"HP Security Update Service"
+    "HP System Default Settings"
+    "HP Sure Click"
+    "HP Sure Click Security Browser"
+    "HP Sure Run"
+    "HP Sure Recover"
+    "HP Sure Sense"
+    "HP Sure Sense Installer"
+    #"HP Wolf Security"
+    #"HP Wolf Security Application Support for Sure Sense"
+    #"HP Wolf Security Application Support for Windows"
+	)
+	$InstalledPrograms = Get-Package | Where-Object {$UninstallPrograms -contains $_.Name}
+	$InstalledPrograms | ForEach-Object {
+    Write-Host -Object "Attempting to uninstall: [$($_.Name)]..."
+    Try {
+        $Null = $_ | Uninstall-Package -AllVersions -Force -ErrorAction Stop
+        Write-Host -Object "Successfully uninstalled: [$($_.Name)]"
+    }
+    Catch {Write-Warning -Message "Failed to uninstall: [$($_.Name)]"}
+	}
+}
+
 ################################################################
 ###### Export Functions
 ################################################################

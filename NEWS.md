@@ -80,7 +80,7 @@ New presets/rules:
 * 2022/07/06 - `UninstallWinRAR` -> Remove WinRAR software if installed
 * 2022/07/06 - `UninstallRealPlayer` -> Remove RealPlayer software if installed
 
-Chnage to global parameter:
+Change to global parameter:
 
 * SWMB_Custom.LocalAdminNameEffective replace SWMB_Custom.LocalAdminNameToSet
 

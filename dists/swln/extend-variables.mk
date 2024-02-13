@@ -21,4 +21,4 @@
 ## Put the name of your IT service / Publisher
 ## No / in the name (sed basic replace)!
 #IT_Team:=IT Team
-#PUBLISHER:=RESINFO, Local Network Area
+#PUBLISHER:=CNRS France, RESINFO, Local Network Area

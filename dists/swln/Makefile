@@ -22,7 +22,7 @@ TFILES:=install.bat
 TFILES+=post-install.ps1
 
 IT_Team:=IT Team
-PUBLISHER:=CNRS France, RESINFO / Local Network Area
+PUBLISHER:=CNRS France, RESINFO, Local Network Area
 
 sinclude extend-variables.mk
 

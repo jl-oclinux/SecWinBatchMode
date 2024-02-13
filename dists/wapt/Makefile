@@ -23,12 +23,13 @@ clean:
 	rm -rf tmp
 
 
-%.zip: Makefile control README.md setup.py swmb.png ../../tmp/package.nsi
+%.zip: Makefile control README.md setup.py icon.png ../../tmp/package.nsi
 	@rm -rf ./tmp
 	@mkdir -p ./tmp/resinfo-swmb/WAPT
 	@sed -e 's/__VERSION__/$(VERSION)/; s/__REVISION__/$(REVISION)/;' control > ./tmp/resinfo-swmb/WAPT/control
 	@perl -p -e 's{__DATE__}{$(DATE)};' README.md > ./tmp/resinfo-swmb/README.md
-	@cp -f ../../LICENSE.md setup.py ./swmb.png ./tmp/resinfo-swmb/
+	@cp -f ../../LICENSE.md setup.py ./tmp/resinfo-swmb/
+	@cp -f ./icon.png ./tmp/resinfo-swmb/WAPT/
 	@rm -f $@
 	@(cd ../..; \
 		make; \

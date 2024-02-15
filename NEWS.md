@@ -21,7 +21,12 @@ SWLN defaults to the latest available version of SWMB.
 Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERENCES.md).
 
 New presets/rules:
-* 2024/02/07 - `UninstallHPWolfSecurity`/`UninstallHPBuiltInApps`/`UninstallHPBloatware` -> uninstall HP software
+* 2024/02/07 - `UninstallHPWolfSecurity` -> Uninstall HP Wolf Security
+* 2024/02/07 - `UninstallHPBuiltInApps` -> Uninstall HP built-in apps
+* 2024/02/07 - `UninstallHPBloatware` -> Uninstall HP Bloatware Software
+* 2024/01/25 - `HideRecommendedSection`/`ShowRecommendedSection` -> Hide Recommended Section in start menu (Windows11)
+* 2024/01/25 - `DisableSearchInternetInMenu_CU`/`EnableSearchInternetInMenu_CU`/`ViewSearchInternetInMenu_CU` -> No Search Internet In StartMenu
+* 2024/01/23 - `DisableSearchOnTaskbar`/`EnableSearchOnTaskbar`/`ViewSearchOnTaskbar` -> Disable Search on Taskbar and Start Menu for All Users (Windows11)
 * 2024/01/22 - `DisableCloudSearch`/`EnableCloudSearch`/`ViewCloudSearch` -> No search on cloud by default in menu (Windows11)
 * 2024/01/22 - `DisableHighlightsSearch`/`EnableHighlightsSearch`/`ViewHighlightsSearch` -> Limit Highlights search (Windows11)
 * 2024/01/11 - `DisableWidgetsNewsAndInterests`/`EnableWidgetsNewsAndInterests`/`ViewWidgetsNewsAndInterests` -> Limit news in menu (Windows11)

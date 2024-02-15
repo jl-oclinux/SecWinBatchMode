@@ -49,7 +49,7 @@ DisableWAPPush                                  # EnableWAPPush
 # DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
 DisableHighlightsSearch                         # EnableHighlightsSearch                        # ViewHighlightsSearch
 DisableCloudSearch                              # EnableCloudSearch                             # ViewCloudSearch
-# DisableSearchOnTaskbar                          # EnableSearchOnTaskbar                         # ViewSearchOnTaskbar
+# DisableSearchOnTaskbar                        # EnableSearchOnTaskbar                         # ViewSearchOnTaskbar
 
 
 ### UWP Privacy Tweaks ###
@@ -167,8 +167,7 @@ DisableLockScreenBlur                           # EnableLockScreenBlur
 DisableSearchAppInStore                         # EnableSearchAppInStore
 DisableNewAppPrompt                             # EnableNewAppPrompt
 # HideRecentlyAddedApps                         # ShowRecentlyAddedApps
-# HideMostUsedApps                              # ShowMostUsedApps
-# HideFrequentlyUsedProgramsList                  # ShowFrequentlyUsedProgramsList
+# HideFrequentlyUsedProgramsList                # ShowFrequentlyUsedProgramsList
 # HideShortcutArrow                             # ShowShortcutArrow
 # EnableNumlock                                 # DisableNumlock
 # DisableStartupSound                           # EnableStartupSound

@@ -164,7 +164,7 @@ Function TweakShowFrequentlyUsedProgramsList {
 ################################################################
 
 # Hide Recommended Section in start menu
-Function TweakHideRecommendedSection {
+Function TweakHideRecommendedSection { # RESINFO
 	Write-Output "Hide Recommended Section in start menu..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
@@ -173,7 +173,7 @@ Function TweakHideRecommendedSection {
 }
 
 # Show Recommended Section in start menu
-Function TweakShowRecommendedSection {
+Function TweakShowRecommendedSection { # RESINFO
 	Write-Output "Show Recommended Section in start menu..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideRecommendedSection" -ErrorAction SilentlyContinue
 }
@@ -281,7 +281,7 @@ Function TweakDisableVerboseStatus {
 ################################################################
 
 # Disable Widget news and interests
-Function TweakDisableWidgetsNewsAndInterests {
+Function TweakDisableWidgetsNewsAndInterests { # RESINFO
 	Write-Output "Disable Widgets News and Interests..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" | Out-Null
@@ -290,13 +290,13 @@ Function TweakDisableWidgetsNewsAndInterests {
 }
 
 # Enable Widget news and interests
-Function TweakEnableWidgetsNewsAndInterests {
+Function TweakEnableWidgetsNewsAndInterests { # RESINFO
 	Write-Output  "Enable Widgets News and Interests..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -ErrorAction SilentlyContinue
 }
 
 # View
-Function TweakViewWidgetsNewsAndInterests {
+Function TweakViewWidgetsNewsAndInterests { # RESINFO
 	Write-Output 'View Widgets News and Interests (0: Disable, Error: Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests"
 }
@@ -305,7 +305,7 @@ Function TweakViewWidgetsNewsAndInterests {
 
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.StartMenu::ShowOrHideMostUsedApps
 # Hide Most Used Apps
-Function TweakHideMostUsedApps {
+Function TweakHideMostUsedApps { # RESINFO
 	Write-Output "Hide Most Used Apps... "
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
@@ -314,7 +314,7 @@ Function TweakHideMostUsedApps {
 }
 
 # Show Most Used Apps
-Function TweakShowMostUsedApps {
+Function TweakShowMostUsedApps { # RESINFO
 	Write-Output "Show Most Used Apps... "
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
@@ -324,7 +324,7 @@ Function TweakShowMostUsedApps {
 
 
 # View Most Used Apps
-Function TweakViewMostUsedApps {
+Function TweakViewMostUsedApps { # RESINFO
 	Write-Output "View Hide or Show Most Used Apps (2: Hide, 1: Show, 0: Not Configured)"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "ShowOrHideMostUsedApps"
 }

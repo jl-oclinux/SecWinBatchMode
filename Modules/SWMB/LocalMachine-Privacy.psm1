@@ -190,7 +190,7 @@ Function TweakEnableWebSearch {
 
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowSearchHighlights
 # Disable search highlights
-Function TweakDisableHighlightsSearch {
+Function TweakDisableHighlightsSearch { # RESINFO
 	Write-Output "Disable search highlights..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -199,13 +199,13 @@ Function TweakDisableHighlightsSearch {
 }
 
 # Enable search highlights
-Function TweakEnableHighlightsSearch {
+Function TweakEnableHighlightsSearch { # RESINFO
 	Write-Output "Allow search highlights..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB" -ErrorAction SilentlyContinue
 }
 
 # View
-Function TweakViewHighlightsSearch {
+Function TweakViewHighlightsSearch { # RESINFO
 	Write-Output 'View Highlights Search (1: Disable, Error: Not configured = Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB"
 }
@@ -214,7 +214,7 @@ Function TweakViewHighlightsSearch {
 
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCloudSearch
 # Disable Cloud Search
-Function TweakDisableCloudSearch {
+Function TweakDisableCloudSearch { # RESINFO
 	Write-Output "Disable Cloud Search..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
@@ -223,13 +223,13 @@ Function TweakDisableCloudSearch {
 }
 
 # Enable Cloud Search
-Function TweakEnableCloudSearch {
+Function TweakEnableCloudSearch { # RESINFO
 	Write-Output "Allow Cloud Search..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch" -ErrorAction SilentlyContinue
 }
 
 # View
-Function TweakViewCloudSearch {
+Function TweakViewCloudSearch { # RESINFO
 	Write-Output 'View Cloud Search (0: Disable, Error: Not configured = Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch"
 }
@@ -237,8 +237,9 @@ Function TweakViewCloudSearch {
 ################################################################
 
 ## WARNING NOT RECOMMANDED - disable search start menu
-# Disable Search on Taskbar and Start Menu for All Users
-Function TweakDisableSearchOnTaskbar {
+## Search on Taskbar and Start Menu for All Users
+# Disable
+Function TweakDisableSearchOnTaskbar { # RESINFO
 	Write-Output "Disable Search on Taskbar and Start Menu for All Users..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Force | Out-Null
@@ -251,15 +252,15 @@ Function TweakDisableSearchOnTaskbar {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch" -Type DWord -Value 1
 }
 
-# Enable Search on Taskbar and Start Menu for All Users
-Function TweakEnableSearchOnTaskbar {
+# Enable
+Function TweakEnableSearchOnTaskbar { # RESINFO
 	Write-Output "Enable Search on Taskbar and Start Menu for All Users..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "value" -Type DWord -Value 0
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch" -ErrorAction SilentlyContinue
 }
 
 # View
-Function TweakViewSearchOnTaskbar {
+Function TweakViewSearchOnTaskbar { # RESINFO
 	Write-Output 'View search on taskbar (0: Disable, Error: Not configured = Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch"
 }
@@ -359,6 +360,12 @@ Function TweakEnableMapUpdates {
 }
 
 ################################################################
+
+# Begin KeyFeedback
+# ANSSI Annexe A1
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Collecte des données et versions d'évaluation Previwew / Ne plus afficher les notifications de commentaires
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.FeedbackNotifications::DoNotShowFeedbackNotifications&Language=fr-fr#
+# End
 
 # Disable Feedback
 Function TweakDisableFeedback {
@@ -528,6 +535,12 @@ Function TweakSetP2PUpdateDisable {
 }
 
 ################################################################
+
+# Begin KeyDiagTrack
+# ANSSI Annexe A2
+# Service Expérience des utilisateurs connectés et télémetrie / Connected User Experiences and Telemetry - Diagtrack
+# Stop and disable (or Enable and start) Connected User Experiences and Telemetry (previously named Diagnostics Tracking Service)
+# End
 
 # Stop and disable Connected User Experiences and Telemetry (previously named Diagnostics Tracking Service)
 Function TweakDisableDiagTrack {

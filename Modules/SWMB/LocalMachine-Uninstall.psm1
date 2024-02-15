@@ -605,26 +605,25 @@ Function TweakViewGoogleToolbar { # RESINFO
 
 ################################################################
 
-# Suppress HP wolf security
+# Suppress HP Wolf Security
 # https://support.hpwolf.com/s/article/How-to-uninstall-HP-Wolf-Pro-Security
+# Uninstall
 Function TweakUninstallHPWolfSecurity { # RESINFO
-
-	$Wolf = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object {$_.DisplayName -match "HP Wolf Security" }
-	$WolfConsole = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object {$_.DisplayName -match "HP Wolf Security - Console" }
-	$SecurityUpdate = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object {$_.DisplayName -match "HP Security Update Service" }
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
 			$Key = $_
 			$App = (Get-ItemProperty -Path $Key.PSPath)
 			$DisplayName  = $App.DisplayName
-			If ($DisplayName -match 'HP Wolf Security') {
+			# 'HP Wolf Security' or 'HP Wolf Security - Console' or 'HP Security Update Service'
+			If (($DisplayName -match 'HP Wolf Security') -Or ($DisplayName -match 'HP Security Update Service')) {
+				$DisplayVersion = $App.DisplayVersion
 				$VersionMajor = $App.VersionMajor
 				$VersionMinor = $App.VersionMinor
 				$KeyProduct = $Key | Split-Path -Leaf
 				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
 
-				Write-Output "Uninstalling HP Wolf Security version $VersionMajor.$VersionMinor"
+				Write-Output "Uninstalling $DisplayName version $DisplayVersion"
 				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
 
 				$Timeouted = $Null # Reset any previously set timeout
@@ -633,59 +632,11 @@ Function TweakUninstallHPWolfSecurity { # RESINFO
 				If ($Timeouted) {
 					# Terminate the process
 					$Proc | Kill
-					Write-Output "Error: kill HP Wolf Security uninstall exe"
+					Write-Output "Error: kill $DisplayName uninstall exe"
 					# Next tweak now
 					Return
 				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: HP Wolf Security uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
-			}
-			If ($DisplayName -match 'HP Wolf Security - Console') {
-				$VersionMajor = $App.VersionMajor
-				$VersionMinor = $App.VersionMinor
-				$KeyProduct = $Key | Split-Path -Leaf
-				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
-
-				Write-Output "Uninstalling HP Wolf Security - Console version $VersionMajor.$VersionMinor"
-				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill HP Wolf Security - Console uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: HP Wolf Security - Console uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
-			}
-			If ($DisplayName -match 'HP Security Update Service') {
-				$VersionMajor = $App.VersionMajor
-				$VersionMinor = $App.VersionMinor
-				$KeyProduct = $Key | Split-Path -Leaf
-				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
-
-				Write-Output "Uninstalling HP Security Update Service version $VersionMajor.$VersionMinor"
-				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill HP Security Update Service uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: HP Security Update Service uninstall return code $($Proc.ExitCode)"
+					Write-Output "Error: $DisplayName uninstall return code $($Proc.ExitCode)"
 					# Next tweak now
 					Return
 				}
@@ -695,56 +646,60 @@ Function TweakUninstallHPWolfSecurity { # RESINFO
 
 # View
 Function TweakViewHPWolfSecurity { # RESINFO
-Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall | Get-ItemProperty | Where-Object {$_.DisplayName -like "*HP*Security*" } | Select-Object -Property DisplayName, DisplayVersion, UninstallString
+	Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall |
+		Get-ItemProperty |
+		Where-Object {$_.DisplayName -like "*HP*Security*" } |
+		Select-Object -Property DisplayName, DisplayVersion, UninstallString
 }
 
 ################################################################
 
 # HP built-in apps to remove
 # https://gist.github.com/mark05e/a79221b4245962a477a49eb281d97388
-
+# Uninstall
 Function TweakUninstallHPBuiltInApps { # RESINFO
 	$UninstallPackages = @(
-    "AD2F1837.HPJumpStarts"
-    "AD2F1837.HPPCHardwareDiagnosticsWindows"
-    "AD2F1837.HPPowerManager"
-    "AD2F1837.HPPrivacySettings"
-    #"AD2F1837.HPSupportAssistant"
-    "AD2F1837.HPSureShieldAI"
-    "AD2F1837.HPSystemInformation"
-    "AD2F1837.HPQuickDrop"
-    "AD2F1837.HPWorkWell"
-    "AD2F1837.myHP"
-    "AD2F1837.HPDesktopSupportUtilities"
-    "AD2F1837.HPQuickTouch"
-    "AD2F1837.HPEasyClean"
-    "AD2F1837.HPSystemInformation"
+		"AD2F1837.HPJumpStarts"
+		"AD2F1837.HPPCHardwareDiagnosticsWindows"
+		"AD2F1837.HPPowerManager"
+		"AD2F1837.HPPrivacySettings"
+		#"AD2F1837.HPSupportAssistant"
+		"AD2F1837.HPSureShieldAI"
+		"AD2F1837.HPSystemInformation"
+		"AD2F1837.HPQuickDrop"
+		"AD2F1837.HPWorkWell"
+		"AD2F1837.myHP"
+		"AD2F1837.HPDesktopSupportUtilities"
+		"AD2F1837.HPQuickTouch"
+		"AD2F1837.HPEasyClean"
+		"AD2F1837.HPSystemInformation"
 	)
+
 	$InstalledPackages = Get-AppxPackage -AllUsers | Where-Object {($UninstallPackages -contains $_.Name)}
 	$ProvisionedPackages = Get-AppxProvisionedPackage -Online | Where-Object {($UninstallPackages -contains $_.DisplayName)}
 
 	# Remove appx provisioned packages - AppxProvisionedPackage
 	ForEach ($ProvPackage in $ProvisionedPackages) {
 
-    Write-Host -Object "Attempting to remove provisioned package: [$($ProvPackage.DisplayName)]..."
+	Write-Host -Object "Attempting to remove provisioned package: [$($ProvPackage.DisplayName)]..."
 
-    Try {
-        $Null = Remove-AppxProvisionedPackage -PackageName $ProvPackage.PackageName -Online -ErrorAction Stop
-        Write-Host -Object "Successfully removed provisioned package: [$($ProvPackage.DisplayName)]"
-    }
-    Catch {Write-Warning -Message "Failed to remove provisioned package: [$($ProvPackage.DisplayName)]"}
+	Try {
+		$Null = Remove-AppxProvisionedPackage -PackageName $ProvPackage.PackageName -Online -ErrorAction Stop
+		Write-Host -Object "Successfully removed provisioned package: [$($ProvPackage.DisplayName)]"
+	} Catch {
+		Write-Warning -Message "Failed to remove provisioned package: [$($ProvPackage.DisplayName)]"}
 	}
 
 	# Remove appx packages - AppxPackage
 	ForEach ($AppxPackage in $InstalledPackages) {
 
-    Write-Host -Object "Attempting to remove Appx package: [$($AppxPackage.Name)]..."
+	Write-Host -Object "Attempting to remove Appx package: [$($AppxPackage.Name)]..."
 
-    Try {
-        $Null = Remove-AppxPackage -Package $AppxPackage.PackageFullName -AllUsers -ErrorAction Stop
-        Write-Host -Object "Successfully removed Appx package: [$($AppxPackage.Name)]"
-    }
-    Catch {Write-Warning -Message "Failed to remove Appx package: [$($AppxPackage.Name)]"}
+	Try {
+		$Null = Remove-AppxPackage -Package $AppxPackage.PackageFullName -AllUsers -ErrorAction Stop
+		Write-Host -Object "Successfully removed Appx package: [$($AppxPackage.Name)]"
+	} Catch {
+		Write-Warning -Message "Failed to remove Appx package: [$($AppxPackage.Name)]"}
 	}
 }
 
@@ -753,35 +708,37 @@ Function TweakUninstallHPBuiltInApps { # RESINFO
 
 # HP built-in apps to remove
 # https://gist.github.com/mark05e/a79221b4245962a477a49eb281d97388
-
+# Uninstall
 Function TweakUninstallHPBloatware { # RESINFO
 # List of programs to uninstall
 	$UninstallPrograms = @(
-    "HP Client Security Manager"
-    "HP Connection Optimizer"
-    "HP Documentation"
-    "HP MAC Address Manager"
-    "HP Notifications"
-    #"HP Security Update Service"
-    "HP System Default Settings"
-    "HP Sure Click"
-    "HP Sure Click Security Browser"
-    "HP Sure Run"
-    "HP Sure Recover"
-    "HP Sure Sense"
-    "HP Sure Sense Installer"
-    #"HP Wolf Security"
-    #"HP Wolf Security Application Support for Sure Sense"
-    #"HP Wolf Security Application Support for Windows"
+		"HP Client Security Manager"
+		"HP Connection Optimizer"
+		"HP Documentation"
+		"HP MAC Address Manager"
+		"HP Notifications"
+		#"HP Security Update Service"
+		"HP System Default Settings"
+		"HP Sure Click"
+		"HP Sure Click Security Browser"
+		"HP Sure Run"
+		"HP Sure Recover"
+		"HP Sure Sense"
+		"HP Sure Sense Installer"
+		#"HP Wolf Security"
+		#"HP Wolf Security Application Support for Sure Sense"
+		#"HP Wolf Security Application Support for Windows"
 	)
+
 	$InstalledPrograms = Get-Package | Where-Object {$UninstallPrograms -contains $_.Name}
 	$InstalledPrograms | ForEach-Object {
-    Write-Host -Object "Attempting to uninstall: [$($_.Name)]..."
-    Try {
-        $Null = $_ | Uninstall-Package -AllVersions -Force -ErrorAction Stop
-        Write-Host -Object "Successfully uninstalled: [$($_.Name)]"
-    }
-    Catch {Write-Warning -Message "Failed to uninstall: [$($_.Name)]"}
+
+	Write-Host -Object "Attempting to uninstall: [$($_.Name)]..."
+	Try {
+		$Null = $_ | Uninstall-Package -AllVersions -Force -ErrorAction Stop
+		Write-Host -Object "Successfully uninstalled: [$($_.Name)]"
+	} Catch {
+		Write-Warning -Message "Failed to uninstall: [$($_.Name)]"}
 	}
 }
 

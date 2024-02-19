@@ -388,7 +388,7 @@ Function TweakEnableFeedback {
 
 # Limit Diagnostic Log Collection
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::LimitDiagnosticLogCollection
-Function TweakDisableDiagnosticLogs {
+Function TweakDisableDiagnosticLogs { # RESINFO
 	Write-Output "Diagnostic logs will not be collected..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" | Out-Null
@@ -397,13 +397,13 @@ Function TweakDisableDiagnosticLogs {
 }
 
 # Enable DiagnosticLogs
-Function TweakEnableDiagnosticLogs {
+Function TweakEnableDiagnosticLogs { # RESINFO
 	Write-Output "Collect diagnostic log not configured..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection" -ErrorAction SilentlyContinue
 }
 
 # View DiagnosticLogs
-Function TweakViewDiagnosticLogs {
+Function TweakViewDiagnosticLogs { # RESINFO
 	Write-Output "View Collect diagnostic log, error => not configured, 1 => Diagnostic logs not be collected "
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection"  | Format-List
 }
@@ -412,7 +412,7 @@ Function TweakViewDiagnosticLogs {
 
 # Disable OneSettings Downloads
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::DisableOneSettingsDownloads
-Function TweakDisableOneSettingsDownloads {
+Function TweakDisableOneSettingsDownloads { # RESINFO
 	Write-Output "Disable download configuration settings from the OneSettings service..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" | Out-Null
@@ -421,13 +421,13 @@ Function TweakDisableOneSettingsDownloads {
 }
 
 # Enable OneSettings Downloads
-Function TweakEnableOneSettingsDownloads {
+Function TweakEnableOneSettingsDownloads { # RESINFO
 	Write-Output "Enable download configuration settings from the OneSettings service... (not configured)"
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads" -ErrorAction SilentlyContinue
 }
 
 # View OneSettings Downloads
-Function TweakViewOneSettingsDownloads {
+Function TweakViewOneSettingsDownloads { # RESINFO
 	Write-Output "View Download configuration settings from the OneSettings service, error => not configured, 1 => Disable"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads"  | Format-List
 }

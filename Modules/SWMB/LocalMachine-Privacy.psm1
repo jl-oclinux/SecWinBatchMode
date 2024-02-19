@@ -402,13 +402,38 @@ Function TweakEnableDiagnosticLogs {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection" -ErrorAction SilentlyContinue
 }
 
-# Enable DiagnosticLogs
+# View DiagnosticLogs
 Function TweakViewDiagnosticLogs {
 	Write-Output "View Collect diagnostic log, error => not configured, 1 => Diagnostic logs not be collected "
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection"  | Format-List
 }
 
 ################################################################
+
+# Disable OneSettings Downloads
+# https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::DisableOneSettingsDownloads
+Function TweakDisableOneSettingsDownloads {
+	Write-Output "Disable download configuration settings from the OneSettings service..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads" -Type DWord -Value 1
+}
+
+# Enable OneSettings Downloads
+Function TweakEnableOneSettingsDownloads {
+	Write-Output "Enable download configuration settings from the OneSettings service... (not configured)"
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads" -ErrorAction SilentlyContinue
+}
+
+# View OneSettings Downloads
+Function TweakViewOneSettingsDownloads {
+	Write-Output "View Download configuration settings from the OneSettings service, error => not configured, 1 => Disable"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads"  | Format-List
+}
+
+################################################################
+
 
 # Disable Advertising ID
 Function TweakDisableAdvertisingID {

@@ -51,6 +51,7 @@ DisableHighlightsSearch                         # EnableHighlightsSearch        
 DisableCloudSearch                              # EnableCloudSearch                             # ViewCloudSearch
 # DisableSearchOnTaskbar                        # EnableSearchOnTaskbar                         # ViewSearchOnTaskbar
 DisableDiagnosticLogs                           # EnableDisableDiagnosticLogs                   # ViewDiagnosticLogs
+DisableOneSettingsDownloads                     # EnableOneSettingsDownloads                    # ViewOneSettingsDownloads
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps

@@ -258,6 +258,7 @@ EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup
 # UninstallHPWolfSecurity                                                                       # ViewHPWolfSecurity
 # UninstallHPBuiltInApps
 # UninstallHPBloatware
+# DisableWindowsCopilot                         # EnableindowsCopilot                           # ViewWindowsCopilot
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

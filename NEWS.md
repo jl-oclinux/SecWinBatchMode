@@ -21,6 +21,7 @@ SWLN defaults to the latest available version of SWMB.
 Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERENCES.md).
 
 New presets/rules:
+* 2024/02/19 - `DisableDiagnosticLogs` -> Diagnostic logs collected
 * 2024/02/07 - `UninstallHPWolfSecurity` -> Uninstall HP Wolf Security
 * 2024/02/07 - `UninstallHPBuiltInApps` -> Uninstall HP built-in apps
 * 2024/02/07 - `UninstallHPBloatware` -> Uninstall HP Bloatware Software

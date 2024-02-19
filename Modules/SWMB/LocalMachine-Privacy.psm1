@@ -386,6 +386,30 @@ Function TweakEnableFeedback {
 
 ################################################################
 
+# Limit Diagnostic Log Collection
+# https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::LimitDiagnosticLogCollection
+Function TweakDisableDiagnosticLogs {
+	Write-Output "Diagnostic logs will not be collected..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection" -Type DWord -Value 1
+}
+
+# Enable DiagnosticLogs
+Function TweakEnableDiagnosticLogs {
+	Write-Output "Collect diagnostic log not configured..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection" -ErrorAction SilentlyContinue
+}
+
+# Enable DiagnosticLogs
+Function TweakViewDiagnosticLogs {
+	Write-Output "View Collect diagnostic log, error => not configured, 1 => Diagnostic logs not be collected "
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection"  | Format-List
+}
+
+################################################################
+
 # Disable Advertising ID
 Function TweakDisableAdvertisingID {
 	Write-Output "Disabling Advertising ID..."

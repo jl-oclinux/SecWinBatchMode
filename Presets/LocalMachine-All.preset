@@ -46,11 +46,11 @@ DisableWAPPush                                  # EnableWAPPush
 # DisableStepsRecorder                          # EnableStepsRecorder
 # DisableSendAdditionalData                     # EnableSendAdditionalData
 # DisableSharedInformationSearch                # EnableSharedInformationSearch
-DisableAutologgerDiagTrack                    # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
+DisableAutologgerDiagTrack                      # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
 DisableHighlightsSearch                         # EnableHighlightsSearch                        # ViewHighlightsSearch
 DisableCloudSearch                              # EnableCloudSearch                             # ViewCloudSearch
 # DisableSearchOnTaskbar                        # EnableSearchOnTaskbar                         # ViewSearchOnTaskbar
-
+DisableDiagnosticLogs                           # EnableDisableDiagnosticLogs                   # ViewDiagnosticLogs
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps

@@ -50,7 +50,7 @@ DisableAutologgerDiagTrack                      # EnableAutologgerDiagTrack     
 DisableHighlightsSearch                         # EnableHighlightsSearch                        # ViewHighlightsSearch
 DisableCloudSearch                              # EnableCloudSearch                             # ViewCloudSearch
 # DisableSearchOnTaskbar                        # EnableSearchOnTaskbar                         # ViewSearchOnTaskbar
-DisableDiagnosticLogs                           # EnableDisableDiagnosticLogs                   # ViewDiagnosticLogs
+DisableDiagnosticLogs                           # EnableDiagnosticLogs                          # ViewDiagnosticLogs
 DisableOneSettingsDownloads                     # EnableOneSettingsDownloads                    # ViewOneSettingsDownloads
 
 ### UWP Privacy Tweaks ###
@@ -258,7 +258,7 @@ EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup
 # UninstallHPWolfSecurity                                                                       # ViewHPWolfSecurity
 # UninstallHPBuiltInApps
 # UninstallHPBloatware
-# DisableWindowsCopilot                         # EnableindowsCopilot                           # ViewWindowsCopilot
+# DisableWindowsCopilot                         # EnableWindowsCopilot                          # ViewWindowsCopilot
 # UninstallNovaPDF                                                                              # ViewNovaPDF
 
 ### Server Specific Tweaks ###

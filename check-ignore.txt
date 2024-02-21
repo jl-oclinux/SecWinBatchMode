@@ -8,6 +8,9 @@ InstallTotalCommander
 InstallGlassWire
 InstallEdgeWebView2
 InstallGoogleToolbar
+InstallHPBloatware
+InstallHPBuiltInApps
+InstallHPWolfSecurity
 InstallNovaPDF
 
 InstallBalenaEtcher_CU

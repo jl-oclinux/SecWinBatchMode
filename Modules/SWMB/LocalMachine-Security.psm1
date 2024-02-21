@@ -323,7 +323,7 @@ Function TweakSetDEPOptIn {
 # 2022/02/02 - Enable is better
 # ASLR (Address Space Layout Randomisation)
 # Disable ASLR for Easier Malware Debugging
-# Disable : HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\MoveImages and set its value to 0x00000000.
+# Disable : HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\MoveImages and set its value to 0x00000000.
 # https://oalabs.openanalysis.net/2019/06/12/disable-aslr-for-easier-malware-debugging/
 # Disable
 Function TweakDisableASLR { # RESINFO

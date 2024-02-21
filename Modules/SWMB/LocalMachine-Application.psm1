@@ -1019,22 +1019,22 @@ Function TweakViewStorageSenseTrashCleanup { # RESINFO
 # Disable
 Function TweakDisableWindowsCopilot { # RESINFO
 	Write-Output "Turn Off Windows Copilot..."
-	If (!(Test-Path "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot")) {
-		New-Item -Path  "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Force | Out-Null
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot")) {
+		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Force | Out-Null
 	}
-	Set-ItemProperty -Path  "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
 }
 
 # Enable Copilot
 Function TweakEnableWindowsCopilot { # RESINFO
 	Write-Output "Turn On for Windows Copilot (Default)..."
-	Remove-ItemProperty -Path "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
 }
 
 # View Copilot
 Function TweakViewWindowsCopilot { # RESINFO
 	Write-Output "View Windows Copilot"
-	Get-ItemProperty -Path "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
 }
 
 ################################################################

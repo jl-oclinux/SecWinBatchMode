@@ -259,6 +259,7 @@ EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup
 # UninstallHPBuiltInApps
 # UninstallHPBloatware
 # DisableWindowsCopilot                         # EnableindowsCopilot                           # ViewWindowsCopilot
+# UninstallNovaPDF                                                                              # ViewNovaPDF
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

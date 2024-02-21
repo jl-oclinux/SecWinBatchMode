@@ -8,6 +8,7 @@ InstallTotalCommander
 InstallGlassWire
 InstallEdgeWebView2
 InstallGoogleToolbar
+InstallNovaPDF
 
 InstallBalenaEtcher_CU
 InstallTelegram_CU

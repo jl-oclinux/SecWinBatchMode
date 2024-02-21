@@ -605,6 +605,75 @@ Function TweakViewGoogleToolbar { # RESINFO
 
 ################################################################
 
+# Suppress novaPDF
+# https://www.novapdf.com/how-to-install-or-uninstall-novapdf-silently-kb.html
+# https://silentinstallhq.com/dopdf-silent-install-how-to-guide/
+# Uninstall
+Function TweakUninstallNovaPDF { # RESINFO
+	$RefName = 'novaPDF'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If (!($DisplayName -match $RefName)) { Return }
+			$UninstallString = $App.UninstallString
+			If ($UninstallString -match 'MsiExec.exe') { Return }
+			# Only novapdf.exe here
+			$DisplayVersion = $App.DisplayVersion
+			$UninstallSplit = $UninstallString -Split "exe"
+			$Exe = $UninstallSplit[0] + 'exe"'
+			$Args = '/uninstall /quiet'
+			Write-Output "Uninstalling $DisplayName version $DisplayVersion"
+			Write-Output "Exe: $Exe $Args"
+			$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+
+			$Timeouted = $Null # Reset any previously set timeout
+			# Wait up to 180 seconds for normal termination
+			$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
+			If ($Timeouted) {
+				# Terminate the process
+				$Proc | Kill
+				Write-Output "Error: kill $RefName uninstall exe"
+				# Next tweak now
+				Return
+			} ElseIf (($Proc.ExitCode -ne 0) -And ($Proc.ExitCode -ne 19)) {
+				Write-Output "Error: $RefName uninstall return code $($Proc.ExitCode)"
+				# Next tweak now
+				Return
+			}
+		}
+}
+
+# View
+Function TweakViewNovaPDF { # RESINFO
+	$RefName = 'novaPDF'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match $RefName) {
+				$DisplayVersion = $App.DisplayVersion
+				$UninstallString = $App.UninstallString
+				Write-Output "$DisplayName / $DisplayVersion / $UninstallString"
+			}
+		}
+}
+
+# novaPDF 11 Printer Driver / 11.9.444 / MsiExec.exe /X{0381A4C3-3B90-436E-8E69-15E4CDBDEC2D}
+# novaPDF 11 add-in for Microsoft Office (x64) / 11.9.444 / MsiExec.exe /X{3742ACB4-D095-4247-9A19-D1682A510ED2}
+# novaPDF 11 / 11.9.444 / MsiExec.exe /X{526D78AB-571E-4FCF-B06E-31AA9C98C44F}
+# novaPDF 11 SDK COM (x64) / 11.9.444 / MsiExec.exe /X{7CC4C9C8-2CD5-4EDF-94B8-7AFF868585C9}
+# novaPDF 11 SDK COM (x86) / 11.9.444 / MsiExec.exe /X{24C3CAC4-4442-429B-A90C-A09AF48291DE}
+# novaPDF 11 Tools / 11.9.444 / MsiExec.exe /X{259700EE-CE49-402B-8C0B-8767A9C92E4C}
+# novaPDF 11 / 11.9.444 / "C:\ProgramData\Package Cache\{393239a6-f3a2-413b-a4c9-e5b762602c3e}\novapdf.exe"  /uninstall
+# novaPDF 11 add-in for Microsoft Office (x86) / 11.9.444 / MsiExec.exe /X{673C8085-8235-42C6-B259-C2E1CF791C46}
+
+################################################################
+
 # Suppress HP Wolf Security
 # https://support.hpwolf.com/s/article/How-to-uninstall-HP-Wolf-Pro-Security
 # Uninstall
@@ -646,7 +715,7 @@ Function TweakUninstallHPWolfSecurity { # RESINFO
 
 # View
 Function TweakViewHPWolfSecurity { # RESINFO
-	Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall, HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall |
+	Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall', 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall' |
 		Get-ItemProperty |
 		Where-Object {$_.DisplayName -like "*HP*Security*" } |
 		Select-Object -Property DisplayName, DisplayVersion, UninstallString

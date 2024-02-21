@@ -20,9 +20,13 @@ SWLN defaults to the latest available version of SWMB.
 
 Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERENCES.md).
 
+Most of the tweaks marked with the Windows11 tag are also available on Windows10,
+but were not deactivated (or activated) at the time, because they were unknown!
+
 New presets/rules:
-* 2024/02/19 - `DisableWindowsCopilot` -> Disable Windows Copilot
-* 2024/02/19 - `DisableOneSettingsDownloads` -> Windows will not download configuration settings from the OneSettings service
+* 2024/02/19 - `UninstallNovaPDF`/`ViewNovaPDF` -> Uninstall NovaPDF
+* 2024/02/19 - `DisableWindowsCopilot` -> Disable Windows Copilot (Windows11)
+* 2024/02/19 - `DisableOneSettingsDownloads` -> Windows will not download configuration settings from the OneSettings service (Windows11)
 * 2024/02/19 - `DisableDiagnosticLogs` -> Diagnostic logs collected
 * 2024/02/07 - `UninstallHPWolfSecurity` -> Uninstall HP Wolf Security
 * 2024/02/07 - `UninstallHPBuiltInApps` -> Uninstall HP built-in apps

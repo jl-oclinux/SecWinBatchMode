@@ -1016,6 +1016,7 @@ Function TweakViewStorageSenseTrashCleanup { # RESINFO
 
 ################################################################
 
+# Disable
 Function TweakDisableWindowsCopilot { # RESINFO
 	Write-Output "Turn Off Windows Copilot..."
 	If (!(Test-Path "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot")) {
@@ -1026,7 +1027,7 @@ Function TweakDisableWindowsCopilot { # RESINFO
 
 # Enable Copilot
 Function TweakEnableWindowsCopilot { # RESINFO
-	Write-Output "Dafault setup for Windows Copilot..."
+	Write-Output "Turn On for Windows Copilot (Default)..."
 	Remove-ItemProperty -Path "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
 }
 

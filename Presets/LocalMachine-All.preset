@@ -18,8 +18,8 @@ DisableCortana                                  # EnableCortana
 DisableWiFiSense                                # EnableWiFiSense
 # DisableSmartScreen                            # EnableSmartScreen
 # DisableWebSearch                              # EnableWebSearch
-DisableAppSuggestions                           # EnableAppSuggestions                          # ViewActivityHistory
-DisableActivityHistory                          # EnableActivityHistory
+DisableAppSuggestions                           # EnableAppSuggestions
+DisableActivityHistory                          # EnableActivityHistory                         # ViewActivityHistory
 # DisableSensors                                # EnableSensors
 DisableLocation                                 # EnableLocation
 DisableMapUpdates                               # EnableMapUpdates
@@ -104,7 +104,6 @@ EnableASLR                                      # DisableASLR                   
 # DisablePublicProfile                          # EnablePublicProfile
 # DisableHybridSleep                            # EnableHybridSleep
 # EnableClearPageFile                           # DisableClearPageFile                          # ViewClearPageFile
-
 
 ### Network Tweaks ###
 SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic

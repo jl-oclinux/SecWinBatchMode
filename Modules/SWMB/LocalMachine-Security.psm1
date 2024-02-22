@@ -394,6 +394,41 @@ Function TweakViewAutoloadDriver { # RESINFO
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork"
 }
 
+################################################################
+
+# From BSI document
+# Désactivation des anciennes versions de PowerShell (2.0) qui ne proposent pas les fonctionnalités de sécurité avancées
+
+# Disable
+Function TweakDisablePowershell2 { # RESINFO
+	Write-Output "Désactivation des anciennes versions de Powershell(2)..."
+	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
+}
+
+# Enable
+Function TweakEnablePowershell2 { # RESINFO
+	Write-Output "Activation des anciennes versions de Powershell(2)..."
+	Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
+}
+
+################################################################
+
+# From BSI document
+# Désactivation de l'utilisation de PowerShell à distance
+# TODO
+
+# Disable
+# Function TweakDisableRemotePowershell { # RESINFO
+# 	Write-Output "Désactivation de l'utilisation de PowerShell à distance"
+# 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
+# }
+
+# Enable
+# Function TweakEnableRemotePowershell { # RESINFO
+# 	Write-Output "Activation de l'utilisation de PowerShell à distance"
+# 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
+# }
+
 ##########
 #endregion Security Tweaks
 ##########

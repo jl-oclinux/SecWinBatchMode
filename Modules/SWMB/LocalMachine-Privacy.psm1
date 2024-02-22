@@ -665,6 +665,33 @@ Function TweakEnableRecentFiles {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoRecentDocsHistory" -ErrorAction SilentlyContinue
 }
 
+###############################################################
+
+# From BSI document
+# La session "Autologger-DiagTrack-Listener" doit être désactivée en mettant sa clé de registre à zéro
+# Par défaut cette clé ne semble pas exister, on l'efface donc en fonction Disable, comme avant
+
+# Disable
+Function TweakDisableAutologgerDiagTrack { # RESINFO
+	Write-Output "Désactivation du Autologger-DiagTrack-Listener..."
+	Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
+}
+
+# Enable
+Function TweakEnableAutologgerDiagTrack { # RESINFO
+	Write-Output "Activation du Autologger-DiagTrack-Listener..."
+	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener")) {
+		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start" -Type DWord -Value 2
+}
+
+# View
+Function TweakViewAutologgerDiagTrack { # RESINFO
+	Write-Output 'Autologger-DiagTrack-Listener (0 no or not exist, 2 activated)'
+	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start"
+}
+
 ##########
 #endregion Privacy Tweaks
 ##########

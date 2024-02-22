@@ -18,14 +18,9 @@ pages:
     - git checkout master
     - git fetch --all --tags
     - git tag
-    - git tag | tail -1
-    - git rev-list $(git tag | tail -1) --max-count=1
     - git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count
-    - git rev-list HEAD --max-count=3
-    - echo $((git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count; echo 0 ) | head -1)
-    - git log $(git describe --tags --abbrev=0 --always)..HEAD --oneline | wc -l
-    - git log $(git tag | tail -1)..HEAD --oneline --max-count=999 | wc -l
-    - git log $(git tag | tail -1)..HEAD --oneline --no-merges
+    - git log $(git tag | tail -1)..HEAD --oneline | wc -l
+    - if [ $(git log $(git tag | tail -1)..HEAD --oneline | wc -l) -ge "${GIT_DEPTH}" ]; then echo "Error: bad local numbering, variable GIT_DEPTH too small!"; exit 111; fi
     - make pkg
     - mv SWMB-Setup-*.exe public/
     - make version > public/version.txt

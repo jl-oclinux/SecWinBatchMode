@@ -23,6 +23,11 @@ Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERE
 Most of the tweaks marked with the Windows11 tag are also available on Windows10,
 but were not deactivated (or activated) at the time, because they were unknown!
 
+Remove modules:
+* `Modules/SWMB/Resinfo.psm1` - dispatch tweaks in other module
+* `Modules/SWMB/BSI.psm1` - dispatch tweaks in other module
+* `Modules/SWMB/Contrib.psm1` - dispatch tweaks in other module
+
 New presets/rules:
 * 2024/02/19 - `UninstallNovaPDF`/`ViewNovaPDF` -> Uninstall NovaPDF
 * 2024/02/19 - `DisableWindowsCopilot` -> Disable Windows Copilot (Windows11)

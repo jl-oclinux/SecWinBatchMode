@@ -32,7 +32,6 @@ NestedModules = @(
 	'.\SWMB\LocalMachine-UI.psm1',
 	'.\SWMB\LocalMachine-Uninstall.psm1',
 	'.\SWMB\LocalMachine-UWPPrivacy.psm1',
-	'.\SWMB\Resinfo.psm1',
 	'.\SWMB\TemporaryBypass.psm1'
 	)
 ModuleVersion = '__VERSION__'

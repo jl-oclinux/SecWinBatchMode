@@ -329,10 +329,9 @@ Function TweakViewMostUsedApps { # RESINFO
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "ShowOrHideMostUsedApps"
 }
 
-##########
-#endregion UI Tweaks
-##########
 
+################################################################
+###### Export Functions
 ################################################################
 
 # Export functions

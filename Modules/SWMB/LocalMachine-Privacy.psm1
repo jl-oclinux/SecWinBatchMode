@@ -692,10 +692,329 @@ Function TweakViewAutologgerDiagTrack { # RESINFO
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start"
 }
 
-##########
-#endregion Privacy Tweaks
-##########
+################################################################
 
+# Cortana and search
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser Cortona au-dessus de l'écran de verouillage / desactivé
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCortanaAboveLock&Language=fr-fr
+# ANSSI Annexe B1
+Function TweakDisableCortanaAboveLock { # RESINFO
+	Write-Output "Disable Cortana AboveLock..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCortanaAboveLock" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableCortanaAboveLock { # RESINFO
+	Write-Output "Enable Cortana AboveLock..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCortanaAboveLock" -Type DWord -Value 1
+}
+
+################################################################
+
+# Cortana and search
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Autoriser l'indexation des fichiers chiffrés / desactivé
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowIndexingEncryptedStoresOrItems
+# ANSSI Annexe B1
+Function TweakDisableIndexingEncryptedStores { # RESINFO
+	Write-Output "Disable IndexingEncryptedStores..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowIndexingEncryptedStoresOrItems" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableIndexingEncryptedStores { # RESINFO
+	Write-Output "Allow IndexingEncryptedStores..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowIndexingEncryptedStoresOrItems" -Type DWord -Value 1
+}
+
+################################################################
+
+# Cortana and search
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Définir quelles informations sont partagées dans search / activé type => informations anonymes
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::SearchPrivacy
+# ANSSI Annexe B1
+Function TweakDisableSharedInformationSearch { # RESINFO
+	Write-Output "Anonymous information is shared in Search..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "ConnectedSearchPrivacy" -Type DWord -Value 3
+}
+
+# Enable
+Function TweakEnableSharedInformationSearch { # RESINFO
+	Write-Output "User info and location is shared in Search..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "ConnectedSearchPrivacy" -Type DWord -Value 1
+}
+
+################################################################
+
+# Cortana and search
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rechercher / Ne pas effectuer des rechechers sur le web ou afficher dse résultats Web dans search / activé
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::DoNotUseWebResults
+# ANSSI Annexe B1
+Function TweakDisableDisplayWebResults { # RESINFO
+	Write-Output "Don't search the web or display web results in Search..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "ConnectedSearchUseWeb" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableDisplayWebResults { # RESINFO
+	Write-Output "Web results will be displayed ..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "ConnectedSearchUseWeb" -Type DWord -Value 1
+}
+################################################################
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Envoyer automatiquement des images mémoires pour les rapports
+# key AutoApproveOSDumps
+# https://admx.help/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerAutoApproveOSDumps_2
+# GPO Desactivé par défaut
+# Disable
+Function TweakDisableOsGeneratedReport { # RESINFO
+	Write-Output "Turn off OS-generated error reports"
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableOsGeneratedReport { # RESINFO
+	Write-Output "Turn on OS-generated error reports"
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Rapport d'erreurs Windows / Ne pas envoyer des données complémentaires
+# key DontSendAdditionalData
+# https://admx.help/?Category=Windows_8.1_2012R2&Policy=Microsoft.Policies.WindowsErrorReporting::WerNoSecondLevelData_2
+# GPO activé par défaut
+# Disable
+Function TweakDisableSendAdditionalData { # RESINFO
+	Write-Output "Disable Error reporting Send Additional Data"
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableSendAdditionalData { # RESINFO
+	Write-Output "Enable Error reporting Send Additional Data"
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# Configuration ordinateur / Modèles d'administration / Panneau de Configuration / Options Regionales et Linguistiques / Personnalisation de l'écriture manuscrite / Désactiver l’apprentissage automatique / Activé
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Globalization::ImplicitDataCollectionOff_2
+# Disable
+Function TweakDisableAutomaticLearning { # RESINFO
+	Write-Output "Turn off automatic learning..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitInkCollection" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableAutomaticLearning { # RESINFO
+	Write-Output "Turn on automatic learning..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitTextCollection" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Name "RestrictImplicitInkCollection" -Type DWord -Value 0
+}
+
+################################################################
+
+# User Experience
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
+# https://gpsearch.azurewebsites.net/#4727
+# Disable
+Function TweakDisableWindowsErrorReporting { # RESINFO
+	Write-Output "Turn off Windows error reporting..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "DoReport" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableWindowsErrorReporting { # RESINFO
+	Write-Output "Turn on Windows error reporting..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting" -Name "DoReport" -ErrorAction SilentlyContinue
+}
+################################################################
+
+# User Experience
+### Désactiver les questions pour chaque nouvel utilisateur
+# Computer Configuration\Administrative Templates\Windows Components\OOBE
+# https://docs.microsoft.com/fr-fr/windows/client-management/mdm/policy-csp-privacy#privacy-disableprivacyexperience
+# Disable
+Function TweakDisablePrivacyExperience { # RESINFO
+	Write-Output "Disabling privacy experience from launching during user logon for new and upgraded users..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" -Name "DisablePrivacyExperience" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnablePrivacyExperience { # RESINFO
+	Write-Output "Enabling privacy experience from launching during user logon for new and upgraded users..."
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" -Name "DisablePrivacyExperience" -Type DWord -Value 0 -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# User Experience
+### Enregistreur d'actions utilisateur
+# https://support.microsoft.com/en-us/help/22878/windows-10-record-steps
+# Disable
+Function TweakDisableStepsRecorder { # RESINFO
+	Write-Output "Disabling Windows steps recorder..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat" -Name "DisableUAR" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableStepsRecorder { # RESINFO
+	Write-Output "Enable Windows steps recorder..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat" -Name "DisableUAR" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# User Experience
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
+# https://gpsearch.azurewebsites.net/#4723
+# Disable
+Function TweakDisableDidYouKnow { # RESINFO
+	Write-Output "Turn off Help and Support Center Did you know? content..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableDidYouKnow { # RESINFO
+	Write-Output "Turn on Help and Support Center Did you know? content..."
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 0 -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# User Experience
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
+# https://gpsearch.azurewebsites.net/#4754
+# Disable
+Function TweakDisableHandwritingDataSharing { # RESINFO
+	Write-Output "Turn off handwriting personalization data sharing..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableHandwritingDataSharing { # RESINFO
+	Write-Output "Turn on handwriting personalization data sharing..."
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 0 -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# User Experience
+# Configuration ordinateur / Modèles d'administration / Système / Gestion de la communication Internet / Paramètres de communication Internet
+# ANSSI Annexe C1
+# https://gpsearch.azurewebsites.net/#4743
+# Disable
+Function TweakDisableHandwritingRecognitionErrorReporting { # RESINFO
+	Write-Output "Turn off handwriting recognition error reporting..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableHandwritingRecognitionErrorReporting { # RESINFO
+	Write-Output "Turn on handwriting recognition error reporting..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# Telemetry
+# Configuration ordinateur / Modèles d'administration / Composants Windows /Antivirus Windows Defender / MAPS / Configurer une valeur de remplacement de paramètre locale pour l'envoi de rapports à Microsoft MAPS / Desactivé
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::Spynet_LocalSettingOverrideSpynetReporting&Language=fr-fr
+Function TweakDisableOverrideReportingMAPS { # RESINFO
+	Write-Output "Disabling override for reporting to Microsoft MAPS..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "LocalSettingOverrideSpynetReporting" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableOverrideReportingMAPS { # RESINFO
+	Write-Output "Enabling override for reporting to Microsoft MAPS..."
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet" -Name "LocalSettingOverrideSpynetReporting" -Type DWord -Value 1 -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# Telemetry
+# ANSSI Annexe A3
+# https://admx.help/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
+
+Function TweakDisableMRTReportInfectionInformation { # RESINFO
+	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontReportInfectionInformation" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableMRTReportInfectionInformation { # RESINFO
+	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontReportInfectionInformation" -ErrorAction SilentlyContinue
+}
+
+
+################################################################
+###### Export Functions
 ################################################################
 
 # Export functions

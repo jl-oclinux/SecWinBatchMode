@@ -111,10 +111,9 @@ Function TweakDisableAudio {
 	Set-Service "Audiosrv" -StartupType Manual
 }
 
-##########
-#endregion Server specific Tweaks
-##########
 
+################################################################
+###### Export Functions
 ################################################################
 
 # Export functions

@@ -52,6 +52,7 @@ DisableCloudSearch                              # EnableCloudSearch             
 # DisableSearchOnTaskbar                        # EnableSearchOnTaskbar                         # ViewSearchOnTaskbar
 DisableDiagnosticLogs                           # EnableDiagnosticLogs                          # ViewDiagnosticLogs
 DisableOneSettingsDownloads                     # EnableOneSettingsDownloads                    # ViewOneSettingsDownloads
+# DisableWindowsErrorReporting                  # EnableWindowsErrorReporting
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps
@@ -237,7 +238,6 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # UninstallFaxAndScan                           # InstallFaxAndScan
 # DisableStoreApps                              # EnableStoreApps
 # DisableUWPAccessLocation                      # EnableUWPAccessLocation
-# DisableWindowsErrorReporting                  # EnableWindowsErrorReporting
 # DisableWindowsFeeds                           # EnableWindowsFeeds
 # DisableWindowsHello                           # EnableWindowsHello
 # DisableWindowsStore                           # EnableWindowsStore

@@ -437,10 +437,8 @@ Function TweakViewSWMBUniqueId { # RESINFO
 }
 
 
-##########
-#endregion Service Tweaks
-##########
-
+################################################################
+###### Export Functions
 ################################################################
 
 # Export functions

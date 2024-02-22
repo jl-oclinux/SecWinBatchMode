@@ -360,12 +360,9 @@ Function TweakShowShareMenu {
 	Set-ItemProperty -LiteralPath "HKCR:\*\shellex\ContextMenuHandlers\ModernSharing" -Name "(Default)" -Type String -Value "{e2bf9676-5f8f-435c-97eb-11607a5bedf7}"
 }
 
+
 ################################################################
-
-##########
-#endregion Explorer UI Tweaks
-##########
-
+###### Export Functions
 ################################################################
 
 # Export functions

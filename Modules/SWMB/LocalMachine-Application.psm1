@@ -1077,6 +1077,99 @@ Function TweakEnableUWPAccessLocation { # RESINFO
 
 ################################################################
 
+# Windows Hello Authentification
+# https://answers.microsoft.com/en-us/windows/forum/windows_10-hello/how-to-disable-windows-hello/05ab5492-19c7-4d44-b762-d93b44a9cf65
+# https://www.minitool.com/news/disable-windows-hello.html
+# Computer Configuration -> Administrative Templates -> System -> Logon : Turn on PIN sign-in and select Disabled.
+# Disable
+Function TweakDisableWindowsHello { # RESINFO
+	Write-Output "Block Windows Hello Authentification..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Name "value" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableWindowsHello { # RESINFO
+	Write-Output "Enable Windows Hello Authentification..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Name "value" -Type DWord -Value 1
+}
+
+################################################################
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore /Afficher uniquement le magasin privé dans l'application du windows store / activé
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RequirePrivateStoreOnly_2&Language=fr-fr
+# Disable
+Function TweakDisablePrivateStoreOnly { # RESINFO
+	Write-Output "Disable PrivateStoreOnly..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RequirePrivateStoreOnly" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnablePrivateStoreOnly { # RESINFO
+	Write-Output "Enable PrivateStoreOnly..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RequirePrivateStoreOnly" -Type DWord -Value 1
+}
+
+################################################################
+
+### Déactiver le Windows Store
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
+# Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Desactiver l'application / active
+# Disable
+Function TweakDisableWindowsStore { # RESINFO
+	Write-Output "Disable Windows Store..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RemoveWindowsStore" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableWindowsStore { # RESINFO
+	Write-Output "Enable Windows Store..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "RemoveWindowsStore" -Type DWord -Value 0
+}
+
+################################################################
+
+# Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Désactiver toutes les applications du Windows Store / activé
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::DisableStoreApps&Language=fr-fr
+# Disable
+Function TweakDisableStoreApps { # RESINFO
+	Write-Output "Disable StoreApps..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "DisableStoreApps" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableStoreApps { # RESINFO
+	Write-Output "Enable StoreApps..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Name "DisableStoreApps" -Type DWord -Value 0
+}
+
+
+################################################################
+###### Export Functions
+################################################################
 
 # Export functions
 Export-ModuleMember -Function *

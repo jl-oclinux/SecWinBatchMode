@@ -468,10 +468,9 @@ Function TweakDisableJumboFrameOn10Gbps { # RESINFO
 	}
 }
 
-##########
-#endregion Network Tweaks
-##########
 
+################################################################
+###### Export Functions
 ################################################################
 
 # Export functions

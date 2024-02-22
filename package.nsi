@@ -229,7 +229,6 @@ Section "Program files (Required)"
   File "Modules\SWMB\LocalMachine-UI.psm1"
   File "Modules\SWMB\LocalMachine-Uninstall.psm1"
   File "Modules\SWMB\LocalMachine-UWPPrivacy.psm1"
-  File "Modules\SWMB\Resinfo.psm1"
   File "Modules\SWMB\TemporaryBypass.psm1"
 
   SetOutPath $INSTDIR\dists

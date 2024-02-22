@@ -8,14 +8,15 @@ before_script:
 pages:
   stage: build
   variables:
+    # https://docs.gitlab.com/ee/user/project/repository/monorepos/index.html
     GIT_STRATEGY: clone
+    GIT_DEPTH: 200
   script:
     - mkdir -p public
     - $(wget --no-check-certificate ${CI_PAGES_URL}/download.tar.gz -O download.tar.gz || exit 0)
     - '[ -s download.tar.gz ] && ( cd public ; tar -xzf ../download.tar.gz )'
     - git checkout master
     - git fetch --all --tags
-    - git pull
     - git tag
     - git tag | tail -1
     - git rev-list $(git tag | tail -1) --max-count=1

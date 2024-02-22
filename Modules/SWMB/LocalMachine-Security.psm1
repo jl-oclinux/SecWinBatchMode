@@ -351,6 +351,49 @@ Function TweakViewASLR { # RESINFO
 		}
 }
 
+################################################################
+
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.LanmanWorkstation::Pol_EnableInsecureGuestLogons
+# https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-workstationservice-allowinsecureguestauth
+# Enable
+Function TweakEnableInsecureGuestLogons { # RESINFO
+	Write-Output "SMB client will allow insecure guest logons to an SMB server"
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -Value 1
+}
+
+# Disable (default)
+Function TweakDisableInsecureGuestLogons { # RESINFO
+	Write-Output "SMB client rejects insecure guest logons to an SMB server (default)"
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+# Disable offering of drivers through network
+# Is part of DisableUpdateDriver
+Function TweakDisableAutoloadDriver { # RESINFO
+	Write-Output "Disabling autoload driver from network..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork" -Type DWord -Value 1
+}
+
+# Enable offering of drivers through network
+Function TweakEnableAutoloadDriver { # RESINFO
+	Write-Output "Enabling autoload driver from network..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewAutoloadDriver { # RESINFO
+	Write-Output 'Autoload driver from network (0 no or not exist - enable, 1 disable)'
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork"
+}
+
 ##########
 #endregion Security Tweaks
 ##########

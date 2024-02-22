@@ -513,5 +513,22 @@ Function TweakEnableF1HelpKey_CU {
 
 ################################################################
 
+# https://www.commentcamarche.net/informatique/windows/29-activer-le-god-mode-mode-dieu-de-windows-10/
+# Enable
+Function TweakEnableGodMod_CU { # RESINFO
+	Write-Output "Enable GodMod on current user desktop..."
+	$DesktopPath = [Environment]::GetFolderPath("Desktop");
+	New-Item -Path  "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" -Type Directory
+}
+
+# Disable
+Function TweakDisableGodMod_CU { # RESINFO
+	Write-Output "Disable GodMod from current user desktop..."
+	$DesktopPath = [Environment]::GetFolderPath("Desktop");
+	Remove-Item -Path  "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" -Recurse -ErrorAction SilentlyContinue
+}
+
+################################################################
+
 # Export functions
 Export-ModuleMember -Function *

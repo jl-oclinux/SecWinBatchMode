@@ -1039,6 +1039,44 @@ Function TweakViewWindowsCopilot { # RESINFO
 
 ################################################################
 
+# Computer Configuration / Administrative Templates / Windows Components / News and interests
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Feeds::EnableFeeds&Language=fr-fr
+# https://www.tenforums.com/tutorials/178178-how-enable-disable-news-interests-taskbar-windows-10-a.html
+# Disable
+Function TweakDisableWindowsFeeds { # RESINFO
+	Write-Output "Turn off windows feeds (news and interests)..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableWindowsFeeds { # RESINFO
+	Write-Output "Turn on windows feeds (news and interests)..."
+	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
+## https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.AppPrivacy::LetAppsAccessLocation&Language=fr-fr
+# Disable access to location from UWP apps
+Function TweakDisableUWPAccessLocation { # RESINFO
+	Write-Output "Disabling access to location from UWP apps..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessLocation" -Type DWord -Value 2
+}
+
+# Enable access to location from UWP apps
+Function TweakEnableUWPAccessLocation { # RESINFO
+	Write-Output "Enabling access to location from UWP apps..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessLocation" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
 
 # Export functions
 Export-ModuleMember -Function *

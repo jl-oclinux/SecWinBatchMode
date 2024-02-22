@@ -14,7 +14,6 @@
 RootModule = 'SWMB.psm1'
 NestedModules = @(
 	'.\SWMB\Custom.psm1',
-	'.\SWMB\Contrib.psm1',
 	'.\SWMB\CurrentUser-Application.psm1',
 	'.\SWMB\CurrentUser-ExplorerUI.psm1',
 	'.\SWMB\CurrentUser-Privacy.psm1',

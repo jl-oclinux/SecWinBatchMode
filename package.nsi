@@ -209,7 +209,6 @@ Section "Program files (Required)"
   SetOutPath $INSTDIR\Modules\SWMB
   File "tmp\Version.psd1"
   File "Modules\SWMB\BSI.psm1"
-  File "Modules\SWMB\Contrib.psm1"
   File "Modules\SWMB\CurrentUser-Application.psm1"
   File "Modules\SWMB\CurrentUser-ExplorerUI.psm1"
   File "Modules\SWMB\CurrentUser-Privacy.psm1"

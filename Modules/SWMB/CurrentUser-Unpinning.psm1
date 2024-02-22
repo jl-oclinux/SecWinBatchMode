@@ -37,7 +37,10 @@ Function TweakUnpinTaskbarIcons_CU {
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "FavoritesResolve" -ErrorAction SilentlyContinue
 }
 
+
+################################################################
+###### Export Functions
 ################################################################
 
 # Export functions
-Export-ModuleMember -Function *
+Export-ModuleMember -Function Tweak*

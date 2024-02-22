@@ -124,7 +124,10 @@ Function TweakViewOneDrive_CU { # RESINFO
 		Select-Object -Property DisplayName, DisplayVersion, PSChildName
 }
 
+
+################################################################
+###### Export Functions
 ################################################################
 
 # Export functions
-Export-ModuleMember -Function *
+Export-ModuleMember -Function Tweak*

@@ -160,7 +160,10 @@ Function TweakEnableWebLangList_CU {
 	Remove-ItemProperty -Path "HKCU:\Control Panel\International\User Profile" -Name "HttpAcceptLanguageOptOut" -ErrorAction SilentlyContinue
 }
 
+
+################################################################
+###### Export Functions
 ################################################################
 
 # Export functions
-Export-ModuleMember -Function *
+Export-ModuleMember -Function Tweak*

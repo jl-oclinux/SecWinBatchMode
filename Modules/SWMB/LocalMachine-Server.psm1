@@ -117,4 +117,4 @@ Function TweakDisableAudio {
 ################################################################
 
 # Export functions
-Export-ModuleMember -Function *
+Export-ModuleMember -Function Tweak*

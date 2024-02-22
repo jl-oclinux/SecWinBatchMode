@@ -910,4 +910,4 @@ Function TweakUnsetBitlockerActive { # RESINFO
 ################################################################
 
 # Export functions
-Export-ModuleMember -Function *
+Export-ModuleMember -Function Tweak*

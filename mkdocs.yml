@@ -8,6 +8,7 @@ nav:
     - Contributing: CONTRIBUTING.md
     - Faq: FAQ.md
     - News: NEWS.md
+    - Authors: AUTHORS.md
     - License: LICENSE.md
     - References: REFERENCES.md
 theme: readthedocs

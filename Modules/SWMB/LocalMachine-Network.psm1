@@ -82,6 +82,20 @@ Function TweakEnableHomeGroups {
 
 ################################################################
 
+# Disable obsolete SMB 1.0 protocol - Disabled by default since 1709
+Function TweakDisableSMB1Protocol { # RESINFO
+	Write-Output "Disabling SMB 1.0 protocol..."
+	Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
+}
+
+# Enable obsolete SMB 1.0 protocol - Disabled by default since 1709
+Function TweakEnableSMB1Protocol { # RESINFO
+	Write-Output "Enabling SMB 1.0 protocol..."
+	Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
+}
+
+################################################################
+
 # Change name by Resinfo
 # Disable obsolete SMB 1.0 protocol on server - Disabled by default since 1709
 Function TweakDisableSMB1Server {

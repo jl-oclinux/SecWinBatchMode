@@ -110,6 +110,7 @@ SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic
 # SetUnknownNetworksPrivate                     # SetUnknownNetworksPublic
 # DisableNetDevicesAutoInst                     # EnableNetDevicesAutoInst
 # DisableHomeGroups                             # EnableHomeGroups
+DisableSMB1Protocol                             # EnableSMB1Protocol
 # DisableSMB1Server                             # EnableSMB1Server
 # DisableSMBServer                              # EnableSMBServer
 # DisableNetBIOS                                # EnableNetBIOS
@@ -125,7 +126,6 @@ SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic
 DisableRemoteAssistance                         # EnableRemoteAssistance
 # EnableRemoteDesktop                           # DisableRemoteDesktop
 # SetRemoteDesktopPort                          # UnsetRemoteDesktopPort                        # ViewRemoteDesktopPort
-DisableSMB1Protocol                             # EnableSMB1Protocol
 # SetWorkgroupName                              # UnsetWorkgroupName                            # ViewWorkgroupName
 # UnsetInterfaceMetricOn1Gbps                   # SetInterfaceMetricOn1Gbps                     # ViewInterfaceMetricOn1Gbps
 # UnsetInterfaceMetricOn10Gbps                  # SetInterfaceMetricOn10Gbps                    # ViewInterfaceMetricOn10Gbps

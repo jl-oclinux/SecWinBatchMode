@@ -20,7 +20,7 @@ pages:
     - git tag
     - git rev-list $(git rev-list $(git tag | tail -1) --max-count=1)..HEAD --count
     - git log $(git tag | tail -1)..HEAD --oneline | wc -l
-    - if [ $(git log $(git tag | tail -1)..HEAD --oneline | wc -l) -ge "${GIT_DEPTH}" ]; then echo "Error: bad local numbering, variable GIT_DEPTH too small!"; exit 111; fi
+    - '[ $(git log $(git tag | tail -1)..HEAD --oneline | wc -l) -ge "${GIT_DEPTH}" ] && ( echo "Error: bad local numbering, variable GIT_DEPTH too small!" ; exit 111 )'
     - make pkg
     - mv SWMB-Setup-*.exe public/
     - make version > public/version.txt

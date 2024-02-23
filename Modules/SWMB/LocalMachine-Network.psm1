@@ -468,6 +468,38 @@ Function TweakDisableJumboFrameOn10Gbps { # RESINFO
 	}
 }
 
+################################################################
+
+# Enable or Disable LSO (Large Send Offload v2) on all 10Gbps network interface
+# Default is enable
+# Sometimes disable is faster!
+# Message on the ASR mailing list on 2024/02/22 at 10:15
+# Test before deploy!
+
+# View
+Function TweakViewLSOon10Gbps { # RESINFO
+	Write-Output "View LSO Status (Large Send Offload v2) on 10Gbps interface..."
+	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select Name | ForEach-Object {
+		Get-NetAdapterLso -Name $_.Name -ErrorAction SilentlyContinue
+	}
+}
+
+# Enable
+Function TweakEnableLSOon10Gbps { # RESINFO
+	Write-Output "Enable LSO (Large Send Offload v2) on 10Gbps interface..."
+	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select Name | ForEach-Object {
+		Enable-NetAdapterLso -Name $_.Name -ErrorAction SilentlyContinue
+	}
+}
+
+# Disable
+Function TweakDisableLSOon10Gbps { # RESINFO
+	Write-Output "Disable LSO (Large Send Offload v2) on 10Gbps interface..."
+	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select Name | ForEach-Object {
+		Disable-NetAdapterLso -Name $_.Name -ErrorAction SilentlyContinue
+	}
+}
+
 
 ################################################################
 ###### Export Functions

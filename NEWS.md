@@ -29,6 +29,7 @@ Remove modules:
 * `Modules/SWMB/Contrib.psm1` - dispatch tweaks in other module
 
 New presets/rules:
+* 2024/02/23 - `EnableLSOon10Gbps`/`DisableLSOon10Gbps`/`ViewLSOon10Gbps` -> Disable LSO (Large Send Offload v2) on all 10Gbps network interface (Enable by default)
 * 2024/02/19 - `UninstallNovaPDF`/`ViewNovaPDF` -> Uninstall NovaPDF
 * 2024/02/19 - `DisableWindowsCopilot` -> Disable Windows Copilot (Windows11)
 * 2024/02/19 - `DisableOneSettingsDownloads` -> Windows will not download configuration settings from the OneSettings service (Windows11)

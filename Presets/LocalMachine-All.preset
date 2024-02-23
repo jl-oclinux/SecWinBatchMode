@@ -131,7 +131,7 @@ DisableRemoteAssistance                         # EnableRemoteAssistance
 # UnsetInterfaceMetricOn1Gbps                   # SetInterfaceMetricOn1Gbps                     # ViewInterfaceMetricOn1Gbps
 # UnsetInterfaceMetricOn10Gbps                  # SetInterfaceMetricOn10Gbps                    # ViewInterfaceMetricOn10Gbps
 # EnableJumboFrameOn10Gbps                      # DisableJumboFrameOn10Gbps                     # ViewJumboFrameOn10Gbps
-
+# EnableLSOon10Gbps                             # DisableLSOon10Gbps                            # ViewLSOon10Gbps
 
 ### Service Tweaks ###
 # DisableUpdateMSRT                             # EnableUpdateMSRT

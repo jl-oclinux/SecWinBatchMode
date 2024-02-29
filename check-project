@@ -211,3 +211,12 @@ do
     echo "Warning: tweak doesn't have an implementaton: ${rule}"
   fi
 done
+
+# check if two tweak have the same name
+grep -ih '^Function[[:space:]]Tweak' ${all_module} \
+  | awk '{print $2}' \
+  | sed -e 's/^Tweak//; s/^Enable//; s/^Disable//; s/^Install//; s/^Uninstall//; s/^Set//; s/^Unset//; s/^Show//; s/^Hide//;' \
+  | grep -v '^View' \
+  | sort \
+  | uniq -c \
+  | grep -Ev '      (1|2) '

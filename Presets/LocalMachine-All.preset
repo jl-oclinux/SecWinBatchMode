@@ -200,7 +200,7 @@ Hide3DObjectsFromThisPC                         # Show3DObjectsInThisPC
 # HideShareMenu                                 # ShowShareMenu
 
 ### Application Tweaks ###
-DisableOneDrive                                 # EnableOneDrive
+DisableOneDriveSync                             # EnableOneDriveSync
 UninstallOneDrive                               # InstallOneDrive                               # ViewOneDrive
 UninstallMsftBloat                              # InstallMsftBloat
 UninstallThirdPartyBloat                        # InstallThirdPartyBloat
@@ -240,7 +240,7 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableUWPAccessLocation                      # EnableUWPAccessLocation
 # DisableWindowsFeeds                           # EnableWindowsFeeds
 # DisableWindowsHello                           # EnableWindowsHello
-# DisableWindowsStore                           # EnableWindowsStore
+# DisableWindowsStoreAccess                     # EnableWindowsStoreAccess
 # EnablePrivateStoreOnly                        # DisablePrivateStoreOnly
 # EnableVisualStudioCache                       # DisableVisualStudioCache                      # ViewVisualStudioCache
 # UninstallAvast ## Beta

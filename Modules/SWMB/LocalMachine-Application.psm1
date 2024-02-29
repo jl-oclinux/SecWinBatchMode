@@ -10,7 +10,7 @@
 ################################################################
 
 # Disable OneDrive
-Function TweakDisableOneDrive {
+Function TweakDisableOneDriveSync {
 	Write-Output "Disabling OneDrive..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
@@ -19,7 +19,7 @@ Function TweakDisableOneDrive {
 }
 
 # Enable OneDrive
-Function TweakEnableOneDrive {
+Function TweakEnableOneDriveSync {
 	Write-Output "Enabling OneDrive..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -ErrorAction SilentlyContinue
 }
@@ -1127,7 +1127,7 @@ Function TweakEnablePrivateStoreOnly { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RemoveWindowsStore_2
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Desactiver l'application / active
 # Disable
-Function TweakDisableWindowsStore { # RESINFO
+Function TweakDisableWindowsStoreAccess { # RESINFO
 	Write-Output "Disable Windows Store..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
@@ -1136,7 +1136,7 @@ Function TweakDisableWindowsStore { # RESINFO
 }
 
 # Enable
-Function TweakEnableWindowsStore { # RESINFO
+Function TweakEnableWindowsStoreAccess { # RESINFO
 	Write-Output "Enable Windows Store..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null

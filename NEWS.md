@@ -28,7 +28,13 @@ Remove modules:
 * `Modules/SWMB/BSI.psm1` - dispatch tweaks in other module
 * `Modules/SWMB/Contrib.psm1` - dispatch tweaks in other module
 
+Two tweaks (`OneDriveSync` and `WindowsStoreAccess`) have been renamed in order to have uniqueness in tweak names,
+whether they start with `Enable/Disable`, `Install/Uninstall`, `Show/Hide`...
+The `check-project` script has been updated to check that this tweak uniqueness property is respected.
+
 New presets/rules:
+* 2024/02/29 - `DisableWindowsStoreAccess` is the new name for old `DisableWindowsStore`. It's the same for `EnableWindowsStoreAccess`
+* 2024/02/29 - `DisableOneDriveSync` is the new name for old `DisableOneDrive`. It's the same for `EnableOneDriveSync`
 * 2024/02/23 - `EnableLSOon10Gbps`/`DisableLSOon10Gbps`/`ViewLSOon10Gbps` -> Disable LSO (Large Send Offload v2) on all 10Gbps network interface (Enable by default)
 * 2024/02/19 - `UninstallNovaPDF`/`ViewNovaPDF` -> Uninstall NovaPDF
 * 2024/02/19 - `DisableWindowsCopilot` -> Disable Windows Copilot (Windows11)

@@ -47,15 +47,15 @@ clean:
 	@rm -rf tmp $(SOFT)_$(SWLN_VERSION)-$(REVISION)_x64.zip resources
 	@find . -name '*.bak' -delete
 
-tmp/install.bat: install.bat Makefile tmp/SWMB-Setup-$(SWMB_VERSION).exe
+tmp/install.bat: install.bat Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
 	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' install.bat > tmp/install.bat
 
-tmp/post-install.ps1: post-install.ps1 Makefile tmp/SWMB-Setup-$(SWMB_VERSION).exe
+tmp/post-install.ps1: post-install.ps1 Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
 	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' post-install.ps1 > tmp/post-install.ps1
 
-tmp/SWMB-Setup-%.exe: Makefile
+tmp/SWMB-Setup-%.exe: Makefile extend-variables.mk
 	@mkdir -p tmp
 	@(cd tmp ; \
 		curl -# --remote-name --insecure "https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/SWMB-Setup-$(SWMB_VERSION).exe" ; \
@@ -67,7 +67,7 @@ check-exe: tmp/SWMB-Setup-$(SWMB_VERSION).exe
 		which peres >/dev/null && { peres -a "SWMB-Setup-$(SWMB_VERSION).exe" | grep -q "^Product Version:[[:space:]]*$(SWMB_VERSION)" || { echo "Error: bad version for binary SWMB-Setup-$(SWMB_VERSION).exe" 1>&2 ; exit 1; } ; } ; \
 		)
 
-%.zip: Makefile $(FILES) $(TMPFILES)
+%.zip: Makefile extend-variables.mk $(FILES) $(TMPFILES)
 	@rm -f $@
 	@zip --quiet -r $@ $(FILES) -x @zipignore.txt
 	@(cd tmp ; zip --quiet -r ../$@ $(TFILES) -x @../zipignore.txt)

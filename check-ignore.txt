@@ -12,6 +12,7 @@ InstallHPBloatware
 InstallHPBuiltInApps
 InstallHPWolfSecurity
 InstallNovaPDF
+InstallAnyDesk
 
 InstallBalenaEtcher_CU
 InstallTelegram_CU

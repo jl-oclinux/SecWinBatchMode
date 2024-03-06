@@ -63,7 +63,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 	$BootAction  = New-ScheduledTaskAction -Execute "powershell.exe" `
 		-Argument "-File `"$InstallFolder\Tasks\LocalMachine-Boot.ps1`"" `
 		-WorkingDirectory "$InstallFolder"
-	Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
+	Unregister-ScheduledTask -TaskName $BootTask -Confirm:$False -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $BootTask -Trigger $BootTrigger -User $BootUser -Action $BootAction `
 		-RunLevel Highest -Description "SWMB tweaks action at boot" -Settings $BootSetting
 	$BootObject = Get-ScheduledTask $BootTask
@@ -85,7 +85,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\LocalMachine-Boot.ps1") {
 #	$WeeklyAction  = New-ScheduledTaskAction -Execute "powershell.exe" `
 #		-Argument "-File `"$InstallFolder\Tasks\LocalMachine-Boot.ps1`"" `
 #		-WorkingDirectory "$InstallFolder"
-#	Unregister-ScheduledTask -TaskName $WeeklyTask -Confirm:$false -ErrorAction SilentlyContinue
+#	Unregister-ScheduledTask -TaskName $WeeklyTask -Confirm:$False -ErrorAction SilentlyContinue
 #	Register-ScheduledTask -Force -TaskName $WeeklyTask -Trigger $WeeklyTrigger -User $User -Action $WeeklyAction `
 #		-RunLevel Highest -Description "SWMB weekly tweaks action" -Settings $WeeklySetting
 #	$WeeklyObject = Get-ScheduledTask $WeeklyTask
@@ -102,7 +102,7 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 		-Argument "-NoProfile -WindowStyle Hidden -File `"$InstallFolder\Tasks\CurrentUser-Logon.ps1`"" `
 		-WorkingDirectory "$InstallFolder"
 	$LogonPrincipal = New-ScheduledTaskPrincipal -GroupId "S-1-5-32-545" -RunLevel Highest
-	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
+	Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$False -ErrorAction SilentlyContinue
 	Register-ScheduledTask -Force -TaskName $LogonTask -Trigger $LogonTrigger -Action $LogonAction `
 		-Principal $LogonPrincipal -Description "SWMB tweaks action at user logon" -Settings $LogonSetting
 	$LogonObject = Get-ScheduledTask $LogonTask
@@ -113,8 +113,8 @@ If (Test-Path -LiteralPath "$InstallFolder\Tasks\CurrentUser-Logon.ps1") {
 # Copy recommanded preset
 Function _UpdatePresetFile {
 	Param (
-		[Parameter(Mandatory = $true)] [string]$New,
-		[Parameter(Mandatory = $true)] [string]$Actual
+		[Parameter(Mandatory = $True)] [string]$New,
+		[Parameter(Mandatory = $True)] [string]$Actual
 	)
 
 	If (Test-Path -LiteralPath "$New") {

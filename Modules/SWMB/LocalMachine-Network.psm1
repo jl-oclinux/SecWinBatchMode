@@ -100,13 +100,13 @@ Function TweakEnableSMB1Protocol { # RESINFO
 # Disable obsolete SMB 1.0 protocol on server - Disabled by default since 1709
 Function TweakDisableSMB1Server {
 	Write-Output "Disabling SMB 1.0 protocol on server..."
-	Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
+	Set-SmbServerConfiguration -EnableSMB1Protocol $False -Force
 }
 
 # Enable obsolete SMB 1.0 protocol on server - Disabled by default since 1709
 Function TweakEnableSMB1Server {
 	Write-Output "Enabling SMB 1.0 protocol on server..."
-	Set-SmbServerConfiguration -EnableSMB1Protocol $true -Force
+	Set-SmbServerConfiguration -EnableSMB1Protocol $True -Force
 }
 
 ################################################################
@@ -115,15 +115,15 @@ Function TweakEnableSMB1Server {
 # Note: Do not run this if you plan to use Docker and Shared Drives (as it uses SMB internally), see https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/216
 Function TweakDisableSMBServer {
 	Write-Output "Disabling SMB Server..."
-	Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
-	Set-SmbServerConfiguration -EnableSMB2Protocol $false -Force
+	Set-SmbServerConfiguration -EnableSMB1Protocol $False -Force
+	Set-SmbServerConfiguration -EnableSMB2Protocol $False -Force
 	Disable-NetAdapterBinding -Name "*" -ComponentID "ms_server"
 }
 
 # Enable SMB Server
 Function TweakEnableSMBServer {
 	Write-Output "Enabling SMB Server..."
-	Set-SmbServerConfiguration -EnableSMB2Protocol $true -Force
+	Set-SmbServerConfiguration -EnableSMB2Protocol $True -Force
 	Enable-NetAdapterBinding -Name "*" -ComponentID "ms_server"
 }
 

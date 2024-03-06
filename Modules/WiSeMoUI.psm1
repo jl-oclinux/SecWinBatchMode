@@ -79,7 +79,7 @@ Function SWMB_GetLastPublishedVersion {
 
 Function SWMB_GetBitLockerStatus {
 	Param (
-		[Parameter(Mandatory = $true)] [string]$Drive
+		[Parameter(Mandatory = $True)] [string]$Drive
 	)
 
 	#$DriveLetter  = $Drive.Substring(0, 1)

@@ -34,7 +34,7 @@ Function TweakDisableLockScreenRS1 {
 	$service = New-Object -com Schedule.Service
 	$service.Connect()
 	$task = $service.NewTask(0)
-	$task.Settings.DisallowStartIfOnBatteries = $false
+	$task.Settings.DisallowStartIfOnBatteries = $False
 	$trigger = $task.Triggers.Create(9)
 	$trigger = $task.Triggers.Create(11)
 	$trigger.StateChange = 8
@@ -47,7 +47,7 @@ Function TweakDisableLockScreenRS1 {
 # Enable Lock screen - Anniversary Update workaround. The GPO used in DisableLockScreen has been broken in 1607 and fixed again in 1803
 Function TweakEnableLockScreenRS1 {
 	Write-Output "Enabling Lock screen (removing scheduler workaround)..."
-	Unregister-ScheduledTask -TaskName "Disable LockScreen" -Confirm:$false -ErrorAction SilentlyContinue
+	Unregister-ScheduledTask -TaskName "Disable LockScreen" -Confirm:$False -ErrorAction SilentlyContinue
 }
 
 ################################################################

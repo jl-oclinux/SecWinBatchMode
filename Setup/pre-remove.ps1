@@ -15,11 +15,11 @@
 
 # Destroy Boot Task
 $BootTask = 'SWMB-LocalMachine-Boot'
-Unregister-ScheduledTask -TaskName $BootTask -Confirm:$false -ErrorAction SilentlyContinue
+Unregister-ScheduledTask -TaskName $BootTask -Confirm:$False -ErrorAction SilentlyContinue
 
 # Destroy Logon script for All Users
 $LogonTask = 'SWMB-CurrentUser-Logon'
-Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$false -ErrorAction SilentlyContinue
+Unregister-ScheduledTask -TaskName $LogonTask -Confirm:$False -ErrorAction SilentlyContinue
 
 
 # Destroy ProgramData Folders and Recommanded Preset
@@ -28,7 +28,7 @@ $DataPresets = (Join-Path -Path $DataFolder      -ChildPath "Presets")
 
 Function _RemovePresetFile {
 	Param (
-		[Parameter(Mandatory = $true)] [string]$Path
+		[Parameter(Mandatory = $True)] [string]$Path
 	)
 
 	If (Test-Path -LiteralPath "$Path") {

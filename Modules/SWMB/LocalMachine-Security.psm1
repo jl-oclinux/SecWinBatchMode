@@ -558,10 +558,10 @@ Function TweakEnableBitlocker { # RESINFO
 
 	Function _NetworkKeyBackup() {
 		Param (
-			[Parameter(Mandatory = $true)] [string]$WantToSave
+			[Parameter(Mandatory = $True)] [string]$WantToSave
 		)
 
-		If ($WantToSave -eq $false) {
+		If ($WantToSave -eq $False) {
 			$IsNetWorkBackup = Read-Host -Prompt "Do you want to save recovery keys on a network drive? [y/N]"
 			If ($IsNetWorkBackup.ToLower() -ne "y") {
 				Return $null
@@ -582,7 +582,7 @@ Function TweakEnableBitlocker { # RESINFO
 			# Todo question : do I delete the file afterwards?
 		} Catch {
 			Write-Output ("$NetworkKeyBackup is not writable! Choose another location!") -ForegroundColor Red
-			_NetworkKeyBackup -wantToSave $true
+			_NetworkKeyBackup -wantToSave $True
 		}
 	}
 
@@ -713,7 +713,7 @@ Function TweakEnableBitlocker { # RESINFO
 				$KeyProtector = (Get-BitLockerVolume -MountPoint $Letter).KeyProtector | Where-Object {$_.KeyProtectorType -eq 'RecoveryPassword'} | Select-Object -Property RecoveryPassword
 				$Password     = $KeyProtector.RecoveryPassword
 				$TaskName     = 'swmb-bitlocker-' + $Letter + '-' + (Get-Random -Minimum 1000 -Maximum 9999)
-				$TaskAction   = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $Letter -RecoveryPassword $Password ; Enable-BitLockerAutoUnlock -MountPoint $Letter ; Write-EventLog -LogName Application -Source 'SWMB' -EntryType Information -EventID 5 -Message 'SWMB: Bitlocker finish ScheduledTask $TaskName' ; Unregister-ScheduledTask $TaskName -confirm:`$false}"
+				$TaskAction   = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-command &{Unlock-BitLocker -MountPoint $Letter -RecoveryPassword $Password ; Enable-BitLockerAutoUnlock -MountPoint $Letter ; Write-EventLog -LogName Application -Source 'SWMB' -EntryType Information -EventID 5 -Message 'SWMB: Bitlocker finish ScheduledTask $TaskName' ; Unregister-ScheduledTask $TaskName -confirm:`$False}"
 				Register-ScheduledTask -Force -TaskName $TaskName -Trigger $TaskTrigger -User $TaskUser -Action $TaskAction -RunLevel Highest
 				Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 4 -Message "SWMB: Bitlocker add ScheduledTask $TaskName"
 				#$cmd     = "&{Unlock-BitLocker -MountPoint $Letter -RecoveryPassword $Password ; Enable-BitLockerAutoUnlock -MountPoint $Letter}"
@@ -815,7 +815,7 @@ Function TweakEnableBitlocker { # RESINFO
 
 		If ($DriveEMethod -eq "None") {
 			# use network to save key ?
-			$NetworkBackup = _NetworkKeyBackup -wantToSave $false
+			$NetworkBackup = _NetworkKeyBackup -wantToSave $False
 
 			# Disk ready for encryption
 			$applyGPO = Read-Host -Prompt "Your disk is ready for encryption. Are you agree to apply Resinfo GPO and start encryption [Y/n]"
@@ -843,7 +843,7 @@ Function TweakEnableBitlocker { # RESINFO
 					Write-Output "Nothing to do on System drive !"
 
 					# use network to save key ?
-					$NetworkBackup = _NetworkKeyBackup -wantToSave $false
+					$NetworkBackup = _NetworkKeyBackup -wantToSave $False
 					_EncryptNonSytemDrives -networkKeyBackupFolder $NetworkBackup
 					Return
 				} Else {
@@ -877,7 +877,7 @@ Function TweakEnableBitlocker { # RESINFO
 	_EncryptAllDrives
 
 	Write-Output "`nActivation bitlocker - Press any key to finish..."
-	[Console]::ReadKey($true) | Out-Null
+	[Console]::ReadKey($True) | Out-Null
 }
 
 # Disable

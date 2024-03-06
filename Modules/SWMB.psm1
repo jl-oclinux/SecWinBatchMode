@@ -46,7 +46,7 @@ Function TweakSysBox {
 # Wait for key press
 Function TweakSysPause {
 	Write-Output "`nPress any key to continue..."
-	[Console]::ReadKey($true) | Out-Null
+	[Console]::ReadKey($True) | Out-Null
 }
 
 ################################################################
@@ -164,8 +164,8 @@ Function SWMB_AddOrRemoveTweak() {
 
 	Function _MergePath {
 		Param (
-			[Parameter(Mandatory = $true)] [string]$Path,
-			[Parameter(Mandatory = $true)] [string]$FilePath
+			[Parameter(Mandatory = $True)] [string]$Path,
+			[Parameter(Mandatory = $True)] [string]$FilePath
 		)
 
 		If (($FilePath -cmatch '^[A-Z]:\\') -or ($FilePath -cmatch '^\\\\')) {
@@ -293,12 +293,12 @@ Function SWMB_PrintTweaks {
 
 Function SWMB_MakeCkeckpoint() {
 	Param (
-		[Parameter(Mandatory = $true)] [string]$Path
+		[Parameter(Mandatory = $True)] [string]$Path
 	)
 
 	Function _String2Sha256 {
 		Param (
-			[Parameter(Mandatory=$true)] [string]$Text
+			[Parameter(Mandatory=$True)] [string]$Text
 		)
 
 		$Hasher = [System.Security.Cryptography.HashAlgorithm]::Create('SHA256')

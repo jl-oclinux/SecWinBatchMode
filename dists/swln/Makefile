@@ -10,8 +10,7 @@ REVISION:=1
 
 LOG_DIR:=%SystemRoot%\\Logs\\Deploy
 
-FILES:=uninstall.bat
-FILES+=logo-swmb.ico
+FILES:=logo-swmb.ico
 FILES+=$(shell ls -1 CurrentUser-Logon.preset        2> /dev/null)
 FILES+=$(shell ls -1 LocalMachine-Boot.preset        2> /dev/null)
 FILES+=$(shell ls -1 LocalMachine-PostInstall.preset 2> /dev/null)
@@ -19,6 +18,7 @@ FILES+=$(shell ls -1 Custom-VarOverload.psm1         2> /dev/null)
 FILES+=$(shell ls -1 Local-Addon.psm1                2> /dev/null)
 
 TFILES:=install.bat
+TFILES+=uninstall.bat
 TFILES+=post-install.ps1
 
 IT_Team:=IT Team
@@ -49,11 +49,15 @@ clean:
 
 tmp/install.bat: install.bat Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' install.bat > tmp/install.bat
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
 
 tmp/post-install.ps1: post-install.ps1 Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' post-install.ps1 > tmp/post-install.ps1
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
+
+tmp/uninstall.bat: uninstall.bat Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
+	@mkdir -p tmp
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
 
 tmp/SWMB-Setup-%.exe: Makefile extend-variables.mk
 	@mkdir -p tmp
@@ -81,7 +85,9 @@ ocs: all
 	@echo "Name:     $(SOFT)_$(SWLN_VERSION)-$(REVISION)_x64"
 	@echo "priority: *2*"
 	@echo "Launch:   install.bat"
-	@echo "Message:  no"
+	@echo "Message:  yes"
+	@echo "Delay:    5"
+	@echo "Report:   yes"
 	@echo ""
 	@echo "$(IT_Team)"
 	@echo " --- "

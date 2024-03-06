@@ -298,7 +298,7 @@ Function SWMB_MakeCkeckpoint() {
 
 	Function _String2Sha256 {
 		Param (
-			[Parameter(Mandatory=$True)] [string]$Text
+			[Parameter(Mandatory = $True)] [string]$Text
 		)
 
 		$Hasher = [System.Security.Cryptography.HashAlgorithm]::Create('SHA256')

@@ -246,7 +246,7 @@ Function SWMB_RunTweaks {
 		If (Get-Command -Name "Tweak$_" -ErrorAction SilentlyContinue) {
 			Invoke-Expression "Tweak$_"
 		} Else {
-			Write-Output "Tweak $tweak is not defined!"
+			Write-Output "Tweak $_ is not defined!"
 		}
 	}
 }
@@ -254,37 +254,37 @@ Function SWMB_RunTweaks {
 ################################################################
 
 Function SWMB_CheckTweaks {
-	$uniqueTweak = @{}
+	$UniqueTweak = @{}
 
-	ForEach ($tweak in $Global:SWMB_Tweaks) {
+	ForEach ($CurrentTweak in $Global:SWMB_Tweaks) {
 		# Test if tweak function really exists
-		If (!(Get-Command -Name "Tweak$tweak" -ErrorAction SilentlyContinue)) {
-			Write-Output "Tweak $tweak is not defined!"
+		If (!(Get-Command -Name "Tweak$CurrentTweak" -ErrorAction SilentlyContinue)) {
+			Write-Output "Tweak $CurrentTweak is not defined!"
 		}
 
 		# Push tweak in a hash table
-		$key = $tweak -Replace '^(Enable|Disable|Install|Uninstall|Show|Hide|Add|Remove|Set|Unset|Pin|Unpin)',''
-		$uniqueTweak[$key]++
+		$Key = $CurrentTweak -Replace '^(Enable|Disable|Install|Uninstall|Show|Hide|Add|Remove|Set|Unset|Pin|Unpin)',''
+		$UniqueTweak[$Key]++
 	}
 
-	ForEach ($tweak in $uniqueTweak.keys) {
-		If ($uniqueTweak[$tweak] -eq 1) {
+	ForEach ($CurrentTweak in $UniqueTweak.keys) {
+		If ($UniqueTweak[$CurrentTweak] -eq 1) {
 			Continue
 		}
-		$message = "Tweak {0} is defined {1} times!" -f $tweak, $uniqueTweak[$tweak]
-		Write-Output $message
+		$Message = "Tweak {0} is defined {1} times!" -f $CurrentTweak, $UniqueTweak[$CurrentTweak]
+		Write-Output $Message
 	}
 }
 
 ################################################################
 
 Function SWMB_PrintTweaks {
-	ForEach ($tweak in $Global:SWMB_Tweaks) {
+	ForEach ($CurrentTweak in $Global:SWMB_Tweaks) {
 		# Test if tweak function really exists
-		If (!(Get-Command -Name "Tweak$tweak" -ErrorAction SilentlyContinue)) {
-			Write-Output "# $tweak"
+		If (!(Get-Command -Name "Tweak$CurrentTweak" -ErrorAction SilentlyContinue)) {
+			Write-Output "# $CurrentTweak"
 		} Else {
-			Write-Output "$tweak"
+			Write-Output "$CurrentTweak"
 		}
 	}
 }

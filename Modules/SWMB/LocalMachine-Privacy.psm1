@@ -355,20 +355,26 @@ Function TweakEnableSensors {
 ################################################################
 
 # Disable location feature and scripting for the location feature
-Function TweakDisableLocation {
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Sensors::DisableLocationScripting_2
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Sensors::DisableLocation_2
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Sensors.WindowsLocationProvider::DisableWindowsLocationProvider_1
+Function TweakDisableLocation { # RESINFO
 	Write-Output "Disabling location services..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableLocation" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableLocationScripting" -Type DWord -Value 1
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableWindowsLocationProvider" -Type DWord -Value 1
 }
 
 # Enable location feature and scripting for the location feature
-Function TweakEnableLocation {
+Function TweakEnableLocation { # RESINFO
 	Write-Output "Enabling location services..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableLocation" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableLocationScripting" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors" -Name "DisableWindowsLocationProvider" -ErrorAction SilentlyContinue
+
 }
 
 ################################################################

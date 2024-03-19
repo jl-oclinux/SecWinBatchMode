@@ -53,6 +53,7 @@ DisableCloudSearch                              # EnableCloudSearch             
 DisableDiagnosticLogs                           # EnableDiagnosticLogs                          # ViewDiagnosticLogs
 DisableOneSettingsDownloads                     # EnableOneSettingsDownloads                    # ViewOneSettingsDownloads
 # DisableWindowsErrorReporting                  # EnableWindowsErrorReporting
+DisableSearchUseLocation                        # EnableSearchUseLocation                       # ViewSearchUseLocation         ## Search and Cortana are disallowed to use location
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps

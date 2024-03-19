@@ -234,6 +234,32 @@ Function TweakViewCloudSearch { # RESINFO
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch"
 }
 
+
+################################################################
+
+# https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowSearchToUseLocation
+# Don't allow search and Cortana to use location
+Function TweakDisableSearchUseLocation { # RESINFO
+	Write-Output "Search and Cortana are disallowed to use location..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowSearchToUseLocation" -Type DWord -Value 0
+}
+
+# Enable search and Cortana to use location
+Function TweakEnableSearchUseLocation { # RESINFO
+	Write-Output "Allow search and Cortana to use location..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowSearchToUseLocation" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewSearchUseLocation { # RESINFO
+	Write-Output 'View search and Cortana to use location (0: Disable, Error: Not configured = Enable)'
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowSearchToUseLocation"
+}
+
+
 ################################################################
 
 ## WARNING NOT RECOMMANDED - disable search start menu

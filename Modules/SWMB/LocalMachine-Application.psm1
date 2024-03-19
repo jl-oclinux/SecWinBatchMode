@@ -398,6 +398,31 @@ Function TweakViewEdgeClearCacheOnExit { # RESINFO
 
 ################################################################
 
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.MicrosoftEdge::AllowDoNotTrack
+# Enable Do Not Tracker
+Function TweakEnableEdgeDoNtoTrack { # RESINFO
+	Write-Output "Do Not Tracker requests are sent to websites asking for tracking info..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ConfigureDoNotTrack" -Type DWord -Value 1
+}
+
+# Default
+# By default, Do Not Track requests aren't sent, but employees can choose to turn on and send requests
+Function TweakDisableEdgeDoNtoTrack { # RESINFO
+	Write-Output "Don't Configure Do Not Track..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ConfigureDoNotTrack" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewEdgeEdgeDoNtoTrack { # RESINFO
+	Write-Output "View Edge Configure Do Not Track (0:Do Not Tracker requests are always sent to websites asking for tracking info, 1:Do Not Track requests are never sent to websites asking for tracking info, error: Default )"
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ConfigureDoNotTrack" -ErrorAction SilentlyContinue
+}
+
+################################################################
+
 # Disable built-in Adobe Flash in IE and Edge
 Function TweakDisableAdobeFlash {
 	Write-Output "Disabling built-in Adobe Flash in IE and Edge..."

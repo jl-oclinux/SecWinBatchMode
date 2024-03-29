@@ -332,11 +332,11 @@ Function TweakSetRemoteDesktopPort { # RESINFO
 
 	If ($RDPNewPort -ne $RDPActualPort) {
 		# Set Port
-		Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "PortNumber" -Value $RDPNewPort 
+		Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "PortNumber" -Value $RDPNewPort
 
 		# Firewall on $RDPNewPort and 3389
 		Get-NetFirewallRule -DisplayName 'SWMB-RDP-*-IN' | ForEach-Object { Remove-NetFirewallRule -Name $_.Name }
-		New-NetFirewallRule -DisplayName 'SWMB-RDP-TCP-IN' -Profile 'Any' -Direction Inbound -Action Allow -Protocol TCP -LocalPort $RDPNewPort 
+		New-NetFirewallRule -DisplayName 'SWMB-RDP-TCP-IN' -Profile 'Any' -Direction Inbound -Action Allow -Protocol TCP -LocalPort $RDPNewPort
 		New-NetFirewallRule -DisplayName 'SWMB-RDP-UDP-IN' -Profile 'Any' -Direction Inbound -Action Allow -Protocol UDP -LocalPort $RDPNewPort
 		Get-NetFirewallRule | Where-Object { $_.Description -match '[TCP|UDP]\s3389\S' } | ForEach-Object { Set-NetFirewallRule -Name $_.Name -Enabled False }
 

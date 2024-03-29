@@ -14,7 +14,7 @@ REM create folder
 IF NOT EXIST "C:\Program Files\SWMB" MKDIR "C:\Program Files\SWMB"
 
 REM log
-COPY /y NUL "C:\Program Files\SWMB\logfile.log" >NUL  
+COPY /y NUL "C:\Program Files\SWMB\logfile.log" >NUL
 ECHO %date%-%time% >> %logfile%
 
 REM silent install

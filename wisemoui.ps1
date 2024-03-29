@@ -69,7 +69,7 @@ $BtnBitlockerStatus.BackColor = "Transparent"
 $BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 $Form.Controls.Add($BtnBitlockerStatus)
 
-# Bitlocker Crypt  
+# Bitlocker Crypt
 $BtnCrypt = New-Object System.Windows.Forms.Button
 $BtnCrypt.Location = New-Object System.Drawing.Point(30,50)
 $BtnCrypt.Width = 110
@@ -119,8 +119,8 @@ $BtnBitlockerFrame.Width = 250
 $BtnBitlockerFrame.Height = 110
 #$BtnBitlockerFrame.BackColor = "Transparent"
 $BtnBitlockerFrame.Text = "Bitlocker"
-$Form.Controls.Add($BtnBitlockerFrame) 
-   
+$Form.Controls.Add($BtnBitlockerFrame)
+
 ################################################################
 # Task Frame
 
@@ -206,7 +206,7 @@ $BtnTaskFrame.Width = 250
 $BtnTaskFrame.Height = 100
 #$BtnTaskFrame.BackColor = "Transparent"
 $BtnTaskFrame.Text = "Run Scheduled Task Now"
-$Form.Controls.Add($BtnTaskFrame) 
+$Form.Controls.Add($BtnTaskFrame)
 
 ################################################################
 
@@ -252,7 +252,7 @@ $BtnVersionFrame.Location = New-Object System.Drawing.Size(20,240)
 $BtnVersionFrame.Width = 250
 $BtnVersionFrame.Height = 115
 $BtnVersionFrame.Text = "Host features"
-$Form.Controls.Add($BtnVersionFrame) 
+$Form.Controls.Add($BtnVersionFrame)
 
 ################################################################
 

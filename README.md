@@ -324,7 +324,7 @@ To supply a customized preset, you can either pass the function names directly a
 
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File swmb.ps1 -import Win10.psm1 EnableFirewall EnableDefender
 
-Or you can create a file where you write the function names (one function name per line, no commas or quotes, whitespaces allowed, comments starting with `#`) and then pass the filename using `-preset` parameter.  
+Or you can create a file where you write the function names (one function name per line, no commas or quotes, whitespaces allowed, comments starting with `#`) and then pass the filename using `-preset` parameter.
 Example of a preset file `mypreset.txt`:
 
     # Security tweaks
@@ -358,7 +358,7 @@ Command using the preset file above:
 
 ### Import your lib
 
-The script also supports inclusion of custom tweaks from user-supplied modules passed via `-import` parameter. The content of the user-supplied module is completely up to the user, however it is strongly recommended to have the tweaks separated in respective functions as the main tweak library has. The user-supplied scripts are loaded into the main script via `Import-Module`, so the library should ideally be a `.psm1` PowerShell module. 
+The script also supports inclusion of custom tweaks from user-supplied modules passed via `-import` parameter. The content of the user-supplied module is completely up to the user, however it is strongly recommended to have the tweaks separated in respective functions as the main tweak library has. The user-supplied scripts are loaded into the main script via `Import-Module`, so the library should ideally be a `.psm1` PowerShell module.
 Example of a user-supplied tweak library `mytweaks.psm1`:
 
 ```powershell
@@ -379,7 +379,7 @@ Command using the script above:
 
 ### Combination
 
-All features described above can be combined. You can have a preset which includes both tweaks from the original script and your personal ones. Both `-import` and `-preset` options can be used more than once, so you can split your tweaks into groups and then combine them based on your current needs. The `-import` modules are always imported before the first tweak is applied, so the order of the command line parameters doesn't matter and neither does the order of the tweaks (except for `RequireAdmin`, which should always be called first and `Restart`, which should be always called last). It can happen that some tweaks are applied more than once during a singe run because you have them in multiple presets. That shouldn't cause any problems as the tweaks are idempotent.  
+All features described above can be combined. You can have a preset which includes both tweaks from the original script and your personal ones. Both `-import` and `-preset` options can be used more than once, so you can split your tweaks into groups and then combine them based on your current needs. The `-import` modules are always imported before the first tweak is applied, so the order of the command line parameters doesn't matter and neither does the order of the tweaks (except for `RequireAdmin`, which should always be called first and `Restart`, which should be always called last). It can happen that some tweaks are applied more than once during a singe run because you have them in multiple presets. That shouldn't cause any problems as the tweaks are idempotent.
 Example of a preset file `otherpreset.txt`:
 
     MyTweak1

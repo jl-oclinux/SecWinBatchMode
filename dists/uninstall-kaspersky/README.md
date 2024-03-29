@@ -26,7 +26,7 @@ in a PowerShell console with administrator rights,
 we launch the following command which, despite its name,
 will uninstall Kaspersky.
 ```ps1
-.\install.bat 
+.\install.bat
 ```
 It will ask you to run the command
 ```ps1
@@ -92,7 +92,7 @@ $Global:SWMB_Custom.KesAgentPass = ""
 You can choose to put the password to modify Kasperky Endpoint in clear text
 or to scramble it via a symmetric encryption process.
 Idem with the Network Agent.
-If the key file exists, then the parameter is automatically assumed 
+If the key file exists, then the parameter is automatically assumed
 to be encrypted for both passwords.
 
 For safety, you can put this data in a configuration file `Custom-VarAutodel.psm1`.

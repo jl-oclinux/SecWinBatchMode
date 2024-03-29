@@ -66,5 +66,5 @@ cd SWMB
 
 ### En savoir encore plus
 
- * Je lis le [README](https://gitlab.in2p3.fr/resinfo-gt/swmb/-/blob/master/README.md) du projet 
+ * Je lis le [README](https://gitlab.in2p3.fr/resinfo-gt/swmb/-/blob/master/README.md) du projet
  * Je lis les documentations sur les exemples de déploiement dans le répertoire «[dists](https://gitlab.in2p3.fr/resinfo-gt/swmb/-/tree/master/dists)» du projet

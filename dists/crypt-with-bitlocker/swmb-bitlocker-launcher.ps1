@@ -38,7 +38,7 @@ Processing directory $swmbBitlockerDirectory...
 "@ -ForegroundColor Green
 
 If (!(Test-Path $swmbBitlockerDirectory)) {
-    New-Item -Path $swmbBitlockerDirectory -ItemType Directory 
+    New-Item -Path $swmbBitlockerDirectory -ItemType Directory
 }
 If (Test-Path "$swmbBitlockerDirectory\resinfo-swmb-master") {
     Remove-Item "$swmbBitlockerDirectory\resinfo-swmb-master" -Force -Recurse

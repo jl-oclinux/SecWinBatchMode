@@ -76,7 +76,7 @@ Function SWMB_ImportModuleParameter() {
 			}
 
 			# Search module in the parent folder .. and so on
-			$NewPath = (Resolve-Path (Join-Path -Path $ItemPath -ChildPath "..") -ErrorAction SilentlyContinue) 
+			$NewPath = (Resolve-Path (Join-Path -Path $ItemPath -ChildPath "..") -ErrorAction SilentlyContinue)
 			If ("$NewPath" -eq "$ItemPath") {
 				Break
 			}
@@ -271,7 +271,7 @@ Function TweakViewWorkgroupName { # RESINFO
 	If ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
 		Write-Output "This computer is part of domain"
 	} Else {
-		Write-Output "The Workgroup name is: $((Get-WmiObject -Class Win32_ComputerSystem).Workgroup)" 
+		Write-Output "The Workgroup name is: $((Get-WmiObject -Class Win32_ComputerSystem).Workgroup)"
 	}
 }
 

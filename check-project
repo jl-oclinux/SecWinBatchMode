@@ -10,7 +10,7 @@ find . \( -name '*.ps1' -o -name '*.psm1' -o -name '*.psd1' -o -name '*.bat' \) 
 function msg1 {
    local msg=$1
    local total=$2
- 
+
    printf " | %-6s | %-38s | %4s | %4s | %4i |      |      |\n" 'Info' "${msg}" '' '' "${total}"
    }
 

@@ -21,7 +21,7 @@ then
   echo ''
   echo '# current user logon tweaks'
   echo 'DisableAutoplay_CU'
-  
+
   if [ "${SWMB_HOSTNAME:0:3}" = 'abc' ]
   then
   echo ''

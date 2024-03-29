@@ -35,7 +35,7 @@ InstallDirRegKey HKLM "${REGPATH_UNINSTSUBKEY}" "UninstallString"
 ;AutoCloseWindow true ; Setup close automatically when you finish use
 Icon "logo-swmb.ico" ; Select your Icon file
 
-; Version Information 
+; Version Information
 VIAddVersionKey "ProductName" "${NAME}"
 VIAddVersionKey "CompanyName" "${PUBLISHER}"
 VIAddVersionKey "LegalTrademarks" "${NAME} is a name create by ${PUBLISHERLIGHT}"
@@ -77,7 +77,7 @@ Function TrimQuotes
   Pop $R1
   Exch $R0
 FunctionEnd
- 
+
 !macro _TrimQuotes Input Output
   Push `${Input}`
   Call TrimQuotes

@@ -399,8 +399,12 @@ Function TweakViewTargetRelease { # RESINFO
 
 ################################################################
 
-# Create a unique Host Id if it doesn't already exist,	
+# Create a unique Host Id if it doesn't already exist,
 # which will be used in webhooks, for example, to uniquely identify each host
+# We could also use the GUID at HKLM:\SYSTEM\HardwareConfig that seems to be unique
+#  HKLM:\SYSTEM\HardwareConfig\{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}
+#  HKLM:\SYSTEM\HardwareConfig\Current
+
 # Enable
 Function TweakEnableSWMBUniqueId { # RESINFO
 	Write-Output "Enabling SWMB Unique HostId..."

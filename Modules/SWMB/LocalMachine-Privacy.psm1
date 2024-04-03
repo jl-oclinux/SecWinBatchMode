@@ -705,13 +705,15 @@ Function TweakEnableRecentFiles {
 
 # Disable
 Function TweakDisableAutologgerDiagTrack { # RESINFO
-	Write-Output "Désactivation du Autologger-DiagTrack-Listener..."
-	Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
+	Write-Output "Disabling Autologger-DiagTrack-Listener..."
+	If (Test-Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener") {
+		Remove-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force -ErrorAction SilentlyContinue | Out-Null
+	}
 }
 
 # Enable
 Function TweakEnableAutologgerDiagTrack { # RESINFO
-	Write-Output "Activation du Autologger-DiagTrack-Listener..."
+	Write-Output "Enabling Autologger-DiagTrack-Listener..."
 	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener")) {
 		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Force | Out-Null
 	}

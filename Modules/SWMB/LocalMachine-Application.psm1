@@ -416,7 +416,7 @@ Function TweakDisableEdgeDoNtoTrack { # RESINFO
 }
 
 # View
-Function TweakViewEdgeEdgeDoNtoTrack { # RESINFO
+Function TweakViewEdgeDoNtoTrack { # RESINFO
 	Write-Output "View Edge Configure Do Not Track (0:Do Not Tracker requests are always sent to websites asking for tracking info, 1:Do Not Track requests are never sent to websites asking for tracking info, error: Default )"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ConfigureDoNotTrack" -ErrorAction SilentlyContinue
 }

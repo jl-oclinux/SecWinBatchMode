@@ -1,6 +1,6 @@
 # NEWS
 
-## Version 3.16 (in progress)
+## Version 3.16
 
 This version offers specific initial support for Windows11.
 Indeed, initial tweaks have been written and made default to limit searches and data leaks for Windows 11.

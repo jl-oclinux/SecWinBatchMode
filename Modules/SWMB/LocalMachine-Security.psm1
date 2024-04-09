@@ -553,6 +553,8 @@ Function TweakEnableMicrosoftAccount { # RESINFO
 
 # See https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/winsoft-main/-/blob/main/windows11update/pre-install.ps1
 # Force a registry key so that hardware not supported for accepting Windows 11 upgrades can continue to benefit from updates (use at your own risk).
+# This only applies to machines already running Windows 11.
+# This tweak does nothing for computers running Windows 10 (build < 22000).
 
 # Disable
 Function TweakDisableUpgradesOnUnsupportedHard { # RESINFO

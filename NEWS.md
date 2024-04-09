@@ -3,7 +3,7 @@
 ## Version 3.17 (in progress)
 
 New presets/rules:
-* 2024/03/05 - `DisableUpgradesOnUnsupportedHard`/`EnableUpgradesOnUnsupportedHard`/`ViewUpgradesOnUnsupportedHard` -> Force a registry key so that hardware not supported for accepting Windows 11 upgrades can continue to benefit from updates (use at your own risk).
+* 2024/04/09 - `DisableUpgradesOnUnsupportedHard`/`EnableUpgradesOnUnsupportedHard`/`ViewUpgradesOnUnsupportedHard` -> Force a registry key so that hardware not supported for accepting Windows 11 upgrades can continue to benefit from updates (use at your own risk).
 
 ## Version 3.16
 

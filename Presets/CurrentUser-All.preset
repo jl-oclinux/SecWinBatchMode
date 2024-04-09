@@ -11,9 +11,9 @@
 DisableCortana_CU                               # EnableCortana_CU
 DisableTailoredExperiences_CU                   # EnableTailoredExperiences_CU
 DisableWebLangList_CU                           # EnableWebLangList_CU
-# DisableWebSearch_CU                           # EnableWebSearch_CU
+DisableWebSearch_CU                             # EnableWebSearch_CU
 DisableAppSuggestions_CU                        # EnableAppSuggestions_CU
-# DisableFeedback_CU                            # EnableFeedback_CU
+DisableFeedback_CU                              # EnableFeedback_CU
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps_CU                     # EnableUWPBackgroundApps_CU

@@ -13,11 +13,11 @@ SysRequireAdmin
 ### Privacy Tweaks ###
 DisableTelemetry                                # EnableTelemetry
 DisableCortana                                  # EnableCortana
-# DisableCortanaAboveLock                       # EnableCortanaAboveLock
-# DisableDisplayWebResults                      # EnableDisplayWebResults
+DisableCortanaAboveLock                         # EnableCortanaAboveLock
+DisableDisplayWebResults                        # EnableDisplayWebResults
 DisableWiFiSense                                # EnableWiFiSense
 # DisableSmartScreen                            # EnableSmartScreen
-# DisableWebSearch                              # EnableWebSearch
+DisableWebSearch                                # EnableWebSearch
 DisableAppSuggestions                           # EnableAppSuggestions
 DisableActivityHistory                          # EnableActivityHistory                         # ViewActivityHistory
 # DisableSensors                                # EnableSensors
@@ -42,14 +42,14 @@ DisableWAPPush                                  # EnableWAPPush
 # DisableMRTReportInfectionInformation          # EnableMRTReportInfectionInformation
 # DisableOsGeneratedReport                      # EnableOsGeneratedReport
 # DisableOverrideReportingMAPS                  # EnableOverrideReportingMAPS
-# DisablePrivacyExperience                      # EnablePrivacyExperience
-# DisableStepsRecorder                          # EnableStepsRecorder
-# DisableSendAdditionalData                     # EnableSendAdditionalData
-# DisableSharedInformationSearch                # EnableSharedInformationSearch
+DisablePrivacyExperience                        # EnablePrivacyExperience
+DisableStepsRecorder                          	# EnableStepsRecorder
+DisableSendAdditionalData                     	# EnableSendAdditionalData
+DisableSharedInformationSearch                	# EnableSharedInformationSearch
 DisableAutologgerDiagTrack                      # EnableAutologgerDiagTrack                     # ViewAutologgerDiagTrack
 DisableHighlightsSearch                         # EnableHighlightsSearch                        # ViewHighlightsSearch
 DisableCloudSearch                              # EnableCloudSearch                             # ViewCloudSearch
-# DisableSearchOnTaskbar                        # EnableSearchOnTaskbar                         # ViewSearchOnTaskbar
+EnableSearchOnTaskbar                           # DisableSearchOnTaskbar                        # ViewSearchOnTaskbar
 DisableDiagnosticLogs                           # EnableDiagnosticLogs                          # ViewDiagnosticLogs
 DisableOneSettingsDownloads                     # EnableOneSettingsDownloads                    # ViewOneSettingsDownloads
 # DisableWindowsErrorReporting                  # EnableWindowsErrorReporting
@@ -58,8 +58,8 @@ DisableSearchUseLocation                        # EnableSearchUseLocation       
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps
 # DisableUWPVoiceActivation                     # EnableUWPVoiceActivation
-# DisableUWPNotifications                       # EnableUWPNotifications
-# DisableUWPAccountInfo                         # EnableUWPAccountInfo
+DisableUWPNotifications                         # EnableUWPNotifications
+DisableUWPAccountInfo                           # EnableUWPAccountInfo
 # DisableUWPContacts                            # EnableUWPContacts
 # DisableUWPCalendar                            # EnableUWPCalendar
 # DisableUWPPhoneCalls                          # EnableUWPPhoneCalls
@@ -69,9 +69,10 @@ DisableUWPBackgroundApps                        # EnableUWPBackgroundApps
 # DisableUWPMessaging                           # EnableUWPMessaging
 # DisableUWPRadios                              # EnableUWPRadios
 # DisableUWPOtherDevices                        # EnableUWPOtherDevices
-# DisableUWPDiagInfo                            # EnableUWPDiagInfo
+DisableUWPDiagInfo                              # EnableUWPDiagInfo
 # DisableUWPFileSystem                          # EnableUWPFileSystem
 # DisableUWPSwapFile                            # EnableUWPSwapFile
+DisableUWPAccessLocation                        # EnableUWPAccessLocation
 # DisableAppsAccessAccount                      # EnableAppsAccessAccount
 
 ### Security Tweaks ###
@@ -260,7 +261,7 @@ EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup
 # UninstallHPWolfSecurity                                                                       # ViewHPWolfSecurity
 # UninstallHPBuiltInApps
 # UninstallHPBloatware
-# DisableWindowsCopilot                         # EnableWindowsCopilot                          # ViewWindowsCopilot
+DisableWindowsCopilot                           # EnableWindowsCopilot                          # ViewWindowsCopilot
 # UninstallNovaPDF                                                                              # ViewNovaPDF
 # UninstallAnyDesk                                                                              # ViewAnyDesk
 

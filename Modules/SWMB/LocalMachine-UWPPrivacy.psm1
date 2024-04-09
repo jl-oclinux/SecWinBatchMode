@@ -291,8 +291,11 @@ Function TweakEnableUWPSwapFile {
 
 ################################################################
 
+# https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-privacy
+
+# Disable
 Function TweakDisableAppsAccessAccount { # RESINFO
-	Write-Output "Windows apps are not allowed to access account information..."
+	Write-Output "Disabling Windows apps are not allowed to access account information..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
 	}
@@ -302,8 +305,9 @@ Function TweakDisableAppsAccessAccount { # RESINFO
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessAccountInfo_ForceAllowTheseApps" -Type MultiString -value $null -Force | Out-Null
 }
 
+# Enable
 Function TweakEnableAppsAccessAccount { # RESINFO
-	Write-Output "Windows apps access account information not configured..."
+	Write-Output "Enabling Windows apps access account information is not configured..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessAccountInfo" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessAccountInfo_ForceDenyTheseApps" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\AppPrivacy" -Name "LetAppsAccessAccountInfo_UserInControlOfTheseApps" -ErrorAction SilentlyContinue

@@ -513,7 +513,9 @@ Function TweakEnableF1HelpKey_CU {
 
 ################################################################
 
+# Hors ANSSI
 # https://www.commentcamarche.net/informatique/windows/29-activer-le-god-mode-mode-dieu-de-windows-10/
+
 # Enable
 Function TweakEnableGodMod_CU { # RESINFO
 	Write-Output "Enable GodMod on current user desktop..."

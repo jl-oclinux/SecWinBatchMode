@@ -1,5 +1,7 @@
 # NEWS
 
+## Version 3.17 (in progress)
+
 ## Version 3.16
 
 This version offers specific initial support for Windows11.

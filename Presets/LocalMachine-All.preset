@@ -107,6 +107,7 @@ EnableASLR                                      # DisableASLR                   
 # DisablePublicProfile                          # EnablePublicProfile
 # DisableHybridSleep                            # EnableHybridSleep
 # EnableClearPageFile                           # DisableClearPageFile                          # ViewClearPageFile
+# DisableUpgradesOnUnsupportedHard              # EnableUpgradesOnUnsupportedHard               # ViewUpgradesOnUnsupportedHard
 
 ### Network Tweaks ###
 SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic

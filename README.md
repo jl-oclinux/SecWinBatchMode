@@ -343,18 +343,18 @@ Command using the preset file above:
 
  | Status | Number of tweaks                       |         LM ||  All |         CU ||
  | :---   | :---                                   | ---: | ---: | ---: | ---: | ---: |
- | Info   | Number of RESINFO tweaks               |        156 ||  164 |          8 ||
- | Info   | Number of Enable and Disable tweaks    |  167 |  167 |  400 |   33 |   33 |
+ | Info   | Number of RESINFO tweaks               |        158 ||  166 |          8 ||
+ | Info   | Number of Enable and Disable tweaks    |  168 |  168 |  402 |   33 |   33 |
  | Warn   | Number of Install and Uninstall tweaks |   20 |   35 |   59 |    1 |    3 |
  | Warn   | Number of Show and Hide tweaks         |   29 |   29 |  115 |   30 |   27 |
  | Info   | Number of Add and Remove tweaks        |    2 |    2 |    6 |    1 |    1 |
  | Warn   | Number of Set and Unset tweaks         |   24 |   10 |   52 |   18 |    0 |
  | Warn   | Number of Pin and Unpin tweaks         |    0 |    0 |    2 |    0 |    2 |
- | Info   | Number of total tweaks GPO             |      |      |  634 |      |      |
+ | Info   | Number of total tweaks GPO             |      |      |  636 |      |      |
  | Info   | Number of Sys tweaks (system)          |      |      |    9 |      |      |
- | Info   | Number of View tweaks (debug)          |      |      |   48 |      |      |
+ | Info   | Number of View tweaks (debug)          |      |      |   49 |      |      |
  | Info   | Number of Obsolete tweaks              |      |      |    3 |      |      |
- | Info   | Number of total tweaks functions       |      |      |  694 |      |      |
+ | Info   | Number of total tweaks functions       |      |      |  697 |      |      |
 
 ### Import your lib
 

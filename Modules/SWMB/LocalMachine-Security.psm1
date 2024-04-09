@@ -528,10 +528,12 @@ Function TweakEnablePublicProfile { # RESINFO
 ################################################################
 
 # Cloud
-# Configuration Ordinateur / Paramètres Windows / Paramètres de Sécurité / Stratégies Locales / Options de sécurité / Comptes : Bloquer les comptes Microsoft /  Les utilisateurs ne peuvent pas ajouter de comptes Microsoft ni se connecter avec ces derniers
+# Computer configuration / Windows settings / Security settings / Local policies / Security options / Accounts : Block Microsoft accounts / Users cannot add or log in to Microsoft accounts
+# [fr] Configuration Ordinateur / Paramètres Windows / Paramètres de Sécurité / Stratégies Locales / Options de sécurité / Comptes : Bloquer les comptes Microsoft /  Les utilisateurs ne peuvent pas ajouter de comptes Microsoft ni se connecter avec ces derniers
+
 # Disable
 Function TweakDisableMicrosoftAccount { # RESINFO
-	Write-Output "Block Microsoft Account..."
+	Write-Output "Disabling (Block) Microsoft Account..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
@@ -540,11 +542,50 @@ Function TweakDisableMicrosoftAccount { # RESINFO
 
 # Enable
 Function TweakEnableMicrosoftAccount { # RESINFO
-	Write-Output "Enable Microsoft Account..."
+	Write-Output "Enabling Microsoft Account..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "NoConnectedUser" -Type DWord -Value 0
+}
+
+################################################################
+
+# See https://gricad-gitlab.univ-grenoble-alpes.fr/legi/soft/trokata/winsoft-main/-/blob/main/windows11update/pre-install.ps1
+# Force a registry key so that hardware not supported for accepting Windows 11 upgrades can continue to benefit from updates (use at your own risk).
+
+# Disable
+Function TweakDisableUpgradesOnUnsupportedHard { # RESINFO
+	Write-Output "Disabling Windows 11 upgrades with unsupported hardware..."
+	If ([System.Environment]::OSVersion.Version.Build -ge 22000) {
+		Remove-ItemProperty -Path "HKLM:\SYSTEM\Setup\MoSetup" -Name "AllowUpgradesWithUnsupportedTPMOrCPU" -ErrorAction SilentlyContinue
+	}
+}
+
+# Enable
+Function TweakEnableUpgradesOnUnsupportedHard { # RESINFO
+	Write-Output "Enabling Windows 11 upgrades with unsupported hardware..."
+	If ([System.Environment]::OSVersion.Version.Build -ge 22000) {
+		[cultureinfo]::CurrentUICulture='en-US'
+		$CheckTPM_Version = (Get-Tpm).ManufacturerVersionFull20
+		If (($CheckTPM_Version -like '*not supported*') -Or ($CheckTPM_Version -like '*non pris*')) {
+			Write-Output ' TPM not 2.0 - registry bypass force'
+			If (!(Test-Path 'HKLM:\SYSTEM\Setup\MoSetup')) {
+				New-Item -Path 'HKLM:\SYSTEM\Setup\MoSetup' -Force | Out-Null
+			}
+			Set-ItemProperty -Path 'HKLM:\SYSTEM\Setup\MoSetup' -Name 'AllowUpgradesWithUnsupportedTPMOrCPU' -Type DWord -Value 1
+		}
+	}
+}
+
+# View
+Function TweakViewUpgradesOnUnsupportedHard { # RESINFO
+	Write-Output 'Windows 11 upgrades with unsupported hardware (0 no or not exist - disable, 1 enable)'
+	If ([System.Environment]::OSVersion.Version.Build -ge 22000) {
+		Get-ItemProperty -Path 'HKLM:\SYSTEM\Setup\MoSetup' -Name 'AllowUpgradesWithUnsupportedTPMOrCPU'
+	} Else {
+		Write-Output " Operating system not running Windows 11 or higher"
+	}
 }
 
 ################################################################

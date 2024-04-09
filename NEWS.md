@@ -23,10 +23,23 @@ Add link to the [Harden Community](https://hardenad.net/) in [REFERENCES](REFERE
 Most of the tweaks marked with the Windows11 tag are also available on Windows10,
 but were not deactivated (or activated) at the time, because they were unknown!
 
-Remove modules:
+Remove modules (move code to other modules):
 * `Modules/SWMB/Resinfo.psm1` - dispatch tweaks in other module
 * `Modules/SWMB/BSI.psm1` - dispatch tweaks in other module
 * `Modules/SWMB/Contrib.psm1` - dispatch tweaks in other module
+
+Remove presets (push preset in one file):
+* `CurrentUser-Resinfo.preset` - only one preset!
+* `CurrentUser-UserExperience.preset` - only one preset!
+
+Update default `LocalMachine-All` preset:
+* Activate `DisableCortanaAboveLock`, `DisableDisplayWebResults`, `DisableWebSearch`,
+  `DisablePrivacyExperience`, `DisableStepsRecorder`, `DisableSendAdditionalData`,
+  `DisableSharedInformationSearch`, `EnableSearchOnTaskbar`, `DisableUWPNotifications`,
+  `DisableUWPAccountInfo`, `DisableUWPDiagInfo`, `DisableUWPAccessLocation`, `DisableWindowsCopilot`
+
+Update default `CurrentUser-All` preset:
+* Activate `DisableWebSearch_CU`, `DisableFeedback_CU`
 
 Two tweaks (`OneDriveSync` and `WindowsStoreAccess`) have been renamed in order to have uniqueness in tweak names,
 whether they start with `Enable/Disable`, `Install/Uninstall`, `Show/Hide`...
@@ -38,10 +51,10 @@ New presets/rules:
 * 2024/02/29 - `DisableOneDriveSync` is the new name for old `DisableOneDrive`. It's the same for `EnableOneDriveSync`
 * 2024/02/23 - `EnableLSOon10Gbps`/`DisableLSOon10Gbps`/`ViewLSOon10Gbps` -> Disable LSO (Large Send Offload v2) on all 10Gbps network interface (Enable by default)
 * 2024/02/19 - `UninstallNovaPDF`/`ViewNovaPDF` -> Uninstall NovaPDF
-* 2024/02/19 - `DisableWindowsCopilot` -> Disable Windows Copilot (Windows11)
-* 2024/02/19 - `DisableOneSettingsDownloads` -> Windows will not download configuration settings from the OneSettings service (Windows11)
-* 2024/02/19 - `DisableDiagnosticLogs` -> Diagnostic logs collected
-* 2024/02/07 - `UninstallHPWolfSecurity` -> Uninstall HP Wolf Security
+* 2024/02/19 - `DisableWindowsCopilot`/`EnableWindowsCopilot`/`ViewWindowsCopilot` -> Disable Windows Copilot (Windows11)
+* 2024/02/19 - `DisableOneSettingsDownloads`/`EnableOneSettingsDownloads`/`ViewOneSettingsDownloads` -> Windows will not download configuration settings from the OneSettings service (Windows11)
+* 2024/02/19 - `DisableDiagnosticLogs`/`EnableDiagnosticLogs`/`ViewDiagnosticLogs` -> Diagnostic logs collected
+* 2024/02/07 - `UninstallHPWolfSecurity`/`ViewHPWolfSecurity` -> Uninstall HP Wolf Security
 * 2024/02/07 - `UninstallHPBuiltInApps` -> Uninstall HP built-in apps
 * 2024/02/07 - `UninstallHPBloatware` -> Uninstall HP Bloatware Software
 * 2024/01/25 - `HideRecommendedSection`/`ShowRecommendedSection` -> Hide Recommended Section in start menu (Windows11)

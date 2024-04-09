@@ -131,6 +131,10 @@ Function TweakEnableFeedback_CU {
 
 ################################################################
 
+# User configuration / Administration templates / Windows components / Cloud content / Do not use diagnostic data to customize user experience
+# [fr] Configuration utilisateur / Modèles d'administration / Composants Windows / Contenu Cloud / Ne pas utiliser les données de diagnostic pour personnaliser l'expérience utilisateur
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.CloudContent::DisableTailoredExperiencesWithDiagnosticData
+
 # Disable Tailored Experiences
 Function TweakDisableTailoredExperiences_CU {
 	Write-Output "Disabling Tailored Experiences for CU..."

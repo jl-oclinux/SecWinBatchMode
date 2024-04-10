@@ -591,6 +591,42 @@ Function TweakViewUpgradesOnUnsupportedHard { # RESINFO
 }
 
 ################################################################
+
+# Disable or enable AutoLogon with a DefaultUserName
+# See https://learn.microsoft.com/fr-fr/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon
+# Via netplwiz https://lecrabeinfo.net/netplwiz-creer-modifier-et-supprimer-les-utilisateurs-sur-windows.html
+# We see only that the register value DefaultUserName exist but is empty
+# Need better work to take netplwiz config properly
+
+# Disable
+Function TweakDisableAutoLogon { # RESINFO
+	Write-Output 'Disabling Windows AutoLogon'
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name "DefaultUserName" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name "AutoAdminLogon" -ErrorAction SilentlyContinue
+}
+
+# Enable
+Function TweakEnableAutoLogon { # RESINFO
+	Write-Output 'Enabling Windows AutoLogon'
+	If ([string]::IsNullOrEmpty($Global:SWMB_Custom.AutoLogon_UserName)) { Return }
+	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoAdminLogon' -Type DWord -Value 1 -Force
+	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name "DefaultUserName" -Type String -Value $Global:SWMB_Custom.AutoLogon_UserName -Force
+}
+
+# View
+Function TweakViewAutoLogon { # RESINFO
+	Try {
+		Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'DefaultUserName' | Out-Null
+	} Catch {
+		Write-Output 'Windows AutoLogon not configured'
+		Return
+	}
+	Write-Output 'Windows AutoLogon is enabled'
+	Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'DefaultUserName'
+	Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoAdminLogon' -ErrorAction SilentlyContinue
+}
+
+################################################################
 ###### Crypt Bitlocker
 ################################################################
 

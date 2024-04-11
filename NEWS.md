@@ -2,6 +2,10 @@
 
 ## Version 3.17 (in progress)
 
+The [SWLN](./dists/swln/) template is more generic (LEGI now uses the same files without any changes)
+and it now supports the file with the `-Host-HOSTNAME` extension
+in order to push a different file (e.g. specific tweaks) to a particular computer.
+
 New presets/rules:
 * 2024/04/10 - `DisableAutoLogon`/`EnableAutoLogon`/`ViewAutoLogon` -> Disable or Enable AutoLogon (`$Global:SWMB_Custom` key `AutoLogon_UserName`)
 * 2024/04/09 - `DisableUpgradesOnUnsupportedHard`/`EnableUpgradesOnUnsupportedHard`/`ViewUpgradesOnUnsupportedHard` -> Force a registry key so that hardware not supported for accepting Windows 11 upgrades can continue to benefit from updates (use at your own risk).

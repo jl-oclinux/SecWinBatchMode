@@ -8,16 +8,21 @@ If (Test-Path "${Env:ProgramFiles}\$SWLN_Name\version.txt" -PathType Leaf) {
 	# $SWLN_VersionOld_number = [float]$SWLN_VersionOld
 }
 
-# Copy of scripts and configuration files
-Copy-Item -LiteralPath 'install.bat'                     -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
-Copy-Item -LiteralPath 'uninstall.bat'                   -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
-Copy-Item -LiteralPath 'Local-Addon.psm1'                -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
-Copy-Item -LiteralPath 'Custom-VarOverload.psm1'         -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
-Copy-Item -LiteralPath 'CurrentUser-Logon.preset'        -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
-Copy-Item -LiteralPath 'LocalMachine-Boot.preset'        -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
-Copy-Item -LiteralPath 'LocalMachine-PostInstall.preset' -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
-Copy-Item -LiteralPath 'logo-swmb.ico'                   -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
-#Copy-Item -LiteralPath 'print'                  -Destination "${Env:ProgramFiles}\$SWLN_Name" -Recurse -Force
+# Host extension
+$HostExt="Host-$(${Env:ComputerName}.ToLower())"
+
+# Copy of scripts and configuration files in install folder
+ForEach ($FileItem in @(
+	__ALLFILES__
+)) {
+	If ("$FileItem" -match '^(install\.bat|post-install\.ps1)$') {
+		Continue
+	} ElseIf (Test-Path -LiteralPath "$FileItem" -PathType Leaf) {
+		Copy-Item -LiteralPath "$FileItem" -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
+	} ElseIf (Test-Path -LiteralPath "$FileItem" -PathType Container) {
+		Copy-Item -LiteralPath "$FileItem" -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force -Recurse
+	}
+}
 
 # Create main ProgramData folder (SWLN is installed before SWMB)
 If (!(Test-Path -LiteralPath "${Env:ProgramData}\SWMB")) {
@@ -31,7 +36,13 @@ ForEach ($FileItem in @(
 	"${Env:ProgramData}\SWMB\Presets\LocalMachine-PostInstall.preset"
 	"${Env:ProgramData}\SWMB\Modules\Custom-VarOverload.psm1"
 	"${Env:ProgramData}\SWMB\Modules\Local-Addon.psm1"
+	"${Env:ProgramData}\SWMB\Presets\CurrentUser-Logon-$HostExt.preset"
+	"${Env:ProgramData}\SWMB\Presets\LocalMachine-Boot-$HostExt.preset"
+	"${Env:ProgramData}\SWMB\Presets\LocalMachine-PostInstall-$HostExt.preset"
+	"${Env:ProgramData}\SWMB\Modules\Custom-VarOverload-$HostExt.psm1"
+	"${Env:ProgramData}\SWMB\Modules\Local-Addon-$HostExt.psm1"
 )) {
+	If (!(Test-Path -LiteralPath "$FileItem")) { Continue }
 	$FileName   = Split-Path -Path "$FileItem" -Leaf
 	$FolderName = Split-Path -Path "$FileItem" -Parent
 	If (!(Test-Path -LiteralPath "$FolderName")) {
@@ -50,7 +61,7 @@ Get-ChildItem -LiteralPath "${Env:ProgramFiles}\$SWLN_Name\"  -Recurse | Unblock
 Get-ChildItem -LiteralPath "${Env:ProgramData}\SWMB\Modules\" -Recurse | Unblock-File
 
 # Silent SWMB install
-& .\SWMB-Setup-"$SWMB_Version".exe /S | Out-Null
+& .\SWMB-Setup-"$SWMB_Version".exe /S
 
 # Creation of the version file with the version number
 New-Item -Path "${Env:ProgramFiles}\$SWLN_Name\version.txt" -Type File -Force

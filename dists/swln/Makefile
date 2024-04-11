@@ -11,11 +11,11 @@ REVISION:=1
 LOG_DIR:=%SystemRoot%\\Logs\\Deploy
 
 FILES:=logo-swmb.ico
-FILES+=$(shell ls -1 CurrentUser-Logon.preset        2> /dev/null)
-FILES+=$(shell ls -1 LocalMachine-Boot.preset        2> /dev/null)
-FILES+=$(shell ls -1 LocalMachine-PostInstall.preset 2> /dev/null)
-FILES+=$(shell ls -1 Custom-VarOverload.psm1         2> /dev/null)
-FILES+=$(shell ls -1 Local-Addon.psm1                2> /dev/null)
+FILES+=$(shell ls -1 CurrentUser-Logon.preset        CurrentUser-Logon-Host-*.preset        2> /dev/null)
+FILES+=$(shell ls -1 LocalMachine-Boot.preset        LocalMachine-Boot-Host-*.preset        2> /dev/null)
+FILES+=$(shell ls -1 LocalMachine-PostInstall.preset LocalMachine-PostInstall-Host-*.preset 2> /dev/null)
+FILES+=$(shell ls -1 Custom-VarOverload.psm1         Custom-VarOverload-Host-*.psm1         2> /dev/null)
+FILES+=$(shell ls -1 Local-Addon.psm1                Local-Addon-Host-*.psm1                2> /dev/null)
 
 TFILES:=install.bat
 TFILES+=uninstall.bat
@@ -26,6 +26,7 @@ PUBLISHER:=CNRS France, RESINFO, Local Network Area
 
 sinclude extend-variables.mk
 
+ALLFILES:=$(shell echo '$(addsuffix ", $(addprefix ", $(FILES) $(TFILES)))' | sed 's/[[:space:]]/, /g;')
 TFILES+=SWMB-Setup-$(SWMB_VERSION).exe
 
 TMPFILES:=$(addprefix tmp/,$(TFILES))
@@ -53,7 +54,7 @@ tmp/install.bat: install.bat Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_
 
 tmp/post-install.ps1: post-install.ps1 Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s#__ALLFILES__#$(ALLFILES)#; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
 
 tmp/uninstall.bat: uninstall.bat Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp

@@ -229,7 +229,7 @@ Function TweakSetNTPConfig { # RESINFO
 
 # Unset
 Function TweakUnsetNTPConfig { # RESINFO
-	Write-Output "Unset NTP client (stop)..."
+	Write-Output "Unsetting NTP client (stop)..."
 	w32tm /unregister
 	net stop w32time
 }

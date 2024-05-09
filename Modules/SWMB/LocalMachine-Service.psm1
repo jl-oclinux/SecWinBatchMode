@@ -377,7 +377,7 @@ Function TweakEnableAutoRebootOnCrash {
 # If you specify a TargetReleaseVersion higher than the current version, Windows 10 will directly update only to the specified version even if a higher version is available.
 # Enable
 Function TweakSetTargetRelease { # RESINFO
-	Write-Output "Set Target Release to $($Global:SWMB_Custom.TargetReleaseVersionInfo)..."
+	Write-Output "Setting Target Release to $($Global:SWMB_Custom.TargetReleaseVersionInfo)..."
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "ProductVersion" -value  $Global:SWMB_Custom.ProductVersion -Type String -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersion" -value '00000001' -Type DWord -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -value $Global:SWMB_Custom.TargetReleaseVersionInfo -Type String -Force
@@ -385,7 +385,7 @@ Function TweakSetTargetRelease { # RESINFO
 
 # Disable
 Function TweakUnsetTargetRelease { # RESINFO
-	Write-Output "No Target Release..."
+	Write-Output "Unsetting Target Release (No Target Release)..."
 	Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "ProductVersion" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersion" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue

@@ -323,7 +323,7 @@ Function TweakViewRemoteDesktopPort { # RESINFO
 
 # Set
 Function TweakSetRemoteDesktopPort { # RESINFO
-	Write-Output "Set RemoteDesktop Port..."
+	Write-Output "Setting RemoteDesktop Port..."
 	$RDPActualPort = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").PortNumber
 	$RDPNewPort = $RDPActualPort
 	If ($($Global:SWMB_Custom.RemoteDesktop_PortNumber) -gt 0) {
@@ -347,7 +347,7 @@ Function TweakSetRemoteDesktopPort { # RESINFO
 
 # Unset
 Function TweakUnsetRemoteDesktopPort { # RESINFO
-	Write-Output "Unset RemoteDesktop Port (return to 3389)..."
+	Write-Output "Unsetting RemoteDesktop Port (return to 3389)..."
 
 	$RDPNewPort = 3389
 
@@ -381,7 +381,7 @@ Function TweakViewInterfaceMetricOn1Gbps { # RESINFO
 
 # Set
 Function TweakSetInterfaceMetricOn1Gbps { # RESINFO
-	Write-Output "Set Interface Metric on 1Gbps interface..."
+	Write-Output "Setting Interface Metric on 1Gbps interface..."
 
 	$InterfaceMetric = 0
 	If ($($Global:SWMB_Custom.InterfaceMetricOn1Gbps) -gt 0) {
@@ -396,7 +396,7 @@ Function TweakSetInterfaceMetricOn1Gbps { # RESINFO
 
 # Unset
 Function TweakUnsetInterfaceMetricOn1Gbps { # RESINFO
-	Write-Output "Unset Interface Metric on 1Gbps interface..."
+	Write-Output "Unsetting Interface Metric on 1Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "1 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -AutomaticMetric Enabled
 	}
@@ -418,7 +418,7 @@ Function TweakViewInterfaceMetricOn10Gbps { # RESINFO
 
 # Set
 Function TweakSetInterfaceMetricOn10Gbps { # RESINFO
-	Write-Output "Set Interface Metric on 10Gbps interface..."
+	Write-Output "Setting Interface Metric on 10Gbps interface..."
 
 	$InterfaceMetric = 0
 	If ($($Global:SWMB_Custom.InterfaceMetricOn10Gbps) -gt 0) {
@@ -433,7 +433,7 @@ Function TweakSetInterfaceMetricOn10Gbps { # RESINFO
 
 # Unset
 Function TweakUnsetInterfaceMetricOn10Gbps { # RESINFO
-	Write-Output "Unset Interface Metric on 10Gbps interface..."
+	Write-Output "Unsetting Interface Metric on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -AutomaticMetric Enabled
 	}

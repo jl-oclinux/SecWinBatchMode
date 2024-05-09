@@ -974,13 +974,13 @@ Function TweakDisableBitlocker { # RESINFO
 # Suspend or Resume Bitlocker
 # Set
 Function TweakSetBitlockerActive { # RESINFO
-	Write-Output "Set bitlocker on all crypt drive (Resume)..."
+	Write-Output "Setting bitlocker on all crypt drive (Resume)..."
 	Get-BitLockerVolume | Resume-BitLocker
 }
 
 # Unset
 Function TweakUnsetBitlockerActive { # RESINFO
-	Write-Output "Unset bitlocker on all crypt drive (Suspend)..."
+	Write-Output "Unsetting bitlocker on all crypt drive (Suspend)..."
 	Get-BitLockerVolume | Suspend-BitLocker -RebootCount 0
 }
 

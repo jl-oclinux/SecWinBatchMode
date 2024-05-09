@@ -32,13 +32,13 @@ ECHO Creation of the install directory
 MKDIR "%ProgramFiles%\%softname%"
 
 ECHO Copy post-install script
-COPY /Y post-install.ps1 "%ProgramFiles%\%softname%"
+COPY /Y installer.ps1 "%ProgramFiles%\%softname%"
 
-ECHO Execution right post-install.ps1
-%pwrsh% "Unblock-File -Path ${env:ProgramFiles}\%softname%\post-install.ps1"
+ECHO Execution right installer.ps1
+%pwrsh% "Unblock-File -Path ${env:ProgramFiles}\%softname%\installer.ps1"
 
-ECHO Post-install (install SWMB and run it one time)
-%pwrsh% -File "%ProgramFiles%\%softname%\post-install.ps1"
+ECHO Installer (install SWMB and run it one time)
+%pwrsh% -File "%ProgramFiles%\%softname%\installer.ps1"
 
 ECHO Change Add and Remove values in the register
  > tmp_install.reg ECHO Windows Registry Editor Version 5.00

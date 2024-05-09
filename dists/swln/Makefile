@@ -19,7 +19,7 @@ FILES+=$(shell ls -1 Local-Addon.psm1                Local-Addon-Host-*.psm1    
 
 TFILES:=install.bat
 TFILES+=uninstall.bat
-TFILES+=post-install.ps1
+TFILES+=installer.ps1
 
 IT_Team:=IT Team
 PUBLISHER:=CNRS France, RESINFO, Local Network Area
@@ -52,7 +52,7 @@ tmp/install.bat: install.bat Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_
 	@mkdir -p tmp
 	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
 
-tmp/post-install.ps1: post-install.ps1 Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
+tmp/installer.ps1: pinstaller.ps1 Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
 	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s#__ALLFILES__#$(ALLFILES)#; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
 

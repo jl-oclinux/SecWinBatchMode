@@ -75,7 +75,7 @@ Function TweakInstallOneDrive {
 
 # View
 Function TweakViewOneDrive {
-	Write-Output "View OneDrive product..."
+	Write-Output "Viewing OneDrive product..."
 	Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall', 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall' |
 		Get-ItemProperty |
 		Where-Object {$_.DisplayName -like 'Microsoft OneDrive*' } |
@@ -392,7 +392,7 @@ Function TweakDisableEdgeClearCacheOnExit { # RESINFO
 
 # View
 Function TweakViewEdgeClearCacheOnExit { # RESINFO
-	Write-Output "View Edge clear cache on exit (0 or not exist: Not clear, 1: Clear cached images and files on exit )"
+	Write-Output "Viewing Edge clear cache on exit (0 or not exist: Not clear, 1: Clear cached images and files on exit )"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ClearCachedImagesAndFilesOnExit" -ErrorAction SilentlyContinue
 }
 
@@ -417,7 +417,7 @@ Function TweakDisableEdgeDoNtoTrack { # RESINFO
 
 # View
 Function TweakViewEdgeDoNtoTrack { # RESINFO
-	Write-Output "View Edge Configure Do Not Track (0:Do Not Tracker requests are always sent to websites asking for tracking info, 1:Do Not Track requests are never sent to websites asking for tracking info, error: Default )"
+	Write-Output "Viewing Edge Configure Do Not Track (0:Do Not Tracker requests are always sent to websites asking for tracking info, 1:Do Not Track requests are never sent to websites asking for tracking info, error: Default )"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ConfigureDoNotTrack" -ErrorAction SilentlyContinue
 }
 
@@ -952,7 +952,7 @@ Function TweakEnableVisualStudioCache { # RESINFO
 
 # View Visual Studio Cache
 Function TweakViewVisualStudioCache { # RESINFO
-	Write-Output "View Visual Studio Cache (0: disable, 1: enable (default), nothing: not install..."
+	Write-Output "Viewing Visual Studio Cache (0: disable, 1: enable (default), nothing: not install..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\VisualStudio\Setup"    -Name "KeepDownloadedPayloads"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\VisualStudio\Setup"             -Name "KeepDownloadedPayloads"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\VisualStudio\Setup" -Name "KeepDownloadedPayloads"
@@ -984,7 +984,7 @@ Function TweakDisableStorageSense { # RESINFO
 
 # View
 Function TweakViewStorageSense { # RESINFO
-	Write-Output "View if Storage Sense is turned on for the machine"
+	Write-Output "Viewing if Storage Sense is turned on for the machine"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseGlobal" -ErrorAction SilentlyContinue
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -ErrorAction SilentlyContinue
 }
@@ -1010,7 +1010,7 @@ Function TweakDisableStorageSenseTempCleanup { # RESINFO
 
 # View
 Function TweakViewStorageSenseTempCleanup { # RESINFO
-	Write-Output "View if Storage Sense Temporary Files Cleanup is turned on"
+	Write-Output "Viewing if Storage Sense Temporary Files Cleanup is turned on"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -ErrorAction SilentlyContinue
 }
 
@@ -1035,7 +1035,7 @@ Function TweakDisableStorageSenseTrashCleanup { # RESINFO
 
 # View
 Function TweakViewStorageSenseTrashCleanup { # RESINFO
-	Write-Output "View Storage Sense Bin automatically Cleanup"
+	Write-Output "Viewing Storage Sense Bin automatically Cleanup"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
 }
 
@@ -1058,7 +1058,7 @@ Function TweakEnableWindowsCopilot { # RESINFO
 
 # View Copilot
 Function TweakViewWindowsCopilot { # RESINFO
-	Write-Output "View Windows Copilot"
+	Write-Output "Viewing Windows Copilot"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
 }
 
@@ -1246,7 +1246,7 @@ Function TweakDisableOffice2013AutoUpdate { # RESINFO
 
 # View
 Function TweakViewOffice2013AutoUpdate {
-	Write-Output "View MS Office2013 AutoUpdate (0 or not exist: No auto update, 1: auto update)"
+	Write-Output "Viewing MS Office2013 AutoUpdate (0 or not exist: No auto update, 1: auto update)"
 	Get-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Office\15.0\Common\OfficeUpdate" -Name "EnableAutomaticUpdates" -ErrorAction SilentlyContinue
 }
 
@@ -1305,7 +1305,7 @@ Function TweakDisableOffice2016AutoUpdate { # RESINFO
 
 # View
 Function TweakViewOffice2016AutoUpdate {
-	Write-Output "View MS Office2016 AutoUpdate (0 or not exist: No auto update, 1: auto update)"
+	Write-Output "Viewing MS Office2016 AutoUpdate (0 or not exist: No auto update, 1: auto update)"
 	Get-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" -Name "EnableAutomaticUpdates" -ErrorAction SilentlyContinue
 }
 

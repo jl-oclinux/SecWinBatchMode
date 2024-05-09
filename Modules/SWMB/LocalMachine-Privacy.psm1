@@ -436,7 +436,7 @@ Function TweakEnableDiagnosticLogs { # RESINFO
 
 # View DiagnosticLogs
 Function TweakViewDiagnosticLogs { # RESINFO
-	Write-Output "View Collect diagnostic log, error => not configured, 1 => Diagnostic logs not be collected "
+	Write-Output "Viewing Collect diagnostic log, error => not configured, 1 => Diagnostic logs not be collected "
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection"  | Format-List
 }
 
@@ -460,7 +460,7 @@ Function TweakEnableOneSettingsDownloads { # RESINFO
 
 # View OneSettings Downloads
 Function TweakViewOneSettingsDownloads { # RESINFO
-	Write-Output "View Download configuration settings from the OneSettings service, error => not configured, 1 => Disable"
+	Write-Output "Viewing Download configuration settings from the OneSettings service, error => not configured, 1 => Disable"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads"  | Format-List
 }
 

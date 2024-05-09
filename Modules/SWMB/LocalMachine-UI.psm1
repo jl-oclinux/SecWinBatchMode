@@ -325,7 +325,7 @@ Function TweakShowMostUsedApps { # RESINFO
 
 # View Most Used Apps
 Function TweakViewMostUsedApps { # RESINFO
-	Write-Output "View Hide or Show Most Used Apps (2: Hide, 1: Show, 0: Not Configured)"
+	Write-Output "Viewing Hide or Show Most Used Apps (2: Hide, 1: Show, 0: Not Configured)"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" -Name "ShowOrHideMostUsedApps"
 }
 

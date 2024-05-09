@@ -236,6 +236,7 @@ Function TweakUnsetNTPConfig { # RESINFO
 
 # View
 Function TweakViewNTPConfig { # RESINFO
+	Write-Output "Viewing NTP client configuration..."
 	w32tm /query /configuration
 	w32tm /query /status
 	w32tm /tz
@@ -268,6 +269,7 @@ Function TweakUnsetWorkgroupName { # RESINFO
 
 # View
 Function TweakViewWorkgroupName { # RESINFO
+	Write-Output "Viewing Workgroup Name..."
 	If ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
 		Write-Output "This computer is part of domain"
 	} Else {

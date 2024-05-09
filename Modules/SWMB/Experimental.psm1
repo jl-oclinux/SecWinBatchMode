@@ -72,9 +72,9 @@ Function TweakViewClearPageFile { # RESINFO
 # View
 Function TweakViewPendingReboot { # RESINFO
 	If (_TestPendingReboot) {
-		Write-Output "View PendingReboot: reboot is needed"
+		Write-Output "Viewing PendingReboot: reboot is needed"
 	} Else {
-		Write-Output "View PendingReboot: no reboot in queue"
+		Write-Output "Viewing PendingReboot: no reboot in queue"
 	}
 }
 
@@ -84,7 +84,7 @@ Function TweakSetPendingReboot { # RESINFO
 		Write-Output "PendingReboot: reboot computer now..."
 		Restart-Computer
 	} Else {
-		Write-Output "View PendingReboot: no reboot in queue"
+		Write-Output "Viewing PendingReboot: no reboot in queue"
 	}
 }
 

@@ -163,7 +163,7 @@ Function TweakEnableSearchInternetInMenu_CU { # RESINFO
 
 # View
 Function TweakViewSearchInternetInMenu_CU { # RESINFO
-	Write-Output "View Search Internet In StartMenu for CU..."
+	Write-Output "Viewing Search Internet In StartMenu for CU..."
 	Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoSearchInternetInStartMenu"
 }
 

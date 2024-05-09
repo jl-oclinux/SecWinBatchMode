@@ -314,7 +314,7 @@ Function TweakDisableRemoteDesktop {
 
 # View
 Function TweakViewRemoteDesktopPort { # RESINFO
-	Write-Output "View RemoteDesktop Port..."
+	Write-Output "Viewing RemoteDesktop Port..."
 	$RDPActualPort = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp").PortNumber
 	Write-Output " RDP Port fix to $RDPActualPort"
 	Get-NetFirewallRule | Where-Object { $_.DisplayName -match 'SWMB-RDP' -or $_.Description -match 'RDP.*3389' }  | Select DisplayName, Enabled, Profile, Description
@@ -373,7 +373,7 @@ Function TweakUnsetRemoteDesktopPort { # RESINFO
 
 # View
 Function TweakViewInterfaceMetricOn1Gbps { # RESINFO
-	Write-Output "View Interface Metric on 1Gbps interface..."
+	Write-Output "Viewing Interface Metric on 1Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "1 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex
 	}
@@ -410,7 +410,7 @@ Function TweakUnsetInterfaceMetricOn1Gbps { # RESINFO
 
 # View
 Function TweakViewInterfaceMetricOn10Gbps { # RESINFO
-	Write-Output "View Interface Metric on 10Gbps interface..."
+	Write-Output "Viewing Interface Metric on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex
 	}
@@ -446,7 +446,7 @@ Function TweakUnsetInterfaceMetricOn10Gbps { # RESINFO
 
 # View
 Function TweakViewJumboFrameOn10Gbps { # RESINFO
-	Write-Output "View Jumbo Frame on 10Gbps interface..."
+	Write-Output "Viewing Jumbo Frame on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Get-NetIPInterface -InterfaceIndex $_.InterfaceIndex | Select ifIndex, InterfaceAlias,AddressFamily, NlMtu
 	}
@@ -478,7 +478,7 @@ Function TweakDisableJumboFrameOn10Gbps { # RESINFO
 
 # View
 Function TweakViewLSOon10Gbps { # RESINFO
-	Write-Output "View LSO Status (Large Send Offload v2) on 10Gbps interface..."
+	Write-Output "Viewing LSO Status (Large Send Offload v2) on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select Name | ForEach-Object {
 		Get-NetAdapterLso -Name $_.Name -ErrorAction SilentlyContinue
 	}

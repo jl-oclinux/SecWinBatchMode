@@ -266,6 +266,8 @@ EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup
 DisableWindowsCopilot                           # EnableWindowsCopilot                          # ViewWindowsCopilot
 # UninstallNovaPDF                                                                              # ViewNovaPDF
 # UninstallAnyDesk                                                                              # ViewAnyDesk
+EnableOffice2013AutoUpdate                      # DisableOffice2013AutoUpdate                   # ViewOffice2013AutoUpdate
+EnableOffice2016AutoUpdate                      # DisableOffice2016AutoUpdate                   # ViewOffice2016AutoUpdate
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

@@ -165,7 +165,7 @@ Function TweakShowFrequentlyUsedProgramsList {
 
 # Hide Recommended Section in start menu
 Function TweakHideRecommendedSection { # RESINFO
-	Write-Output "Hide Recommended Section in start menu..."
+	Write-Output "Hiding Recommended Section in start menu..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
 	}
@@ -174,7 +174,7 @@ Function TweakHideRecommendedSection { # RESINFO
 
 # Show Recommended Section in start menu
 Function TweakShowRecommendedSection { # RESINFO
-	Write-Output "Show Recommended Section in start menu..."
+	Write-Output "Showing Recommended Section in start menu..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "HideRecommendedSection" -ErrorAction SilentlyContinue
 }
 
@@ -306,7 +306,7 @@ Function TweakViewWidgetsNewsAndInterests { # RESINFO
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.StartMenu::ShowOrHideMostUsedApps
 # Hide Most Used Apps
 Function TweakHideMostUsedApps { # RESINFO
-	Write-Output "Hide Most Used Apps... "
+	Write-Output "Hiding Most Used Apps... "
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
 	}
@@ -315,7 +315,7 @@ Function TweakHideMostUsedApps { # RESINFO
 
 # Show Most Used Apps
 Function TweakShowMostUsedApps { # RESINFO
-	Write-Output "Show Most Used Apps... "
+	Write-Output "Showing Most Used Apps... "
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" | Out-Null
 	}

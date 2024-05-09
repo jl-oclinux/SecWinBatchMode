@@ -291,13 +291,13 @@ Function TweakShowNetworkInExplorer {
 
 # Disable "meet now" in the taskbar
 Function TweakHideMeetNow {
-	Write-Output "Hide Meet Now in the taskbar..."
+	Write-Output "Hiding Meet Now in the taskbar..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies" -Name "HideSCAMeetNow" -Type DWord -Value 1
 }
 
 # Enable "meet now" in the taskbar
 Function TweakShowMeetNow {
-	Write-Output "Show Meet Now in the taskbar..."
+	Write-Output "Showing Meet Now in the taskbar..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies" -Name "HideSCAMeetNow" -ErrorAction SilentlyContinue
 }
 

@@ -26,7 +26,7 @@ PUBLISHER:=CNRS France, RESINFO, Local Network Area
 
 sinclude extend-variables.mk
 
-ALLFILES:=$(shell echo '$(addsuffix ", $(addprefix ", $(FILES) $(TFILES)))' | sed 's/[[:space:]]/, /g;')
+ALLINSTALLFILES:=$(shell echo '$(addsuffix ", $(addprefix ", $(FILES) $(TFILES)))' | sed 's/[[:space:]]/, /g;')
 TFILES+=SWMB-Setup-$(SWMB_VERSION).exe
 
 TMPFILES:=$(addprefix tmp/,$(TFILES))
@@ -50,15 +50,15 @@ clean:
 
 tmp/install.bat: install.bat Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s#__PUBLISHER__#$(PUBLISHER)#; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s#__LOG_DIR__#$(LOG_DIR)#;' $< > $@
 
-tmp/installer.ps1: pinstaller.ps1 Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
+tmp/installer.ps1: installer.ps1 Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s#__ALLFILES__#$(ALLFILES)#; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s#__PUBLISHER__#$(PUBLISHER)#; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s#__LOG_DIR__#$(LOG_DIR)#; s#__ALLINSTALLFILES__#$(ALLINSTALLFILES)#;' $< > $@
 
 tmp/uninstall.bat: uninstall.bat Makefile extend-variables.mk tmp/SWMB-Setup-$(SWMB_VERSION).exe
 	@mkdir -p tmp
-	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s/__PUBLISHER__/$(PUBLISHER)/; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s/__LOG_DIR__/$(LOG_DIR)/;' $< > $@
+	@sed -e 's/__SWLN_NAME__/$(SWLN_NAME)/; s#__PUBLISHER__#$(PUBLISHER)#; s/__SWLN_VERSION__/$(SWLN_VERSION)/; s/__REVISION__/$(REVISION)/; s/__SWMB_VERSION__/$(SWMB_VERSION)/; s#__LOG_DIR__#$(LOG_DIR)#;' $< > $@
 
 tmp/SWMB-Setup-%.exe: Makefile extend-variables.mk
 	@mkdir -p tmp

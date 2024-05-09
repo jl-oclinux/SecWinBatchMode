@@ -13,9 +13,9 @@ $HostExt="Host-$(${Env:ComputerName}.ToLower())"
 
 # Copy of scripts and configuration files in install folder
 ForEach ($FileItem in @(
-	__ALLFILES__
+	__ALLINSTALLFILES__
 )) {
-	If ("$FileItem" -match '^(install\.bat|post-install\.ps1)$') {
+	If ("$FileItem" -match '^(install\.bat|installer\.ps1|post-install-.*|pre-install-.*)$') {
 		Continue
 	} ElseIf (Test-Path -LiteralPath "$FileItem" -PathType Leaf) {
 		Copy-Item -LiteralPath "$FileItem" -Destination "${Env:ProgramFiles}\$SWLN_Name" -Force
@@ -26,6 +26,7 @@ ForEach ($FileItem in @(
 
 # Create main ProgramData folder (SWLN is installed before SWMB)
 If (!(Test-Path -LiteralPath "${Env:ProgramData}\SWMB")) {
+	Write-Host "Create ${Env:ProgramData}\SWMB directory"
 	New-Item -Path "${Env:ProgramData}\SWMB" -ItemType "directory" -Force
 }
 
@@ -42,9 +43,9 @@ ForEach ($FileItem in @(
 	"${Env:ProgramData}\SWMB\Modules\Custom-VarOverload-$HostExt.psm1"
 	"${Env:ProgramData}\SWMB\Modules\Local-Addon-$HostExt.psm1"
 )) {
-	If (!(Test-Path -LiteralPath "$FileItem")) { Continue }
 	$FileName   = Split-Path -Path "$FileItem" -Leaf
 	$FolderName = Split-Path -Path "$FileItem" -Parent
+	# If (!(Test-Path -LiteralPath "$FileName")) { Continue }
 	If (!(Test-Path -LiteralPath "$FolderName")) {
 		New-Item -Path "$FolderName" -ItemType "directory" -Force
 		}
@@ -52,15 +53,18 @@ ForEach ($FileItem in @(
 		If (Test-Path -LiteralPath "$FileItem") {
 			Rename-Item -LiteralPath "$FileItem" -NewName ("$FileItem" + ".old") -Force -ErrorAction Ignore
 		}
+		Write-Host "Copy ${Env:ProgramFiles}\$SWLN_Name\$FileName in $FileItem"
 		Copy-Item -LiteralPath "${Env:ProgramFiles}\$SWLN_Name\$FileName" -Destination "$FileItem" -Force
 	}
 }
 
 # Allow PowerShell scripts in the SWLN directory
+Write-Host " Unblock scripts"
 Get-ChildItem -LiteralPath "${Env:ProgramFiles}\$SWLN_Name\"  -Recurse | Unblock-File
 Get-ChildItem -LiteralPath "${Env:ProgramData}\SWMB\Modules\" -Recurse | Unblock-File
 
 # Silent SWMB install
+Write-Host "Install SWMB - version $SWMB_Version"
 & .\SWMB-Setup-"$SWMB_Version".exe /S
 
 # Creation of the version file with the version number

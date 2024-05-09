@@ -12,13 +12,14 @@
 #SWLN_VERSION:=5.20.$(shell echo $(SWMB_VERSION) | sed -e 's/\./ /g;' | xargs -r printf "%i%02i%02i%03i")
 #REVISION:=1
 
-# Protect backslash (double)
+## Protect backslash (double)
+## No # in the name (use sed basic replace)!
 #LOG_DIR:=%SystemRoot%\\Logs\\Deploy
 
 ## Add folder print
 #FILES+=print
 
 ## Put the name of your IT service / Publisher
-## No / in the name (sed basic replace)!
+## No # in the name (sed basic replace)!
 #IT_Team:=IT Team
 #PUBLISHER:=CNRS France, RESINFO, Local Network Area

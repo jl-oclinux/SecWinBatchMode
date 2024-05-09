@@ -16,6 +16,8 @@ FILES+=$(shell ls -1 LocalMachine-Boot.preset        LocalMachine-Boot-Host-*.pr
 FILES+=$(shell ls -1 LocalMachine-PostInstall.preset LocalMachine-PostInstall-Host-*.preset 2> /dev/null)
 FILES+=$(shell ls -1 Custom-VarOverload.psm1         Custom-VarOverload-Host-*.psm1         2> /dev/null)
 FILES+=$(shell ls -1 Local-Addon.psm1                Local-Addon-Host-*.psm1                2> /dev/null)
+FILES+=pre-install-01copy.bat
+FILES+=post-install-01reg.bat
 
 TFILES:=install.bat
 TFILES+=uninstall.bat

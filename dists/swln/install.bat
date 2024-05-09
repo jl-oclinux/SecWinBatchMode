@@ -22,39 +22,17 @@ SET swmbversion=__SWMB_VERSION__
 SET pwrsh=%WINDIR%\System32\WindowsPowerShell\V1.0\powershell.exe
 IF EXIST "%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe" SET pwrsh=%WINDIR%\Sysnative\WindowsPowerShell\V1.0\powershell.exe
 
-ECHO Adds the rights to run powershell scripts
-%pwrsh% Set-ExecutionPolicy RemoteSigned -Force -Scope LocalMachine
 
-ECHO Deletes the %softname% directory
-IF EXIST "%ProgramFiles%\%softname%" RMDIR /S /Q "%ProgramFiles%\%softname%"
+ECHO Call pre-installation scripts
+FOR %%s IN (pre-install-*.bat) DO CALL "%%s"
 
-ECHO Creation of the install directory
-MKDIR "%ProgramFiles%\%softname%"
-
-ECHO Copy post-install script
-COPY /Y installer.ps1 "%ProgramFiles%\%softname%"
-
-ECHO Execution right installer.ps1
-%pwrsh% "Unblock-File -Path ${env:ProgramFiles}\%softname%\installer.ps1"
 
 ECHO Installer (install SWMB and run it one time)
 %pwrsh% -File "%ProgramFiles%\%softname%\installer.ps1"
 
-ECHO Change Add and Remove values in the register
- > tmp_install.reg ECHO Windows Registry Editor Version 5.00
->> tmp_install.reg ECHO.
->> tmp_install.reg ECHO [HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\%softregkey%]
->> tmp_install.reg ECHO "DisplayVersion"="%softversion%"
->> tmp_install.reg ECHO "Comments"="%softname% (%DATE:~-4%/%DATE:~-7,-5%/%DATE:~-10,-8%)"
->> tmp_install.reg ECHO "DisplayName"="%softname% (%softversion%-%softrevision% / %swmbversion%)"
->> tmp_install.reg ECHO "DisplayIcon"="C:\\Program Files\\%softname%\\logo-swmb.ico"
->> tmp_install.reg ECHO "InstallFolder"="C:\\Program Files\\%softname%"
->> tmp_install.reg ECHO "Publisher"="%softpublisher%"
->> tmp_install.reg ECHO "UninstallString"="C:\\Program Files\\%softname%\\uninstall.bat"
->> tmp_install.reg ECHO "NoModify"=dword:00000001
->> tmp_install.reg ECHO "NoRepair"=dword:00000001
->> tmp_install.reg ECHO.
-regedit.exe /S "tmp_install.reg"
+
+ECHO Call post-installation scripts
+FOR %%s IN (post-install-*.bat) DO CALL "%%s"
 
 
 ECHO END %date%-%time%

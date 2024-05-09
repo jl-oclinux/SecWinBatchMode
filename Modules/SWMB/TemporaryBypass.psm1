@@ -17,7 +17,7 @@
 # CVE-2021-34527 exploit to keep your Print Servers running while a patch is not available
 # Disable
 Function TweakDisablePrintForSystem { # RESINFO
-	Write-Output "Disable print for System user (CVE-2021-34527)..."
+	Write-Output "Disabling print for System user (CVE-2021-34527)..."
 	$acl = Get-Acl -Path "${Env:SystemRoot}\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
 	$ruleOrg2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'InheritOnly', 'Allow')
@@ -32,7 +32,7 @@ Function TweakDisablePrintForSystem { # RESINFO
 
 # Enable
 Function TweakEnablePrintForSystem { # RESINFO
-	Write-Output "Enable print for System user (CVE-2021-34527)..."
+	Write-Output "Enabling print for System user (CVE-2021-34527)..."
 	$acl = Get-Acl -Path "${Env:SystemRoot}\System32\spool\drivers"
 	$ruleOrg1 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'None',        'Allow')
 	$ruleOrg2 = New-Object System.Security.AccessControl.FileSystemAccessRule('NT AUTHORITY\System', 'FullControl', 'ContainerInherit,ObjectInherit', 'InheritOnly', 'Allow')
@@ -57,7 +57,7 @@ Function TweakViewPrintForSystem { # RESINFO
 # https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-40444
 # Microsoft MSHTML Remote Code Execution Vulnerability
 Function TweakDisableMSHTMLActiveX { # RESINFO
-	Write-Output "Disable ActiveX in MSHTML (CVE-2021-40444)..."
+	Write-Output "Disabling ActiveX in MSHTML (CVE-2021-40444)..."
 	For ($zone = 0 ; $zone -le 3 ; $zone++){
 		If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone")) {
 			New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Force | Out-Null
@@ -69,7 +69,7 @@ Function TweakDisableMSHTMLActiveX { # RESINFO
 
 # Enable
 Function TweakEnableMSHTMLActiveX { # RESINFO
-	Write-Output "Enable ActiveX in MSHTML (CVE-2021-40444)..."
+	Write-Output "Enabling ActiveX in MSHTML (CVE-2021-40444)..."
 	For ($zone = 0 ; $zone -le 3 ; $zone++){
 		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1001" -ErrorAction SilentlyContinue
 		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1004" -ErrorAction SilentlyContinue
@@ -101,7 +101,7 @@ Function TweakViewMSHTMLActiveX { # RESINFO
 # https://msrc-blog.microsoft.com/2022/05/30/guidance-for-cve-2022-30190-microsoft-support-diagnostic-tool-vulnerability/
 # Disable
 Function TweakDisableMSDT { # RESINFO
-	Write-Output "Disable MSDT (CVE-2022-30190)..."
+	Write-Output "Disabling MSDT (CVE-2022-30190)..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
 	}
@@ -126,7 +126,7 @@ Function TweakDisableMSDT { # RESINFO
 
 # Enable
 Function TweakEnableMSDT { # RESINFO
-	Write-Output "Enable MSDT..."
+	Write-Output "Enabling MSDT..."
 	If (!(Test-Path "HKCR:\ms-msdt")) {
 		$DataFolder = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 		$CachesFolder = (Join-Path -Path $DataFolder -ChildPath "Caches" )

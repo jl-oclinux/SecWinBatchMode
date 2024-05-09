@@ -86,7 +86,7 @@ Function TweakDisableRecycleBin_CU {
 
 # Enable Recycle Bin
 Function TweakEnableRecycleBin_CU {
-	Write-Output "Enable Recycle Bin for CU..."
+	Write-Output "Enabling Recycle Bin for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoRecycleFiles" -ErrorAction SilentlyContinue
 }
 

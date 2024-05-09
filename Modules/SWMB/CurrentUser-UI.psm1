@@ -151,13 +151,13 @@ Function TweakShowTaskbarSearchBox_CU {
 # No Search Internet In StartMenu
 # Disable
 Function TweakDisableSearchInternetInMenu_CU { # RESINFO
-	Write-Output "Disable Search Internet In StartMenu for CU..."
+	Write-Output "Disabling Search Internet In StartMenu for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoSearchInternetInStartMenu" -Type DWord -Value 1
 }
 
 # Enable
 Function TweakEnableSearchInternetInMenu_CU { # RESINFO
-	Write-Output "Enable Search Internet In StartMenu for CU..."
+	Write-Output "Enabling Search Internet In StartMenu for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoSearchInternetInStartMenu" -ErrorAction SilentlyContinue
 }
 
@@ -518,14 +518,14 @@ Function TweakEnableF1HelpKey_CU {
 
 # Enable
 Function TweakEnableGodMod_CU { # RESINFO
-	Write-Output "Enable GodMod on current user desktop..."
+	Write-Output "Enabling GodMod on current user desktop..."
 	$DesktopPath = [Environment]::GetFolderPath("Desktop");
 	New-Item -Path  "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" -Type Directory
 }
 
 # Disable
 Function TweakDisableGodMod_CU { # RESINFO
-	Write-Output "Disable GodMod from current user desktop..."
+	Write-Output "Disabling GodMod from current user desktop..."
 	$DesktopPath = [Environment]::GetFolderPath("Desktop");
 	Remove-Item -Path  "$DesktopPath\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" -Recurse -ErrorAction SilentlyContinue
 }

@@ -282,7 +282,7 @@ Function TweakDisableVerboseStatus {
 
 # Disable Widget news and interests
 Function TweakDisableWidgetsNewsAndInterests { # RESINFO
-	Write-Output "Disable Widgets News and Interests..."
+	Write-Output "Disabling Widgets News and Interests..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" | Out-Null
 	}
@@ -291,7 +291,7 @@ Function TweakDisableWidgetsNewsAndInterests { # RESINFO
 
 # Enable Widget news and interests
 Function TweakEnableWidgetsNewsAndInterests { # RESINFO
-	Write-Output  "Enable Widgets News and Interests..."
+	Write-Output "Enabling Widgets News and Interests..."
 	Remove-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -ErrorAction SilentlyContinue
 }
 

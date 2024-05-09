@@ -191,7 +191,7 @@ Function TweakEnableWebSearch {
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowSearchHighlights
 # Disable search highlights
 Function TweakDisableHighlightsSearch { # RESINFO
-	Write-Output "Disable search highlights..."
+	Write-Output "Disabling search highlights..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -215,7 +215,7 @@ Function TweakViewHighlightsSearch { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCloudSearch
 # Disable Cloud Search
 Function TweakDisableCloudSearch { # RESINFO
-	Write-Output "Disable Cloud Search..."
+	Write-Output "Disabling Cloud Search..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -266,7 +266,7 @@ Function TweakViewSearchUseLocation { # RESINFO
 ## Search on Taskbar and Start Menu for All Users
 # Disable
 Function TweakDisableSearchOnTaskbar { # RESINFO
-	Write-Output "Disable Search on Taskbar and Start Menu for All Users..."
+	Write-Output "Disabling Search on Taskbar and Start Menu for All Users..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Force | Out-Null
 	}
@@ -280,7 +280,7 @@ Function TweakDisableSearchOnTaskbar { # RESINFO
 
 # Enable
 Function TweakEnableSearchOnTaskbar { # RESINFO
-	Write-Output "Enable Search on Taskbar and Start Menu for All Users..."
+	Write-Output "Enabling Search on Taskbar and Start Menu for All Users..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "value" -Type DWord -Value 0
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch" -ErrorAction SilentlyContinue
 }
@@ -387,7 +387,7 @@ Function TweakDisableMapUpdates {
 
 # Enable automatic Maps updates
 Function TweakEnableMapUpdates {
-	Write-Output "Enable automatic Maps updates..."
+	Write-Output "Enabling automatic Maps updates..."
 	Remove-ItemProperty -Path "HKLM:\SYSTEM\Maps" -Name "AutoUpdateEnabled" -ErrorAction SilentlyContinue
 }
 
@@ -445,7 +445,7 @@ Function TweakViewDiagnosticLogs { # RESINFO
 # Disable OneSettings Downloads
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::DisableOneSettingsDownloads
 Function TweakDisableOneSettingsDownloads { # RESINFO
-	Write-Output "Disable download configuration settings from the OneSettings service..."
+	Write-Output "Disabling download configuration settings from the OneSettings service..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" | Out-Null
 	}
@@ -454,7 +454,7 @@ Function TweakDisableOneSettingsDownloads { # RESINFO
 
 # Enable OneSettings Downloads
 Function TweakEnableOneSettingsDownloads { # RESINFO
-	Write-Output "Enable download configuration settings from the OneSettings service... (not configured)"
+	Write-Output "Enabling download configuration settings from the OneSettings service... (not configured)"
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads" -ErrorAction SilentlyContinue
 }
 
@@ -733,7 +733,7 @@ Function TweakViewAutologgerDiagTrack { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowCortanaAboveLock&Language=fr-fr
 # ANSSI Annexe B1
 Function TweakDisableCortanaAboveLock { # RESINFO
-	Write-Output "Disable Cortana AboveLock..."
+	Write-Output "Disabling Cortana AboveLock..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -742,7 +742,7 @@ Function TweakDisableCortanaAboveLock { # RESINFO
 
 # Enable
 Function TweakEnableCortanaAboveLock { # RESINFO
-	Write-Output "Enable Cortana AboveLock..."
+	Write-Output "Enabling Cortana AboveLock..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -756,7 +756,7 @@ Function TweakEnableCortanaAboveLock { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowIndexingEncryptedStoresOrItems
 # ANSSI Annexe B1
 Function TweakDisableIndexingEncryptedStores { # RESINFO
-	Write-Output "Disable IndexingEncryptedStores..."
+	Write-Output "Disabling IndexingEncryptedStores..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -846,7 +846,7 @@ Function TweakEnableOsGeneratedReport { # RESINFO
 # GPO activé par défaut
 # Disable
 Function TweakDisableSendAdditionalData { # RESINFO
-	Write-Output "Disable Error reporting Send Additional Data"
+	Write-Output "Disabling Error reporting Send Additional Data"
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
 	}
@@ -855,7 +855,7 @@ Function TweakDisableSendAdditionalData { # RESINFO
 
 # Enable
 Function TweakEnableSendAdditionalData { # RESINFO
-	Write-Output "Enable Error reporting Send Additional Data"
+	Write-Output "Enabling Error reporting Send Additional Data"
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -ErrorAction SilentlyContinue
 }
 
@@ -940,7 +940,7 @@ Function TweakDisableStepsRecorder { # RESINFO
 
 # Enable
 Function TweakEnableStepsRecorder { # RESINFO
-	Write-Output "Enable Windows steps recorder..."
+	Write-Output "Enabling Windows steps recorder..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat" -Name "DisableUAR" -ErrorAction SilentlyContinue
 }
 
@@ -1033,7 +1033,7 @@ Function TweakEnableOverrideReportingMAPS { # RESINFO
 # https://admx.help/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
 
 Function TweakDisableMRTReportInfectionInformation { # RESINFO
-	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
+	Write-Output "Disabling Malicious Software Reporting tool diagnostic data..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" | Out-Null
 	}
@@ -1042,7 +1042,7 @@ Function TweakDisableMRTReportInfectionInformation { # RESINFO
 
 # Enable
 Function TweakEnableMRTReportInfectionInformation { # RESINFO
-	Write-Output "Disable Malicious Software Reporting tool diagnostic data..."
+	Write-Output "Disabling Malicious Software Reporting tool diagnostic data..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontReportInfectionInformation" -ErrorAction SilentlyContinue
 }
 

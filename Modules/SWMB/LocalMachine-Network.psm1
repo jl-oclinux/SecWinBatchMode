@@ -454,7 +454,7 @@ Function TweakViewJumboFrameOn10Gbps { # RESINFO
 
 # Enable
 Function TweakEnableJumboFrameOn10Gbps { # RESINFO
-	Write-Output "Enable Jumbo Frame on 10Gbps interface..."
+	Write-Output "Enabling Jumbo Frame on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -NlMtuBytes 9000
 	}
@@ -462,7 +462,7 @@ Function TweakEnableJumboFrameOn10Gbps { # RESINFO
 
 # Disable
 Function TweakDisableJumboFrameOn10Gbps { # RESINFO
-	Write-Output "Enable Jumbo Frame on 10Gbps interface..."
+	Write-Output "Enabling Jumbo Frame on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -NlMtuBytes 1500
 	}
@@ -486,7 +486,7 @@ Function TweakViewLSOon10Gbps { # RESINFO
 
 # Enable
 Function TweakEnableLSOon10Gbps { # RESINFO
-	Write-Output "Enable LSO (Large Send Offload v2) on 10Gbps interface..."
+	Write-Output "Enabling LSO (Large Send Offload v2) on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select Name | ForEach-Object {
 		Enable-NetAdapterLso -Name $_.Name -ErrorAction SilentlyContinue
 	}
@@ -494,7 +494,7 @@ Function TweakEnableLSOon10Gbps { # RESINFO
 
 # Disable
 Function TweakDisableLSOon10Gbps { # RESINFO
-	Write-Output "Disable LSO (Large Send Offload v2) on 10Gbps interface..."
+	Write-Output "Disabling LSO (Large Send Offload v2) on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select Name | ForEach-Object {
 		Disable-NetAdapterLso -Name $_.Name -ErrorAction SilentlyContinue
 	}

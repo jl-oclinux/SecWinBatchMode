@@ -690,12 +690,12 @@ Function TweakEnableBitlocker { # RESINFO
 		$UseCodePin = Read-Host -Prompt "Activation bitlocker - Do you want to use PIN code? [Y/n]"
 		If ($UseCodePin.ToLower() -ne "n") {
 			$Secure = Read-Host -AsSecureString -Prompt "Code PIN (6 digits)"
-			Write-Output "Enable bitlocker on system drive $SystemDrive with PIN code"
+			Write-Output "Enabling bitlocker on system drive $SystemDrive with PIN code"
 			Enable-BitLocker -MountPoint "$SystemDrive" -TpmAndPinProtector -Pin $Secure -EncryptionMethod "XtsAes256" 3> $null
 			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 2 `
 				-Message "SWMB: Enable bitlocker on system drive $SystemDrive with PIN code"
 		} Else {
-			Write-Output "Enable bitlocker on system drive $SystemDrive without PIN code"
+			Write-Output "Enabling bitlocker on system drive $SystemDrive without PIN code"
 			Enable-BitLocker -MountPoint "$SystemDrive" -TpmProtector -EncryptionMethod "XtsAes256"
 			Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 3 `
 				-Message "SWMB: Enable bitlocker on system drive $SystemDrive without PIN code"

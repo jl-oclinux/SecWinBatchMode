@@ -1004,7 +1004,7 @@ Function TweakEnableStorageSenseTempCleanup { # RESINFO
 # Disabled:
 # Storage Sense will not delete the user's temporary files. Users cannot enable this setting in Storage settings.
 Function TweakDisableStorageSenseTempCleanup { # RESINFO
-	Write-Output "Disable Storage sense Temporary Files Cleanup"
+	Write-Output "Disabling Storage sense Temporary Files Cleanup"
 	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -Type DWord -Value 0
 }
 
@@ -1029,7 +1029,7 @@ Function TweakEnableStorageSenseTrashCleanup { # RESINFO
 # Disabled:
 # By default, Storage Sense will delete files in the user's Recycle Bin that have been there for over 30 days.
 Function TweakDisableStorageSenseTrashCleanup { # RESINFO
-	Write-Output "Disable Storage sense Temporary Files Cleanup"
+	Write-Output "Disabling Storage sense Temporary Files Cleanup"
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
 }
 
@@ -1117,7 +1117,7 @@ Function TweakDisableWindowsHello { # RESINFO
 
 # Enable
 Function TweakEnableWindowsHello { # RESINFO
-	Write-Output "Enable Windows Hello Authentification..."
+	Write-Output "Enabling Windows Hello Authentification..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Force | Out-Null
 	}
@@ -1130,7 +1130,7 @@ Function TweakEnableWindowsHello { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::RequirePrivateStoreOnly_2&Language=fr-fr
 # Disable
 Function TweakDisablePrivateStoreOnly { # RESINFO
-	Write-Output "Disable PrivateStoreOnly..."
+	Write-Output "Disabling PrivateStoreOnly..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
 	}
@@ -1139,7 +1139,7 @@ Function TweakDisablePrivateStoreOnly { # RESINFO
 
 # Enable
 Function TweakEnablePrivateStoreOnly { # RESINFO
-	Write-Output "Enable PrivateStoreOnly..."
+	Write-Output "Enabling PrivateStoreOnly..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
 	}
@@ -1153,7 +1153,7 @@ Function TweakEnablePrivateStoreOnly { # RESINFO
 # Configuration ordinateur / Modèles d'administration / Composants Windows / WindowsStore / Desactiver l'application / active
 # Disable
 Function TweakDisableWindowsStoreAccess { # RESINFO
-	Write-Output "Disable Windows Store..."
+	Write-Output "Disabling Windows Store..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
 	}
@@ -1162,7 +1162,7 @@ Function TweakDisableWindowsStoreAccess { # RESINFO
 
 # Enable
 Function TweakEnableWindowsStoreAccess { # RESINFO
-	Write-Output "Enable Windows Store..."
+	Write-Output "Enabling Windows Store..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
 	}
@@ -1175,7 +1175,7 @@ Function TweakEnableWindowsStoreAccess { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsStore::DisableStoreApps&Language=fr-fr
 # Disable
 Function TweakDisableStoreApps { # RESINFO
-	Write-Output "Disable StoreApps..."
+	Write-Output "Disabling StoreApps..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
 	}
@@ -1184,7 +1184,7 @@ Function TweakDisableStoreApps { # RESINFO
 
 # Enable
 Function TweakEnableStoreApps { # RESINFO
-	Write-Output "Enable StoreApps..."
+	Write-Output "Enabling StoreApps..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\WindowsStore")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\WindowsStore" -Force | Out-Null
 	}

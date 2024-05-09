@@ -206,7 +206,7 @@ Function TweakEnableHighlightsSearch { # RESINFO
 
 # View
 Function TweakViewHighlightsSearch { # RESINFO
-	Write-Output 'View Highlights Search (1: Disable, Error: Not configured = Enable)'
+	Write-Output 'Viewing Highlights Search (1: Disable, Error: Not configured = Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB"
 }
 
@@ -230,7 +230,7 @@ Function TweakEnableCloudSearch { # RESINFO
 
 # View
 Function TweakViewCloudSearch { # RESINFO
-	Write-Output 'View Cloud Search (0: Disable, Error: Not configured = Enable)'
+	Write-Output 'Viewing Cloud Search (0: Disable, Error: Not configured = Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch"
 }
 
@@ -255,7 +255,7 @@ Function TweakEnableSearchUseLocation { # RESINFO
 
 # View
 Function TweakViewSearchUseLocation { # RESINFO
-	Write-Output 'View search and Cortana to use location (0: Disable, Error: Not configured = Enable)'
+	Write-Output 'Viewing search and Cortana to use location (0: Disable, Error: Not configured = Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowSearchToUseLocation"
 }
 
@@ -287,7 +287,7 @@ Function TweakEnableSearchOnTaskbar { # RESINFO
 
 # View
 Function TweakViewSearchOnTaskbar { # RESINFO
-	Write-Output 'View search on taskbar (0: Disable, Error: Not configured = Enable)'
+	Write-Output 'Viewing search on taskbar (0: Disable, Error: Not configured = Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch"
 }
 
@@ -329,7 +329,7 @@ Function TweakEnableActivityHistory {
 
 # View
 Function TweakViewActivityHistory {
-	Write-Output 'View Activity History (0: Disable, Error: Enable)'
+	Write-Output 'Viewing Activity History (0: Disable, Error: Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed"    | Select-Object -Property Enable*  | Format-List
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" | Select-Object -Property Publish* | Format-List
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities"  | Select-Object -Property Upload*  | Format-List

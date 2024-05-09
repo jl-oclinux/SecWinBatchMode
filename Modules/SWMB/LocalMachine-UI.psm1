@@ -297,7 +297,7 @@ Function TweakEnableWidgetsNewsAndInterests { # RESINFO
 
 # View
 Function TweakViewWidgetsNewsAndInterests { # RESINFO
-	Write-Output 'View Widgets News and Interests (0: Disable, Error: Enable)'
+	Write-Output 'Viewing Widgets News and Interests (0: Disable, Error: Enable)'
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Dsh" -Name "AllowNewsAndInterests"
 }
 

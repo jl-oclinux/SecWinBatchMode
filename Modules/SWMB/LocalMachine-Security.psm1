@@ -226,14 +226,14 @@ Function TweakEnableScriptHost {
 # Enable strong cryptography for old versions of .NET Framework (4.6 and newer have strong crypto enabled by default)
 # https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls#schusestrongcrypto
 Function TweakEnableDotNetStrongCrypto {
-	Write-output "Enabling .NET strong cryptography..."
+	Write-Output "Enabling .NET strong cryptography..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" -Name "SchUseStrongCrypto" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319" -Name "SchUseStrongCrypto" -Type DWord -Value 1
 }
 
 # Disable strong cryptography for old versions of .NET Framework
 Function TweakDisableDotNetStrongCrypto {
-	Write-output "Disabling .NET strong cryptography..."
+	Write-Output "Disabling .NET strong cryptography..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\.NETFramework\v4.0.30319" -Name "SchUseStrongCrypto" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.30319" -Name "SchUseStrongCrypto" -ErrorAction SilentlyContinue
 }

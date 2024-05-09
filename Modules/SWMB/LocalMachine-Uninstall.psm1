@@ -31,7 +31,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		Return $TextHex
 	}
 
-	Write-Output "Suppress software Kaspersky Endpoint protection..."
+	Write-Output "Uninstalling software Kaspersky Endpoint protection..."
 
 	# Remove Kaspersky Endpoint
 	$KesEndpoint = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky Endpoint Security*" }
@@ -71,7 +71,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 	# Remove Kaspersky Agent, French GUID = {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
 	$KesAgent = Get-WmiObject win32_product | Where { $_.Name -like "*Agent*Kaspersky Security Center*" }
 	If ($KesAgent.IdentifyingNumber) {
-		Write-Output "Suppress Agent Kaspersky Security Center $($KesAgent.Version) with GUID => $($KesAgent.IdentifyingNumber)"
+		Write-Output "Uninstalling Agent Kaspersky Security Center $($KesAgent.Version) with GUID => $($KesAgent.IdentifyingNumber)"
 		$AgentPlainPassword=''
 		If ($($Global:SWMB_Custom.KesAgentPass)) {
 			If (($($Global:SWMB_Custom.KesKeyFile)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
@@ -108,12 +108,12 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 # Suppress Kaspersky Console software
 # Uninstall
 Function TweakUninstallKasperskyConsole { # RESINFO
-	Write-Output "Uninstall software Kaspersky Console..."
+	Write-Output "Uninstalling software Kaspersky Console..."
 
 	# Remove Kaspersky Console, French GUID = {5D35D57A-30B9-493B-819F-C6C2181A0A1A}
 	$KesConsole = Get-WmiObject win32_product | Where { $_.Name -like "*Console*Kaspersky Security Center*" }
 	If ($KesConsole.IdentifyingNumber) {
-		Write-Output "Suppress Console Kaspersky Security Center..."
+		Write-Output "Uninstalling Console Kaspersky Security Center..."
 		Start-Process "msiexec.exe" -ArgumentList "/X $($KesConsole.IdentifyingNumber) /qn" -Wait -NoNewWindow
 		Write-Host "Uninstall finish"
 	} Else {
@@ -126,7 +126,7 @@ Function TweakUninstallKasperskyConsole { # RESINFO
 # View all Kaspersky Product
 # View
 Function TweakViewKasperskyProduct { # RESINFO
-	Write-Output "View all Kaspersky products..."
+	Write-Output "Viewing all Kaspersky products..."
 	# Warning if another Kaspersky is still installed on the computer
 	Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky*" } | ForEach-Object {
 		Write-Host "Note: Product $($_.IdentifyingNumber) is installed: $($_.Name)"
@@ -138,6 +138,7 @@ Function TweakViewKasperskyProduct { # RESINFO
 # With the help of https://silentinstallhq.com/realplayer-silent-install-how-to-guide/
 # Uninstall
 Function TweakUninstallRealPlayer { # RESINFO
+	Write-Output "Uninstalling software RealPlayer..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		Where { $_.Name -match 'RealPlayer \d' } |
@@ -240,6 +241,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 # With the help of https://silentinstallhq.com/winrar-silent-uninstall-powershell/
 # Uninstall
 Function TweakUninstallWinRAR { # RESINFO
+	Write-Output "Uninstalling software WinRAR..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		Where { $_.Name -match 'WinRAR archiver' } |
@@ -302,6 +304,7 @@ Function TweakUninstallWinRAR { # RESINFO
 # "%SystemDrive%\totalcmd\tcunin64.exe" /7
 # Uninstall
 Function TweakUninstallTotalCommander { # RESINFO
+	Write-Output "Uninstalling software TotalCommander..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -339,6 +342,7 @@ Function TweakUninstallTotalCommander { # RESINFO
 
 # View
 Function TweakViewTotalCommander { # RESINFO
+	Write-Output "Viewing software TotalCommander ..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -361,6 +365,7 @@ Function TweakViewTotalCommander { # RESINFO
 # Does not work - impossible to change the Stats.ini file
 # Uninstall
 Function TweakUninstallAvast { # RESINFO
+	Write-Output "Uninstalling software Avast..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		Where { $_.Name -match 'Avast Antivirus' } |
@@ -412,6 +417,7 @@ Function TweakUninstallAvast { # RESINFO
 # https://wiki.openoffice.org/wiki/Documentation/How_Tos/Automatic_Installation_on_Windows
 # Uninstall
 Function TweakUninstallOpenOffice { # RESINFO
+	Write-Output "Uninstalling software OpenOffice..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -451,6 +457,7 @@ Function TweakUninstallOpenOffice { # RESINFO
 # With the help of https://silentinstallhq.com/glasswire-silent-install-how-to-guide/
 # Uninstall
 Function TweakUninstallGlassWire { # RESINFO
+	Write-Output "Uninstalling software GlassWire..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		Where { $_.Name -match 'GlassWire' } |
@@ -492,6 +499,7 @@ Function TweakUninstallGlassWire { # RESINFO
 # https://silentinstallhq.com/microsoft-edge-webview2-runtime-silent-install-how-to-guide/
 # Uninstall
 Function TweakUninstallEdgeWebView2 { # RESINFO
+	Write-Output "Uninstalling software EdgeWebView2..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -529,6 +537,7 @@ Function TweakUninstallEdgeWebView2 { # RESINFO
 
 # View
 Function TweakViewEdgeWebView2 { # RESINFO
+	Write-Output "Viewing software EdgeWebView2..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -550,6 +559,7 @@ Function TweakViewEdgeWebView2 { # RESINFO
 # "C:\Program Files (x86)\Google\Google Toolbar\Component\GoogleToolbarManager_E6C807F38EB64284.exe" /uninstall
 # Uninstall
 Function TweakUninstallGoogleToolbar { # RESINFO
+	Write-Output "Uninstalling software GoogleToolbar..."
 	$RefName = 'Google Toolbar for Internet Explorer'
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
@@ -588,6 +598,7 @@ Function TweakUninstallGoogleToolbar { # RESINFO
 
 # View
 Function TweakViewGoogleToolbar { # RESINFO
+	Write-Output "Viewing software GoogleToolbar..."
 	$RefName = 'Google Toolbar for Internet Explorer'
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
@@ -610,6 +621,7 @@ Function TweakViewGoogleToolbar { # RESINFO
 # https://silentinstallhq.com/dopdf-silent-install-how-to-guide/
 # Uninstall
 Function TweakUninstallNovaPDF { # RESINFO
+	Write-Output "Uninstalling software Nova PDF..."
 	$RefName = 'novaPDF'
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
@@ -648,6 +660,7 @@ Function TweakUninstallNovaPDF { # RESINFO
 
 # View
 Function TweakViewNovaPDF { # RESINFO
+	Write-Output "Viewing software Nova PDF..."
 	$RefName = 'novaPDF'
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
@@ -678,6 +691,7 @@ Function TweakViewNovaPDF { # RESINFO
 # https://support.hpwolf.com/s/article/How-to-uninstall-HP-Wolf-Pro-Security
 # Uninstall
 Function TweakUninstallHPWolfSecurity { # RESINFO
+	Write-Output "Uninstalling software HP Wolf Security..."
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -715,6 +729,7 @@ Function TweakUninstallHPWolfSecurity { # RESINFO
 
 # View
 Function TweakViewHPWolfSecurity { # RESINFO
+	Write-Output "Viewing software HP Wolf Security..."
 	Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall', 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall' |
 		Get-ItemProperty |
 		Where-Object {$_.DisplayName -like "*HP*Security*" } |
@@ -727,6 +742,7 @@ Function TweakViewHPWolfSecurity { # RESINFO
 # https://gist.github.com/mark05e/a79221b4245962a477a49eb281d97388
 # Uninstall
 Function TweakUninstallHPBuiltInApps { # RESINFO
+	Write-Output "Uninstalling software HP BuiltIn Apps..."
 	$UninstallPackages = @(
 		"AD2F1837.HPJumpStarts"
 		"AD2F1837.HPPCHardwareDiagnosticsWindows"
@@ -779,7 +795,8 @@ Function TweakUninstallHPBuiltInApps { # RESINFO
 # https://gist.github.com/mark05e/a79221b4245962a477a49eb281d97388
 # Uninstall
 Function TweakUninstallHPBloatware { # RESINFO
-# List of programs to uninstall
+	Write-Output "Uninstalling software HP Bloatware..."
+	# List of programs to uninstall
 	$UninstallPrograms = @(
 		"HP Client Security Manager"
 		"HP Connection Optimizer"
@@ -810,11 +827,13 @@ Function TweakUninstallHPBloatware { # RESINFO
 		Write-Warning -Message "Failed to uninstall: [$($_.Name)]"}
 	}
 }
+
 ################################################################
 
 # Suppress AnyDesk
 # Uninstall
 Function TweakUninstallAnyDesk { # RESINFO
+	Write-Output "Uninstalling software AnyDesk..."
 	$RefName = 'AnyDesk'
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
@@ -855,6 +874,7 @@ Function TweakUninstallAnyDesk { # RESINFO
 
 # View
 Function TweakViewAnyDesk { # RESINFO
+	Write-Output "Viewing software AnyDesk..."
 	$RefName = 'AnyDesk'
 	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
 	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |

@@ -430,7 +430,7 @@ Function TweakDisableSWMBUniqueId { # RESINFO
 
 # View
 Function TweakViewSWMBUniqueId { # RESINFO
-	Write-Output 'View SWMB Unique HostId...'
+	Write-Output 'Viewing SWMB Unique HostId...'
 	$KeyId = Get-Item -LiteralPath 'HKLM:\Software\WOW6432Node\SWMB' -ErrorAction SilentlyContinue
 	If (!(($KeyId) -And ($KeyId.GetValue('HostId', $Null) -ne $Null))) {
 		Write-Output " Warning: no HostId"

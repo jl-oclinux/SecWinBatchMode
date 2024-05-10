@@ -10,6 +10,9 @@ DEL /F /Q "%ProgramData%\SWMB\Presets\LocalMachine-PostInstall.preset"
 DEL /F /Q "%ProgramData%\SWMB\Modules\Custom-VarOverload.psm1"
 DEL /F /Q "%ProgramData%\SWMB\Modules\Local-Addon.psm1"
 
+ECHO Call other uninstall scripts
+FOR %%s IN (uninstall-*.bat) DO CALL "%%s"
+
 ECHO Clean the registry
 reg delete HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\%softregkey% /f
 

@@ -20,6 +20,6 @@
 #FILES+=print
 
 ## Put the name of your IT service / Publisher
-## No # in the name (sed basic replace)!
+## No # in the name (use sed basic replace)!
 #IT_Team:=IT Team
 #PUBLISHER:=CNRS France, RESINFO, Local Network Area

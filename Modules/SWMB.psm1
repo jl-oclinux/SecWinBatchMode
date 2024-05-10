@@ -20,7 +20,7 @@ $Script:SWMB_MsgCount = 0
 
 Function TweakSysMessage {
 	$Script:SWMB_MsgCount++
-	Write-Output "Message separator " $Script:SWMB_MsgCount
+	Write-Output "SWMB: Message separator: $Script:SWMB_MsgCount"
 }
 
 ################################################################
@@ -31,7 +31,7 @@ $Script:SWMB_EventCount = 0
 Function TweakSysEvent {
 	$Script:SWMB_EventCount++
 	Write-EventLog -LogName "Application" -Source "SWMB" -EntryType "Information" -EventID $Script:SWMB_EventCount `
-		-Message "SWMB Event Message $Script:SWMB_EventCount"
+		-Message "SWMB: Event Message $Script:SWMB_EventCount"
 }
 
 ################################################################
@@ -45,7 +45,7 @@ Function TweakSysBox {
 
 # Wait for key press
 Function TweakSysPause {
-	Write-Output "`nPress any key to continue..."
+	Write-Output "`nSWMB: Press any key to continue..."
 	[Console]::ReadKey($True) | Out-Null
 }
 
@@ -53,7 +53,7 @@ Function TweakSysPause {
 
 # Halt computer
 Function TweakSysHalt {
-	Write-Output "Shutdown now..."
+	Write-Output "SWMB: Shutdown now..."
 	Stop-Computer -ComputerName localhost -Force
 }
 
@@ -61,7 +61,7 @@ Function TweakSysHalt {
 
 # Restart computer
 Function TweakSysRestart {
-	Write-Output "Restarting..."
+	Write-Output "SWMB: Restarting..."
 	Restart-Computer
 }
 
@@ -69,7 +69,7 @@ Function TweakSysRestart {
 
 # Checkpoint computer
 Function TweakSysCheckpoint {
-	Write-Output "Make a System Checkpoint..."
+	Write-Output "SWMB: Make a System Checkpoint..."
 	$Date = (Get-Date -Format "yyyy/MM/dd HH:mm")
 	Checkpoint-Computer -Description "SWMB Checkpoint performed at $Date"
 }
@@ -79,8 +79,9 @@ Function TweakSysCheckpoint {
 # Implementation used in powershell script
 # The main implementation in swmb.ps1 is used otherwise in the CLI
 Function TweakSysRequireAdmin {
+	Write-Output "SWMB: Require administrator privileges..."
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		Write-Output "You must run this script with administrator privileges"
+		Write-Output " You must run this script with administrator privileges"
 		Exit
 	}
 }
@@ -318,7 +319,7 @@ Function SWMB_MakeCkeckpoint() {
 	$HashNext = _String2Sha256 -Text $Text
 	# Checkpoint when OS version change or tweak list change
 	If ($HashNext -ne $HashPrev) {
-		SysCheckpoint
+		TweakSysCheckpoint
 		Write-Output $HashNext > $Path
 	}
 }

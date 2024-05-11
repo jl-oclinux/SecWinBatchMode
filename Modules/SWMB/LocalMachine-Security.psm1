@@ -327,7 +327,7 @@ Function TweakSetDEPOptIn {
 # https://oalabs.openanalysis.net/2019/06/12/disable-aslr-for-easier-malware-debugging/
 # Disable
 Function TweakDisableASLR { # RESINFO
-	Write-Output "Turn off ASLR (Address Space Layout Randomisation)..."
+	Write-Output "Disabling (Turn Off) ASLR (Address Space Layout Randomisation)..."
 	If (!(Test-Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management")) {
 		New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Force | Out-Null
 	}
@@ -336,7 +336,7 @@ Function TweakDisableASLR { # RESINFO
 
 # Enable
 Function TweakEnableASLR { # RESINFO
-	Write-Output "Turn on ASLR (Address Space Layout Randomisation)..."
+	Write-Output "Disabling (Turn On) ASLR (Address Space Layout Randomisation)..."
 	Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "MoveImages" -ErrorAction SilentlyContinue
 }
 
@@ -436,7 +436,7 @@ Function TweakEnablePowershell2 { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.PowerManagement::ACStandbyWithHiberfileEnable_2
 # Disable
 Function TweakDisableHybridSleep { # RESINFO
-	Write-Output "Turn off hybrid sleep (plugged in and battery)..."
+	Write-Output "Disabling (Turn Off) hybrid sleep (plugged in and battery)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e" -Force | Out-Null
 	}
@@ -446,7 +446,7 @@ Function TweakDisableHybridSleep { # RESINFO
 
 # Enable
 Function TweakEnableHybridSleep { # RESINFO
-	Write-Output "Turn on hybrid sleep (plugged in and battery)..."
+	Write-Output "Disabling (Turn On) hybrid sleep (plugged in and battery)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e" -Force | Out-Null
 	}

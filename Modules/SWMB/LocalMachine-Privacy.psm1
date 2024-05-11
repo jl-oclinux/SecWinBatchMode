@@ -200,7 +200,7 @@ Function TweakDisableHighlightsSearch { # RESINFO
 
 # Enable search highlights
 Function TweakEnableHighlightsSearch { # RESINFO
-	Write-Output "Allow search highlights..."
+	Write-Output "Enabling (Allow) search highlights..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB" -ErrorAction SilentlyContinue
 }
 
@@ -224,7 +224,7 @@ Function TweakDisableCloudSearch { # RESINFO
 
 # Enable Cloud Search
 Function TweakEnableCloudSearch { # RESINFO
-	Write-Output "Allow Cloud Search..."
+	Write-Output "Enabling (Allow) Cloud Search..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch" -ErrorAction SilentlyContinue
 }
 
@@ -240,7 +240,7 @@ Function TweakViewCloudSearch { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::AllowSearchToUseLocation
 # Don't allow search and Cortana to use location
 Function TweakDisableSearchUseLocation { # RESINFO
-	Write-Output "Search and Cortana are disallowed to use location..."
+	Write-Output "Disabling Search and Cortana are disallowed to use location..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -249,7 +249,7 @@ Function TweakDisableSearchUseLocation { # RESINFO
 
 # Enable search and Cortana to use location
 Function TweakEnableSearchUseLocation { # RESINFO
-	Write-Output "Allow search and Cortana to use location..."
+	Write-Output "Enabling (Allow) Search and Cortana to use location..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowSearchToUseLocation" -ErrorAction SilentlyContinue
 }
 
@@ -420,8 +420,9 @@ Function TweakEnableFeedback {
 
 # Limit Diagnostic Log Collection
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::LimitDiagnosticLogCollection
+# Disable DiagnosticLogs
 Function TweakDisableDiagnosticLogs { # RESINFO
-	Write-Output "Diagnostic logs will not be collected..."
+	Write-Output "Disabling Diagnostic Logs: Diagnostic logs will not be collected..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" | Out-Null
 	}
@@ -430,7 +431,7 @@ Function TweakDisableDiagnosticLogs { # RESINFO
 
 # Enable DiagnosticLogs
 Function TweakEnableDiagnosticLogs { # RESINFO
-	Write-Output "Collect diagnostic log not configured..."
+	Write-Output "Enabling Diagnostic Logs: Collect diagnostic log not configured..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection" -ErrorAction SilentlyContinue
 }
 
@@ -556,7 +557,7 @@ Function TweakEnableErrorReporting {
 
 # Restrict Windows Update P2P delivery optimization to computers in local network - Default since 1703
 Function TweakSetP2PUpdateLocal {
-	Write-Output "Restricting Windows Update P2P optimization to local network..."
+	Write-Output "Setting P2P: Restricting Windows Update P2P optimization to local network..."
 	If ([System.Environment]::OSVersion.Version.Build -eq 10240) {
 		# Method used in 1507
 		If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config")) {
@@ -577,7 +578,7 @@ Function TweakSetP2PUpdateLocal {
 
 # Unrestrict Windows Update P2P delivery optimization to both local networks and internet - Default in 1507 - 1607
 Function TweakSetP2PUpdateInternet {
-	Write-Output "Unrestricting Windows Update P2P optimization to internet..."
+	Write-Output "Setting P2P: Unrestricting Windows Update P2P optimization to internet..."
 	If ([System.Environment]::OSVersion.Version.Build -eq 10240) {
 		# Method used in 1507
 		If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config")) {
@@ -599,7 +600,7 @@ Function TweakSetP2PUpdateInternet {
 # Disable Windows Update P2P delivery optimization completely
 # Warning: Completely disabling delivery optimization can break Windows Store downloads - see https://github.com/Disassembler0/Win10-Initial-Setup-Script/issues/281
 Function TweakSetP2PUpdateDisable {
-	Write-Output "Disabling Windows Update P2P optimization..."
+	Write-Output "Setting P2P: Disabling Windows Update P2P optimization..."
 	If ([System.Environment]::OSVersion.Version.Build -eq 10240) {
 		# Method used in 1507
 		If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config")) {
@@ -625,7 +626,7 @@ Function TweakSetP2PUpdateDisable {
 
 # Stop and disable Connected User Experiences and Telemetry (previously named Diagnostics Tracking Service)
 Function TweakDisableDiagTrack {
-	Write-Output "Stopping and disabling Connected User Experiences and Telemetry Service..."
+	Write-Output "Disabling and Stopping Connected User Experiences and Telemetry Service..."
 	Stop-Service "DiagTrack" -WarningAction SilentlyContinue
 	Set-Service "DiagTrack" -StartupType Disabled
 }
@@ -639,7 +640,7 @@ Function TweakEnableDiagTrack {
 
 # View
 Function TweakViewDiagTrack {
-	Write-Output 'Connected User Experiences and Telemetry (2 activated, 4 no)'
+	Write-Output 'Viewing Connected User Experiences and Telemetry (2 activated, 4 no)'
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" | Select-Object -Property Start*  | Format-List
 }
 
@@ -648,14 +649,14 @@ Function TweakViewDiagTrack {
 # Stop and disable Device Management Wireless Application Protocol (WAP) Push Service
 # Note: This service is needed for Microsoft Intune interoperability
 Function TweakDisableWAPPush {
-	Write-Output "Stopping and disabling Device Management WAP Push Service..."
+	Write-Output "Disabling and Stopping Device Management WAP Push Service..."
 	Stop-Service "dmwappushservice" -WarningAction SilentlyContinue
 	Set-Service "dmwappushservice" -StartupType Disabled
 }
 
 # Enable and start Device Management Wireless Application Protocol (WAP) Push Service
 Function TweakEnableWAPPush {
-	Write-Output "Enabling and starting Device Management WAP Push Service..."
+	Write-Output "Enabling and Starting Device Management WAP Push Service..."
 	Set-Service "dmwappushservice" -StartupType Automatic
 	Start-Service "dmwappushservice" -WarningAction SilentlyContinue
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\dmwappushservice" -Name "DelayedAutoStart" -Type DWord -Value 1
@@ -722,7 +723,7 @@ Function TweakEnableAutologgerDiagTrack { # RESINFO
 
 # View
 Function TweakViewAutologgerDiagTrack { # RESINFO
-	Write-Output 'Autologger-DiagTrack-Listener (0 no or not exist, 2 activated)'
+	Write-Output 'Viewing Autologger-DiagTrack-Listener (0 no or not exist, 2 activated)'
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start"
 }
 
@@ -765,7 +766,7 @@ Function TweakDisableIndexingEncryptedStores { # RESINFO
 
 # Enable
 Function TweakEnableIndexingEncryptedStores { # RESINFO
-	Write-Output "Allow IndexingEncryptedStores..."
+	Write-Output "Enabling IndexingEncryptedStores..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -779,7 +780,7 @@ Function TweakEnableIndexingEncryptedStores { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::SearchPrivacy
 # ANSSI Annexe B1
 Function TweakDisableSharedInformationSearch { # RESINFO
-	Write-Output "Anonymous information is shared in Search..."
+	Write-Output "Disabling Shared Information: Anonymous information is shared in Search..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -788,7 +789,7 @@ Function TweakDisableSharedInformationSearch { # RESINFO
 
 # Enable
 Function TweakEnableSharedInformationSearch { # RESINFO
-	Write-Output "User info and location is shared in Search..."
+	Write-Output "Enabling Shared Information: User info and location is shared in Search..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -802,7 +803,7 @@ Function TweakEnableSharedInformationSearch { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=FullArmor.Policies.3B9EA2B5_A1D1_4CD5_9EDE_75B22990BC21::DoNotUseWebResults
 # ANSSI Annexe B1
 Function TweakDisableDisplayWebResults { # RESINFO
-	Write-Output "Don't search the web or display web results in Search..."
+	Write-Output "Disabling search the web or display web results in Search..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -811,7 +812,7 @@ Function TweakDisableDisplayWebResults { # RESINFO
 
 # Enable
 Function TweakEnableDisplayWebResults { # RESINFO
-	Write-Output "Web results will be displayed ..."
+	Write-Output "Enabling Web results will be displayed ..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Force | Out-Null
 	}
@@ -825,7 +826,7 @@ Function TweakEnableDisplayWebResults { # RESINFO
 # GPO Desactivé par défaut
 # Disable
 Function TweakDisableOsGeneratedReport { # RESINFO
-	Write-Output "Turn off OS-generated error reports"
+	Write-Output "Disabling (Turn Off) OS-generated error reports"
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
 	}
@@ -834,7 +835,7 @@ Function TweakDisableOsGeneratedReport { # RESINFO
 
 # Enable
 Function TweakEnableOsGeneratedReport { # RESINFO
-	Write-Output "Turn on OS-generated error reports"
+	Write-Output "Disabling (Turn On) OS-generated error reports"
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -ErrorAction SilentlyContinue
 }
 
@@ -865,7 +866,7 @@ Function TweakEnableSendAdditionalData { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.Globalization::ImplicitDataCollectionOff_2
 # Disable
 Function TweakDisableAutomaticLearning { # RESINFO
-	Write-Output "Turn off automatic learning..."
+	Write-Output "Disabling (Turn Off) automatic learning..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
 	}
@@ -875,7 +876,7 @@ Function TweakDisableAutomaticLearning { # RESINFO
 
 # Enable
 Function TweakEnableAutomaticLearning { # RESINFO
-	Write-Output "Turn on automatic learning..."
+	Write-Output "Disabling (Turn On) automatic learning..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
 	}
@@ -891,7 +892,7 @@ Function TweakEnableAutomaticLearning { # RESINFO
 # https://gpsearch.azurewebsites.net/#4727
 # Disable
 Function TweakDisableWindowsErrorReporting { # RESINFO
-	Write-Output "Turn off Windows error reporting..."
+	Write-Output "Disabling (Turn Off) Windows error reporting..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting\" -Force | Out-Null
 	}
@@ -900,7 +901,7 @@ Function TweakDisableWindowsErrorReporting { # RESINFO
 
 # Enable
 Function TweakEnableWindowsErrorReporting { # RESINFO
-	Write-Output "Turn on Windows error reporting..."
+	Write-Output "Disabling (Turn On) Windows error reporting..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting" -Name "DoReport" -ErrorAction SilentlyContinue
 }
 ################################################################
@@ -952,7 +953,7 @@ Function TweakEnableStepsRecorder { # RESINFO
 # https://gpsearch.azurewebsites.net/#4723
 # Disable
 Function TweakDisableDidYouKnow { # RESINFO
-	Write-Output "Turn off Help and Support Center Did you know? content..."
+	Write-Output "Disabling (Turn Off) Help and Support Center Did you know? content..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Force | Out-Null
 	}
@@ -961,7 +962,7 @@ Function TweakDisableDidYouKnow { # RESINFO
 
 # Enable
 Function TweakEnableDidYouKnow { # RESINFO
-	Write-Output "Turn on Help and Support Center Did you know? content..."
+	Write-Output "Disabling (Turn On) Help and Support Center Did you know? content..."
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
@@ -973,7 +974,7 @@ Function TweakEnableDidYouKnow { # RESINFO
 # https://gpsearch.azurewebsites.net/#4754
 # Disable
 Function TweakDisableHandwritingDataSharing { # RESINFO
-	Write-Output "Turn off handwriting personalization data sharing..."
+	Write-Output "Disabling (Turn Off) handwriting personalization data sharing..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Force | Out-Null
 	}
@@ -982,7 +983,7 @@ Function TweakDisableHandwritingDataSharing { # RESINFO
 
 # Enable
 Function TweakEnableHandwritingDataSharing { # RESINFO
-	Write-Output "Turn on handwriting personalization data sharing..."
+	Write-Output "Disabling (Turn On) handwriting personalization data sharing..."
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
@@ -994,7 +995,7 @@ Function TweakEnableHandwritingDataSharing { # RESINFO
 # https://gpsearch.azurewebsites.net/#4743
 # Disable
 Function TweakDisableHandwritingRecognitionErrorReporting { # RESINFO
-	Write-Output "Turn off handwriting recognition error reporting..."
+	Write-Output "Disabling (Turn Off) handwriting recognition error reporting..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Force | Out-Null
 	}
@@ -1003,7 +1004,7 @@ Function TweakDisableHandwritingRecognitionErrorReporting { # RESINFO
 
 # Enable
 Function TweakEnableHandwritingRecognitionErrorReporting { # RESINFO
-	Write-Output "Turn on handwriting recognition error reporting..."
+	Write-Output "Disabling (Turn On) handwriting recognition error reporting..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -ErrorAction SilentlyContinue
 }
 

@@ -967,7 +967,7 @@ Function TweakViewVisualStudioCache { # RESINFO
 
 # Allow StorageSense
 Function TweakEnableStorageSense { # RESINFO
-	Write-Output "Allow Storage sense...and Configure Storage Sense cadence $($Global:SWMB_Custom.StorageSenseCadence) day"
+	Write-Output "Enabling Storage sense...and Configure Storage Sense cadence $($Global:SWMB_Custom.StorageSenseCadence) day"
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
 	}
@@ -978,7 +978,7 @@ Function TweakEnableStorageSense { # RESINFO
 # Not Configured:
 # By default, Storage Sense is turned off until the user runs into low disk space or the user enables it manually. Users can configure this setting in Storage settings.
 Function TweakDisableStorageSense { # RESINFO
-	Write-Output "Storage Sense Not Configured"
+	Write-Output "Disabling Storage Sense Not Configured"
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -ErrorAction SilentlyContinue
 }
 
@@ -994,7 +994,7 @@ Function TweakViewStorageSense { # RESINFO
 # Allow storage sense tempory files Cleanup
 # Storage Sense will delete the user's temporary files that are not in use. Users cannot disable this setting in Storage settings.
 Function TweakEnableStorageSenseTempCleanup { # RESINFO
-	Write-Output "Allow Storage sense Temporary Files Cleanup"
+	Write-Output "Enabling Storage Sense Temporary Files Cleanup: Allow Storage Sense Temporary Files Cleanup"
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
 	}
@@ -1004,7 +1004,7 @@ Function TweakEnableStorageSenseTempCleanup { # RESINFO
 # Disabled:
 # Storage Sense will not delete the user's temporary files. Users cannot enable this setting in Storage settings.
 Function TweakDisableStorageSenseTempCleanup { # RESINFO
-	Write-Output "Disabling Storage sense Temporary Files Cleanup"
+	Write-Output "Disabling Storage Sense Temporary Files Cleanup"
 	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -Type DWord -Value 0
 }
 
@@ -1019,7 +1019,7 @@ Function TweakViewStorageSenseTempCleanup { # RESINFO
 # Configure Storage Sense Recycle Bin cleanup threshold
 # minimum age threshold (in days) of a file in the Recycle Bin before Storage Sense will delete it
 Function TweakEnableStorageSenseTrashCleanup { # RESINFO
-	Write-Output "Files in the recycle bin that are more than $($Global:SWMB_Custom.StorageSenseTrashCleanup) days old will be deleted automatically"
+	Write-Output "Enabling Storage Sense Trash Cleanup: Files in the recycle bin that are more than $($Global:SWMB_Custom.StorageSenseTrashCleanup) days old will be deleted automatically"
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
 	}
@@ -1029,13 +1029,13 @@ Function TweakEnableStorageSenseTrashCleanup { # RESINFO
 # Disabled:
 # By default, Storage Sense will delete files in the user's Recycle Bin that have been there for over 30 days.
 Function TweakDisableStorageSenseTrashCleanup { # RESINFO
-	Write-Output "Disabling Storage sense Temporary Files Cleanup"
+	Write-Output "Disabling Storage Sense Trash Cleanup"
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
 }
 
 # View
 Function TweakViewStorageSenseTrashCleanup { # RESINFO
-	Write-Output "Viewing Storage Sense Bin automatically Cleanup"
+	Write-Output "Viewing Storage Sense Trash Cleanup"
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
 }
 
@@ -1043,7 +1043,7 @@ Function TweakViewStorageSenseTrashCleanup { # RESINFO
 
 # Disable
 Function TweakDisableWindowsCopilot { # RESINFO
-	Write-Output "Turn Off Windows Copilot..."
+	Write-Output "Disabling (Turn Off) Windows Copilot..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Force | Out-Null
 	}
@@ -1052,7 +1052,7 @@ Function TweakDisableWindowsCopilot { # RESINFO
 
 # Enable Copilot
 Function TweakEnableWindowsCopilot { # RESINFO
-	Write-Output "Turn On for Windows Copilot (Default)..."
+	Write-Output "Enabling (Turn On) for Windows Copilot (Default)..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
 }
 
@@ -1069,7 +1069,7 @@ Function TweakViewWindowsCopilot { # RESINFO
 # https://www.tenforums.com/tutorials/178178-how-enable-disable-news-interests-taskbar-windows-10-a.html
 # Disable
 Function TweakDisableWindowsFeeds { # RESINFO
-	Write-Output "Turn off windows feeds (news and interests)..."
+	Write-Output "Disabling (Turn Off) windows feeds (news and interests)..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Force | Out-Null
 	}
@@ -1078,7 +1078,7 @@ Function TweakDisableWindowsFeeds { # RESINFO
 
 # Enable
 Function TweakEnableWindowsFeeds { # RESINFO
-	Write-Output "Turn on windows feeds (news and interests)..."
+	Write-Output "Enabling (Turn On) windows feeds (news and interests)..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -ErrorAction SilentlyContinue
 }
 
@@ -1108,7 +1108,7 @@ Function TweakEnableUWPAccessLocation { # RESINFO
 # Computer Configuration -> Administrative Templates -> System -> Logon : Turn on PIN sign-in and select Disabled.
 # Disable
 Function TweakDisableWindowsHello { # RESINFO
-	Write-Output "Block Windows Hello Authentification..."
+	Write-Output "Disabling (Block) Windows Hello Authentification..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Settings\AllowSignInOptions" -Force | Out-Null
 	}

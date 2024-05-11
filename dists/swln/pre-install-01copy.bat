@@ -1,3 +1,6 @@
+ECHO.
+ECHO Begin pre-install-01copy.bat
+
 ECHO Adds the rights to run powershell scripts
 %pwrsh% Set-ExecutionPolicy RemoteSigned -Force -Scope LocalMachine
 
@@ -12,3 +15,5 @@ COPY /Y installer.ps1 "%ProgramFiles%\%softname%"
 
 ECHO Execution right installer.ps1
 %pwrsh% "Unblock-File -Path ${Env:ProgramFiles}\%softname%\installer.ps1"
+
+ECHO End pre-install-01copy.bat

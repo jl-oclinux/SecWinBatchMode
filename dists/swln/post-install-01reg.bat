@@ -1,3 +1,6 @@
+ECHO.
+ECHO Begin post-install-01reg.bat
+
 ECHO Change Add and Remove values in the register
  > tmp_install.reg ECHO Windows Registry Editor Version 5.00
 >> tmp_install.reg ECHO.
@@ -13,3 +16,5 @@ ECHO Change Add and Remove values in the register
 >> tmp_install.reg ECHO "NoRepair"=dword:00000001
 >> tmp_install.reg ECHO.
 regedit.exe /S "tmp_install.reg"
+
+ECHO End post-install-01reg.bat

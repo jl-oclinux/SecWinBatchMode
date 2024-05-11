@@ -7,6 +7,11 @@ and it now supports the file with the `-Host-HOSTNAME` extension
 in order to push a different file (e.g. specific tweaks) to a particular computer.
 Each site can add its own pre- and post-installation scripts.
 
+Tweaks have a better message at launch, clearly indicating the type of tweak they are
+(Enable, Disable, Set, Unistall...).
+
+Correction of a gross error when launching a checkpoint (calling a function with the wrong name!).
+
 New presets/rules:
 * 2024/05/09 - `EnableOffice2016AutoUpdate`/`DisableOffice2016AutoUpdate`/`ViewOffice2016AutoUpdate` -> Enable auto update for MS Office 2016 Click-To-Run installations
 * 2024/05/09 - `EnableOffice2013AutoUpdate`/`DisableOffice2013AutoUpdate`/`ViewOffice2013AutoUpdate` -> Enable auto update for MS Office 2013 Click-To-Run installations

@@ -318,22 +318,7 @@ Function TweakUninstallTotalCommander { # RESINFO
 				$Args = '/7'
 				If (Test-Path -Path "$Exe") {
 					Write-Output "Uninstalling Total Commander version $DisplayVersion / $Exe $Args"
-					$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-					$Timeouted = $Null # Reset any previously set timeout
-					# Wait up to 180 seconds for normal termination
-					$Proc | Wait-Process -Timeout 180 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-					If ($Timeouted) {
-						# Terminate the process
-						$Proc | Kill
-						Write-Output "Error: kill Total Commander uninstall exe"
-						# Next tweak now
-						Return
-					} ElseIf ($Proc.ExitCode -ne 0) {
-						Write-Output "Error: Total Commander uninstall return code $($Proc.ExitCode)"
-						# Next tweak now
-						Return
-					}
+					SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "TotalCommander" -Timeout 300
 				}
 				Start-Sleep -Seconds 1
 			}
@@ -388,22 +373,7 @@ Function TweakUninstallAvast { # RESINFO
 
 				Write-Output "Uninstalling Avast Antivirus version $VersionMajor.$VersionMinor"
 				# Ok but UI (without UI if SYSTEM account)
-				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill Avast uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: Avast uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
+				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "Avast Antivirus" -Timeout 300
 				Start-Sleep -Seconds 2
 			}
 		}
@@ -431,22 +401,7 @@ Function TweakUninstallOpenOffice { # RESINFO
 				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
 
 				Write-Output "Uninstalling OpenOffice version $VersionMajor.$VersionMinor"
-				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill OpenOffice uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: OpenOffice uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
+				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "OpenOffice" -Timeout 300
 			}
 		}
 }
@@ -472,22 +427,7 @@ Function TweakUninstallGlassWire { # RESINFO
 			$Args = '/S'
 			If (Test-Path -Path "$Exe") {
 				Write-Output "Uninstalling GlassWire version $Version"
-				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill GlassWire uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: GlassWire uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
+				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "GlassWire" -Timeout 300
 			}
 			Start-Sleep -Seconds 1
 		}
@@ -515,22 +455,7 @@ Function TweakUninstallEdgeWebView2 { # RESINFO
 
 				Write-Output "Uninstalling Microsoft Edge WebView2 Runtime version $DisplayVersion"
 				# Write-Output " $Exe $Args"
-				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill Edge WebView2 uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf (($Proc.ExitCode -ne 0) -And ($Proc.ExitCode -ne 19)) {
-					Write-Output "Error: Edge WebView2 uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
+				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "Edge WebView2" -Timeout 300
 			}
 		}
 }
@@ -576,22 +501,7 @@ Function TweakUninstallGoogleToolbar { # RESINFO
 
 				Write-Output "Uninstalling $RefName version $DisplayVersion"
 				# Write-Output " $Exe $Args"
-				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill $RefName uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf (($Proc.ExitCode -ne 0) -And ($Proc.ExitCode -ne 19)) {
-					Write-Output "Error: $RefName uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
+				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
 			}
 		}
 }
@@ -639,22 +549,7 @@ Function TweakUninstallNovaPDF { # RESINFO
 			$Args = '/uninstall /quiet'
 			Write-Output "Uninstalling $DisplayName version $DisplayVersion"
 			Write-Output "Exe: $Exe $Args"
-			$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-			$Timeouted = $Null # Reset any previously set timeout
-			# Wait up to 180 seconds for normal termination
-			$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-			If ($Timeouted) {
-				# Terminate the process
-				$Proc | Kill
-				Write-Output "Error: kill $RefName uninstall exe"
-				# Next tweak now
-				Return
-			} ElseIf (($Proc.ExitCode -ne 0) -And ($Proc.ExitCode -ne 19)) {
-				Write-Output "Error: $RefName uninstall return code $($Proc.ExitCode)"
-				# Next tweak now
-				Return
-			}
+			SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
 		}
 }
 
@@ -707,22 +602,7 @@ Function TweakUninstallHPWolfSecurity { # RESINFO
 				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
 
 				Write-Output "Uninstalling $DisplayName version $DisplayVersion"
-				$Proc = Start-Process -FilePath "msiexec.exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill $DisplayName uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: $DisplayName uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
+				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$DisplayName" -Timeout 300
 			}
 		}
 }
@@ -856,19 +736,7 @@ Function TweakUninstallAnyDesk { # RESINFO
 
 			Write-Output "Uninstalling $DisplayName version $DisplayVersion"
 			Write-Output "Exe: $Exe $Args"
-			$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-			$Timeouted = $Null # Reset any previously set timeout
-			# Wait up to 180 seconds for normal termination
-			$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-			If ($Timeouted) {
-				# Terminate the process
-				$Proc | Kill
-				Write-Output "Error: kill $RefName uninstall exe"
-				Return
-			} ElseIf ($Proc.ExitCode -ne 0) {
-				Write-Output "Error: $RefName uninstall return code $($Proc.ExitCode)"
-				Return
-			}
+			SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
 		}
 }
 

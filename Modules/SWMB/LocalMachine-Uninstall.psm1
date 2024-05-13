@@ -62,7 +62,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		If ($($Global:SWMB_Custom.KesLogFile)) {
 			$MSIEndpointArguments += "/l*vx `"$($Global:SWMB_Custom.KesLogFile)`""
 		}
-		Start-Process "msiexec.exe" -ArgumentList $MSIEndpointArguments -Wait -NoNewWindow
+		Start-Process "MsiExec.exe" -ArgumentList $MSIEndpointArguments -Wait -NoNewWindow
 		Write-Host "Uninstall finish"
 	} Else {
 		Write-Host "Kaspersky Endpoint is not installed on this computer"
@@ -96,7 +96,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		If ($($Global:SWMB_Custom.KesLogFile)) {
 			$MSIAgentArguments += "/l*vx+ `"$($Global:SWMB_Custom.KesLogFile)`""
 		}
-		Start-Process "msiexec.exe" -ArgumentList $MSIAgentArguments -Wait -NoNewWindow
+		Start-Process "MsiExec.exe" -ArgumentList $MSIAgentArguments -Wait -NoNewWindow
 		}
 	Else {
 		Write-Host "Kaspersky Agent Security Center is not installed on this computer "
@@ -114,7 +114,7 @@ Function TweakUninstallKasperskyConsole { # RESINFO
 	$KesConsole = Get-WmiObject win32_product | Where { $_.Name -like "*Console*Kaspersky Security Center*" }
 	If ($KesConsole.IdentifyingNumber) {
 		Write-Output "Uninstalling Console Kaspersky Security Center..."
-		Start-Process "msiexec.exe" -ArgumentList "/X $($KesConsole.IdentifyingNumber) /qn" -Wait -NoNewWindow
+		Start-Process "MsiExec.exe" -ArgumentList "/X $($KesConsole.IdentifyingNumber) /qn" -Wait -NoNewWindow
 		Write-Host "Uninstall finish"
 	} Else {
 		Write-Host "Kaspersky Console is not installed on this computer"
@@ -158,22 +158,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 			$Args = '"' + $UninstallSplit[1].Trim() + '"' + ' -s'
 			If (Test-Path -Path "$Exe") {
 				Write-Output "Uninstalling RealPlayer version $VersionMajor.$VersionMinor"
-				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill RealPlayer uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: RealPlayer uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
+				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "RealPlayer" -Timeout 300
 			}
 			Start-Sleep -Seconds 2
 		}
@@ -253,22 +238,7 @@ Function TweakUninstallWinRAR { # RESINFO
 			$Args = '/S'
 			If (Test-Path -Path "$Exe") {
 				Write-Output "Uninstalling WinRAR version $VersionMajor.$VersionMinor"
-				$Proc = Start-Process -FilePath "$Exe" -ArgumentList "$Args" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-
-				$Timeouted = $Null # Reset any previously set timeout
-				# Wait up to 180 seconds for normal termination
-				$Proc | Wait-Process -Timeout 300 -ErrorAction SilentlyContinue -ErrorVariable Timeouted
-				If ($Timeouted) {
-					# Terminate the process
-					$Proc | Kill
-					Write-Output "Error: kill WinRAR uninstall exe"
-					# Next tweak now
-					Return
-				} ElseIf ($Proc.ExitCode -ne 0) {
-					Write-Output "Error: WinRAR uninstall return code $($Proc.ExitCode)"
-					# Next tweak now
-					Return
-				}
+				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "WinRAR" -Timeout 300
 			}
 			Start-Sleep -Seconds 2
 		}
@@ -726,7 +696,7 @@ Function TweakUninstallAnyDesk { # RESINFO
 			$KeyProduct = $Key | Split-Path -Leaf
 
 			If ($($App.UninstallString) -match 'MsiExec.exe') {
-				$Exe = 'msiexec.exe'
+				$Exe = 'MsiExec.exe'
 				$Args = '/x "' + $KeyProduct + '" /qn'
 			} Else {
 				$UninstallSplit = $App.UninstallString -Split "exe"

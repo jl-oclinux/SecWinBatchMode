@@ -392,7 +392,7 @@ Function TweakDisableEdgeClearCacheOnExit { # RESINFO
 
 # View
 Function TweakViewEdgeClearCacheOnExit { # RESINFO
-	Write-Output "Viewing Edge clear cache on exit (0 or not exist: Not clear, 1: Clear cached images and files on exit )"
+	Write-Output "Viewing Edge clear cache on exit (0 or not exist: Not clear, 1: Clear cached images and files on exit )..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ClearCachedImagesAndFilesOnExit" -ErrorAction SilentlyContinue
 }
 
@@ -417,7 +417,7 @@ Function TweakDisableEdgeDoNtoTrack { # RESINFO
 
 # View
 Function TweakViewEdgeDoNtoTrack { # RESINFO
-	Write-Output "Viewing Edge Configure Do Not Track (0:Do Not Tracker requests are always sent to websites asking for tracking info, 1:Do Not Track requests are never sent to websites asking for tracking info, error: Default )"
+	Write-Output "Viewing Edge Configure Do Not Track (0:Do Not Tracker requests are always sent to websites asking for tracking info, 1:Do Not Track requests are never sent to websites asking for tracking info, error: Default )..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ConfigureDoNotTrack" -ErrorAction SilentlyContinue
 }
 
@@ -500,7 +500,7 @@ Function TweakEnableEdgeUpdate { # RESINFO
 
 # View
 Function TweakViewEdgeUpdate { # RESINFO
-	Write-Output "Wiew Edge auto update (0 or not exist: Auto update, 1: No update)"
+	Write-Output "Viewing Edge auto update (0 or not exist: Auto update, 1: No update)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\EdgeUpdate" -Name "DoNotUpdateToEdgeWithChromium" -ErrorAction SilentlyContinue
 }
 
@@ -847,7 +847,7 @@ Function TweakUnsetPhotoViewerAssociation {
 
 # Add Photo Viewer to 'Open with...'
 Function TweakAddPhotoViewerOpenWith {
-	Write-Output "Adding Photo Viewer to 'Open with...'"
+	Write-Output "Adding Photo Viewer to Open with..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
 	}
@@ -860,7 +860,7 @@ Function TweakAddPhotoViewerOpenWith {
 
 # Remove Photo Viewer from 'Open with...'
 Function TweakRemovePhotoViewerOpenWith {
-	Write-Output "Removing Photo Viewer from 'Open with...'"
+	Write-Output "Removing Photo Viewer from Open with..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
 	}
@@ -967,7 +967,7 @@ Function TweakViewVisualStudioCache { # RESINFO
 
 # Allow StorageSense
 Function TweakEnableStorageSense { # RESINFO
-	Write-Output "Enabling Storage sense...and Configure Storage Sense cadence $($Global:SWMB_Custom.StorageSenseCadence) day"
+	Write-Output "Enabling Storage sense and Configure Storage Sense cadence $($Global:SWMB_Custom.StorageSenseCadence) day..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
 	}
@@ -978,13 +978,13 @@ Function TweakEnableStorageSense { # RESINFO
 # Not Configured:
 # By default, Storage Sense is turned off until the user runs into low disk space or the user enables it manually. Users can configure this setting in Storage settings.
 Function TweakDisableStorageSense { # RESINFO
-	Write-Output "Disabling Storage Sense Not Configured"
+	Write-Output "Disabling Storage Sense Not Configured..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -ErrorAction SilentlyContinue
 }
 
 # View
 Function TweakViewStorageSense { # RESINFO
-	Write-Output "Viewing if Storage Sense is turned on for the machine"
+	Write-Output "Viewing if Storage Sense is turned on for the machine..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseGlobal" -ErrorAction SilentlyContinue
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseGlobalCadence" -ErrorAction SilentlyContinue
 }
@@ -994,7 +994,7 @@ Function TweakViewStorageSense { # RESINFO
 # Allow storage sense tempory files Cleanup
 # Storage Sense will delete the user's temporary files that are not in use. Users cannot disable this setting in Storage settings.
 Function TweakEnableStorageSenseTempCleanup { # RESINFO
-	Write-Output "Enabling Storage Sense Temporary Files Cleanup: Allow Storage Sense Temporary Files Cleanup"
+	Write-Output "Enabling Storage Sense Temporary Files Cleanup: Allow Storage Sense Temporary Files Cleanup..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
 	}
@@ -1004,13 +1004,13 @@ Function TweakEnableStorageSenseTempCleanup { # RESINFO
 # Disabled:
 # Storage Sense will not delete the user's temporary files. Users cannot enable this setting in Storage settings.
 Function TweakDisableStorageSenseTempCleanup { # RESINFO
-	Write-Output "Disabling Storage Sense Temporary Files Cleanup"
+	Write-Output "Disabling Storage Sense Temporary Files Cleanup..."
 	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -Type DWord -Value 0
 }
 
 # View
 Function TweakViewStorageSenseTempCleanup { # RESINFO
-	Write-Output "Viewing if Storage Sense Temporary Files Cleanup is turned on"
+	Write-Output "Viewing if Storage Sense Temporary Files Cleanup is turned on..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "AllowStorageSenseTemporaryFilesCleanup" -ErrorAction SilentlyContinue
 }
 
@@ -1019,7 +1019,7 @@ Function TweakViewStorageSenseTempCleanup { # RESINFO
 # Configure Storage Sense Recycle Bin cleanup threshold
 # minimum age threshold (in days) of a file in the Recycle Bin before Storage Sense will delete it
 Function TweakEnableStorageSenseTrashCleanup { # RESINFO
-	Write-Output "Enabling Storage Sense Trash Cleanup: Files in the recycle bin that are more than $($Global:SWMB_Custom.StorageSenseTrashCleanup) days old will be deleted automatically"
+	Write-Output "Enabling Storage Sense Trash Cleanup: Files in the recycle bin that are more than $($Global:SWMB_Custom.StorageSenseTrashCleanup) days old will be deleted automatically..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Force | Out-Null
 	}
@@ -1029,13 +1029,13 @@ Function TweakEnableStorageSenseTrashCleanup { # RESINFO
 # Disabled:
 # By default, Storage Sense will delete files in the user's Recycle Bin that have been there for over 30 days.
 Function TweakDisableStorageSenseTrashCleanup { # RESINFO
-	Write-Output "Disabling Storage Sense Trash Cleanup"
+	Write-Output "Disabling Storage Sense Trash Cleanup..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
 }
 
 # View
 Function TweakViewStorageSenseTrashCleanup { # RESINFO
-	Write-Output "Viewing Storage Sense Trash Cleanup"
+	Write-Output "Viewing Storage Sense Trash Cleanup..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\StorageSense" -Name "ConfigStorageSenseRecycleBinCleanupThreshold" -ErrorAction SilentlyContinue
 }
 
@@ -1058,7 +1058,7 @@ Function TweakEnableWindowsCopilot { # RESINFO
 
 # View Copilot
 Function TweakViewWindowsCopilot { # RESINFO
-	Write-Output "Viewing Windows Copilot"
+	Write-Output "Viewing Windows Copilot..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
 }
 
@@ -1246,7 +1246,7 @@ Function TweakDisableOffice2013AutoUpdate { # RESINFO
 
 # View
 Function TweakViewOffice2013AutoUpdate {
-	Write-Output "Viewing MS Office2013 AutoUpdate (0 or not exist: No auto update, 1: auto update)"
+	Write-Output "Viewing MS Office2013 AutoUpdate (0 or not exist: No auto update, 1: auto update)..."
 	Get-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Office\15.0\Common\OfficeUpdate" -Name "EnableAutomaticUpdates" -ErrorAction SilentlyContinue
 }
 
@@ -1305,7 +1305,7 @@ Function TweakDisableOffice2016AutoUpdate { # RESINFO
 
 # View
 Function TweakViewOffice2016AutoUpdate {
-	Write-Output "Viewing MS Office2016 AutoUpdate (0 or not exist: No auto update, 1: auto update)"
+	Write-Output "Viewing MS Office2016 AutoUpdate (0 or not exist: No auto update, 1: auto update)..."
 	Get-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Office\16.0\Common\OfficeUpdate" -Name "EnableAutomaticUpdates" -ErrorAction SilentlyContinue
 }
 

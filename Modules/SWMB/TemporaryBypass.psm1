@@ -47,6 +47,7 @@ Function TweakEnablePrintForSystem { # RESINFO
 
 # View
 Function TweakViewPrintForSystem { # RESINFO
+	Write-Output "Viewing print for System user (CVE-2021-34527)..."
 	Get-Acl -Path "${Env:SystemRoot}\System32\spool\drivers" | Select -Expand Access | Out-GridView
 }
 
@@ -78,7 +79,7 @@ Function TweakEnableMSHTMLActiveX { # RESINFO
 
 # View
 Function TweakViewMSHTMLActiveX { # RESINFO
-	Write-Output 'ActiveX in MSHTML (not exist - enable, 3 disable)'
+	Write-Output "Viewing ActiveX in MSHTML (not exist - enable, 3 disable)..."
 	For ($zone = 0 ; $zone -le 3 ; $zone++){
 		$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone"
 		If ((Get-ItemProperty $path -Name "1001" -ea 0)."1001" -ne $null) {
@@ -142,7 +143,7 @@ Function TweakEnableMSDT { # RESINFO
 
 # View
 Function TweakViewMSDT { # RESINFO
-	Write-Output "MSDT (ms-msdt exist - enable, not exist - disable)"
+	Write-Output "Viewing MSDT (ms-msdt exist - enable, not exist - disable)..."
 	If (!(Test-Path "HKCR:")) {
 		New-PSDrive -Name "HKCR" -PSProvider "Registry" -Root "HKEY_CLASSES_ROOT" | Out-Null
 	}

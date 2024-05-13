@@ -18,19 +18,19 @@
 # https://deployadmin.com/2019/11/03/vider-le-fichier-dechange-a-chaque-arret-de-windows/
 # Enable
 Function TweakEnableClearPageFile { # RESINFO
-	Write-Output "Clear PageFile.sys at shutdown..."
+	Write-Output "Enabling Clear PageFile.sys at shutdown..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "ClearPageFileAtShutdown" -Type DWord -Value 1
 }
 
 # Disable
 Function TweakDisableClearPageFile { # RESINFO
-	Write-Output "Do not reset PageFile.sys at shutdown..."
+	Write-Output "Disabling (do not) reset PageFile.sys at shutdown..."
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "ClearPageFileAtShutdown" -Type DWord -Value 0
 }
 
 # View
 Function TweakViewClearPageFile { # RESINFO
-	Write-Output 'Clear PageFile.sys (0 nothing enable, 1 clear at shutdown)'
+	Write-Output "Viewing Clear PageFile.sys (0 nothing enable, 1 clear at shutdown)..."
 	$KeyPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"
 	Get-ItemProperty -Path $KeyPath -Name "ClearPageFileAtShutdown"
 }
@@ -71,20 +71,22 @@ Function TweakViewClearPageFile { # RESINFO
 
 # View
 Function TweakViewPendingReboot { # RESINFO
+	Write-Output "Viewing Pending Reboot..."
 	If (_TestPendingReboot) {
-		Write-Output "Viewing PendingReboot: reboot is needed"
+		Write-Output " reboot is needed"
 	} Else {
-		Write-Output "Viewing PendingReboot: no reboot in queue"
+		Write-Output " no reboot in queue"
 	}
 }
 
 # Set
 Function TweakSetPendingReboot { # RESINFO
+	Write-Output "Setting Pending Reboot..."
 	If (_TestPendingReboot) {
-		Write-Output "PendingReboot: reboot computer now..."
+		Write-Output " reboot computer now..."
 		Restart-Computer
 	} Else {
-		Write-Output "Viewing PendingReboot: no reboot in queue"
+		Write-Output " no reboot in queue"
 	}
 }
 

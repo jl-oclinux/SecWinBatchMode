@@ -393,7 +393,7 @@ Function TweakUnsetTargetRelease { # RESINFO
 
 # View
 Function TweakViewTargetRelease { # RESINFO
-	Write-Output 'Target Release (nothing = no target release)'
+	Write-Output "Target Release (nothing = no target release)..."
 	Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
 }
 
@@ -430,7 +430,7 @@ Function TweakDisableSWMBUniqueId { # RESINFO
 
 # View
 Function TweakViewSWMBUniqueId { # RESINFO
-	Write-Output 'Viewing SWMB Unique HostId...'
+	Write-Output "Viewing SWMB Unique HostId..."
 	$KeyId = Get-Item -LiteralPath 'HKLM:\Software\WOW6432Node\SWMB' -ErrorAction SilentlyContinue
 	If (!(($KeyId) -And ($KeyId.GetValue('HostId', $Null) -ne $Null))) {
 		Write-Output " Warning: no HostId"

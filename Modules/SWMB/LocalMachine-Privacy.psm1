@@ -206,7 +206,7 @@ Function TweakEnableHighlightsSearch { # RESINFO
 
 # View
 Function TweakViewHighlightsSearch { # RESINFO
-	Write-Output 'Viewing Highlights Search (1: Disable, Error: Not configured = Enable)'
+	Write-Output "Viewing Highlights Search (1: Disable, Error: Not configured = Enable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB"
 }
 
@@ -230,7 +230,7 @@ Function TweakEnableCloudSearch { # RESINFO
 
 # View
 Function TweakViewCloudSearch { # RESINFO
-	Write-Output 'Viewing Cloud Search (0: Disable, Error: Not configured = Enable)'
+	Write-Output "Viewing Cloud Search (0: Disable, Error: Not configured = Enable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowCloudSearch"
 }
 
@@ -255,7 +255,7 @@ Function TweakEnableSearchUseLocation { # RESINFO
 
 # View
 Function TweakViewSearchUseLocation { # RESINFO
-	Write-Output 'Viewing search and Cortana to use location (0: Disable, Error: Not configured = Enable)'
+	Write-Output "Viewing search and Cortana to use location (0: Disable, Error: Not configured = Enable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "AllowSearchToUseLocation"
 }
 
@@ -287,7 +287,7 @@ Function TweakEnableSearchOnTaskbar { # RESINFO
 
 # View
 Function TweakViewSearchOnTaskbar { # RESINFO
-	Write-Output 'Viewing search on taskbar (0: Disable, Error: Not configured = Enable)'
+	Write-Output "Viewing search on taskbar (0: Disable, Error: Not configured = Enable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch"
 }
 
@@ -329,7 +329,7 @@ Function TweakEnableActivityHistory {
 
 # View
 Function TweakViewActivityHistory {
-	Write-Output 'Viewing Activity History (0: Disable, Error: Enable)'
+	Write-Output "Viewing Activity History (0: Disable, Error: Enable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "EnableActivityFeed"    | Select-Object -Property Enable*  | Format-List
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" | Select-Object -Property Publish* | Format-List
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities"  | Select-Object -Property Upload*  | Format-List
@@ -437,7 +437,7 @@ Function TweakEnableDiagnosticLogs { # RESINFO
 
 # View DiagnosticLogs
 Function TweakViewDiagnosticLogs { # RESINFO
-	Write-Output "Viewing Collect diagnostic log, error => not configured, 1 => Diagnostic logs not be collected "
+	Write-Output "Viewing Collect diagnostic log (error => not configured, 1 => Diagnostic logs not be collected)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "LimitDiagnosticLogCollection"  | Format-List
 }
 
@@ -455,13 +455,13 @@ Function TweakDisableOneSettingsDownloads { # RESINFO
 
 # Enable OneSettings Downloads
 Function TweakEnableOneSettingsDownloads { # RESINFO
-	Write-Output "Enabling download configuration settings from the OneSettings service... (not configured)"
+	Write-Output "Enabling download configuration settings from the OneSettings service (not configured)..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads" -ErrorAction SilentlyContinue
 }
 
 # View OneSettings Downloads
 Function TweakViewOneSettingsDownloads { # RESINFO
-	Write-Output "Viewing Download configuration settings from the OneSettings service, error => not configured, 1 => Disable"
+	Write-Output "Viewing Download configuration settings from the OneSettings service (error => not configured, 1 => Disable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DisableOneSettingsDownloads"  | Format-List
 }
 
@@ -640,7 +640,7 @@ Function TweakEnableDiagTrack {
 
 # View
 Function TweakViewDiagTrack {
-	Write-Output 'Viewing Connected User Experiences and Telemetry (2 activated, 4 no)'
+	Write-Output "Viewing Connected User Experiences and Telemetry (2 activated, 4 no)..."
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\DiagTrack" -Name "Start" | Select-Object -Property Start*  | Format-List
 }
 
@@ -723,7 +723,7 @@ Function TweakEnableAutologgerDiagTrack { # RESINFO
 
 # View
 Function TweakViewAutologgerDiagTrack { # RESINFO
-	Write-Output 'Viewing Autologger-DiagTrack-Listener (0 no or not exist, 2 activated)'
+	Write-Output "Viewing Autologger-DiagTrack-Listener (0 no or not exist, 2 activated)..."
 	Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AutoLogger-Diagtrack-Listener" -Name "Start"
 }
 
@@ -826,7 +826,7 @@ Function TweakEnableDisplayWebResults { # RESINFO
 # GPO Desactivé par défaut
 # Disable
 Function TweakDisableOsGeneratedReport { # RESINFO
-	Write-Output "Disabling (Turn Off) OS-generated error reports"
+	Write-Output "Disabling (Turn Off) OS-generated error reports..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
 	}
@@ -835,7 +835,7 @@ Function TweakDisableOsGeneratedReport { # RESINFO
 
 # Enable
 Function TweakEnableOsGeneratedReport { # RESINFO
-	Write-Output "Disabling (Turn On) OS-generated error reports"
+	Write-Output "Disabling (Turn On) OS-generated error reports..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -ErrorAction SilentlyContinue
 }
 
@@ -847,7 +847,7 @@ Function TweakEnableOsGeneratedReport { # RESINFO
 # GPO activé par défaut
 # Disable
 Function TweakDisableSendAdditionalData { # RESINFO
-	Write-Output "Disabling Error reporting Send Additional Data"
+	Write-Output "Disabling Error reporting Send Additional Data..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Force | Out-Null
 	}
@@ -856,7 +856,7 @@ Function TweakDisableSendAdditionalData { # RESINFO
 
 # Enable
 Function TweakEnableSendAdditionalData { # RESINFO
-	Write-Output "Enabling Error reporting Send Additional Data"
+	Write-Output "Enabling Error reporting Send Additional Data..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "DontSendAdditionalData" -ErrorAction SilentlyContinue
 }
 

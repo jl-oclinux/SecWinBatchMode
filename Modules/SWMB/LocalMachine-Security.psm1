@@ -342,7 +342,7 @@ Function TweakEnableASLR { # RESINFO
 
 # View
 Function TweakViewASLR { # RESINFO
-	Write-Output 'ASLR (Address Space Layout Randomisation) (not exist - enable, 0 disable)'
+	Write-Output "ASLR (Address Space Layout Randomisation) (not exist - enable, 0 disable)..."
 	$Path = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"
 		If ((Get-ItemProperty $Path -Name "MoveImages" -ea 0)."MoveImages" -ne $null) {
 			Get-ItemProperty -Path $Path -Name "MoveImages"
@@ -357,7 +357,7 @@ Function TweakViewASLR { # RESINFO
 # https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-workstationservice-allowinsecureguestauth
 # Enable
 Function TweakEnableInsecureGuestLogons { # RESINFO
-	Write-Output "SMB client will allow insecure guest logons to an SMB server"
+	Write-Output "SMB client will allow insecure guest logons to an SMB server..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Force | Out-Null
 	}
@@ -366,7 +366,7 @@ Function TweakEnableInsecureGuestLogons { # RESINFO
 
 # Disable (default)
 Function TweakDisableInsecureGuestLogons { # RESINFO
-	Write-Output "SMB client rejects insecure guest logons to an SMB server (default)"
+	Write-Output "SMB client rejects insecure guest logons to an SMB server (default)..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -ErrorAction SilentlyContinue
 }
 
@@ -390,7 +390,7 @@ Function TweakEnableAutoloadDriver { # RESINFO
 
 # View
 Function TweakViewAutoloadDriver { # RESINFO
-	Write-Output 'Autoload driver from network (0 no or not exist - enable, 1 disable)'
+	Write-Output "Autoload driver from network (0 no or not exist - enable, 1 disable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork"
 }
 
@@ -582,7 +582,7 @@ Function TweakEnableUpgradesOnUnsupportedHard { # RESINFO
 
 # View
 Function TweakViewUpgradesOnUnsupportedHard { # RESINFO
-	Write-Output 'Windows 11 upgrades with unsupported hardware (0 no or not exist - disable, 1 enable)'
+	Write-Output "Windows 11 upgrades with unsupported hardware (0 no or not exist - disable, 1 enable)..."
 	If ([System.Environment]::OSVersion.Version.Build -ge 22000) {
 		Get-ItemProperty -Path 'HKLM:\SYSTEM\Setup\MoSetup' -Name 'AllowUpgradesWithUnsupportedTPMOrCPU'
 	} Else {
@@ -600,14 +600,14 @@ Function TweakViewUpgradesOnUnsupportedHard { # RESINFO
 
 # Disable
 Function TweakDisableAutoLogon { # RESINFO
-	Write-Output 'Disabling Windows AutoLogon'
+	Write-Output "Disabling Windows AutoLogon..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name "DefaultUserName" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name "AutoAdminLogon" -ErrorAction SilentlyContinue
 }
 
 # Enable
 Function TweakEnableAutoLogon { # RESINFO
-	Write-Output 'Enabling Windows AutoLogon'
+	Write-Output "Enabling Windows AutoLogon..."
 	If ([string]::IsNullOrEmpty($Global:SWMB_Custom.AutoLogon_UserName)) { Return }
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoAdminLogon' -Type DWord -Value 1 -Force
 	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name "DefaultUserName" -Type String -Value $Global:SWMB_Custom.AutoLogon_UserName -Force
@@ -615,13 +615,14 @@ Function TweakEnableAutoLogon { # RESINFO
 
 # View
 Function TweakViewAutoLogon { # RESINFO
+	Write-Output "Viewing Windows AutoLogon..."
 	Try {
 		Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'DefaultUserName' | Out-Null
 	} Catch {
-		Write-Output 'Windows AutoLogon not configured'
+		Write-Output ' Windows AutoLogon not configured'
 		Return
 	}
-	Write-Output 'Windows AutoLogon is enabled'
+	Write-Output ' Windows AutoLogon is enabled'
 	Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'DefaultUserName'
 	Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoAdminLogon' -ErrorAction SilentlyContinue
 }

@@ -17,6 +17,7 @@
 # https://silentinstallhq.com/etcher-silent-install-how-to-guide
 # Uninstall
 Function TweakUninstallBalenaEtcher_CU { # RESINFO
+	Write-Output "Uninstalling BalenaEtcher software for CU..."
 	$RefName = 'BalenaEtcher'
 	@(Get-ChildItem -Recurse "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -55,6 +56,7 @@ Function TweakUninstallBalenaEtcher_CU { # RESINFO
 # balenaEtcher 1.18.8  / 1.18.8         / d2f3b6c7-6f49-59e2-b8a5-f72e33900c2b / "C:\Users\xxxxxxxxx\AppData\Local\Programs\balena-etcher\Uninstall balenaEtcher.exe" /currentuser (C) Balena Ltd.
 # View
 Function TweakViewBalenaEtcher_CU { # RESINFO
+	Write-Output "Viewing BalenaEtcher software for CU..."
 	$RefName = 'BalenaEtcher'
 	@(Get-ChildItem -Recurse "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -77,6 +79,7 @@ Function TweakViewBalenaEtcher_CU { # RESINFO
 # https://silentinstallhq.com/telegram-desktop-silent-install-how-to-guide/
 # Uninstall
 Function TweakUninstallTelegram_CU { # RESINFO
+	Write-Output "Uninstalling Telegram software for CU..."
 	$RefName = 'Telegram'
 	@(Get-ChildItem -Recurse "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {
@@ -115,6 +118,7 @@ Function TweakUninstallTelegram_CU { # RESINFO
 # Telegram Desktop     / 4.9.9          / {53F49750-6209-4FBF-9CA8-7A333C87D1ED}_is1 / "C:\Users\xxxxxxxxx\AppData\Roaming\Telegram Desktop\unins000.exe" (C) Telegram FZ-LLC
 # View
 Function TweakViewTelegram_CU { # RESINFO
+	Write-Output "Viewing Telegram software for CU..."
 	$RefName = 'Telegram'
 	@(Get-ChildItem -Recurse "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall") |
 		ForEach {

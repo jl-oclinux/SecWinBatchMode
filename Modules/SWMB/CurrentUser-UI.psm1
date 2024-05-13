@@ -46,7 +46,7 @@ Function TweakEnableAeroShake_CU {
 
 # Disable accessibility keys prompts (Sticky keys, Toggle keys, Filter keys)
 Function TweakDisableAccessibilityKeys_CU {
-	Write-Output "Disabling accessibility keys prompts for CU..."
+	Write-Output "Disabling Accessibility Keys prompts for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\ToggleKeys" -Name "Flags" -Type String -Value "58"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\Keyboard Response" -Name "Flags" -Type String -Value "122"
@@ -54,7 +54,7 @@ Function TweakDisableAccessibilityKeys_CU {
 
 # Enable accessibility keys prompts (Sticky keys, Toggle keys, Filter keys)
 Function TweakEnableAccessibilityKeys_CU {
-	Write-Output "Enabling accessibility keys prompts for CU..."
+	Write-Output "Enabling Accessibility Keys prompts for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "510"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\ToggleKeys" -Name "Flags" -Type String -Value "62"
 	Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\Keyboard Response" -Name "Flags" -Type String -Value "126"
@@ -65,29 +65,29 @@ Function TweakEnableAccessibilityKeys_CU {
 # Show Task Manager details - Applicable since 1607
 # Although this functionality exist even in earlier versions, the Task Manager's behavior is different there and is not compatible with this tweak
 Function TweakShowTaskManagerDetails_CU {
-	Write-Output "Showing task manager details for CU..."
-	$taskmgr = Start-Process -WindowStyle Hidden -FilePath taskmgr.exe -PassThru
-	$timeout = 30000
-	$sleep = 100
+	Write-Output "Showing Task Manager details for CU..."
+	$TaskMGR = Start-Process -WindowStyle Hidden -FilePath taskmgr.exe -PassThru
+	$Timeout = 30000
+	$Sleep = 100
 	Do {
-		Start-Sleep -Milliseconds $sleep
-		$timeout -= $sleep
-		$preferences = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -ErrorAction SilentlyContinue
-	} Until ($preferences -or $timeout -le 0)
-	Stop-Process $taskmgr
-	If ($preferences) {
-		$preferences.Preferences[28] = 0
-		Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -Type Binary -Value $preferences.Preferences
+		Start-Sleep -Milliseconds $Sleep
+		$Timeout -= $Sleep
+		$Preferences = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -ErrorAction SilentlyContinue
+	} Until ($Preferences -or $Timeout -le 0)
+	Stop-Process $TaskMGR
+	If ($Preferences) {
+		$Preferences.Preferences[28] = 0
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -Type Binary -Value $Preferences.Preferences
 	}
 }
 
 # Hide Task Manager details - Applicable since 1607
 Function TweakHideTaskManagerDetails_CU {
-	Write-Output "Hiding task manager details for CU..."
-	$preferences = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -ErrorAction SilentlyContinue
-	If ($preferences) {
-		$preferences.Preferences[28] = 1
-		Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -Type Binary -Value $preferences.Preferences
+	Write-Output "Hiding Task Manager details for CU..."
+	$Preferences = Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -ErrorAction SilentlyContinue
+	If ($Preferences) {
+		$Preferences.Preferences[28] = 1
+		Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\TaskManager" -Name "Preferences" -Type Binary -Value $Preferences.Preferences
 	}
 }
 

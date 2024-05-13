@@ -166,23 +166,23 @@ Function TweakUninstallRealPlayer { # RESINFO
 	## Uninstall RealTimes Desktop Service
 	If (Test-Path -Path "${Env:ProgramFiles}\Real\RealPlayer\RPDS\uninst.exe") {
 		Write-Output "Uninstalling RealTimes Desktop Service."
-		Start-Process -FilePath "${Env:ProgramFiles}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		SWMB_RunExec -FilePath "${Env:ProgramFiles}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -Name "RealPlayer" -Timeout 300
 		Start-Sleep -Seconds 2
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe") {
 		Write-Output "Uninstalling RealTimes Desktop Service."
-		Start-Process -FilePath "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		SWMB_RunExec -FilePath "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -Name "RealPlayer" -Timeout 300
 		Start-Sleep -Seconds 2
 	}
 	## Uninstall RealUpgrade
 	If (Test-Path -Path "${Env:ProgramFiles}\Real\RealUpgrade\uninst.exe") {
 		Write-Output "Uninstalling Any Existing Versions of RealUpgrade."
-		Start-Process -FilePath "${Env:ProgramFiles}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		SWMB_RunExec -FilePath "${Env:ProgramFiles}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -Name "RealPlayer" -Timeout 300
 		Start-Sleep -Seconds 2
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe") {
 		Write-Output "Uninstalling Any Existing Versions of RealUpgrade."
-		Start-Process -FilePath "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -Wait
+		SWMB_RunExec -FilePath "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -Name "RealPlayer" -Timeout 300
 		Start-Sleep -Seconds 2
 	}
 	## Cleanup Start Menu Directory

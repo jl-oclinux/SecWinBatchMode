@@ -13,6 +13,7 @@ Tweaks have a better message at launch, clearly indicating the type of tweak the
 Correction of a gross error when launching a checkpoint (calling a function with the wrong name!).
 
 New presets/rules:
+* 2024/05/16 - `UninstallDELLBuiltInApps` -> Uninstall DELL Appx
 * 2024/05/09 - `EnableOffice2016AutoUpdate`/`DisableOffice2016AutoUpdate`/`ViewOffice2016AutoUpdate` -> Enable auto update for MS Office 2016 Click-To-Run installations
 * 2024/05/09 - `EnableOffice2013AutoUpdate`/`DisableOffice2013AutoUpdate`/`ViewOffice2013AutoUpdate` -> Enable auto update for MS Office 2013 Click-To-Run installations
 * 2024/04/10 - `DisableAutoLogon`/`EnableAutoLogon`/`ViewAutoLogon` -> Disable or Enable AutoLogon (`$Global:SWMB_Custom` key `AutoLogon_UserName`)

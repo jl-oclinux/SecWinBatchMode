@@ -77,4 +77,15 @@ $Global:SWMB_Custom = @{
 	# Use by tweak : EnableAutoLogon
 	# Inactive if empty
 	AutoLogon_UserName = ""
+
+	# DELL
+	DellAppx = @(
+		"DellInc.DellSupportAssistforPCs"
+		"DellInc.DellOptimizer"
+		#"DellInc.DellCommandUpdate"
+		"MSWP.DellTypeCStatus"
+		"DellInc.DellDigitalDelivery"
+		"PortraitDisplays.DellPremierColor"
+	)
+
 }

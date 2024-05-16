@@ -728,6 +728,42 @@ Function TweakViewAnyDesk { # RESINFO
 }
 
 ################################################################
+
+# DELL Appx
+# Uninstall
+Function TweakUninstallDELLBuiltInApps { # RESINFO
+	Write-Output "Uninstalling software DELL BuiltIn Apps..."
+
+	$InstalledPackages = Get-AppxPackage -AllUsers | Where-Object {($Global:SWMB_Custom.DellAppx -contains $_.Name)}
+	$ProvisionedPackages = Get-AppxProvisionedPackage -Online | Where-Object {($Global:SWMB_Custom.DellAppx -contains $_.DisplayName)}
+
+	# Remove appx provisioned packages - AppxProvisionedPackage
+	ForEach ($ProvPackage in $ProvisionedPackages) {
+		Write-Host -Object " Attempting to remove provisioned package: [$($ProvPackage.DisplayName)]..."
+		Try {
+			$Null = Remove-AppxProvisionedPackage -PackageName $ProvPackage.PackageName -Online -ErrorAction Stop
+			Write-Host -Object " Successfully removed provisioned package: [$($ProvPackage.DisplayName)]"
+		} Catch {
+			Write-Warning -Message " Failed to remove provisioned package: [$($ProvPackage.DisplayName)]"
+		}
+	}
+
+	# Remove appx packages - AppxPackage
+	ForEach ($AppxPackage in $InstalledPackages) {
+		Write-Host -Object " Attempting to remove Appx package: [$($AppxPackage.Name)]..."
+
+		Try {
+			$Null = Remove-AppxPackage -Package $AppxPackage.PackageFullName -AllUsers -ErrorAction Stop
+			Write-Host -Object " Successfully removed Appx package: [$($AppxPackage.Name)]"
+		} Catch {
+			Write-Warning -Message " Failed to remove Appx package: [$($AppxPackage.Name)]"
+		}
+	}
+}
+
+
+
+################################################################
 ###### Export Functions
 ################################################################
 

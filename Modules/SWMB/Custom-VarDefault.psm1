@@ -88,4 +88,23 @@ $Global:SWMB_Custom = @{
 		"PortraitDisplays.DellPremierColor"
 	)
 
+	# DELL applications (not appx)
+	# Get-package |  Where-Object {  $_.Name -match "dell"  } | Select Name
+	$DellPackage = @(
+	"Dell Display Manager 2.1"
+	"Dell Peripheral Manager"
+	"Dell Core Services"
+	"Dell Optimizer Core"
+	"Dell SupportAssist"
+	"Dell SupportAssist Remediation"
+	"Dell SupportAssist OS Recovery Plugin for Dell Update"
+	"Dell Optimizer"
+	"DellOptimizerUI"
+	"Dell Digital Delivery"
+	"Dell Digital Delivery Services"
+	#"Dell Command | Update for Windows Universal"
+	#"Intel(R) Connectivity Performance Suite for Dell"
+	#"Dell Touchpad"
+	)
+
 }

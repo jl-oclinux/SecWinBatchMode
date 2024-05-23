@@ -90,7 +90,7 @@ $Global:SWMB_Custom = @{
 
 	# DELL applications (not appx)
 	# Get-package |  Where-Object {  $_.Name -match "dell"  } | Select Name
-	$DellPackage = @(
+	DellPackage = @(
 	"Dell Display Manager 2.1"
 	"Dell Peripheral Manager"
 	"Dell Core Services"

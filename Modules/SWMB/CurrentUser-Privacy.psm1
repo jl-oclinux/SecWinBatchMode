@@ -164,6 +164,27 @@ Function TweakEnableWebLangList_CU {
 	Remove-ItemProperty -Path "HKCU:\Control Panel\International\User Profile" -Name "HttpAcceptLanguageOptOut" -ErrorAction SilentlyContinue
 }
 
+################################################################
+
+# Disable "Send Microsoft info about how I write to help us improve typing and writing in the future"
+# https://admx.help/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::ImproveTyping
+
+Function TweakDisableTypingRecognition_CU {
+	Write-Output "Don't send inking and typing data to Microsoft to improve the language recognition for CU..."
+	Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Input\TIPC" -Name "Enabled" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableTypingRecognition_CU {
+	Write-Output "Send inking and typing data to Microsoft to improve the language recognition for CU..."
+	Remove-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Input\TIPC" -Name "Enabled" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewTypingRecognition_CU {
+	Write-Output "View inking and typing data to Microsoft to improve the language recognition for CU (0:Disabled)..."
+	Get-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Input\TIPC" -Name "Enabled"
+}
 
 ################################################################
 ###### Export Functions

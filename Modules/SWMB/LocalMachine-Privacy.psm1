@@ -1071,7 +1071,33 @@ Function TweakEnableBluetoothAdvertising { # RESINFO
 
 Function TweakViewBluetoothAdvertising { # RESINFO
 	Write-Output "Bluetooth advertising (not exist - enable, 0 disable)..."
-	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -ErrorAction SilentlyContinue
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -Name "AllowAdvertising" -ErrorAction SilentlyContinue
+}
+
+
+################################################################
+
+# This policy setting allows backup and restore of cellular text messages to Microsoft's cloud services.
+# https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.Messaging::AllowMessageSync
+# Disable
+
+Function TweakDisablBakupMessages { # RESINFO
+	Write-Output "Disable backup of text messages into the cloud..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" -Name "AllowMessageSync" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableBakupMessages { # RESINFO
+	Write-Output "Enable backup of text messages into the cloud....."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" -Name "AllowMessageSync" -ErrorAction SilentlyContinue
+}
+
+Function TweakViewBakupMessages { # RESINFO
+	Write-Output "Backup of text messages into the cloud (not exist - enable, 0 disable)..."
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" -Name "AllowMessageSync" -ErrorAction SilentlyContinue
 }
 
 

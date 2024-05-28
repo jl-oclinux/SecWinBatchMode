@@ -1069,6 +1069,7 @@ Function TweakEnableBluetoothAdvertising { # RESINFO
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -Name "AllowAdvertising" -ErrorAction SilentlyContinue
 }
 
+# View
 Function TweakViewBluetoothAdvertising { # RESINFO
 	Write-Output "Bluetooth advertising (not exist - enable, 0 disable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -Name "AllowAdvertising" -ErrorAction SilentlyContinue
@@ -1081,7 +1082,7 @@ Function TweakViewBluetoothAdvertising { # RESINFO
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.Messaging::AllowMessageSync
 # Disable
 
-Function TweakDisablBakupMessages { # RESINFO
+Function TweakDisableBakupMessages { # RESINFO
 	Write-Output "Disable backup of text messages into the cloud..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" | Out-Null
@@ -1095,6 +1096,7 @@ Function TweakEnableBakupMessages { # RESINFO
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" -Name "AllowMessageSync" -ErrorAction SilentlyContinue
 }
 
+# View
 Function TweakViewBakupMessages { # RESINFO
 	Write-Output "Backup of text messages into the cloud (not exist - enable, 0 disable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" -Name "AllowMessageSync" -ErrorAction SilentlyContinue

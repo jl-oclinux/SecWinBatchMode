@@ -1071,7 +1071,7 @@ Function TweakEnableBluetoothAdvertising { # RESINFO
 
 Function TweakViewBluetoothAdvertising { # RESINFO
 	Write-Output "Bluetooth advertising (not exist - enable, 0 disable)..."
-	Get-ItemProperty $Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -ErrorAction SilentlyContinue
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -ErrorAction SilentlyContinue
 }
 
 

@@ -1013,6 +1013,7 @@ Function TweakEnableHandwritingRecognitionErrorReporting { # RESINFO
 # Telemetry
 # Configuration ordinateur / Modèles d'administration / Composants Windows /Antivirus Windows Defender / MAPS / Configurer une valeur de remplacement de paramètre locale pour l'envoi de rapports à Microsoft MAPS / Desactivé
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::Spynet_LocalSettingOverrideSpynetReporting&Language=fr-fr
+# Disable
 Function TweakDisableOverrideReportingMAPS { # RESINFO
 	Write-Output "Disabling override for reporting to Microsoft MAPS..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet")) {
@@ -1032,7 +1033,7 @@ Function TweakEnableOverrideReportingMAPS { # RESINFO
 # Telemetry
 # ANSSI Annexe A3
 # https://admx.help/?Category=Windows10_Telemetry&Policy=Microsoft.Policies.Win10Privacy::DontReportInfection
-
+# Disable
 Function TweakDisableMRTReportInfectionInformation { # RESINFO
 	Write-Output "Disabling Malicious Software Reporting tool diagnostic data..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT")) {
@@ -1047,14 +1048,11 @@ Function TweakEnableMRTReportInfectionInformation { # RESINFO
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontReportInfectionInformation" -ErrorAction SilentlyContinue
 }
 
-
-
 ################################################################
 
 # Bluetooth advertising
 # https://en.wikipedia.org/wiki/Bluetooth_advertising
 # Disable
-
 Function TweakDisableBluetoothAdvertising { # RESINFO
 	Write-Output "Disabling Bluetooth advertising..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\")) {
@@ -1071,19 +1069,17 @@ Function TweakEnableBluetoothAdvertising { # RESINFO
 
 # View
 Function TweakViewBluetoothAdvertising { # RESINFO
-	Write-Output "Bluetooth advertising (not exist - enable, 0 disable)..."
+	Write-Output "Viewing Bluetooth advertising (not exist - enable, 0 disable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -Name "AllowAdvertising" -ErrorAction SilentlyContinue
 }
-
 
 ################################################################
 
 # This policy setting allows backup and restore of cellular text messages to Microsoft's cloud services.
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.Messaging::AllowMessageSync
 # Disable
-
 Function TweakDisableBakupMessages { # RESINFO
-	Write-Output "Disable backup of text messages into the cloud..."
+	Write-Output "Disabling backup of text messages into the cloud..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" | Out-Null
 	}
@@ -1092,16 +1088,15 @@ Function TweakDisableBakupMessages { # RESINFO
 
 # Enable
 Function TweakEnableBakupMessages { # RESINFO
-	Write-Output "Enable backup of text messages into the cloud....."
+	Write-Output "Enabling backup of text messages into the cloud..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" -Name "AllowMessageSync" -ErrorAction SilentlyContinue
 }
 
 # View
 Function TweakViewBakupMessages { # RESINFO
-	Write-Output "Backup of text messages into the cloud (not exist - enable, 0 disable)..."
+	Write-Output "Viewing backup of text messages into the cloud (not exist - enable, 0 disable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Messaging\" -Name "AllowMessageSync" -ErrorAction SilentlyContinue
 }
-
 
 ################################################################
 ###### Export Functions

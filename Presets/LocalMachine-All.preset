@@ -54,6 +54,7 @@ DisableDiagnosticLogs                           # EnableDiagnosticLogs          
 DisableOneSettingsDownloads                     # EnableOneSettingsDownloads                    # ViewOneSettingsDownloads
 # DisableWindowsErrorReporting                  # EnableWindowsErrorReporting
 DisableSearchUseLocation                        # EnableSearchUseLocation                       # ViewSearchUseLocation         ## Search and Cortana are disallowed to use location
+DisableBluetoothAdvertising                     # EnableBluetoothAdvertising                    # ViewBluetoothAdvertising      ## Disable Advertisements via Bluetooth
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps

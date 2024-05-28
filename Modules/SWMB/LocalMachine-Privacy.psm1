@@ -1043,8 +1043,35 @@ Function TweakDisableMRTReportInfectionInformation { # RESINFO
 
 # Enable
 Function TweakEnableMRTReportInfectionInformation { # RESINFO
-	Write-Output "Disabling Malicious Software Reporting tool diagnostic data..."
+	Write-Output "Enabling Malicious Software Reporting tool diagnostic data..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\MRT" -Name "DontReportInfectionInformation" -ErrorAction SilentlyContinue
+}
+
+
+
+################################################################
+
+# Bluetooth advertising
+# https://en.wikipedia.org/wiki/Bluetooth_advertising
+# Disable
+
+Function TweakDisableBluetoothAdvertising { # RESINFO
+	Write-Output "Disabling Bluetooth advertising..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\")) {
+		New-Item -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -Name "AllowAdvertising" -Type DWord -Value 0
+}
+
+# Enable
+Function TweakEnableBluetoothAdvertising { # RESINFO
+	Write-Output "Enabling Bluetooth advertising..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -Name "AllowAdvertising" -ErrorAction SilentlyContinue
+}
+
+Function TweakViewBluetoothAdvertising { # RESINFO
+	Write-Output "Bluetooth advertising (not exist - enable, 0 disable)..."
+	Get-ItemProperty $Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device\Bluetooth\" -ErrorAction SilentlyContinue
 }
 
 

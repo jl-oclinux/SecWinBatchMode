@@ -423,6 +423,33 @@ Function TweakViewEdgeDoNtoTrack { # RESINFO
 
 ################################################################
 
+# https://admx.help/?Category=EdgeChromium&Policy=Microsoft.Policies.Edge::PersonalizationReportingEnabled
+# This policy prevents Microsoft from collecting a user's Microsoft Edge browsing history
+# Disable
+Function TweakDisableEdgeSendBrowsingHistory { # RESINFO
+	Write-Output "Disable sending browsing history to Microsoft..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "PersonalizationReportingEnabled" -Type DWord -Value 0
+}
+
+# Default
+# By default, Allow personalization of ads, search and news by sending browsing history to Microsoft
+Function TweakEnableEdgeSendBrowsingHistory { # RESINFO
+	Write-Output "Enable sending browsing history to Microsoft..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "PersonalizationReportingEnabled" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewEdgeSendBrowsingHistory { # RESINFO
+	Write-Output "Viewing Edge Configure Do Not Track (0:Disable sending browsing history to Microsoft, 1:Enable sending browsing history to Microsoft, error: Default )..."
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "PersonalizationReportingEnabled" -ErrorAction SilentlyContinue
+}
+
+
+################################################################
+
 # Disable built-in Adobe Flash in IE and Edge
 Function TweakDisableAdobeFlash {
 	Write-Output "Disabling built-in Adobe Flash in IE and Edge..."

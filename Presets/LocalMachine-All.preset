@@ -219,6 +219,7 @@ DisableEdgeShortcutCreation                     # EnableEdgeShortcutCreation
 EnableEdgeUpdate                                # DisableEdgeUpdate                             # ViewEdgeUpdate
 EnableEdgeClearCacheOnExit                      # DisableEdgeClearCacheOnExit                   # ViewEdgeClearCacheOnExit
 EnableEdgeDoNtoTrack                            # DisableEdgeDoNtoTrack                         # ViewEdgeDoNtoTrack
+DisableEdgeSendBrowsingHistory                  # EnableEdgeSendBrowsingHistory                 # ViewEdgeSendBrowsingHistory
 DisableIEFirstRun                               # EnableIEFirstRun
 DisableFirstLogonAnimation                      # EnableFirstLogonAnimation
 DisableMediaSharing                             # EnableMediaSharing

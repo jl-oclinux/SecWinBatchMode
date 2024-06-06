@@ -112,7 +112,7 @@ Function TweakUninstallDELLSoftware { # RESINFO
 	Write-Output " Uninstalling DELL Programs software..."
 	$InstalledPrograms = Get-Package -ProviderName Programs | Where-Object {$Global:SWMB_Custom.DellPackage -contains $_.Name}
 	$InstalledPrograms | ForEach-Object {
-		If (($_.Name -match "Dell SupportAssist OS Recovery Plugin for Dell Update") -Or ($_.Name -match "Dell Optimizer Core") -Or ($_.Name -match " Dell Optimizer Service")) {
+		If (($_.Name -match "Dell SupportAssist OS Recovery Plugin for Dell Update") -Or ($_.Name -match "Dell Optimizer Core") -Or ($_.Name -match " Dell Optimizer Service") -Or ($_.Name -match "Dell SupportAssist Remediation")) {
 			Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
 			Try {
 				$Uninstallarray = $_.metadata['uninstallstring'] -Split '"'

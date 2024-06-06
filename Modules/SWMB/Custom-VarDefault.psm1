@@ -95,16 +95,21 @@ $Global:SWMB_Custom = @{
 	"Dell Peripheral Manager"
 	"Dell Core Services"
 	"Dell Optimizer Core"
+	"Dell Optimizer Service"
+	"Dell Optimizer"
+	"DellOptimizerUI"
 	"Dell SupportAssist"
 	"Dell SupportAssist Remediation"
 	"Dell SupportAssist OS Recovery Plugin for Dell Update"
-	"Dell Optimizer"
-	"DellOptimizerUI"
 	"Dell Digital Delivery"
 	"Dell Digital Delivery Services"
+	"Dell Power Manager Service"
 	#"Dell Command | Update for Windows Universal"
 	#"Intel(R) Connectivity Performance Suite for Dell"
 	#"Dell Touchpad"
 	)
+
+
+
 
 }

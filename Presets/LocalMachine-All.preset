@@ -272,6 +272,7 @@ DisableWindowsCopilot                           # EnableWindowsCopilot          
 EnableOffice2013AutoUpdate                      # DisableOffice2013AutoUpdate                   # ViewOffice2013AutoUpdate
 EnableOffice2016AutoUpdate                      # DisableOffice2016AutoUpdate                   # ViewOffice2016AutoUpdate
 # UninstallDELLBuiltInApps
+# UninstallDELLSoftware
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

@@ -376,7 +376,7 @@ Function TweakEnableXboxFeatures {
 # Enable
 # Clear Edge cached images and files on exit
 Function TweakEnableEdgeClearCacheOnExit { # RESINFO
-	Write-Output "Clear Edge cache on exit..."
+	Write-Output "Enabling clear Edge cache on exit..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Force | Out-Null
 	}
@@ -386,7 +386,7 @@ Function TweakEnableEdgeClearCacheOnExit { # RESINFO
 # Disable - Default
 # Do not clear Edge cached images and files on exit
 Function TweakDisableEdgeClearCacheOnExit { # RESINFO
-	Write-Output "Don't clear Edge cache on exit..."
+	Write-Output "Disabling clear Edge cache on exit..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ClearCachedImagesAndFilesOnExit" -ErrorAction SilentlyContinue
 }
 
@@ -401,7 +401,7 @@ Function TweakViewEdgeClearCacheOnExit { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.MicrosoftEdge::AllowDoNotTrack
 # Enable Do Not Tracker
 Function TweakEnableEdgeDoNtoTrack { # RESINFO
-	Write-Output "Do Not Tracker requests are sent to websites asking for tracking info..."
+	Write-Output "Enabling Do Not Tracker requests are sent to websites asking for tracking info..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Force | Out-Null
 	}
@@ -411,7 +411,7 @@ Function TweakEnableEdgeDoNtoTrack { # RESINFO
 # Default
 # By default, Do Not Track requests aren't sent, but employees can choose to turn on and send requests
 Function TweakDisableEdgeDoNtoTrack { # RESINFO
-	Write-Output "Don't Configure Do Not Track..."
+	Write-Output "Disabling (don't Configure) Do Not Track..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\" -Name "ConfigureDoNotTrack" -ErrorAction SilentlyContinue
 }
 
@@ -543,7 +543,7 @@ Function TweakDisableIEFirstRun {
 
 # Enable Internet Explorer first run wizard
 Function TweakEnableIEFirstRun {
-	Write-Output "Disabling Internet Explorer first run wizard..."
+	Write-Output "Enabling Internet Explorer first run wizard..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -ErrorAction SilentlyContinue
 }
 

@@ -61,7 +61,7 @@ Function TweakEnableNetDevicesAutoInst {
 
 # Stop and disable Home Groups services - Not applicable since 1803. Not applicable to Server
 Function TweakDisableHomeGroups {
-	Write-Output "Stopping and disabling Home Groups services..."
+	Write-Output "Disabling and stopping Home Groups services..."
 	If (Get-Service "HomeGroupListener" -ErrorAction SilentlyContinue) {
 		Stop-Service "HomeGroupListener" -WarningAction SilentlyContinue
 		Set-Service "HomeGroupListener" -StartupType Disabled
@@ -74,7 +74,7 @@ Function TweakDisableHomeGroups {
 
 # Enable and start Home Groups services - Not applicable since 1803. Not applicable to Server
 Function TweakEnableHomeGroups {
-	Write-Output "Starting and enabling Home Groups services..."
+	Write-Output "Enabling and starting Home Groups services..."
 	Set-Service "HomeGroupListener" -StartupType Manual
 	Set-Service "HomeGroupProvider" -StartupType Manual
 	Start-Service "HomeGroupProvider" -WarningAction SilentlyContinue
@@ -462,7 +462,7 @@ Function TweakEnableJumboFrameOn10Gbps { # RESINFO
 
 # Disable
 Function TweakDisableJumboFrameOn10Gbps { # RESINFO
-	Write-Output "Enabling Jumbo Frame on 10Gbps interface..."
+	Write-Output "Disabling Jumbo Frame on 10Gbps interface..."
 	Get-NetAdapter | where { $_.LinkSpeed -eq "10 Gbps" } | Select InterfaceIndex | ForEach-Object {
 		Set-NetIPInterface -InterfaceIndex $_.InterfaceIndex -NlMtuBytes 1500
 	}

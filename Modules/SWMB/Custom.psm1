@@ -131,7 +131,7 @@ Function TweakUnsetAdminAccountLogin { # RESINFO
 ### Ne pas afficher le nom du dernier utilisateur
 # Enable
 Function TweakEnableDontDisplayLastUsername { # RESINFO
-	Write-Output "Ne pas afficher le dernier utilisateur..."
+	Write-Output "Enabling do not display last user..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
@@ -140,7 +140,7 @@ Function TweakEnableDontDisplayLastUsername { # RESINFO
 
 # Disable
 Function TweakDisableDontDisplayLastUsername { # RESINFO
-	Write-Output "Afficher le dernier utilisateur..."
+	Write-Output "Disabling do not display last user (see the last user)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
@@ -152,7 +152,7 @@ Function TweakDisableDontDisplayLastUsername { # RESINFO
 ### Verrouillage de la session : timeout de session
 # Enable
 Function TweakEnableSessionLockTimeout { # RESINFO
-	Write-Output "Définition du timeout de session..."
+	Write-Output "Enabling session timeout..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}
@@ -161,7 +161,7 @@ Function TweakEnableSessionLockTimeout { # RESINFO
 
 # Disable
 Function TweakDisableSessionLockTimeout { # RESINFO
-	Write-Output "Suppression du timeout de session..."
+	Write-Output "Disabling session timeout..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
 	}

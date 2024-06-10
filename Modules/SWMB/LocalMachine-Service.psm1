@@ -194,14 +194,14 @@ Function TweakEnableDefragmentation {
 
 # Stop and disable Superfetch service
 Function TweakDisableSuperfetch {
-	Write-Output "Stopping and disabling Superfetch service..."
+	Write-Output "Disabling and stopping Superfetch service..."
 	Stop-Service "SysMain" -WarningAction SilentlyContinue
 	Set-Service "SysMain" -StartupType Disabled
 }
 
 # Start and enable Superfetch service
 Function TweakEnableSuperfetch {
-	Write-Output "Starting and enabling Superfetch service..."
+	Write-Output "Enabling and starting Superfetch service..."
 	Set-Service "SysMain" -StartupType Automatic
 	Start-Service "SysMain" -WarningAction SilentlyContinue
 }
@@ -210,14 +210,14 @@ Function TweakEnableSuperfetch {
 
 # Stop and disable Windows Search indexing service
 Function TweakDisableIndexing {
-	Write-Output "Stopping and disabling Windows Search indexing service..."
+	Write-Output "Disabling and stopping Windows Search indexing service..."
 	Stop-Service "WSearch" -WarningAction SilentlyContinue
 	Set-Service "WSearch" -StartupType Disabled
 }
 
 # Start and enable Windows Search indexing service
 Function TweakEnableIndexing {
-	Write-Output "Starting and enabling Windows Search indexing service..."
+	Write-Output "Enabling and starting Windows Search indexing service..."
 	Set-Service "WSearch" -StartupType Automatic
 	Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\WSearch" -Name "DelayedAutoStart" -Type DWord -Value 1
 	Start-Service "WSearch" -WarningAction SilentlyContinue
@@ -393,7 +393,7 @@ Function TweakUnsetTargetRelease { # RESINFO
 
 # View
 Function TweakViewTargetRelease { # RESINFO
-	Write-Output "Target Release (nothing = no target release)..."
+	Write-Output "Viewing Target Release (nothing = no target release)..."
 	Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate' -Name "TargetReleaseVersionInfo" -ErrorAction SilentlyContinue
 }
 

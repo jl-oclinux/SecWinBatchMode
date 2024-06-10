@@ -117,7 +117,7 @@ Function TweakInstallOneDrive_CU { # RESINFO
 
 # View
 Function TweakViewOneDrive_CU { # RESINFO
-	Write-Output "View OneDrive product for CU..."
+	Write-Output "Viewing OneDrive product for CU..."
 	Get-ChildItem -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall' |
 		Get-ItemProperty |
 		Where-Object {$_.DisplayName -like 'Microsoft OneDrive*' } |

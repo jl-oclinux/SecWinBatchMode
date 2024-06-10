@@ -835,7 +835,7 @@ Function TweakDisableOsGeneratedReport { # RESINFO
 
 # Enable
 Function TweakEnableOsGeneratedReport { # RESINFO
-	Write-Output "Disabling (Turn On) OS-generated error reports..."
+	Write-Output "Enabling (Turn On) OS-generated error reports..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Windows Error Reporting" -Name "AutoApproveOSDumps" -ErrorAction SilentlyContinue
 }
 
@@ -876,7 +876,7 @@ Function TweakDisableAutomaticLearning { # RESINFO
 
 # Enable
 Function TweakEnableAutomaticLearning { # RESINFO
-	Write-Output "Disabling (Turn On) automatic learning..."
+	Write-Output "Enabling (Turn On) automatic learning..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\InputPersonalization")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\InputPersonalization" -Force | Out-Null
 	}
@@ -901,7 +901,7 @@ Function TweakDisableWindowsErrorReporting { # RESINFO
 
 # Enable
 Function TweakEnableWindowsErrorReporting { # RESINFO
-	Write-Output "Disabling (Turn On) Windows error reporting..."
+	Write-Output "Enabling (Turn On) Windows error reporting..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\ErrorReporting" -Name "DoReport" -ErrorAction SilentlyContinue
 }
 ################################################################
@@ -962,7 +962,7 @@ Function TweakDisableDidYouKnow { # RESINFO
 
 # Enable
 Function TweakEnableDidYouKnow { # RESINFO
-	Write-Output "Disabling (Turn On) Help and Support Center Did you know? content..."
+	Write-Output "Enabling (Turn On) Help and Support Center Did you know? content..."
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\PCHealth\HelpSvc" -Name "Headlines" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
@@ -983,7 +983,7 @@ Function TweakDisableHandwritingDataSharing { # RESINFO
 
 # Enable
 Function TweakEnableHandwritingDataSharing { # RESINFO
-	Write-Output "Disabling (Turn On) handwriting personalization data sharing..."
+	Write-Output "Enabling (Turn On) handwriting personalization data sharing..."
 	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\TabletPC" -Name "PreventHandwritingDataSharing" -Type DWord -Value 0 -ErrorAction SilentlyContinue
 }
 
@@ -1004,7 +1004,7 @@ Function TweakDisableHandwritingRecognitionErrorReporting { # RESINFO
 
 # Enable
 Function TweakEnableHandwritingRecognitionErrorReporting { # RESINFO
-	Write-Output "Disabling (Turn On) handwriting recognition error reporting..."
+	Write-Output "Enabling (Turn On) handwriting recognition error reporting..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\HandwritingErrorReports\" -Name "PreventHandwritingErrorReports" -ErrorAction SilentlyContinue
 }
 

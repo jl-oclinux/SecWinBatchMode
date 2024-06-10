@@ -336,13 +336,13 @@ Function TweakDisableASLR { # RESINFO
 
 # Enable
 Function TweakEnableASLR { # RESINFO
-	Write-Output "Disabling (Turn On) ASLR (Address Space Layout Randomisation)..."
+	Write-Output "Enabling (Turn On) ASLR (Address Space Layout Randomisation)..."
 	Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "MoveImages" -ErrorAction SilentlyContinue
 }
 
 # View
 Function TweakViewASLR { # RESINFO
-	Write-Output "ASLR (Address Space Layout Randomisation) (not exist - enable, 0 disable)..."
+	Write-Output "Viewing ASLR (Address Space Layout Randomisation) (not exist - enable, 0 disable)..."
 	$Path = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"
 		If ((Get-ItemProperty $Path -Name "MoveImages" -ea 0)."MoveImages" -ne $null) {
 			Get-ItemProperty -Path $Path -Name "MoveImages"
@@ -357,7 +357,7 @@ Function TweakViewASLR { # RESINFO
 # https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-workstationservice-allowinsecureguestauth
 # Enable
 Function TweakEnableInsecureGuestLogons { # RESINFO
-	Write-Output "SMB client will allow insecure guest logons to an SMB server..."
+	Write-Output "Enabling (allow) SMB client to use insecure guest logons to an SMB server..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation")) {
 		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Force | Out-Null
 	}
@@ -366,7 +366,7 @@ Function TweakEnableInsecureGuestLogons { # RESINFO
 
 # Disable (default)
 Function TweakDisableInsecureGuestLogons { # RESINFO
-	Write-Output "SMB client rejects insecure guest logons to an SMB server (default)..."
+	Write-Output "Disabling (reject) SMB client to use insecure guest logons to an SMB server (default)..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -ErrorAction SilentlyContinue
 }
 
@@ -390,7 +390,7 @@ Function TweakEnableAutoloadDriver { # RESINFO
 
 # View
 Function TweakViewAutoloadDriver { # RESINFO
-	Write-Output "Autoload driver from network (0 no or not exist - enable, 1 disable)..."
+	Write-Output "Viewing Autoload driver from network (0 no or not exist - enable, 1 disable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Device Metadata" -Name "PreventDeviceMetadataFromNetwork"
 }
 
@@ -401,13 +401,13 @@ Function TweakViewAutoloadDriver { # RESINFO
 
 # Disable
 Function TweakDisablePowershell2 { # RESINFO
-	Write-Output "Désactivation des anciennes versions de Powershell(2)..."
+	Write-Output "Disabling older versions of Powershell (version 2.0)..."
 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
 # Enable
 Function TweakEnablePowershell2 { # RESINFO
-	Write-Output "Activation des anciennes versions de Powershell(2)..."
+	Write-Output "Enabling older versions of Powershell (version 2.0)..."
 	Enable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 }
 
@@ -419,13 +419,13 @@ Function TweakEnablePowershell2 { # RESINFO
 
 # Disable
 # Function TweakDisableRemotePowershell { # RESINFO
-# 	Write-Output "Désactivation de l'utilisation de PowerShell à distance"
+# 	Write-Output "Disabling remote use of PowerShell"
 # 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 # }
 
 # Enable
 # Function TweakEnableRemotePowershell { # RESINFO
-# 	Write-Output "Activation de l'utilisation de PowerShell à distance"
+# 	Write-Output "Enabling remote use of PowerShell"
 # 	Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root
 # }
 
@@ -446,7 +446,7 @@ Function TweakDisableHybridSleep { # RESINFO
 
 # Enable
 Function TweakEnableHybridSleep { # RESINFO
-	Write-Output "Disabling (Turn On) hybrid sleep (plugged in and battery)..."
+	Write-Output "Enabling (Turn On) hybrid sleep (plugged in and battery)..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Power\PowerSettings\94ac6d29-73ce-41a6-809f-6363ba21b47e" -Force | Out-Null
 	}
@@ -582,7 +582,7 @@ Function TweakEnableUpgradesOnUnsupportedHard { # RESINFO
 
 # View
 Function TweakViewUpgradesOnUnsupportedHard { # RESINFO
-	Write-Output "Windows 11 upgrades with unsupported hardware (0 no or not exist - disable, 1 enable)..."
+	Write-Output "Viewing Windows 11 upgrades with unsupported hardware (0 no or not exist - disable, 1 enable)..."
 	If ([System.Environment]::OSVersion.Version.Build -ge 22000) {
 		Get-ItemProperty -Path 'HKLM:\SYSTEM\Setup\MoSetup' -Name 'AllowUpgradesWithUnsupportedTPMOrCPU'
 	} Else {
@@ -633,6 +633,7 @@ Function TweakViewAutoLogon { # RESINFO
 
 # Enable
 Function TweakEnableBitlocker { # RESINFO
+	# Write-Output "Enabling bitlocker on all drive..."
 	## PowerShell bitlocker commands
 	# https://docs.microsoft.com/en-us/powershell/module/bitlocker/?view=win10-ps
 
@@ -962,6 +963,7 @@ Function TweakEnableBitlocker { # RESINFO
 
 # Disable
 Function TweakDisableBitlocker { # RESINFO
+	Write-Output "Disabling bitlocker on all drive..."
 	$ListVolume = Get-volume | Where-Object { $_.DriveType -eq "Fixed" }
 	ForEach ($Volume in $ListVolume) {
 		If (!($Volume.DriveLetter)) { continue }

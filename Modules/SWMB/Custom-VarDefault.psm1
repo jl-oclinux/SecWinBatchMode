@@ -91,22 +91,22 @@ $Global:SWMB_Custom = @{
 	# DELL applications (not appx)
 	# Get-package |  Where-Object {  $_.Name -match "dell"  } | Select Name
 	DellPackage = @(
-	"Dell Display Manager 2.1"
-	"Dell Peripheral Manager"
-	"Dell Core Services"
-	"Dell Optimizer Core"
-	"Dell Optimizer Service"
-	"Dell Optimizer"
-	"DellOptimizerUI"
-	"Dell SupportAssist"
-	"Dell SupportAssist Remediation"
-	"Dell SupportAssist OS Recovery Plugin for Dell Update"
-	"Dell Digital Delivery"
-	"Dell Digital Delivery Services"
-	"Dell Power Manager Service"
-	#"Dell Command | Update for Windows Universal"
-	#"Intel(R) Connectivity Performance Suite for Dell"
-	#"Dell Touchpad"
+		"Dell Display Manager 2.1"
+		"Dell Peripheral Manager"
+		"Dell Core Services"
+		"Dell Optimizer Core"
+		"Dell Optimizer Service"
+		"Dell Optimizer"
+		"DellOptimizerUI"
+		"Dell SupportAssist"
+		"Dell SupportAssist Remediation"
+		"Dell SupportAssist OS Recovery Plugin for Dell Update"
+		"Dell Digital Delivery"
+		"Dell Digital Delivery Services"
+		"Dell Power Manager Service"
+		#"Dell Command | Update for Windows Universal"
+		#"Intel(R) Connectivity Performance Suite for Dell"
+		#"Dell Touchpad"
 	)
 
 

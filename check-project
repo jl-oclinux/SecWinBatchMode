@@ -220,3 +220,8 @@ grep -ih '^Function[[:space:]]Tweak' ${all_module} \
   | sort \
   | uniq -c \
   | grep -Ev '      (1|2) '
+
+# check code message
+ack -A1 '^Function TweakEnable'  | grep -Ev '(Function TweakEnable|"Enabling |--)'
+ack -A1 '^Function TweakDisable' | grep -Ev '(Function TweakDisable|"Disabling |--)'
+ack -A1 '^Function TweakView'    | grep -Ev '(Function TweakView|"Viewing |--)'

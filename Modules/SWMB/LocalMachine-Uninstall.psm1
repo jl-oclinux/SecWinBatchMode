@@ -18,6 +18,7 @@
 # Suppress Kaspersky Endpoint software
 # Uninstall
 Function TweakUninstallKasperskyEndpoint { # RESINFO
+	Write-Output "Uninstalling software Kaspersky Endpoint protection..."
 
 	Function _String2Hex00 {
 		Param (

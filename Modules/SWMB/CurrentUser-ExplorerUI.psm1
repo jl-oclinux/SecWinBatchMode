@@ -252,13 +252,13 @@ Function TweakShowRecentShortcuts_CU {
 
 # Change default Explorer view to This PC
 Function TweakSetExplorerThisPC_CU {
-	Write-Output "Changing default Explorer view to This PC for CU..."
+	Write-Output "Setting (changing) default Explorer view to This PC for CU..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
 }
 
 # Change default Explorer view to Quick Access
 Function TweakSetExplorerQuickAccess_CU {
-	Write-Output "Changing default Explorer view to Quick Access for CU..."
+	Write-Output "Setting (changing) default Explorer view to Quick Access for CU..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -ErrorAction SilentlyContinue
 }
 

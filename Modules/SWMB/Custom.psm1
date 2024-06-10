@@ -110,6 +110,7 @@ SWMB_ImportModuleParameter (Get-PSCallStack)[0].ScriptName
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégies locales / Options de sécurité
 # Set
 Function TweakSetAdminAccountLogin { # RESINFO
+	Write-Output "Setting Admin Account Login..."
 	$ComputerSID = ((Get-LocalUser | Select-Object -First 1).SID).AccountDomainSID.ToString()
 	$LocalAdminAccount = Get-LocalUser -SID "$ComputerSID-500" -ErrorAction SilentlyContinue
 	If ($LocalAdminAccount -And ($LocalAdminAccount.Name -ne $Global:SWMB_Custom.LocalAdminNameEffective)) {
@@ -119,6 +120,7 @@ Function TweakSetAdminAccountLogin { # RESINFO
 
 # Unset
 Function TweakUnsetAdminAccountLogin { # RESINFO
+	Write-Output "Unsetting Admin Account Login..."
 	$ComputerSID = ((Get-LocalUser | Select-Object -First 1).SID).AccountDomainSID.ToString()
 	$LocalAdminAccount = Get-LocalUser -SID "$ComputerSID-500" -ErrorAction SilentlyContinue
 	If ($LocalAdminAccount -And ($LocalAdminAccount.Name -ne $Global:SWMB_Custom.LocalAdminNameOriginal)) {
@@ -180,6 +182,7 @@ Function TweakDisableSessionLockTimeout { # RESINFO
 # Configuration ordinateur / Paramètres Windows / Paramètres de sécurité / Stratégie de comptes / Stratégie de mots de passe
 # Set
 Function TweakSetSecurityParamAccountPolicy { # RESINFO
+	Write-Output "Setting password strategy..."
 	$TempFile = New-TemporaryFile
 	$TempInfFile = "$TempFile.inf"
 
@@ -209,6 +212,7 @@ EnableGuestAccount = $($Global:SWMB_Custom.EnableGuestAccount)
 
 # Unset
 Function TweakUnsetSecurityParamAccountPolicy { # RESINFO
+	Write-Output "Unsetting password strategy..."
 	# Nécessite un reboot
 	secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb
 }
@@ -259,7 +263,7 @@ Function TweakSetWorkgroupName { # RESINFO
 
 # Unset
 Function TweakUnsetWorkgroupName { # RESINFO
-	Write-Output "Setting Workgroup Name to the default (WORKGROUP)..."
+	Write-Output "Unsetting Workgroup Name to the default (WORKGROUP)..."
 	If (!(Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
 		If ((Get-WmiObject -Class Win32_ComputerSystem).Workgroup -ne "WORKGROUP") {
 			Add-Computer -WorkgroupName "WORKGROUP"

@@ -148,7 +148,7 @@ Function TweakShowRecentlyAddedApps {
 # https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.StartMenu::NoFrequentUsedPrograms
 # Hide 'Most used' apps list from the Start Menu - Applicable until 1703 (hidden by default since then)
 Function TweakHideFrequentlyUsedProgramsList {
-	Write-Output "The frequently used programs list is removed from the Start menu..."
+	Write-Output "Hiding The frequently used programs list is removed from the Start menu..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
 		New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" | Out-Null
 	}
@@ -157,7 +157,7 @@ Function TweakHideFrequentlyUsedProgramsList {
 
 # Show frequently used programs list remains on the simple Start menu
 Function TweakShowFrequentlyUsedProgramsList {
-	Write-Output "The frequently used programs list remains on the simple Start menu..."
+	Write-Output "Showing The frequently used programs list remains on the simple Start menu..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoStartMenuMFUprogramsList" -ErrorAction SilentlyContinue
 }
 

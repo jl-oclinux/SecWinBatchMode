@@ -339,7 +339,7 @@ Function TweakEnableShortcutInName_CU {
 
 # Adjusts visual effects for performance - Disables animations, transparency etc. but leaves font smoothing and miniatures enabled
 Function TweakSetVisualFXPerformance_CU {
-	Write-Output "Adjusting visual effects for performance for CU..."
+	Write-Output "Setting (adjusting) visual effects for performance for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Type String -Value 0
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Type String -Value 0
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]](144,18,3,128,16,0,0,0))
@@ -354,7 +354,7 @@ Function TweakSetVisualFXPerformance_CU {
 
 # Adjusts visual effects for appearance
 Function TweakSetVisualFXAppearance_CU {
-	Write-Output "Adjusting visual effects for appearance for CU..."
+	Write-Output "Setting (adjusting) visual effects for appearance for CU..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Type String -Value 1
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Type String -Value 400
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]](158,30,7,128,18,0,0,0))

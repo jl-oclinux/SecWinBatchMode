@@ -723,7 +723,51 @@ Function TweakViewAnyDesk { # RESINFO
 			If ($DisplayName -match $RefName) {
 				$DisplayVersion = $App.DisplayVersion
 				$UninstallString = $App.UninstallString
-				Write-Output "$DisplayName / $DisplayVersion / $UninstallString"
+				Write-Output " $DisplayName / $DisplayVersion / $UninstallString"
+			}
+		}
+}
+
+################################################################
+
+# Suppress VMware Player
+# Uninstall
+Function TweakUninstallVMwarePlayer { # RESINFO
+	Write-Output "Uninstalling software VMware Player..."
+	$RefName = 'VMware Player'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If (!($DisplayName -match $RefName)) { Return }
+			$DisplayVersion = $App.DisplayVersion
+			$KeyProduct = $Key | Split-Path -Leaf
+
+			$Exe = 'MsiExec.exe'
+			$Args = '/x "' + $KeyProduct + '" /qn REBOOT=ReallySuppress REMOVE=ALL'
+			Write-Output " Uninstalling $DisplayName version $DisplayVersion"
+			Write-Output " Exe: $Exe $Args"
+			SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
+		}
+}
+
+# View
+Function TweakViewVMwarePlayer { # RESINFO
+	Write-Output "Viewing software VMware Player..."
+	$RefName = 'VMware Player'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match $RefName) {
+				$DisplayVersion = $App.DisplayVersion
+				$KeyProduct = $Key | Split-Path -Leaf
+				$UninstallString = $App.UninstallString
+				Write-Output " $DisplayName / $DisplayVersion / $KeyProduct / $UninstallString"
 			}
 		}
 }

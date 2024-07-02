@@ -32,12 +32,10 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		Return $TextHex
 	}
 
-	Write-Output "Uninstalling software Kaspersky Endpoint protection..."
-
 	# Remove Kaspersky Endpoint
 	$KesEndpoint = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky Endpoint Security*" }
 	If ($KesEndpoint.IdentifyingNumber) {
-		Write-Host "Uninstalling Kaspersky version $($KesEndpoint.Version) with GUID => $($KesEndpoint.IdentifyingNumber)"
+		Write-Host " Uninstalling Kaspersky version $($KesEndpoint.Version) with GUID => $($KesEndpoint.IdentifyingNumber)"
 		$EndpointPlainPassword=''
 		If ($($Global:SWMB_Custom.KesPassword)) {
 			If (($($Global:SWMB_Custom.KesKeyFile)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
@@ -64,15 +62,15 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			$MSIEndpointArguments += "/l*vx `"$($Global:SWMB_Custom.KesLogFile)`""
 		}
 		Start-Process "MsiExec.exe" -ArgumentList $MSIEndpointArguments -Wait -NoNewWindow
-		Write-Host "Uninstall finish"
+		Write-Host " Uninstall finish"
 	} Else {
-		Write-Host "Kaspersky Endpoint is not installed on this computer"
+		Write-Host " Kaspersky Endpoint is not installed on this computer"
 	}
 
 	# Remove Kaspersky Agent, French GUID = {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
 	$KesAgent = Get-WmiObject win32_product | Where { $_.Name -like "*Agent*Kaspersky Security Center*" }
 	If ($KesAgent.IdentifyingNumber) {
-		Write-Output "Uninstalling Agent Kaspersky Security Center $($KesAgent.Version) with GUID => $($KesAgent.IdentifyingNumber)"
+		Write-Output " Uninstalling Agent Kaspersky Security Center $($KesAgent.Version) with GUID => $($KesAgent.IdentifyingNumber)"
 		$AgentPlainPassword=''
 		If ($($Global:SWMB_Custom.KesAgentPass)) {
 			If (($($Global:SWMB_Custom.KesKeyFile)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
@@ -100,7 +98,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		Start-Process "MsiExec.exe" -ArgumentList $MSIAgentArguments -Wait -NoNewWindow
 		}
 	Else {
-		Write-Host "Kaspersky Agent Security Center is not installed on this computer "
+		Write-Host " Kaspersky Agent Security Center is not installed on this computer "
 	}
 }
 
@@ -114,11 +112,11 @@ Function TweakUninstallKasperskyConsole { # RESINFO
 	# Remove Kaspersky Console, French GUID = {5D35D57A-30B9-493B-819F-C6C2181A0A1A}
 	$KesConsole = Get-WmiObject win32_product | Where { $_.Name -like "*Console*Kaspersky Security Center*" }
 	If ($KesConsole.IdentifyingNumber) {
-		Write-Output "Uninstalling Console Kaspersky Security Center..."
+		Write-Output " Uninstalling Console Kaspersky Security Center..."
 		Start-Process "MsiExec.exe" -ArgumentList "/X $($KesConsole.IdentifyingNumber) /qn" -Wait -NoNewWindow
-		Write-Host "Uninstall finish"
+		Write-Host " Uninstall finish"
 	} Else {
-		Write-Host "Kaspersky Console is not installed on this computer"
+		Write-Host " Kaspersky Console is not installed on this computer"
 	}
 }
 
@@ -130,7 +128,7 @@ Function TweakViewKasperskyProduct { # RESINFO
 	Write-Output "Viewing all Kaspersky products..."
 	# Warning if another Kaspersky is still installed on the computer
 	Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky*" } | ForEach-Object {
-		Write-Host "Note: Product $($_.IdentifyingNumber) is installed: $($_.Name)"
+		Write-Host " Note: Product $($_.IdentifyingNumber) is installed: $($_.Name)"
 	}
 }
 ################################################################
@@ -158,7 +156,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 			$Exe = $UninstallSplit[0] + 'exe'
 			$Args = '"' + $UninstallSplit[1].Trim() + '"' + ' -s'
 			If (Test-Path -Path "$Exe") {
-				Write-Output "Uninstalling RealPlayer version $VersionMajor.$VersionMinor"
+				Write-Output " Uninstalling RealPlayer version $VersionMajor.$VersionMinor"
 				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "RealPlayer" -Timeout 300
 			}
 			Start-Sleep -Seconds 2
@@ -166,46 +164,46 @@ Function TweakUninstallRealPlayer { # RESINFO
 
 	## Uninstall RealTimes Desktop Service
 	If (Test-Path -Path "${Env:ProgramFiles}\Real\RealPlayer\RPDS\uninst.exe") {
-		Write-Output "Uninstalling RealTimes Desktop Service."
+		Write-Output " Uninstalling RealTimes Desktop Service."
 		SWMB_RunExec -FilePath "${Env:ProgramFiles}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -Name "RealPlayer" -Timeout 300
 		Start-Sleep -Seconds 2
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe") {
-		Write-Output "Uninstalling RealTimes Desktop Service."
+		Write-Output " Uninstalling RealTimes Desktop Service."
 		SWMB_RunExec -FilePath "${Env:ProgramFiles(x86)}\Real\RealPlayer\RPDS\uninst.exe" -ArgumentList "-s" -Name "RealPlayer" -Timeout 300
 		Start-Sleep -Seconds 2
 	}
 	## Uninstall RealUpgrade
 	If (Test-Path -Path "${Env:ProgramFiles}\Real\RealUpgrade\uninst.exe") {
-		Write-Output "Uninstalling Any Existing Versions of RealUpgrade."
+		Write-Output " Uninstalling Any Existing Versions of RealUpgrade."
 		SWMB_RunExec -FilePath "${Env:ProgramFiles}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -Name "RealPlayer" -Timeout 300
 		Start-Sleep -Seconds 2
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe") {
-		Write-Output "Uninstalling Any Existing Versions of RealUpgrade."
+		Write-Output " Uninstalling Any Existing Versions of RealUpgrade."
 		SWMB_RunExec -FilePath "${Env:ProgramFiles(x86)}\Real\RealUpgrade\uninst.exe" -ArgumentList "-s" -Name "RealPlayer" -Timeout 300
 		Start-Sleep -Seconds 2
 	}
 	## Cleanup Start Menu Directory
 	If (Test-Path -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\Real\") {
-		Write-Output "Removing RealPlayer Start Menu Entry."
+		Write-Output " Removing RealPlayer Start Menu Entry."
 		Remove-Item -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\Real\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 2
 	}
 	## Cleanup ProgramData Directory
 	If (Test-Path -Path "${Env:AllUsersProfile}\Real\") {
-		Write-Output "Removing Existing Real ProgramData Directory."
+		Write-Output " Removing Existing Real ProgramData Directory."
 		Remove-Item -Path "${Env:AllUsersProfile}\Real\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 1
 	}
 	## Cleanup RealPlayer Directories
 	If (Test-Path -Path "${Env:ProgramFiles}\Real\") {
-		Write-Output "Cleanup ${Env:ProgramFiles}\Real\ Directory."
+		Write-Output " Cleanup ${Env:ProgramFiles}\Real\ Directory."
 		Remove-Item -Path "${Env:ProgramFiles}\Real\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 1
 	}
 	If (Test-Path -Path "${Env:ProgramFiles(x86)}\Real\") {
-		Write-Output "Cleanup ${Env:ProgramFiles(x86)}\Real\ Directory."
+		Write-Output " Cleanup ${Env:ProgramFiles(x86)}\Real\ Directory."
 		Remove-Item -Path "${Env:ProgramFiles(x86)}\Real\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 1
 	}
@@ -214,7 +212,7 @@ Function TweakUninstallRealPlayer { # RESINFO
 		$UserHomePath = $_
 		ForEach ($UserCleanItem in "$UserHomePath\AppData\Local\Real", "$UserHomePath\AppData\Roaming\Real") {
 			If (Test-Path -Path "$UserCleanItem") {
-				Write-Output "Cleanup ($UserCleanItem) Directory."
+				Write-Output " Cleanup ($UserCleanItem) Directory."
 				Remove-Item -Path "$UserCleanItem" -Force -Recurse -ErrorAction SilentlyContinue
 			}
 		}
@@ -238,7 +236,7 @@ Function TweakUninstallWinRAR { # RESINFO
 			$Exe = $App.UninstallString
 			$Args = '/S'
 			If (Test-Path -Path "$Exe") {
-				Write-Output "Uninstalling WinRAR version $VersionMajor.$VersionMinor"
+				Write-Output " Uninstalling WinRAR version $VersionMajor.$VersionMinor"
 				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "WinRAR" -Timeout 300
 			}
 			Start-Sleep -Seconds 2
@@ -246,7 +244,7 @@ Function TweakUninstallWinRAR { # RESINFO
 
 	## Cleanup Start Menu Directory
 	If (Test-Path -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\WinRAR\") {
-		Write-Output "Removing WinRAR Start Menu Entry."
+		Write-Output " Removing WinRAR Start Menu Entry."
 		Remove-Item -Path "${Env:ProgramData}\Microsoft\Windows\Start Menu\Programs\WinRAR\" -Force -Recurse -ErrorAction SilentlyContinue
 		Start-Sleep -Seconds 2
 	}
@@ -256,7 +254,7 @@ Function TweakUninstallWinRAR { # RESINFO
 		$UserHomePath = $_
 		ForEach ($UserCleanItem in "$UserHomePath\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\WinRAR") {
 			If (Test-Path -Path "$UserCleanItem") {
-				Write-Output "Cleanup ($UserCleanItem) Directory."
+				Write-Output " Cleanup ($UserCleanItem) Directory."
 				Remove-Item -Path "$UserCleanItem" -Force -Recurse -ErrorAction SilentlyContinue
 			}
 		}
@@ -288,7 +286,7 @@ Function TweakUninstallTotalCommander { # RESINFO
 				$Exe = $UninstallSplit[1].Trim()
 				$Args = '/7'
 				If (Test-Path -Path "$Exe") {
-					Write-Output "Uninstalling Total Commander version $DisplayVersion / $Exe $Args"
+					Write-Output " Uninstalling Total Commander version $DisplayVersion / $Exe $Args"
 					SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "TotalCommander" -Timeout 300
 				}
 				Start-Sleep -Seconds 1
@@ -309,7 +307,7 @@ Function TweakViewTotalCommander { # RESINFO
 				$DisplayVersion = $App.DisplayVersion
 				$UninstallSplit = $App.UninstallString -Split '"'
 				$Exe = $UninstallSplit[1].Trim()
-				Write-Output "$DisplayName / $DisplayVersion / $Exe"
+				Write-Output " $DisplayName / $DisplayVersion / $Exe"
 			}
 		}
 }
@@ -342,7 +340,7 @@ Function TweakUninstallAvast { # RESINFO
 					(Get-Content $StatsIni) | ForEach-Object { $_ -replace "\[Common\]", "[Common]`nSilentUninstallEnabled=1" } | Set-Content $StatsIni
 				}
 
-				Write-Output "Uninstalling Avast Antivirus version $VersionMajor.$VersionMinor"
+				Write-Output " Uninstalling Avast Antivirus version $VersionMajor.$VersionMinor"
 				# Ok but UI (without UI if SYSTEM account)
 				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "Avast Antivirus" -Timeout 300
 				Start-Sleep -Seconds 2
@@ -371,7 +369,7 @@ Function TweakUninstallOpenOffice { # RESINFO
 				$KeyProduct = $Key | Split-Path -Leaf
 				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
 
-				Write-Output "Uninstalling OpenOffice version $VersionMajor.$VersionMinor"
+				Write-Output " Uninstalling OpenOffice version $VersionMajor.$VersionMinor"
 				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "OpenOffice" -Timeout 300
 			}
 		}
@@ -397,7 +395,7 @@ Function TweakUninstallGlassWire { # RESINFO
 			$Exe = $Exe.Trim('"')
 			$Args = '/S'
 			If (Test-Path -Path "$Exe") {
-				Write-Output "Uninstalling GlassWire version $Version"
+				Write-Output " Uninstalling GlassWire version $Version"
 				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "GlassWire" -Timeout 300
 			}
 			Start-Sleep -Seconds 1
@@ -424,7 +422,7 @@ Function TweakUninstallEdgeWebView2 { # RESINFO
 				$Exe = $UninstallSplit[0] + 'exe"'
 				$Args = '--uninstall --msedgewebview --system-level --force-uninstall'
 
-				Write-Output "Uninstalling Microsoft Edge WebView2 Runtime version $DisplayVersion"
+				Write-Output " Uninstalling Microsoft Edge WebView2 Runtime version $DisplayVersion"
 				# Write-Output " $Exe $Args"
 				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "Edge WebView2" -Timeout 300
 			}
@@ -443,7 +441,7 @@ Function TweakViewEdgeWebView2 { # RESINFO
 			If ($DisplayName -match 'Microsoft Edge WebView2 Runtime') {
 				$DisplayVersion = $App.DisplayVersion
 				$UninstallString = $App.UninstallString
-				Write-Output "Microsoft Edge WebView2 Runtime: $DisplayVersion / $UninstallString"
+				Write-Output " Microsoft Edge WebView2 Runtime: $DisplayVersion / $UninstallString"
 			}
 		}
 }
@@ -470,7 +468,7 @@ Function TweakUninstallGoogleToolbar { # RESINFO
 				$Exe = $UninstallSplit[0] + 'exe"'
 				$Args = '/uninstall /S'
 
-				Write-Output "Uninstalling $RefName version $DisplayVersion"
+				Write-Output " Uninstalling $RefName version $DisplayVersion"
 				# Write-Output " $Exe $Args"
 				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
 			}
@@ -490,7 +488,7 @@ Function TweakViewGoogleToolbar { # RESINFO
 			If ($DisplayName -match $RefName) {
 				$DisplayVersion = $App.DisplayVersion
 				$UninstallString = $App.UninstallString
-				Write-Output "${RefName}: $DisplayVersion / $UninstallString"
+				Write-Output " ${RefName}: $DisplayVersion / $UninstallString"
 			}
 		}
 }
@@ -518,8 +516,8 @@ Function TweakUninstallNovaPDF { # RESINFO
 			$UninstallSplit = $UninstallString -Split "exe"
 			$Exe = $UninstallSplit[0] + 'exe"'
 			$Args = '/uninstall /quiet'
-			Write-Output "Uninstalling $DisplayName version $DisplayVersion"
-			Write-Output "Exe: $Exe $Args"
+			Write-Output " Uninstalling $DisplayName version $DisplayVersion"
+			Write-Output " Exe: $Exe $Args"
 			SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
 		}
 }
@@ -537,7 +535,7 @@ Function TweakViewNovaPDF { # RESINFO
 			If ($DisplayName -match $RefName) {
 				$DisplayVersion = $App.DisplayVersion
 				$UninstallString = $App.UninstallString
-				Write-Output "$DisplayName / $DisplayVersion / $UninstallString"
+				Write-Output " $DisplayName / $DisplayVersion / $UninstallString"
 			}
 		}
 }
@@ -669,12 +667,12 @@ Function TweakUninstallHPBloatware { # RESINFO
 	$InstalledPrograms = Get-Package | Where-Object {$UninstallPrograms -contains $_.Name}
 	$InstalledPrograms | ForEach-Object {
 
-	Write-Host -Object "Attempting to uninstall: [$($_.Name)]..."
+	Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
 	Try {
 		$Null = $_ | Uninstall-Package -AllVersions -Force -ErrorAction Stop
-		Write-Host -Object "Successfully uninstalled: [$($_.Name)]"
+		Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
 	} Catch {
-		Write-Warning -Message "Failed to uninstall: [$($_.Name)]"}
+		Write-Warning -Message " Failed to uninstall: [$($_.Name)]"}
 	}
 }
 
@@ -704,8 +702,8 @@ Function TweakUninstallAnyDesk { # RESINFO
 				$Args = '--silent --remove'
 			}
 
-			Write-Output "Uninstalling $DisplayName version $DisplayVersion"
-			Write-Output "Exe: $Exe $Args"
+			Write-Output " Uninstalling $DisplayName version $DisplayVersion"
+			Write-Output " Exe: $Exe $Args"
 			SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
 		}
 }

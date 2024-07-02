@@ -273,6 +273,7 @@ EnableOffice2013AutoUpdate                      # DisableOffice2013AutoUpdate   
 EnableOffice2016AutoUpdate                      # DisableOffice2016AutoUpdate                   # ViewOffice2016AutoUpdate
 # UninstallDELLBuiltInApps
 # UninstallDELLSoftware
+# UninstallVMwarePlayer                                                                         # ViewVMwarePlayer
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

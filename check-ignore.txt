@@ -17,3 +17,4 @@ InstallBalenaEtcher_CU
 InstallTelegram_CU
 InstallDELLBuiltInApps
 InstallDELLSoftware
+InstallVMwarePlayer

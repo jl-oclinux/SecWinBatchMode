@@ -13,6 +13,7 @@ Tweaks have a better message at launch, clearly indicating the type of tweak the
 Correction of a gross error when launching a checkpoint (calling a function with the wrong name!).
 
 New presets/rules:
+* 2024/07/02 - `UninstallVMwarePlayer`/`ViewVMwarePlayer` -> Uninstall VMware Player
 * 2024/06/05 - `DisableEdgeSendBrowsingHistory`/`EnableEdgeSendBrowsingHistory`/`ViewEdgeSendBrowsingHistory` -> Disable sending browsing history to Microsoft
 * 2024/05/28 - `DisableBackupMessages`/`EnableBackupMessages`/`ViewBackupMessages` -> Disable backup and restore of cellular text messages to Microsoft's cloud services
 * 2024/05/28 - `DisableBluetoothAdvertising`/`EnableBluetoothAdvertising`/`ViewBluetoothAdvertising` -> Disable Advertisements via Bluetooth

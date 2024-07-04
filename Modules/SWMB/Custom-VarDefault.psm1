@@ -24,7 +24,7 @@ $Global:SWMB_Custom = @{
 
 	# SessionLockTimeout
 	# Use by tweak: EnableSessionLockTimeout, DisableSessionLockTimeout
-	InactivityTimeoutSecs  = 1200
+	InactivityTimeoutSecs  = 900 # max 900 seconds
 
 	# SecurityParamAccountPolicy
 	# Use by tweak: SetSecurityParamAccountPolicy

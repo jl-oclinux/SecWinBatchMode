@@ -152,6 +152,10 @@ Function TweakDisableDontDisplayLastUsername { # RESINFO
 ################################################################
 
 ### Verrouillage de la session : timeout de session
+# https://www.stigviewer.com/stig/windows_server_2012_member_server/2014-01-07/finding/V-36773
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut
+# https://www.groovypost.com/howto/make-windows-10-lock-automatically-after-a-set-amount-of-inactivity/
+# max InactivityTimeoutSecs = 900 !
 # Enable
 Function TweakEnableSessionLockTimeout { # RESINFO
 	Write-Output "Enabling session timeout..."

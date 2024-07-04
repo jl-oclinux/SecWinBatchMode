@@ -22,10 +22,10 @@ Example of simple use under GNU/Linux.
 
         # download
         wget --no-check-certificate --timestamping https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/SWMB-WAPT-Latest.zip
-        
+        #
         # unzip
         unzip SWMB-WAPT-Latest.zip
-        
+        #
         # push on wapt server
         wapt-get build-upload swmb
 

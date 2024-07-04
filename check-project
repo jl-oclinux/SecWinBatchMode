@@ -235,3 +235,6 @@ ack -A1 '^Function TweakUnset'     | grep -Ev '(Function TweakUnset|"Unsetting |
 ack -A1 '^Function TweakView'      | grep -Ev '(Function TweakView|"Viewing |^--)'
 ack -A1 '^Function TweakPin'       | grep -Ev '(Function TweakPin|"Pinning |^--)'
 ack -A1 '^Function TweakUnpin'     | grep -Ev '(Function TweakUnpin|"Unpinning |^--)'
+
+ack -l --ignore-dir=tmp --ignore-file=ext:bat --ignore-file=ext:ps1 --ignore-file=ext:psm1 --ignore-file=ext:psd1 --ignore-file=ext:nsi '\s+$'
+ack -l --ignore-dir=tmp '\s+\r$'

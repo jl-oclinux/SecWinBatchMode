@@ -666,7 +666,7 @@ Function TweakUninstallHPBloatware { # RESINFO
 		#"HP Wolf Security Application Support for Windows"
 	)
 
-	$InstalledPrograms = Get-Package | Where-Object {$UninstallPrograms -contains $_.Name}
+	$InstalledPrograms = Get-Package -ProviderName msi | Where-Object {$UninstallPrograms -contains $_.Name}
 	$InstalledPrograms | ForEach-Object {
 
 	Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."

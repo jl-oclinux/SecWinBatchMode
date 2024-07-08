@@ -569,7 +569,7 @@ Function TweakUninstallHPWolfSecurity { # RESINFO
 				$VersionMinor = $App.VersionMinor
 				$KeyProduct = $Key | Split-Path -Leaf
 				$Args = '/quiet /qn /norestart /x ' + '"' + "$KeyProduct" + '"'
-
+				$Exe = 'MsiExec.exe'
 				Write-Output " Uninstalling $DisplayName version $DisplayVersion"
 				SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$DisplayName" -Timeout 300
 			}

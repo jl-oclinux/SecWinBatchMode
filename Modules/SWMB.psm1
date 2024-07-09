@@ -331,7 +331,7 @@ Function SWMB_MakeCkeckpoint() {
 ################################################################
 
 # Return OS version with build and UBR monthly version
-Function SWMB_OSVersion {
+Function SWMB_GetOSVersion {
   $Major = [System.Environment]::OSVersion.Version.Major
   $Minor = [System.Environment]::OSVersion.Version.Minor
   $Build = [System.Environment]::OSVersion.Version.Build

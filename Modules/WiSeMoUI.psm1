@@ -100,6 +100,50 @@ Function SWMB_GetBitLockerStatus {
 }
 
 ################################################################
+
+# Return OS version in a readable format
+Function SWMB_GetOSVersionReadable {
+  $OSVersion = SWMB_GetOSVersion
+  $DisplayVersion = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name DisplayVersion).DisplayVersion
+  $UBR = $OSVersion.Revision
+  If ($OSVersion -ge [version]"10.0.22000.0") {
+    $Text = "Windows 11 $DisplayVersion.$UBR"
+  } ElseIf ($OSVersion -ge [version]"10.0.10240.0") {
+    $Text = "Windows 10 $DisplayVersion.$UBR"
+  } Else {
+    $Text = "Windows version unknown"
+  }
+  Return $Text
+}
+
+################################################################
+
+# Return OS version in a readable format
+Function SWMB_GetOSVersionColor {
+  $OSVersion = SWMB_GetOSVersion
+  $Build = $OSVersion.Build
+  $UBR = $OSVersion.Revision
+
+  # Last OS revision
+  $UBR10 = 4529
+  $UBR11 = 2211
+
+  $Color = "PaleVioletRed"
+  If ($OSVersion -ge [version]"10.0.22000.0") {
+    # Windows 11
+    If ($OSVersion -ge [version]"10.0.22631.$UBR11") {
+      $Color = "PaleGreen"
+      }
+  } ElseIf ($OSVersion -ge [version]"10.0.10240.0") {
+    # Windows 10
+    If ($OSVersion -ge [version]"10.0.19045.$UBR10") {
+      $Color = "PaleGreen"
+      }
+  }
+  Return $Color
+}
+
+################################################################
 ###### Export Functions
 ################################################################
 

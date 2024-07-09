@@ -126,7 +126,7 @@ Function SWMB_GetOSVersionColor {
 
   # Last OS revision
   $UBR10 = 4529
-  $UBR11 = 2211
+  $UBR11 = 3810
 
   $Color = "Red"
   If ($OSVersion -ge [version]"10.0.22000.0") {

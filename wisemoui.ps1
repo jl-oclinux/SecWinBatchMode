@@ -252,8 +252,8 @@ $OSColor = SWMB_GetOSVersionColor
 $BtnOSVersion = New-Object System.Windows.Forms.label
 $BtnOSVersion.Location = New-Object System.Drawing.Size(30,350)
 $BtnOSVersion.Width = 230
-$BtnOSVersion.Height = 20
-$BtnOSVersion.BackColor = "$OSColor"
+$BtnOSVersion.Height = 15
+$BtnOSVersion.ForeColor = "$OSColor"
 $BtnOSVersion.Text = "OS: $OSVersion"
 $Form.Controls.Add($BtnOSVersion)
 

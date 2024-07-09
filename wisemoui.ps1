@@ -46,7 +46,7 @@ If ($Uptime.Days -ne 0) {
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 $Form = New-Object System.Windows.Forms.Form
-$Form.ClientSize = '550,370'
+$Form.ClientSize = '550,390'
 $Form.Text = "SWMB: Secure Windows Mode Batch / $UptimeStr"
 
 # Logo
@@ -246,11 +246,22 @@ $BtnHost.BackColor = "Transparent"
 $BtnHost.Text = "Host: $Env:ComputerName`n`nId: $HostId"
 $Form.Controls.Add($BtnHost)
 
+# OS Version
+$OSVersion = SWMB_GetOSVersionReadable
+$OSColor = SWMB_GetOSVersionColor
+$BtnOSVersion = New-Object System.Windows.Forms.label
+$BtnOSVersion.Location = New-Object System.Drawing.Size(30,350)
+$BtnOSVersion.Width = 230
+$BtnOSVersion.Height = 20
+$BtnOSVersion.BackColor = "$OSColor"
+$BtnOSVersion.Text = "OS: $OSVersion"
+$Form.Controls.Add($BtnOSVersion)
+
 # Host features Frame
 $BtnVersionFrame = New-Object System.Windows.Forms.GroupBox
 $BtnVersionFrame.Location = New-Object System.Drawing.Size(20,240)
 $BtnVersionFrame.Width = 250
-$BtnVersionFrame.Height = 115
+$BtnVersionFrame.Height = 135
 $BtnVersionFrame.Text = "Host features"
 $Form.Controls.Add($BtnVersionFrame)
 

@@ -666,8 +666,9 @@ Function TweakUninstallHPBloatware { # RESINFO
 		#"HP Wolf Security Application Support for Windows"
 	)
 
-	$InstalledPrograms = Get-Package -ProviderName msi | Where-Object {$UninstallPrograms -contains $_.Name}
-	$InstalledPrograms | ForEach-Object {
+# msi soft
+	$InstalledMsi = Get-Package -ProviderName msi | Where-Object {$UninstallPrograms -contains $_.Name}
+	$InstalledMsi | ForEach-Object {
 
 	Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
 	Try {
@@ -676,6 +677,22 @@ Function TweakUninstallHPBloatware { # RESINFO
 	} Catch {
 		Write-Warning -Message " Failed to uninstall: [$($_.Name)]"}
 	}
+
+# program soft
+	$InstalledPrograms | ForEach-Object {
+		If ($_.Name -match "HP Connection Optimizer") {
+			Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
+			Try {
+				$Uninstallarray = $_.metadata['uninstallstring'] -Split '"'
+				$Exe = $Uninstallarray[1].Trim()
+				$arguments=$Uninstallarray[2].Trim()
+				$arguments = $arguments+ " -s"
+				(Start-Process "$Exe" -ArgumentList $arguments -NoNewWindow -Wait -PassThru).ExitCode
+				Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
+			} Catch {
+				Write-Warning -Message " Failed to uninstall: [$($_.Name)]"
+			}
+		}
 }
 
 ################################################################

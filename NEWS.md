@@ -11,6 +11,11 @@ Tweaks have a better message at launch, clearly indicating the type of tweak the
 (Enable, Disable, Set, Unistall...).
 
 Correction of a gross error when launching a checkpoint (calling a function with the wrong name!).
+The hash function has also been updated to take into account the UBR (Revision) version of the OS
+(a number that changes regularly following the big monthly update).
+
+The `wisemoui.ps1` graphical interface has been updated.
+OS version is now shown in color.
 
 New presets/rules:
 * 2024/07/02 - `UninstallVMwarePlayer`/`ViewVMwarePlayer` -> Uninstall VMware Player

@@ -314,8 +314,12 @@ Function SWMB_MakeCkeckpoint() {
 		$HashPrev = Get-Content -Path $Path
 	}
 
-	$Build = [System.Environment]::OSVersion.Version.Build # Windows version
-	$Text = "BuildOSVersion-" + $Build + "/" + ($Global:SWMB_Tweaks -Join '/')
+	# Windows build version
+	$Build = [System.Environment]::OSVersion.Version.Build
+	# Windows monthly subversion
+	$UBR = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name UBR).UBR
+	# String to Hash
+	$Text = "BuildOSVersion-" + $Build + "-" + $UBR + "/" + ($Global:SWMB_Tweaks -Join '/')
 	$HashNext = _String2Sha256 -Text $Text
 	# Checkpoint when OS version change or tweak list change
 	If ($HashNext -ne $HashPrev) {

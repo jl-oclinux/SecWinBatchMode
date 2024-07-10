@@ -94,7 +94,9 @@ $Global:SWMB_Custom = @{
 	# Get-package |  Where-Object {  $_.Name -match "dell"  } | Select Name
 	DellPackage = @(
 		"Dell Display Manager 2.1"
+		"Dell Display Manager 2.2"
 		"Dell Peripheral Manager"
+		"Dell Trusted Device Agent"
 		"Dell Core Services"
 		"Dell Optimizer Core"
 		"Dell Optimizer Service"

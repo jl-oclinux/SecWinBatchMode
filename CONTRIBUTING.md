@@ -312,9 +312,9 @@ Function TweakDisableSomeFeature {
 
 ## Windows builds overview
 
-See also - https://learn.microsoft.com/fr-fr/windows/release-health/release-information
-
 * See [Windows 11 version history](https://en.wikipedia.org/wiki/Windows_11_version_history)
+
+  See also release information (last UBR) - https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information
 
   | Version |        Code name        |      Release date      | Build |
   | :-----: | ----------------------- | ---------------------- | :---: |
@@ -323,6 +323,8 @@ See also - https://learn.microsoft.com/fr-fr/windows/release-health/release-info
   |  23H2   | Sun Valley 3            | October 31, 2023       | 22631 |
 
 * See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_version_history)
+
+  See also release information (last UBR) - https://learn.microsoft.com/fr-fr/windows/release-health/release-information
 
   | Version |        Code name        |     Marketing name     | Build |
   | :-----: | ----------------------- | ---------------------- | :---: |

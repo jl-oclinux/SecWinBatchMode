@@ -92,14 +92,14 @@ Function TweakSetPendingReboot { # RESINFO
 
 ################################################################
 
-Function TweakUninstallDELLSoftware { # RESINFO
-	Write-Output "Uninstalling software DELL..."
+Function TweakUninstallDellSoftware { # RESINFO
+	Write-Output "Uninstalling software Dell..."
 
 	# msi soft
-	Write-Output " Uninstalling DELL MSI software..."
+	Write-Output " Uninstalling Dell MSI software..."
 	$InstalledMsi = Get-Package -ProviderName msi | Where-Object {$Global:SWMB_Custom.DellPackage -contains $_.Name}
 	$InstalledMsi | ForEach-Object {
-		Write-Host -Object " Attempting to uninstall this msi DELL package: [$($_.Name)]..."
+		Write-Host -Object " Attempting to uninstall this msi Dell package: [$($_.Name)]..."
 		Try {
 			$Null = $_ | Uninstall-Package -AllVersions -Force -ErrorAction Stop
 			Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
@@ -109,7 +109,7 @@ Function TweakUninstallDELLSoftware { # RESINFO
 	}
 
 	# program soft
-	Write-Output " Uninstalling DELL Programs software..."
+	Write-Output " Uninstalling Dell Programs software..."
 	$InstalledPrograms = Get-Package -ProviderName Programs | Where-Object {$Global:SWMB_Custom.DellPackage -contains $_.Name}
 	$InstalledPrograms | ForEach-Object {
 		If (($_.Name -match "Dell SupportAssist OS Recovery Plugin for Dell Update") -Or ($_.Name -match "Dell Optimizer Core") -Or ($_.Name -match " Dell Optimizer Service") -Or ($_.Name -match "Dell SupportAssist Remediation")) {

@@ -791,10 +791,10 @@ Function TweakViewVMwarePlayer { # RESINFO
 
 ################################################################
 
-# DELL Appx
+# Dell Appx
 # Uninstall
-Function TweakUninstallDELLBuiltInApps { # RESINFO
-	Write-Output "Uninstalling software DELL BuiltIn Apps..."
+Function TweakUninstallDellBuiltInApps { # RESINFO
+	Write-Output "Uninstalling software Dell BuiltIn Apps..."
 
 	$InstalledPackages = Get-AppxPackage -AllUsers | Where-Object {($Global:SWMB_Custom.DellAppx -contains $_.Name)}
 	$ProvisionedPackages = Get-AppxProvisionedPackage -Online | Where-Object {($Global:SWMB_Custom.DellAppx -contains $_.DisplayName)}

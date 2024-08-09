@@ -15,6 +15,6 @@ InstallNovaPDF
 InstallAnyDesk
 InstallBalenaEtcher_CU
 InstallTelegram_CU
-InstallDELLBuiltInApps
-InstallDELLSoftware
+InstallDellBuiltInApps
+InstallDellSoftware
 InstallVMwarePlayer

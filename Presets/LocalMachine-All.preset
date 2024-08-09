@@ -271,8 +271,8 @@ DisableWindowsCopilot                           # EnableWindowsCopilot          
 # UninstallAnyDesk                                                                              # ViewAnyDesk
 EnableOffice2013AutoUpdate                      # DisableOffice2013AutoUpdate                   # ViewOffice2013AutoUpdate
 EnableOffice2016AutoUpdate                      # DisableOffice2016AutoUpdate                   # ViewOffice2016AutoUpdate
-# UninstallDELLBuiltInApps
-# UninstallDELLSoftware
+# UninstallDellBuiltInApps
+# UninstallDellSoftware
 # UninstallVMwarePlayer                                                                         # ViewVMwarePlayer
 
 ### Server Specific Tweaks ###

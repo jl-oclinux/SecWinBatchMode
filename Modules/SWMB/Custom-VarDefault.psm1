@@ -78,8 +78,8 @@ $Global:SWMB_Custom = @{
 	# Inactive if empty
 	AutoLogon_UserName = ""
 
-	# DELL Builtin Apps
-	# Use by tweak : UninstallDELLBuiltInApps
+	# Dell Builtin Apps
+	# Use by tweak : UninstallDellBuiltInApps
 	DellAppx = @(
 		"DellInc.DellSupportAssistforPCs"
 		"DellInc.DellOptimizer"
@@ -89,9 +89,9 @@ $Global:SWMB_Custom = @{
 		"PortraitDisplays.DellPremierColor"
 	)
 
-	# DELL Software (not Appx)
-	# Use by tweak : UninstallDELLSoftware
-	# Get-package |  Where-Object {  $_.Name -match "dell"  } | Select Name
+	# Dell Software (not Appx)
+	# Use by tweak : UninstallDellSoftware
+	# Get-package |  Where-Object {  $_.Name -match "Dell"  } | Select Name
 	DellPackage = @(
 		"Dell Display Manager 2.1"
 		"Dell Display Manager 2.2"

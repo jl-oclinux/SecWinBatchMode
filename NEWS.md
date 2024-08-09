@@ -23,8 +23,8 @@ New presets/rules:
 * 2024/05/28 - `DisableBackupMessages`/`EnableBackupMessages`/`ViewBackupMessages` -> Disable backup and restore of cellular text messages to Microsoft's cloud services
 * 2024/05/28 - `DisableBluetoothAdvertising`/`EnableBluetoothAdvertising`/`ViewBluetoothAdvertising` -> Disable Advertisements via Bluetooth
 * 2024/05/27 - `DisableTypingRecognition_CU`/`DisableTypingRecognition_CU`/`DisableTypingRecognition_CU` -> Don't send inking and typing data to Microsoft to improve the language recognition
-* 2024/05/16 - `UninstallDELLSoftware` -> Uninstall DELL MSI or Setup.exe software
-* 2024/05/16 - `UninstallDELLBuiltInApps` -> Uninstall DELL Appx
+* 2024/05/16 - `UninstallDellSoftware` -> Uninstall Dell MSI or Setup.exe software
+* 2024/05/16 - `UninstallDellBuiltInApps` -> Uninstall Dell Appx
 * 2024/05/09 - `EnableOffice2016AutoUpdate`/`DisableOffice2016AutoUpdate`/`ViewOffice2016AutoUpdate` -> Enable auto update for MS Office 2016 Click-To-Run installations
 * 2024/05/09 - `EnableOffice2013AutoUpdate`/`DisableOffice2013AutoUpdate`/`ViewOffice2013AutoUpdate` -> Enable auto update for MS Office 2013 Click-To-Run installations
 * 2024/04/10 - `DisableAutoLogon`/`EnableAutoLogon`/`ViewAutoLogon` -> Disable or Enable AutoLogon (`$Global:SWMB_Custom` key `AutoLogon_UserName`)

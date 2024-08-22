@@ -93,7 +93,7 @@ Function TweakEnableSMB1Protocol { # RESINFO
 	Write-Output "Enabling SMB 1.0 protocol..."
 	Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
 }
- 
+
 Function TweakViewSMB1Protocol { # RESINFO
 	Write-Output "Viewing SMB 1.0 protocol..."
 	Get-WindowsOptionalFeature -Online | Where-Object {$_.FeatureName -match 'SMB1'}

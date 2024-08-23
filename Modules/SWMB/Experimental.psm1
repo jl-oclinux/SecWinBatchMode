@@ -61,7 +61,7 @@ Function TweakViewClearPageFile { # RESINFO
 	#	Try {
 	#		$Util = [wmiclass]"\\.\root\ccm\clientsdk:CCM_ClientUtilities"
 	#		$Status = $Util.DetermineIfRebootPending()
-	#		if(($Status -ne $Null) -and $Status.RebootPending){
+	#		If (($Status -ne $Null) -and $Status.RebootPending) {
 	#			return $True
 	#		}
 	#	} Catch {}

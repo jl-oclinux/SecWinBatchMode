@@ -748,7 +748,6 @@ Function TweakEnableBitlocker { # RESINFO
 
 			$Letter = $Volume.DriveLetter
 			$LetterColon = $Letter + ":"
-			#If (Test-Path $Letter){
 			$cryptDrive = Read-Host -Prompt "The $Letter drive is not removable and hosts a file system. Do you want to enable encryption on this drive? [Y/n]"
 			If ($cryptDrive.ToLower() -eq "n") { continue }
 
@@ -951,7 +950,7 @@ Function TweakEnableBitlocker { # RESINFO
 		Return
 	}
 
-	If (!(Get-Eventlog -LogName Application -Source "SWMB")){
+	If (!(Get-Eventlog -LogName Application -Source "SWMB")) {
 		New-EventLog -LogName Application -Source "SWMB"
 	}
 

@@ -57,31 +57,32 @@ Function TweakViewPrintForSystem { # RESINFO
 # http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-40444
 # https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-40444
 # Microsoft MSHTML Remote Code Execution Vulnerability
+# Disable
 Function TweakDisableMSHTMLActiveX { # RESINFO
 	Write-Output "Disabling ActiveX in MSHTML (CVE-2021-40444)..."
-	For ($zone = 0 ; $zone -le 3 ; $zone++){
-		If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone")) {
-			New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Force | Out-Null
+	For ($Zone = 0 ; $Zone -le 3 ; $Zone++) {
+		If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$Zone")) {
+			New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$Zone" -Force | Out-Null
 		}
-		Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1001" -Type DWord -Value 00000003
-		Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1004" -Type DWord -Value 00000003
+		Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$Zone" -Name "1001" -Type DWord -Value 00000003
+		Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$Zone" -Name "1004" -Type DWord -Value 00000003
 	}
 }
 
 # Enable
 Function TweakEnableMSHTMLActiveX { # RESINFO
 	Write-Output "Enabling ActiveX in MSHTML (CVE-2021-40444)..."
-	For ($zone = 0 ; $zone -le 3 ; $zone++){
-		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1001" -ErrorAction SilentlyContinue
-		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone" -Name "1004" -ErrorAction SilentlyContinue
+	For ($Zone = 0 ; $Zone -le 3 ; $Zone++) {
+		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$Zone" -Name "1001" -ErrorAction SilentlyContinue
+		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$Zone" -Name "1004" -ErrorAction SilentlyContinue
 	}
 }
 
 # View
 Function TweakViewMSHTMLActiveX { # RESINFO
 	Write-Output "Viewing ActiveX in MSHTML (not exist - enable, 3 disable)..."
-	For ($zone = 0 ; $zone -le 3 ; $zone++){
-		$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$zone"
+	For ($Zone = 0 ; $Zone -le 3 ; $Zone++) {
+		$path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\$Zone"
 		If ((Get-ItemProperty $path -Name "1001" -ea 0)."1001" -ne $null) {
 			Get-ItemProperty -Path $path -Name "1001"
 		} Else {

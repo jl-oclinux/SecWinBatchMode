@@ -92,6 +92,12 @@ Function TweakDisableSMB1Protocol { # RESINFO
 Function TweakEnableSMB1Protocol { # RESINFO
 	Write-Output "Enabling SMB 1.0 protocol..."
 	Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
+	If ((Get-WindowsOptionalFeature -Online | Where-Object {$_.FeatureName -match 'SMB1' -And $_.State -eq 'Enabled'} | Measure-Object).Count -lt 4) {
+		# Under some Windows 11, need to restart sometime
+		Write-Output " Warning: Not all SMB 1.0 features are enabled. Stop and start the SMB feature."
+		Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
+		Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -Norestart
+		}
 }
 
 Function TweakViewSMB1Protocol { # RESINFO

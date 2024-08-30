@@ -403,7 +403,8 @@ Function TweakViewTargetRelease { # RESINFO
 # which will be used in webhooks, for example, to uniquely identify each host
 # We could also use the GUID at HKLM:\SYSTEM\HardwareConfig that seems to be unique
 #  HKLM:\SYSTEM\HardwareConfig\{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}
-#  HKLM:\SYSTEM\HardwareConfig\Current
+#  HKLM:\SYSTEM\HardwareConfig LastConfig {XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}
+#  (Get-CimInstance -Class Win32_ComputerSystemProduct).UUID
 
 # Enable
 Function TweakEnableSWMBUniqueId { # RESINFO

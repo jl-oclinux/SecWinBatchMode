@@ -48,7 +48,11 @@ Function SWMB_GetDownloadURL {
 ################################################################
 
 Function SWMB_GetHostId {
-	Return (Get-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId' -ErrorAction SilentlyContinue).HostId
+	$HostId = (Get-ItemProperty -Path 'HKLM:\Software\WOW6432Node\SWMB' -Name 'HostId' -ErrorAction SilentlyContinue).HostId
+	If ($HostId) {
+		Return $HostId.ToUpper()
+	}
+	Return (Get-CimInstance -Class Win32_ComputerSystemProduct).UUID.ToUpper()
 }
 
 ################################################################

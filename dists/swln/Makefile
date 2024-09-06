@@ -91,6 +91,7 @@ ocs: all
 	@echo "Message:  yes"
 	@echo "Delay:    5"
 	@echo "Report:   yes"
+	@echo "Sha1sum:  $$(shasum -a 1 tmp/SWMB-Setup-$(SWMB_VERSION).exe | cut -f 1 -d ' ') - $$(date '+%Y/%m/%d %H:%M') SWMB-Setup-$(SWMB_VERSION).exe"
 	@echo ""
 	@echo "$(IT_Team)"
 	@echo " --- "

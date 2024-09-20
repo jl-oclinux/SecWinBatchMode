@@ -252,28 +252,12 @@ RemoveFaxPrinter                                # AddFaxPrinter
 # DisableWindowsStoreAccess                     # EnableWindowsStoreAccess
 # EnablePrivateStoreOnly                        # DisablePrivateStoreOnly
 # EnableVisualStudioCache                       # DisableVisualStudioCache                      # ViewVisualStudioCache
-# UninstallAvast ## Beta
-# UninstallRealPlayer
-# UninstallWinRAR
-# UninstallOpenOffice
-# UninstallTotalCommander                                                                       # ViewTotalCommander
-# UninstallGlassWire
-# UninstallEdgeWebView2                                                                         # ViewEdgeWebView2
-# UninstallGoogleToolbar                                                                        # ViewGoogleToolbar
 EnableStorageSense                              # DisableStorageSense                           # ViewStorageSense
 EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup                # ViewStorageSenseTempCleanup
 # EnableStorageSenseTrashCleanup                # DisableStorageSenseTrashCleanup               # ViewStorageSenseTrashCleanup
-# UninstallHPWolfSecurity                                                                       # ViewHPWolfSecurity
-# UninstallHPBuiltInApps
-# UninstallHPBloatware
 DisableWindowsCopilot                           # EnableWindowsCopilot                          # ViewWindowsCopilot
-# UninstallNovaPDF                                                                              # ViewNovaPDF
-# UninstallAnyDesk                                                                              # ViewAnyDesk
 EnableOffice2013AutoUpdate                      # DisableOffice2013AutoUpdate                   # ViewOffice2013AutoUpdate
 EnableOffice2016AutoUpdate                      # DisableOffice2016AutoUpdate                   # ViewOffice2016AutoUpdate
-# UninstallDellBuiltInApps
-# UninstallDellSoftware
-# UninstallVMwarePlayer                                                                         # ViewVMwarePlayer
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin
@@ -304,6 +288,21 @@ EnableOffice2016AutoUpdate                      # DisableOffice2016AutoUpdate   
 # SysMessage
 
 ### Tweaks that needs to be classified ###
-# EnableStorageSense                            # DisableStorageSense                           # ViewStorageSense
-# EnableStorageSenseTempCleanup                 # DisableStorageSenseTempCleanup                # ViewStorageSenseTempCleanup
-# EnableStorageSenseTrashCleanup                # DisableStorageSenseTrashCleanup               # ViewStorageSenseTrashCleanup
+
+### Uninstall Application only Tweaks ###
+# UninstallAvast ## Beta
+# UninstallRealPlayer
+# UninstallWinRAR
+# UninstallOpenOffice
+# UninstallTotalCommander                                                                       # ViewTotalCommander
+# UninstallGlassWire
+# UninstallEdgeWebView2                                                                         # ViewEdgeWebView2
+# UninstallGoogleToolbar                                                                        # ViewGoogleToolbar
+# UninstallHPWolfSecurity                                                                       # ViewHPWolfSecurity
+# UninstallHPBuiltInApps
+# UninstallHPBloatware
+# UninstallNovaPDF                                                                              # ViewNovaPDF
+# UninstallAnyDesk                                                                              # ViewAnyDesk
+# UninstallDellBuiltInApps
+# UninstallDellSoftware
+# UninstallVMwarePlayer                                                                         # ViewVMwarePlayer

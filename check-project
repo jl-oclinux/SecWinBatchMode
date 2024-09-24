@@ -1,6 +1,8 @@
 #!/bin/bash
 #
-# 2020/06/11 Gabriel Moreau
+# check-project
+#
+# 2020/06/11 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
 
 # Detect Windows File with no CRLF line terminator

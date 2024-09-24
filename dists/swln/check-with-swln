@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# check-with-swln
+#
+# 2024/09/24 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+
+SWMB_HOME=${HOME}/resinfo/swmb
+while [ ! -d "${SWMB_HOME}" ]
+do
+  read -p "Enter path to the SWMB project: " SWMB_HOME
+done
+
+
+for f in check-with-swln install.bat installer.ps1 Makefile post-install-01reg.bat pre-install-01copy.bat uninstall.bat extend-rules.mk extend-variables.mk
+do
+  cmp -s ${f} ${SWMB_HOME}/dists/swln/${f} || meld ${f} ${SWMB_HOME}/dists/swln/${f}
+done
+
+cmp -s LocalMachine-Boot.preset        ${SWMB_HOME}/Presets/LocalMachine-All.preset || meld LocalMachine-Boot.preset        ${SWMB_HOME}/Presets/LocalMachine-All.preset
+cmp -s LocalMachine-PostInstall.preset ${SWMB_HOME}/Presets/LocalMachine-All.preset || meld LocalMachine-PostInstall.preset ${SWMB_HOME}/Presets/LocalMachine-All.preset
+cmp -s CurrentUser-Logon.preset        ${SWMB_HOME}/Presets/CurrentUser-All.preset  || meld CurrentUser-Logon.preset        ${SWMB_HOME}/Presets/CurrentUser-All.preset

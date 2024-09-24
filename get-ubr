@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# get-ubr
+#
+# 2024/09/24 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+
+UBR10=$(curl -s -L 'https://learn.microsoft.com/fr-fr/windows/release-health/release-information' \
+	| grep -A5 'Canal de disponibilité générale' \
+	| grep -E '^<td>[[:digit:]][[:digit:]]*\.[[:digit:]][[:digit:]]*</td>' \
+	| cut -f 2 -d '.' \
+	| cut -f 1 -d '<' \
+	| head -1)
+
+UBR11=$(curl -s -L 'https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information' \
+	| grep -A5 'Canal de disponibilité générale' \
+	| grep -E '^<td>[[:digit:]][[:digit:]]*\.[[:digit:]][[:digit:]]*</td>' \
+	| cut -f 2 -d '.' \
+	| cut -f 1 -d '<' \
+	| head -1)
+
+# echo "UBR10: ${UBR10}"
+
+cat << END
+\$UBR10 = ${UBR10} # https://learn.microsoft.com/fr-fr/windows/release-health/release-information
+\$UBR11 = ${UBR11} # https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information
+END

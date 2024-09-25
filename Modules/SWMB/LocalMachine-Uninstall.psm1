@@ -679,14 +679,43 @@ Function TweakUninstallHPBloatware { # RESINFO
 	}
 
 	# Program soft
+	$InstalledPrograms = Get-Package -ProviderName programs | Where-Object {$UninstallPrograms -contains $_.Name}
 	$InstalledPrograms | ForEach-Object {
 		If ($_.Name -match "HP Connection Optimizer") {
 			Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
 			Try {
+				# need a iss file for silent uninstall see https://www.reddit.com/r/PowerShell/comments/mwdrvb/hp_connection_optimizer_silent_uninstall/
+				$optimizerUninstallAnswer = @"
+					[InstallShield Silent]
+					Version=v7.00
+					File=Response File
+					[File Transfer]
+					OverwrittenReadOnly=NoToAll
+					[{6468C4A5-E47E-405F-B675-A70A70983EA6}-DlgOrder]
+					Dlg0={6468C4A5-E47E-405F-B675-A70A70983EA6}-SdWelcomeMaint-0
+					Count=3
+					Dlg1={6468C4A5-E47E-405F-B675-A70A70983EA6}-MessageBox-0
+					Dlg2={6468C4A5-E47E-405F-B675-A70A70983EA6}-SdFinishReboot-0
+					[{6468C4A5-E47E-405F-B675-A70A70983EA6}-SdWelcomeMaint-0]
+					Result=303
+					[{6468C4A5-E47E-405F-B675-A70A70983EA6}-MessageBox-0]
+					Result=6
+					[Application]
+					Name=HP Connection Optimizer
+					Version=2.0.18.0
+					Company=HP Inc.
+					Lang=0409
+					[{6468C4A5-E47E-405F-B675-A70A70983EA6}-SdFinishReboot-0]
+					Result=1
+					BootOption=0
+					"@
+				$optimizerUninstallAnswer | Out-File $env:TEMP\optimizer.iss
+
 				$Uninstallarray = $_.metadata['uninstallstring'] -Split '"'
 				$Exe = $Uninstallarray[1].Trim()
-				$arguments=$Uninstallarray[2].Trim()
-				$arguments = $arguments+ " -s"
+				# $arguments=$Uninstallarray[2].Trim()
+				# $arguments = $arguments+ " -s"
+				$arguments = "/s /f1`"$env:Temp\optimizer.iss`"
 				(Start-Process "$Exe" -ArgumentList $arguments -NoNewWindow -Wait -PassThru).ExitCode
 				Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
 			} Catch {

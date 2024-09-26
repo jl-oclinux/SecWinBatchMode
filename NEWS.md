@@ -18,6 +18,7 @@ The `wisemoui.ps1` graphical interface has been updated.
 OS version is now shown in color.
 
 New presets/rules:
+* 2024/09/26 - `DisableWindowsCopilot_CU`/`EnableWindowsCopilot_CU`/`ViewWindowsCopilot_CU` -> Disable Windows Copilot for current user (Windows11)
 * 2024/07/02 - `UninstallVMwarePlayer`/`ViewVMwarePlayer` -> Uninstall VMware Player
 * 2024/06/05 - `DisableEdgeSendBrowsingHistory`/`EnableEdgeSendBrowsingHistory`/`ViewEdgeSendBrowsingHistory` -> Disable sending browsing history to Microsoft
 * 2024/05/28 - `DisableBackupMessages`/`EnableBackupMessages`/`ViewBackupMessages` -> Disable backup and restore of cellular text messages to Microsoft's cloud services

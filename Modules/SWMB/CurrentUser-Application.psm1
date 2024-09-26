@@ -124,6 +124,29 @@ Function TweakViewOneDrive_CU { # RESINFO
 		Select-Object -Property DisplayName, DisplayVersion, PSChildName
 }
 
+################################################################
+
+# Disable
+Function TweakDisableWindowsCopilot_CU { # RESINFO
+	Write-Output "Disabling (Turn Off) Windows Copilot for CU..."
+	If (!(Test-Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot")) {
+		New-Item -Path  "HKCU:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Force | Out-Null
+	}
+	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
+}
+
+# Enable Copilot
+Function TweakEnableWindowsCopilot_CU { # RESINFO
+	Write-Output "Enabling (Turn On) for Windows Copilot (Default) for CU..."
+	Remove-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
+}
+
+# View Copilot
+Function TweakViewWindowsCopilot_CU { # RESINFO
+	Write-Output "Viewing Windows Copilot for CU..."
+	Get-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
+}
+
 
 ################################################################
 ###### Export Functions

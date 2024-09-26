@@ -94,6 +94,7 @@ DisableXboxFeatures_CU                          # EnableXboxFeatures_CU
 UninstallOneDrive_CU                            # InstallOneDrive_CU                            # ViewOneDrive_CU
 # UninstallBalenaEtcher_CU                                                                      # ViewBalenaEtcher_CU
 # UninstallTelegram_CU                                                                          # ViewTelegram_CU
+DisableWindowsCopilot_CU                        # EnableWindowsCopilot_CU                       # ViewWindowsCopilot_CU   ## Turnoff Windows Copilot for current users
 
 ### Unpinning Tweaks ###
 # UnpinStartMenuTiles_CU

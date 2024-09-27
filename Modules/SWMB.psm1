@@ -332,11 +332,11 @@ Function SWMB_MakeCkeckpoint() {
 
 # Return OS version with build and UBR monthly version
 Function SWMB_GetOSVersion {
-  $Major = [System.Environment]::OSVersion.Version.Major
-  $Minor = [System.Environment]::OSVersion.Version.Minor
-  $Build = [System.Environment]::OSVersion.Version.Build
-  $UBR = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name UBR).UBR
-  Return [version]"$Major.$Minor.$Build.$UBR"
+	$Major = [System.Environment]::OSVersion.Version.Major
+	$Minor = [System.Environment]::OSVersion.Version.Minor
+	$Build = [System.Environment]::OSVersion.Version.Build
+	$UBR = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name UBR).UBR
+	Return [version]"$Major.$Minor.$Build.$UBR"
 }
 
 ################################################################

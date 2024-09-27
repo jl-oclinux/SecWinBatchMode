@@ -44,8 +44,14 @@ $Global:SWMB_Custom = @{
 
 	# Target Release
 	# Use by tweak: SetTargetRelease
-	ProductVersion           = "Windows 10"
-	TargetReleaseVersionInfo = "21H2"
+	Windows10 = @{
+		ProductVersion           = "Windows 10"
+		TargetReleaseVersionInfo = "22H2"
+	}
+	Windows11 = @{
+		ProductVersion           = "Windows 11"
+		TargetReleaseVersionInfo = "23H2"
+	}
 
 	# Kaspersky Endpoint Security and Network Agent
 	# Use by tweak: UninstallKasperskyEndpoint

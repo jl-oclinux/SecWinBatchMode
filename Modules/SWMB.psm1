@@ -341,6 +341,22 @@ Function SWMB_GetOSVersion {
 
 ################################################################
 
+# Return OS short name Windows10 or Windows11 without space (for use as key in hash table)
+Function SWMB_GetOSShortName {
+	$OSVersion = SWMB_GetOSVersion
+	If ($OSVersion -ge [version]"10.0.22000.0") {
+		$OSShortName = "Windows11"
+	} ElseIf ($OSVersion -ge [version]"10.0.10240.0") {
+		$OSShortName = "Windows10"
+	} Else {
+		Write-Output "Error: Windows OS not officially supported, version $OSVersion"
+		$OSShortName = "WindowsXX"
+	}
+	Return $OSShortName
+}
+
+################################################################
+
 # Transform string to a version object
 Function SWMB_ToVersion {
 	Param (

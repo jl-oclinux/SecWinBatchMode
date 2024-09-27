@@ -23,7 +23,7 @@ New presets/rules:
 * 2024/06/05 - `DisableEdgeSendBrowsingHistory`/`EnableEdgeSendBrowsingHistory`/`ViewEdgeSendBrowsingHistory` -> Disable sending browsing history to Microsoft
 * 2024/05/28 - `DisableBackupMessages`/`EnableBackupMessages`/`ViewBackupMessages` -> Disable backup and restore of cellular text messages to Microsoft's cloud services
 * 2024/05/28 - `DisableBluetoothAdvertising`/`EnableBluetoothAdvertising`/`ViewBluetoothAdvertising` -> Disable Advertisements via Bluetooth
-* 2024/05/27 - `DisableTypingRecognition_CU`/`DisableTypingRecognition_CU`/`DisableTypingRecognition_CU` -> Don't send inking and typing data to Microsoft to improve the language recognition
+* 2024/05/27 - `DisableTypingRecognition_CU`/`EnableTypingRecognition_CU`/`ViewTypingRecognition_CU` -> Don't send inking and typing data to Microsoft to improve the language recognition
 * 2024/05/16 - `UninstallDellSoftware` -> Uninstall Dell MSI or Setup.exe software
 * 2024/05/16 - `UninstallDellBuiltInApps` -> Uninstall Dell Appx
 * 2024/05/09 - `EnableOffice2016AutoUpdate`/`DisableOffice2016AutoUpdate`/`ViewOffice2016AutoUpdate` -> Enable auto update for MS Office 2016 Click-To-Run installations
@@ -372,7 +372,7 @@ New presets/rules:
 * 2021/06/13 - `DisableSMB1Protocol`/`EnableSMB1Protocol` -> SMBv1 protocol
 * 2021/06/13 - `DisableSMB1`/`EnableSMB1` rename -> `DisableSMB1Server`/`EnableSMB1Server`
 * 2021/06/05 - `SetNTPConfig`/`UnsetNTPConfig` - NTP service configuration
-* 2021/06/05 - `EnableGodMod_CU`/`EnableGodMod_CU` - God Mod for Current user
+* 2021/06/05 - `EnableGodMod_CU`/`DisableGodMod_CU` - God Mod for Current user
 * 2021/06/05 - Rename `Restart` -> `SysRestart` and `WaitForKey` -> `SysPause`
 * 2021/06/05 - `SysHalt` - Halt computer and not Reboot
 * 2021/06/04 - `SysMessage` - Just write a message on terminal for debugging purpose (like WaitForKey)

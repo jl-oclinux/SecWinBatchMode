@@ -26,6 +26,7 @@ version:
 	@mkdir -p tmp
 	sed -e 's/__VERSION__/$(VERSION)/;' Modules/SWMB.psd1 > tmp/SWMB.psd1
 	@echo "@{ ModuleVersion = '$(VERSION)' }" > tmp/Version.psd1
+	@(which unix2dos && unix2dos tmp/Version.psd1) > /dev/null 2>&1
 	@sed -e 's/$(VERSION_NSI)/$(VERSION)/;' package.nsi > tmp/package.nsi
 	makensis -NOCD tmp/package.nsi
 

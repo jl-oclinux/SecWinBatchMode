@@ -244,3 +244,9 @@ ack -l --ignore-dir=tmp '\s+\r$'
 
 # check double tweak in NEWS.md file
 grep '^\*' NEWS.md | cut -f 2 -d '-' | sed -e 's#[[:space:]/]#\n#g;' | grep '^`[[:alpha:]]' | sort | uniq -c | grep -v ' 1 '
+
+# test import module
+for psm in ./Modules/SWMB/*.psm1
+do
+  pwsh -Command "Import-Module $psm"
+done

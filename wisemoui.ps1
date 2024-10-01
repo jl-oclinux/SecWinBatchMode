@@ -172,7 +172,7 @@ $BtnTaskBootE.Height = 20
 $BtnTaskBootE.Text = "E"
 $Form.controls.Add($BtnTaskBootE)
 $BtnTaskBootE.Add_Click({
-	Start-Process $Editor "`"$DataFolder\Preset\LocalMachine-Boot.preset`""
+	Start-Process $Editor "`"$DataFolder\Presets\LocalMachine-Boot.preset`""
 })
 
 # Post-Install Task
@@ -216,7 +216,7 @@ $BtnTaskPostInstallE.Height = 20
 $BtnTaskPostInstallE.Text = "E"
 $Form.controls.Add($BtnTaskPostInstallE)
 $BtnTaskPostInstallE.Add_Click({
-	Start-Process $Editor "`"$DataFolder\Preset\Machine-PostInstall.preset`""
+	Start-Process $Editor "`"$DataFolder\Presets\Machine-PostInstall.preset`""
 })
 
 # Logon Task
@@ -260,7 +260,7 @@ $BtnTaskLogonE.Height = 20
 $BtnTaskLogonE.Text = "E"
 $Form.controls.Add($BtnTaskLogonE)
 $BtnTaskLogonE.Add_Click({
-	Start-Process $Editor "`"$DataFolder\Preset\CurrentUser-Logon.preset`""
+	Start-Process $Editor "`"$DataFolder\Presets\CurrentUser-Logon.preset`""
 })
 
 # Task Frame

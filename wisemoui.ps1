@@ -172,7 +172,7 @@ $BtnTaskBootE.Height = 20
 $BtnTaskBootE.Text = "E"
 $Form.controls.Add($BtnTaskBootE)
 $BtnTaskBootE.Add_Click({
-	Start-Process $Editor "`"$PSScriptRoot\Tasks\LocalMachine-Boot.ps1`""
+	Start-Process $Editor "`"$DataFolder\Preset\LocalMachine-Boot.preset`""
 })
 
 # Post-Install Task
@@ -216,7 +216,7 @@ $BtnTaskPostInstallE.Height = 20
 $BtnTaskPostInstallE.Text = "E"
 $Form.controls.Add($BtnTaskPostInstallE)
 $BtnTaskPostInstallE.Add_Click({
-	Start-Process $Editor "`"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`""
+	Start-Process $Editor "`"$DataFolder\Preset\Machine-PostInstall.preset`""
 })
 
 # Logon Task
@@ -260,7 +260,7 @@ $BtnTaskLogonE.Height = 20
 $BtnTaskLogonE.Text = "E"
 $Form.controls.Add($BtnTaskLogonE)
 $BtnTaskLogonE.Add_Click({
-	Start-Process $Editor "`"$PSScriptRoot\Tasks\CurrentUser-Logon.ps1`""
+	Start-Process $Editor "`"$DataFolder\Preset\CurrentUser-Logon.preset`""
 })
 
 # Task Frame

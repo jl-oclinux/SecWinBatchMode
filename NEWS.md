@@ -2,6 +2,9 @@
 
 ## Version 3.18 (in progress)
 
+The `wisemoui.ps1` graphical interface has been updated.
+There's now an L (Log) and E (Edit) button next to each scheduled task to view the last log file and edit the task's preset file.
+
 ## Version 3.17
 
 The [SWLN](./dists/swln/) template is more generic (LEGI now uses the same files without any changes)

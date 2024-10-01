@@ -251,3 +251,7 @@ for psm in ./Modules/*.psm1 ./Modules/SWMB/*.psm1
 do
   pwsh -Command "Import-Module ${psm}" | sed 's/^/ /;'
 done
+
+echo "Check current tag"
+currenttag=$(git tag | tail -1)
+grep -q "VERSION \"${currenttag}\." package.nsi || echo " Warning: current git tag differ from package.nsi version"

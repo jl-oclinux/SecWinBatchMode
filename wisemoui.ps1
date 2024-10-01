@@ -23,7 +23,9 @@ TweakSysRequireAdmin
 
 # Define Boot preset on ProgramData
 $DataFolder  = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
-$BootLog     = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "LocalMachine-LastBoot.log"))
+$BootLog        = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "LocalMachine-LastBoot.log"))
+$PostInstallLog = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "LocalMachine-PostInstall.log"))
+$LogonLog       = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "CurrentUser-LastLogon.log"))
 
 Import-Module -Name "$PSScriptRoot\Modules\SWMB.psd1" -ErrorAction Stop
 Import-Module -Name "$PSScriptRoot\Modules\WiSeMoUI.psm1" -ErrorAction Stop
@@ -40,6 +42,11 @@ If ($Uptime.Days -ne 0) {
 	$UptimeStr = "$($Uptime.Hours) $hour, $($Uptime.Minutes) min"
 } Else {
 	$UptimeStr = "$($Uptime.Minutes) min"
+}
+
+$Editor = "${Env:SystemRoot}\System32\notepad.exe"
+If (Test-Path -LiteralPath "${Env:ProgramFiles}\Notepad++\notepad++.exe") {
+	$Editor = "${Env:ProgramFiles}\Notepad++\notepad++.exe"
 }
 
 # Main Windows
@@ -145,8 +152,27 @@ $BtnTaskBoot.Add_Click({
 		& eventvwr.exe /c:Application
 	}
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Boot.ps1`"" -WindowStyle Hidden -Wait
-	Start-Process notepad.exe "`"$BootLog`""
+	Start-Process $Editor "`"$BootLog`""
 	$BtnTaskBootStatus.Text = "Finish!"
+})
+
+$BtnTaskBootL = New-Object System.Windows.Forms.Button
+$BtnTaskBootL.Location = New-Object System.Drawing.Point(89,170)
+$BtnTaskBootL.Width = 15
+$BtnTaskBootL.Height = 20
+$BtnTaskBootL.Text = "L"
+$Form.controls.Add($BtnTaskBootL)
+$BtnTaskBootL.Add_Click({
+	Start-Process $Editor "`"$BootLog`""
+})
+$BtnTaskBootE = New-Object System.Windows.Forms.Button
+$BtnTaskBootE.Location = New-Object System.Drawing.Point(89,190)
+$BtnTaskBootE.Width = 15
+$BtnTaskBootE.Height = 20
+$BtnTaskBootE.Text = "E"
+$Form.controls.Add($BtnTaskBootE)
+$BtnTaskBootE.Add_Click({
+	Start-Process $Editor "`"$PSScriptRoot\Tasks\LocalMachine-Boot.ps1`""
 })
 
 # Post-Install Task
@@ -170,8 +196,27 @@ $BtnTaskPostInstall.Add_Click({
 		& eventvwr.exe /c:Application
 	}
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`"" -WindowStyle Hidden -Wait
-	Start-Process notepad.exe "`"$BootLog`""
+	Start-Process $Editor "`"$BootLog`""
 	$BtnTaskPostInstallStatus.Text = "Finish!"
+})
+
+$BtnTaskPostInstallL = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstallL.Location = New-Object System.Drawing.Point(169,170)
+$BtnTaskPostInstallL.Width = 15
+$BtnTaskPostInstallL.Height = 20
+$BtnTaskPostInstallL.Text = "L"
+$Form.controls.Add($BtnTaskPostInstallL)
+$BtnTaskPostInstallL.Add_Click({
+	Start-Process $Editor "`"$PostInstallLog`""
+})
+$BtnTaskPostInstallE = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstallE.Location = New-Object System.Drawing.Point(169,190)
+$BtnTaskPostInstallE.Width = 15
+$BtnTaskPostInstallE.Height = 20
+$BtnTaskPostInstallE.Text = "E"
+$Form.controls.Add($BtnTaskPostInstallE)
+$BtnTaskPostInstallE.Add_Click({
+	Start-Process $Editor "`"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`""
 })
 
 # Logon Task
@@ -195,8 +240,27 @@ $BtnTaskLogon.Add_Click({
 		& eventvwr.exe /c:Application
 	}
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`"" -WindowStyle Hidden -Wait
-	Start-Process notepad.exe "`"$BootLog`""
+	Start-Process $Editor "`"$LogonLog`""
 	$BtnTaskLogonStatus.Text = "Finish!"
+})
+
+$BtnTaskLogonL = New-Object System.Windows.Forms.Button
+$BtnTaskLogonL.Location = New-Object System.Drawing.Point(249,170)
+$BtnTaskLogonL.Width = 15
+$BtnTaskLogonL.Height = 20
+$BtnTaskLogonL.Text = "L"
+$Form.controls.Add($BtnTaskLogonL)
+$BtnTaskLogonL.Add_Click({
+	Start-Process $Editor "`"$LogonLog`""
+})
+$BtnTaskLogonE = New-Object System.Windows.Forms.Button
+$BtnTaskLogonE.Location = New-Object System.Drawing.Point(249,190)
+$BtnTaskLogonE.Width = 15
+$BtnTaskLogonE.Height = 20
+$BtnTaskLogonE.Text = "E"
+$Form.controls.Add($BtnTaskLogonE)
+$BtnTaskLogonE.Add_Click({
+	Start-Process $Editor "`"$PSScriptRoot\Tasks\CurrentUser-Logon.ps1`""
 })
 
 # Task Frame
@@ -231,7 +295,7 @@ If ($RunningVersion -ne $PublishedVersion) {
 	$Form.controls.Add($BtnUpdate)
 
 	$BtnUpdate.Add_Click({
-	    $HomeUrl = (SWMB_GetHomeURL)
+		$HomeUrl = (SWMB_GetHomeURL)
 		Start-Process "$HomeUrl"
 	})
 }

@@ -248,5 +248,5 @@ grep '^\*' NEWS.md | cut -f 2 -d '-' | sed -e 's#[[:space:]/]#\n#g;' | grep '^`[
 # test import module
 for psm in ./Modules/SWMB/*.psm1
 do
-  pwsh -Command "Import-Module $psm"
+  pwsh -Command "Import-Module ${psm}"
 done

@@ -1,6 +1,6 @@
 # NEWS
 
-## Version 3.17 (in progress)
+## Version 3.17
 
 The [SWLN](./dists/swln/) template is more generic (LEGI now uses the same files without any changes)
 and it now supports the file with the `-Host-HOSTNAME` extension

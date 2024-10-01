@@ -5,7 +5,7 @@
 The [SWLN](./dists/swln/) template is more generic (LEGI now uses the same files without any changes)
 and it now supports the file with the `-Host-HOSTNAME` extension
 in order to push a different file (e.g. specific tweaks) to a particular computer.
-Each site can add its own pre- and post-installation scripts.
+Each site can add its own pre and post-installation scripts.
 
 Tweaks have a better message at launch, clearly indicating the type of tweak they are
 (Enable, Disable, Set, Unistall...).
@@ -16,6 +16,20 @@ The hash function has also been updated to take into account the UBR (Revision) 
 
 The `wisemoui.ps1` graphical interface has been updated.
 OS version is now shown in color.
+
+The Target Release tweak must take into account the Windows version.
+Windows 10 and Windows 11 do not have synchronized version names.
+In the `Custom-VarOverload.psm1` variable file, there's now a `windows10` (or `windows11`) sub-key to define the Target Release associated with the correct system.
+This naming process will be generalized in the future if there is a need to dissociate parameters according to OS.
+However, it should be used as little as possible, to keep workstation administration as homogeneous as possible.
+
+```ps1
+# Target Release
+$Global:SWMB_Custom.Windows10.ProductVersion           = 'Windows 10'
+$Global:SWMB_Custom.Windows10.TargetReleaseVersionInfo = '22H2'
+$Global:SWMB_Custom.Windows11.ProductVersion           = 'Windows 11'
+$Global:SWMB_Custom.Windows11.TargetReleaseVersionInfo = '23H2'
+```
 
 New presets/rules:
 * 2024/09/26 - `DisableWindowsCopilot_CU`/`EnableWindowsCopilot_CU`/`ViewWindowsCopilot_CU` -> Disable Windows Copilot for current user (Windows11)

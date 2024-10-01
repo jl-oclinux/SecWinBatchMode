@@ -4,11 +4,6 @@
 #
 # 2020/06/11 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
-
-# Detect Windows File with no CRLF line terminator
-find . \( -name '*.ps1' -o -name '*.psm1' -o -name '*.psd1' -o -name '*.bat' \) -exec file {} \+ | egrep -v '(with CRLF line|/tmp/)'
-
-
 function msg1 {
    local msg=$1
    local total=$2
@@ -104,7 +99,9 @@ msg1 "Number of Obsolete tweaks" \
 msg1 "Number of total tweaks functions" \
    $(grep -hEi '^Function[[:space:]]Tweak' ${all_module} | awk '{print $2}' | wc -l)
 
-# function that are not in case Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin
+echo ''
+
+echo "Check function that are not in case Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin"
 grep -hEi '^Function[[:space:]]' ${all_module} \
    | grep -Eiv '^Function (SWMB_|Tweak(Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin|Sys|View))' \
    | grep -v '# Obsolete' \
@@ -112,8 +109,7 @@ grep -hEi '^Function[[:space:]]' ${all_module} \
    | xargs -r -n 1 printf "Warning: special function: %s\n"
 
 
-# detect a forgotten rule and multiple identical rule definitions in our rules
-# Enable / Disable
+echo "Check a forgotten rule and multiple identical rule definitions in our rules: Enable / Disable"
 while read rule
 do
    for status in 'Enable' 'Disable'
@@ -132,7 +128,7 @@ done < <(grep -hEi '^Function[[:space:]]Tweak(Enable|Disable)' ${all_module} \
    | sed -Ee 's/^Tweak(Enable|Disable)//i;' \
    | sort -u)
 
-# Install / Uninstall
+echo "Check a forgotten rule and multiple identical rule definitions in our rules: Install / Uninstall"
 while read rule
 do
    for status in 'Install' 'Uninstall'
@@ -152,7 +148,7 @@ done < <(grep -hEi '^Function[[:space:]]Tweak(Install|Uninstall)' ${all_module} 
    | sed -Ee 's/^Tweak(Install|Uninstall)//i;' \
    | sort -u)
 
-# Add / Remove
+echo "Check a forgotten rule and multiple identical rule definitions in our rules: Add / Remove"
 while read rule
 do
    for status in 'Add' 'Remove'
@@ -171,6 +167,7 @@ done < <(grep -hEi '^Function[[:space:]]Tweak(Add|Remove)' ${all_module} \
    | sed -Ee 's/^Tweak(Add|Remove)//i;' \
    | sort -u)
 
+echo "Check tweaks that are not defined in a preset file"
 # Enable|Disable|Show|Hide|Install|Uninstall|Add|Remove|Set|Unset|Pin|Unpin...
 kind_rule=$(grep -i '^Function[[:space:]]Tweak' ${all_module} \
    | grep -Ev '# (Obsolete|Experimental)' \
@@ -200,6 +197,7 @@ do
    fi
 done
 
+echo "Check tweaks defined in preset files that have no implementation"
 # reverse check all preset files
 for rule in $(grep -Ehv '^([#[:space:]])*\$(PRESET|IMPORT)' Presets/*.preset \
   | sed -e 's/##.*//; s/[[:space:]]/\n/g;' \
@@ -214,7 +212,10 @@ do
   fi
 done
 
-# check if two tweak have the same name
+echo "Check Windows File with no CRLF line terminator"
+find . \( -name '*.ps1' -o -name '*.psm1' -o -name '*.psd1' -o -name '*.bat' \) -exec file {} \+ | egrep -v '(with CRLF line|/tmp/)'
+
+echo "Check if two tweak have the same name"
 grep -ih '^Function[[:space:]]Tweak' ${all_module} \
   | awk '{print $2}' \
   | sed -e 's/^Tweak//; s/^Enable//; s/^Disable//; s/^Install//; s/^Uninstall//; s/^Set//; s/^Unset//; s/^Show//; s/^Hide//;' \
@@ -223,7 +224,7 @@ grep -ih '^Function[[:space:]]Tweak' ${all_module} \
   | uniq -c \
   | grep -Ev '      (1|2) '
 
-# check code message
+echo "Check code message for each tweak"
 ack -A1 '^Function TweakEnable'    | grep -Ev '(Function TweakEnable|"Enabling |^--)'
 ack -A1 '^Function TweakDisable'   | grep -Ev '(Function TweakDisable|"Disabling |^--)'
 ack -A1 '^Function TweakInstall'   | grep -Ev '(Function TweakInstall|"Installing |^--)'
@@ -238,15 +239,15 @@ ack -A1 '^Function TweakView'      | grep -Ev '(Function TweakView|"Viewing |^--
 ack -A1 '^Function TweakPin'       | grep -Ev '(Function TweakPin|"Pinning |^--)'
 ack -A1 '^Function TweakUnpin'     | grep -Ev '(Function TweakUnpin|"Unpinning |^--)'
 
-# check space at the end of lines
+echo "Check for unnecessary spaces at the end of lines"
 ack -l --ignore-dir=tmp --ignore-file=ext:bat --ignore-file=ext:ps1 --ignore-file=ext:psm1 --ignore-file=ext:psd1 --ignore-file=ext:nsi '\s+$'
 ack -l --ignore-dir=tmp '\s+\r$'
 
-# check double tweak in NEWS.md file
+echo "Check double tweak in NEWS.md file"
 grep '^\*' NEWS.md | cut -f 2 -d '-' | sed -e 's#[[:space:]/]#\n#g;' | grep '^`[[:alpha:]]' | sort | uniq -c | grep -v ' 1 '
 
-# test import module
-for psm in ./Modules/SWMB/*.psm1
+echo "Check import powershell module"
+for psm in ./Modules/*.psm1 ./Modules/SWMB/*.psm1
 do
   pwsh -Command "Import-Module ${psm}"
 done

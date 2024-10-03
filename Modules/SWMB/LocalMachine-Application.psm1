@@ -1069,23 +1069,26 @@ Function TweakViewStorageSenseTrashCleanup { # RESINFO
 
 # Disable
 Function TweakDisableWindowsCopilot { # RESINFO
-	Write-Output "Disabling (Turn Off) Windows Copilot..."
+	Write-Output "Disabling (Turn Off) Windows Copilot and uninstall appx..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot")) {
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Force | Out-Null
 	}
 	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
+	Get-AppxPackage -allusers | Where-Object {$_.Name -like 'Microsoft.Copilot' | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 }
 
 # Enable Copilot
 Function TweakEnableWindowsCopilot { # RESINFO
-	Write-Output "Enabling (Turn On) for Windows Copilot (Default)..."
+	Write-Output "Enabling (Turn On) for Windows Copilot (Default) and install appx..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
+	Get-AppxPackage -AllUsers -Name "Microsoft.Copilot" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 }
 
 # View Copilot
 Function TweakViewWindowsCopilot { # RESINFO
 	Write-Output "Viewing Windows Copilot..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -ErrorAction SilentlyContinue
+	Get-AppxPackage -AllUsers -Name "Microsoft.Copilot"
 }
 
 ################################################################

@@ -163,13 +163,12 @@ $BtnTaskBootP.Height = 20
 $BtnTaskBootP.Text = "P"
 $Form.controls.Add($BtnTaskBootP)
 $BtnTaskBootP.Add_Click({
-	$CountTweak = 0
 	& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Print `
-		| ForEach-Object {
+		| ForEach-Object -Begin {$CountTweak = 0} -Process {
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Boot sequence on the ${Env:ComputerName} computer - $(Get-Date)"
+		| Out-GridView -Title "SWMB: Tweaks that will apply to the next Boot sequence on the ${Env:ComputerName} computer - $(Get-Date)"
 })
 $BtnTaskBootL = New-Object System.Windows.Forms.Button
 $BtnTaskBootL.Location = New-Object System.Drawing.Point(89,170)
@@ -222,13 +221,12 @@ $BtnTaskPostInstallP.Height = 20
 $BtnTaskPostInstallP.Text = "P"
 $Form.controls.Add($BtnTaskPostInstallP)
 $BtnTaskPostInstallP.Add_Click({
-	$CountTweak = 0
 	& $PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1 -Mode Print `
-		| ForEach-Object {
+		| ForEach-Object -Begin {$CountTweak = 0} -Process {
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next PostInstall sequence on the ${Env:ComputerName} computer - $(Get-Date)"
+		| Out-GridView -Title "SWMB: Tweaks that will apply to the next PostInstall sequence on the ${Env:ComputerName} computer - $(Get-Date)"
 })
 $BtnTaskPostInstallL = New-Object System.Windows.Forms.Button
 $BtnTaskPostInstallL.Location = New-Object System.Drawing.Point(169,170)
@@ -281,13 +279,12 @@ $BtnTaskLogonP.Height = 20
 $BtnTaskLogonP.Text = "P"
 $Form.controls.Add($BtnTaskLogonP)
 $BtnTaskLogonP.Add_Click({
-	$CountTweak = 0
 	& $PSScriptRoot\Tasks\CurrentUser-Logon.ps1 -Mode Print `
-		| ForEach-Object {
+		| ForEach-Object -Begin {$CountTweak = 0} -Process {
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Logon sequence for current user ${Env:UserName} - $(Get-Date)"
+		| Out-GridView -Title "SWMB: Tweaks that will apply to the next Logon sequence for current user ${Env:UserName} - $(Get-Date)"
 })
 $BtnTaskLogonL = New-Object System.Windows.Forms.Button
 $BtnTaskLogonL.Location = New-Object System.Drawing.Point(249,170)

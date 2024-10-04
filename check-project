@@ -4,6 +4,19 @@
 #
 # 2020/06/11 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
 
+function pipe_if_not_empty {
+  local title=$1
+  shift
+
+  head=$(dd bs=1 count=1 2>/dev/null; echo a)
+  head=${head%a}
+
+  if [ "x${head}" != x"" ]
+  then
+    { echo "$title"; printf %s "${head}"; cat; } | "$@"
+  fi
+}
+
 function msg1 {
    local msg=$1
    local total=$2
@@ -249,7 +262,7 @@ grep '^\*' NEWS.md | cut -f 2 -d '-' | sed -e 's#[[:space:]/]#\n#g;' | grep '^`[
 echo "Check import powershell module"
 for psm in ./Modules/*.psm1 ./Modules/SWMB/*.psm1
 do
-  pwsh -Command "Import-Module ${psm}" | sed 's/^/ /;'
+  pwsh -Command "Import-Module ${psm}" | pipe_if_not_empty "======= ${psm}" cat | sed 's/^/ /;'
 done
 
 echo "Check current tag"

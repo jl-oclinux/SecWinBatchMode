@@ -13,11 +13,11 @@
 ################################################################
 
 Param (
-	# running mode: batch, print or check
-	[string]$Mode = 'batch'
+	# Running Mode: Batch, Print or Check
+	[string]$Mode = 'Batch'
 )
 
-If ($Mode -eq 'batch') {
+If ($Mode -eq 'Batch') {
 	Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 0 `
 		-Message "SWMB: Run Boot Script for LocalMachine ${Env:ComputerName} - Begin"
 }
@@ -44,13 +44,13 @@ $HostExt="Host-$(${Env:ComputerName}.ToLower())"
 $Args = @()
 $FlagPreset = $False
 
-# mode print
-If ($Mode -eq 'batch') {
+# Check mode
+If ($Mode -eq 'Batch') {
 	# Log action
 	$Args += '-log', "$LogFolder\LocalMachine-LastBoot.log"
-} ElseIf ($Mode -eq 'print') {
+} ElseIf ($Mode -eq 'Print') {
 	$Args += '-print'
-} ElseIf ($Mode -eq 'check') {
+} ElseIf ($Mode -eq 'Check') {
 	$Args += '-check'
 }
 
@@ -75,7 +75,7 @@ If (Test-Path -LiteralPath "$PresetFolder\LocalMachine-Boot-$HostExt.preset") {
 	$FlagPreset = $True
 }
 
-If ($Mode -eq 'batch') {
+If ($Mode -eq 'Batch') {
 	# Hash checkpoint
 	$Args += '-hash', "$CacheFolder\LocalMachine-LastBoot.hash"
 }
@@ -87,11 +87,12 @@ If ($FlagPreset) {
 	Write-Output "Error: No preset define, No SWMB launch"
 }
 
+# Come back to the previous Path
 If (Test-Path -LiteralPath $BeforeLocation) {
 	Set-Location $BeforeLocation
 }
 
-If ($Mode -eq 'batch') {
+If ($Mode -eq 'Batch') {
 	Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `
 		-Message "SWMB: Run Boot Script for LocalMachine ${Env:ComputerName} - End"
 }

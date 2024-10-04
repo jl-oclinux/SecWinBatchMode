@@ -406,6 +406,7 @@ Function TweakUninstallGlassWire { # RESINFO
 
 # Suppress Microsoft Edge WebView2 Runtime
 # https://silentinstallhq.com/microsoft-edge-webview2-runtime-silent-install-how-to-guide/
+# Does not work
 # Uninstall
 Function TweakUninstallEdgeWebView2 { # RESINFO
 	Write-Output "Uninstalling software EdgeWebView2..."

@@ -89,7 +89,7 @@ Function SWMB_ListSoftware {
 }
 
 # GUI Output
-SWMB_ListSoftware | Out-GridView -Title "LocalMachine and CurrentUser Software : $(Get-Date)" -Wait
+SWMB_ListSoftware | Out-GridView -Title "SWMB: LocalMachine ${Env:ComputerName} and CurrentUser ${Env:UserName} Software - $(Get-Date)" -Wait
 
 # Output in JSON Format
 # SWMB_ListSoftware | ConvertTo-Json

@@ -169,7 +169,7 @@ $BtnTaskBootP.Add_Click({
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Boot sequence on the ${Env:ComputerName} computer ($(Get-Date))"
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Boot sequence on the ${Env:ComputerName} computer - $(Get-Date)"
 })
 $BtnTaskBootL = New-Object System.Windows.Forms.Button
 $BtnTaskBootL.Location = New-Object System.Drawing.Point(89,170)
@@ -228,7 +228,7 @@ $BtnTaskPostInstallP.Add_Click({
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next PostInstall sequence on the ${Env:ComputerName} computer ($(Get-Date))"
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next PostInstall sequence on the ${Env:ComputerName} computer - $(Get-Date)"
 })
 $BtnTaskPostInstallL = New-Object System.Windows.Forms.Button
 $BtnTaskPostInstallL.Location = New-Object System.Drawing.Point(169,170)
@@ -287,7 +287,7 @@ $BtnTaskLogonP.Add_Click({
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Logon sequence for current user ${Env:UserName} ($(Get-Date))"
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Logon sequence for current user ${Env:UserName} - $(Get-Date)"
 })
 $BtnTaskLogonL = New-Object System.Windows.Forms.Button
 $BtnTaskLogonL.Location = New-Object System.Drawing.Point(249,170)

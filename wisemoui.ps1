@@ -275,7 +275,7 @@ $BtnTaskLogon.Add_Click({
 })
 
 $BtnTaskLogonP = New-Object System.Windows.Forms.Button
-$BtnTaskLogonP.Location = New-Object System.Drawing.Point(169,150)
+$BtnTaskLogonP.Location = New-Object System.Drawing.Point(249,150)
 $BtnTaskLogonP.Width = 15
 $BtnTaskLogonP.Height = 20
 $BtnTaskLogonP.Text = "P"
@@ -287,7 +287,7 @@ $BtnTaskLogonP.Add_Click({
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Logon sequence for user ${Env:UserName} ($(Get-Date))"
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Logon sequence for current user ${Env:UserName} ($(Get-Date))"
 })
 $BtnTaskLogonL = New-Object System.Windows.Forms.Button
 $BtnTaskLogonL.Location = New-Object System.Drawing.Point(249,170)

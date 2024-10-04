@@ -164,12 +164,12 @@ $BtnTaskBootP.Text = "P"
 $Form.controls.Add($BtnTaskBootP)
 $BtnTaskBootP.Add_Click({
 	$CountTweak = 0
-	& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode print `
+	& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Print `
 		| ForEach-Object {
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next boot sequence ($(Get-Date))"
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Boot sequence ($(Get-Date))"
 })
 $BtnTaskBootL = New-Object System.Windows.Forms.Button
 $BtnTaskBootL.Location = New-Object System.Drawing.Point(89,170)
@@ -215,6 +215,21 @@ $BtnTaskPostInstall.Add_Click({
 	$BtnTaskPostInstallStatus.Text = "Finish!"
 })
 
+$BtnTaskPostInstallP = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstallP.Location = New-Object System.Drawing.Point(169,150)
+$BtnTaskPostInstallP.Width = 15
+$BtnTaskPostInstallP.Height = 20
+$BtnTaskPostInstallP.Text = "P"
+$Form.controls.Add($BtnTaskPostInstallP)
+$BtnTaskPostInstallP.Add_Click({
+	$CountTweak = 0
+	& $PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1 -Mode Print `
+		| ForEach-Object {
+			$CountTweak++
+			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
+			} `
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next PostInstall sequence ($(Get-Date))"
+})
 $BtnTaskPostInstallL = New-Object System.Windows.Forms.Button
 $BtnTaskPostInstallL.Location = New-Object System.Drawing.Point(169,170)
 $BtnTaskPostInstallL.Width = 15

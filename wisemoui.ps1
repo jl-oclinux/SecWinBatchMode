@@ -156,6 +156,21 @@ $BtnTaskBoot.Add_Click({
 	$BtnTaskBootStatus.Text = "Finish!"
 })
 
+$BtnTaskBootP = New-Object System.Windows.Forms.Button
+$BtnTaskBootP.Location = New-Object System.Drawing.Point(89,150)
+$BtnTaskBootP.Width = 15
+$BtnTaskBootP.Height = 20
+$BtnTaskBootP.Text = "P"
+$Form.controls.Add($BtnTaskBootP)
+$BtnTaskBootP.Add_Click({
+	$CountTweak = 0
+	& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode print `
+		| ForEach-Object {
+			$CountTweak++
+			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
+			} `
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next boot sequence ($(Get-Date))"
+})
 $BtnTaskBootL = New-Object System.Windows.Forms.Button
 $BtnTaskBootL.Location = New-Object System.Drawing.Point(89,170)
 $BtnTaskBootL.Width = 15

@@ -1074,7 +1074,7 @@ Function TweakDisableWindowsCopilot { # RESINFO
 		New-Item -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Force | Out-Null
 	}
 	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
-	Get-AppxPackage -AllUsers | Where-Object {$_.Name -like 'Microsoft.Copilot' | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+	Get-AppxPackage -AllUsers | Where-Object {$_.Name -like 'Microsoft.Copilot'} | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 }
 
 # Enable Copilot

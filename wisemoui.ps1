@@ -169,7 +169,7 @@ $BtnTaskBootP.Add_Click({
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Boot sequence ($(Get-Date))"
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Boot sequence on the ${Env:ComputerName} computer ($(Get-Date))"
 })
 $BtnTaskBootL = New-Object System.Windows.Forms.Button
 $BtnTaskBootL.Location = New-Object System.Drawing.Point(89,170)
@@ -228,7 +228,7 @@ $BtnTaskPostInstallP.Add_Click({
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next PostInstall sequence ($(Get-Date))"
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next PostInstall sequence on the ${Env:ComputerName} computer ($(Get-Date))"
 })
 $BtnTaskPostInstallL = New-Object System.Windows.Forms.Button
 $BtnTaskPostInstallL.Location = New-Object System.Drawing.Point(169,170)
@@ -274,6 +274,21 @@ $BtnTaskLogon.Add_Click({
 	$BtnTaskLogonStatus.Text = "Finish!"
 })
 
+$BtnTaskLogonP = New-Object System.Windows.Forms.Button
+$BtnTaskLogonP.Location = New-Object System.Drawing.Point(169,150)
+$BtnTaskLogonP.Width = 15
+$BtnTaskLogonP.Height = 20
+$BtnTaskLogonP.Text = "P"
+$Form.controls.Add($BtnTaskLogonP)
+$BtnTaskLogonP.Add_Click({
+	$CountTweak = 0
+	& $PSScriptRoot\Tasks\CurrentUser-Logon.ps1 -Mode Print `
+		| ForEach-Object {
+			$CountTweak++
+			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
+			} `
+		| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next Logon sequence for user ${Env:UserName} ($(Get-Date))"
+})
 $BtnTaskLogonL = New-Object System.Windows.Forms.Button
 $BtnTaskLogonL.Location = New-Object System.Drawing.Point(249,170)
 $BtnTaskLogonL.Width = 15

@@ -12,15 +12,25 @@
 # Version: v3.13, 2021-11-22
 ################################################################
 
-Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 0 `
-	-Message "SWMB: Run Logon Script for User ${Env:UserName} - Begin"
+Param (
+	# Running Mode: Batch, Print or Check
+	[string]$Mode = 'Batch'
+)
+
+If ($Mode -eq 'Batch') {
+	Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 0 `
+		-Message "SWMB: Run Logon Script for User ${Env:UserName} - Begin"
+}
 
 # Change Path to the root Installation Folder
+$BeforeLocation = Get-Location
 $InstallFolder = (Join-Path -Path ${Env:ProgramFiles} -ChildPath "SWMB")
 If (Test-Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB") {
 	$InstallFolder = (Get-ItemProperty -Path "HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SWMB" -Name "InstallFolder").InstallFolder
 }
-Set-Location $InstallFolder
+If (Test-Path -LiteralPath $InstallFolder) {
+	Set-Location $InstallFolder
+}
 
 # Define SWMB folder on ProgramData
 $DataFolder   = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
@@ -33,8 +43,15 @@ $HostExt="Host-$(${Env:ComputerName}.ToLower())"
 $Args = @()
 $FlagPreset = $False
 
-# Log action
-$Args += '-log', "$LogFolder\CurrentUser-LastLogon.log"
+# Check mode
+If ($Mode -eq 'Batch') {
+	# Log action
+	$Args += '-log', "$LogFolder\CurrentUser-LastLogon.log"
+} ElseIf ($Mode -eq 'Print') {
+	$Args += '-print'
+} ElseIf ($Mode -eq 'Check') {
+	$Args += '-check'
+}
 
 # Site and Host Modules
 If (Test-Path -LiteralPath "$ModuleFolder\Local-Addon.psm1") {
@@ -64,5 +81,12 @@ If ($FlagPreset) {
 	Write-Output "Error: No preset define, No SWMB launch"
 }
 
-Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `
-	-Message "SWMB: Run Logon Script for User ${Env:UserName} - End"
+# Come back to the previous Path
+If (Test-Path -LiteralPath $BeforeLocation) {
+	Set-Location $BeforeLocation
+}
+
+If ($Mode -eq 'Batch') {
+	Write-EventLog -LogName Application -Source "SWMB" -EntryType Information -EventID 999 `
+		-Message "SWMB: Run Logon Script for User ${Env:UserName} - End"
+}

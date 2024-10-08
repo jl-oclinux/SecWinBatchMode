@@ -44,6 +44,8 @@ If ($Uptime.Days -ne 0) {
 	$UptimeStr = "$($Uptime.Minutes) min"
 }
 
+# Default editor
+# $Editor = ((Get-ItemProperty -Path 'Registry::HKEY_CLASSES_ROOT\txtfile\shell\open\command').'(Default)').trimend(" %1")
 $Editor = "${Env:SystemRoot}\System32\notepad.exe"
 If (Test-Path -LiteralPath "${Env:ProgramFiles}\Notepad++\notepad++.exe") {
 	$Editor = "${Env:ProgramFiles}\Notepad++\notepad++.exe"
@@ -187,6 +189,30 @@ $BtnTaskBootE.Text = "E"
 $Form.controls.Add($BtnTaskBootE)
 $BtnTaskBootE.Add_Click({
 	Start-Process $Editor "`"$DataFolder\Presets\LocalMachine-Boot.preset`""
+})
+$BtnTaskBootC = New-Object System.Windows.Forms.Button
+$BtnTaskBootC.Location = New-Object System.Drawing.Point(73,150)
+$BtnTaskBootC.Width = 15
+$BtnTaskBootC.Height = 20
+$BtnTaskBootC.Text = "C"
+$Form.controls.Add($BtnTaskBootC)
+$BtnTaskBootC.Add_Click({
+	$BtnTaskBootStatus.Text = "Check..."
+	$Message = @(& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Check)
+	$TempWindow = New-Object System.Windows.Forms.Form -Property @{TopMost = $True}
+	$TextBox                      = New-Object System.Windows.Forms.TextBox
+	$TextBox.Multiline            = $true
+	$TextBox.Text                 = $Message -join "`r`n"
+	$TextBox.Font                 = New-Object System.Drawing.Font("Consolas",9,[System.Drawing.FontStyle]::Regular)
+	$TextBox.Size                 = New-Object System.Drawing.Size(400,400)
+	$TextBox.Location             = New-Object System.Drawing.Point(20,70)
+	$TextBox.Scrollbars          = "Vertical"
+	$TextBox.BackColor            = "#1F1F1F"
+	$TextBox.ForeColor            = 'Cyan'
+	$TempWindow.Controls.Add($TextBox)
+	$TempWindow.ShowDialog()
+	#& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Check ` | Out-String
+	#	| Out-GridView -Title "SWMB: Check Boot sequence tweaks on the ${Env:ComputerName} computer - $(Get-Date)"
 })
 
 # Post-Install Task

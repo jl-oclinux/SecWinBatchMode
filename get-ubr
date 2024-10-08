@@ -11,9 +11,11 @@ UBR10=$(curl -s -L 'https://learn.microsoft.com/fr-fr/windows/release-health/rel
 	| cut -f 1 -d '<' \
 	| head -1)
 
+VERSION=22631 # Windows 11 / version 23H2
 UBR11=$(curl -s -L 'https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information' \
 	| grep -A5 'Canal de disponibilité générale' \
 	| grep -E '^<td>[[:digit:]][[:digit:]]*\.[[:digit:]][[:digit:]]*</td>' \
+	| grep "${VERSION}" \
 	| cut -f 2 -d '.' \
 	| cut -f 1 -d '<' \
 	| head -1)
@@ -22,5 +24,5 @@ UBR11=$(curl -s -L 'https://learn.microsoft.com/fr-fr/windows/release-health/win
 
 cat << END
 \$UBR10 = ${UBR10} # https://learn.microsoft.com/fr-fr/windows/release-health/release-information
-\$UBR11 = ${UBR11} # https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information
+\$UBR11 = ${UBR11} # 23H2 https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information
 END

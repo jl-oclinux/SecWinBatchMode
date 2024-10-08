@@ -148,6 +148,117 @@ Function SWMB_GetOSVersionColor {
 }
 
 ################################################################
+
+# GUI Task
+# SWMB_GUI_Task -TaskPath $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Name Boot -LogPath C:\...\LocalMachine-LastBoot.log -PosX 30 -PosY 150 -PresetPath $DataFolder\Presets\LocalMachine-Boot.preset -Form $Form
+<# 
+Function SWMB_GUI_Task {
+	Param (
+		[Parameter(Mandatory = $True)] [string]$Name,
+		[Parameter(Mandatory = $True)] [string]$TaskPath,
+		[Parameter(Mandatory = $True)] [string]$LogPath,
+		[Parameter(Mandatory = $True)] [string]$PresetPath,
+		[Parameter(Mandatory = $True)] [int]$PosX,
+		[Parameter(Mandatory = $True)] [int]$PosY,
+		[Parameter(Mandatory = $True)] [System.Windows.Forms.Form]$Form
+	)
+
+	$BtnTaskStatus = New-Object System.Windows.Forms.label
+	$BtnTaskStatus.Location = New-Object System.Drawing.Size(($PosX+10), ($PosY+62))
+	$BtnTaskStatus.Width = 50
+	$BtnTaskStatus.Height = 15
+	$BtnTaskStatus.BackColor = "Transparent"
+	$BtnTaskStatus.Text = ""
+	$Form.Controls.Add($BtnTaskStatus)
+
+	$BtnTask = New-Object System.Windows.Forms.Button
+	$BtnTask.Location = New-Object System.Drawing.Point($PosX, $PosY)
+	$BtnTask.Width = 60
+	$BtnTask.Height = 60
+	$BtnTask.Text = "$Name"
+	$Form.controls.Add($BtnTask)
+	$BtnTask.Add_Click({
+		$BtnTaskStatus.Text = "Start..."
+		If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
+			& eventvwr.exe /c:Application
+		}
+		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$TaskPath`"" -WindowStyle Hidden -Wait
+		Start-Process $Editor "`"$LogPath`""
+		$BtnTaskStatus.Text = "Finish!"
+	})
+
+	$BtnTaskP = New-Object System.Windows.Forms.Button
+	$BtnTaskP.Location = New-Object System.Drawing.Point(($PosX+59), $PosY)
+	$BtnTaskP.Width = 15
+	$BtnTaskP.Height = 20
+	$BtnTaskP.Text = "P"
+	$Form.controls.Add($BtnTaskP)
+	$BtnTaskP.Add_Click({
+		$CountTweak = 0
+		& $TaskPath -Mode Print `
+			| ForEach-Object {
+				$CountTweak++
+				$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
+				} `
+			| Out-GridView -Title "SWMB: List of $CountTweak tweaks that will apply to the next $Name sequence on the ${Env:ComputerName} computer - $(Get-Date)"
+	})
+	$BtnTaskL = New-Object System.Windows.Forms.Button
+	$BtnTaskL.Location = New-Object System.Drawing.Point(($PosX+59), ($PosY+20))
+	$BtnTaskL.Width = 15
+	$BtnTaskL.Height = 20
+	$BtnTaskL.Text = "L"
+	$Form.controls.Add($BtnTaskL)
+	$BtnTaskL.Add_Click({
+		Start-Process $Editor "`"$LogPath`""
+	})
+	$BtnTaskE = New-Object System.Windows.Forms.Button
+	$BtnTaskE.Location = New-Object System.Drawing.Point(($PosX+59), ($PosY+40))
+	$BtnTaskE.Width = 15
+	$BtnTaskE.Height = 20
+	$BtnTaskE.Text = "E"
+	$Form.controls.Add($BtnTaskE)
+	$BtnTaskE.Add_Click({
+		Start-Process $Editor "`"$PresetPath`""
+	})
+	$BtnTaskC = New-Object System.Windows.Forms.Button
+	$BtnTaskC.Location = New-Object System.Drawing.Point(($PosX+59), ($PosY+60))
+	$BtnTaskC.Width = 15
+	$BtnTaskC.Height = 20
+	$BtnTaskC.Text = "C"
+	$Form.controls.Add($BtnTaskC)
+	$BtnTaskC.Add_Click({
+		$BtnTaskStatus.Text = "Check..."
+		$Message = @(& $TaskPath -Mode Check)
+		$SubForm = New-Object 'System.Windows.Forms.Form' # -Property @{TopMost = $True}
+		$SubForm.ClientSize = '550,375'
+		$SubForm.Text = "SWMB: Check $Name tweaks"
+
+		$SFTextBox                      = New-Object system.Windows.Forms.TextBox
+		$SFTextBox.Multiline            = $true
+		$SFTextBox.Text                 = $Message -join "`r`n"
+		$SFTextBox.Font                 = New-Object System.Drawing.Font("Consolas",9,[System.Drawing.FontStyle]::Regular)
+		$SFTextBox.Size                 = New-Object System.Drawing.Size(500,300)
+		$SFTextBox.Location             = New-Object System.Drawing.Point(20,20)
+		$SFTextBox.Scrollbars           = "Vertical"
+		$SFTextBox.BackColor            = "#1F1F1F"
+		$SFTextBox.ForeColor            = 'Cyan'
+		$SFButton = New-Object system.Windows.Forms.Button
+		$SFButton.Location = New-Object System.Drawing.Point(420,330)
+		$SFButton.Width = 80
+		$SFButton.Height = 30
+		$SFButton.Text = "Close"
+		$SFButton.Add_Click({
+			$SubForm.Close()
+			})
+		$SubForm.Controls.AddRange(@($SFTextBox, $SFButton))
+		$SubForm.Show()
+		#& $TaskPath -Mode Check ` | Out-String
+		#	| Out-GridView -Title "SWMB: Check $Name sequence tweaks on the ${Env:ComputerName} computer - $(Get-Date)"
+	})
+}
+ #>
+
+################################################################
 ###### Export Functions
 ################################################################
 

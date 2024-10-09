@@ -654,6 +654,7 @@ Function TweakUninstallHPBloatware { # RESINFO
 		"HP Notifications"
 		#"HP Security Update Service"
 		"HP System Default Settings"
+		"HP One Agent"
 		"HP Sure Click"
 		"HP Sure Click Security Browser"
 		"HP Sure Run"
@@ -721,6 +722,13 @@ BootOption=0
 				Write-Warning -Message " Failed to uninstall: [$($_.Name)]"
 			}
 		}
+		If ($_.Name -match "HP One Agent") {
+            Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
+            $Uninstallarray = $_.metadata['uninstallstring'] -Split '"'
+            $Exe = $Uninstallarray[1].Trim()
+            $Arguments = "/uninstall /quiet /norestart"
+            SWMB_RunExec -FilePath "$Exe" -ArgumentList $Arguments -Name "$($_.Name)" -Timeout 150
+			}
 	}
 }
 

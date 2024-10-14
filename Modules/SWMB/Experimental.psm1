@@ -99,12 +99,12 @@ Function TweakUninstallDellSoftware { # RESINFO
 	Write-Output " Uninstalling Dell MSI software..."
 	$InstalledMsi = Get-Package -ProviderName msi | Where-Object {$Global:SWMB_Custom.DellPackage -contains $_.Name}
 	$InstalledMsi | ForEach-Object {
-		Write-Host -Object " Attempting to uninstall this msi Dell package: [$($_.Name)]..."
+		Write-Output " Attempting to uninstall this msi Dell package: [$($_.Name)]..."
 		Try {
 			$Null = $_ | Uninstall-Package -AllVersions -Force -ErrorAction Stop
-			Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
+			Write-Output " Successfully uninstalled: [$($_.Name)]"
 		} Catch {
-			Write-Warning -Message " Failed to uninstall: [$($_.Name)]"
+			Write-Output " Failed to uninstall: [$($_.Name)]"
 		}
 	}
 
@@ -113,28 +113,28 @@ Function TweakUninstallDellSoftware { # RESINFO
 	$InstalledPrograms = Get-Package -ProviderName Programs | Where-Object {$Global:SWMB_Custom.DellPackage -contains $_.Name}
 	$InstalledPrograms | ForEach-Object {
 		If (($_.Name -match "Dell SupportAssist OS Recovery Plugin for Dell Update") -Or ($_.Name -match "Dell Optimizer Core") -Or ($_.Name -match " Dell Optimizer Service") -Or ($_.Name -match "Dell SupportAssist Remediation")) {
-			Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
+			Write-Output " Attempting to uninstall: [$($_.Name)]..."
 			Try {
-				$Uninstallarray = $_.metadata['uninstallstring'] -Split '"'
-				$Exe = $Uninstallarray[1].Trim()
-				$arguments=$Uninstallarray[2].Trim()
-				$arguments = $arguments+ " /silent"
-				(Start-Process "$Exe" -ArgumentList $arguments -NoNewWindow -Wait -PassThru).ExitCode
-				Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
+				$UninstallArray = $_.metadata['uninstallstring'] -Split '"'
+				$Exe = $UninstallArray[1].Trim()
+				$Arguments = $UninstallArray[2].Trim()
+				$Arguments = $Arguments + " /silent"
+				(Start-Process "$Exe" -ArgumentList $Arguments -NoNewWindow -Wait -PassThru).ExitCode
+				Write-Output " Successfully uninstalled: [$($_.Name)]"
 			} Catch {
-				Write-Warning -Message " Failed to uninstall: [$($_.Name)]"
+				Write-Output " Failed to uninstall: [$($_.Name)]"
 			}
 		}
 		If ($_.Name -match "Dell Peripheral Manager") {
-			Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
+			Write-Output " Attempting to uninstall: [$($_.Name)]..."
 			Try {
-				$Uninstallarray = $_.metadata['uninstallstring'] -Split '"'
-				$Exe = $Uninstallarray[1].Trim()
-				$arguments = " /S"
-				(Start-Process "$Exe" -ArgumentList $arguments -NoNewWindow -Wait -PassThru).ExitCode
-				Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
+				$UninstallArray = $_.metadata['uninstallstring'] -Split '"'
+				$Exe = $UninstallArray[1].Trim()
+				$Arguments = "/S"
+				(Start-Process "$Exe" -ArgumentList $Arguments -NoNewWindow -Wait -PassThru).ExitCode
+				Write-Output " Successfully uninstalled: [$($_.Name)]"
 			} Catch {
-				Write-Warning -Message " Failed to uninstall: [$($_.Name)]"
+				Write-Output " Failed to uninstall: [$($_.Name)]"
 			}
 		}
 	}

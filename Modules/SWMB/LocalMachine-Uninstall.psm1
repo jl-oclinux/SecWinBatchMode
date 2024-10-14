@@ -35,7 +35,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 	# Remove Kaspersky Endpoint
 	$KesEndpoint = Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky Endpoint Security*" }
 	If ($KesEndpoint.IdentifyingNumber) {
-		Write-Host " Uninstalling Kaspersky version $($KesEndpoint.Version) with GUID => $($KesEndpoint.IdentifyingNumber)"
+		Write-Output " Uninstalling Kaspersky version $($KesEndpoint.Version) with GUID => $($KesEndpoint.IdentifyingNumber)"
 		$EndpointPlainPassword=''
 		If ($($Global:SWMB_Custom.KesPassword)) {
 			If (($($Global:SWMB_Custom.KesKeyFile)) -And (Test-Path -LiteralPath "$($Global:SWMB_Custom.KesKeyFile)")) {
@@ -62,9 +62,9 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 			$MSIEndpointArguments += "/l*vx `"$($Global:SWMB_Custom.KesLogFile)`""
 		}
 		Start-Process "MsiExec.exe" -ArgumentList $MSIEndpointArguments -Wait -NoNewWindow
-		Write-Host " Uninstall finish"
+		Write-Output " Uninstall finish"
 	} Else {
-		Write-Host " Kaspersky Endpoint is not installed on this computer"
+		Write-Output " Kaspersky Endpoint is not installed on this computer"
 	}
 
 	# Remove Kaspersky Agent, French GUID = {2924BEDA-E0D7-4DAF-A224-50D2E0B12F5B}
@@ -98,7 +98,7 @@ Function TweakUninstallKasperskyEndpoint { # RESINFO
 		Start-Process "MsiExec.exe" -ArgumentList $MSIAgentArguments -Wait -NoNewWindow
 		}
 	Else {
-		Write-Host " Kaspersky Agent Security Center is not installed on this computer "
+		Write-Output " Kaspersky Agent Security Center is not installed on this computer "
 	}
 }
 
@@ -114,9 +114,9 @@ Function TweakUninstallKasperskyConsole { # RESINFO
 	If ($KesConsole.IdentifyingNumber) {
 		Write-Output " Uninstalling Console Kaspersky Security Center..."
 		Start-Process "MsiExec.exe" -ArgumentList "/X $($KesConsole.IdentifyingNumber) /qn" -Wait -NoNewWindow
-		Write-Host " Uninstall finish"
+		Write-Output " Uninstall finish"
 	} Else {
-		Write-Host " Kaspersky Console is not installed on this computer"
+		Write-Output " Kaspersky Console is not installed on this computer"
 	}
 }
 
@@ -128,7 +128,7 @@ Function TweakViewKasperskyProduct { # RESINFO
 	Write-Output "Viewing all Kaspersky products..."
 	# Warning if another Kaspersky is still installed on the computer
 	Get-WmiObject win32_product | Where { $_.Name -like "*Kaspersky*" } | ForEach-Object {
-		Write-Host " Note: Product $($_.IdentifyingNumber) is installed: $($_.Name)"
+		Write-Output " Note: Product $($_.IdentifyingNumber) is installed: $($_.Name)"
 	}
 }
 ################################################################
@@ -615,24 +615,24 @@ Function TweakUninstallHPBuiltInApps { # RESINFO
 
 	# Remove appx provisioned packages - AppxProvisionedPackage
 	ForEach ($ProvPackage in $ProvisionedPackages) {
-		Write-Host -Object " Attempting to remove provisioned package: [$($ProvPackage.DisplayName)]..."
+		Write-Output " Attempting to remove provisioned package: [$($ProvPackage.DisplayName)]..."
 		Try {
 			$Null = Remove-AppxProvisionedPackage -PackageName $ProvPackage.PackageName -Online -ErrorAction Stop
-			Write-Host -Object " Successfully removed provisioned package: [$($ProvPackage.DisplayName)]"
+			Write-Output " Successfully removed provisioned package: [$($ProvPackage.DisplayName)]"
 		} Catch {
-			Write-Warning -Message " Failed to remove provisioned package: [$($ProvPackage.DisplayName)]"
+			Write-Output " Failed to remove provisioned package: [$($ProvPackage.DisplayName)]"
 		}
 	}
 
 	# Remove appx packages - AppxPackage
 	ForEach ($AppxPackage in $InstalledPackages) {
-		Write-Host -Object " Attempting to remove Appx package: [$($AppxPackage.Name)]..."
+		Write-Output " Attempting to remove Appx package: [$($AppxPackage.Name)]..."
 
 		Try {
 			$Null = Remove-AppxPackage -Package $AppxPackage.PackageFullName -AllUsers -ErrorAction Stop
-			Write-Host -Object " Successfully removed Appx package: [$($AppxPackage.Name)]"
+			Write-Output " Successfully removed Appx package: [$($AppxPackage.Name)]"
 		} Catch {
-			Write-Warning -Message " Failed to remove Appx package: [$($AppxPackage.Name)]"
+			Write-Output " Failed to remove Appx package: [$($AppxPackage.Name)]"
 		}
 	}
 }
@@ -671,12 +671,12 @@ Function TweakUninstallHPBloatware { # RESINFO
 	# MSI Soft
 	$InstalledMsi = Get-Package -ProviderName msi | Where-Object {$UninstallPrograms -contains $_.Name}
 	$InstalledMsi | ForEach-Object {
-		Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
+		Write-Output " Attempting to uninstall: [$($_.Name)]..."
 		Try {
 			$Null = $_ | Uninstall-Package -AllVersions -Force -ErrorAction Stop
-			Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
+			Write-Output " Successfully uninstalled: [$($_.Name)]"
 		} Catch {
-			Write-Warning -Message " Failed to uninstall: [$($_.Name)]"
+			Write-Output " Failed to uninstall: [$($_.Name)]"
 		}
 	}
 
@@ -684,7 +684,7 @@ Function TweakUninstallHPBloatware { # RESINFO
 	$InstalledPrograms = Get-Package -ProviderName programs | Where-Object {$UninstallPrograms -contains $_.Name}
 	$InstalledPrograms | ForEach-Object {
 		If ($_.Name -match "HP Connection Optimizer") {
-			Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
+			Write-Output " Attempting to uninstall: [$($_.Name)]..."
 			Try {
 				# need a iss file for silent uninstall see https://www.reddit.com/r/PowerShell/comments/mwdrvb/hp_connection_optimizer_silent_uninstall/
 				$OptimizerUninstallAnswer = @"
@@ -711,24 +711,23 @@ Lang=0409
 Result=1
 BootOption=0
 "@
-				$OptimizerUninstallAnswer | Out-File $Env:Temp\Optimizer.iss
+				$OptimizerUninstallAnswer | Out-File ${Env:Temp}\Optimizer.iss
 
-				$Uninstallarray = $_.metadata['uninstallstring'] -Split '"'
-				$Exe = $Uninstallarray[1].Trim()
-				$Arguments = "/s /f1`"$Env:Temp\Optimizer.iss`""
+				$UninstallArray = $_.metadata['uninstallstring'] -Split '"'
+				$Exe = $UninstallArray[1].Trim()
+				$Arguments = "/s /f1`"${Env:Temp}\Optimizer.iss`""
 				(Start-Process "$Exe" -ArgumentList $Arguments -NoNewWindow -Wait -PassThru).ExitCode
-				Write-Host -Object " Successfully uninstalled: [$($_.Name)]"
+				Write-Output " Successfully uninstalled: [$($_.Name)]"
 			} Catch {
-				Write-Warning -Message " Failed to uninstall: [$($_.Name)]"
+				Write-Output " Failed to uninstall: [$($_.Name)]"
 			}
+		} ElseIf ($_.Name -match "HP One Agent") {
+			Write-Output " Attempting to uninstall: [$($_.Name)]..."
+			$UninstallArray = $_.metadata['uninstallstring'] -Split '"'
+			$Exe = $UninstallArray[1].Trim()
+			$Arguments = "/uninstall /quiet /norestart"
+			SWMB_RunExec -FilePath "$Exe" -ArgumentList $Arguments -Name "$($_.Name)" -Timeout 150
 		}
-		If ($_.Name -match "HP One Agent") {
-            Write-Host -Object " Attempting to uninstall: [$($_.Name)]..."
-            $Uninstallarray = $_.metadata['uninstallstring'] -Split '"'
-            $Exe = $Uninstallarray[1].Trim()
-            $Arguments = "/uninstall /quiet /norestart"
-            SWMB_RunExec -FilePath "$Exe" -ArgumentList $Arguments -Name "$($_.Name)" -Timeout 150
-			}
 	}
 }
 
@@ -838,24 +837,24 @@ Function TweakUninstallDellBuiltInApps { # RESINFO
 
 	# Remove appx provisioned packages - AppxProvisionedPackage
 	ForEach ($ProvPackage in $ProvisionedPackages) {
-		Write-Host -Object " Attempting to remove provisioned package: [$($ProvPackage.DisplayName)]..."
+		Write-Output " Attempting to remove provisioned package: [$($ProvPackage.DisplayName)]..."
 		Try {
 			$Null = Remove-AppxProvisionedPackage -PackageName $ProvPackage.PackageName -Online -ErrorAction Stop
-			Write-Host -Object " Successfully removed provisioned package: [$($ProvPackage.DisplayName)]"
+			Write-Output " Successfully removed provisioned package: [$($ProvPackage.DisplayName)]"
 		} Catch {
-			Write-Warning -Message " Failed to remove provisioned package: [$($ProvPackage.DisplayName)]"
+			Write-Output " Failed to remove provisioned package: [$($ProvPackage.DisplayName)]"
 		}
 	}
 
 	# Remove appx packages - AppxPackage
 	ForEach ($AppxPackage in $InstalledPackages) {
-		Write-Host -Object " Attempting to remove Appx package: [$($AppxPackage.Name)]..."
+		Write-Output " Attempting to remove Appx package: [$($AppxPackage.Name)]..."
 
 		Try {
 			$Null = Remove-AppxPackage -Package $AppxPackage.PackageFullName -AllUsers -ErrorAction Stop
-			Write-Host -Object " Successfully removed Appx package: [$($AppxPackage.Name)]"
+			Write-Output " Successfully removed Appx package: [$($AppxPackage.Name)]"
 		} Catch {
-			Write-Warning -Message " Failed to remove Appx package: [$($AppxPackage.Name)]"
+			Write-Output " Failed to remove Appx package: [$($AppxPackage.Name)]"
 		}
 	}
 }

@@ -134,7 +134,7 @@ $Form.Controls.Add($BtnBitlockerFrame)
 # Task Frame
 
 # Boot Task
-$BtnTaskBootStatus = New-Object System.Windows.Forms.label
+$BtnTaskBootStatus = New-Object System.Windows.Forms.Label
 $BtnTaskBootStatus.Location = New-Object System.Drawing.Size(40,212)
 $BtnTaskBootStatus.Width = 50
 $BtnTaskBootStatus.Height = 15

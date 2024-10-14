@@ -75,7 +75,7 @@ It is an extension that we added.
  * Document of the [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
    (Federal Office for Information Technology Security - Germany) :
    [Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
- * [Sécuriser son parc Windows avec le projet modulaire et communautaire SWMB](https://hal.archives-ouvertes.fr/hal-03608835) (french 2022)
+ * [Sécuriser son parc Windows avec le projet modulaire et communautaire SWMB](https://hal.science/hal-03608835) (french 2022)
 
 More references on the page [REFERENCES](./REFERENCES.md).
 

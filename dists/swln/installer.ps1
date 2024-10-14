@@ -26,7 +26,7 @@ ForEach ($FileItem in @(
 
 # Create main ProgramData folder (SWLN is installed before SWMB)
 If (!(Test-Path -LiteralPath "${Env:ProgramData}\SWMB")) {
-	Write-Host "Create ${Env:ProgramData}\SWMB directory"
+	Write-Output "Create ${Env:ProgramData}\SWMB directory"
 	New-Item -Path "${Env:ProgramData}\SWMB" -ItemType "directory" -Force
 }
 
@@ -53,18 +53,18 @@ ForEach ($FileItem in @(
 		If (Test-Path -LiteralPath "$FileItem") {
 			Rename-Item -LiteralPath "$FileItem" -NewName ("$FileItem" + ".old") -Force -ErrorAction Ignore
 		}
-		Write-Host "Copy ${Env:ProgramFiles}\$SWLN_Name\$FileName in $FileItem"
+		Write-Output "Copy ${Env:ProgramFiles}\$SWLN_Name\$FileName in $FileItem"
 		Copy-Item -LiteralPath "${Env:ProgramFiles}\$SWLN_Name\$FileName" -Destination "$FileItem" -Force
 	}
 }
 
 # Allow PowerShell scripts in the SWLN directory
-Write-Host " Unblock scripts"
+Write-Output " Unblock scripts"
 Get-ChildItem -LiteralPath "${Env:ProgramFiles}\$SWLN_Name\"  -Recurse | Unblock-File
 Get-ChildItem -LiteralPath "${Env:ProgramData}\SWMB\Modules\" -Recurse | Unblock-File
 
 # Silent SWMB install
-Write-Host "Install SWMB - version $SWMB_Version"
+Write-Output "Install SWMB - version $SWMB_Version"
 & .\SWMB-Setup-"$SWMB_Version".exe /S
 
 # Creation of the version file with the version number

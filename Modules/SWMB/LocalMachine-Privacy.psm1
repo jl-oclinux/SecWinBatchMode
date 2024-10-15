@@ -281,8 +281,10 @@ Function TweakDisableSearchOnTaskbar { # RESINFO
 # Enable
 Function TweakEnableSearchOnTaskbar { # RESINFO
 	Write-Output "Enabling Search on Taskbar and Start Menu for All Users..."
-	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "value" -Type DWord -Value 0
-	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch" -ErrorAction SilentlyContinue
+	If (Test-Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch") {
+		Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\PolicyManager\default\Search\DisableSearch" -Name "value" -Type DWord -Value 0
+		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "DisableSearch" -ErrorAction SilentlyContinue
+	}
 }
 
 # View

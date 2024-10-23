@@ -132,7 +132,7 @@ Function TweakDisableWindowsCopilot_CU { # RESINFO
 	If (!(Test-Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot")) {
 		New-Item -Path  "HKCU:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Force | Out-Null
 	}
-	Set-ItemProperty -Path  "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
+	Set-ItemProperty -Path  "HKCU:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot" -Name "TurnOffWindowsCopilot" -Type DWord -Value 1
 }
 
 # Enable Copilot

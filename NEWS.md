@@ -5,7 +5,8 @@
 The `wisemoui.ps1` graphical interface has been updated.
 There's now an L (Log) and E (Edit) button next to each scheduled task to view the last log file and edit the task's preset file.
 
-## Version 3.17
+
+## Version 3.17 (2024/10/01)
 
 The [SWLN](./dists/swln/) template is more generic (LEGI now uses the same files without any changes)
 and it now supports the file with the `-Host-HOSTNAME` extension
@@ -50,7 +51,8 @@ New presets/rules:
 * 2024/04/10 - `DisableAutoLogon`/`EnableAutoLogon`/`ViewAutoLogon` -> Disable or Enable AutoLogon (`$Global:SWMB_Custom` key `AutoLogon_UserName`)
 * 2024/04/09 - `DisableUpgradesOnUnsupportedHard`/`EnableUpgradesOnUnsupportedHard`/`ViewUpgradesOnUnsupportedHard` -> Force a registry key so that hardware not supported for accepting Windows 11 upgrades can continue to benefit from updates (use at your own risk).
 
-## Version 3.16
+
+## Version 3.16 (2024/04/09)
 
 This version offers specific initial support for Windows11.
 Indeed, initial tweaks have been written and made default to limit searches and data leaks for Windows 11.
@@ -123,7 +125,7 @@ New presets/rules:
 * 2023/11/06 - `EnableSWMBUniqueId`/`DisableSWMBUniqueId`/`ViewSWMBUniqueId` -> Add a unique `HostId` identifier for each host for better identification
 
 
-## Version 3.15
+## Version 3.15 (2023/11/02)
 
 SWMB can also be used to block the installation of certain software on
 computers. The tested solution consists in making tweaks that silently

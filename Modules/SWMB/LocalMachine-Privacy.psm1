@@ -1129,6 +1129,7 @@ Function TweakViewCloudOptimizedContent { # RESINFO
 
 # This policy setting prevents Windows tips from being shown to users.
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.CloudContent::DisableSoftLanding
+# only on  Enterprise and Education versions
 # See also DisableTelemetry
 # Disable
 Function TweakDisableWindowsTips { # RESINFO

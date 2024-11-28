@@ -57,7 +57,7 @@ DisableSearchUseLocation                        # EnableSearchUseLocation       
 DisableBluetoothAdvertising                     # EnableBluetoothAdvertising                    # ViewBluetoothAdvertising      ## Disable Advertisements via Bluetooth
 DisableBackupMessages                           # EnableBackupMessages                          # ViewBackupMessages            ## Don't allow backup and restore of cellular text messages to Microsoft's cloud services.
 DisableCloudOptimizedContent                    # EnableCloudOptimizedContent                   # ViewCloudOptimizedContent     ## Turn off cloud optimized content in all Windows experiences
-DisableWindowsTips                              # EnableWindowsTips                             # ViewWindowsTips               ## Prevents Windows tips from being shown to users
+# DisableWindowsTips                            # EnableWindowsTips                             # ViewWindowsTips               ## Prevents Windows tips from being shown to users - only on  Enterprise and Education versions
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps

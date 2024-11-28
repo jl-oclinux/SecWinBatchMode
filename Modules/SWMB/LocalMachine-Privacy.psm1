@@ -1110,7 +1110,7 @@ Function TweakDisableCloudOptimizedContent { # RESINFO
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" | Out-Null
 	}
-	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -Name "DisableCloudOptimizedContent" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -Name "DisableCloudOptimizedContent" -Type DWord -Value 1
 }
 
 # Enable
@@ -1121,10 +1121,35 @@ Function TweakEnableCloudOptimizedContent { # RESINFO
 
 # View
 Function TweakViewCloudOptimizedContent { # RESINFO
-	Write-Output "Viewing cloud optimized content (not exist - enable, 0 disable)..."
+	Write-Output "Viewing cloud optimized content (not exist - enable, 1 disable)..."
 	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -Name "DisableCloudOptimizedContent" -ErrorAction SilentlyContinue
 }
 
+################################################################
+
+# This policy setting prevents Windows tips from being shown to users.
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.CloudContent::DisableSoftLanding
+# See also DisableTelemetry
+# Disable
+Function TweakDisableWindowsTips { # RESINFO
+	Write-Output "Disable Windows Tips, users will no longer see Windows tips..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -Name "DisableSoftLanding" -Type DWord -Value 1
+}
+
+# Enable
+Function TweakEnableWindowsTips { # RESINFO
+	Write-Output "Enable Windows Tips..."
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -Name "DisableSoftLanding" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewWindowsTips { # RESINFO
+	Write-Output "Viewing Windows Tips (not exist - enable, 1 disable)..."
+	Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -Name "DisableSoftLanding" -ErrorAction SilentlyContinue
+}
 
 ################################################################
 ###### Export Functions

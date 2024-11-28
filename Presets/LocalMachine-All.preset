@@ -56,6 +56,7 @@ DisableOneSettingsDownloads                     # EnableOneSettingsDownloads    
 DisableSearchUseLocation                        # EnableSearchUseLocation                       # ViewSearchUseLocation         ## Search and Cortana are disallowed to use location
 DisableBluetoothAdvertising                     # EnableBluetoothAdvertising                    # ViewBluetoothAdvertising      ## Disable Advertisements via Bluetooth
 DisableBackupMessages                           # EnableBackupMessages                          # ViewBackupMessages            ## Don't allow backup and restore of cellular text messages to Microsoft's cloud services.
+DisableCloudOptimizedContent                    # EnableCloudOptimizedContent                   # ViewCloudOptimizedContent     ## Turn off cloud optimized content in all Windows experiences
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps                        # EnableUWPBackgroundApps

@@ -1106,7 +1106,7 @@ Function TweakViewBackupMessages { # RESINFO
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.CloudContent::DisableCloudOptimizedContent
 # Disable
 Function TweakDisableCloudOptimizedContent { # RESINFO
-	Write-Output "Turn off cloud optimized content..."
+	Write-Output "Disabling (Turn Off) cloud optimized content..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" | Out-Null
 	}
@@ -1115,7 +1115,7 @@ Function TweakDisableCloudOptimizedContent { # RESINFO
 
 # Enable
 Function TweakEnableCloudOptimizedContent { # RESINFO
-	Write-Output "Turn on cloud optimized content..."
+	Write-Output "Enabling (Turn On) cloud optimized content..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -Name "DisableCloudOptimizedContent" -ErrorAction SilentlyContinue
 }
 
@@ -1133,7 +1133,7 @@ Function TweakViewCloudOptimizedContent { # RESINFO
 # See also DisableTelemetry
 # Disable
 Function TweakDisableWindowsTips { # RESINFO
-	Write-Output "Disable Windows Tips, users will no longer see Windows tips..."
+	Write-Output "Disabling Windows Tips, users will no longer see Windows tips..."
 	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent")) {
 		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" | Out-Null
 	}
@@ -1142,7 +1142,7 @@ Function TweakDisableWindowsTips { # RESINFO
 
 # Enable
 Function TweakEnableWindowsTips { # RESINFO
-	Write-Output "Enable Windows Tips..."
+	Write-Output "Enabling Windows Tips..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent" -Name "DisableSoftLanding" -ErrorAction SilentlyContinue
 }
 

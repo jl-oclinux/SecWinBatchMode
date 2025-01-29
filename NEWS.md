@@ -5,10 +5,15 @@
 The `wisemoui.ps1` graphical interface has been updated.
 There's now an L (Log) and E (Edit) button next to each scheduled task to view the last log file and edit the task's preset file.
 
+Add SHA-1 hash on download package web page.
+
 New presets/rules:
+* 2025/01/29 - `UninstallRealVNC4` -> Uninstall old RealVNC version 4
+* 2025/01/29 - `UninstallRealVNCServer`/`ViewRealVNCServer` -> Uninstall RealVNC version 4 server software
+* 2025/01/29 - `UninstallRealVNCViewer`/`ViewRealVNCViewer` -> Uninstall RealVNC version 4 server client (viewer)
+* 2025/01/29 - `UninstallUltraVNC`/`ViewUltraVNC` -> Uninstall UltraVNC (viewer and server)
 * 2024/11/28 - `DisableCloudOptimizedContent`/`EnableCloudOptimizedContent`/`ViewCloudOptimizedContent` -> Turn off cloud optimized content in all Windows experiences
 * 2024/11/28 - `DisableWindowsTips`/`EnableWindowsTips`/`ViewWindowsTips` -> Prevents Windows tips from being shown to users
-
 
 ## Version 3.17 (2024/10/01)
 

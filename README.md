@@ -117,6 +117,20 @@ uninstall [Kasperky Endpoint](dists/uninstall-kaspersky/README.md)...).
  * The [README](dists/manual-use/README.md) file in the "manual-use" directory
    reminds some principles about PowerShell execution policies.
 
+**Exception for antivirus and EDR**
+
+Some antivirus programs, such as WithSecure, consider SWMB to be a virus.
+In reality, it's the Nullsoft NSIS-based installer and uninstaller that's to blame.
+SWMB itself does not pose a problem for this antivirus.
+
+Exceptions must therefore be made based on either the path or a hash of the programs.
+The easiest way is to set an exception on the SHA-1 hash of the installation program for each SWMB version (see [download](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/) page)
+and an exception on the path `C:\Program Files\SWMB\uninst.exe` of the uninstall program (which will then be valid for all versions).
+
+As far as EDRs ([Endpoint Detection and Response](https://en.wikipedia.org/wiki/Endpoint_detection_and_response)) are concerned, SWMB is bound to raise alarms.
+Indeed, this program touches on the system's low-level configuration, which an EDR doesn't like by default.
+You'll need to set up whitelists in your EDR to accept some of your system settings.
+This is inherent to the very notion of EDR...
 
 ## Usage
 

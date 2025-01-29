@@ -827,6 +827,163 @@ Function TweakViewVMwarePlayer { # RESINFO
 
 ################################################################
 
+# Suppress RealVNC 4
+# http://help.syamsupport.com/UninstallingRealVNCandUltraVNC.html
+# Uninstall
+Function TweakUninstallRealVNC4 { # RESINFO
+	Write-Output "Uninstalling software RealVNC4..."
+	$Args = '/VERYSILENT /NORESTART'
+	If (Test-Path -Path "${Env:ProgramFiles}\RealVNC\VNC4\unins000.exe") {
+		Write-Output " Uninstalling RealVNC 4"
+		SWMB_RunExec -FilePath "${Env:ProgramFiles}\RealVNC\VNC4\unins000.exe" -ArgumentList "$Args" -Name "RealVNC" -Timeout 300
+		Start-Sleep -Seconds 2
+	}
+	If (Test-Path -Path "${Env:ProgramFiles(x86)}\RealVNC\VNC4\unins000.exe") {
+		Write-Output " Uninstalling RealVNC 4"
+		SWMB_RunExec -FilePath "${Env:ProgramFiles(x86)}\RealVNC\VNC4\unins000.exe" -ArgumentList "$Args" -Name "RealVNC" -Timeout 300
+		Start-Sleep -Seconds 2
+	}
+}
+
+################################################################
+
+# Suppress RealVNC Server
+# http://help.syamsupport.com/UninstallingRealVNCandUltraVNC.html
+# Uninstall
+Function TweakUninstallRealVNCServer { # RESINFO
+	Write-Output "Uninstalling software RealVNC Server..."
+	$Args = '/VERYSILENT /NORESTART'
+	If (Test-Path -Path "${Env:ProgramFiles}\RealVNC\VNC Server\unins000.exe") {
+		Write-Output " Uninstalling RealVNC 5"
+		SWMB_RunExec -FilePath "${Env:ProgramFiles}\RealVNC\VNC Server\unins000.exe" -ArgumentList "$Args" -Name "RealVNC" -Timeout 300
+		Start-Sleep -Seconds 2
+	}
+	If (Test-Path -Path "${Env:ProgramFiles(x86)}\RealVNC\VNC Server\unins000.exe") {
+		Write-Output " Uninstalling RealVNC 5"
+		SWMB_RunExec -FilePath "${Env:ProgramFiles(x86)}\RealVNC\VNC Server\unins000.exe" -ArgumentList "$Args" -Name "RealVNC" -Timeout 300
+		Start-Sleep -Seconds 2
+	}
+}
+
+# View
+Function TweakViewRealVNCServer { # RESINFO
+	Write-Output "Viewing software RealVNC Server..."
+	$RefName = 'RealVNC Server'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match $RefName) {
+				$DisplayVersion = $App.DisplayVersion
+				$KeyProduct = $Key | Split-Path -Leaf
+				$UninstallString = $App.UninstallString
+				Write-Output " $DisplayName / $DisplayVersion / $KeyProduct / $UninstallString"
+			}
+		}
+}
+
+################################################################
+
+# Suppress RealVNC Viewer
+# http://help.syamsupport.com/UninstallingRealVNCandUltraVNC.html
+# Uninstall
+Function TweakUninstallRealVNCViewer { # RESINFO
+	Write-Output "Uninstalling software RealVNC Viewer..."
+	$Args = '/VERYSILENT /NORESTART'
+	If (Test-Path -Path "${Env:ProgramFiles}\RealVNC\VNC Viewer\unins000.exe") {
+		Write-Output " Uninstalling RealVNC 5"
+		SWMB_RunExec -FilePath "${Env:ProgramFiles}\RealVNC\VNC Viewer\unins000.exe" -ArgumentList "$Args" -Name "RealVNC" -Timeout 300
+		Start-Sleep -Seconds 2
+	}
+	If (Test-Path -Path "${Env:ProgramFiles(x86)}\RealVNC\VNC Viewer\unins000.exe") {
+		Write-Output " Uninstalling RealVNC 5"
+		SWMB_RunExec -FilePath "${Env:ProgramFiles(x86)}\RealVNC\VNC Viewer\unins000.exe" -ArgumentList "$Args" -Name "RealVNC" -Timeout 300
+		Start-Sleep -Seconds 2
+	}
+}
+
+# View
+Function TweakViewRealVNCViewer { # RESINFO
+	Write-Output "Viewing software RealVNC Viewer 5..."
+	$RefName = 'RealVNC Viewer'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match $RefName) {
+				$DisplayVersion = $App.DisplayVersion
+				$KeyProduct = $Key | Split-Path -Leaf
+				$UninstallString = $App.UninstallString
+				Write-Output " $DisplayName / $DisplayVersion / $KeyProduct / $UninstallString"
+			}
+		}
+}
+
+################################################################
+
+# Suppress UltraVNC
+# http://help.syamsupport.com/UninstallingRealVNCandUltraVNC.html
+# | Hive | DisplayName | Publisher | DisplayVersion | KeyProduct | UninstallExe |
+# |:---- |:----------- |:--------- |:-------------- |:---------- |:------------ |
+# | HKLM | UltraVNC | uvnc bvba | 1.4.36 | {AD7A5D3C-0443-4F04-A066-ADFF7EB9328C} | MsiExec.exe /I{AD7A5D3C-0443-4F04-A066-ADFF7EB9328C} |
+# | HKLM | UltraVNC | uvnc bvba | 1.4.3.6 | Ultravnc2_is1 | "C:\Program Files (x86)\uvnc bvba\UltraVNC\unins000.exe" |
+
+# Suppress UltraVNC
+# http://help.syamsupport.com/UninstallingRealVNCandUltraVNC.html
+# Uninstall
+Function TweakUninstallUltraVNC { # RESINFO
+	Write-Output "Uninstalling software UltraVNC..."
+	$RefName = 'UltraVNC'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If (!($DisplayName -match $RefName)) { Return }
+			$DisplayVersion = $App.DisplayVersion
+			$KeyProduct = $Key | Split-Path -Leaf
+
+			If ($($App.UninstallString) -match 'MsiExec.exe') {
+				$Exe = 'MsiExec.exe'
+				$Args = '/x "' + $KeyProduct + '" /qn /norestart'
+			} Else {
+				$UninstallSplit = $App.UninstallString -Split "exe"
+				$Exe = $UninstallSplit[0] + 'exe"'
+				$Args = '/VERYSILENT /NORESTART'
+			}
+
+			Write-Output " Uninstalling $DisplayName version $DisplayVersion"
+			Write-Output " Exe: $Exe $Args"
+			SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
+		}
+}
+
+# View
+Function TweakViewUltraVNC { # RESINFO
+	Write-Output "Viewing software UltraVNC..."
+	$RefName = 'UltraVNC'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match $RefName) {
+				$DisplayVersion = $App.DisplayVersion
+				$KeyProduct = $Key | Split-Path -Leaf
+				$UninstallString = $App.UninstallString
+				Write-Output " $DisplayName / $DisplayVersion / $KeyProduct / $UninstallString"
+			}
+		}
+}
+
+################################################################
+
 # Dell Appx
 # Uninstall
 Function TweakUninstallDellBuiltInApps { # RESINFO

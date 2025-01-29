@@ -18,3 +18,7 @@ InstallTelegram_CU
 InstallDellBuiltInApps
 InstallDellSoftware
 InstallVMwarePlayer
+InstallRealVNC4
+InstallRealVNCServer
+InstallRealVNCViewer
+InstallUltraVNC

@@ -308,3 +308,7 @@ EnableOffice2016AutoUpdate                      # DisableOffice2016AutoUpdate   
 # UninstallDellBuiltInApps
 # UninstallDellSoftware
 # UninstallVMwarePlayer                                                                         # ViewVMwarePlayer
+# UninstallRealVNC4
+# UninstallRealVNCServer                                                                        # ViewRealVNCServer
+# UninstallRealVNCViewer                                                                        # ViewRealVNCViewer
+# UninstallUltraVNC                                                                             # ViewUltraVNC

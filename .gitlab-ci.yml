@@ -41,7 +41,7 @@ pages:
     - (cd public/; ln -sf $(ls -1t SWMB-WAPT-*.zip  | head -1) SWMB-WAPT-Latest.zip)
     - (cd public/; ln -sf $(ls -1t Kasperky-Uninstall-*.zip  | head -1) Kasperky-Uninstall-Latest.zip)
     - echo '<html><body><h1>SWMB Setup and OCS / WAPT (zip) Package (last update ' $(date '+%Y/%m/%d %H:%M') UTC')</h1><ul>' > public/index.html
-    - (cd public; while read file; do printf '<li>%s %s / <a href="%s">%s</a> (SHA-1 %s)</li>\n' $(stat -c %y $file | cut -f 1,2 -d ':') $file $file $(shasum -a 1 $file | cut -f 1 -d ' '); done < <(ls -1t *.exe *.zip) >> index.html)
+    - (cd public; while read file; do printf '<li>%s %s / <a href="%s" style="width: 17em; display: inline-block;">%s</a> (SHA-1 %s)</li>\n' $(stat -c %y $file | cut -f 1,2 -d ':') $file $file $(shasum -a 1 $file | cut -f 1 -d ' '); done < <(ls -1t *.exe *.zip) >> index.html)
     - echo '</ul></body></html>' >> public/index.html
     - (cd public ; tar --exclude '*-Latest.*' -czf ../download.tar.gz SWMB-Setup-*.exe SWMB-OCS-*.zip SWMB-WAPT-*.zip Kasperky-Uninstall-*.zip)
     - mv download.tar.gz public/

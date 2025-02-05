@@ -27,6 +27,10 @@
   * [Hardening Microsoft 365 tenant with CIS and Microsoft recommendations](https://github.com/Harden365/Harden365)
   * [Hardening Active Directory](https://github.com/LoicVeirman/SecureAD)
 
+## 2024
+
+* [SWLN ou comment déployer des règles de sécurité de SWMB pour Windows dans son unité](https://hal.science/hal-04893850v1) (french)
+
 ## 2023
 
 * [SWMB, un logiciel libre et modulaire pour sécuriser votre parc Windows](https://hal.science/hal-04330226v1) (french)

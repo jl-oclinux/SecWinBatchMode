@@ -7,6 +7,8 @@ There's now an L (Log) and E (Edit) button next to each scheduled task to view t
 
 Add SHA-1 hash on download package web page.
 
+Add the link to [Win11Debloat](https://github.com/Raphire/Win11Debloat) and to the [JRES 2024 conference in Rennes](https://hal.science/hal-04893850v1) to the [REFERENCES](REFERENCES.md) file.
+
 New presets/rules:
 * 2025/01/29 - `UninstallRealVNC4` -> Uninstall old RealVNC version 4
 * 2025/01/29 - `UninstallRealVNCServer`/`ViewRealVNCServer` -> Uninstall RealVNC version 4 server software

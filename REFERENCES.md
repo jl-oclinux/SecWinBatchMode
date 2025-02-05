@@ -16,6 +16,7 @@
 
 ## Other interesting tools
 
+* [Win11Debloat](https://github.com/Raphire/Win11Debloat) (script in PowerShell)
 * [Debloat Windows 10](https://github.com/W4RH4WK/Debloat-Windows-10) (script in PowerShell)
 * [Optimizer](https://github.com/hellzerg/optimizer) (Windows faster and more secure)
 * [O&O ShutUp10](https://www.oo-software.com/en/shutup10) (Free antispy tool for Windows 10) - non libre

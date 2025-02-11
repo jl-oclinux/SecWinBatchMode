@@ -142,6 +142,31 @@ $BtnTaskBootStatus.BackColor = "Transparent"
 $BtnTaskBootStatus.Text = ""
 $Form.Controls.Add($BtnTaskBootStatus)
 
+$BtnTaskBootCheck = New-Object System.Windows.Forms.Button
+$BtnTaskBootCheck.Location = New-Object System.Drawing.Point(73,190)
+$BtnTaskBootCheck.Width = 15
+$BtnTaskBootCheck.Height = 20
+$BtnTaskBootCheck.Text = "C"
+$Form.controls.Add($BtnTaskBootCheck)
+$BtnTaskBootCheck.Add_Click({
+#	$BtnTaskBootStatus.Text = "Check..."
+#	$Message = @(& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Check)
+#	$TempWindow = New-Object System.Windows.Forms.Form -Property @{TopMost = $True}
+#	$TextBox                      = New-Object System.Windows.Forms.TextBox
+#	$TextBox.Multiline            = $true
+#	$TextBox.Text                 = $Message -join "`r`n"
+#	$TextBox.Font                 = New-Object System.Drawing.Font("Consolas",9,[System.Drawing.FontStyle]::Regular)
+#	$TextBox.Size                 = New-Object System.Drawing.Size(400,400)
+#	$TextBox.Location             = New-Object System.Drawing.Point(20,70)
+#	$TextBox.Scrollbars          = "Vertical"
+#	$TextBox.BackColor            = "#1F1F1F"
+#	$TextBox.ForeColor            = 'Cyan'
+#	$TempWindow.Controls.Add($TextBox)
+#	$TempWindow.ShowDialog() # | Out-String
+	& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Check `
+		| Out-GridView -Title "SWMB: Check Boot sequence tweaks on the ${Env:ComputerName} computer - $(Get-Date)"
+})
+
 $BtnTaskBoot = New-Object System.Windows.Forms.Button
 $BtnTaskBoot.Location = New-Object System.Drawing.Point(30,150)
 $BtnTaskBoot.Width = 60
@@ -158,13 +183,13 @@ $BtnTaskBoot.Add_Click({
 	$BtnTaskBootStatus.Text = "Finish!"
 })
 
-$BtnTaskBootP = New-Object System.Windows.Forms.Button
-$BtnTaskBootP.Location = New-Object System.Drawing.Point(89,150)
-$BtnTaskBootP.Width = 15
-$BtnTaskBootP.Height = 20
-$BtnTaskBootP.Text = "P"
-$Form.controls.Add($BtnTaskBootP)
-$BtnTaskBootP.Add_Click({
+$BtnTaskBootPrint = New-Object System.Windows.Forms.Button
+$BtnTaskBootPrint.Location = New-Object System.Drawing.Point(89,150)
+$BtnTaskBootPrint.Width = 15
+$BtnTaskBootPrint.Height = 20
+$BtnTaskBootPrint.Text = "P"
+$Form.controls.Add($BtnTaskBootPrint)
+$BtnTaskBootPrint.Add_Click({
 	& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Print `
 		| ForEach-Object -Begin {$CountTweak = 0} -Process {
 			$CountTweak++
@@ -172,47 +197,23 @@ $BtnTaskBootP.Add_Click({
 			} `
 		| Out-GridView -Title "SWMB: Tweaks that will apply to the next Boot sequence on the ${Env:ComputerName} computer - $(Get-Date)"
 })
-$BtnTaskBootL = New-Object System.Windows.Forms.Button
-$BtnTaskBootL.Location = New-Object System.Drawing.Point(89,170)
-$BtnTaskBootL.Width = 15
-$BtnTaskBootL.Height = 20
-$BtnTaskBootL.Text = "L"
-$Form.controls.Add($BtnTaskBootL)
-$BtnTaskBootL.Add_Click({
+$BtnTaskBootLog = New-Object System.Windows.Forms.Button
+$BtnTaskBootLog.Location = New-Object System.Drawing.Point(89,170)
+$BtnTaskBootLog.Width = 15
+$BtnTaskBootLog.Height = 20
+$BtnTaskBootLog.Text = "L"
+$Form.controls.Add($BtnTaskBootLog)
+$BtnTaskBootLog.Add_Click({
 	Start-Process $Editor "`"$BootLog`""
 })
-$BtnTaskBootE = New-Object System.Windows.Forms.Button
-$BtnTaskBootE.Location = New-Object System.Drawing.Point(89,190)
-$BtnTaskBootE.Width = 15
-$BtnTaskBootE.Height = 20
-$BtnTaskBootE.Text = "E"
-$Form.controls.Add($BtnTaskBootE)
-$BtnTaskBootE.Add_Click({
+$BtnTaskBootEdit = New-Object System.Windows.Forms.Button
+$BtnTaskBootEdit.Location = New-Object System.Drawing.Point(89,190)
+$BtnTaskBootEdit.Width = 15
+$BtnTaskBootEdit.Height = 20
+$BtnTaskBootEdit.Text = "E"
+$Form.controls.Add($BtnTaskBootEdit)
+$BtnTaskBootEdit.Add_Click({
 	Start-Process $Editor "`"$DataFolder\Presets\LocalMachine-Boot.preset`""
-})
-$BtnTaskBootC = New-Object System.Windows.Forms.Button
-$BtnTaskBootC.Location = New-Object System.Drawing.Point(73,150)
-$BtnTaskBootC.Width = 15
-$BtnTaskBootC.Height = 20
-$BtnTaskBootC.Text = "C"
-$Form.controls.Add($BtnTaskBootC)
-$BtnTaskBootC.Add_Click({
-	$BtnTaskBootStatus.Text = "Check..."
-	$Message = @(& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Check)
-	$TempWindow = New-Object System.Windows.Forms.Form -Property @{TopMost = $True}
-	$TextBox                      = New-Object System.Windows.Forms.TextBox
-	$TextBox.Multiline            = $true
-	$TextBox.Text                 = $Message -join "`r`n"
-	$TextBox.Font                 = New-Object System.Drawing.Font("Consolas",9,[System.Drawing.FontStyle]::Regular)
-	$TextBox.Size                 = New-Object System.Drawing.Size(400,400)
-	$TextBox.Location             = New-Object System.Drawing.Point(20,70)
-	$TextBox.Scrollbars          = "Vertical"
-	$TextBox.BackColor            = "#1F1F1F"
-	$TextBox.ForeColor            = 'Cyan'
-	$TempWindow.Controls.Add($TextBox)
-	$TempWindow.ShowDialog()
-	#& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Check ` | Out-String
-	#	| Out-GridView -Title "SWMB: Check Boot sequence tweaks on the ${Env:ComputerName} computer - $(Get-Date)"
 })
 
 # Post-Install Task

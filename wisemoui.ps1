@@ -529,6 +529,25 @@ $BtnSoftware.Add_Click({
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\View-All-Software.ps1`"" -WindowStyle Hidden
 })
 
+# Console
+$BtnConsoleGPedit = New-Object System.Windows.Forms.Button
+$BtnConsoleGPedit.Location = New-Object System.Drawing.Point(300,320)
+$BtnConsoleGPedit.Width = 80
+$BtnConsoleGPedit.Height = 50
+$BtnConsoleGPedit.Text = "GPedit Console"
+$Form.controls.Add($BtnConsoleGPedit)
+$BtnConsoleGPedit.Add_Click({
+	Start-Process gpedit.msc
+})
+$BtnConsoleMgmt = New-Object System.Windows.Forms.Button
+$BtnConsoleMgmt.Location = New-Object System.Drawing.Point(400,320)
+$BtnConsoleMgmt.Width = 80
+$BtnConsoleMgmt.Height = 50
+$BtnConsoleMgmt.Text = "Managment Console"
+$Form.controls.Add($BtnConsoleMgmt)
+$BtnConsoleMgmt.Add_Click({
+	Start-Process compmgmt.msc
+})
 
 ################################################################
 

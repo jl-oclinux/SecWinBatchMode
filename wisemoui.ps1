@@ -133,6 +133,13 @@ $Form.Controls.Add($BtnBitlockerFrame)
 ################################################################
 # Task Frame
 
+# General ToolTip
+$ToolTip = New-Object System.Windows.Forms.ToolTip;
+$ToolTip.AutoPopDelay = 5000;
+$ToolTip.InitialDelay = 500;
+$ToolTip.ReshowDelay = 500;
+$ToolTip.ShowAlways = true;
+
 # Boot Task
 $BtnTaskBootStatus = New-Object System.Windows.Forms.Label
 $BtnTaskBootStatus.Location = New-Object System.Drawing.Size(40,212)
@@ -142,8 +149,31 @@ $BtnTaskBootStatus.BackColor = "Transparent"
 $BtnTaskBootStatus.Text = ""
 $Form.Controls.Add($BtnTaskBootStatus)
 
+$BtnTaskBootLabel = New-Object System.Windows.Forms.Label
+$BtnTaskBootLabel.Location = New-Object System.Drawing.Point(30,150)
+$BtnTaskBootLabel.Width = 60
+$BtnTaskBootLabel.Height = 40
+$BtnTaskBootLabel.Text = "Boot"
+$Form.controls.Add($BtnTaskBootLabel)
+
+$BtnTaskBootRun = New-Object System.Windows.Forms.Button
+$BtnTaskBootRun.Location = New-Object System.Drawing.Point(30,190)
+$BtnTaskBootRun.Width = 45
+$BtnTaskBootRun.Height = 20
+$BtnTaskBootRun.Text = "Run"
+$Form.controls.Add($BtnTaskBootRun)
+$BtnTaskBootRun.Add_Click({
+	$BtnTaskBootStatus.Text = "Start..."
+	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
+		& eventvwr.exe /c:Application
+	}
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Boot.ps1`"" -WindowStyle Hidden -Wait
+	Start-Process $Editor "`"$BootLog`""
+	$BtnTaskBootStatus.Text = "Finish!"
+})
+
 $BtnTaskBootCheck = New-Object System.Windows.Forms.Button
-$BtnTaskBootCheck.Location = New-Object System.Drawing.Point(73,190)
+$BtnTaskBootCheck.Location = New-Object System.Drawing.Point(74,190)
 $BtnTaskBootCheck.Width = 15
 $BtnTaskBootCheck.Height = 20
 $BtnTaskBootCheck.Text = "C"
@@ -165,22 +195,6 @@ $BtnTaskBootCheck.Add_Click({
 #	$TempWindow.ShowDialog() # | Out-String
 	& $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Mode Check `
 		| Out-GridView -Title "SWMB: Check Boot sequence tweaks on the ${Env:ComputerName} computer - $(Get-Date)"
-})
-
-$BtnTaskBoot = New-Object System.Windows.Forms.Button
-$BtnTaskBoot.Location = New-Object System.Drawing.Point(30,150)
-$BtnTaskBoot.Width = 60
-$BtnTaskBoot.Height = 60
-$BtnTaskBoot.Text = "Boot"
-$Form.controls.Add($BtnTaskBoot)
-$BtnTaskBoot.Add_Click({
-	$BtnTaskBootStatus.Text = "Start..."
-	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
-		& eventvwr.exe /c:Application
-	}
-	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Boot.ps1`"" -WindowStyle Hidden -Wait
-	Start-Process $Editor "`"$BootLog`""
-	$BtnTaskBootStatus.Text = "Finish!"
 })
 
 $BtnTaskBootPrint = New-Object System.Windows.Forms.Button
@@ -215,6 +229,20 @@ $Form.controls.Add($BtnTaskBootEdit)
 $BtnTaskBootEdit.Add_Click({
 	Start-Process $Editor "`"$DataFolder\Presets\LocalMachine-Boot.preset`""
 })
+
+$BtnTaskBootFrame = New-Object System.Windows.Forms.GroupBox
+$BtnTaskBootFrame.Location = New-Object System.Drawing.Size(30,145)
+$BtnTaskBootFrame.Width = 60
+$BtnTaskBootFrame.Height = 47
+$BtnTaskBootFrame.Text = ""
+$Form.Controls.Add($BtnTaskBootFrame)
+
+$ToolTip.SetToolTip($BtnTaskBootCheck, "Check Boot Tweaks");
+$ToolTip.SetToolTip($BtnTaskBootRun,   "Run Boot Task Now");
+$ToolTip.SetToolTip($BtnTaskBootPrint, "Print Boot Tweaks List");
+$ToolTip.SetToolTip($BtnTaskBootLog,   "Show Last Boot Task Run");
+$ToolTip.SetToolTip($BtnTaskBootEdit,  "Edit Boot Task Preset File");
+
 
 # Post-Install Task
 $BtnTaskPostInstallStatus = New-Object System.Windows.Forms.label

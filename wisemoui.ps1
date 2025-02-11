@@ -155,7 +155,7 @@ $BtnTaskBootLabel = New-Object System.Windows.Forms.Label
 $BtnTaskBootLabel.Location = New-Object System.Drawing.Point(40,160)
 $BtnTaskBootLabel.Width = 50
 $BtnTaskBootLabel.Height = 30
-$BtnTaskBootLabel.Text = "Boot"
+$BtnTaskBootLabel.Text = "LM`nBoot"
 $BtnTaskBootLabel.BackColor = 'Moccasin'
 $Form.controls.Add($BtnTaskBootLabel)
 
@@ -241,11 +241,11 @@ $BtnTaskBootFrame.Text = ""
 $BtnTaskBootFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskBootFrame)
 
-$ToolTip.SetToolTip($BtnTaskBootCheck, "Check Boot Tweaks");
-$ToolTip.SetToolTip($BtnTaskBootRun,   "Run Boot Task Now");
-$ToolTip.SetToolTip($BtnTaskBootPrint, "Print Boot Tweaks List");
-$ToolTip.SetToolTip($BtnTaskBootLog,   "Show Last Boot Task Run");
-$ToolTip.SetToolTip($BtnTaskBootEdit,  "Edit Boot Task Preset File");
+$ToolTip.SetToolTip($BtnTaskBootCheck, "Check Local Machine Boot Tweaks");
+$ToolTip.SetToolTip($BtnTaskBootRun,   "Run Local Machine Boot Task Now");
+$ToolTip.SetToolTip($BtnTaskBootPrint, "Print Local Machine Boot Tweaks List");
+$ToolTip.SetToolTip($BtnTaskBootLog,   "Show Local Machine Last Boot Task Run");
+$ToolTip.SetToolTip($BtnTaskBootEdit,  "Edit Local Machine Boot Task Preset File");
 
 
 # Post-Install Task
@@ -270,7 +270,7 @@ $BtnTaskPostInstallLabel = New-Object System.Windows.Forms.Label
 $BtnTaskPostInstallLabel.Location = New-Object System.Drawing.Point(120,160)
 $BtnTaskPostInstallLabel.Width = 50
 $BtnTaskPostInstallLabel.Height = 30
-$BtnTaskPostInstallLabel.Text = "Post`nInstall"
+$BtnTaskPostInstallLabel.Text = "LM Post`nInstall"
 $BtnTaskPostInstallLabel.BackColor = 'Moccasin'
 $Form.controls.Add($BtnTaskPostInstallLabel)
 
@@ -342,11 +342,11 @@ $BtnTaskPostInstallFrame.Text = ""
 $BtnTaskPostInstallFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskPostInstallFrame)
 
-$ToolTip.SetToolTip($BtnTaskPostInstallCheck, "Check Post-Install Tweaks");
-$ToolTip.SetToolTip($BtnTaskPostInstallRun,   "Run Post-Install Task Now");
-$ToolTip.SetToolTip($BtnTaskPostInstallPrint, "Print Post-Install Tweaks List");
-$ToolTip.SetToolTip($BtnTaskPostInstallLog,   "Show Last Post-Install Task Run");
-$ToolTip.SetToolTip($BtnTaskPostInstallEdit,  "Edit Post-Install Task Preset File");
+$ToolTip.SetToolTip($BtnTaskPostInstallCheck, "Check Local Machine Post-Install Tweaks");
+$ToolTip.SetToolTip($BtnTaskPostInstallRun,   "Run Local Machine Post-Install Task Now");
+$ToolTip.SetToolTip($BtnTaskPostInstallPrint, "Print Local Machine Post-Install Tweaks List");
+$ToolTip.SetToolTip($BtnTaskPostInstallLog,   "Show Last Local Machine Post-Install Task Run");
+$ToolTip.SetToolTip($BtnTaskPostInstallEdit,  "Edit Local Machine Post-Install Task Preset File");
 
 
 # Logon Task
@@ -371,7 +371,7 @@ $BtnTaskLogonLabel = New-Object System.Windows.Forms.Label
 $BtnTaskLogonLabel.Location = New-Object System.Drawing.Point(200,160)
 $BtnTaskLogonLabel.Width = 50
 $BtnTaskLogonLabel.Height = 30
-$BtnTaskLogonLabel.Text = "Logon"
+$BtnTaskLogonLabel.Text = "CU`nLogon"
 $BtnTaskLogonLabel.BackColor = 'Moccasin'
 $Form.controls.Add($BtnTaskLogonLabel)
 
@@ -528,6 +528,7 @@ $Form.controls.Add($BtnSoftware)
 $BtnSoftware.Add_Click({
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\View-All-Software.ps1`"" -WindowStyle Hidden
 })
+
 
 ################################################################
 

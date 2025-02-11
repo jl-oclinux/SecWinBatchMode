@@ -12,6 +12,8 @@
 # Version: v3.13, 2021-11-22
 ################################################################
 
+# List of Color https://learn.microsoft.com/en-us/dotnet/api/system.windows.media.brushes?view=windowsdesktop-9.0
+
 # Relaunch the script with administrator privileges
 Function TweakSysRequireAdmin {
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
@@ -70,7 +72,7 @@ $Form.Controls.Add($Logo)
 
 # Bitlocker Status
 $BitlockerStatus  = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
-$BtnBitlockerStatus = New-Object System.Windows.Forms.label
+$BtnBitlockerStatus = New-Object System.Windows.Forms.Label
 $BtnBitlockerStatus.Location = New-Object System.Drawing.Size(30,25)
 $BtnBitlockerStatus.Width = 220
 $BtnBitlockerStatus.Height = 20
@@ -150,15 +152,16 @@ $BtnTaskBootStatus.Text = ""
 $Form.Controls.Add($BtnTaskBootStatus)
 
 $BtnTaskBootLabel = New-Object System.Windows.Forms.Label
-$BtnTaskBootLabel.Location = New-Object System.Drawing.Point(30,150)
-$BtnTaskBootLabel.Width = 60
-$BtnTaskBootLabel.Height = 40
+$BtnTaskBootLabel.Location = New-Object System.Drawing.Point(40,160)
+$BtnTaskBootLabel.Width = 50
+$BtnTaskBootLabel.Height = 30
 $BtnTaskBootLabel.Text = "Boot"
+$BtnTaskBootLabel.BackColor = 'Moccasin'
 $Form.controls.Add($BtnTaskBootLabel)
 
 $BtnTaskBootRun = New-Object System.Windows.Forms.Button
 $BtnTaskBootRun.Location = New-Object System.Drawing.Point(30,190)
-$BtnTaskBootRun.Width = 45
+$BtnTaskBootRun.Width = 44
 $BtnTaskBootRun.Height = 20
 $BtnTaskBootRun.Text = "Run"
 $Form.controls.Add($BtnTaskBootRun)
@@ -235,6 +238,7 @@ $BtnTaskBootFrame.Location = New-Object System.Drawing.Size(30,145)
 $BtnTaskBootFrame.Width = 60
 $BtnTaskBootFrame.Height = 47
 $BtnTaskBootFrame.Text = ""
+$BtnTaskBootFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskBootFrame)
 
 $ToolTip.SetToolTip($BtnTaskBootCheck, "Check Boot Tweaks");
@@ -245,7 +249,7 @@ $ToolTip.SetToolTip($BtnTaskBootEdit,  "Edit Boot Task Preset File");
 
 
 # Post-Install Task
-$BtnTaskPostInstallStatus = New-Object System.Windows.Forms.label
+$BtnTaskPostInstallStatus = New-Object System.Windows.Forms.Label
 $BtnTaskPostInstallStatus.Location = New-Object System.Drawing.Size(120,212)
 $BtnTaskPostInstallStatus.Width = 50
 $BtnTaskPostInstallStatus.Height = 15
@@ -253,57 +257,100 @@ $BtnTaskPostInstallStatus.BackColor = "Transparent"
 $BtnTaskPostInstallStatus.Text = ""
 $Form.Controls.Add($BtnTaskPostInstallStatus)
 
-$BtnTaskPostInstall = New-Object System.Windows.Forms.Button
-$BtnTaskPostInstall.Location = New-Object System.Drawing.Point(110,150)
-$BtnTaskPostInstall.Width = 60
-$BtnTaskPostInstall.Height = 60
-$BtnTaskPostInstall.Text = "Post Install"
-$Form.controls.Add($BtnTaskPostInstall)
-$BtnTaskPostInstall.Add_Click({
+#$BtnTaskPostInstall = New-Object System.Windows.Forms.Button
+#$BtnTaskPostInstall.Location = New-Object System.Drawing.Point(110,150)
+#$BtnTaskPostInstall.Width = 60
+#$BtnTaskPostInstall.Height = 60
+#$BtnTaskPostInstall.Text = "Post Install"
+#$Form.controls.Add($BtnTaskPostInstall)
+#$BtnTaskPostInstall.Add_Click({
+#})
+
+$BtnTaskPostInstallLabel = New-Object System.Windows.Forms.Label
+$BtnTaskPostInstallLabel.Location = New-Object System.Drawing.Point(120,160)
+$BtnTaskPostInstallLabel.Width = 50
+$BtnTaskPostInstallLabel.Height = 30
+$BtnTaskPostInstallLabel.Text = "Post`nInstall"
+$BtnTaskPostInstallLabel.BackColor = 'Moccasin'
+$Form.controls.Add($BtnTaskPostInstallLabel)
+
+$BtnTaskPostInstallRun = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstallRun.Location = New-Object System.Drawing.Point(110,190)
+$BtnTaskPostInstallRun.Width = 44
+$BtnTaskPostInstallRun.Height = 20
+$BtnTaskPostInstallRun.Text = "Run"
+$Form.controls.Add($BtnTaskPostInstallRun)
+$BtnTaskPostInstallRun.Add_Click({
 	$BtnTaskPostInstallStatus.Text = "Start..."
 	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
 		& eventvwr.exe /c:Application
 	}
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`"" -WindowStyle Hidden -Wait
-	Start-Process $Editor "`"$BootLog`""
+	Start-Process $Editor "`"$PostInstallLog`""
 	$BtnTaskPostInstallStatus.Text = "Finish!"
 })
 
-$BtnTaskPostInstallP = New-Object System.Windows.Forms.Button
-$BtnTaskPostInstallP.Location = New-Object System.Drawing.Point(169,150)
-$BtnTaskPostInstallP.Width = 15
-$BtnTaskPostInstallP.Height = 20
-$BtnTaskPostInstallP.Text = "P"
-$Form.controls.Add($BtnTaskPostInstallP)
-$BtnTaskPostInstallP.Add_Click({
+$BtnTaskPostInstallCheck = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstallCheck.Location = New-Object System.Drawing.Point(154,190)
+$BtnTaskPostInstallCheck.Width = 15
+$BtnTaskPostInstallCheck.Height = 20
+$BtnTaskPostInstallCheck.Text = "C"
+$Form.controls.Add($BtnTaskPostInstallCheck)
+$BtnTaskPostInstallCheck.Add_Click({
+	& $PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1 -Mode Check `
+		| Out-GridView -Title "SWMB: Check PostInstall sequence tweaks on the ${Env:ComputerName} computer - $(Get-Date)"
+})
+
+$BtnTaskPostInstallPrint = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstallPrint.Location = New-Object System.Drawing.Point(169,150)
+$BtnTaskPostInstallPrint.Width = 15
+$BtnTaskPostInstallPrint.Height = 20
+$BtnTaskPostInstallPrint.Text = "P"
+$Form.controls.Add($BtnTaskPostInstallPrint)
+$BtnTaskPostInstallPrint.Add_Click({
 	& $PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1 -Mode Print `
 		| ForEach-Object -Begin {$CountTweak = 0} -Process {
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: Tweaks that will apply to the next PostInstall sequence on the ${Env:ComputerName} computer - $(Get-Date)"
+		| Out-GridView -Title "SWMB: Tweaks that will apply to the next Post-Install sequence on the ${Env:ComputerName} computer - $(Get-Date)"
 })
-$BtnTaskPostInstallL = New-Object System.Windows.Forms.Button
-$BtnTaskPostInstallL.Location = New-Object System.Drawing.Point(169,170)
-$BtnTaskPostInstallL.Width = 15
-$BtnTaskPostInstallL.Height = 20
-$BtnTaskPostInstallL.Text = "L"
-$Form.controls.Add($BtnTaskPostInstallL)
-$BtnTaskPostInstallL.Add_Click({
+$BtnTaskPostInstallLog = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstallLog.Location = New-Object System.Drawing.Point(169,170)
+$BtnTaskPostInstallLog.Width = 15
+$BtnTaskPostInstallLog.Height = 20
+$BtnTaskPostInstallLog.Text = "L"
+$Form.controls.Add($BtnTaskPostInstallLog)
+$BtnTaskPostInstallLog.Add_Click({
 	Start-Process $Editor "`"$PostInstallLog`""
 })
-$BtnTaskPostInstallE = New-Object System.Windows.Forms.Button
-$BtnTaskPostInstallE.Location = New-Object System.Drawing.Point(169,190)
-$BtnTaskPostInstallE.Width = 15
-$BtnTaskPostInstallE.Height = 20
-$BtnTaskPostInstallE.Text = "E"
-$Form.controls.Add($BtnTaskPostInstallE)
-$BtnTaskPostInstallE.Add_Click({
-	Start-Process $Editor "`"$DataFolder\Presets\Machine-PostInstall.preset`""
+$BtnTaskPostInstallEdit = New-Object System.Windows.Forms.Button
+$BtnTaskPostInstallEdit.Location = New-Object System.Drawing.Point(169,190)
+$BtnTaskPostInstallEdit.Width = 15
+$BtnTaskPostInstallEdit.Height = 20
+$BtnTaskPostInstallEdit.Text = "E"
+$Form.controls.Add($BtnTaskPostInstallEdit)
+$BtnTaskPostInstallEdit.Add_Click({
+	Start-Process $Editor "`"$DataFolder\Presets\LocalMachine-PostInstall.preset`""
 })
 
+$BtnTaskPostInstallFrame = New-Object System.Windows.Forms.GroupBox
+$BtnTaskPostInstallFrame.Location = New-Object System.Drawing.Size(110,145)
+$BtnTaskPostInstallFrame.Width = 60
+$BtnTaskPostInstallFrame.Height = 47
+$BtnTaskPostInstallFrame.Text = ""
+$BtnTaskPostInstallFrame.BackColor = 'Moccasin'
+$Form.Controls.Add($BtnTaskPostInstallFrame)
+
+$ToolTip.SetToolTip($BtnTaskPostInstallCheck, "Check Post-Install Tweaks");
+$ToolTip.SetToolTip($BtnTaskPostInstallRun,   "Run Post-Install Task Now");
+$ToolTip.SetToolTip($BtnTaskPostInstallPrint, "Print Post-Install Tweaks List");
+$ToolTip.SetToolTip($BtnTaskPostInstallLog,   "Show Last Post-Install Task Run");
+$ToolTip.SetToolTip($BtnTaskPostInstallEdit,  "Edit Post-Install Task Preset File");
+
+
 # Logon Task
-$BtnTaskLogonStatus = New-Object System.Windows.Forms.label
+$BtnTaskLogonStatus = New-Object System.Windows.Forms.Label
 $BtnTaskLogonStatus.Location = New-Object System.Drawing.Size(200,212)
 $BtnTaskLogonStatus.Width = 50
 $BtnTaskLogonStatus.Height = 15
@@ -311,29 +358,57 @@ $BtnTaskLogonStatus.BackColor = "Transparent"
 $BtnTaskLogonStatus.Text = ""
 $Form.Controls.Add($BtnTaskLogonStatus)
 
-$BtnTaskLogon = New-Object System.Windows.Forms.Button
-$BtnTaskLogon.Location = New-Object System.Drawing.Point(190,150)
-$BtnTaskLogon.Width = 60
-$BtnTaskLogon.Height = 60
-$BtnTaskLogon.Text = "Logon"
-$Form.controls.Add($BtnTaskLogon)
-$BtnTaskLogon.Add_Click({
+#$BtnTaskLogon = New-Object System.Windows.Forms.Button
+#$BtnTaskLogon.Location = New-Object System.Drawing.Point(190,150)
+#$BtnTaskLogon.Width = 60
+#$BtnTaskLogon.Height = 60
+#$BtnTaskLogon.Text = "Logon"
+#$Form.controls.Add($BtnTaskLogon)
+#$BtnTaskLogon.Add_Click({
+#})
+
+$BtnTaskLogonLabel = New-Object System.Windows.Forms.Label
+$BtnTaskLogonLabel.Location = New-Object System.Drawing.Point(200,160)
+$BtnTaskLogonLabel.Width = 50
+$BtnTaskLogonLabel.Height = 30
+$BtnTaskLogonLabel.Text = "Logon"
+$BtnTaskLogonLabel.BackColor = 'Moccasin'
+$Form.controls.Add($BtnTaskLogonLabel)
+
+$BtnTaskLogonRun = New-Object System.Windows.Forms.Button
+$BtnTaskLogonRun.Location = New-Object System.Drawing.Point(190,190)
+$BtnTaskLogonRun.Width = 44
+$BtnTaskLogonRun.Height = 20
+$BtnTaskLogonRun.Text = "Run"
+$Form.controls.Add($BtnTaskLogonRun)
+$BtnTaskLogonRun.Add_Click({
 	$BtnTaskLogonStatus.Text = "Start..."
 	If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
 		& eventvwr.exe /c:Application
 	}
-	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`"" -WindowStyle Hidden -Wait
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\CurrentUser-Logon.ps1`"" -WindowStyle Hidden -Wait
 	Start-Process $Editor "`"$LogonLog`""
 	$BtnTaskLogonStatus.Text = "Finish!"
 })
 
-$BtnTaskLogonP = New-Object System.Windows.Forms.Button
-$BtnTaskLogonP.Location = New-Object System.Drawing.Point(249,150)
-$BtnTaskLogonP.Width = 15
-$BtnTaskLogonP.Height = 20
-$BtnTaskLogonP.Text = "P"
-$Form.controls.Add($BtnTaskLogonP)
-$BtnTaskLogonP.Add_Click({
+$BtnTaskLogonCheck = New-Object System.Windows.Forms.Button
+$BtnTaskLogonCheck.Location = New-Object System.Drawing.Point(234,190)
+$BtnTaskLogonCheck.Width = 15
+$BtnTaskLogonCheck.Height = 20
+$BtnTaskLogonCheck.Text = "C"
+$Form.controls.Add($BtnTaskLogonCheck)
+$BtnTaskLogonCheck.Add_Click({
+	& $PSScriptRoot\Tasks\CurrentUser-Logon.ps1 -Mode Check `
+		| Out-GridView -Title "SWMB: Check CurrentUser Logon sequence tweaks on the ${Env:ComputerName} computer - $(Get-Date)"
+})
+
+$BtnTaskLogonPrint = New-Object System.Windows.Forms.Button
+$BtnTaskLogonPrint.Location = New-Object System.Drawing.Point(249,150)
+$BtnTaskLogonPrint.Width = 15
+$BtnTaskLogonPrint.Height = 20
+$BtnTaskLogonPrint.Text = "P"
+$Form.controls.Add($BtnTaskLogonPrint)
+$BtnTaskLogonPrint.Add_Click({
 	& $PSScriptRoot\Tasks\CurrentUser-Logon.ps1 -Mode Print `
 		| ForEach-Object -Begin {$CountTweak = 0} -Process {
 			$CountTweak++
@@ -341,24 +416,39 @@ $BtnTaskLogonP.Add_Click({
 			} `
 		| Out-GridView -Title "SWMB: Tweaks that will apply to the next Logon sequence for current user ${Env:UserName} - $(Get-Date)"
 })
-$BtnTaskLogonL = New-Object System.Windows.Forms.Button
-$BtnTaskLogonL.Location = New-Object System.Drawing.Point(249,170)
-$BtnTaskLogonL.Width = 15
-$BtnTaskLogonL.Height = 20
-$BtnTaskLogonL.Text = "L"
-$Form.controls.Add($BtnTaskLogonL)
-$BtnTaskLogonL.Add_Click({
+$BtnTaskLogonLog = New-Object System.Windows.Forms.Button
+$BtnTaskLogonLog.Location = New-Object System.Drawing.Point(249,170)
+$BtnTaskLogonLog.Width = 15
+$BtnTaskLogonLog.Height = 20
+$BtnTaskLogonLog.Text = "L"
+$Form.controls.Add($BtnTaskLogonLog)
+$BtnTaskLogonLog.Add_Click({
 	Start-Process $Editor "`"$LogonLog`""
 })
-$BtnTaskLogonE = New-Object System.Windows.Forms.Button
-$BtnTaskLogonE.Location = New-Object System.Drawing.Point(249,190)
-$BtnTaskLogonE.Width = 15
-$BtnTaskLogonE.Height = 20
-$BtnTaskLogonE.Text = "E"
-$Form.controls.Add($BtnTaskLogonE)
-$BtnTaskLogonE.Add_Click({
+$BtnTaskLogonEdit = New-Object System.Windows.Forms.Button
+$BtnTaskLogonEdit.Location = New-Object System.Drawing.Point(249,190)
+$BtnTaskLogonEdit.Width = 15
+$BtnTaskLogonEdit.Height = 20
+$BtnTaskLogonEdit.Text = "E"
+$Form.controls.Add($BtnTaskLogonEdit)
+$BtnTaskLogonEdit.Add_Click({
 	Start-Process $Editor "`"$DataFolder\Presets\CurrentUser-Logon.preset`""
 })
+
+$BtnTaskLogonFrame = New-Object System.Windows.Forms.GroupBox
+$BtnTaskLogonFrame.Location = New-Object System.Drawing.Size(190,145)
+$BtnTaskLogonFrame.Width = 60
+$BtnTaskLogonFrame.Height = 47
+$BtnTaskLogonFrame.Text = ""
+$BtnTaskLogonFrame.BackColor = 'Moccasin'
+$Form.Controls.Add($BtnTaskLogonFrame)
+
+$ToolTip.SetToolTip($BtnTaskLogonCheck, "Check Current User Logon Tweaks");
+$ToolTip.SetToolTip($BtnTaskLogonRun,   "Run Current User Logon Task Now");
+$ToolTip.SetToolTip($BtnTaskLogonPrint, "Print Current User Logon Tweaks List");
+$ToolTip.SetToolTip($BtnTaskLogonLog,   "Show Last Current User Logon Task Run");
+$ToolTip.SetToolTip($BtnTaskLogonEdit,  "Edit Current User Logon Task Preset File");
+
 
 # Task Frame
 $BtnTaskFrame = New-Object System.Windows.Forms.GroupBox
@@ -374,7 +464,7 @@ $Form.Controls.Add($BtnTaskFrame)
 # Version
 $RunningVersion  = (SWMB_GetRunningVersion)
 $PublishedVersion = (SWMB_GetLastPublishedVersion)
-$BtnVersion = New-Object System.Windows.Forms.label
+$BtnVersion = New-Object System.Windows.Forms.Label
 $BtnVersion.Location = New-Object System.Drawing.Size(30,270)
 $BtnVersion.Width = 110
 $BtnVersion.Height = 40
@@ -399,7 +489,7 @@ If ($RunningVersion -ne $PublishedVersion) {
 
 # Hostname
 $HostId = (SWMB_GetHostId)
-$BtnHost = New-Object System.Windows.Forms.label
+$BtnHost = New-Object System.Windows.Forms.Label
 $BtnHost.Location = New-Object System.Drawing.Size(30,310)
 $BtnHost.Width = 230
 $BtnHost.Height = 40
@@ -410,8 +500,8 @@ $Form.Controls.Add($BtnHost)
 # OS Version
 $OSVersion = SWMB_GetOSVersionReadable
 $OSColor = SWMB_GetOSVersionColor
-$BtnOSVersion = New-Object System.Windows.Forms.label
-$BtnOSVersion.Location = New-Object System.Drawing.Size(30,350)
+$BtnOSVersion = New-Object System.Windows.Forms.Label
+$BtnOSVersion.Location = New-Object System.Drawing.Size(30,352)
 $BtnOSVersion.Width = 230
 $BtnOSVersion.Height = 15
 $BtnOSVersion.ForeColor = "$OSColor"

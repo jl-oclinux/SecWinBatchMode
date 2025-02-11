@@ -1,6 +1,6 @@
 ################################################################
 # Project CNRS RESINFO SWMB
-# Copyright (C) 2020-2024, CNRS, France
+# Copyright (C) 2020-2025, CNRS, France
 # License: MIT License (Same as project Win10-Initial-Setup-Script)
 # Homepage: https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb
 # Authors:
@@ -150,7 +150,7 @@ Function SWMB_GetOSVersionColor {
 ################################################################
 
 # GUI Task
-# SWMB_GUI_Task -TaskPath $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Name Boot -LogPath C:\...\LocalMachine-LastBoot.log -PosX 30 -PosY 150 -PresetPath $DataFolder\Presets\LocalMachine-Boot.preset -Form $Form
+# SWMB_GUI_Task -TaskPath $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Name Boot -LogPath $DataFolder\Logs\LocalMachine-LastBoot.log -PosX 30 -PosY 150 -PresetPath $DataFolder\Presets\LocalMachine-Boot.preset -Form $Form
 <# 
 Function SWMB_GUI_Task {
 	Param (
@@ -161,9 +161,15 @@ Function SWMB_GUI_Task {
 		[Parameter(Mandatory = $True)] [int]$PosX,
 		[Parameter(Mandatory = $True)] [int]$PosY,
 		[Parameter(Mandatory = $True)] [System.Windows.Forms.Form]$Form
+		[Parameter(Mandatory = $True)] [System.Windows.Forms.Label]$BtnStatus
 	)
 
-	$BtnTaskStatus = New-Object System.Windows.Forms.label
+	$Editor = "${Env:SystemRoot}\System32\notepad.exe"
+	If (Test-Path -LiteralPath "${Env:ProgramFiles}\Notepad++\notepad++.exe") {
+		$Editor = "${Env:ProgramFiles}\Notepad++\notepad++.exe"
+	}
+
+	$BtnTaskStatus = New-Object System.Windows.Forms.Label
 	$BtnTaskStatus.Location = New-Object System.Drawing.Size(($PosX+10), ($PosY+62))
 	$BtnTaskStatus.Width = 50
 	$BtnTaskStatus.Height = 15
@@ -171,13 +177,13 @@ Function SWMB_GUI_Task {
 	$BtnTaskStatus.Text = ""
 	$Form.Controls.Add($BtnTaskStatus)
 
-	$BtnTask = New-Object System.Windows.Forms.Button
-	$BtnTask.Location = New-Object System.Drawing.Point($PosX, $PosY)
-	$BtnTask.Width = 60
-	$BtnTask.Height = 60
-	$BtnTask.Text = "$Name"
-	$Form.controls.Add($BtnTask)
-	$BtnTask.Add_Click({
+	$BtnTaskRun = New-Object System.Windows.Forms.Button
+	$BtnTaskRun.Location = New-Object System.Drawing.Point($PosX, $PosY)
+	$BtnTaskRun.Width = 60
+	$BtnTaskRun.Height = 60
+	$BtnTaskRun.Text = "$Name"
+	$Form.controls.Add($BtnTaskRun)
+	$BtnTaskRun.Add_Click({
 		$BtnTaskStatus.Text = "Start..."
 		If (((Get-Process -ProcessName 'mmc' -ErrorAction SilentlyContinue).Modules | Select-String 'EventViewer' | Measure-Object -Line).Lines -eq 0) {
 			& eventvwr.exe /c:Application
@@ -233,15 +239,15 @@ Function SWMB_GUI_Task {
 		$SubForm.ClientSize = '550,375'
 		$SubForm.Text = "SWMB: Check $Name tweaks"
 
-		$SFTextBox                      = New-Object system.Windows.Forms.TextBox
-		$SFTextBox.Multiline            = $true
-		$SFTextBox.Text                 = $Message -join "`r`n"
-		$SFTextBox.Font                 = New-Object System.Drawing.Font("Consolas",9,[System.Drawing.FontStyle]::Regular)
-		$SFTextBox.Size                 = New-Object System.Drawing.Size(500,300)
-		$SFTextBox.Location             = New-Object System.Drawing.Point(20,20)
-		$SFTextBox.Scrollbars           = "Vertical"
-		$SFTextBox.BackColor            = "#1F1F1F"
-		$SFTextBox.ForeColor            = 'Cyan'
+		$SFTextBox            = New-Object system.Windows.Forms.TextBox
+		$SFTextBox.Multiline  = $true
+		$SFTextBox.Text       = $Message -join "`r`n"
+		$SFTextBox.Font       = New-Object System.Drawing.Font("Consolas",9,[System.Drawing.FontStyle]::Regular)
+		$SFTextBox.Size       = New-Object System.Drawing.Size(500,300)
+		$SFTextBox.Location   = New-Object System.Drawing.Point(20,20)
+		$SFTextBox.Scrollbars = "Vertical"
+		$SFTextBox.BackColor  = "#1F1F1F"
+		$SFTextBox.ForeColor  = 'Cyan'
 		$SFButton = New-Object system.Windows.Forms.Button
 		$SFButton.Location = New-Object System.Drawing.Point(420,330)
 		$SFButton.Width = 80

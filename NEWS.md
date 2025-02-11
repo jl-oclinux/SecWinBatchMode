@@ -3,7 +3,8 @@
 ## Version 3.18 (in progress)
 
 The `wisemoui.ps1` graphical interface has been updated.
-There's now an L (Log) and E (Edit) button next to each scheduled task to view the last log file and edit the task's preset file.
+There's now an C (Check), P (Print), L (Log) and E (Edit) button next to each scheduled task to view the last log file and edit the task's preset file.
+Two management consoles have also been added to the interface.
 
 Add SHA-1 hash on download package web page.
 

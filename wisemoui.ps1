@@ -497,6 +497,19 @@ $BtnHost.BackColor = "Transparent"
 $BtnHost.Text = "Host: $Env:ComputerName`n`nId: $HostId"
 $Form.Controls.Add($BtnHost)
 
+# Windows Update
+$BtnWindowsUpdate = New-Object System.Windows.Forms.Button
+$BtnWindowsUpdate.Location = New-Object System.Drawing.Point(210,350)
+$BtnWindowsUpdate.Width = 55
+$BtnWindowsUpdate.Height = 20
+$BtnWindowsUpdate.Text = "Update"
+$Form.controls.Add($BtnWindowsUpdate)
+$BtnWindowsUpdate.Add_Click({
+	# control.exe /name Microsoft.WindowsUpdate
+	Start-Process control.exe update
+})
+$ToolTip.SetToolTip($BtnWindowsUpdate, "Windows Update");
+
 # OS Version
 $OSVersion = SWMB_GetOSVersionReadable
 $OSColor = SWMB_GetOSVersionColor
@@ -529,31 +542,78 @@ $BtnSoftware.Add_Click({
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\View-All-Software.ps1`"" -WindowStyle Hidden
 })
 
+$BtnAddDelProgram = New-Object System.Windows.Forms.Button
+$BtnAddDelProgram.Location = New-Object System.Drawing.Point(379,255)
+$BtnAddDelProgram.Width = 15
+$BtnAddDelProgram.Height = 20
+$BtnAddDelProgram.Text = "R"
+$Form.controls.Add($BtnAddDelProgram)
+$BtnAddDelProgram.Add_Click({
+	# control.exe /name Microsoft.ProgramsAndFeatures
+	Start-Process control.exe appwiz.cpl
+})
+$ToolTip.SetToolTip($BtnAddDelProgram, "Install / Remove programs");
+
+If (Test-Path -LiteralPath "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe") {
+	$BtnBleachBit = New-Object System.Windows.Forms.Button
+	$BtnBleachBit.Location = New-Object System.Drawing.Point(379,275)
+	$BtnBleachBit.Width = 15
+	$BtnBleachBit.Height = 20
+	$BtnBleachBit.Text = "B"
+	$Form.controls.Add($BtnBleachBit)
+	$BtnBleachBit.Add_Click({
+		# control.exe /name Microsoft.ProgramsAndFeatures
+		Start-Process "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe"
+	})
+	$ToolTip.SetToolTip($BtnBleachBit, "BleachBit");
+}
+
+################################################################
+
 # Console
 $BtnConsoleGPedit = New-Object System.Windows.Forms.Button
-$BtnConsoleGPedit.Location = New-Object System.Drawing.Point(300,320)
+$BtnConsoleGPedit.Location = New-Object System.Drawing.Point(300,335)
 $BtnConsoleGPedit.Width = 80
-$BtnConsoleGPedit.Height = 50
-$BtnConsoleGPedit.Text = "GPedit Console"
+$BtnConsoleGPedit.Height = 30
+$BtnConsoleGPedit.Text = "GPedit"
 $Form.controls.Add($BtnConsoleGPedit)
 $BtnConsoleGPedit.Add_Click({
 	Start-Process gpedit.msc
 })
 $BtnConsoleMgmt = New-Object System.Windows.Forms.Button
-$BtnConsoleMgmt.Location = New-Object System.Drawing.Point(400,320)
+$BtnConsoleMgmt.Location = New-Object System.Drawing.Point(395,335)
 $BtnConsoleMgmt.Width = 80
-$BtnConsoleMgmt.Height = 50
-$BtnConsoleMgmt.Text = "Managment Console"
+$BtnConsoleMgmt.Height = 30
+$BtnConsoleMgmt.Text = "Managment"
 $Form.controls.Add($BtnConsoleMgmt)
 $BtnConsoleMgmt.Add_Click({
 	Start-Process compmgmt.msc
 })
+$BtnConsoleNet = New-Object System.Windows.Forms.Button
+$BtnConsoleNet.Location = New-Object System.Drawing.Point(490,335)
+$BtnConsoleNet.Width = 40
+$BtnConsoleNet.Height = 30
+$BtnConsoleNet.Text = "Net"
+$Form.controls.Add($BtnConsoleNet)
+$BtnConsoleNet.Add_Click({
+	# control.exe ncpa.cpl
+	# control.exe /name Microsoft.NetworkAndSharingCenter
+	Start-Process control.exe netconnections
+})
+
+# Console Frame
+$BtnConsoleFrame = New-Object System.Windows.Forms.GroupBox
+$BtnConsoleFrame.Location = New-Object System.Drawing.Size(285,315)
+$BtnConsoleFrame.Width = 255
+$BtnConsoleFrame.Height = 60
+$BtnConsoleFrame.Text = "Consoles"
+$Form.Controls.Add($BtnConsoleFrame)
 
 ################################################################
 
 # Exit
 $BtnExit = New-Object System.Windows.Forms.Button
-$BtnExit.Location = New-Object System.Drawing.Point(400,255)
+$BtnExit.Location = New-Object System.Drawing.Point(450,255)
 $BtnExit.Width = 80
 $BtnExit.Height = 50
 $BtnExit.Text = "Exit"
@@ -564,5 +624,9 @@ $BtnExit.Add_Click({
 $BtnExit.BackColor = 'PaleVioletRed'
 $Form.controls.Add($BtnExit)
 
+################################################################
+
 # Main Loop
 $Form.ShowDialog()
+
+################################################################

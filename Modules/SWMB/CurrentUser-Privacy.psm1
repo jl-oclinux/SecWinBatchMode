@@ -185,6 +185,45 @@ Function TweakViewTypingRecognition_CU { # RESINFO
 }
 
 ################################################################
+
+# Disable connected experiences in Office
+# https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_ConnectedOfficeExperiences
+
+# Disable
+Function TweakDisableMSOfficeConnectedExperiences_CU { # RESINFO
+	Write-Output "Disabling MS Office ConnectedExperience for CU..."
+	If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Privacy")) {
+		New-Item -Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Privacy" -Force | Out-Null
+	}
+	ForEach ($Field in 'controllerconnectedservicesenabled', 'disconnectedstate', 'usercontentdisabled', 'downloadcontentdisabled') {
+		Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Privacy" -Name "$Field" -Type DWord -Value 2
+	}
+}
+
+# Enable
+Function TweakEnableMSOfficeConnectedExperiences_CU { # RESINFO
+	Write-Output "Enabling MS Office ConnectedExperience for CU..."
+	If (Test-Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Privacy") {
+		ForEach ($Field in 'controllerconnectedservicesenabled', 'disconnectedstate', 'usercontentdisabled', 'downloadcontentdisabled') {
+			Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Privacy" -Name "$Field" -Type DWord -Value 1
+		}
+	}
+}
+
+# View
+Function TweakViewMSOfficeConnectedExperiences_CU { # RESINFO
+	Write-Output "Viewing MS Office ConnectedExperience for CU (1 or not exist: Enable, 2: Disable)..."
+	If (Test-Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Privacy") {
+		ForEach ($Field in 'controllerconnectedservicesenabled', 'disconnectedstate', 'usercontentdisabled', 'downloadcontentdisabled') {
+			Write-Output " ${Field}: $((Get-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Privacy').${Field})"
+		}
+	} Else {
+		Write-Output " Not configure: Enable"
+	}
+}
+
+
+################################################################
 ###### Export Functions
 ################################################################
 

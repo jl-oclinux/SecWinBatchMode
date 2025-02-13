@@ -157,7 +157,7 @@ Function SWMB_GetOSVersionColor {
 
 # GUI Task
 # SWMB_GUI_Task -TaskPath $PSScriptRoot\Tasks\LocalMachine-Boot.ps1 -Name Boot -LogPath $DataFolder\Logs\LocalMachine-LastBoot.log -PosX 30 -PosY 150 -PresetPath $DataFolder\Presets\LocalMachine-Boot.preset -Form $Form
-<# 
+<#
 Function SWMB_GUI_Task {
 	Param (
 		[Parameter(Mandatory = $True)] [string]$Name,

@@ -39,14 +39,14 @@ Function TweakEnableCortana_CU {
 
 ################################################################
 
-# Disable Web Search in Start Menu
+# Disable Web Search (Bing, Cortana) in Start Menu
 Function TweakDisableWebSearch_CU {
 	Write-Output "Disabling Bing Search in Start Menu for CU. See DisableWebSearch..."
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "CortanaConsent" -Type DWord -Value 0
 }
 
-# Enable Web Search in Start Menu
+# Enable
 Function TweakEnableWebSearch_CU {
 	Write-Output "Enabling Bing Search in Start Menu for CU. See EnableWebSearch..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "BingSearchEnabled" -ErrorAction SilentlyContinue

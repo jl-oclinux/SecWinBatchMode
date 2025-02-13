@@ -4,13 +4,15 @@
 
 The `wisemoui.ps1` graphical interface has been updated.
 There's now an C (Check), P (Print), L (Log) and E (Edit) button next to each scheduled task to view the last log file and edit the task's preset file.
-Two management consoles have also been added to the interface.
+Many management consoles (Windows Update, Add/Remove Software, GPedit, Network interface and Global Management) have also been added to the interface.
 
 Add SHA-1 hash on download package web page.
 
 Add the link to [Win11Debloat](https://github.com/Raphire/Win11Debloat) and to the [JRES 2024 conference in Rennes](https://hal.science/hal-04893850v1) to the [REFERENCES](REFERENCES.md) file.
 
 New presets/rules:
+* 2025/02/13 - `ViewWebSearch_CU` - Add view tweak
+* 2025/02/13 - `DisableMSOfficeConnectedExperiences_CU`/`EnableMSOfficeConnectedExperiences_CU`/`ViewMSOfficeConnectedExperiences_CU` - Disable connected experiences in Microsoft Office
 * 2025/01/29 - `UninstallRealVNC4` -> Uninstall old RealVNC version 4
 * 2025/01/29 - `UninstallRealVNCServer`/`ViewRealVNCServer` -> Uninstall RealVNC version 4 server software
 * 2025/01/29 - `UninstallRealVNCViewer`/`ViewRealVNCViewer` -> Uninstall RealVNC version 4 server client (viewer)

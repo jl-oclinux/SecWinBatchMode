@@ -11,10 +11,11 @@
 DisableCortana_CU                               # EnableCortana_CU
 DisableTailoredExperiences_CU                   # EnableTailoredExperiences_CU
 DisableWebLangList_CU                           # EnableWebLangList_CU
-DisableWebSearch_CU                             # EnableWebSearch_CU
+DisableWebSearch_CU                             # EnableWebSearch_CU                        # ViewWebSearch_CU                      ## Disable Web Search (Bing, Cortana) in Start Menu
 DisableAppSuggestions_CU                        # EnableAppSuggestions_CU
 DisableFeedback_CU                              # EnableFeedback_CU
-DisableTypingRecognition_CU                     # EnableTypingRecognition_CU                # ViewTypingRecognition_CU        ## Don't send inking and typing data to Microsoft to improve the language recognition
+DisableTypingRecognition_CU                     # EnableTypingRecognition_CU                # ViewTypingRecognition_CU              ## Don't send inking and typing data to Microsoft to improve the language recognition
+DisableMSOfficeConnectedExperiences_CU          # EnableMSOfficeConnectedExperiences_CU     # ViewMSOfficeConnectedExperiences_CU   ## Disable connected experiences in Microsoft Office
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps_CU                     # EnableUWPBackgroundApps_CU
@@ -94,7 +95,7 @@ DisableXboxFeatures_CU                          # EnableXboxFeatures_CU
 UninstallOneDrive_CU                            # InstallOneDrive_CU                            # ViewOneDrive_CU
 # UninstallBalenaEtcher_CU                                                                      # ViewBalenaEtcher_CU
 # UninstallTelegram_CU                                                                          # ViewTelegram_CU
-DisableWindowsCopilot_CU                        # EnableWindowsCopilot_CU                       # ViewWindowsCopilot_CU   ## Turnoff Windows Copilot for current users
+DisableWindowsCopilot_CU                        # EnableWindowsCopilot_CU                       # ViewWindowsCopilot_CU             ## Turnoff Windows Copilot for current users
 
 ### Unpinning Tweaks ###
 # UnpinStartMenuTiles_CU

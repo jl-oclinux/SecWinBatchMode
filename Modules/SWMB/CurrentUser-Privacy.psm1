@@ -53,6 +53,21 @@ Function TweakEnableWebSearch_CU {
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" -Name "CortanaConsent" -Type DWord -Value 1
 }
 
+# View
+Function TweakViewWebSearch_CU { # RESINFO
+	Write-Output "Viewing Bing Search in Start Menu for CU (0: Disable, 1 or not exist: Enable, other: unknown)..."
+	If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search") {
+		Write-Output " BingSearchEnabled: $((Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search').BingSearchEnabled)"
+	} Else {
+		Write-Output " BingSearchEnabled: not exist"
+	}
+	If (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search") {
+		Write-Output " CortanaConsent: $((Get-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search').CortanaConsent)"
+	} Else {
+		Write-Output " CortanaConsent: not exist"
+	}
+}
+
 ################################################################
 
 # Disable Application suggestions and automatic installation

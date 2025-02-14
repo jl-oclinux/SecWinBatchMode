@@ -16,6 +16,7 @@ DisableAppSuggestions_CU                        # EnableAppSuggestions_CU
 DisableFeedback_CU                              # EnableFeedback_CU
 DisableTypingRecognition_CU                     # EnableTypingRecognition_CU                # ViewTypingRecognition_CU              ## Don't send inking and typing data to Microsoft to improve the language recognition
 DisableMSOfficeConnectedExperiences_CU          # EnableMSOfficeConnectedExperiences_CU     # ViewMSOfficeConnectedExperiences_CU   ## Disable connected experiences in Microsoft Office
+DisableMSOfficeFeedback_CU                      # EnableMSOfficeFeedback_CU                 # ViewMSOfficeFeedback_CU               ## Disable Feedback in MS Office
 
 ### UWP Privacy Tweaks ###
 DisableUWPBackgroundApps_CU                     # EnableUWPBackgroundApps_CU

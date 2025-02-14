@@ -123,9 +123,11 @@ Function TweakEnableAppSuggestions_CU {
 
 ################################################################
 
-# Disable Feedback
+# Disable Windows Feedback notifications through the Windows Feedback app
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.FeedbackNotifications::DoNotShowFeedbackNotifications
+
 Function TweakDisableFeedback_CU {
-	Write-Output "Disabling Feedback for CU. See DisableFeedback..."
+	Write-Output "Disabling Windows Feedback for CU. See DisableFeedback..."
 	If (!(Test-Path "HKCU:\Software\Microsoft\Siuf\Rules")) {
 		New-Item -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Force | Out-Null
 	}
@@ -136,7 +138,7 @@ Function TweakDisableFeedback_CU {
 
 # Enable Feedback
 Function TweakEnableFeedback_CU {
-	Write-Output "Enabling Feedback for CU. See EnableFeedback..."
+	Write-Output "Enabling Windows Feedback for CU. See EnableFeedback..."
 	Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Siuf\Rules" -Name "NumberOfSIUFInPeriod" -ErrorAction SilentlyContinue
 	Enable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-Null
 	Enable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" -ErrorAction SilentlyContinue | Out-Null

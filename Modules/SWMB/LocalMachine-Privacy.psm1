@@ -396,14 +396,16 @@ Function TweakEnableMapUpdates {
 ################################################################
 
 # Begin KeyFeedback
+# Disable Windows Feedback notifications through the Windows Feedback app
 # ANSSI Annexe A1
-# Configuration ordinateur / Modèles d'administration / Composants Windows / Collecte des données et versions d'évaluation Previwew / Ne plus afficher les notifications de commentaires
+# Configuration ordinateur / Modèles d'administration / Composants Windows / Collecte des données et versions d'évaluation Preview / Ne plus afficher les notifications de commentaires
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.FeedbackNotifications::DoNotShowFeedbackNotifications&Language=fr-fr#
+# https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.FeedbackNotifications::DoNotShowFeedbackNotifications
 # End
 
 # Disable Feedback
 Function TweakDisableFeedback {
-	Write-Output "Disabling Feedback. See DisableFeedback_CU..."
+	Write-Output "Disabling Windows Feedback. See DisableFeedback_CU..."
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DoNotShowFeedbackNotifications" -Type DWord -Value 1
 	# HKCU or HKLM ?
 	Disable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-Null
@@ -412,7 +414,7 @@ Function TweakDisableFeedback {
 
 # Enable Feedback
 Function TweakEnableFeedback {
-	Write-Output "Enabling Feedback. See EnableFeedback_CU..."
+	Write-Output "Enabling Windows Feedback. See EnableFeedback_CU..."
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "DoNotShowFeedbackNotifications" -ErrorAction SilentlyContinue
 	Enable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClient" -ErrorAction SilentlyContinue | Out-Null
 	Enable-ScheduledTask -TaskName "Microsoft\Windows\Feedback\Siuf\DmClientOnScenarioDownload" -ErrorAction SilentlyContinue | Out-Null

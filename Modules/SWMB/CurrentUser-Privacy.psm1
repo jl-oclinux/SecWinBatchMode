@@ -203,7 +203,7 @@ Function TweakViewTypingRecognition_CU { # RESINFO
 
 ################################################################
 
-# Disable connected experiences in Office
+# Disable Connected Experiences in MS Office
 # https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_ConnectedOfficeExperiences
 
 # Disable
@@ -239,6 +239,69 @@ Function TweakViewMSOfficeConnectedExperiences_CU { # RESINFO
 	}
 }
 
+################################################################
+
+# Disable Feedback in MS Office
+# https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_EmailCollection
+
+# Disable
+Function TweakDisableMSOfficeFeedback_CU { # RESINFO
+	Write-Output "Disabling MS Office Feedback for CU..."
+	If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common")) {
+		New-Item -Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common" -Force | Out-Null
+	}
+	ForEach ($Field in 'qmenable', 'sendcustomerdata') {
+		Set-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\16.0\Common' -Name "$Field" -Type DWord -Value 1
+	}
+	If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Feedback")) {
+		New-Item -Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Feedback" -Force | Out-Null
+	}
+	ForEach ($Field in 'includeemail', 'feedbackincludelog', 'includescreenshot', 'surveyenabled', 'enabled') {
+		Set-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Feedback' -Name "$Field" -Type DWord -Value 1
+	}
+	If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Office\Common\ClientTelemetry")) {
+		New-Item -Path "HKCU:\Software\Policies\Microsoft\Office\Common\ClientTelemetry" -Force | Out-Null
+	}
+	Set-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\Common\ClientTelemetry' -Name "sendtelemetry" -Type DWord -Value 2
+}
+
+# Enable
+Function TweakEnableMSOfficeFeedback_CU { # RESINFO
+	Write-Output "Enabling MS Office Feedback for CU..."
+	ForEach ($Field in 'qmenable', 'sendcustomerdata') {
+		Remove-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\16.0\Common' -Name "$Field" -ErrorAction SilentlyContinue
+	}
+	ForEach ($Field in 'includeemail', 'feedbackincludelog', 'includescreenshot', 'surveyenabled', 'enabled') {
+		Remove-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Feedback' -Name "$Field" -ErrorAction SilentlyContinue
+	}
+	Remove-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\Common\ClientTelemetry' -Name "sendtelemetry" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewMSOfficeFeedback_CU { # RESINFO
+	Write-Output "Viewing MS Office Feedback for CU (0 or not exist: Enable, 1: Disable)..."
+	If (Test-Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common") {
+		ForEach ($Field in 'qmenable', 'sendcustomerdata') {
+			Write-Output " ${Field}: $((Get-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\16.0\Common').${Field})"
+		}
+	} Else {
+		Write-Output " PersonnalData not configure: Enable"
+	}
+	If (Test-Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Feedback") {
+		ForEach ($Field in 'includeemail', 'feedbackincludelog', 'includescreenshot', 'surveyenabled', 'enabled') {
+			Write-Output " ${Field}: $((Get-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\16.0\Common\Feedback').${Field})"
+		}
+	} Else {
+		Write-Output " Feedback not configure: Enable"
+	}
+	If (Test-Path "HKCU:\Software\Policies\Microsoft\Office\Common\ClientTelemetry") {
+		ForEach ($Field in 'sendtelemetry') {
+			Write-Output " ${Field}: $((Get-ItemProperty -Path 'HKCU:\Software\Policies\Microsoft\Office\Common\ClientTelemetry').${Field}) (1: Required, 2 or not exist: Optional, 3: Neither)"
+		}
+	} Else {
+		Write-Output " ClientTelemetry not configure: Optional (1: Required, 2 or not exist: Optional, 3: Neither)"
+	}
+}
 
 ################################################################
 ###### Export Functions

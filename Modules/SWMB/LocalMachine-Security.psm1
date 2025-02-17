@@ -372,6 +372,80 @@ Function TweakDisableInsecureGuestLogons { # RESINFO
 
 ################################################################
 
+# https://techcommunity.microsoft.com/blog/filecab/configure-smb-signing-with-confidence/2418102
+# https://firesecure.fr/activer-les-signatures-smb/
+# https://www.blumira.com/integration/how-to-configure-smb-signing/
+
+# Enable SMBClientSigning
+Function TweakEnableSMBClientSigning { # RESINFO
+	Write-Output "Enabling (require) SMB client to use signing messages..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "EnableSecuritySignature" -Value 1
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "RequireSecuritySignature" -Value 1
+}
+
+# Disable (default)
+Function TweakDisableSMBClientSigning { # RESINFO
+	Write-Output "Disabling (so allow) SMB client to use only signing messages..."
+	If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation") {
+		ForEach ($Field in 'EnableSecuritySignature', 'RequireSecuritySignature') {
+			Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "$Field" -ErrorAction SilentlyContinue
+		}
+	}
+}
+
+# View
+Function TweakViewSMBClientSigning { # RESINFO
+	Write-Output "Viewing (require) SMB client to use signing messages (0 or not exist: Disable, 1: Enable)..."
+	If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation") {
+		ForEach ($Field in 'EnableSecuritySignature', 'RequireSecuritySignature') {
+			Write-Output " ${Field}: $((Get-ItemProperty -Path 'HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation').${Field})"
+		}
+	} Else {
+		Write-Output " Not configure: Disable"
+	}
+}
+
+################################################################
+
+# https://techcommunity.microsoft.com/blog/filecab/configure-smb-signing-with-confidence/2418102
+
+# Enable SMBServerSigning
+Function TweakEnableSMBServerSigning { # RESINFO
+	Write-Output "Enabling (require) SMB server to use signing messages..."
+	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanManServer")) {
+		New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\LanManServer" -Force | Out-Null
+	}
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanManServer" -Name "EnableSecuritySignature" -Value 1
+	Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanManServer" -Name "RequireSecuritySignature" -Value 1
+}
+
+# Disable (default)
+Function TweakDisableSMBServerSigning { # RESINFO
+	Write-Output "Disabling (so allow) SMB server to use signing messages..."
+	If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanManServer") {
+		ForEach ($Field in 'EnableSecuritySignature', 'RequireSecuritySignature') {
+			Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanManServer" -Name "$Field" -ErrorAction SilentlyContinue
+		}
+	}
+}
+
+# View
+Function TweakViewSMBServerSigning { # RESINFO
+	Write-Output "Viewing (require) SMB server to use signing messages (0 or not exist: Disable, 1: Enable)..."
+	If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanManServer") {
+		ForEach ($Field in 'EnableSecuritySignature', 'RequireSecuritySignature') {
+			Write-Output " ${Field}: $((Get-ItemProperty -Path 'HKLM:\Software\Policies\Microsoft\Windows\LanManServer').${Field})"
+		}
+	} Else {
+		Write-Output " Not configure: Disable"
+	}
+}
+
+################################################################
+
 # Disable offering of drivers through network
 # Is part of DisableUpdateDriver
 Function TweakDisableAutoloadDriver { # RESINFO

@@ -98,6 +98,8 @@ EnableF8BootMenu                                # DisableF8BootMenu
 # DisableRecoveryAndReset                       # EnableRecoveryAndReset
 SetDEPOptOut                                    # SetDEPOptIn
 DisableInsecureGuestLogons                      # EnableInsecureGuestLogons
+# EnableSMBClientSigning                        # DisableSMBClientSigning                       # ViewSMBClientSigning          ## Require SMB client to sign message https://techcommunity.microsoft.com/blog/filecab/configure-smb-signing-with-confidence/2418102
+# EnableSMBServerSigning                        # DisableSMBServerSigning                       # ViewSMBServerSigning          ## Require SMB server to sign message https://techcommunity.microsoft.com/blog/filecab/configure-smb-signing-with-confidence/2418102
 EnableASLR                                      # DisableASLR                                   # ViewASLR
 # SetAdminAccountLogin                          # UnsetAdminAccountLogin
 # DisableAutoloadDriver                         # EnableAutoloadDriver                          # ViewAutoloadDriver

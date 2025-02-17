@@ -355,7 +355,7 @@ Function TweakViewASLR { # RESINFO
 
 # https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.LanmanWorkstation::Pol_EnableInsecureGuestLogons
 # https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-workstationservice-allowinsecureguestauth
-# Enable
+# Enable SMB client to use insecure guest logons to an SMB server
 Function TweakEnableInsecureGuestLogons { # RESINFO
 	Write-Output "Enabling (allow) SMB client to use insecure guest logons to an SMB server..."
 	If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation")) {
@@ -368,6 +368,16 @@ Function TweakEnableInsecureGuestLogons { # RESINFO
 Function TweakDisableInsecureGuestLogons { # RESINFO
 	Write-Output "Disabling (reject) SMB client to use insecure guest logons to an SMB server (default)..."
 	Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation" -Name "AllowInsecureGuestAuth" -ErrorAction SilentlyContinue
+}
+
+# View
+Function TweakViewInsecureGuestLogons { # RESINFO
+	Write-Output "Viewing SMB client to use insecure guest logons to an SMB server (0 or not exist: Disable, 1: Enable)..."
+	If (Test-Path "HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation") {
+			Write-Output " AllowInsecureGuestAuth: $((Get-ItemProperty -Path 'HKLM:\Software\Policies\Microsoft\Windows\LanmanWorkstation').AllowInsecureGuestAuth)"
+	} Else {
+		Write-Output " Not configure: Disable"
+	}
 }
 
 ################################################################

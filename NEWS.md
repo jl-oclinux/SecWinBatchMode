@@ -12,6 +12,7 @@ Add SHA-1 hash on download package web page.
 Add the link to [Win11Debloat](https://github.com/Raphire/Win11Debloat) and to the [JRES 2024 conference in Rennes](https://hal.science/hal-04893850v1) to the [REFERENCES](REFERENCES.md) file.
 
 New presets/rules:
+- 2025/02/17 - `ViewInsecureGuestLogons` - Disable SMB client to use insecure guest logons to an SMB server
 - 2025/02/17 - `EnableSMBClientSigning`/`DisableSMBClientSigning`/`ViewSMBClientSigning` - Require SMB client to sign message
 - 2025/02/17 - `EnableSMBServerSigning`/`DisableSMBServerSigning`/`ViewSMBServerSigning` - Require SMB server to sign message
 * 2025/02/14 - `DisableMSOfficeFeedback_CU`/`EnableMSOfficeFeedback_CU`/`ViewMSOfficeFeedback_CU` - Disable Feedback and Telemetry in MS Office

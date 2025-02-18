@@ -24,7 +24,7 @@ Function TweakSysRequireAdmin {
 TweakSysRequireAdmin
 
 # Define Boot preset on ProgramData
-$DataFolder  = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
+$DataFolder     = (Join-Path -Path ${Env:ProgramData} -ChildPath "SWMB")
 $BootLog        = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "LocalMachine-LastBoot.log"))
 $PostInstallLog = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "LocalMachine-PostInstall.log"))
 $LogonLog       = (Join-Path -Path $DataFolder -ChildPath (Join-Path -Path "Logs" -ChildPath "CurrentUser-LastLogon.log"))
@@ -71,7 +71,7 @@ $Form.Controls.Add($Logo)
 # Bitlocker Frame
 
 # Bitlocker Status
-$BitlockerStatus  = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
+$BitlockerStatus = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
 $BtnBitlockerStatus = New-Object System.Windows.Forms.Label
 $BtnBitlockerStatus.Location = New-Object System.Drawing.Size(30,25)
 $BtnBitlockerStatus.Width = 220
@@ -92,9 +92,9 @@ $BtnCrypt.Add_Click({
 })
 
 # Bitlocker Action
-$BitlockerAction  = "Suspend"
+$BitlockerAction = "Suspend"
 If ($BitlockerStatus -cmatch "Suspend") {
-	$BitlockerAction  = "Resume"
+	$BitlockerAction = "Resume"
 }
 $BtnBitlockerAction = New-Object System.Windows.Forms.Button
 $BtnBitlockerAction.Location = New-Object System.Drawing.Point(170,50)
@@ -116,7 +116,7 @@ $BtnBitlockerAction.Add_Click({
 		Get-BitLockerVolume | Resume-BitLocker
 		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
 		If ($BitlockerStatus -cmatch "Running") {
-			$BitlockerAction  = "Suspend"
+			$BitlockerAction = "Suspend"
 			$BtnBitlockerAction.Text = "$BitlockerAction"
 			$BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 		}
@@ -171,7 +171,7 @@ $BtnTaskBootRun.Add_Click({
 		& eventvwr.exe /c:Application
 	}
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Boot.ps1`"" -WindowStyle Hidden -Wait
-	Start-Process $Editor "`"$BootLog`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$BootLog`""
 	$BtnTaskBootStatus.Text = "Finish!"
 })
 
@@ -221,7 +221,7 @@ $BtnTaskBootLog.Height = 20
 $BtnTaskBootLog.Text = "L"
 $Form.controls.Add($BtnTaskBootLog)
 $BtnTaskBootLog.Add_Click({
-	Start-Process $Editor "`"$BootLog`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$BootLog`""
 })
 $BtnTaskBootEdit = New-Object System.Windows.Forms.Button
 $BtnTaskBootEdit.Location = New-Object System.Drawing.Point(89,190)
@@ -230,8 +230,20 @@ $BtnTaskBootEdit.Height = 20
 $BtnTaskBootEdit.Text = "E"
 $Form.controls.Add($BtnTaskBootEdit)
 $BtnTaskBootEdit.Add_Click({
-	Start-Process $Editor "`"$DataFolder\Presets\LocalMachine-Boot.preset`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$DataFolder\Presets\LocalMachine-Boot.preset`""
 })
+If (Test-Path -LiteralPath "${Env:ProgramFiles}\WinMerge\WinMergeU.exe") {
+	$BtnTaskBootMerge = New-Object System.Windows.Forms.Button
+	$BtnTaskBootMerge.Location = New-Object System.Drawing.Point(89,210)
+	$BtnTaskBootMerge.Width = 15
+	$BtnTaskBootMerge.Height = 20
+	$BtnTaskBootMerge.Text = "M"
+	$Form.controls.Add($BtnTaskBootMerge)
+	$BtnTaskBootMerge.Add_Click({
+		Start-Process -FilePath "${Env:ProgramFiles}\WinMerge\WinMergeU.exe" -ArgumentList "/maximize /fr /ignoreeol `"${Env:ProgramFiles}\SWMB\Presets\LocalMachine-All.preset`" `"$DataFolder\Presets\LocalMachine-Boot.preset`""
+	})
+	$ToolTip.SetToolTip($BtnTaskBootMerge, "Diff and Merge LocalMachine Boot Task Preset File")
+}
 
 $BtnTaskBootFrame = New-Object System.Windows.Forms.GroupBox
 $BtnTaskBootFrame.Location = New-Object System.Drawing.Size(30,145)
@@ -241,11 +253,11 @@ $BtnTaskBootFrame.Text = ""
 $BtnTaskBootFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskBootFrame)
 
-$ToolTip.SetToolTip($BtnTaskBootCheck, "Check Local Machine Boot Tweaks");
-$ToolTip.SetToolTip($BtnTaskBootRun,   "Run Local Machine Boot Task Now");
-$ToolTip.SetToolTip($BtnTaskBootPrint, "Print Local Machine Boot Tweaks List");
-$ToolTip.SetToolTip($BtnTaskBootLog,   "Show Local Machine Last Boot Task Run");
-$ToolTip.SetToolTip($BtnTaskBootEdit,  "Edit Local Machine Boot Task Preset File");
+$ToolTip.SetToolTip($BtnTaskBootCheck, "Check LocalMachine Boot Tweaks");
+$ToolTip.SetToolTip($BtnTaskBootRun,   "Run LocalMachine Boot Task Now");
+$ToolTip.SetToolTip($BtnTaskBootPrint, "Print LocalMachine Boot Tweaks List");
+$ToolTip.SetToolTip($BtnTaskBootLog,   "Show LocalMachine Last Boot Task Run");
+$ToolTip.SetToolTip($BtnTaskBootEdit,  "Edit LocalMachine Boot Task Preset File");
 
 
 # Post-Install Task
@@ -256,15 +268,6 @@ $BtnTaskPostInstallStatus.Height = 15
 $BtnTaskPostInstallStatus.BackColor = "Transparent"
 $BtnTaskPostInstallStatus.Text = ""
 $Form.Controls.Add($BtnTaskPostInstallStatus)
-
-#$BtnTaskPostInstall = New-Object System.Windows.Forms.Button
-#$BtnTaskPostInstall.Location = New-Object System.Drawing.Point(110,150)
-#$BtnTaskPostInstall.Width = 60
-#$BtnTaskPostInstall.Height = 60
-#$BtnTaskPostInstall.Text = "Post Install"
-#$Form.controls.Add($BtnTaskPostInstall)
-#$BtnTaskPostInstall.Add_Click({
-#})
 
 $BtnTaskPostInstallLabel = New-Object System.Windows.Forms.Label
 $BtnTaskPostInstallLabel.Location = New-Object System.Drawing.Point(120,160)
@@ -286,7 +289,7 @@ $BtnTaskPostInstallRun.Add_Click({
 		& eventvwr.exe /c:Application
 	}
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-PostInstall.ps1`"" -WindowStyle Hidden -Wait
-	Start-Process $Editor "`"$PostInstallLog`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$PostInstallLog`""
 	$BtnTaskPostInstallStatus.Text = "Finish!"
 })
 
@@ -322,7 +325,7 @@ $BtnTaskPostInstallLog.Height = 20
 $BtnTaskPostInstallLog.Text = "L"
 $Form.controls.Add($BtnTaskPostInstallLog)
 $BtnTaskPostInstallLog.Add_Click({
-	Start-Process $Editor "`"$PostInstallLog`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$PostInstallLog`""
 })
 $BtnTaskPostInstallEdit = New-Object System.Windows.Forms.Button
 $BtnTaskPostInstallEdit.Location = New-Object System.Drawing.Point(169,190)
@@ -331,8 +334,20 @@ $BtnTaskPostInstallEdit.Height = 20
 $BtnTaskPostInstallEdit.Text = "E"
 $Form.controls.Add($BtnTaskPostInstallEdit)
 $BtnTaskPostInstallEdit.Add_Click({
-	Start-Process $Editor "`"$DataFolder\Presets\LocalMachine-PostInstall.preset`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$DataFolder\Presets\LocalMachine-PostInstall.preset`""
 })
+If (Test-Path -LiteralPath "${Env:ProgramFiles}\WinMerge\WinMergeU.exe") {
+	$BtnTaskPostInstallMerge = New-Object System.Windows.Forms.Button
+	$BtnTaskPostInstallMerge.Location = New-Object System.Drawing.Point(169,210)
+	$BtnTaskPostInstallMerge.Width = 15
+	$BtnTaskPostInstallMerge.Height = 20
+	$BtnTaskPostInstallMerge.Text = "M"
+	$Form.controls.Add($BtnTaskPostInstallMerge)
+	$BtnTaskPostInstallMerge.Add_Click({
+		Start-Process -FilePath "${Env:ProgramFiles}\WinMerge\WinMergeU.exe" -ArgumentList "/maximize /fr /ignoreeol `"${Env:ProgramFiles}\SWMB\Presets\LocalMachine-All.preset`" `"$DataFolder\Presets\LocalMachine-PostInstall.preset`""
+	})
+	$ToolTip.SetToolTip($BtnTaskPostInstallMerge, "Diff and Merge LocalMachine PostInstall Task Preset File")
+}
 
 $BtnTaskPostInstallFrame = New-Object System.Windows.Forms.GroupBox
 $BtnTaskPostInstallFrame.Location = New-Object System.Drawing.Size(110,145)
@@ -342,11 +357,11 @@ $BtnTaskPostInstallFrame.Text = ""
 $BtnTaskPostInstallFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskPostInstallFrame)
 
-$ToolTip.SetToolTip($BtnTaskPostInstallCheck, "Check Local Machine Post-Install Tweaks");
-$ToolTip.SetToolTip($BtnTaskPostInstallRun,   "Run Local Machine Post-Install Task Now");
-$ToolTip.SetToolTip($BtnTaskPostInstallPrint, "Print Local Machine Post-Install Tweaks List");
-$ToolTip.SetToolTip($BtnTaskPostInstallLog,   "Show Last Local Machine Post-Install Task Run");
-$ToolTip.SetToolTip($BtnTaskPostInstallEdit,  "Edit Local Machine Post-Install Task Preset File");
+$ToolTip.SetToolTip($BtnTaskPostInstallCheck, "Check LocalMachine Post-Install Tweaks");
+$ToolTip.SetToolTip($BtnTaskPostInstallRun,   "Run LocalMachine Post-Install Task Now");
+$ToolTip.SetToolTip($BtnTaskPostInstallPrint, "Print LocalMachine Post-Install Tweaks List");
+$ToolTip.SetToolTip($BtnTaskPostInstallLog,   "Show Last LocalMachine Post-Install Task Run");
+$ToolTip.SetToolTip($BtnTaskPostInstallEdit,  "Edit LocalMachine Post-Install Task Preset File");
 
 
 # Logon Task
@@ -357,15 +372,6 @@ $BtnTaskLogonStatus.Height = 15
 $BtnTaskLogonStatus.BackColor = "Transparent"
 $BtnTaskLogonStatus.Text = ""
 $Form.Controls.Add($BtnTaskLogonStatus)
-
-#$BtnTaskLogon = New-Object System.Windows.Forms.Button
-#$BtnTaskLogon.Location = New-Object System.Drawing.Point(190,150)
-#$BtnTaskLogon.Width = 60
-#$BtnTaskLogon.Height = 60
-#$BtnTaskLogon.Text = "Logon"
-#$Form.controls.Add($BtnTaskLogon)
-#$BtnTaskLogon.Add_Click({
-#})
 
 $BtnTaskLogonLabel = New-Object System.Windows.Forms.Label
 $BtnTaskLogonLabel.Location = New-Object System.Drawing.Point(200,160)
@@ -387,7 +393,7 @@ $BtnTaskLogonRun.Add_Click({
 		& eventvwr.exe /c:Application
 	}
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\CurrentUser-Logon.ps1`"" -WindowStyle Hidden -Wait
-	Start-Process $Editor "`"$LogonLog`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$LogonLog`""
 	$BtnTaskLogonStatus.Text = "Finish!"
 })
 
@@ -414,7 +420,7 @@ $BtnTaskLogonPrint.Add_Click({
 			$CountTweak++
 			$_ | Select-Object -Property @{Name="Num"; Expression={$CountTweak}}, @{Label="Tweak"; Expression={$_}}
 			} `
-		| Out-GridView -Title "SWMB: Tweaks that will apply to the next Logon sequence for current user ${Env:UserName} - $(Get-Date)"
+		| Out-GridView -Title "SWMB: Tweaks that will apply to the next Logon sequence for CurrentUser ${Env:UserName} - $(Get-Date)"
 })
 $BtnTaskLogonLog = New-Object System.Windows.Forms.Button
 $BtnTaskLogonLog.Location = New-Object System.Drawing.Point(249,170)
@@ -423,7 +429,7 @@ $BtnTaskLogonLog.Height = 20
 $BtnTaskLogonLog.Text = "L"
 $Form.controls.Add($BtnTaskLogonLog)
 $BtnTaskLogonLog.Add_Click({
-	Start-Process $Editor "`"$LogonLog`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$LogonLog`""
 })
 $BtnTaskLogonEdit = New-Object System.Windows.Forms.Button
 $BtnTaskLogonEdit.Location = New-Object System.Drawing.Point(249,190)
@@ -432,8 +438,20 @@ $BtnTaskLogonEdit.Height = 20
 $BtnTaskLogonEdit.Text = "E"
 $Form.controls.Add($BtnTaskLogonEdit)
 $BtnTaskLogonEdit.Add_Click({
-	Start-Process $Editor "`"$DataFolder\Presets\CurrentUser-Logon.preset`""
+	Start-Process -FilePath $Editor -ArgumentList "`"$DataFolder\Presets\CurrentUser-Logon.preset`""
 })
+If (Test-Path -LiteralPath "${Env:ProgramFiles}\WinMerge\WinMergeU.exe") {
+	$BtnTaskLogonMerge = New-Object System.Windows.Forms.Button
+	$BtnTaskLogonMerge.Location = New-Object System.Drawing.Point(249,210)
+	$BtnTaskLogonMerge.Width = 15
+	$BtnTaskLogonMerge.Height = 20
+	$BtnTaskLogonMerge.Text = "M"
+	$Form.controls.Add($BtnTaskLogonMerge)
+	$BtnTaskLogonMerge.Add_Click({
+		Start-Process -FilePath "${Env:ProgramFiles}\WinMerge\WinMergeU.exe" -ArgumentList "/maximize /fr /ignoreeol `"${Env:ProgramFiles}\SWMB\Presets\CurrentUser-All.preset`" `"$DataFolder\Presets\CurrentUser-Logon.preset`""
+	})
+	$ToolTip.SetToolTip($BtnTaskLogonMerge, "Diff and Merge CurrentUser Logon Task Preset File")
+}
 
 $BtnTaskLogonFrame = New-Object System.Windows.Forms.GroupBox
 $BtnTaskLogonFrame.Location = New-Object System.Drawing.Size(190,145)
@@ -443,11 +461,11 @@ $BtnTaskLogonFrame.Text = ""
 $BtnTaskLogonFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskLogonFrame)
 
-$ToolTip.SetToolTip($BtnTaskLogonCheck, "Check Current User Logon Tweaks");
-$ToolTip.SetToolTip($BtnTaskLogonRun,   "Run Current User Logon Task Now");
-$ToolTip.SetToolTip($BtnTaskLogonPrint, "Print Current User Logon Tweaks List");
-$ToolTip.SetToolTip($BtnTaskLogonLog,   "Show Last Current User Logon Task Run");
-$ToolTip.SetToolTip($BtnTaskLogonEdit,  "Edit Current User Logon Task Preset File");
+$ToolTip.SetToolTip($BtnTaskLogonCheck, "Check CurrentUser Logon Tweaks");
+$ToolTip.SetToolTip($BtnTaskLogonRun,   "Run CurrentUser Logon Task Now");
+$ToolTip.SetToolTip($BtnTaskLogonPrint, "Print CurrentUser Logon Tweaks List");
+$ToolTip.SetToolTip($BtnTaskLogonLog,   "Show Last CurrentUser Logon Task Run");
+$ToolTip.SetToolTip($BtnTaskLogonEdit,  "Edit CurrentUser Logon Task Preset File");
 
 
 # Task Frame
@@ -462,7 +480,7 @@ $Form.Controls.Add($BtnTaskFrame)
 ################################################################
 
 # Version
-$RunningVersion  = (SWMB_GetRunningVersion)
+$RunningVersion = (SWMB_GetRunningVersion)
 $PublishedVersion = (SWMB_GetLastPublishedVersion)
 $BtnVersion = New-Object System.Windows.Forms.Label
 $BtnVersion.Location = New-Object System.Drawing.Size(30,270)
@@ -506,7 +524,7 @@ $BtnWindowsUpdate.Text = "Update"
 $Form.controls.Add($BtnWindowsUpdate)
 $BtnWindowsUpdate.Add_Click({
 	# control.exe /name Microsoft.WindowsUpdate
-	Start-Process control.exe update
+	Start-Process -FilePath "${Env:SystemRoot}\System32\control.exe" -ArgumentList "update"
 })
 $ToolTip.SetToolTip($BtnWindowsUpdate, "Windows Update");
 
@@ -550,10 +568,11 @@ $BtnAddDelProgram.Text = "R"
 $Form.controls.Add($BtnAddDelProgram)
 $BtnAddDelProgram.Add_Click({
 	# control.exe /name Microsoft.ProgramsAndFeatures
-	Start-Process control.exe appwiz.cpl
+	Start-Process -FilePath "${Env:SystemRoot}\System32\control.exe" -ArgumentList "appwiz.cpl"
 })
 $ToolTip.SetToolTip($BtnAddDelProgram, "Install / Remove programs");
 
+$ProgramCounter = 0
 If (Test-Path -LiteralPath "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe") {
 	$BtnBleachBit = New-Object System.Windows.Forms.Button
 	$BtnBleachBit.Location = New-Object System.Drawing.Point(379,275)
@@ -562,10 +581,23 @@ If (Test-Path -LiteralPath "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe") {
 	$BtnBleachBit.Text = "B"
 	$Form.controls.Add($BtnBleachBit)
 	$BtnBleachBit.Add_Click({
-		# control.exe /name Microsoft.ProgramsAndFeatures
-		Start-Process "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe"
+		Start-Process -FilePath "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe"
 	})
-	$ToolTip.SetToolTip($BtnBleachBit, "BleachBit");
+	$ToolTip.SetToolTip($BtnBleachBit, "BleachBit Program");
+	$ProgramCounter++
+}
+If (Test-Path -LiteralPath "${Env:ProgramFiles}\WinDirStat\WinDirStat.exe") {
+	$BtnWinDirStat = New-Object System.Windows.Forms.Button
+	$BtnWinDirStat.Location = New-Object System.Drawing.Point((379 + $ProgramCounter * 16),275)
+	$BtnWinDirStat.Width = 15
+	$BtnWinDirStat.Height = 20
+	$BtnWinDirStat.Text = "S"
+	$Form.controls.Add($BtnWinDirStat)
+	$BtnWinDirStat.Add_Click({
+		Start-Process -FilePath "${Env:ProgramFiles}\WinDirStat\WinDirStat.exe"
+	})
+	$ToolTip.SetToolTip($BtnWinDirStat, "WinDirStat Program");
+	$ProgramCounter++
 }
 
 ################################################################
@@ -578,7 +610,7 @@ $BtnConsoleGPedit.Height = 30
 $BtnConsoleGPedit.Text = "GPedit"
 $Form.controls.Add($BtnConsoleGPedit)
 $BtnConsoleGPedit.Add_Click({
-	Start-Process gpedit.msc
+	Start-Process -FilePath "${Env:SystemRoot}\System32\gpedit.msc"
 })
 $BtnConsoleMgmt = New-Object System.Windows.Forms.Button
 $BtnConsoleMgmt.Location = New-Object System.Drawing.Point(395,335)
@@ -587,7 +619,7 @@ $BtnConsoleMgmt.Height = 30
 $BtnConsoleMgmt.Text = "Managment"
 $Form.controls.Add($BtnConsoleMgmt)
 $BtnConsoleMgmt.Add_Click({
-	Start-Process compmgmt.msc
+	Start-Process -FilePath "${Env:SystemRoot}\System32\compmgmt.msc"
 })
 $BtnConsoleNet = New-Object System.Windows.Forms.Button
 $BtnConsoleNet.Location = New-Object System.Drawing.Point(490,335)
@@ -598,7 +630,7 @@ $Form.controls.Add($BtnConsoleNet)
 $BtnConsoleNet.Add_Click({
 	# control.exe ncpa.cpl
 	# control.exe /name Microsoft.NetworkAndSharingCenter
-	Start-Process control.exe netconnections
+	Start-Process -FilePath "${Env:SystemRoot}\System32\control.exe" -ArgumentList "netconnections"
 })
 
 # Console Frame

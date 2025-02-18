@@ -357,20 +357,24 @@ Command using the preset file above:
 
 ### Summary of the total number of tweaks
 
+LM stands for LocalMachine and CU for CurrentUser.
+The first column for each category (LM and CU) is, for example, for the `Install` type, and the second for its opposite, `Uninstall`.
+The middle column is a global summary (All).
+
  | Status | Number of tweaks                       |         LM ||  All |         CU ||
  | :---   | :---                                   | ---: | ---: | ---: | ---: | ---: |
- | Info   | Number of RESINFO tweaks               |        181 ||  197 |         16 ||
- | Info   | Number of Enable and Disable tweaks    |  176 |  176 |  426 |   37 |   37 |
+ | Info   | Number of RESINFO tweaks               |        185 ||  201 |         16 ||
+ | Info   | Number of Enable and Disable tweaks    |  178 |  178 |  430 |   37 |   37 |
  | Warn   | Number of Install and Uninstall tweaks |   20 |   42 |   66 |    1 |    3 |
  | Warn   | Number of Show and Hide tweaks         |   29 |   29 |  115 |   30 |   27 |
  | Info   | Number of Add and Remove tweaks        |    2 |    2 |    6 |    1 |    1 |
  | Warn   | Number of Set and Unset tweaks         |   24 |   10 |   52 |   18 |    0 |
  | Warn   | Number of Pin and Unpin tweaks         |    0 |    0 |    2 |    0 |    2 |
- | Info   | Number of total tweaks GPO             |      |      |  667 |      |      |
+ | Info   | Number of total tweaks GPO             |      |      |  671 |      |      |
  | Info   | Number of Sys tweaks (system)          |      |      |    9 |      |      |
- | Info   | Number of View tweaks (debug)          |      |      |   67 |      |      |
+ | Info   | Number of View tweaks (debug)          |      |      |   70 |      |      |
  | Info   | Number of Obsolete tweaks              |      |      |    3 |      |      |
- | Info   | Number of total tweaks functions       |      |      |  746 |      |      |
+ | Info   | Number of total tweaks functions       |      |      |  753 |      |      |
 
 ### Import your lib
 

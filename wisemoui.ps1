@@ -505,6 +505,18 @@ If ($RunningVersion -ne $PublishedVersion) {
 	})
 }
 
+# System Property
+$BtnSystemProperty = New-Object System.Windows.Forms.Button
+$BtnSystemProperty.Location = New-Object System.Drawing.Point(210,310)
+$BtnSystemProperty.Width = 55
+$BtnSystemProperty.Height = 20
+$BtnSystemProperty.Text = "Property"
+$Form.controls.Add($BtnSystemProperty)
+$BtnSystemProperty.Add_Click({
+	Start-Process -FilePath "${Env:SystemRoot}\System32\control.exe" -ArgumentList "sysdm.cpl"
+})
+$ToolTip.SetToolTip($BtnSystemProperty, "System Property")
+
 # Hostname
 $HostId = (SWMB_GetHostId)
 $BtnHost = New-Object System.Windows.Forms.Label
@@ -526,7 +538,7 @@ $BtnWindowsUpdate.Add_Click({
 	# control.exe /name Microsoft.WindowsUpdate
 	Start-Process -FilePath "${Env:SystemRoot}\System32\control.exe" -ArgumentList "update"
 })
-$ToolTip.SetToolTip($BtnWindowsUpdate, "Windows Update");
+$ToolTip.SetToolTip($BtnWindowsUpdate, "Windows Update")
 
 # OS Version
 $OSVersion = SWMB_GetOSVersionReadable

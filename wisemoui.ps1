@@ -611,6 +611,19 @@ If (Test-Path -LiteralPath "${Env:ProgramFiles}\WinDirStat\WinDirStat.exe") {
 	$ToolTip.SetToolTip($BtnWinDirStat, "WinDirStat Program")
 	$ProgramCounter++
 }
+If (Test-Path -LiteralPath "${Env:ProgramFiles}\CCleaner\CCleaner64.exe") {
+	$BtnSoftCCleaner = New-Object System.Windows.Forms.Button
+	$BtnSoftCCleaner.Location = New-Object System.Drawing.Point((379 + $ProgramCounter * 16),275)
+	$BtnSoftCCleaner.Width = 15
+	$BtnSoftCCleaner.Height = 20
+	$BtnSoftCCleaner.Text = "C"
+	$Form.controls.Add($BtnSoftCCleaner)
+	$BtnSoftCCleaner.Add_Click({
+		Start-Process -FilePath "${Env:ProgramFiles}\CCleaner\CCleaner64.exe"
+	})
+	$ToolTip.SetToolTip($BtnSoftCCleaner, "CCleaner Program")
+	$ProgramCounter++
+}
 
 ################################################################
 

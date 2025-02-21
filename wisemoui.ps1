@@ -136,11 +136,11 @@ $Form.Controls.Add($BtnBitlockerFrame)
 # Task Frame
 
 # General ToolTip
-$ToolTip = New-Object System.Windows.Forms.ToolTip;
-$ToolTip.AutoPopDelay = 5000;
-$ToolTip.InitialDelay = 500;
-$ToolTip.ReshowDelay = 500;
-$ToolTip.ShowAlways = true;
+$ToolTip = New-Object System.Windows.Forms.ToolTip
+$ToolTip.AutoPopDelay = 5000
+$ToolTip.InitialDelay = 500
+$ToolTip.ReshowDelay = 500
+$ToolTip.ShowAlways = true
 
 # Boot Task
 $BtnTaskBootStatus = New-Object System.Windows.Forms.Label
@@ -253,11 +253,11 @@ $BtnTaskBootFrame.Text = ""
 $BtnTaskBootFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskBootFrame)
 
-$ToolTip.SetToolTip($BtnTaskBootCheck, "Check LocalMachine Boot Tweaks");
-$ToolTip.SetToolTip($BtnTaskBootRun,   "Run LocalMachine Boot Task Now");
-$ToolTip.SetToolTip($BtnTaskBootPrint, "Print LocalMachine Boot Tweaks List");
-$ToolTip.SetToolTip($BtnTaskBootLog,   "Show LocalMachine Last Boot Task Run");
-$ToolTip.SetToolTip($BtnTaskBootEdit,  "Edit LocalMachine Boot Task Preset File");
+$ToolTip.SetToolTip($BtnTaskBootCheck, "Check LocalMachine Boot Tweaks")
+$ToolTip.SetToolTip($BtnTaskBootRun,   "Run LocalMachine Boot Task Now")
+$ToolTip.SetToolTip($BtnTaskBootPrint, "Print LocalMachine Boot Tweaks List")
+$ToolTip.SetToolTip($BtnTaskBootLog,   "Show LocalMachine Last Boot Task Run")
+$ToolTip.SetToolTip($BtnTaskBootEdit,  "Edit LocalMachine Boot Task Preset File")
 
 
 # Post-Install Task
@@ -357,11 +357,11 @@ $BtnTaskPostInstallFrame.Text = ""
 $BtnTaskPostInstallFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskPostInstallFrame)
 
-$ToolTip.SetToolTip($BtnTaskPostInstallCheck, "Check LocalMachine Post-Install Tweaks");
-$ToolTip.SetToolTip($BtnTaskPostInstallRun,   "Run LocalMachine Post-Install Task Now");
-$ToolTip.SetToolTip($BtnTaskPostInstallPrint, "Print LocalMachine Post-Install Tweaks List");
-$ToolTip.SetToolTip($BtnTaskPostInstallLog,   "Show Last LocalMachine Post-Install Task Run");
-$ToolTip.SetToolTip($BtnTaskPostInstallEdit,  "Edit LocalMachine Post-Install Task Preset File");
+$ToolTip.SetToolTip($BtnTaskPostInstallCheck, "Check LocalMachine Post-Install Tweaks")
+$ToolTip.SetToolTip($BtnTaskPostInstallRun,   "Run LocalMachine Post-Install Task Now")
+$ToolTip.SetToolTip($BtnTaskPostInstallPrint, "Print LocalMachine Post-Install Tweaks List")
+$ToolTip.SetToolTip($BtnTaskPostInstallLog,   "Show Last LocalMachine Post-Install Task Run")
+$ToolTip.SetToolTip($BtnTaskPostInstallEdit,  "Edit LocalMachine Post-Install Task Preset File")
 
 
 # Logon Task
@@ -461,11 +461,11 @@ $BtnTaskLogonFrame.Text = ""
 $BtnTaskLogonFrame.BackColor = 'Moccasin'
 $Form.Controls.Add($BtnTaskLogonFrame)
 
-$ToolTip.SetToolTip($BtnTaskLogonCheck, "Check CurrentUser Logon Tweaks");
-$ToolTip.SetToolTip($BtnTaskLogonRun,   "Run CurrentUser Logon Task Now");
-$ToolTip.SetToolTip($BtnTaskLogonPrint, "Print CurrentUser Logon Tweaks List");
-$ToolTip.SetToolTip($BtnTaskLogonLog,   "Show Last CurrentUser Logon Task Run");
-$ToolTip.SetToolTip($BtnTaskLogonEdit,  "Edit CurrentUser Logon Task Preset File");
+$ToolTip.SetToolTip($BtnTaskLogonCheck, "Check CurrentUser Logon Tweaks")
+$ToolTip.SetToolTip($BtnTaskLogonRun,   "Run CurrentUser Logon Task Now")
+$ToolTip.SetToolTip($BtnTaskLogonPrint, "Print CurrentUser Logon Tweaks List")
+$ToolTip.SetToolTip($BtnTaskLogonLog,   "Show Last CurrentUser Logon Task Run")
+$ToolTip.SetToolTip($BtnTaskLogonEdit,  "Edit CurrentUser Logon Task Preset File")
 
 
 # Task Frame
@@ -582,7 +582,7 @@ $BtnAddDelProgram.Add_Click({
 	# control.exe /name Microsoft.ProgramsAndFeatures
 	Start-Process -FilePath "${Env:SystemRoot}\System32\control.exe" -ArgumentList "appwiz.cpl"
 })
-$ToolTip.SetToolTip($BtnAddDelProgram, "Install / Remove programs");
+$ToolTip.SetToolTip($BtnAddDelProgram, "Install / Remove programs")
 
 $ProgramCounter = 0
 If (Test-Path -LiteralPath "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe") {
@@ -595,7 +595,7 @@ If (Test-Path -LiteralPath "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe") {
 	$BtnBleachBit.Add_Click({
 		Start-Process -FilePath "${Env:ProgramFiles(x86)}\BleachBit\bleachbit.exe"
 	})
-	$ToolTip.SetToolTip($BtnBleachBit, "BleachBit Program");
+	$ToolTip.SetToolTip($BtnBleachBit, "BleachBit Program")
 	$ProgramCounter++
 }
 If (Test-Path -LiteralPath "${Env:ProgramFiles}\WinDirStat\WinDirStat.exe") {
@@ -608,7 +608,7 @@ If (Test-Path -LiteralPath "${Env:ProgramFiles}\WinDirStat\WinDirStat.exe") {
 	$BtnWinDirStat.Add_Click({
 		Start-Process -FilePath "${Env:ProgramFiles}\WinDirStat\WinDirStat.exe"
 	})
-	$ToolTip.SetToolTip($BtnWinDirStat, "WinDirStat Program");
+	$ToolTip.SetToolTip($BtnWinDirStat, "WinDirStat Program")
 	$ProgramCounter++
 }
 

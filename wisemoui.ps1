@@ -67,6 +67,13 @@ $Logo.Size = New-Object System.Drawing.Size(200,201)
 $Logo.image = [system.drawing.image]::FromFile("$PSScriptRoot\logo-swmb.ico")
 $Form.Controls.Add($Logo)
 
+# General ToolTip
+$ToolTip = New-Object System.Windows.Forms.ToolTip
+$ToolTip.AutoPopDelay = 5000
+$ToolTip.InitialDelay = 500
+$ToolTip.ReshowDelay = 500
+$ToolTip.ShowAlways = true
+
 ################################################################
 # Bitlocker Frame
 
@@ -90,6 +97,18 @@ $Form.controls.Add($BtnCrypt)
 $BtnCrypt.Add_Click({
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSScriptRoot\Tasks\LocalMachine-Crypt-With-Bitlocker.ps1`"" -WindowStyle Normal
 })
+
+# TPM Console
+$BtnConsoleTPM = New-Object System.Windows.Forms.Button
+$BtnConsoleTPM.Location = New-Object System.Drawing.Point(140,50)
+$BtnConsoleTPM.Width = 15
+$BtnConsoleTPM.Height = 20
+$BtnConsoleTPM.Text = "T"
+$Form.controls.Add($BtnConsoleTPM)
+$BtnConsoleTPM.Add_Click({
+	Start-Process -FilePath "${Env:SystemRoot}\System32\gpedit.msc"
+})
+$ToolTip.SetToolTip($BtnConsoleTPM, "TPM Console")
 
 # Bitlocker Action
 $BitlockerAction = "Suspend"
@@ -134,13 +153,6 @@ $Form.Controls.Add($BtnBitlockerFrame)
 
 ################################################################
 # Task Frame
-
-# General ToolTip
-$ToolTip = New-Object System.Windows.Forms.ToolTip
-$ToolTip.AutoPopDelay = 5000
-$ToolTip.InitialDelay = 500
-$ToolTip.ReshowDelay = 500
-$ToolTip.ShowAlways = true
 
 # Boot Task
 $BtnTaskBootStatus = New-Object System.Windows.Forms.Label
@@ -628,15 +640,42 @@ If (Test-Path -LiteralPath "${Env:ProgramFiles}\CCleaner\CCleaner64.exe") {
 ################################################################
 
 # Console
+$BtnConsoleSecpol = New-Object System.Windows.Forms.Button
+$BtnConsoleSecpol.Location = New-Object System.Drawing.Point(300,335)
+$BtnConsoleSecpol.Width = 50
+$BtnConsoleSecpol.Height = 30
+$BtnConsoleSecpol.Text = "GPO"
+$Form.controls.Add($BtnConsoleSecpol)
+$BtnConsoleSecpol.Add_Click({
+	Start-Process -FilePath "${Env:SystemRoot}\System32\secpol.msc"
+})
+$ToolTip.SetToolTip($BtnConsoleSecpol, "Local Security Policy Console")
+
 $BtnConsoleGPedit = New-Object System.Windows.Forms.Button
-$BtnConsoleGPedit.Location = New-Object System.Drawing.Point(300,335)
-$BtnConsoleGPedit.Width = 80
-$BtnConsoleGPedit.Height = 30
-$BtnConsoleGPedit.Text = "GPedit"
+$BtnConsoleGPedit.Location = New-Object System.Drawing.Point(350,335)
+$BtnConsoleGPedit.Width = 15
+$BtnConsoleGPedit.Height = 20
+$BtnConsoleGPedit.Text = "E"
 $Form.controls.Add($BtnConsoleGPedit)
 $BtnConsoleGPedit.Add_Click({
 	Start-Process -FilePath "${Env:SystemRoot}\System32\gpedit.msc"
 })
+$ToolTip.SetToolTip($BtnConsoleGPedit, "GPedit Console")
+
+# Process Monitor Program
+If (Test-Path -LiteralPath "${Env:ProgramFiles}\Sysinternals\Procmon64.exe") {
+	$BtnSoftProcessMonitor = New-Object System.Windows.Forms.Button
+	$BtnSoftProcessMonitor.Location = New-Object System.Drawing.Point(365,335)
+	$BtnSoftProcessMonitor.Width = 15
+	$BtnSoftProcessMonitor.Height = 20
+	$BtnSoftProcessMonitor.Text = "P"
+	$Form.controls.Add($BtnSoftProcessMonitor)
+	$BtnSoftProcessMonitor.Add_Click({
+		Start-Process -FilePath "${Env:ProgramFiles}\\Sysinternals\Procmon64.exe"
+	})
+	$ToolTip.SetToolTip($BtnSoftProcessMonitor, "Process Monitor Program")
+}
+
 $BtnConsoleMgmt = New-Object System.Windows.Forms.Button
 $BtnConsoleMgmt.Location = New-Object System.Drawing.Point(395,335)
 $BtnConsoleMgmt.Width = 80
@@ -646,6 +685,7 @@ $Form.controls.Add($BtnConsoleMgmt)
 $BtnConsoleMgmt.Add_Click({
 	Start-Process -FilePath "${Env:SystemRoot}\System32\compmgmt.msc"
 })
+
 $BtnConsoleNet = New-Object System.Windows.Forms.Button
 $BtnConsoleNet.Location = New-Object System.Drawing.Point(490,335)
 $BtnConsoleNet.Width = 40

@@ -250,25 +250,25 @@ The GUI is divided into several sections:
 
  * A frame concerns the host machine.
    There's the SWMB version (and the number of the latest software version if different), there's the host name, the host id, its OS with its version in green, orange or red depending on whether it seems more or less up to date.
-   There are two buttons in this section: the machine properties (where you can change the name and performance parameters, for example) and the Windows Update console.
+   There are two buttons in this section: `Property` for the machine properties (where you can change the name and performance parameters, for example) and the Windows `Update` console.
 
  * A specialized software frame.
    A button lists all software registered in all registry hives.
-   The D button opens the console for adding or removing programs.
+   The `R` button opens the console for adding or removing programs.
    The following buttons are optional, depending on your machine:
 	* `B`: Launches the [BleachBit](https://www.bleachbit.org/) program if installed.
 	* `S`: Launches the [WinDirStat](https://windirstat.net/) program if installed.
 	* `C`: Launches the [CCleaner](https://www.ccleaner.com/) program if installed.
 
  * A frame with system consoles.
-	* The GPO button launches `secpol`, the console for Local Security Policies.
+	* The `GPO` button launches `secpol`, the console for Local Security Policies.
 	* The `E` button opens the GPedit console.
 	* The `P` button launches the [Procmon](https://en.wikipedia.org/wiki/Sysinternals) application (if installed under `C:\Program Files\Sysinternals`).
 	  This GPO zone can be used to develop new tweaks.
 	* Management is the global console for managing a workstation.
 	* Net is the console for managing network interfaces (changing dhcp, managing metrics, etc.).
 
- * Finally, an Exit button lets you quit SWMB!
+ * Finally, an `Exit` button lets you quit SWMB!
 
 ### Tasks
 

@@ -4,10 +4,12 @@
 
 The `wisemoui.ps1` graphical interface has been updated.
 There's now an `C` (Check), `P` (Print), `L` (Log) and `E` (Edit) and `Run` buttons next to each scheduled task to check the preset file, print current tweaks list, view the last log file (last run), edit the task's preset file and run now the task.
-Many management consoles (Windows Update, System Property, Add/Remove Software, GPedit, Network interface and Global Management) have also been added to the interface.
+If the [WinMerge](https://winmerge.org/) software is installed, a `M` button appear near all the task button to help diff, merge and update preset files.
+Many management consoles (TPM, indows Update, System Property, Add/Remove Software, Secpol, GPedit, Network interface and Global Management) have also been added to the interface.
 If the [BleachBit](https://www.bleachbit.org/) software is installed, a `B` button appear near the Software button.
 If the [CCleaner](https://www.ccleaner.com/) software is installed, a `C` button appear near the Software button.
 If the [WinDirStat](https://windirstat.net/) software is installed, a `S` button appear near the Software button.
+If the [Procmon](https://en.wikipedia.org/wiki/Sysinternals) software is installed, a `P` button appear near the GPO button.
 
 Add SHA-1 hash on download package web page.
 

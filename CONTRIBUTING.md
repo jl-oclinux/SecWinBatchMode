@@ -321,7 +321,7 @@ Function TweakDisableSomeFeature {
   |  21H2   | Sun Valley              | October 4, 2021        | 22000 |
   |  22H2   | Sun Valley 2            | September 20, 2022     | 22621 |
   |  23H2   | Sun Valley 3            | October 31, 2023       | 22631 |
-  |  24H2   | Hudson Valley           | June 15, 2024          | 26100 |
+  |  24H2   | Hudson Valley           | October 1, 2024        | 26100 |
 
 * See [Windows 10 version history](https://en.wikipedia.org/wiki/Windows_10_version_history)
 

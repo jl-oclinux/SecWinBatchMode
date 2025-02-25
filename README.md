@@ -218,12 +218,57 @@ SWMB_RunTweaks
 
 ### Graphical User Interface
 
-There is a minimal graphical user interface.
+There is a minimal graphical user interface, but it has been expanded over time.
 A link to it appears in the start menu under the name SWMB Secure Windows.
-This interface allows to force the execution of some tasks: boot, disk encryption...
-There is also a version number check.
+This interface allows to force the execution of some tasks: boot, disk encryption, etc.
+To make the interface easier to understand, each button has an associated tooltip.
 
 ![SWMB Graphical User Interface](Images/capture-wisemoui.png)
+
+The GUI is divided into several sections:
+
+ * A frame concerning Bitlocker.
+   It is possible to encrypt all disks, suspend Bitlocker and launch the TPM console (`T` button).
+   A status line shows the encryption status in three colors: no encryption (red), encryption but caution (orange), correct encryption (green).
+
+ * A frame for scheduled tasks (tweak/preset).
+   This is the most complex area, yet quite simple to understand, because it's the same thing three times:  one for boot, one for application post-installation and the last for user logon.
+   The same buttons appear three times.
+	* `Run`: Immediately starts the scheduled task in manual mode.
+	  This allows you to test the task, for example.
+	* `C`: Check if the tweaks defined in the preset file exist and are not executed several times.
+	  See the `-check` option in the `swmb.ps1` program.
+	* `P`: Displays the list of tweaks defined in the preset file that will be executed by the scheduled task, but nothing is actually executed.
+	  See the `-print` option in the `swmb.ps1` program.
+	* `L`: Displays the log file of the last execution of the scheduled task
+	* `E`: Edits the main preset file associated with the scheduled task.
+	  If there is a secondary file specifically associated with the workstation, this is not edited.
+	  Note: if [Notepad++](https://notepad-plus-plus.org/) is installed, this editor is used, otherwise the Windows built-in Notepad is launched.
+	* `M`: The [WinMerge](https://winmerge.org/) application is launched and compares your main preset file with the preset file containing all the tweaks in the SWMB distribution (`LocalMachine-All.preset` or `CurrentUser-All.preset`).
+	  This comparison lets you see if there are any new tweaks easily and gives you a visual view of the specifics of your security policy.
+	  Note: This button only appears if [WinMerge](https://winmerge.org/) is installed on the workstation.
+
+ * A frame concerns the host machine.
+   There's the SWMB version (and the number of the latest software version if different), there's the host name, the host id, its OS with its version in green, orange or red depending on whether it seems more or less up to date.
+   There are two buttons in this section: the machine properties (where you can change the name and performance parameters, for example) and the Windows Update console.
+
+ * A specialized software frame.
+   A button lists all software registered in all registry hives.
+   The D button opens the console for adding or removing programs.
+   The following buttons are optional, depending on your machine:
+	* `B`: Launches the [BleachBit](https://www.bleachbit.org/) program if installed.
+	* `S`: Launches the [WinDirStat](https://windirstat.net/) program if installed.
+	* `C`: Launches the [CCleaner](https://www.ccleaner.com/) program if installed.
+
+ * A frame with system consoles.
+	* The GPO button launches `secpol`, the console for Local Security Policies.
+	* The `E` button opens the GPedit console.
+	* The `P` button launches the [Procmon](https://en.wikipedia.org/wiki/Sysinternals) application (if installed under `C:\Program Files\Sysinternals`).
+	  This GPO zone can be used to develop new tweaks.
+	* Management is the global console for managing a workstation.
+	* Net is the console for managing network interfaces (changing dhcp, managing metrics, etc.).
+
+ * Finally, an Exit button lets you quit SWMB!
 
 ### Tasks
 

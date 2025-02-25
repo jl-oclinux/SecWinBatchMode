@@ -216,8 +216,7 @@ SWMB_RunTweaks
    It is a good idea to put the hash file in the `C:\ProgramData\SWMB\Caches` folder
    with the name of the most important preset followed by the `.hash` extension.
 
-
-## Graphical User Interface
+### Graphical User Interface
 
 There is a minimal graphical user interface, but it has been expanded over time.
 A link to it appears in the start menu under the name SWMB Secure Windows.
@@ -271,8 +270,7 @@ The GUI is divided into several sections:
 
  * Finally, an `Exit` button lets you quit SWMB!
 
-
-## Tasks
+### Tasks
 
 The goal is to not change anything in the SWMB installation folder.
 Three scheduled tasks are configured.

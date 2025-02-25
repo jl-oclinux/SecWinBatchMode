@@ -78,12 +78,13 @@ $ToolTip.ShowAlways = true
 # Bitlocker Frame
 
 # Bitlocker Status
-$BitlockerStatus = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
+$BitlockerStatus, $BitlockerColor = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
 $BtnBitlockerStatus = New-Object System.Windows.Forms.Label
 $BtnBitlockerStatus.Location = New-Object System.Drawing.Size(30,25)
 $BtnBitlockerStatus.Width = 220
 $BtnBitlockerStatus.Height = 20
 $BtnBitlockerStatus.BackColor = "Transparent"
+$BtnBitlockerStatus.ForeColor = "$BitlockerColor"
 $BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 $Form.Controls.Add($BtnBitlockerStatus)
 
@@ -126,17 +127,19 @@ $BtnBitlockerAction.Add_Click({
 	If ($BitlockerAction -eq "Suspend") {
 		Get-BitLockerVolume | Suspend-BitLocker -RebootCount 0
 		$BitlockerAction = "Halt"
-		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
+		$BitlockerStatus, $BitlockerColor = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
 		$BtnBitlockerAction.Text = "Please Halt for your Maintenance"
+		$BtnBitlockerStatus.ForeColor = "$BitlockerColor"
 		$BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 	} ElseIf ($BitlockerAction -eq "Halt") {
 		Stop-Computer -ComputerName localhost
 	} Else {
 		Get-BitLockerVolume | Resume-BitLocker
-		$BitlockerStatus = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
+		$BitlockerStatus, $BitlockerColor = SWMB_GetBitLockerStatus -Drive ${Env:SystemDrive}
 		If ($BitlockerStatus -cmatch "Running") {
 			$BitlockerAction = "Suspend"
 			$BtnBitlockerAction.Text = "$BitlockerAction"
+			$BtnBitlockerStatus.ForeColor = "$BitlockerColor"
 			$BtnBitlockerStatus.Text = "Status: $BitlockerStatus"
 		}
 	}

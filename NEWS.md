@@ -3,22 +3,26 @@
 ## Version 3.18 (in progress)
 
 The `wisemoui.ps1` graphical interface has been updated.
-There's now an `C` (Check), `P` (Print), `L` (Log) and `E` (Edit) and `Run` buttons next to each scheduled task to check the preset file, print current tweaks list, view the last log file (last run), edit the task's preset file and run now the task.
-If the [WinMerge](https://winmerge.org/) software is installed, a `M` button appear near all the task button to help diff, merge and update preset files.
-Many management consoles (TPM, indows Update, System Property, Add/Remove Software, Secpol, GPedit, Network interface and Global Management) have also been added to the interface.
-If the [BleachBit](https://www.bleachbit.org/) software is installed, a `B` button appear near the Software button.
-If the [CCleaner](https://www.ccleaner.com/) software is installed, a `C` button appear near the Software button.
-If the [WinDirStat](https://windirstat.net/) software is installed, a `S` button appear near the Software button.
-If the [Procmon](https://en.wikipedia.org/wiki/Sysinternals) software is installed, a `P` button appear near the GPO button.
+Here's a quick summary:
+
+* The Bitlocker status is now in color (Green, Orange, Red).
+* There's now an `C` (Check), `P` (Print), `L` (Log) and `E` (Edit) and `Run` buttons next to each scheduled task to check the preset file, print current tweaks list, view the last log file (last run), edit the task's preset file and run now the task.
+* If the [WinMerge](https://winmerge.org/) software is installed, a `M` button appear near all the task button to help diff, merge and update preset files.
+* Many management consoles (TPM, indows Update, System Property, Add/Remove Software, Secpol, GPedit, Network interface and Global Management) have also been added to the interface.
+* If the [BleachBit](https://www.bleachbit.org/) software is installed, a `B` button appear near the Software button.
+* If the [CCleaner](https://www.ccleaner.com/) software is installed, a `C` button appear near the Software button.
+* If the [WinDirStat](https://windirstat.net/) software is installed, a `S` button appear near the Software button.
+* If the [Procmon](https://en.wikipedia.org/wiki/Sysinternals) software is installed, a `P` button appear near the GPO button.
 
 Add SHA-1 hash on download package web page.
 
 Add the link to [Win11Debloat](https://github.com/Raphire/Win11Debloat) and to the [JRES 2024 conference in Rennes](https://hal.science/hal-04893850v1) to the [REFERENCES](REFERENCES.md) file.
 
 New presets/rules:
-- 2025/02/17 - `ViewInsecureGuestLogons` - Disable SMB client to use insecure guest logons to an SMB server
-- 2025/02/17 - `EnableSMBClientSigning`/`DisableSMBClientSigning`/`ViewSMBClientSigning` - Require SMB client to sign message
-- 2025/02/17 - `EnableSMBServerSigning`/`DisableSMBServerSigning`/`ViewSMBServerSigning` - Require SMB server to sign message
+
+* 2025/02/17 - `ViewInsecureGuestLogons` - Disable SMB client to use insecure guest logons to an SMB server
+* 2025/02/17 - `EnableSMBClientSigning`/`DisableSMBClientSigning`/`ViewSMBClientSigning` - Require SMB client to sign message
+* 2025/02/17 - `EnableSMBServerSigning`/`DisableSMBServerSigning`/`ViewSMBServerSigning` - Require SMB server to sign message
 * 2025/02/14 - `DisableMSOfficeFeedback_CU`/`EnableMSOfficeFeedback_CU`/`ViewMSOfficeFeedback_CU` - Disable Feedback and Telemetry in MS Office
 * 2025/02/13 - `ViewWebSearch_CU` - Add view tweak
 * 2025/02/13 - `DisableMSOfficeConnectedExperiences_CU`/`EnableMSOfficeConnectedExperiences_CU`/`ViewMSOfficeConnectedExperiences_CU` - Disable Connected Experiences in Microsoft Office
@@ -61,6 +65,7 @@ $Global:SWMB_Custom.Windows11.TargetReleaseVersionInfo = '23H2'
 ```
 
 New presets/rules:
+
 * 2024/09/26 - `DisableWindowsCopilot_CU`/`EnableWindowsCopilot_CU`/`ViewWindowsCopilot_CU` -> Disable Windows Copilot for current user (Windows11)
 * 2024/07/02 - `UninstallVMwarePlayer`/`ViewVMwarePlayer` -> Uninstall VMware Player
 * 2024/06/05 - `DisableEdgeSendBrowsingHistory`/`EnableEdgeSendBrowsingHistory`/`ViewEdgeSendBrowsingHistory` -> Disable sending browsing history to Microsoft
@@ -99,21 +104,25 @@ Most of the tweaks marked with the Windows11 tag are also available on Windows10
 but were not deactivated (or activated) at the time, because they were unknown!
 
 Remove modules (move code to other modules):
+
 * `Modules/SWMB/Resinfo.psm1` - dispatch tweaks in other module
 * `Modules/SWMB/BSI.psm1` - dispatch tweaks in other module
 * `Modules/SWMB/Contrib.psm1` - dispatch tweaks in other module
 
 Remove presets (push preset in one file):
+
 * `CurrentUser-Resinfo.preset` - only one preset!
 * `CurrentUser-UserExperience.preset` - only one preset!
 
 Update default `LocalMachine-All` preset:
+
 * Activate `DisableCortanaAboveLock`, `DisableDisplayWebResults`, `DisableWebSearch`,
   `DisablePrivacyExperience`, `DisableStepsRecorder`, `DisableSendAdditionalData`,
   `DisableSharedInformationSearch`, `EnableSearchOnTaskbar`, `DisableUWPNotifications`,
   `DisableUWPAccountInfo`, `DisableUWPDiagInfo`, `DisableUWPAccessLocation`, `DisableWindowsCopilot`
 
 Update default `CurrentUser-All` preset:
+
 * Activate `DisableWebSearch_CU`, `DisableFeedback_CU`
 
 Two tweaks (`OneDriveSync` and `WindowsStoreAccess`) have been renamed in order to have uniqueness in tweak names,
@@ -121,6 +130,7 @@ whether they start with `Enable/Disable`, `Install/Uninstall`, `Show/Hide`...
 The `check-project` script has been updated to check that this tweak uniqueness property is respected.
 
 New presets/rules:
+
 * 2024/03/05 - `UninstallAnyDesk`/`ViewAnyDesk` -> Uninstall AnyDesk remote desktop application
 * 2024/02/29 - `DisableWindowsStoreAccess` is the new name for old `DisableWindowsStore`. It's the same for `EnableWindowsStoreAccess`
 * 2024/02/29 - `DisableOneDriveSync` is the new name for old `DisableOneDrive`. It's the same for `EnableOneDriveSync`

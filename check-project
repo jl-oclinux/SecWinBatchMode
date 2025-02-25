@@ -257,7 +257,7 @@ ack -l --ignore-dir=tmp --ignore-file=ext:bat --ignore-file=ext:ps1 --ignore-fil
 ack -l --ignore-dir=tmp '\s+\r$'
 
 echo "Check double tweak in NEWS.md file"
-grep '^\*' NEWS.md | cut -f 2 -d '-' | sed -e 's#[[:space:]/]#\n#g;' | grep '^`[[:alpha:]]' | sort | uniq -c | grep -v ' 1 '
+grep '^\* [[:digit:]]' NEWS.md | cut -f 2 -d '-' | sed -e 's#[[:space:]/]#\n#g;' | grep '^`[[:alpha:]]' | sort | uniq -c | grep -v ' 1 '
 
 echo "Check import powershell module"
 for psm in ./Modules/*.psm1 ./Modules/SWMB/*.psm1

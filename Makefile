@@ -2,6 +2,7 @@ SOFT:=SWMB
 NB_COMMIT=$(shell git log $$(git tag | tail -1)..HEAD --oneline | wc -l)
 VERSION_NSI:=$(shell grep '!define VERSION' ./package.nsi | cut -f 2 -d '"')
 VERSION:=$(shell echo $(VERSION_NSI) | sed -e "s/\.0$$/.$(NB_COMMIT)/;")
+DATE:=$(shell date '+%Y-%m-%d')
 
 .PHONY: all help pkg version check clean doc
 
@@ -38,5 +39,10 @@ clean:
 
 doc:
 	mkdir -p /tmp/swmb/site
-	sed -e 's|__HERE__|$(CURDIR)|;' mkdocs.yml > /tmp/swmb/mkdocs.yml
-	mkdocs build -f /tmp/swmb/mkdocs.yml
+	sed -e 's|__HERE__|$(CURDIR)|; s|__DATE__|$(DATE)|;' mkdocs.yml > /tmp/swmb/mkdocs.yml
+	. /tmp/swmb/venv/bin/activate; mkdocs build -f /tmp/swmb/mkdocs.yml
+
+env:
+	mkdir -p /tmp/swmb
+	python3 -m venv /tmp/swmb/venv
+	. /tmp/swmb/venv/bin/activate; pip install mkdocs-macros-plugin mkdocs-material mkdocs-material-extensions mkdocs-with-pdf # mkdocs-git-revision-date-localized-plugin

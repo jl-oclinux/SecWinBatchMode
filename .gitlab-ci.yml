@@ -48,6 +48,7 @@ pages:
     - (cd public ; tar --exclude '*-Latest.*' -czf ../download.tar.gz SWMB-Setup-*.exe SWMB-OCS-*.zip SWMB-WAPT-*.zip Kasperky-Uninstall-*.zip)
     - mv download.tar.gz public/
     - mkdir -p public/docs
+    - make env
     - make doc
     - cp -r /tmp/swmb/site/* public/docs/
   artifacts:

@@ -2,6 +2,8 @@
 
 ## Version 3.19 (in progress)
 
+Updated HTML documentation theme, switching to mkdocs material theme.
+
 New presets/rules:
 
 

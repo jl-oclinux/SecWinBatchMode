@@ -2,6 +2,9 @@ site_name: SWMB - Secure Windows Mode Batch
 site_url: https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs
 docs_dir: __HERE__
 site_dir: /tmp/swmb/site
+site_author: RESINFO GT SWMB
+copyright: Copyright (C) 2020-2025, CNRS, France (document generated on __DATE__)
+
 nav:
     - Home: README.md
     - Use case (distribution): dists/README.md
@@ -11,4 +14,23 @@ nav:
     - Authors: AUTHORS.md
     - License: LICENSE.md
     - References: REFERENCES.md
-theme: readthedocs
+
+theme:
+  name: material
+  locale: fr
+  features:
+    - content.code.copy
+  palette:
+    primary: pink
+    accent: red
+
+plugins:
+  - macros
+
+markdown_extensions:
+  - admonition:
+  - pymdownx.emoji:
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - attr_list:

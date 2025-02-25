@@ -1,6 +1,6 @@
 # NEWS
 
-## Version 3.18 (in progress)
+## Version 3.18 (2025/02/25)
 
 The `wisemoui.ps1` graphical interface has been updated.
 Here's a quick summary:

@@ -216,7 +216,8 @@ SWMB_RunTweaks
    It is a good idea to put the hash file in the `C:\ProgramData\SWMB\Caches` folder
    with the name of the most important preset followed by the `.hash` extension.
 
-### Graphical User Interface
+
+## Graphical User Interface
 
 There is a minimal graphical user interface, but it has been expanded over time.
 A link to it appears in the start menu under the name SWMB Secure Windows.
@@ -228,7 +229,7 @@ To make the interface easier to understand, each button has an associated toolti
 The GUI is divided into several sections:
 
  * A frame concerning Bitlocker.
-   It is possible to encrypt all disks, suspend Bitlocker and launch the TPM console (`T` button).
+   It is possible to `Crypt` all disks, `Suspend` Bitlocker and launch the TPM console (`T` button).
    A status line shows the encryption status in three colors: no encryption (red), encryption but caution (orange), correct encryption (green).
 
  * A frame for scheduled tasks (tweak/preset).
@@ -253,7 +254,7 @@ The GUI is divided into several sections:
    There are two buttons in this section: `Property` for the machine properties (where you can change the name and performance parameters, for example) and the Windows `Update` console.
 
  * A specialized software frame.
-   A button lists all software registered in all registry hives.
+   A button `View` lists all software registered in all registry hives.
    The `R` button opens the console for adding or removing programs.
    The following buttons are optional, depending on your machine:
 	* `B`: Launches the [BleachBit](https://www.bleachbit.org/) program if installed.
@@ -265,12 +266,13 @@ The GUI is divided into several sections:
 	* The `E` button opens the GPedit console.
 	* The `P` button launches the [Procmon](https://en.wikipedia.org/wiki/Sysinternals) application (if installed under `C:\Program Files\Sysinternals`).
 	  This GPO zone can be used to develop new tweaks.
-	* Management is the global console for managing a workstation.
-	* Net is the console for managing network interfaces (changing dhcp, managing metrics, etc.).
+	* `Management` is the global console for managing a workstation.
+	* `Net` is the console for managing network interfaces (changing dhcp, managing metrics, etc.).
 
  * Finally, an `Exit` button lets you quit SWMB!
 
-### Tasks
+
+## Tasks
 
 The goal is to not change anything in the SWMB installation folder.
 Three scheduled tasks are configured.

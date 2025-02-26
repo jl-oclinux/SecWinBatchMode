@@ -227,6 +227,9 @@ To make the interface easier to understand, each button has an associated toolti
 
 The GUI is divided into several sections:
 
+ * A `Help` button opens your default browser to [online documentation](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
+   Clicking on the logo takes you to the Gitlab forge website hosting the SWMB [source code](https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/).
+
  * A frame concerning Bitlocker.
    It is possible to `Crypt` all disks, `Suspend` Bitlocker and launch the TPM console (`T` button).
    A status line shows the encryption status in three colors: no encryption (red), encryption but caution (orange), correct encryption (green).

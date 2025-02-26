@@ -57,12 +57,26 @@ $Form = New-Object System.Windows.Forms.Form
 $Form.ClientSize = '550,390'
 $Form.Text = "SWMB: Secure Windows Mode Batch / $UptimeStr"
 
+# Help
+$BtnHelp = New-Object System.Windows.Forms.Button
+$BtnHelp.Location = New-Object System.Drawing.Point(300,15)
+$BtnHelp.Width = 50
+$BtnHelp.Height = 30
+$BtnHelp.Text = "Help"
+$Form.controls.Add($BtnHelp)
+$BtnHelp.Add_Click({
+	Start-Process 'https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/'
+})
+
 # Logo
 $Logo = New-Object System.Windows.Forms.PictureBox
 $Logo.Location = New-Object Drawing.Point(320,30)
 $Logo.Size = New-Object System.Drawing.Size(200,201)
 $Logo.image = [system.drawing.image]::FromFile("$PSScriptRoot\logo-swmb.ico")
 $Form.Controls.Add($Logo)
+$Logo.Add_Click({
+	Start-Process 'https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/'
+})
 
 # General ToolTip
 $ToolTip = New-Object System.Windows.Forms.ToolTip

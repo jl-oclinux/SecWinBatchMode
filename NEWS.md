@@ -4,6 +4,12 @@
 
 Updated HTML documentation theme, switching to mkdocs material theme.
 
+The `wisemoui.ps1` graphical interface has been updated.
+Here's a quick summary:
+
+* A new `Help` button  opens the online documentation.
+* Clicking on the logo opens the SWMB Git URL in a browser.
+
 New presets/rules:
 
 

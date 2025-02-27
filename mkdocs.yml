@@ -20,12 +20,15 @@ theme:
   locale: fr
   features:
     - content.code.copy
+    - search.highlight
+    - search.suggest
   palette:
     primary: pink
     accent: red
 
 plugins:
   - macros
+  - search
 
 markdown_extensions:
   - admonition:

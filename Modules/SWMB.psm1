@@ -395,10 +395,10 @@ Function SWMB_RunExec {
 	If ($Timeouted) {
 		# Terminate the process
 		$Proc | Kill
-		Write-Output "Error: kill $Name uninstall exe"
+		Write-Output " Error: kill $Name uninstall exe"
 		Return
 	} ElseIf ($Proc.ExitCode -ne 0) {
-		Write-Output "Error: $Name uninstall return code $($Proc.ExitCode)"
+		Write-Output " Error: $Name uninstall return code $($Proc.ExitCode)"
 		Return
 	}
 }
@@ -409,21 +409,26 @@ Function SWMB_RunExec {
 Function SWMB_RemoveAppx {
 	[CmdletBinding()]
 	Param (
-		[Parameter(Mandatory = $True)] [string]$Name
+		[Parameter(Mandatory = $True)] [string]$Name,
+		[Parameter(Mandatory = $False)] [string]$Message = ''
 	)
+
+	If ($Message) {
+		Write-Output "$Message"
+	}
 
 	$Packages = Get-AppxPackage -AllUsers -Name $Name
 	If ($Packages) {
-		foreach ($Package in $Packages) {
+		ForEach ($Package in $Packages) {
 			Remove-AppxPackage -Package $Package.PackageFullName -ErrorAction SilentlyContinue
 		}
 
 		If ($PSBoundParameters["Verbose"]) {
 			$PackagesAfterRemoval = Get-AppxPackage -AllUsers -Name $Name
 			If ($PackagesAfterRemoval) {
-				Write-Output "Error: Appx still installed $Name"
+				Write-Output " Error: Appx still installed $Name"
 			} Else {
-				Write-Output "Info: Appx removed $Name"
+				Write-Output " Info: Appx removed $Name"
 			}
 		}
 	}

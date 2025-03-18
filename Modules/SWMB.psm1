@@ -380,7 +380,7 @@ Function SWMB_RunExec {
 		[Parameter(Mandatory = $True)] [string]$Name,
 		[Parameter(Mandatory = $True)] [string]$FilePath,
 		[Parameter(Mandatory = $True)] [string]$ArgumentList,
-		[Parameter(Mandatory = $False)] [int]$Timeout = 300
+		[Parameter(Mandatory = $False)] [int]$Timeout = 300,
 		[Parameter(Mandatory = $False)] [bool]$Verbose = $False
 	)
 

@@ -310,7 +310,7 @@ Function TweakDisableSomeFeature {
 ```
 
 
-## Tools and ancillary data 
+## Tools and ancillary data
 
 If you'd like to contribute, the tools and/or values provided below may help.
 

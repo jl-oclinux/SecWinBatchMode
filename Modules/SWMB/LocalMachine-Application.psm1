@@ -107,7 +107,7 @@ Function TweakUninstallMsftBloat {
 	Get-AppxPackage -AllUsers -Name "Microsoft.Media.PlayReadyClient.2" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.Messaging" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.Microsoft3DViewer" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
-	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue  # Microsoft 365 Copilot 
 	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftPowerBIForWindows" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftStickyNotes" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
@@ -135,7 +135,7 @@ Function TweakUninstallMsftBloat {
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsFeedbackHub" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsMaps" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsPhone" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
-	Get-AppxPackage -AllUsers -Name "Microsoft.Windows.Photos" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
+	# Get-AppxPackage -AllUsers -Name "Microsoft.Windows.Photos" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsReadingList" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsScan" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsSoundRecorder" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
@@ -199,7 +199,7 @@ Function TweakInstallMsftBloat {
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsFeedbackHub" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsMaps" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsPhone" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers -Name "Microsoft.Windows.Photos" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	# Get-AppxPackage -AllUsers -Name "Microsoft.Windows.Photos" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsReadingList" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsScan" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers -Name "Microsoft.WindowsSoundRecorder" | ForEach-Object {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}

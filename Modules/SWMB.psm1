@@ -381,9 +381,13 @@ Function SWMB_RunExec {
 		[Parameter(Mandatory = $True)] [string]$FilePath,
 		[Parameter(Mandatory = $True)] [string]$ArgumentList,
 		[Parameter(Mandatory = $False)] [int]$Timeout = 300
+		[Parameter(Mandatory = $False)] [bool]$Verbose = $False
 	)
 
 	$Proc = Start-Process -FilePath "$FilePath" -ArgumentList "$ArgumentList" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
+	If ($Verbose -eq $True) {
+		Write-Output ' RunExec: "$FilePath" $ArgumentList'
+	}
 
 	$Timeouted = $Null # Reset any previously set timeout
 	# Wait up to 180 seconds for normal termination

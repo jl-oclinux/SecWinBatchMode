@@ -215,6 +215,15 @@ Function TweakInstallMsftBloat {
 # robocopy /S /SEC /R:0 "C:\Mnt\Program Files\WindowsApps" "C:\Program Files\WindowsApps"
 # dism /Unmount-Image /Discard /MountDir:C:\Mnt
 # Remove-Item -Path C:\Mnt -Recurse
+# Uninstall default third party applications
+
+################################################################
+
+# Microsoft 365 Copilot
+
+Function TweakUninstallAppxMsOfficeHub { # RESINFO
+	SWMB_RemoveAppx -Name "Microsoft.MicrosoftOfficeHub" -Message "Uninstalling Appx Microsoft OfficeHub (Microsoft 365 Copilot)..." -Verbose
+	}
 
 ################################################################
 

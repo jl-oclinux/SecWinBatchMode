@@ -376,17 +376,17 @@ Function SWMB_ToVersion {
 
 # Run MSI or EXE with timeout control
 Function SWMB_RunExec {
+	[CmdletBinding()]
 	Param (
 		[Parameter(Mandatory = $True)] [string]$Name,
 		[Parameter(Mandatory = $True)] [string]$FilePath,
 		[Parameter(Mandatory = $True)] [string]$ArgumentList,
-		[Parameter(Mandatory = $False)] [int]$Timeout = 300,
-		[Parameter(Mandatory = $False)] [bool]$Verbose = $False
+		[Parameter(Mandatory = $False)] [int]$Timeout = 300
 	)
 
 	$Proc = Start-Process -FilePath "$FilePath" -ArgumentList "$ArgumentList" -WindowStyle 'Hidden' -ErrorAction 'SilentlyContinue' -PassThru
-	If ($Verbose -eq $True) {
-		Write-Output ' RunExec: "$FilePath" $ArgumentList'
+	If ($PSBoundParameters["Verbose"]) {
+		Write-Output " RunExec: `"$FilePath`" $ArgumentList"
 	}
 
 	$Timeouted = $Null # Reset any previously set timeout
@@ -402,6 +402,33 @@ Function SWMB_RunExec {
 		Return
 	}
 }
+
+################################################################
+
+# Remove Appx
+Function SWMB_RemoveAppx {
+	[CmdletBinding()]
+	Param (
+		[Parameter(Mandatory = $True)] [string]$Name
+	)
+
+	$Packages = Get-AppxPackage -AllUsers -Name $Name
+	If ($Packages) {
+		foreach ($Package in $Packages) {
+			Remove-AppxPackage -Package $Package.PackageFullName -ErrorAction SilentlyContinue
+		}
+
+		If ($PSBoundParameters["Verbose"]) {
+			$PackagesAfterRemoval = Get-AppxPackage -AllUsers -Name $Name
+			If ($PackagesAfterRemoval) {
+				Write-Output "Error: Appx still installed $Name"
+			} Else {
+				Write-Output "Info: Appx removed $Name"
+			}
+		}
+	}
+}
+
 
 ################################################################
 ###### Export Functions

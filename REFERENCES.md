@@ -27,6 +27,10 @@
   * [Hardening Microsoft 365 tenant with CIS and Microsoft recommendations](https://github.com/Harden365/Harden365)
   * [Hardening Active Directory](https://github.com/LoicVeirman/SecureAD)
 
+## 2025
+
+* [Retex avec l’outil SWMB pour la sécurisation des postes de travail Windows (hors AD et comme alternative aux GPO)](https://hal.science/hal-05010045) (french)
+
 ## 2024
 
 * [SWLN ou comment déployer des règles de sécurité de SWMB pour Windows dans son unité](https://hal.science/hal-04893850v1) (french)

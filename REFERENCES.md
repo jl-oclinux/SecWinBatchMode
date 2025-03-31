@@ -24,8 +24,8 @@
 * [Ultimate Windows Tweaker 5 for Windows 11](https://www.thewindowsclub.com/ultimate-windows-tweaker-5-for-windows-11) (Freeware)
 * [HardeningKitty and Windows 10 Hardening](https://github.com/0x6d69636b/windows_hardening) (script in PowerShell)
 * [Harden Community](https://hardenad.net/) (script in PowerShell)
-  * [Hardening Microsoft 365 tenant with CIS and Microsoft recommendations](https://github.com/Harden365/Harden365)
-  * [Hardening Active Directory](https://github.com/LoicVeirman/SecureAD)
+	* [Hardening Microsoft 365 tenant with CIS and Microsoft recommendations](https://github.com/Harden365/Harden365)
+	* [Hardening Active Directory](https://github.com/LoicVeirman/SecureAD)
 * [WinScript](https://github.com/flick9000/winscript/) (script in PowerShell),
   [WinScript : un outil open source pour « debloat » et optimiser Windows 11 en quelques minutes](https://www.it-connect.fr/winscript-outil-open-source-debloat-et-optimiser-windows-11/) (article in french)
 

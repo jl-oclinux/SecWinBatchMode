@@ -16,6 +16,7 @@
 
 ## Other interesting tools
 
+* [WinScript](https://github.com/flick9000/winscript/) (script in PowerShell)
 * [Win11Debloat](https://github.com/Raphire/Win11Debloat) (script in PowerShell)
 * [Debloat Windows 10](https://github.com/W4RH4WK/Debloat-Windows-10) (script in PowerShell)
 * [Optimizer](https://github.com/hellzerg/optimizer) (Windows faster and more secure)
@@ -26,12 +27,12 @@
 * [Harden Community](https://hardenad.net/) (script in PowerShell)
 	* [Hardening Microsoft 365 tenant with CIS and Microsoft recommendations](https://github.com/Harden365/Harden365)
 	* [Hardening Active Directory](https://github.com/LoicVeirman/SecureAD)
-* [WinScript](https://github.com/flick9000/winscript/) (script in PowerShell),
-  [WinScript : un outil open source pour « debloat » et optimiser Windows 11 en quelques minutes](https://www.it-connect.fr/winscript-outil-open-source-debloat-et-optimiser-windows-11/) (article in french)
+
 
 ## 2025
 
 * [Retex avec l’outil SWMB pour la sécurisation des postes de travail Windows (hors AD et comme alternative aux GPO)](https://hal.science/hal-05010045) (french)
+* [WinScript : un outil open source pour « debloat » et optimiser Windows 11 en quelques minutes](https://www.it-connect.fr/winscript-outil-open-source-debloat-et-optimiser-windows-11/) (french)
 
 ## 2024
 

@@ -131,9 +131,10 @@ Function SWMB_GetOSVersionColor {
 	$UBR = $OSVersion.Revision
 
 	# Last OS revision
-	$UBR10 = 5608 # https://learn.microsoft.com/fr-fr/windows/release-health/release-information
-	$UBR11_23H2 = 5039 # 23H2 https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information
-	$UBR11_24H2 = 3476
+	# See ./get-ubr
+	$UBR10_22H2 = 5679 # 22H2 https://learn.microsoft.com/en-us/windows/release-health/release-information
+	$UBR11_23H2 = 5126 # 23H2 https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information
+	$UBR11_24H2 = 3624 # 24H2 https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information
 
 	$Color = "Red"
 	If ($OSVersion -ge [version]"10.0.26100.0") {
@@ -148,7 +149,7 @@ Function SWMB_GetOSVersionColor {
 		}
 	} ElseIf ($OSVersion -ge [version]"10.0.10240.0") {
 		# Windows 10
-		If ($OSVersion -ge [version]"10.0.19045.$UBR10") {
+		If ($OSVersion -ge [version]"10.0.19045.$UBR10_22H2") {
 			$Color = "Green"
 		}
 	}

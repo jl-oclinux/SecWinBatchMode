@@ -3,26 +3,31 @@
 # get-ubr
 #
 # 2024/09/24 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+#
+# https://learn.microsoft.com/fr-fr/windows/release-health/release-information
+# https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information
 
-UBR10=$(curl -s -L 'https://learn.microsoft.com/fr-fr/windows/release-health/release-information' \
-	| grep -A5 'Canal de disponibilité générale' \
-	| grep -E '^<td>[[:digit:]][[:digit:]]*\.[[:digit:]][[:digit:]]*</td>' \
-	| cut -f 2 -d '.' \
-	| cut -f 1 -d '<' \
-	| head -1)
+get_ubr () {
+	local os=$1
+	local version=$2
+	local build=$3
+	local url=$4
 
-VERSION=22631 # Windows 11 / version 23H2
-UBR11=$(curl -s -L 'https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information' \
-	| grep -A5 'Canal de disponibilité générale' \
-	| grep -E '^<td>[[:digit:]][[:digit:]]*\.[[:digit:]][[:digit:]]*</td>' \
-	| grep "${VERSION}" \
-	| cut -f 2 -d '.' \
-	| cut -f 1 -d '<' \
-	| head -1)
+	local ubr=$(curl -s -L "${url}" \
+		| grep -A20 "Version ${version} (OS build ${build})" \
+		| grep -E '^<td>[[:digit:]][[:digit:]]*\.[[:digit:]][[:digit:]]*</td>' \
+		| grep "${build}\." \
+		| cut -f 2 -d '.' \
+		| cut -f 1 -d '<' \
+		| head -1)
+	echo "	\$UBR${os}_${version} = ${ubr} # ${version} ${url}"
+}
 
-# echo "UBR10: ${UBR10}"
+# Windows 10 / version 22H2
+get_ubr 10 22H2 19045 'https://learn.microsoft.com/en-us/windows/release-health/release-information'
 
-cat << END
-\$UBR10 = ${UBR10} # https://learn.microsoft.com/fr-fr/windows/release-health/release-information
-\$UBR11 = ${UBR11} # 23H2 https://learn.microsoft.com/fr-fr/windows/release-health/windows11-release-information
-END
+# Windows 11 / version 23H2
+get_ubr 11 23H2 22631 'https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information'
+
+# Windows 11 / version 23H2
+get_ubr 11 24H2 26100 'https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information'

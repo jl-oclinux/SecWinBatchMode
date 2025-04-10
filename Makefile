@@ -40,12 +40,12 @@ check:
 clean:
 	@rm -rf SWMB*.exe tmp resources 2> /dev/null
 
-doc:
+doc: env
 	mkdir -p /tmp/swmb/site
 	sed -e 's|__HERE__|$(CURDIR)|; s|__DATE__|$(DATE)|;' mkdocs.yml > /tmp/swmb/mkdocs.yml
 	. /tmp/swmb/venv/bin/activate; mkdocs build -f /tmp/swmb/mkdocs.yml
 
-env:
+env: /tmp/swmb/venv/bin/activate
 	mkdir -p /tmp/swmb
 	python3 -m venv /tmp/swmb/venv
 	. /tmp/swmb/venv/bin/activate; pip install mkdocs-macros-plugin mkdocs-material mkdocs-material-extensions mkdocs-with-pdf # mkdocs-git-revision-date-localized-plugin

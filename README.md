@@ -4,22 +4,22 @@
 
 ## Main links
 
- * The latest version of the SWMB **documentation** can be found [online](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
- * The latest version of the SWMB **setup installer** is available on the [download page](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/).
- * For your update scripts (for example), you have the **version number** of the latest SWMB release
-   in the first line of the [version.txt](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt) file.
-   This last version is rebuilt at each modification pushed on the Git server, so the code can change.
- * The master Git repository in on the [IN2P3 Gitlab](https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb).
-   Other Git repository are mirror or fork.
+* The latest version of the SWMB **documentation** can be found [online](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
+* The latest version of the SWMB **setup installer** is available on the [download page](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/).
+* For your update scripts (for example), you have the **version number** of the latest SWMB release
+  in the first line of the [version.txt](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/version.txt) file.
+  This last version is rebuilt at each modification pushed on the Git server, so the code can change.
+* The master Git repository in on the [IN2P3 Gitlab](https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb).
+  Other Git repository are mirror or fork.
 
 **Main sub-menu**:
 
- * [CONTRIBUTING](./CONTRIBUTING.md)
- * [FAQ](./FAQ.md)
- * [LICENSE](./LICENSE.md)
- * [NEWS](./NEWS.md)
- * [REFERENCES](./REFERENCES.md)
- * [USE CASE (distribution)](./dists/README.md)
+* [CONTRIBUTING](./CONTRIBUTING.md)
+* [FAQ](./FAQ.md)
+* [LICENSE](./LICENSE.md)
+* [NEWS](./NEWS.md)
+* [REFERENCES](./REFERENCES.md)
+* [USE CASE (distribution)](./dists/README.md)
 
 ## Preamble
 
@@ -50,11 +50,11 @@ Regarding the applicable security strategies,
 SWMB is mainly based on the tweaks enacted by the French National Agency for Information Systems Security ([ANSSI](https://www.ssi.gouv.fr/)).
 There are thus three levels of possible tweaks in SWMB:
 
- * `Modules\SWMB\Win10` - tweaks extracted from the ANSSI documentation, or from certain instructions of the RSSI of the CNRS,
-    applicable in the whole ESR (Higher Education and Research in France);
- * `Modules\SWMB\Custom` - interesting tweaks that you can extend for your site.
- * `Modules\SWMB\Experimental` - future tweaks under active development and not fully tested.
-    Feedback from users may be interesting.
+* `Modules\SWMB\Win10` - tweaks extracted from the ANSSI documentation, or from certain instructions of the RSSI of the CNRS,
+   applicable in the whole ESR (Higher Education and Research in France);
+* `Modules\SWMB\Custom` - interesting tweaks that you can extend for your site.
+* `Modules\SWMB\Experimental` - future tweaks under active development and not fully tested.
+   Feedback from users may be interesting.
 
 Each tweak can be enabled (`enable`) or disabled (`disable`) very easily in a configuration file (`preset`).
 Sample files are available.
@@ -70,14 +70,14 @@ It is an extension that we added.
 
 **Some references**:
 
- * Upstream project [Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script) by Disassembler0 user
- * Document from the [ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
-   (Agence Nationale de la Sécurité des Systèmes d'Information - France) :
-   [restreindre-la-collecte-de-donnees-sous-windows-10](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
- * Document of the [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
-   (Federal Office for Information Technology Security - Germany) :
-   [Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
- * [Sécuriser son parc Windows avec le projet modulaire et communautaire SWMB](https://hal.science/hal-03608835) (french 2022)
+* Upstream project [Win10-Initial-Setup-Script](https://github.com/Disassembler0/Win10-Initial-Setup-Script) by Disassembler0 user
+* Document from the [ANSSI](https://fr.wikipedia.org/wiki/Agence_nationale_de_la_s%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information)
+  (Agence Nationale de la Sécurité des Systèmes d'Information - France) :
+  [restreindre-la-collecte-de-donnees-sous-windows-10](https://www.ssi.gouv.fr/administration/guide/restreindre-la-collecte-de-donnees-sous-windows-10/)
+* Document of the [BSI](https://fr.wikipedia.org/wiki/Office_f%C3%A9d%C3%A9ral_de_la_s%C3%A9curit%C3%A9_des_technologies_de_l%27information)
+  (Federal Office for Information Technology Security - Germany) :
+  [Hardening_Guideline.pdf](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Cyber-Security/SiSyPHuS/AP11/Hardening_Guideline.pdf)
+* [Sécuriser son parc Windows avec le projet modulaire et communautaire SWMB](https://hal.science/hal-03608835) (french 2022)
 
 More references on the page [REFERENCES](./REFERENCES.md).
 
@@ -106,18 +106,18 @@ of the SWMB software environment
 [WAPT](https://www.wapt.fr) package, volume encryption,
 uninstall [Kasperky Endpoint](dists/uninstall-kaspersky/README.md)...).
 
- * Please note that the uninstallation of
-   [Kaspersky Endpoint](dists/uninstall-kaspersky/README.md)
-   and its network agent on the client computer is a stand-alone distribution
-   in the form of an archive that is self-sufficient
-   and does not need to be installed on the computer.
+* Please note that the uninstallation of
+  [Kaspersky Endpoint](dists/uninstall-kaspersky/README.md)
+  and its network agent on the client computer is a stand-alone distribution
+  in the form of an archive that is self-sufficient
+  and does not need to be installed on the computer.
 
- * The [SWLN](dists/swln/README.md) is a template distribution
-   for deploying and extending SWMB for use on your local network machines
-   (SWMB for your Local Network).
+* The [SWLN](dists/swln/README.md) is a template distribution
+  for deploying and extending SWMB for use on your local network machines
+  (SWMB for your Local Network).
 
- * The [README](dists/manual-use/README.md) file in the "manual-use" directory
-   reminds some principles about PowerShell execution policies.
+* The [README](dists/manual-use/README.md) file in the "manual-use" directory
+  reminds some principles about PowerShell execution policies.
 
 **Exception for antivirus and EDR**
 
@@ -196,27 +196,27 @@ SWMB_RunTweaks
 
 `swmb.ps1` currently supports the following parameters:
 
- * `-core` : if used, it must be the first option.
-   Import only the core (minimal) module `SWMB.psm1`,
-   not all the neested module declared in `SWMB.psd1`.
- * `-import module_file.psm1` : imports the module into SWMB.
-   You can extend SWMB, as is, with your own tweaks.
-   This option can be declare as many times as necessary.
- * `-preset preset_file.preset` : loads all the tweak groups defined in a preset file.
-   This option can be declared as many times as necessary.
- * `-log log_file` : messages will be written to the log file file
-   and not in the terminal.
- * `-check` : does not execute the tweaks but only checks if they exist
-   (in accordance with the preset file).
- * `-print` : does not execute the tweaks but only print them.
- * `-version` : print the SWMB version.
- * `-exp` : this is just a shortcut to import the `Experimental.psm1` module.
-   This option is mainly used by developers to help test new tweaks.
- * `-hash hash_file.hash` makes a hash of the tweak list (preset)
-   and compares it with the old hash stored in filename.
-   If the hashes differ, a system checkpoint is performed.
-   It is a good idea to put the hash file in the `C:\ProgramData\SWMB\Caches` folder
-   with the name of the most important preset followed by the `.hash` extension.
+* `-core` : if used, it must be the first option.
+  Import only the core (minimal) module `SWMB.psm1`,
+  not all the neested module declared in `SWMB.psd1`.
+* `-import module_file.psm1` : imports the module into SWMB.
+  You can extend SWMB, as is, with your own tweaks.
+  This option can be declare as many times as necessary.
+* `-preset preset_file.preset` : loads all the tweak groups defined in a preset file.
+  This option can be declared as many times as necessary.
+* `-log log_file` : messages will be written to the log file file
+  and not in the terminal.
+* `-check` : does not execute the tweaks but only checks if they exist
+  (in accordance with the preset file).
+* `-print` : does not execute the tweaks but only print them.
+* `-version` : print the SWMB version.
+* `-exp` : this is just a shortcut to import the `Experimental.psm1` module.
+  This option is mainly used by developers to help test new tweaks.
+* `-hash hash_file.hash` makes a hash of the tweak list (preset)
+  and compares it with the old hash stored in filename.
+  If the hashes differ, a system checkpoint is performed.
+  It is a good idea to put the hash file in the `C:\ProgramData\SWMB\Caches` folder
+  with the name of the most important preset followed by the `.hash` extension.
 
 ### Graphical User Interface
 
@@ -229,16 +229,16 @@ To make the interface easier to understand, each button has an associated toolti
 
 The GUI is divided into several sections:
 
- * A `Help` button opens your default browser to [online documentation](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
-   Clicking on the logo takes you to the Gitlab forge website hosting the SWMB [source code](https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/).
+* A `Help` button opens your default browser to [online documentation](https://resinfo-gt.pages.in2p3.fr/swmb/resinfo-swmb/docs/).
+  Clicking on the logo takes you to the Gitlab forge website hosting the SWMB [source code](https://gitlab.in2p3.fr/resinfo-gt/swmb/resinfo-swmb/).
 
- * A frame concerning Bitlocker.
-   It is possible to `Crypt` all disks, `Suspend` Bitlocker and launch the TPM console (`T` button).
-   A status line shows the encryption status in three colors: no encryption (red), encryption but caution (orange), correct encryption (green).
+* A frame concerning Bitlocker.
+  It is possible to `Crypt` all disks, `Suspend` Bitlocker and launch the TPM console (`T` button).
+  A status line shows the encryption status in three colors: no encryption (red), encryption but caution (orange), correct encryption (green).
 
- * A frame for scheduled tasks (tweak/preset).
-   This is the most complex area, yet quite simple to understand, because it's the same thing three times:  one for boot, one for application post-installation and the last for user logon.
-   The same buttons appear three times.
+* A frame for scheduled tasks (tweak/preset).
+  This is the most complex area, yet quite simple to understand, because it's the same thing three times:  one for boot, one for application post-installation and the last for user logon.
+  The same buttons appear three times.
 	* `Run`: Immediately starts the scheduled task in manual mode.
 	  This allows you to test the task, for example.
 	* `C`: Check if the tweaks defined in the preset file exist and are not executed several times.
@@ -253,19 +253,19 @@ The GUI is divided into several sections:
 	  This comparison lets you see if there are any new tweaks easily and gives you a visual view of the specifics of your security policy.
 	  Note: This button only appears if [WinMerge](https://winmerge.org/) is installed on the workstation.
 
- * A frame concerns the host machine.
-   There's the SWMB version (and the number of the latest software version if different), there's the host name, the host id, its OS with its version in green, orange or red depending on whether it seems more or less up to date.
-   There are two buttons in this section: `Property` for the machine properties (where you can change the name and performance parameters, for example) and the Windows `Update` console.
+* A frame concerns the host machine.
+  There's the SWMB version (and the number of the latest software version if different), there's the host name, the host id, its OS with its version in green, orange or red depending on whether it seems more or less up to date.
+  There are two buttons in this section: `Property` for the machine properties (where you can change the name and performance parameters, for example) and the Windows `Update` console.
 
- * A specialized software frame.
-   A button `View` lists all software registered in all registry hives.
-   The `R` button opens the console for adding or removing programs.
-   The following buttons are optional, depending on your machine:
+* A specialized software frame.
+  A button `View` lists all software registered in all registry hives.
+  The `R` button opens the console for adding or removing programs.
+  The following buttons are optional, depending on your machine:
 	* `B`: Launches the [BleachBit](https://www.bleachbit.org/) program if installed.
 	* `S`: Launches the [WinDirStat](https://windirstat.net/) program if installed.
 	* `C`: Launches the [CCleaner](https://www.ccleaner.com/) program if installed.
 
- * A frame with system consoles.
+* A frame with system consoles.
 	* The `GPO` button launches `secpol`, the console for Local Security Policies.
 	* The `E` button opens the GPedit console.
 	* The `P` button launches the [Procmon](https://en.wikipedia.org/wiki/Sysinternals) application (if installed under `C:\Program Files\Sysinternals`).
@@ -273,7 +273,7 @@ The GUI is divided into several sections:
 	* `Management` is the global console for managing a workstation.
 	* `Net` is the console for managing network interfaces (changing dhcp, managing metrics, etc.).
 
- * Finally, an `Exit` button lets you quit SWMB!
+* Finally, an `Exit` button lets you quit SWMB!
 
 ### Tasks
 
@@ -285,9 +285,9 @@ a bit special because it starts just after the installation of SWMB (PostInstall
 
 These three tasks will look for their parameters in the `C:\ProgramData\SWMB\Presets` folder.
 
- * `CurrentUser-Logon.ps1` - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
- * `LocalMachine-Boot.ps1` - Load preset at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
- * `LocalMachine-PostInstall.ps1` - Load preset after SMWB install `C:\ProgramData\SWMB\Presets\LocalMachine-PostInstall.preset`
+* `CurrentUser-Logon.ps1` - Load preset at user logon `C:\ProgramData\SWMB\Presets\CurrentUser-Logon.preset`
+* `LocalMachine-Boot.ps1` - Load preset at boot `C:\ProgramData\SWMB\Presets\LocalMachine-Boot.preset`
+* `LocalMachine-PostInstall.ps1` - Load preset after SMWB install `C:\ProgramData\SWMB\Presets\LocalMachine-PostInstall.preset`
 
 By default, the presets [CurrentUser-Logon-Recommanded.preset](Presets/CurrentUser-Logon-Recommanded.preset)
 and [LocalMachine-Boot-Recommanded.preset](Presets/LocalMachine-Boot-Recommanded.preset) are copied
@@ -345,11 +345,11 @@ These are identified with the # character, as in many scripting languages.
 The presets are classified in the folder `Presets`.
 Currently, there is one preset per paragraph of the ANSSI concerning the settings for the computer configuration.
 
- * Telemetry preset
- * Cortana and search preset
- * User experience preset
- * Universal Applications preset
- * Cloud preset
+* Telemetry preset
+* Cortana and search preset
+* User experience preset
+* Universal Applications preset
+* Cloud preset
 
 **Prefix** - Moreover, some presets concern the computer while others concern the current user.
 In one case, the tweaks affect the overall operation of the operating system and must be run as an administrator (or under the SYSTEM user),
@@ -466,17 +466,17 @@ Command using all three examples combined:
 
 If you want to define your own variable values used in the `Custom.psm1` module, do the following:
 
- * Create a file named `Custom-VarOverload.psm1` in the same directory as the `Custom-VarDefault.psm1` module,
-   or in any parent `..` or sub-folder `Modules` of a parent folder!
-   This leaves a lot of choices...
-   It's also possible to create it inside the program data folder dedicated to SWMB
-   (`C:\ProgramData\SWMB\Modules`).
- * Set the hash values of your global variables
-   (Don't change the whole hash table like in the `Custom-VarDefault.psm1` file)
- * Example:
-   ```ps
-   $Global:SWMB_Custom.NTP_ManualPeerList = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org"
-   ```
+* Create a file named `Custom-VarOverload.psm1` in the same directory as the `Custom-VarDefault.psm1` module,
+  or in any parent `..` or sub-folder `Modules` of a parent folder!
+  This leaves a lot of choices...
+  It's also possible to create it inside the program data folder dedicated to SWMB
+  (`C:\ProgramData\SWMB\Modules`).
+* Set the hash values of your global variables
+  (Don't change the whole hash table like in the `Custom-VarDefault.psm1` file)
+* Example:
+  ```ps
+  $Global:SWMB_Custom.NTP_ManualPeerList = "0.fr.pool.ntp.org, 1.fr.pool.ntp.org"
+  ```
 
 Order in which the `Custom-VarOverload.psm1` module will be loaded into memory:
 first to the current folder (`(Get-Location).Path`),
@@ -485,18 +485,18 @@ and last to the module installation folder.
 For each of these folders, it will recursively search folder after folder
 until it reaches the root folder.
 
- 1. `.\Custom-VarOverload.psm1`
- 1. `.\Modules\Custom-VarOverload.psm1`
- 1. `..\Custom-VarOverload.psm1`
- 1. `..\Modules\Custom-VarOverload.psm1`
- 1. `..\..\Custom-VarOverload.psm1`
- 1. `..\..\Modules\Custom-VarOverload.psm1`
- 1. and so on...
- 1. `${Env:ProgramData}\SWMB\Custom-VarOverload.psm1`
- 1. `${Env:ProgramData}\SWMB\Modules\Custom-VarOverload.psm1`
- 1. and so on...
- 1. `${Env:ProgramFiles}\SWMB\Modules\SWMB\Custom-VarOverload.psm1`
- 1. `${Env:ProgramFiles}\SWMB\Modules\SWMB\Modules\Custom-VarOverload.psm1`
+1. `.\Custom-VarOverload.psm1`
+1. `.\Modules\Custom-VarOverload.psm1`
+1. `..\Custom-VarOverload.psm1`
+1. `..\Modules\Custom-VarOverload.psm1`
+1. `..\..\Custom-VarOverload.psm1`
+1. `..\..\Modules\Custom-VarOverload.psm1`
+1. and so on...
+1. `${Env:ProgramData}\SWMB\Custom-VarOverload.psm1`
+1. `${Env:ProgramData}\SWMB\Modules\Custom-VarOverload.psm1`
+1. and so on...
+1. `${Env:ProgramFiles}\SWMB\Modules\SWMB\Custom-VarOverload.psm1`
+1. `${Env:ProgramFiles}\SWMB\Modules\SWMB\Modules\Custom-VarOverload.psm1`
 
 For sensitive keys, it is possible to define a `Custom-VarAutodel.psm1` module.
 This one works exactly the same way as the `Custom-VarOverload.psm1` module

@@ -274,7 +274,11 @@ Function TweakSetBIOSTimeLocal {
 
 ################################################################
 
-# Enable Hibernation - Do not use on Server with automatically started Hyper-V hvboot service as it may lead to BSODs (Win10 with Hyper-V is fine)
+# Enables/disables Hibernation functionality
+# Do not use on Server with automatically started Hyper-V hvboot service as it may lead to BSODs (Win10 with Hyper-V is fine)
+# Hibernate https://uwyo.teamdynamix.com/TDClient/1940/Portal/KB/ArticleDet?ID=144174
+
+# Enable Hibernation
 Function TweakEnableHibernation {
 	Write-Output "Enabling Hibernation..."
 	Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Session Manager\Power" -Name "HibernateEnabled" -Type DWord -Value 1
@@ -294,6 +298,28 @@ Function TweakDisableHibernation {
 	}
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings" -Name "ShowHibernateOption" -Type DWord -Value 0
 	powercfg /HIBERNATE OFF 2>&1 | Out-Null
+}
+
+# View Hibernation
+Function TweakViewHibernation { # RESINFO
+	Write-Output "Viewing Hibernate..."
+	$HiberActive = $True
+	$PowercfgOutput = powercfg.exe /A
+
+	# On cherche une ligne qui mentionne que la veille prolongée est DISPONIBLE
+	ForEach ($Line in $PowercfgOutput) {
+		# Write-Output "    :: $Line"
+		If ($Line -match "Hibernation has not been enabled|veille prolongée.*pas été activée") {
+			$HiberActive = $False
+			Break
+		}
+	}
+
+	If ($HiberActive) {
+		Write-Output " Hibernate is activated"
+	} Else {
+		Write-Output " Hibernate is deactivated"
+	}
 }
 
 ################################################################

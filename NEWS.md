@@ -12,6 +12,7 @@ Here's a quick summary:
 
 New presets/rules:
 
+* 2025/04/15 - `ViewHibernation` - View Hibernation status, inversion of tweak Enable and Disable in the preset file
 * 2025/04/15 - `RemoveAppxMsOfficeHub`/`AddAppxMsOfficeHub`/`ViewAppxMsOfficeHub` - Remove Appx Microsoft OfficeHub (Microsoft 365 Copilot) (already part of the `UninstallMsftBloat` tweak)
 
 

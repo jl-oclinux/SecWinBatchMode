@@ -434,6 +434,57 @@ Function SWMB_RemoveAppx {
 	}
 }
 
+# Add Appx
+Function SWMB_AddAppx {
+	[CmdletBinding()]
+	Param (
+		[Parameter(Mandatory = $True)] [string]$Name,
+		[Parameter(Mandatory = $False)] [string]$Message = ''
+	)
+
+	If ($Message) {
+		Write-Output "$Message"
+	}
+
+	$Packages = Get-AppxPackage -AllUsers -Name $Name
+	If ($Packages) {
+		ForEach ($Package in $Packages) {
+			Add-AppxPackage -DisableDevelopmentMode -Register "$($Package.InstallLocation)\AppXManifest.xml" -ErrorAction SilentlyContinue
+		}
+
+		If ($PSBoundParameters["Verbose"]) {
+			$PackagesAfterInstalling = Get-AppxPackage -AllUsers -Name $Name
+			If ($PackagesAfterInstalling) {
+				Write-Output " Info: Appx add $Name"
+			} Else {
+				Write-Output " Error: Appx was not installed $Name"
+			}
+		}
+	}
+}
+
+# View Appx
+Function SWMB_ViewAppx {
+	[CmdletBinding()]
+	Param (
+		[Parameter(Mandatory = $True)] [string]$Name,
+		[Parameter(Mandatory = $False)] [string]$Message = ''
+	)
+
+	If ($Message) {
+		Write-Output "$Message"
+	}
+
+	$Packages = Get-AppxPackage -AllUsers -Name $Name
+	If ($Package) {
+		ForEach ($Package in $Packages) {
+			Write-Output " Appx $Name - $($Package.InstallLocation)"
+		}
+	} Else {
+		Write-Output " No Appx $Name"
+	}
+}
+
 
 ################################################################
 ###### Export Functions

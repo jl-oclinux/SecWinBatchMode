@@ -262,6 +262,7 @@ EnableStorageSenseTempCleanup                   # DisableStorageSenseTempCleanup
 DisableWindowsCopilot                           # EnableWindowsCopilot                          # ViewWindowsCopilot
 EnableOffice2013AutoUpdate                      # DisableOffice2013AutoUpdate                   # ViewOffice2013AutoUpdate
 EnableOffice2016AutoUpdate                      # DisableOffice2016AutoUpdate                   # ViewOffice2016AutoUpdate
+RemoveAppxMsOfficeHub                           # AddAppxMsOfficeHub                            # ViewAppxMsOfficeHub           ## Removing Appx Microsoft OfficeHub (Microsoft 365 Copilot)
 
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin                      # ShowServerManagerOnLogin

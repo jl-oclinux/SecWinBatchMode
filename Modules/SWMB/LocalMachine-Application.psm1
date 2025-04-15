@@ -107,7 +107,7 @@ Function TweakUninstallMsftBloat {
 	Get-AppxPackage -AllUsers -Name "Microsoft.Media.PlayReadyClient.2" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.Messaging" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.Microsoft3DViewer" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
-	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue  # Microsoft 365 Copilot 
+	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue  # Microsoft 365 Copilot
 	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftPowerBIForWindows" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
 	Get-AppxPackage -AllUsers -Name "Microsoft.MicrosoftStickyNotes" | Remove-AppxPackage -AllUsers -ErrorAction SilentlyContinue
@@ -219,10 +219,21 @@ Function TweakInstallMsftBloat {
 
 ################################################################
 
-# Microsoft 365 Copilot
+# Removing Appx Microsoft OfficeHub (Microsoft 365 Copilot)
 
-Function TweakUninstallAppxMsOfficeHub { # RESINFO
-	SWMB_RemoveAppx -Name "Microsoft.MicrosoftOfficeHub" -Message "Uninstalling Appx Microsoft OfficeHub (Microsoft 365 Copilot)..." -Verbose
+# Remove
+Function TweakRemoveAppxMsOfficeHub { # RESINFO
+	SWMB_RemoveAppx -Name "Microsoft.MicrosoftOfficeHub" -Message "Removing Appx Microsoft OfficeHub (Microsoft 365 Copilot)..." -Verbose
+	}
+
+# Add
+Function TweakAddAppxMsOfficeHub { # RESINFO
+	SWMB_AddAppx -Name "Microsoft.MicrosoftOfficeHub" -Message "Adding Appx Microsoft OfficeHub (Microsoft 365 Copilot)..." -Verbose
+	}
+
+# View
+Function TweakViewAppxMsOfficeHub { # RESINFO
+	SWMB_ViewAppx -Name "Microsoft.MicrosoftOfficeHub" -Message "Viewing Appx Microsoft OfficeHub (Microsoft 365 Copilot)..." -Verbose
 	}
 
 ################################################################

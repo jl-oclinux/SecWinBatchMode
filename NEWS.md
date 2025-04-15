@@ -12,6 +12,8 @@ Here's a quick summary:
 
 New presets/rules:
 
+* 2025/04/15 - `RemoveAppxMsOfficeHub`/`AddAppxMsOfficeHub`/`ViewAppxMsOfficeHub` - Remove Appx Microsoft OfficeHub (Microsoft 365 Copilot) (already part of the `UninstallMsftBloat` tweak)
+
 
 ## Version 3.18 (2025/02/25)
 

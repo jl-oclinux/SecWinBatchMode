@@ -1,0 +1,75 @@
+#!/usr/bin/pwsh
+#
+# Script: analyze-ps
+# Description: Analyse PowerShell script and module syntax
+#
+# 2025/04/29 Gabriel Moreau <Gabriel.Moreau@univ-grenoble-alpes.fr>
+
+Param (
+	[Parameter(Mandatory = $True, ValueFromRemainingArguments = $True)]
+	[String[]]$Paths
+)
+
+Function Test-Syntax {
+	Param (
+		[String]$FilePath
+	)
+
+	$Errors = $Null
+	$Tokens = $Null
+
+	$ResolvedPath = (Resolve-Path -Path $FilePath -ErrorAction SilentlyContinue).Path
+	If (-Not $ResolvedPath) {
+		Write-Host "⚠️ File not found: '$FilePath'" -ForegroundColor DarkGray
+		Return 1
+	}
+
+	$AST = [System.Management.Automation.Language.Parser]::ParseFile(
+		$ResolvedPath,
+		[Ref]$Tokens,
+		[Ref]$Errors
+	)
+
+	If ($Errors.Count -eq 0) {
+		Write-Host "✅ OK: $FilePath" -ForegroundColor Green
+		Return 0
+	} Else {
+		Write-Host "❌ Error: $FilePath" -ForegroundColor Red
+		ForEach ($Error in $Errors) {
+			$Line = $Error.Extent.StartLineNumber
+			$Col = $Error.Extent.StartColumnNumber
+			$Msg = $Error.Message
+			Write-Host "   → Line $Line, Col $Col : $Msg" -ForegroundColor Yellow
+		}
+		Return 2
+	}
+}
+
+# Also analyzes files in a folder
+$AllFiles = @()
+ForEach ($Path in $Paths) {
+	If (Test-Path $Path -PathType Container) {
+		$PsFiles = Get-ChildItem -Path $Path -Include *.ps1, *.psm1, *.psd1 -Recurse -File | Select-Object -ExpandProperty FullName
+		$AllFiles += $PsFiles
+	} ElseIf (Test-Path $Path -PathType Leaf) {
+		$AllFiles += (Resolve-Path $Path).Path
+	} Else {
+		Write-Host "❓ Path invalid or not found: $Path" -ForegroundColor DarkGray
+	}
+}
+
+If ($AllFiles.Count -eq 0) {
+	Write-Host "No .ps1 files found to analyze" -ForegroundColor Magenta
+	Exit 1
+}
+
+# Analysis of all files
+$GlobalStatus = 0
+ForEach ($File in $AllFiles | Sort-Object) {
+	$Result = Test-Syntax -FilePath $File
+	If ($Result -ne 0) {
+		$GlobalStatus = $Result
+	}
+}
+
+Exit $GlobalStatus

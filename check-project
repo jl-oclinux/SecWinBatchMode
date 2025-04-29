@@ -226,7 +226,7 @@ do
 done
 
 echo "Check Windows File with no CRLF line terminator"
-find . \( -name '*.ps1' -o -name '*.psm1' -o -name '*.psd1' -o -name '*.bat' \) -exec file {} \+ | egrep -v '(with CRLF line|/tmp/)' | sed 's/^/ /;'
+find . \( -name '*.ps1' -o -name '*.psm1' -o -name '*.psd1' -o -name '*.bat' \) ! -name 'analyze-ps' -exec file {} \+ | egrep -v '(with CRLF line|/tmp/)' | sed 's/^/ /;'
 
 echo "Check if two tweak have the same name"
 grep -ih '^Function[[:space:]]Tweak' ${all_module} \
@@ -258,6 +258,9 @@ ack -l --ignore-dir=tmp '\s+\r$'
 
 echo "Check double tweak in NEWS.md file"
 grep '^\* [[:digit:]]' NEWS.md | cut -f 2 -d '-' | sed -e 's#[[:space:]/]#\n#g;' | grep '^`[[:alpha:]]' | sort | uniq -c | grep -v ' 1 '
+
+echo "Check PowerShell syntax"
+./analyze-ps analyze-ps wisemoui.ps1 swmb.ps1 dists/ Setup/ Tasks/ Modules/ | grep -v '^✅ OK:' | sed 's/^/ /;'
 
 echo "Check import powershell module"
 for psm in ./Modules/*.psm1 ./Modules/SWMB/*.psm1

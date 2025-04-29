@@ -10,8 +10,11 @@ Here's a quick summary:
 * A new `Help` button  opens the online documentation.
 * Clicking on the logo opens the SWMB Git URL in a browser.
 
+PowerShell scripts and modules are now checked before Git commit using the `analyze-ps` script (see `make check`).
+
 New presets/rules:
 
+* 2025/04/29 - `UninstallPDFXChange`/'ViewPDFXChange' -> Uninstall PDF-XChange software (also PDF-Viewer)
 * 2025/04/15 - `ViewHibernation` - View Hibernation status, inversion of tweak Enable and Disable in the preset file
 * 2025/04/15 - `RemoveAppxMsOfficeHub`/`AddAppxMsOfficeHub`/`ViewAppxMsOfficeHub` - Remove Appx Microsoft OfficeHub (Microsoft 365 Copilot) (already part of the `UninstallMsftBloat` tweak)
 

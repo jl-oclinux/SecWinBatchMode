@@ -22,3 +22,4 @@ InstallRealVNC4
 InstallRealVNCServer
 InstallRealVNCViewer
 InstallUltraVNC
+InstallPDFXChange

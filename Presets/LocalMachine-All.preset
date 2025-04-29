@@ -315,3 +315,4 @@ RemoveAppxMsOfficeHub                           # AddAppxMsOfficeHub            
 # UninstallRealVNCServer                                                                        # ViewRealVNCServer
 # UninstallRealVNCViewer                                                                        # ViewRealVNCViewer
 # UninstallUltraVNC                                                                             # ViewUltraVNC
+# UninstallPDFXChange                                                                           # ViewPDFXChange                ## Uninstall PDF-XChange software (also PDF-Viewer)

@@ -984,6 +984,60 @@ Function TweakViewUltraVNC { # RESINFO
 
 ################################################################
 
+# Suppress PDF-XChange Viewer
+# https://downloads.pdf-xchange.com/PXCViewer_x64.msi
+# | Hive | DisplayName | Publisher | DisplayVersion | KeyProduct | UninstallExe |
+# |:---- |:----------- |:--------- |:-------------- |:---------- |:------------ |
+# | HKLM | PDF-XChange Viewer | Tracker Software Products (Canada) Ltd. | 2.5.322.10 | {9ED333F8-3E6C-4A38-BAFA-728454121CDA} | MsiExec.exe /I{9ED333F8-3E6C-4A38-BAFA-728454121CDA} |
+
+# Uninstall
+Function TweakUninstallPDFXChange { # RESINFO
+	Write-Output "Uninstalling software PDF-XChange..."
+	$RefName = '(PDF-XChange|PDF-Viewer)'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If (!($DisplayName -match $RefName)) { Return }
+			$DisplayVersion = $App.DisplayVersion
+			$KeyProduct = $Key | Split-Path -Leaf
+
+			If ($($App.UninstallString) -match 'MsiExec.exe') {
+				$Exe = 'MsiExec.exe'
+				$Args = '/x "' + $KeyProduct + '" /qn /norestart'
+			} Else {
+				Continue
+			}
+
+			Write-Output " Uninstalling $DisplayName version $DisplayVersion"
+			Write-Output " Exe: $Exe $Args"
+			SWMB_RunExec -FilePath "$Exe" -ArgumentList "$Args" -Name "$RefName" -Timeout 300
+		}
+}
+
+# View
+Function TweakViewPDFXChange { # RESINFO
+	Write-Output "Viewing software PDF-XChange..."
+	$RefName = '(PDF-XChange|PDF-Viewer)'
+	@(Get-ChildItem -Recurse 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall';
+	  Get-ChildItem -Recurse "HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall") |
+		ForEach {
+			$Key = $_
+			$App = (Get-ItemProperty -Path $Key.PSPath)
+			$DisplayName  = $App.DisplayName
+			If ($DisplayName -match $RefName) {
+				$DisplayVersion = $App.DisplayVersion
+				$KeyProduct = $Key | Split-Path -Leaf
+				$UninstallString = $App.UninstallString
+				Write-Output " $DisplayName / $DisplayVersion / $KeyProduct / $UninstallString"
+			}
+		}
+}
+
+################################################################
+
 # Dell Appx
 # Uninstall
 Function TweakUninstallDellBuiltInApps { # RESINFO

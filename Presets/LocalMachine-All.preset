@@ -160,7 +160,7 @@ DisableAutorun                                  # EnableAutorun
 EnableNTFSLongPaths                             # DisableNTFSLongPaths
 # DisableNTFSLastAccess                         # EnableNTFSLastAccess
 # SetBIOSTimeUTC                                # SetBIOSTimeLocal
-# DisableHibernation                            # EnableHibernation                             # ViewHibernation               # Disable Hibernation functionality https://uwyo.teamdynamix.com/TDClient/1940/Portal/KB/ArticleDet?ID=144174
+# DisableHibernation                            # EnableHibernation                             # ViewHibernation               ## Disable Hibernation functionality https://uwyo.teamdynamix.com/TDClient/1940/Portal/KB/ArticleDet?ID=144174
 # DisableSleepButton                            # EnableSleepButton
 # DisableSleepTimeout                           # EnableSleepTimeout
 # DisableFastStartup                            # EnableFastStartup

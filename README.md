@@ -413,18 +413,18 @@ The middle column is a global summary (All).
 
  | Status | Number of tweaks                       |         LM ||  All |         CU ||
  | :---   | :---                                   | ---: | ---: | ---: | ---: | ---: |
- | Info   | Number of RESINFO tweaks               |        185 ||  201 |         16 ||
+ | Info   | Number of RESINFO tweaks               |        188 ||  204 |         16 ||
  | Info   | Number of Enable and Disable tweaks    |  178 |  178 |  430 |   37 |   37 |
- | Warn   | Number of Install and Uninstall tweaks |   20 |   42 |   66 |    1 |    3 |
+ | Warn   | Number of Install and Uninstall tweaks |   20 |   43 |   67 |    1 |    3 |
  | Warn   | Number of Show and Hide tweaks         |   29 |   29 |  115 |   30 |   27 |
- | Info   | Number of Add and Remove tweaks        |    2 |    2 |    6 |    1 |    1 |
+ | Info   | Number of Add and Remove tweaks        |    3 |    3 |    8 |    1 |    1 |
  | Warn   | Number of Set and Unset tweaks         |   24 |   10 |   52 |   18 |    0 |
  | Warn   | Number of Pin and Unpin tweaks         |    0 |    0 |    2 |    0 |    2 |
- | Info   | Number of total tweaks GPO             |      |      |  671 |      |      |
+ | Info   | Number of total tweaks GPO             |      |      |  674 |      |      |
  | Info   | Number of Sys tweaks (system)          |      |      |    9 |      |      |
- | Info   | Number of View tweaks (debug)          |      |      |   70 |      |      |
+ | Info   | Number of View tweaks (debug)          |      |      |   73 |      |      |
  | Info   | Number of Obsolete tweaks              |      |      |    3 |      |      |
- | Info   | Number of total tweaks functions       |      |      |  753 |      |      |
+ | Info   | Number of total tweaks functions       |      |      |  759 |      |      |
 
 ### Import your lib
 

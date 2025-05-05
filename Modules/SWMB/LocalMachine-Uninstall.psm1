@@ -988,7 +988,8 @@ Function TweakViewUltraVNC { # RESINFO
 # https://downloads.pdf-xchange.com/PXCViewer_x64.msi
 # | Hive | DisplayName | Publisher | DisplayVersion | KeyProduct | UninstallExe |
 # |:---- |:----------- |:--------- |:-------------- |:---------- |:------------ |
-# | HKLM | PDF-XChange Viewer | Tracker Software Products (Canada) Ltd. | 2.5.322.10 | {9ED333F8-3E6C-4A38-BAFA-728454121CDA} | MsiExec.exe /I{9ED333F8-3E6C-4A38-BAFA-728454121CDA} |
+# | HKLM | PDF-XChange Viewer | Tracker Software Products (Canada) Ltd. | 2.5.322.10 | {9ED333F8-3E6C-4A38-BAFA-728454121CDA}     | MsiExec.exe /I{9ED333F8-3E6C-4A38-BAFA-728454121CDA}        |
+# | HKLM | PDF-Viewer         | Tracker Software Products Ltd           | 2.5.322.10 | {A278382D-4F1B-4D47-9885-8523F7261E8D}_is1 | "C:\Program Files\Tracker Software\PDF Viewer\unins000.exe" |
 
 # Uninstall
 Function TweakUninstallPDFXChange { # RESINFO
@@ -1008,7 +1009,9 @@ Function TweakUninstallPDFXChange { # RESINFO
 				$Exe = 'MsiExec.exe'
 				$Args = '/x "' + $KeyProduct + '" /qn /norestart'
 			} Else {
-				Continue
+				$UninstallSplit = $App.UninstallString -Split "exe"
+				$Exe = $UninstallSplit[0] + 'exe"'
+				$Args = '/VERYSILENT /NORESTART'
 			}
 
 			Write-Output " Uninstalling $DisplayName version $DisplayVersion"

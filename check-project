@@ -53,6 +53,8 @@ function msg4 {
 all_module=$(find ./Modules/ -name '*.psm1' -print)
 preset_all=$(ls -1 Presets/{CurrentUser,LocalMachine}-All.preset)
 
+echo "Check number of tweaks"
+echo ''
 printf " | %-6s | %-38s | %10s || %4s | %10s ||\n" 'Status' 'Number of tweaks' 'LM' 'All' 'CU'
 printf " | %-6s | %-38s | %4s | %4s | %4s | %4s | %4s |\n" ':---' ':---' '---:' '---:' '---:' '---:' '---:'
 
@@ -260,12 +262,12 @@ echo "Check double tweak in NEWS.md file"
 grep '^\* [[:digit:]]' NEWS.md | cut -f 2 -d '-' | sed -e 's#[[:space:]/]#\n#g;' | grep '^`[[:alpha:]]' | sort | uniq -c | grep -v ' 1 '
 
 echo "Check PowerShell syntax"
-./analyze-ps analyze-ps wisemoui.ps1 swmb.ps1 dists/ Setup/ Tasks/ Modules/ | grep -v '^✅ OK:' | sed 's/^/ /;'
+timeout -k 2s 13 ./analyze-ps analyze-ps . | grep -v '^✅ OK:' | sed 's/^/ /;'
 
-echo "Check import powershell module"
+echo "Check import PowerShell module"
 for psm in ./Modules/*.psm1 ./Modules/SWMB/*.psm1
 do
-  pwsh -Command "Import-Module ${psm}" | pipe_if_not_empty "======= ${psm}" cat | sed 's/^/ /;'
+  timeout -k 2s 13 pwsh -Command "Import-Module ${psm}" | pipe_if_not_empty "======= ${psm}" cat | sed 's/^/ /;'
 done
 
 echo "Check current tag"

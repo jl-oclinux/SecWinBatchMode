@@ -14,6 +14,7 @@ PowerShell scripts and modules are now checked before Git commit using the `anal
 
 New presets/rules:
 
+* 2025/05/14 - `UninstallSkype`/'ViewSkype' -> Uninstall Skype
 * 2025/04/29 - `UninstallPDFXChange`/'ViewPDFXChange' -> Uninstall PDF-XChange software (also PDF-Viewer)
 * 2025/04/15 - `ViewHibernation` - View Hibernation status, inversion of tweak Enable and Disable in the preset file
 * 2025/04/15 - `RemoveAppxMsOfficeHub`/`AddAppxMsOfficeHub`/`ViewAppxMsOfficeHub` - Remove Appx Microsoft OfficeHub (Microsoft 365 Copilot) (already part of the `UninstallMsftBloat` tweak)

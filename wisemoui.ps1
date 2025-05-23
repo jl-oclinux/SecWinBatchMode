@@ -653,7 +653,7 @@ If (Test-Path -LiteralPath "${Env:ProgramFiles}\CCleaner\CCleaner64.exe") {
 
 ################################################################
 
-# Console
+# Secpol Console
 $BtnConsoleSecpol = New-Object System.Windows.Forms.Button
 $BtnConsoleSecpol.Location = New-Object System.Drawing.Point(300,335)
 $BtnConsoleSecpol.Width = 50
@@ -665,6 +665,7 @@ $BtnConsoleSecpol.Add_Click({
 })
 $ToolTip.SetToolTip($BtnConsoleSecpol, "Local Security Policy Console")
 
+# GPedit Console
 $BtnConsoleGPedit = New-Object System.Windows.Forms.Button
 $BtnConsoleGPedit.Location = New-Object System.Drawing.Point(350,335)
 $BtnConsoleGPedit.Width = 15
@@ -690,6 +691,19 @@ If (Test-Path -LiteralPath "${Env:ProgramFiles}\Sysinternals\Procmon64.exe") {
 	$ToolTip.SetToolTip($BtnSoftProcessMonitor, "Process Monitor Program")
 }
 
+# Task Manager Console
+$BtnConsoleTaskMgr = New-Object System.Windows.Forms.Button
+$BtnConsoleTaskMgr.Location = New-Object System.Drawing.Point(370,335)
+$BtnConsoleTaskMgr.Width = 15
+$BtnConsoleTaskMgr.Height = 20
+$BtnConsoleTaskMgr.Text = "T"
+$Form.controls.Add($BtnConsoleTaskMgr)
+$BtnConsoleTaskMgr.Add_Click({
+	Start-Process -FilePath "${Env:SystemRoot}\System32\Taskmgr.exe"
+})
+$ToolTip.SetToolTip($BtnConsoleTaskMgr, "Task Manager")
+
+# Computer Managment Console
 $BtnConsoleMgmt = New-Object System.Windows.Forms.Button
 $BtnConsoleMgmt.Location = New-Object System.Drawing.Point(395,335)
 $BtnConsoleMgmt.Width = 80
@@ -700,11 +714,12 @@ $BtnConsoleMgmt.Add_Click({
 	Start-Process -FilePath "${Env:SystemRoot}\System32\compmgmt.msc"
 })
 
+# Network Interfaces Console
 $BtnConsoleNet = New-Object System.Windows.Forms.Button
 $BtnConsoleNet.Location = New-Object System.Drawing.Point(490,335)
 $BtnConsoleNet.Width = 40
 $BtnConsoleNet.Height = 30
-$BtnConsoleNet.Text = "Net"
+$BtnConsoleNet.Text = "Net Interface"
 $Form.controls.Add($BtnConsoleNet)
 $BtnConsoleNet.Add_Click({
 	# control.exe ncpa.cpl

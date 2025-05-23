@@ -693,7 +693,7 @@ If (Test-Path -LiteralPath "${Env:ProgramFiles}\Sysinternals\Procmon64.exe") {
 
 # Task Manager Console
 $BtnConsoleTaskMgr = New-Object System.Windows.Forms.Button
-$BtnConsoleTaskMgr.Location = New-Object System.Drawing.Point(370,335)
+$BtnConsoleTaskMgr.Location = New-Object System.Drawing.Point(380,335)
 $BtnConsoleTaskMgr.Width = 15
 $BtnConsoleTaskMgr.Height = 20
 $BtnConsoleTaskMgr.Text = "T"

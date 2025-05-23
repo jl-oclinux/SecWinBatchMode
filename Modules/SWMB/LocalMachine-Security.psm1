@@ -712,6 +712,52 @@ Function TweakViewAutoLogon { # RESINFO
 }
 
 ################################################################
+
+# Disable or enable program execution on removable media (USB)
+# See https://techdirectarchive.com/2019/11/05/how-to-restrict-access-to-usb-drives/
+
+# Disable
+Function TweakDisableRemovableStorageExe { # RESINFO
+	Write-Output "Disabling Windows RemovableStorage Program Execution..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices")) {
+		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices" -Force | Out-Null
+	}
+	Try {
+		Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices" -Name "Deny_Execute" | Out-Null
+	} Catch {
+		Write-Output " GPO Update"
+		Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices" -Name "Deny_Execute" -Type DWord -Value 1
+		gpupdate /force
+	}
+}
+
+# Enable
+Function TweakEnableRemovableStorageExe { # RESINFO
+	Write-Output "Enabling Windows RemovableStorage Program Execution..."
+	If (Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices" -Name "Deny_Execute" -ErrorAction SilentlyContinue) {
+		Write-Output " GPO Update"
+		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices" -Name "Deny_Execute" -ErrorAction SilentlyContinue
+		gpupdate /force
+	}
+}
+
+# View
+Function TweakViewRemovableStorageExe { # RESINFO
+	Write-Output "Viewing Windows RemovableStorage Program Execution..."
+	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices")) {
+		Write-Output ' RemovableStorage Program Execution is possible'
+		Return
+	}
+	Try {
+		$DenyExecute = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\RemovableStorageDevices" -Name "Deny_Execute"
+	} Catch {
+		Write-Output ' RemovableStorage Program Execution is possible'
+		Return
+	}
+	Write-Output " RemovableStorage Program Execution is forbidden - Deny_Execute: $DenyExecute"
+}
+
+################################################################
 ###### Crypt Bitlocker
 ################################################################
 

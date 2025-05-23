@@ -115,6 +115,7 @@ EnableASLR                                      # DisableASLR                   
 # EnableClearPageFile                           # DisableClearPageFile                          # ViewClearPageFile
 # DisableUpgradesOnUnsupportedHard              # EnableUpgradesOnUnsupportedHard               # ViewUpgradesOnUnsupportedHard
 # DisableAutoLogon                              # EnableAutoLogon                               # ViewAutoLogon
+# DisableRemovableStorageExe                    # EnableRemovableStorageExe                     # ViewRemovableStorageExe       ## Disable program execution on removable media (USB) https://techdirectarchive.com/2019/11/05/how-to-restrict-access-to-usb-drives/
 
 ### Network Tweaks ###
 SetCurrentNetworkPrivate                        # SetCurrentNetworkPublic

@@ -1,4 +1,6 @@
-# SWMB - Secure Windows Mode Batch
+# SWMB - Secure Windows Batch Mode
+
+This repo is issued from a clone of IN2P3 RESINFO SWMB ( Secure Windows  Batch Mode )
 
 ![](./logo-swmb.png){ align=right }
 

@@ -1,4 +1,5 @@
 ################################################################
+# This repo is issued from a clone of IN2P3 RESINFO SWMB 
 # Win 10 / Server 2016 / Server 2019 SWMB Script - Main execution loop
 # Project CNRS RESINFO SWMB
 # Copyright (C) 2017-2020, Disassembler <disassembler@dasm.cz>
